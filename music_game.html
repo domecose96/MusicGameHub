@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Gioco Note Completo</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- ==================== TITOLO ==================== -->
+<h1>🎼 Gioco delle Note</h1>
+
+<!-- ==================== BOTTONE HOME ==================== -->
+<button id="homeBtn" class="menuButton" onclick="goHome()" 
+        style="position:absolute; top:20px; left:20px; width:60px; height:60px; display:flex; align-items:center; justify-content:center; padding:0;">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="background:none;">
+    <path d="M3 12 L12 3 L21 12"></path>
+    <path d="M6 12 V21 H18 V12"></path>
+  </svg>
+</button>
+
+<!-- ==================== CONTENITORE PRINCIPALE ==================== -->
+<div id="contentWrapper">
+
+  <!-- ==================== MENU INIZIALE ==================== -->
+  <div id="menu">
+
+    <h2>Difficoltà</h2>
+    <div class="buttonGroup">
+      <button id="easyBtn" class="menuButton" onclick="setDifficulty('easy',this)">Facile</button>
+      <button id="hardBtn" class="menuButton" onclick="setDifficulty('hard',this)">Difficile</button>
+    </div>
+
+    <h2>Chiave</h2>
+    <div class="buttonGroup">
+      <button id="trebleBtn" class="symbolButton" onclick="setClef('treble',this)">𝄞</button>
+      <button id="bassBtn" class="symbolButton" onclick="setClef('bass',this)">𝄢</button>
+    </div>
+
+    <button class="menuButton" onclick="startGame()">Inizia</button>
+    <p id="warning" style="color:#ffcc00; height:20px;"></p>
+
+  </div>
+
+  <!-- ==================== SCHERMATA DI GIOCO ==================== -->
+  <div id="game" class="hidden">
+
+    <!-- SVG PENTAGRAMMA -->
+    <svg width="450" height="240" style="margin-top:20px;">
+
+      <!-- CHIAVE -->
+      <text id="clefSymbol" x="175" y="140" font-size="80" font-family="serif">𝄞</text>
+
+      <!-- PENTAGRAMMA -->
+      <line x1="175" y1="140" x2="280" y2="140" stroke="black"/>
+      <line x1="175" y1="130" x2="280" y2="130" stroke="black"/>
+      <line x1="175" y1="120" x2="280" y2="120" stroke="black"/>
+      <line x1="175" y1="110" x2="280" y2="110" stroke="black"/>
+      <line x1="175" y1="100" x2="280" y2="100" stroke="black"/>
+
+      <!-- NOTA -->
+      <ellipse id="note" cx="230" cy="120" rx="10" ry="7" fill="black"/>
+      <g id="ledgerLines"></g>
+
+    </svg>
+
+    <!-- BOTTONI NOTE -->
+    <div id="buttons"></div>
+
+    <!-- PULSANTE INDIETRO -->
+    <button onclick="goBack()" class="menuButton" style="margin-top:15px;">⬅ Indietro</button>
+
+  </div>
+</div>
+
+
+<script src="js/music_game.js"></script>
+
+</body>
+</html>
