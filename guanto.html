@@ -19,83 +19,86 @@
   </svg>
 </button>
 
-<!-- ==================== CONFIGURAZIONE MODALITÀ ==================== -->
-<div id="config">
-  <h2>Seleziona Modalità</h2>
-  <div class="buttonGroup">
-    <button class="menuButton" onclick="selectNum(this,10)">10</button>
-    <button class="menuButton" onclick="selectNum(this,20)">20</button>
-    <button class="menuButton" onclick="selectNum(this,30)">30</button>
-  </div>
-  <button class="menuButton" onclick="startChallenge()">Start</button>
-  <button class="menuButton" onclick="showLeaderboard()">Classifica</button>
-</div>
-
-<!-- ==================== SCHERMATA QUIZ ==================== -->
-<div id="quiz" class="hidden">
-  <div id="timer">Tempo: 0s</div>
-  <div id="questionBox" style="font-size:1.5em; margin-bottom:10px;"></div>
-
-  <!-- SVG PENTAGRAMMA -->
-  <svg id="quizSVG" width="450" height="240" style="margin-top:20px;">
-    <!-- CHIAVE -->
-    <text id="clefSymbol" x="175" y="140" font-size="80" font-family="serif">𝄞</text>
-
-    <!-- LINEE PENTAGRAMMA -->
-    <line x1="175" y1="140" x2="280" y2="140" stroke="black"/>
-    <line x1="175" y1="130" x2="280" y2="130" stroke="black"/>
-    <line x1="175" y1="120" x2="280" y2="120" stroke="black"/>
-    <line x1="175" y1="110" x2="280" y2="110" stroke="black"/>
-    <line x1="175" y1="100" x2="280" y2="100" stroke="black"/>
-
-    <!-- NOTA -->
-    <ellipse id="note" cx="225" cy="120" rx="10" ry="7" fill="black"/>
-    <g id="ledgerLines"></g>
-  </svg>
-  
-  <!-- FIGURA MUSICALE -->
-  <div id="figureContainer" style="display:none; margin:20px auto; width:200px; height:200px; background:white; border:2px solid black; border-radius:10px; display:flex; align-items:center; justify-content:center;">
-      <img id="figureImage" src="" alt="Figura musicale" style="max-width:80%; max-height:80%;">
-  </div>
-  
-  <!-- BOTTONI RISPOSTA -->
-  <div id="answers"></div>
-</div>
-
-<!-- ==================== FINE PARTITA / CLASSIFICHE ==================== -->
-<div id="endScreen" class="hidden">
-
-  <h2 id="scoreText"></h2>
-
-  <!-- INSERIMENTO NOME (solo fine partita) -->
-  <div id="saveScoreBox" class="saveBox">
-    <input type="text" id="playerName" placeholder="Inserisci il tuo nome">
-    <button class="invioButton" onclick="saveScore()">Invia</button>
+<!-- ==================== CONTENITORE PRINCIPALE ==================== -->
+<div id="contentWrapper">
+  <!-- ==================== CONFIGURAZIONE MODALITÀ ==================== -->
+  <div id="config">
+    <h2>Seleziona Modalità</h2>
+    <div class="buttonGroup">
+      <button class="menuButton" onclick="selectNum(this,10)">10</button>
+      <button class="menuButton" onclick="selectNum(this,20)">20</button>
+      <button class="menuButton" onclick="selectNum(this,30)">30</button>
+    </div>
+    <button class="menuButton" onclick="startChallenge()">Start</button>
+    <button class="menuButton" onclick="showLeaderboard()">Classifica</button>
   </div>
 
-  <!-- CONTAINER 3 CLASSIFICHE -->
-  <div id="leaderboardsContainer" class="leaderboards">
+  <!-- ==================== SCHERMATA QUIZ ==================== -->
+  <div id="quiz" class="hidden">
+    <div id="timer">Tempo: 0s</div>
+    <div id="questionBox" style="font-size:1.5em; margin-bottom:10px;"></div>
 
-    <div class="leaderboardColumn">
-      <h3>🎼 Modalità 10</h3>
-      <div id="lb_note" class="leaderboardBox"></div>
+    <!-- SVG PENTAGRAMMA -->
+    <svg id="quizSVG" width="450" height="240" style="margin-top:20px;">
+      <!-- CHIAVE -->
+      <text id="clefSymbol" x="175" y="140" font-size="80" font-family="serif">𝄞</text>
+
+      <!-- LINEE PENTAGRAMMA -->
+      <line x1="175" y1="140" x2="280" y2="140" stroke="black"/>
+      <line x1="175" y1="130" x2="280" y2="130" stroke="black"/>
+      <line x1="175" y1="120" x2="280" y2="120" stroke="black"/>
+      <line x1="175" y1="110" x2="280" y2="110" stroke="black"/>
+      <line x1="175" y1="100" x2="280" y2="100" stroke="black"/>
+
+      <!-- NOTA -->
+      <ellipse id="note" cx="225" cy="120" rx="10" ry="7" fill="black"/>
+      <g id="ledgerLines"></g>
+    </svg>
+    
+    <!-- FIGURA MUSICALE -->
+    <div id="figureContainer" style="display:none; margin:20px auto; width:200px; height:200px; background:white; border:2px solid black; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+        <img id="figureImage" src="" alt="Figura musicale" style="max-width:80%; max-height:80%;">
+    </div>
+    
+    <!-- BOTTONI RISPOSTA -->
+    <div id="answers"></div>
+  </div>
+
+  <!-- ==================== FINE PARTITA / CLASSIFICHE ==================== -->
+  <div id="endScreen" class="hidden">
+
+    <h2 id="scoreText"></h2>
+
+    <!-- INSERIMENTO NOME (solo fine partita) -->
+    <div id="saveScoreBox" class="saveBox">
+      <input type="text" id="playerName" placeholder="Inserisci il tuo nome">
+      <button class="invioButton" onclick="saveScore()">Invia</button>
     </div>
 
-    <div class="leaderboardColumn">
-      <h3>🎵 Modalità 20</h3>
-      <div id="lb_teoria" class="leaderboardBox"></div>
-    </div>
+    <!-- CONTAINER 3 CLASSIFICHE -->
+    <div id="leaderboardsContainer" class="leaderboards">
 
-    <div class="leaderboardColumn">
-      <h3>🔥 Modalità 30</h3>
-      <div id="lb_sfida" class="leaderboardBox"></div>
-    </div>
+      <div class="leaderboardColumn">
+        <h3>🎼 Modalità 10</h3>
+        <div id="lb_note" class="leaderboardBox"></div>
+      </div>
 
+      <div class="leaderboardColumn">
+        <h3>🎵 Modalità 20</h3>
+        <div id="lb_teoria" class="leaderboardBox"></div>
+      </div>
+
+      <div class="leaderboardColumn">
+        <h3>🔥 Modalità 30</h3>
+        <div id="lb_sfida" class="leaderboardBox"></div>
+      </div>
+
+    </div>
+  <!-- PULSANTE INDIETRO FUORI DALLE COLONNE -->
+  <button onclick="goBack()" class="menuButton" style="margin-top:15px; display:block; margin-left:auto; margin-right:auto;">
+    ⬅ Indietro
+  </button>
   </div>
-<!-- PULSANTE INDIETRO FUORI DALLE COLONNE -->
-<button onclick="goBack()" class="menuButton" style="margin-top:15px; display:block; margin-left:auto; margin-right:auto;">
-  ⬅ Indietro
-</button>
 </div>
 
 <script src="js/sfida/guanto.js"></script>
