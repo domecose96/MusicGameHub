@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Music Game Hub</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- ==================== TITOLO ==================== -->
+<h1>Music Game Hub</h1>
+
+<!-- ==================== CONTENITORE PRINCIPALE ==================== -->
+<div id="contentWrapper">
+
+  <!-- ==================== BOTTINI ==================== -->
+  <div class="buttonGroup">
+    <button class="menuButton" onclick="goTo('music_game.html')">
+      Impara le Note
+    </button>
+
+    <button class="menuButton" onclick="goTo('music_game_figures.html')">
+      Impara le Figure Musicali 
+    </button>
+
+    <button class="menuButton" onclick="goTo('guanto.html')">
+      Guanto di Sfida
+    </button>
+  </div>
+
+  <script>
+  function goTo(page) {
+    window.location.href = page;
+  }
+
+  const buttons = document.querySelectorAll('.menuButton');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', function() {
+      buttons.forEach(btn => btn.classList.remove('selected'));
+      this.classList.add('selected');
+    });
+  });
+  </script>
+</div>
+
+</body>
+</html>
