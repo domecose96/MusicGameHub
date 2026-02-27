@@ -11,35 +11,39 @@
 <!-- ==================== TITOLO ==================== -->
 <h1>Music Game Hub</h1>
 
-<!-- ==================== BOTTINI ==================== -->
-<div class="buttonGroup">
-  <button class="menuButton" onclick="goTo('music_game.html')">
-    Impara le Note
-  </button>
+<!-- ==================== CONTENITORE PRINCIPALE ==================== -->
+<div id="contentWrapper">
 
-  <button class="menuButton" onclick="goTo('music_game_figures.html')">
-    Impara le Figure Musicali 
-  </button>
+  <!-- ==================== BOTTINI ==================== -->
+  <div class="buttonGroup">
+    <button class="menuButton" onclick="goTo('music_game.html')">
+      Impara le Note
+    </button>
 
-  <button class="menuButton" onclick="goTo('guanto.html')">
-    Guanto di Sfida
-  </button>
-</div>
+    <button class="menuButton" onclick="goTo('music_game_figures.html')">
+      Impara le Figure Musicali 
+    </button>
 
-<script>
-function goTo(page) {
-  window.location.href = page;
-}
+    <button class="menuButton" onclick="goTo('guanto.html')">
+      Guanto di Sfida
+    </button>
+  </div>
 
-const buttons = document.querySelectorAll('.menuButton');
+  <script>
+  function goTo(page) {
+    window.location.href = page;
+  }
 
-buttons.forEach(button => {
-  button.addEventListener('click', function() {
-    buttons.forEach(btn => btn.classList.remove('selected'));
-    this.classList.add('selected');
+  const buttons = document.querySelectorAll('.menuButton');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', function() {
+      buttons.forEach(btn => btn.classList.remove('selected'));
+      this.classList.add('selected');
+    });
   });
-});
-</script>
+  </script>
+</div>
 
 </body>
 </html>
