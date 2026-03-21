@@ -7,17 +7,20 @@
 </head>
 <body>
 
-<!-- ==================== TITOLO ==================== -->
-<h1>Guanto di Sfida</h1>
-
-<!-- ==================== BOTTONE HOME ==================== -->
-<button id="homeBtn" class="menuButton" onclick="goHome()" 
-        style="position:absolute; top:20px; left:20px; width:60px; height:60px; display:flex; align-items:center; justify-content:center; padding:0;">
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="background:none;">
-    <path d="M3 12 L12 3 L21 12"></path>
-    <path d="M6 12 V21 H18 V12"></path>
-  </svg>
-</button>
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+    <div class="headerBrand">
+      <span class="headerEyebrow">Allenamento musicale</span>
+      <h1 class="pageTitle">Guanto di Sfida</h1>
+    </div>
+  </div>
+</header>
 
 <!-- ==================== CONTENITORE PRINCIPALE ==================== -->
 <div id="contentWrapper">
@@ -31,12 +34,13 @@
     </div>
     <button class="menuButton" onclick="startChallenge()">Start</button>
     <button class="menuButton" onclick="showLeaderboard()">Classifica</button>
+    <p class="gameIntro">Affronta una serie di domande miste su note, figure e teoria musicale cercando di fare meno errori possibile.</p>
   </div>
 
   <!-- ==================== SCHERMATA QUIZ ==================== -->
   <div id="quiz" class="hidden">
     <div id="timer">Tempo: 0s</div>
-    <div id="questionBox" style="font-size:1.5em; margin-bottom:10px;"></div>
+    <div id="questionBox" class="questionBox"></div>
 
     <!-- SVG PENTAGRAMMA -->
     <svg id="quizSVG" width="450" height="240" style="margin-top:20px;">
@@ -56,8 +60,8 @@
     </svg>
     
     <!-- FIGURA MUSICALE -->
-    <div id="figureContainer" style="display:none; margin:20px auto; width:200px; height:200px; background:white; border:2px solid black; border-radius:10px; display:flex; align-items:center; justify-content:center;">
-        <img id="figureImage" src="" alt="Figura musicale" style="max-width:80%; max-height:80%;">
+    <div id="figureContainer" class="gameDisplay hidden">
+        <img id="figureImage" src="" alt="Figura musicale" class="figureImage">
     </div>
     
     <!-- BOTTONI RISPOSTA -->
@@ -95,7 +99,7 @@
 
     </div>
   <!-- PULSANTE INDIETRO FUORI DALLE COLONNE -->
-  <button onclick="goBack()" class="menuButton" style="margin-top:15px; display:block; margin-left:auto; margin-right:auto;">
+  <button onclick="goBack()" class="menuButton centeredButton">
     ⬅ Indietro
   </button>
   </div>

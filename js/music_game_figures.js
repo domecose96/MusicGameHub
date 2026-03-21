@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const answersDiv = document.getElementById("answers");
   const menu = document.getElementById("menu");
   const game = document.getElementById("game");
+  const feedbackEl = document.getElementById("feedback");
 
   /* ==================== MENU ==================== */
   window.setMode = function(selectedMode, el){
@@ -46,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if(figureImage) figureImage.src = "";
     if(answersDiv) answersDiv.innerHTML = "";
+    if(feedbackEl) feedbackEl.textContent = "";
   };
 
   /* ==================== FIGURE ==================== */
@@ -66,6 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // reset bottoni prima di creare nuovi
     resetButtons();
+    if(feedbackEl) feedbackEl.textContent = "";
 
     answersDiv.innerHTML = "";
 
@@ -107,8 +110,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if(answer === currentFigure.replace("pausa_","")){
       button.classList.add("correct"); // verde
+      if(feedbackEl) feedbackEl.textContent = "Hai indovinato! Nuova figura in arrivo...";
     } else {
       button.classList.add("wrong");   // rosso
+      if(feedbackEl) feedbackEl.textContent = `Hai sbagliato! La risposta giusta era ${prettifyLabel(currentFigure)}.`;
       // evidenzia quello corretto
       allButtons.forEach(btn=>{
         if(btn.innerText === prettifyLabel(currentFigure)){

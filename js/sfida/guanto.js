@@ -80,7 +80,7 @@ function showQuestion() {
   // Reset visualizzazioni
   quizSVG.style.display = "none";
   figureImg.style.display = "none";
-  figureContainer.style.display = "none";
+  figureContainer.classList.add("hidden");
 
   if (q.type === "note") {
     quizSVG.style.display = "block";
@@ -97,21 +97,10 @@ function showQuestion() {
     });
   }
   else if (q.type === "figure") {
-    // box bianco stile pentagramma
-    figureContainer.style.display = "flex";
-    figureContainer.style.width = "450px";
-    figureContainer.style.height = "240px";
-    figureContainer.style.background = "white";
-    figureContainer.style.border = "none";
-    figureContainer.style.borderRadius = "10px";
-    figureContainer.style.alignItems = "center";
-    figureContainer.style.justifyContent = "center";
-    figureContainer.style.margin = "20px auto";
+    figureContainer.classList.remove("hidden");
 
     figureImg.style.display = "block";
     figureImg.src = "img/" + q.img;
-    figureImg.style.maxWidth = "80%";
-    figureImg.style.maxHeight = "80%";
 
     questionBox.innerText = "Indovina la figura musicale:";
 
@@ -125,7 +114,7 @@ function showQuestion() {
   }
   else if (q.type === "figurazione" || q.type === "theory") {
     quizSVG.style.display = "none";
-    figureContainer.style.display = "none";
+    figureContainer.classList.add("hidden");
     questionBox.innerText = q.q;
 
     q.options.forEach((opt, i) => {
@@ -255,4 +244,5 @@ function goHome(){
 function goBack(){
   document.getElementById("endScreen").classList.add("hidden"); // nasconde classifica/fine partita
   document.getElementById("config").classList.remove("hidden"); // mostra menu principale
+  document.querySelectorAll("#config .selected").forEach(btn=>btn.classList.remove("selected"));
 }

@@ -6,10 +6,16 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body class="homePage">
 
-<!-- ==================== TITOLO ==================== -->
-<h1>Music Game Hub</h1>
+<header class="appHeader appHeader--home">
+  <div class="appHeaderInner">
+    <div class="headerBrand">
+      <span class="headerEyebrow">Hub musicale</span>
+      <h1 class="pageTitle">Music Game Hub</h1>
+    </div>
+  </div>
+</header>
 
 <!-- ==================== CONTENITORE PRINCIPALE ==================== -->
 <div id="contentWrapper">
@@ -24,8 +30,16 @@
       Impara le Figure Musicali 
     </button>
 
+    <button class="menuButton" onclick="goTo('wordle.html')">
+      Wordle 
+    </button>
+
     <button class="menuButton" onclick="goTo('guanto.html')">
       Guanto di Sfida
+    </button>
+
+    <button class="menuButton" onclick="goTo('ritmo_challenge.html')">
+      Ritmo Challenge
     </button>
   </div>
 

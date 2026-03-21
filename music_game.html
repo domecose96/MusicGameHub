@@ -8,17 +8,20 @@
 
 <body>
 
-<!-- ==================== TITOLO ==================== -->
-<h1>🎼 Gioco delle Note</h1>
-
-<!-- ==================== BOTTONE HOME ==================== -->
-<button id="homeBtn" class="menuButton" onclick="goHome()" 
-        style="position:absolute; top:20px; left:20px; width:60px; height:60px; display:flex; align-items:center; justify-content:center; padding:0;">
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="background:none;">
-    <path d="M3 12 L12 3 L21 12"></path>
-    <path d="M6 12 V21 H18 V12"></path>
-  </svg>
-</button>
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+    <div class="headerBrand">
+      <span class="headerEyebrow">Allenamento musicale</span>
+      <h1 class="pageTitle">Gioco delle Note</h1>
+    </div>
+  </div>
+</header>
 
 <!-- ==================== CONTENITORE PRINCIPALE ==================== -->
 <div id="contentWrapper">
@@ -39,7 +42,8 @@
     </div>
 
     <button class="menuButton" onclick="startGame()">Inizia</button>
-    <p id="warning" style="color:#ffcc00; height:20px;"></p>
+    <p id="warning" class="warningText"></p>
+    <p class="gameIntro">Scegli difficoltà e chiave, poi indovina il nome della nota mostrata sul pentagramma.</p>
 
   </div>
 
@@ -67,6 +71,7 @@
 
     <!-- BOTTONI NOTE -->
     <div id="buttons"></div>
+    <div id="feedback" class="feedbackText"></div>
 
     <!-- PULSANTE INDIETRO -->
     <button onclick="goBack()" class="menuButton" style="margin-top:15px;">⬅ Indietro</button>

@@ -7,6 +7,7 @@ const noteElement = document.getElementById("note");
 const ledgerGroup = document.getElementById("ledgerLines");
 const buttonsDiv = document.getElementById("buttons");
 const clefSymbol = document.getElementById("clefSymbol");
+const feedbackEl = document.getElementById("feedback");
 
 const buttonNames = ["Do","Re","Mi","Fa","Sol","La","Si"];
 
@@ -100,6 +101,7 @@ function getNotes(){
 
 function newNote(){
   resetButtons();
+  setFeedback("");
   const notes = getNotes();
   currentNote = notes[Math.floor(Math.random()*notes.length)];
   noteElement.setAttribute("cy", currentNote.y);
@@ -146,9 +148,11 @@ function checkAnswer(answer, button){
 
   if(answer === currentNote.name){
     button.classList.add("correct"); // bordo verde
+    setFeedback("Hai indovinato! Arriva una nuova nota...");
   } else {
     button.classList.add("wrong");   // bordo rosso
     highlightCorrect();
+    setFeedback(`Hai sbagliato! La risposta giusta era ${currentNote.name}.`);
   }
 
   setTimeout(()=>{
@@ -175,6 +179,10 @@ function resetButtons(){
     btn.classList.remove("correct","wrong");
     btn.style.pointerEvents = "auto";
   });
+}
+
+function setFeedback(message){
+  if(feedbackEl) feedbackEl.textContent = message;
 }
 
 function goHome() {
