@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Music Game Figure</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+    <div class="headerBrand">
+      <span class="headerEyebrow">Allenamento musicale</span>
+      <h1 class="pageTitle">Gioco delle Figure</h1>
+    </div>
+  </div>
+</header>
+
+<!-- ==================== CONTENITORE PRINCIPALE ==================== -->
+<div id="contentWrapper">
+
+  <!-- ==================== MENU INIZIALE ==================== -->
+    <div id="menu">
+
+    <h2>Scegli la modalità</h2>
+    <div class="buttonGroup">
+        <button id="noteBtn" class="menuButton" onclick="setMode('note', this)">Note</button>
+        <button id="pauseBtn" class="menuButton" onclick="setMode('pause', this)">Pause</button>
+        <button id="mistoBtn" class="menuButton" onclick="setMode('misto', this)">Misto</button>
+    </div>
+
+    <button class="menuButton" onclick="startGame()">Inizia</button>
+    <p id="warning" class="warningText"></p>
+    <p class="gameIntro">Osserva la figura musicale o la pausa e scegli il nome corretto tra le opzioni.</p>
+
+  </div>
+
+    <!-- ==================== SCHERMATA DI GIOCO ==================== -->
+    <div id="game" class="hidden">
+
+        <!-- BOX FIGURA (stessa dimensione dello svg note) -->
+        <div class="gameDisplay">
+            <img id="figureImage" src="" alt="Figura musicale" class="figureImage">
+        </div>
+        
+
+        <!-- BOTTONI RISPOSTA -->
+        <div id="answers"></div>
+        <div id="feedback" class="feedbackText"></div>
+
+        <button onclick="goBack()" class="menuButton" style="margin-top:15px;">
+            ⬅ Indietro
+        </button>
+
+     </div>
+
+    </div>
+<script src="js/music_game_figures.js"></script>
+
+</body>
+</html>
