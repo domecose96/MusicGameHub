@@ -1,0 +1,13 @@
+.homePage #contentWrapper {
+  width: min(1180px, calc(100% - 20px));
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+@media (max-width: 768px) {
+  .homePage #contentWrapper {
+    width: min(100%, calc(100% - 12px));
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+}

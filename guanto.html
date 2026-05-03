@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Guanto di Sfida</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/guanto.css">
 </head>
 <body>
 
@@ -32,8 +33,11 @@
       <button class="menuButton" onclick="selectNum(this,20)">20</button>
       <button class="menuButton" onclick="selectNum(this,30)">30</button>
     </div>
-    <button class="menuButton" onclick="startChallenge()">Start</button>
-    <button class="menuButton" onclick="showLeaderboard()">Classifica</button>
+    <div class="guantoActions">
+      <button class="menuButton" onclick="startChallenge()">Start</button>
+      <button class="menuButton" onclick="showLeaderboard()">Classifica</button>
+    </div>
+    <p class="warningText introSpacer"></p>
     <p class="gameIntro">Affronta una serie di domande miste su note, figure e teoria musicale cercando di fare meno errori possibile.</p>
   </div>
 

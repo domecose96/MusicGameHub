@@ -2,13 +2,37 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Music Game Hub</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/learn.css">
 </head>
 
 <body class="homePage">
 
-<header class="appHeader appHeader--home">
+<!-- ==================== INTRO ==================== -->
+<section id="intro">
+  <div id="introContent">
+    <div id="staffContainer">
+      <svg id="staffSVG" viewBox="0 0 900 210" preserveAspectRatio="xMidYMid meet">
+        <line class="staffLine" x1="60" y1="60"  x2="840" y2="60"  stroke="#ff6600" stroke-width="2"/>
+        <line class="staffLine" x1="60" y1="80"  x2="840" y2="80"  stroke="#ff6600" stroke-width="2"/>
+        <line class="staffLine" x1="60" y1="100" x2="840" y2="100" stroke="#ff6600" stroke-width="2"/>
+        <line class="staffLine" x1="60" y1="120" x2="840" y2="120" stroke="#ff6600" stroke-width="2"/>
+        <line class="staffLine" x1="60" y1="140" x2="840" y2="140" stroke="#ff6600" stroke-width="2"/>
+        <text id="clefAnim" x="48" y="156" font-size="190" font-family="serif" fill="#ff6600" opacity="0">𝄞</text>
+        <g id="notesGroup"></g>
+      </svg>
+    </div>
+    <h1 id="introTitle">Music Game Hub</h1>
+    <p id="introSubtitle">Impara la teoria musicale giocando</p>
+    <button id="introBtn" onclick="enterSite()">Inizia il viaggio ▾</button>
+  </div>
+</section>
+
+<!-- ==================== HEADER ==================== -->
+<header class="appHeader appHeader--home" id="mainHeader" style="opacity:0;pointer-events:none;transition:opacity 0.6s ease;">
   <div class="appHeaderInner">
     <div class="headerBrand">
       <span class="headerEyebrow">Hub musicale</span>
@@ -17,47 +41,420 @@
   </div>
 </header>
 
-<!-- ==================== CONTENITORE PRINCIPALE ==================== -->
-<div id="contentWrapper">
+<!-- ==================== CONTENUTO PRINCIPALE ==================== -->
+<div id="mainContent" style="opacity:0;transition:opacity 0.8s ease;">
 
-  <!-- ==================== BOTTINI ==================== -->
-  <div class="buttonGroup">
-    <button class="menuButton" onclick="goTo('music_game.html')">
-      Impara le Note
-    </button>
+  <nav id="siteNav">
+    <button class="navBtn" onclick="scrollToSection('games')">🎮 Giochi</button>
+    <button class="navBtn" onclick="scrollToSection('chiavi')">🎼 Chiavi</button>
+    <button class="navBtn" onclick="scrollToSection('note')">🎵 Note</button>
+    <button class="navBtn" onclick="scrollToSection('figure')">♩ Figure</button>
+    <button class="navBtn" onclick="scrollToSection('espressione')">🎭 Espressione</button>
+    <button class="navBtn" onclick="scrollToSection('scale')">🎹 Scale</button>
+    <button class="navBtn" onclick="scrollToSection('tempi')">⏱ Tempi</button>
+  </nav>
 
-    <button class="menuButton" onclick="goTo('music_game_figures.html')">
-      Impara le Figure Musicali 
-    </button>
+  <div id="contentWrapper">
 
-    <button class="menuButton" onclick="goTo('wordle.html')">
-      Wordle 
-    </button>
+    <!-- GIOCHI -->
+    <section id="games" class="siteSection">
+      <h2 class="sectionTitle">Giochi interattivi</h2>
+      <p class="sectionSubtitle">Metti alla prova quello che hai imparato</p>
+      <div class="gamesGrid">
+        <div class="gameCard" onclick="goTo('music_game.html')">
+          <div class="gameCardIcon">𝄞</div>
+          <h3>Impara le Note</h3>
+          <p>Indovina la nota sul pentagramma in chiave di violino o basso</p>
+          <span class="gameTag">Note · Pentagramma</span>
+        </div>
+        <div class="gameCard" onclick="goTo('music_game_figures.html')">
+          <div class="gameCardIcon">♩</div>
+          <h3>Figure Musicali</h3>
+          <p>Riconosci semibreve, minima, croma e tutte le figure ritmiche</p>
+          <span class="gameTag">Ritmo · Figure</span>
+        </div>
+        <div class="gameCard" onclick="goTo('wordle.html')">
+          <div class="gameCardIcon">W</div>
+          <h3>Music Wordle</h3>
+          <p>Indovina la parola musicale del giorno in 6 tentativi</p>
+          <span class="gameTag">Vocabolario · Giornaliero</span>
+        </div>
+        <div class="gameCard" onclick="goTo('guanto.html')">
+          <div class="gameCardIcon">🏆</div>
+          <h3>Guanto di Sfida</h3>
+          <p>Quiz misto su note, figure e teoria con classifica</p>
+          <span class="gameTag">Quiz · Classifica</span>
+        </div>
+        <div class="gameCard" onclick="goTo('ritmo_challenge.html')">
+          <div class="gameCardIcon">♪</div>
+          <h3>Ritmo Challenge</h3>
+          <p>Calcola il valore ritmico di sequenze di figure musicali</p>
+          <span class="gameTag">Ritmo · Calcolo</span>
+        </div>
+      </div>
+    </section>
 
-    <button class="menuButton" onclick="goTo('guanto.html')">
-      Guanto di Sfida
-    </button>
+    <!-- CHIAVI -->
+    <section id="chiavi" class="siteSection learnSection">
+      <h2 class="sectionTitle">Le chiavi musicali</h2>
+      <p class="sectionIntro">La <strong>chiave</strong> è il simbolo posto all'inizio del pentagramma. Indica l'altezza assoluta delle note. Esistono tre famiglie di chiavi: <em>Sol</em>, <em>Fa</em> e <em>Do</em>, ognuna con varianti che si posizionano su righe diverse.</p>
 
-    <button class="menuButton" onclick="goTo('ritmo_challenge.html')">
-      Ritmo Challenge
-    </button>
+      <!-- CHIAVE DI SOL -->
+      <h3 class="clefFamilyTitle">Chiave di Sol</h3>
+      <div class="clefGrid clefGridSingle">
+        <div class="clefCard">
+          <div class="clefSymbolBig">𝄞</div>
+          <h3>Chiave di violino <span class="clefPosition">Sol sulla 2ª riga</span></h3>
+          <p>La più comune in assoluto. La spirale avvolge la <strong>2ª riga</strong>, indicando il Sol4. Usata per violino, flauto, oboe, clarinetto, tromba, pianoforte (mano destra) e tutte le voci acute.</p>
+          <div class="clefNoteList">
+            <span>5ª riga → <strong>Fa5</strong></span>
+            <span>4ª riga → <strong>Re5</strong></span>
+            <span>3ª riga → <strong>Si4</strong></span>
+            <span>2ª riga → <strong>Sol4</strong> ← spirale</span>
+            <span>1ª riga → <strong>Mi4</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHIAVE DI FA -->
+      <h3 class="clefFamilyTitle">Chiave di Fa</h3>
+      <p class="clefFamilyDesc">I due punti indicano la riga del Fa. Cambia solo la riga su cui si posiziona.</p>
+      <div class="clefGrid">
+        <div class="clefCard">
+          <div class="clefSymbolBig bass">𝄢</div>
+          <h3>Chiave di basso <span class="clefPosition">Fa sulla 4ª riga</span></h3>
+          <p>La più usata della famiglia. Per violoncello, contrabbasso, fagotto, trombone, tuba, corno e pianoforte (mano sinistra).</p>
+          <div class="clefNoteList">
+            <span>5ª riga → <strong>La3</strong></span>
+            <span>4ª riga → <strong>Fa3</strong> ← punti</span>
+            <span>3ª riga → <strong>Re3</strong></span>
+            <span>2ª riga → <strong>Si2</strong></span>
+            <span>1ª riga → <strong>Sol2</strong></span>
+          </div>
+        </div>
+        <div class="clefCard">
+          <div class="clefSymbolBig bass">𝄢</div>
+          <h3>Chiave di baritono <span class="clefPosition">Fa sulla 3ª riga</span></h3>
+          <p>Variante meno comune, usata storicamente per la voce di baritono. Il Fa si trova sulla <strong>3ª riga</strong> anziché sulla 4ª.</p>
+          <div class="clefNoteList">
+            <span>5ª riga → <strong>Do4</strong></span>
+            <span>4ª riga → <strong>La3</strong></span>
+            <span>3ª riga → <strong>Fa3</strong> ← punti</span>
+            <span>2ª riga → <strong>Re3</strong></span>
+            <span>1ª riga → <strong>Si2</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHIAVE DI DO -->
+      <h3 class="clefFamilyTitle">Chiave di Do</h3>
+      <p class="clefFamilyDesc">Il simbolo indica la riga del Do centrale (Do4). Si posiziona su righe diverse a seconda della voce o strumento.</p>
+      <div class="clefGrid clefGridFour">
+        <div class="clefCard">
+          <div class="clefSymbolBig do">𝄡</div>
+          <h3>Soprano <span class="clefPosition">Do sulla 1ª riga</span></h3>
+          <p>Il Do4 è sulla <strong>1ª riga</strong>. Usata storicamente per la voce di soprano. Oggi rara.</p>
+          <div class="clefNoteList">
+            <span>5ª riga → <strong>Re5</strong></span>
+            <span>4ª riga → <strong>Si4</strong></span>
+            <span>3ª riga → <strong>Sol4</strong></span>
+            <span>2ª riga → <strong>Mi4</strong></span>
+            <span>1ª riga → <strong>Do4</strong> ←</span>
+          </div>
+        </div>
+        <div class="clefCard">
+          <div class="clefSymbolBig do">𝄡</div>
+          <h3>Mezzosoprano <span class="clefPosition">Do sulla 2ª riga</span></h3>
+          <p>Il Do4 è sulla <strong>2ª riga</strong>. Usata per la voce di mezzosoprano. Oggi quasi in disuso.</p>
+          <div class="clefNoteList">
+            <span>5ª riga → <strong>Si4</strong></span>
+            <span>4ª riga → <strong>Sol4</strong></span>
+            <span>3ª riga → <strong>Mi4</strong></span>
+            <span>2ª riga → <strong>Do4</strong> ←</span>
+            <span>1ª riga → <strong>La3</strong></span>
+          </div>
+        </div>
+        <div class="clefCard">
+          <div class="clefSymbolBig do">𝄡</div>
+          <h3>Contralto <span class="clefPosition">Do sulla 3ª riga</span></h3>
+          <p>Il Do4 è sulla <strong>3ª riga</strong>. Usata per la voce di contralto e storicamente per la viola.</p>
+          <div class="clefNoteList">
+            <span>5ª riga → <strong>Sol4</strong></span>
+            <span>4ª riga → <strong>Mi4</strong></span>
+            <span>3ª riga → <strong>Do4</strong> ←</span>
+            <span>2ª riga → <strong>La3</strong></span>
+            <span>1ª riga → <strong>Fa3</strong></span>
+          </div>
+        </div>
+        <div class="clefCard">
+          <div class="clefSymbolBig do">𝄡</div>
+          <h3>Tenore <span class="clefPosition">Do sulla 4ª riga</span></h3>
+          <p>Il Do4 è sulla <strong>4ª riga</strong>. Ancora in uso per violoncello, fagotto e trombone nelle note acute.</p>
+          <div class="clefNoteList">
+            <span>5ª riga → <strong>Mi4</strong></span>
+            <span>4ª riga → <strong>Do4</strong> ←</span>
+            <span>3ª riga → <strong>La3</strong></span>
+            <span>2ª riga → <strong>Fa3</strong></span>
+            <span>1ª riga → <strong>Re3</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="didacticBox">
+        <h4>💡 Perché esistono tante chiavi?</h4>
+        <p>Le chiavi servono a evitare troppe <strong>righe aggiuntive</strong>. Ogni strumento o voce ha un registro diverso: usando la chiave giusta, le note del registro principale si trovano tutte comodamente dentro le 5 righe del pentagramma, rendendo la lettura più rapida e semplice.</p>
+      </div>
+
+    </section>
+
+    <!-- NOTE -->
+    <section id="note" class="siteSection learnSection">
+      <h2 class="sectionTitle">Le note sul pentagramma</h2>
+      <p class="sectionIntro">Le note musicali sono 7: <strong>Do, Re, Mi, Fa, Sol, La, Si</strong>. La posizione sul pentagramma cambia in base alla chiave usata.</p>
+
+      <div class="noteInteractive">
+        <h3>Pentagramma interattivo — chiave di violino</h3>
+        <p class="sectionIntro" style="font-size:0.95rem;">Clicca su una posizione per scoprire la nota</p>
+        <div class="interactiveStaff">
+          <svg id="clickStaff" viewBox="0 0 600 210" style="width:100%;max-width:580px;display:block;margin:0 auto;cursor:pointer;">
+            <line x1="60" y1="55"  x2="545" y2="55"  stroke="#ccc" stroke-width="1.5"/>
+            <line x1="60" y1="80"  x2="545" y2="80"  stroke="#ccc" stroke-width="1.5"/>
+            <line x1="60" y1="105" x2="545" y2="105" stroke="#ccc" stroke-width="1.5"/>
+            <line x1="60" y1="130" x2="545" y2="130" stroke="#ccc" stroke-width="1.5"/>
+            <line x1="60" y1="155" x2="545" y2="155" stroke="#ccc" stroke-width="1.5"/>
+            <text x="58" y="157" font-size="95" font-family="serif" fill="#ff6600">𝄞</text>
+            <!-- Hit areas per posizioni note -->
+            <rect x="145" y="147" width="50" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Mi" data-y="155" data-desc="1ª riga"/>
+            <rect x="205" y="135" width="50" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Fa" data-y="142" data-desc="1º spazio"/>
+            <rect x="265" y="122" width="50" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Sol" data-y="130" data-desc="2ª riga"/>
+            <rect x="325" y="110" width="50" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="La" data-y="117" data-desc="2º spazio"/>
+            <rect x="385" y="97"  width="50" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Si" data-y="105" data-desc="3ª riga"/>
+            <rect x="145" y="85"  width="50" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Do" data-y="92"  data-desc="3º spazio"/>
+            <rect x="205" y="72"  width="50" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Re" data-y="80"  data-desc="4ª riga"/>
+            <rect x="265" y="60"  width="50" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Mi" data-y="67"  data-desc="4º spazio"/>
+            <rect x="325" y="47"  width="50" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Fa" data-y="55"  data-desc="5ª riga"/>
+            <!-- Nota animata -->
+            <ellipse id="hintNote" cx="-100" cy="-100" rx="12" ry="8" fill="#ff6600" opacity="0"/>
+            <text id="hintLabel" x="-100" y="-100" text-anchor="middle" font-size="15" font-weight="bold" fill="#ff6600" font-family="'Roboto Slab',serif" opacity="0"></text>
+          </svg>
+        </div>
+        <div id="noteHintMessage" class="hintMessage">👆 Clicca su uno dei riquadri arancioni per scoprire la nota</div>
+        <div id="noteHintDetail" class="hintDetail" style="display:none;"></div>
+      </div>
+
+      <div class="didacticBox" style="margin-top:28px;">
+        <h4>💡 Trucco mnemonico</h4>
+        <p>Per ricordare le note sulle <strong>righe</strong> in chiave di violino (dal basso): <em>Mi Fa Sol La Si</em> — oppure la frase <strong>"Mi Fa Sol La-La Si-ride"</strong>. Per gli <strong>spazi</strong>: <em>Fa La Do Mi</em> — e la frase <strong>"FaLaDoMi"</strong>.</p>
+      </div>
+      <div class="learnCTA">
+        <button class="menuButton" onclick="goTo('music_game.html')">🎮 Prova il gioco delle note</button>
+      </div>
+    </section>
+
+    <!-- FIGURE -->
+    <section id="figure" class="siteSection learnSection">
+      <h2 class="sectionTitle">Le figure musicali e i valori ritmici</h2>
+      <p class="sectionIntro">Ogni figura musicale rappresenta una <strong>durata sonora</strong>. Le figure si dividono in note (suoni) e pause (silenzi).</p>
+
+      <div class="figureGrid">
+        <div class="figureItem"><img src="img/semibreve.png" alt="Semibreve" class="figureImg"><h4>Semibreve</h4><div class="figureValue">4 tempi</div><p>Testa vuota, senza gambo.</p></div>
+        <div class="figureItem"><img src="img/minima.png" alt="Minima" class="figureImg"><h4>Minima</h4><div class="figureValue">2 tempi</div><p>Testa vuota con gambo.</p></div>
+        <div class="figureItem"><img src="img/semiminima.png" alt="Semiminima" class="figureImg"><h4>Semiminima</h4><div class="figureValue">1 tempo</div><p>Testa piena con gambo.</p></div>
+        <div class="figureItem"><img src="img/croma.png" alt="Croma" class="figureImg"><h4>Croma</h4><div class="figureValue">½ tempo</div><p>Gambo con una bandierina.</p></div>
+        <div class="figureItem"><img src="img/semicroma.png" alt="Semicroma" class="figureImg"><h4>Semicroma</h4><div class="figureValue">¼ tempo</div><p>Due bandierine.</p></div>
+        <div class="figureItem"><img src="img/biscroma.png" alt="Biscroma" class="figureImg"><h4>Biscroma</h4><div class="figureValue">⅛ tempo</div><p>Tre bandierine.</p></div>
+        <div class="figureItem"><img src="img/semibiscroma.png" alt="Semibiscroma" class="figureImg"><h4>Semibiscroma</h4><div class="figureValue">1/16</div><p>Quattro bandierine.</p></div>
+      </div>
+
+      <h3 style="margin-top:36px;text-align:center;color:var(--text-muted);font-size:1.1rem;font-weight:600;">Le pause corrispondenti</h3>
+      <div class="figureGrid">
+        <div class="figureItem"><img src="img/pausa_semibreve.png" alt="Pausa semibreve" class="figureImg"><h4>P. semibreve</h4><div class="figureValue">4 tempi</div></div>
+        <div class="figureItem"><img src="img/pausa_minima.png" alt="Pausa minima" class="figureImg"><h4>P. minima</h4><div class="figureValue">2 tempi</div></div>
+        <div class="figureItem"><img src="img/pausa_semiminima.png" alt="Pausa semiminima" class="figureImg"><h4>P. semiminima</h4><div class="figureValue">1 tempo</div></div>
+        <div class="figureItem"><img src="img/pausa_croma.png" alt="Pausa croma" class="figureImg"><h4>P. croma</h4><div class="figureValue">½ tempo</div></div>
+        <div class="figureItem"><img src="img/pausa_semicroma.png" alt="Pausa semicroma" class="figureImg"><h4>P. semicroma</h4><div class="figureValue">¼ tempo</div></div>
+        <div class="figureItem"><img src="img/pausa_biscroma.png" alt="Pausa biscroma" class="figureImg"><h4>P. biscroma</h4><div class="figureValue">⅛ tempo</div></div>
+        <div class="figureItem"><img src="img/pausa_semibiscroma.png" alt="Pausa semibiscroma" class="figureImg"><h4>P. semibiscroma</h4><div class="figureValue">1/16</div></div>
+      </div>
+
+      <div class="didacticBox">
+        <h4>🌳 L'albero dei valori</h4>
+        <div class="valueTree">
+          <div class="vtRow"><div class="vtBox main">Semibreve = 4 tempi</div></div>
+          <div class="vtRow"><div class="vtBox">Minima (2)</div><div class="vtBox">Minima (2)</div></div>
+          <div class="vtRow"><div class="vtBox sm">Semimin. (1)</div><div class="vtBox sm">Semimin. (1)</div><div class="vtBox sm">Semimin. (1)</div><div class="vtBox sm">Semimin. (1)</div></div>
+          <div class="vtRow wrap"><div class="vtBox xs">C</div><div class="vtBox xs">C</div><div class="vtBox xs">C</div><div class="vtBox xs">C</div><div class="vtBox xs">C</div><div class="vtBox xs">C</div><div class="vtBox xs">C</div><div class="vtBox xs">C</div></div>
+        </div>
+        <p style="text-align:center;font-size:0.85rem;color:var(--text-muted);margin-top:8px;">C = Croma (½ tempo)</p>
+      </div>
+      <div class="learnCTA">
+        <button class="menuButton" onclick="goTo('music_game_figures.html')">🎮 Gioco delle figure</button>
+        <button class="menuButton" onclick="goTo('ritmo_challenge.html')">🎮 Ritmo Challenge</button>
+      </div>
+    </section>
+
+    <!-- ESPRESSIONE -->
+    <section id="espressione" class="siteSection learnSection">
+      <h2 class="sectionTitle">Segni di espressione</h2>
+      <p class="sectionIntro">I segni di espressione indicano <strong>come suonare</strong>: volume, velocità e carattere. Scritti quasi tutti in italiano, lingua universale della musica classica.</p>
+
+      <h3 class="subSectionTitle">Dinamica — il volume</h3>
+      <div class="expressionGrid">
+        <div class="expressionCard"><div class="expSymbol small">ppp</div><h4>Pianississimo</h4><p>Estremamente piano</p></div>
+        <div class="expressionCard"><div class="expSymbol small">pp</div><h4>Pianissimo</h4><p>Molto piano</p></div>
+        <div class="expressionCard"><div class="expSymbol">p</div><h4>Piano</h4><p>Piano, dolce</p></div>
+        <div class="expressionCard"><div class="expSymbol small">mp</div><h4>Mezzo piano</h4><p>Moderatamente piano</p></div>
+        <div class="expressionCard"><div class="expSymbol small">mf</div><h4>Mezzo forte</h4><p>Moderatamente forte</p></div>
+        <div class="expressionCard"><div class="expSymbol">f</div><h4>Forte</h4><p>Forte, deciso</p></div>
+        <div class="expressionCard"><div class="expSymbol small">ff</div><h4>Fortissimo</h4><p>Molto forte</p></div>
+        <div class="expressionCard"><div class="expSymbol small">fff</div><h4>Fortississimo</h4><p>Estremamente forte</p></div>
+      </div>
+
+      <h3 class="subSectionTitle" style="margin-top:32px;">Variazioni graduali</h3>
+      <div class="expressionGrid twoCol">
+        <div class="expressionCard wide"><div class="expSymbol small">cresc.</div><h4>Crescendo</h4><p>Il volume aumenta gradualmente. Simbolo: <span style="font-size:1.3em;font-weight:bold;">&lt;</span></p></div>
+        <div class="expressionCard wide"><div class="expSymbol small">dim.</div><h4>Diminuendo</h4><p>Il volume diminuisce gradualmente. Simbolo: <span style="font-size:1.3em;font-weight:bold;">&gt;</span></p></div>
+      </div>
+
+      <h3 class="subSectionTitle" style="margin-top:32px;">Articolazione</h3>
+      <div class="expressionGrid">
+        <div class="expressionCard"><div class="expSymbol" style="font-size:2.5rem;">·</div><h4>Staccato</h4><p>Suono breve e separato</p></div>
+        <div class="expressionCard"><div class="expSymbol" style="font-size:2rem;">⌢</div><h4>Legato</h4><p>Note legate senza interruzione</p></div>
+        <div class="expressionCard"><div class="expSymbol">^</div><h4>Accentato</h4><p>Dare più forza alla nota</p></div>
+        <div class="expressionCard"><div class="expSymbol" style="font-size:1.8rem;">—</div><h4>Tenuto</h4><p>Tenere per tutta la durata</p></div>
+      </div>
+
+      <h3 class="subSectionTitle" style="margin-top:32px;">Indicazioni di tempo</h3>
+      <div class="tempoTable">
+        <table class="noteTable">
+          <thead><tr><th>Termine</th><th>Significato</th><th>BPM</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Largo</strong></td><td>Molto lento e largo</td><td>40–60</td></tr>
+            <tr><td><strong>Adagio</strong></td><td>Lento, tranquillo</td><td>66–76</td></tr>
+            <tr><td><strong>Andante</strong></td><td>Camminando, moderato</td><td>76–108</td></tr>
+            <tr><td><strong>Moderato</strong></td><td>Tempo moderato</td><td>108–120</td></tr>
+            <tr><td><strong>Allegro</strong></td><td>Vivace, veloce</td><td>120–156</td></tr>
+            <tr><td><strong>Presto</strong></td><td>Molto veloce</td><td>168–200</td></tr>
+            <tr><td><strong>Prestissimo</strong></td><td>Velocissimo</td><td>200+</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SCALE -->
+    <section id="scale" class="siteSection learnSection">
+      <h2 class="sectionTitle">Scale e tonalità</h2>
+      <p class="sectionIntro">Una <strong>scala</strong> è una successione di 7 note secondo uno schema fisso di toni e semitoni. Definisce la <strong>tonalità</strong> del brano.</p>
+
+      <div class="scaleBox">
+        <h3>Scala maggiore — schema T T S T T T S</h3>
+        <div class="scalePiano">
+          <div class="pianoKeys">
+            <div class="whiteKey active" data-note="Do">Do</div>
+            <div class="blackKey" data-between="true"></div>
+            <div class="whiteKey active" data-note="Re">Re</div>
+            <div class="blackKey" data-between="true"></div>
+            <div class="whiteKey active semi" data-note="Mi">Mi</div>
+            <div class="whiteKey active" data-note="Fa">Fa</div>
+            <div class="blackKey" data-between="true"></div>
+            <div class="whiteKey active" data-note="Sol">Sol</div>
+            <div class="blackKey" data-between="true"></div>
+            <div class="whiteKey active" data-note="La">La</div>
+            <div class="blackKey" data-between="true"></div>
+            <div class="whiteKey active semi" data-note="Si">Si</div>
+            <div class="whiteKey active" data-note="Do">Do</div>
+          </div>
+          <div class="intervalLabels">
+            <span class="iLabel tone">T</span>
+            <span class="iLabel tone">T</span>
+            <span class="iLabel semi">S</span>
+            <span class="iLabel tone">T</span>
+            <span class="iLabel tone">T</span>
+            <span class="iLabel tone">T</span>
+            <span class="iLabel semi">S</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="scaleBox">
+        <h3>Scala minore naturale — schema T S T T S T T</h3>
+        <div class="intervalLabels standalone">
+          <span class="iLabel tone">T</span>
+          <span class="iLabel semi">S</span>
+          <span class="iLabel tone">T</span>
+          <span class="iLabel tone">T</span>
+          <span class="iLabel semi">S</span>
+          <span class="iLabel tone">T</span>
+          <span class="iLabel tone">T</span>
+        </div>
+        <p style="text-align:center;color:var(--text-muted);margin-top:12px;font-size:0.95rem;">Partendo da La: La Si Do Re Mi Fa Sol La — carattere più malinconico</p>
+      </div>
+
+      <div class="didacticBox">
+        <h4>🎵 Armatura di chiave</h4>
+        <p>L'armatura di chiave è l'insieme di diesis (#) o bemolle (♭) all'inizio del pentagramma. Indicano le note sempre alterate nel brano. Più diesis o bemolle = tonalità più "lontana" da Do maggiore.</p>
+      </div>
+
+      <div class="tonalityGrid">
+        <h3>Tonalità maggiori</h3>
+        <div class="tonalityRow">
+          <div class="tonalityCard">Do M<span>0</span></div>
+          <div class="tonalityCard">Sol M<span>1#</span></div>
+          <div class="tonalityCard">Re M<span>2#</span></div>
+          <div class="tonalityCard">La M<span>3#</span></div>
+          <div class="tonalityCard">Mi M<span>4#</span></div>
+          <div class="tonalityCard">Fa M<span>1♭</span></div>
+          <div class="tonalityCard">Si♭ M<span>2♭</span></div>
+          <div class="tonalityCard">Mi♭ M<span>3♭</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEMPI -->
+    <section id="tempi" class="siteSection learnSection">
+      <h2 class="sectionTitle">Tempi e metro</h2>
+      <p class="sectionIntro">Il <strong>metro</strong> indica come si raggruppano le pulsazioni. L'<strong>indicazione di tempo</strong> (due numeri a forma di frazione) appare all'inizio del brano.</p>
+
+      <div class="timeSignatureGrid">
+        <div class="timeCard">
+          <div class="timeSig"><span>4</span><span>4</span></div>
+          <h4>Quattro quarti</h4>
+          <p>4 tempi per misura, ognuno vale una semiminima. Il più comune.</p>
+          <div class="beatViz"><span class="beat strong">1</span><span class="beat">2</span><span class="beat medium">3</span><span class="beat">4</span></div>
+        </div>
+        <div class="timeCard">
+          <div class="timeSig"><span>3</span><span>4</span></div>
+          <h4>Tre quarti</h4>
+          <p>3 tempi per misura. Tipico del valzer.</p>
+          <div class="beatViz"><span class="beat strong">1</span><span class="beat">2</span><span class="beat">3</span></div>
+        </div>
+        <div class="timeCard">
+          <div class="timeSig"><span>2</span><span>4</span></div>
+          <h4>Due quarti</h4>
+          <p>2 tempi per misura. Tipico della marcia.</p>
+          <div class="beatViz"><span class="beat strong">1</span><span class="beat">2</span></div>
+        </div>
+        <div class="timeCard">
+          <div class="timeSig"><span>6</span><span>8</span></div>
+          <h4>Sei ottavi</h4>
+          <p>6 ottavi, in 2 gruppi da 3. Ritmo ternario composto.</p>
+          <div class="beatViz"><span class="beat strong">1</span><span class="beat small">2</span><span class="beat small">3</span><span class="beat medium">4</span><span class="beat small">5</span><span class="beat small">6</span></div>
+        </div>
+      </div>
+
+      <div class="didacticBox">
+        <h4>📖 Come leggere l'indicazione di tempo</h4>
+        <p>Il <strong>numero in alto</strong> = quanti tempi per misura. Il <strong>numero in basso</strong> = quale figura vale un tempo (4 = semiminima ♩, 8 = croma ♪, 2 = minima). Quindi <em>6/8</em>: 6 tempi, ognuno vale una croma.</p>
+      </div>
+
+      <div class="learnCTA">
+        <button class="menuButton" onclick="goTo('ritmo_challenge.html')">🎮 Allenati con il ritmo</button>
+      </div>
+    </section>
+
   </div>
-
-  <script>
-  function goTo(page) {
-    window.location.href = page;
-  }
-
-  const buttons = document.querySelectorAll('.menuButton');
-
-  buttons.forEach(button => {
-    button.addEventListener('click', function() {
-      buttons.forEach(btn => btn.classList.remove('selected'));
-      this.classList.add('selected');
-    });
-  });
-  </script>
 </div>
 
+<script src="js/home.js"></script>
 </body>
 </html>

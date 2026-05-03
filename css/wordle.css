@@ -1,0 +1,767 @@
+#grid {
+  display: grid;
+  row-gap: var(--wordle-grid-gap);
+  column-gap: var(--wordle-grid-gap);
+  justify-content: center;
+  width: fit-content;
+  margin: 15px auto 24px;
+}
+
+.cell {
+  width: var(--wordle-cell-size);
+  height: var(--wordle-cell-size);
+  border: 2px solid #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: bold;
+  background: white;
+  color: #222;
+  transition: transform 0.22s ease, background 0.2s ease, border 0.2s ease;
+  box-sizing: border-box;
+  text-transform: uppercase;
+}
+
+.flip { transform: rotateX(90deg); }
+.correct { background: #66aa5a !important; border-color: #66aa5a !important; color: white; }
+.present { background: #c9a43b !important; border-color: #c9a43b !important; color: white; }
+.wrong { background: #787c7e !important; border-color: #787c7e !important; color: white; }
+
+.shake { animation: wordleShake 0.42s ease; }
+@keyframes wordleShake {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(4px); }
+  30%, 50%, 70% { transform: translateX(-6px); }
+  40%, 60% { transform: translateX(6px); }
+}
+
+#keyboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.keyRow {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.key {
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 6px;
+  background: #b3b3b3;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  user-select: none;
+  transition: transform 0.15s, background 0.2s, color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.correctKey { background: #66aa5a !important; color: white !important; }
+.presentKey { background: #c9a43b !important; color: white !important; }
+.wrongKey   { background: #787c7e !important; color: white !important; }
+
+#enterBtn, #deleteBtn {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ff6600;
+  background: #b3b3b3;
+  border: 3px solid transparent;
+  border-radius: 10px;
+  padding: 12px 14px;
+  min-width: 74px;
+  height: var(--wordle-key-size);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s, border 0.2s;
+}
+
+#enterBtn.selected, #deleteBtn.selected {
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: white;
+  box-shadow: 0 0 12px rgba(255,102,0,0.6);
+  border-color: var(--accent);
+}
+
+#enterBtn:focus, #deleteBtn:focus,
+#enterBtn:active, #deleteBtn:active {
+  outline: none;
+  box-shadow: none;
+}
+
+.helpButton {
+  margin-left: auto;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.92);
+  color: #ff6600;
+  font-size: 22px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+#gameTopBar {
+  display: none;
+}
+
+.miniButton {
+  border: 2px solid #ff6600;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.9);
+  color: #ff6600;
+  font-weight: 800;
+  padding: 8px 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.smallIntro {
+  font-size: 0.92rem;
+  opacity: 0.82;
+  max-width: 620px;
+  margin: 8px auto 0;
+}
+
+/* ==================== FIX 1: bottoni modalitÃ  non tagliati ==================== */
+/* overflow: visible evita che scale(1.03) al hover venga clippato */
+.wordleModeGroup {
+  align-items: center;
+  overflow: visible !important;
+  padding: 8px 4px;  /* respiro per l'animazione hover */
+}
+
+.wordleModeGroup .menuButton {
+  overflow: visible;
+}
+
+/* ==================== FIX 2: etichetta modalitÃ  DENTRO l'header ==================== */
+/* Rimuove il position:absolute che la spingeva fuori dal flusso dell'header */
+.wordlePage .headerBrand {
+  /* Altezza fissa: include eyebrow + titolo + etichetta modalitÃ  */
+  /* CosÃ¬ l'header non si muove mai indipendentemente dal contenuto */
+  height: 72px;
+  justify-content: center;
+}
+
+.headerBrand .headerModeLabel {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  display: block;
+  color: #777;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  margin-top: 1px;
+}
+
+.headerBrand .headerModeLabel.hidden {
+  visibility: hidden;
+}
+
+/* ==================== FIX 3: layout ? | griglia | Statistiche ==================== */
+#gameBoardArea {
+  width: min(720px, 96vw);
+  margin: 0 auto 8px;
+  display: grid;
+  grid-template-columns: 140px auto 140px;
+  align-items: start;
+  justify-content: center;
+}
+
+/* Colonna sinistra: punto interrogativo, allineato a destra (vicino alla griglia) */
+#gameSideControls {
+  grid-column: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 10px;
+  padding-top: 6px;
+  padding-right: 10px;
+}
+
+/* Colonna centrale: griglia */
+#gameBoardArea #grid {
+  grid-column: 2;
+  margin-top: 0;
+}
+
+/* Colonna destra: Statistiche, allineato a sinistra (vicino alla griglia) */
+#gameSideControlsRight {
+  grid-column: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
+  padding-top: 6px;
+  padding-left: 10px;
+}
+
+.circleMiniButton {
+  width: 42px;
+  height: 42px;
+  border: 2px solid #ff6600;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.96);
+  color: #ff6600;
+  font-size: 22px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circleMiniButton.hidden {
+  display: none;
+}
+
+#gameSideControlsRight .miniButton {
+  min-height: 42px;
+  border: 2px solid #ff6600;
+  background: #ffffff;
+  color: #ff6600;
+}
+
+#gameSideControlsRight .miniButton.hidden {
+  display: none;
+}
+
+.exampleFlip {
+  animation: exampleTileFlip 0.58s ease both;
+}
+
+@keyframes exampleTileFlip {
+  0% { transform: rotateX(0deg); }
+  45% { transform: rotateX(90deg); }
+  100% { transform: rotateX(0deg); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .key:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.06);
+  }
+
+  #enterBtn:hover, #deleteBtn:hover,
+  .helpButton:hover, .miniButton:hover, .circleMiniButton:hover {
+    transform: scale(1.04);
+  }
+}
+
+.wordlePage #contentWrapper {
+  overflow-y: auto;
+  padding-top: 4px;
+  padding-bottom: 12px;
+  justify-content: flex-start;
+}
+
+.wordlePage #game:not(.hidden) {
+  min-height: auto;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.wordlePage #grid {
+  margin: 4px auto 8px;
+}
+
+.wordlePage #keyboard {
+  gap: 5px;
+}
+
+.wordleLane {
+  width: fit-content;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wordlePage .keyRow {
+  gap: var(--wordle-key-gap);
+}
+
+.wordlePage .key {
+  width: var(--wordle-key-size);
+  height: var(--wordle-key-size);
+  font-size: 0.92rem;
+}
+
+.wordlePage #enterBtn,
+.wordlePage #deleteBtn {
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+.wordlePage #keyboard .messageText {
+  margin-top: calc(var(--wordle-key-size) * -0.56);
+  min-height: var(--wordle-key-size);
+  width: calc(
+    (var(--wordle-center-keys) * var(--wordle-key-size)) +
+    ((var(--wordle-center-keys) - 1) * var(--wordle-key-gap))
+  );
+  padding: 0 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 102, 0, 0.16);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.wordlePage #keyboard .messageText.isVisible {
+  opacity: 1;
+}
+
+.wordleModal.hidden { display: none; }
+.wordleModal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.modalOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.58);
+  backdrop-filter: blur(2px);
+}
+
+.modalPanel {
+  position: relative;
+  width: min(520px, 94vw);
+  max-height: 88vh;
+  overflow: auto;
+  background: #171717;
+  color: #f4f4f4;
+  border-radius: 14px;
+  padding: 30px 34px 34px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.modalClose {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  border: 0;
+  background: transparent;
+  color: #888;
+  font-size: 34px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modalPanel h2,
+.modalPanel h3 {
+  text-align: center;
+  margin: 0 0 18px;
+  letter-spacing: 0.02em;
+}
+
+.modalPanel h3 {
+  margin-top: 26px;
+  font-size: 1rem;
+}
+
+.helpPanel p {
+  line-height: 1.45;
+  margin: 10px 0;
+}
+
+.helpDivider {
+  height: 1px;
+  background: rgba(255,255,255,0.16);
+  margin: 18px 0;
+}
+
+.exampleRow {
+  display: flex;
+  gap: 6px;
+  margin: 16px 0 8px;
+}
+
+.exampleCell {
+  width: 44px;
+  height: 44px;
+  border: 2px solid #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: 900;
+  background: #202020;
+  color: white;
+}
+
+.statsNumbers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  text-align: center;
+}
+
+.statsNumbers strong {
+  display: block;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.statsNumbers span {
+  display: block;
+  font-size: 0.76rem;
+  margin-top: 5px;
+  color: #ddd;
+}
+
+.guessDistribution {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.distRow {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 8px;
+  align-items: center;
+  font-weight: 800;
+}
+
+.distBar {
+  min-width: 24px;
+  height: 24px;
+  background: #555;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8px;
+  box-sizing: border-box;
+}
+
+.distBar.active {
+  background: #66aa5a;
+}
+
+.statsFooter {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  align-items: center;
+}
+
+.nextWordBox {
+  border-right: 1px solid #8c8c8c;
+  padding-right: 20px;
+}
+
+.nextWordBox span {
+  display: block;
+  font-weight: 900;
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+.nextWordBox strong {
+  display: block;
+  font-size: 2rem;
+  margin-top: 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+.shareButton {
+  border: 0;
+  border-radius: 6px;
+  background: #66aa5a;
+  color: white;
+  font-weight: 900;
+  font-size: 1rem;
+  padding: 16px 18px;
+  cursor: pointer;
+}
+
+.shareButton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ==================== SOTTOTITOLO MODALITÃ€ HEADER ==================== */
+.headerModeLabel {
+  display: block;
+  margin-top: 4px;
+  color: #777;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ==================== MOBILE ==================== */
+@media (max-width: 768px) {
+  .cell {
+    font-size: 18px;
+  }
+
+  .key {
+    font-size: 0.82rem;
+  }
+
+  .wordlePage #game:not(.hidden) {
+    min-height: auto;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .wordlePage #keyboard .messageText {
+    margin-top: calc(var(--wordle-key-size) * -0.5);
+    min-height: var(--wordle-key-size);
+    width: calc(
+      (var(--wordle-center-keys) * var(--wordle-key-size)) +
+      ((var(--wordle-center-keys) - 1) * var(--wordle-key-gap))
+    );
+  }
+
+  .modalPanel {
+    padding: 28px 20px 26px;
+  }
+
+  .statsNumbers {
+    gap: 6px;
+  }
+
+  .statsNumbers strong {
+    font-size: 1.55rem;
+  }
+
+  .statsNumbers span {
+    font-size: 0.65rem;
+  }
+
+  .statsFooter {
+    grid-template-columns: 1fr;
+  }
+
+  .nextWordBox {
+    border-right: 0;
+    border-bottom: 1px solid #8c8c8c;
+    padding: 0 0 16px;
+    text-align: center;
+  }
+
+  /* Su mobile: ? e Statistiche in una riga sopra la griglia */
+  #gameBoardArea {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  #gameSideControls {
+    grid-column: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin-bottom: 8px;
+    padding-right: 0;
+    gap: 12px;
+  }
+
+  /* Su mobile rimostra il pulsante stats nella riga superiore */
+  #gameSideControls::after {
+    content: none;
+  }
+
+  #gameSideControlsRight {
+    display: none;
+  }
+
+  /* Su mobile aggiungiamo il pulsante statistiche affianco al ? */
+  /* Lo gestiamo via JS nel showGame() */
+
+  #gameBoardArea #grid {
+    grid-column: 1;
+  }
+}
+
+/* ==================== MODALE IMPOSTAZIONI ==================== */
+.settingsPanel {
+  min-width: min(420px, 90vw);
+}
+
+.settingRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 0;
+}
+
+.settingInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.settingLabel {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f4f4f4;
+}
+
+.settingDesc {
+  font-size: 0.78rem;
+  color: #aaa;
+  line-height: 1.4;
+}
+
+.settingDivider {
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+}
+
+/* Toggle switch */
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggleSlider {
+  position: absolute;
+  inset: 0;
+  background: #555;
+  border-radius: 999px;
+  transition: background 0.25s;
+}
+
+.toggleSlider::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 3px;
+  top: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.25s;
+}
+
+.toggle input:checked + .toggleSlider {
+  background: #66aa5a;
+}
+
+.toggle input:checked + .toggleSlider::before {
+  transform: translateX(22px);
+}
+
+/* ==================== DARK MODE ==================== */
+body.darkMode {
+  background: #121213;
+  color: #f4f4f4;
+}
+
+body.darkMode .appHeader {
+  background: rgba(18, 18, 19, 0.95);
+  border-bottom-color: rgba(255,102,0,0.18);
+}
+
+body.darkMode .cell {
+  background: #121213;
+  color: #f4f4f4;
+  border-color: #555;
+}
+
+body.darkMode .key {
+  background: #818384;
+}
+
+body.darkMode #enterBtn,
+body.darkMode #deleteBtn {
+  background: #818384;
+}
+
+body.darkMode .circleMiniButton,
+body.darkMode .miniButton {
+  background: #1a1a1b;
+  border-color: #ff6600;
+}
+
+body.darkMode #gameSideControlsRight .miniButton,
+body.darkMode #gameSideControls .circleMiniButton {
+  background: #1a1a1b;
+}
+
+/* ==================== ALTO CONTRASTO ==================== */
+body.highContrast .correct,
+body.highContrast .cell.correct {
+  background: #f5793a !important;
+  border-color: #f5793a !important;
+}
+
+body.highContrast .present,
+body.highContrast .cell.present {
+  background: #85c0f9 !important;
+  border-color: #85c0f9 !important;
+}
+
+body.highContrast .correctKey { background: #f5793a !important; }
+body.highContrast .presentKey { background: #85c0f9 !important; }
+
+/* ==================== BOTTONE IMPOSTAZIONI DESTRA ==================== */
+#gameSettingsBtn {
+  font-size: 18px;
+}
+
+#gameSideControlsRight .miniButton.hidden,
+#gameSideControlsRight .circleMiniButton.hidden {
+  display: none;
+}

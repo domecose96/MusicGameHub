@@ -1,0 +1,921 @@
+/* ==================== INTRO ==================== */
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+#intro.fadeOut {
+  opacity: 0;
+  transform: translateY(-30px);
+  pointer-events: none;
+}
+
+#introContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+  padding: 20px;
+}
+
+#staffContainer {
+  width: min(860px, 90vw);
+}
+
+#staffSVG {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.staffLine {
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  animation: drawLine 1s ease forwards;
+}
+.staffLine:nth-child(1) { animation-delay: 0.1s; }
+.staffLine:nth-child(2) { animation-delay: 0.25s; }
+.staffLine:nth-child(3) { animation-delay: 0.4s; }
+.staffLine:nth-child(4) { animation-delay: 0.55s; }
+.staffLine:nth-child(5) { animation-delay: 0.7s; }
+
+@keyframes drawLine {
+  to { stroke-dashoffset: 0; }
+}
+
+#clefAnim {
+  animation: fadeInClef 0.6s ease 1s forwards;
+}
+@keyframes fadeInClef {
+  to { opacity: 1; }
+}
+
+#introTitle {
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  color: var(--accent);
+  text-shadow: 0 0 8px #ff9900, 0 0 14px #ffcc99;
+  margin: 0;
+  opacity: 0;
+  animation: slideUp 0.7s ease 1.6s forwards;
+}
+
+#introSubtitle {
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  color: var(--text-muted);
+  margin: 0;
+  opacity: 0;
+  animation: slideUp 0.7s ease 1.9s forwards;
+}
+
+#introBtn {
+  opacity: 0;
+  animation: slideUp 0.7s ease 2.2s forwards;
+  margin-top: 8px;
+  padding: 14px 36px;
+  font-size: 1.1rem;
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: white;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(255,102,0,0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+  width: auto;
+  height: auto;
+}
+
+#introBtn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 8px 28px rgba(255,102,0,0.45);
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: white;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ==================== NAVIGAZIONE ==================== */
+#siteNav {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  z-index: 900;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,102,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  display: flex;
+  gap: 4px;
+  padding: 10px 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+/* Compensa l'altezza della navbar fissa */
+.homePage #contentWrapper {
+  padding-top: 52px;
+}
+
+#siteNav::-webkit-scrollbar { display: none; }
+
+.navBtn {
+  flex-shrink: 0;
+  padding: 7px 16px;
+  border-radius: 20px;
+  border: 1.5px solid rgba(255,102,0,0.2);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  height: auto;
+  width: auto;
+}
+
+.navBtn:hover {
+  background: rgba(255,102,0,0.08);
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: none;
+  box-shadow: none;
+}
+
+.navBtn.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: white;
+  border-color: transparent;
+}
+
+/* ==================== SEZIONI ==================== */
+.siteSection {
+  padding: 60px 0 40px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.siteSection:last-child { border-bottom: none; }
+
+.sectionTitle {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  color: var(--accent);
+  margin: 0 0 8px;
+  text-align: center;
+}
+
+.sectionSubtitle {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  margin: 0 0 36px;
+}
+
+.sectionIntro {
+  max-width: 720px;
+  margin: 0 auto 32px;
+  color: var(--text-muted);
+  line-height: 1.65;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.subSectionTitle {
+  font-size: 1.15rem;
+  color: var(--text-main);
+  text-align: center;
+  margin: 8px 0 20px;
+  font-weight: 700;
+}
+
+/* ==================== GIOCHI ==================== */
+.gamesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.gameCard {
+  background: var(--surface-solid);
+  border-radius: 20px;
+  padding: 28px 20px 22px;
+  box-shadow: var(--panel-shadow);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  border: 2px solid transparent;
+}
+
+.gameCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 50px rgba(255,102,0,0.18);
+  border-color: rgba(255,102,0,0.25);
+}
+
+.gameCardIcon {
+  font-size: 2.8rem;
+  font-family: serif;
+  color: var(--accent);
+  line-height: 1;
+  height: 52px;
+  display: flex;
+  align-items: center;
+}
+
+.gameCard h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--text-main);
+}
+
+.gameCard p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.gameTag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(255,102,0,0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-top: 4px;
+}
+
+/* ==================== CHIAVI ==================== */
+.clefGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.clefCard {
+  background: var(--surface-solid);
+  border-radius: 18px;
+  padding: 28px 24px;
+  box-shadow: var(--panel-shadow);
+  text-align: center;
+}
+
+.clefSymbolBig {
+  font-size: 5rem;
+  font-family: serif;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.clefSymbolBig.bass {
+  font-size: 3.6rem;
+  margin-top: 10px;
+}
+
+.clefCard h3 {
+  margin: 0 0 10px;
+  color: var(--text-main);
+  font-size: 1.15rem;
+}
+
+.clefCard p {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0 0 16px;
+}
+
+.clefNoteList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+  background: rgba(255,102,0,0.05);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.clefNoteList strong { color: var(--accent); }
+
+/* ==================== NOTE INTERATTIVO ==================== */
+.noteInteractive {
+  background: var(--surface-solid);
+  border-radius: 18px;
+  padding: 28px 24px;
+  box-shadow: var(--panel-shadow);
+  margin-bottom: 24px;
+}
+
+.noteInteractive h3 {
+  text-align: center;
+  margin: 0 0 8px;
+  color: var(--text-main);
+  font-size: 1.1rem;
+}
+
+.interactiveStaff {
+  margin: 16px 0;
+}
+
+.noteHit {
+  cursor: pointer;
+  transition: fill 0.15s;
+}
+.noteHit:hover { fill: rgba(255,102,0,0.15) !important; }
+
+.hintMessage {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  padding: 12px;
+  min-height: 44px;
+  transition: all 0.3s;
+}
+
+.hintDetail {
+  text-align: center;
+  background: rgba(255,102,0,0.08);
+  border-radius: 10px;
+  padding: 10px 16px;
+  margin-top: 8px;
+  font-size: 0.95rem;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ==================== FIGURE ==================== */
+.figureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.figureItem {
+  background: var(--surface-solid);
+  border-radius: 14px;
+  padding: 18px 12px 14px;
+  box-shadow: var(--panel-shadow);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s;
+}
+
+.figureItem:hover { transform: translateY(-4px); }
+
+.figureImg {
+  height: 70px;
+  max-width: 60px;
+  object-fit: contain;
+}
+
+.figureItem h4 {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-main);
+}
+
+.figureValue {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(255,102,0,0.1);
+  padding: 2px 10px;
+  border-radius: 20px;
+}
+
+.figureItem p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ==================== DIDACTIC BOX ==================== */
+.didacticBox {
+  background: linear-gradient(135deg, rgba(255,102,0,0.07), rgba(255,153,51,0.05));
+  border-left: 4px solid var(--accent);
+  border-radius: 0 14px 14px 0;
+  padding: 20px 24px;
+  margin: 28px 0;
+}
+
+.didacticBox h4 {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-size: 1rem;
+}
+
+.didacticBox p {
+  margin: 0;
+  color: var(--text-main);
+  line-height: 1.65;
+  font-size: 0.95rem;
+}
+
+/* Albero dei valori */
+.valueTree {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.vtRow {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.vtBox {
+  background: rgba(255,102,0,0.12);
+  border: 1.5px solid rgba(255,102,0,0.3);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-align: center;
+  min-width: 100px;
+}
+
+.vtBox.main {
+  background: rgba(255,102,0,0.2);
+  min-width: 200px;
+  font-size: 0.95rem;
+}
+
+.vtBox.sm {
+  min-width: 80px;
+  font-size: 0.78rem;
+  padding: 6px 8px;
+}
+
+.vtBox.xs {
+  min-width: 36px;
+  padding: 5px 6px;
+  font-size: 0.78rem;
+}
+
+.vtBox small { display: block; font-weight: 400; font-size: 0.72rem; color: var(--text-muted); }
+
+/* ==================== ESPRESSIONE ==================== */
+.expressionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.expressionGrid.twoCol {
+  grid-template-columns: 1fr 1fr;
+}
+
+.expressionCard {
+  background: var(--surface-solid);
+  border-radius: 14px;
+  padding: 18px 14px 14px;
+  box-shadow: var(--panel-shadow);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.expressionCard.wide { text-align: left; align-items: flex-start; padding: 20px; }
+
+.expSymbol {
+  font-size: 2.2rem;
+  font-family: serif;
+  color: var(--accent);
+  font-style: italic;
+  font-weight: 900;
+  line-height: 1;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.expSymbol.small { font-size: 1.5rem; }
+
+.expressionCard h4 {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-main);
+}
+
+.expressionCard p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ==================== TABELLA TEMPO ==================== */
+.noteTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  background: var(--surface-solid);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--panel-shadow);
+}
+
+.noteTable th {
+  background: rgba(255,102,0,0.12);
+  color: var(--accent);
+  font-weight: 700;
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.noteTable td {
+  padding: 10px 16px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  color: var(--text-main);
+}
+
+.noteTable tr:hover td { background: rgba(255,102,0,0.04); }
+
+.tempoTable { margin-top: 4px; }
+
+/* ==================== SCALE ==================== */
+.scaleBox {
+  background: var(--surface-solid);
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: var(--panel-shadow);
+  margin-bottom: 20px;
+}
+
+.scaleBox h3 {
+  text-align: center;
+  margin: 0 0 18px;
+  color: var(--text-main);
+  font-size: 1.05rem;
+}
+
+.scalePiano {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.pianoKeys {
+  display: flex;
+  gap: 3px;
+  align-items: flex-end;
+  position: relative;
+  height: 80px;
+}
+
+.whiteKey {
+  width: 44px;
+  height: 80px;
+  background: #f8f8f8;
+  border: 1.5px solid #ccc;
+  border-radius: 0 0 6px 6px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #999;
+  cursor: default;
+  box-sizing: border-box;
+}
+
+.whiteKey.active {
+  background: #fff8f2;
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 2px 8px rgba(255,102,0,0.2);
+}
+
+.whiteKey.semi.active {
+  background: rgba(255,102,0,0.08);
+}
+
+.blackKey {
+  width: 28px;
+  height: 50px;
+  background: #444;
+  border-radius: 0 0 4px 4px;
+  margin: 0 -14px;
+  z-index: 2;
+  position: relative;
+}
+
+.intervalLabels {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.intervalLabels.standalone {
+  margin-top: 8px;
+}
+
+.iLabel {
+  width: 44px;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 4px 0;
+  border-radius: 6px;
+}
+
+.iLabel.tone {
+  background: rgba(255,102,0,0.12);
+  color: var(--accent);
+}
+
+.iLabel.semi {
+  background: rgba(102,170,90,0.15);
+  color: #4a8a40;
+}
+
+/* Tonalità */
+.tonalityGrid { margin-top: 24px; }
+.tonalityGrid h3 { text-align: center; margin: 0 0 12px; font-size: 1rem; color: var(--text-muted); }
+
+.tonalityRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tonalityCard {
+  background: var(--surface-solid);
+  border: 1.5px solid rgba(255,102,0,0.2);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-main);
+  text-align: center;
+  min-width: 60px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.tonalityCard span {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* ==================== TEMPI ==================== */
+.timeSignatureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.timeCard {
+  background: var(--surface-solid);
+  border-radius: 16px;
+  padding: 22px 18px;
+  box-shadow: var(--panel-shadow);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.timeSig {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1.1;
+  font-family: serif;
+}
+
+.timeCard h4 { margin: 0; font-size: 0.95rem; color: var(--text-main); }
+.timeCard p { margin: 0; font-size: 0.83rem; color: var(--text-muted); line-height: 1.5; }
+
+.beatViz {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.beat {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(255,102,0,0.1);
+  color: var(--accent);
+}
+
+.beat.strong {
+  background: var(--accent);
+  color: white;
+  width: 32px;
+  height: 32px;
+}
+
+.beat.medium {
+  background: rgba(255,102,0,0.35);
+  color: var(--accent);
+}
+
+.beat.small {
+  width: 22px;
+  height: 22px;
+  font-size: 0.65rem;
+  background: rgba(255,102,0,0.06);
+}
+
+/* ==================== CTA ==================== */
+.learnCTA {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.learnCTA .menuButton {
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: white;
+  border-color: transparent;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.learnCTA .menuButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255,102,0,0.35);
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: white;
+}
+
+/* ==================== LEARNINTRO SECTION ==================== */
+.learnSection {
+  scroll-margin-top: calc(var(--header-height) + 56px);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  .clefGrid { grid-template-columns: 1fr; }
+  .expressionGrid.twoCol { grid-template-columns: 1fr; }
+  .figureGrid { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); }
+  .timeSignatureGrid { grid-template-columns: 1fr 1fr; }
+  .gamesGrid { grid-template-columns: 1fr 1fr; }
+  .siteSection { padding: 40px 0 28px; }
+  .pianoKeys { transform: scale(0.85); transform-origin: top center; }
+  .tonalityRow { gap: 6px; }
+
+  #siteNav {
+    padding: 8px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gamesGrid { grid-template-columns: 1fr; }
+  .timeSignatureGrid { grid-template-columns: 1fr; }
+}
+
+/* ==================== CHIAVI ESPANSE ==================== */
+.clefFamilyTitle {
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin: 44px 0 4px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  border-bottom: 2px solid rgba(255,102,0,0.15);
+  padding-bottom: 10px;
+}
+
+.clefFamilyDesc {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  margin: 8px 0 16px;
+}
+
+.clefGridSingle {
+  grid-template-columns: 1fr !important;
+  max-width: 480px;
+  margin: 0 auto 8px;
+}
+
+.clefGridFour {
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)) !important;
+}
+
+/* Tutte le card uniformi: simbolo centrato in alto, poi contenuto */
+.clefCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.clefCard h3 {
+  margin: 0 0 8px;
+  font-size: 0.98rem;
+  color: var(--text-main);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.clefCard p {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  margin: 0 0 12px;
+}
+
+.clefCard .clefNoteList {
+  text-align: left;
+  width: 100%;
+}
+
+.clefPosition {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(255,102,0,0.1);
+  padding: 2px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.clefSymbolBig.do {
+  font-size: 2.8rem;
+  color: var(--accent);
+  font-family: serif;
+  line-height: 1;
+  margin-bottom: 8px;
+  letter-spacing: -2px;
+}
+
+/* Riduce il gap tra card nella griglia chiavi */
+.clefGrid {
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+  .clefCardFeatured {
+    flex-direction: column !important;
+    align-items: center;
+    text-align: center;
+  }
+
+  .clefGridFour {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .clefGridFour {
+    grid-template-columns: 1fr !important;
+  }
+}

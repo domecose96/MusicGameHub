@@ -2,8 +2,10 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Music Wordle</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/wordle.css">
 </head>
 
 <body class="wordlePage">
@@ -19,6 +21,8 @@
     <div class="headerBrand">
       <span class="headerEyebrow">Allenamento musicale</span>
       <h1 class="pageTitle">Music Wordle</h1>
+      <!-- FIX 2: headerModeLabel è ora inline nel flusso normale, non absolute -->
+      <span id="headerModeLabel" class="headerModeLabel hidden"></span>
     </div>
   </div>
 </header>
@@ -27,20 +31,41 @@
 <div id="contentWrapper">
 
   <!-- ==================== SELEZIONE MODALITÀ ==================== -->
+  <!-- FIX 1: aggiunto padding al buttonGroup per evitare il taglio hover -->
   <div id="config">
     <h2>Seleziona Modalità</h2>
-    <div class="buttonGroup">
+    <div class="buttonGroup wordleModeGroup">
+      <button class="menuButton" onclick="selectMode(this,'daily')">Parola del giorno</button>
       <button class="menuButton" onclick="selectMode(this,'easy')">Facile</button>
       <button class="menuButton" onclick="selectMode(this,'medium')">Medio</button>
       <button class="menuButton" onclick="selectMode(this,'hard')">Difficile</button>
     </div>
     <button class="menuButton" onclick="startGame()">Start</button>
-    <p class="gameIntro">Indovina la parola musicale nascosta in 6 tentativi scegliendo lettere dalla tastiera.</p>
+    <p class="warningText introSpacer"></p>
+    <p class="gameIntro">Indovina la parola musicale del giorno in 6 tentativi scegliendo lettere dalla tastiera.</p>
+    <p class="gameIntro smallIntro">La parola del giorno è uguale per tutti, si può giocare una sola volta e si aggiorna a mezzanotte.</p>
   </div>
 
   <!-- ==================== GIOCO ==================== -->
   <div id="game" class="hidden">
-    <div id="grid"></div>
+    <!-- FIX 3: layout a 3 colonne — ? | griglia | Statistiche -->
+    <div id="gameBoardArea">
+
+      <!-- COLONNA SINISTRA: punto interrogativo -->
+      <div id="gameSideControls">
+        <button id="gameHelpBtn" class="circleMiniButton hidden" onclick="showHelpModal()" aria-label="Come giocare">?</button>
+      </div>
+
+      <!-- COLONNA CENTRALE: griglia -->
+      <div id="grid"></div>
+
+      <!-- COLONNA DESTRA: statistiche + impostazioni -->
+      <div id="gameSideControlsRight">
+        <button id="gameStatsBtn" class="miniButton hidden" onclick="showStatsModal(false)">Statistiche</button>
+        <button id="gameSettingsBtn" class="circleMiniButton hidden" onclick="showSettingsModal()" aria-label="Impostazioni">⚙</button>
+      </div>
+
+    </div>
     <div class="wordleLane">
       <div id="keyboard"></div>
       <div id="message" class="messageText"></div>
@@ -49,6 +74,125 @@
 
 </div>
 
+<!-- ==================== MODALE COME GIOCARE ==================== -->
+<div id="helpModal" class="wordleModal hidden" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+  <div class="modalOverlay" onclick="closeHelpModal()"></div>
+  <div class="modalPanel helpPanel">
+    <button class="modalClose" onclick="closeHelpModal()" aria-label="Chiudi">×</button>
+    <h2 id="helpTitle">COME GIOCARE</h2>
+
+    <p>Indovina la parola musicale in 6 tentativi.</p>
+    <p>Dopo ogni tentativo, i colori delle lettere e della tastiera cambiano per mostrarti quanto sei vicino alla soluzione.</p>
+
+    <div class="helpDivider"></div>
+
+    <div class="exampleRow">
+      <span class="exampleCell correct">P</span>
+      <span class="exampleCell">I</span>
+      <span class="exampleCell">A</span>
+      <span class="exampleCell">N</span>
+      <span class="exampleCell">O</span>
+    </div>
+    <p>La lettera <strong>P</strong> è nella parola ed è nel posto giusto.</p>
+
+    <div class="exampleRow">
+      <span class="exampleCell">R</span>
+      <span class="exampleCell present">I</span>
+      <span class="exampleCell">T</span>
+      <span class="exampleCell">M</span>
+      <span class="exampleCell">O</span>
+    </div>
+    <p>La lettera <strong>I</strong> è nella parola ma nel posto sbagliato.</p>
+
+    <div class="exampleRow">
+      <span class="exampleCell">C</span>
+      <span class="exampleCell">O</span>
+      <span class="exampleCell wrong">R</span>
+      <span class="exampleCell">N</span>
+      <span class="exampleCell">O</span>
+    </div>
+    <p>La lettera <strong>R</strong> non è nella parola.</p>
+
+    <div class="helpDivider"></div>
+
+    <p><strong>Parola del giorno:</strong> una nuova parola musicale ogni giorno, con report finale e countdown.</p>
+  </div>
+</div>
+
+<!-- ==================== MODALE STATISTICHE ==================== -->
+<div id="statsModal" class="wordleModal hidden" role="dialog" aria-modal="true" aria-labelledby="statsTitle">
+  <div class="modalOverlay" onclick="closeStatsModal()"></div>
+  <div class="modalPanel statsPanel">
+    <button class="modalClose" onclick="closeStatsModal()" aria-label="Chiudi">×</button>
+    <h2 id="statsTitle">STATISTICHE</h2>
+
+    <div class="statsNumbers">
+      <div><strong id="statGames">0</strong><span>Partite</span></div>
+      <div><strong id="statWinPercent">0</strong><span>% Vittorie</span></div>
+      <div><strong id="statCurrentStreak">0</strong><span>Vinte di fila</span></div>
+      <div><strong id="statMaxStreak">0</strong><span>Record di vittorie in fila</span></div>
+    </div>
+
+    <h3>DISTRIBUZIONE DEI TENTATIVI</h3>
+    <div id="guessDistribution" class="guessDistribution"></div>
+
+    <div class="statsFooter">
+      <div class="nextWordBox">
+        <span>PROSSIMO WORDLE</span>
+        <strong id="countdown">00:00:00</strong>
+      </div>
+      <button id="shareBtn" class="shareButton" onclick="shareResult()">CONDIVIDI</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MODALE IMPOSTAZIONI ==================== -->
+<div id="settingsModal" class="wordleModal hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+  <div class="modalOverlay" onclick="closeSettingsModal()"></div>
+  <div class="modalPanel settingsPanel">
+    <button class="modalClose" onclick="closeSettingsModal()" aria-label="Chiudi">×</button>
+    <h2 id="settingsTitle">IMPOSTAZIONI</h2>
+
+    <div class="settingRow">
+      <div class="settingInfo">
+        <span class="settingLabel">Il gioco si fa duro</span>
+        <span class="settingDesc">Ogni lettera nota deve essere usata nei tentativi successivi</span>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" id="settingHardMode" onchange="applySettings()">
+        <span class="toggleSlider"></span>
+      </label>
+    </div>
+
+    <div class="settingDivider"></div>
+
+    <div class="settingRow">
+      <div class="settingInfo">
+        <span class="settingLabel">Tema nero</span>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" id="settingDarkMode" onchange="applySettings()">
+        <span class="toggleSlider"></span>
+      </label>
+    </div>
+
+    <div class="settingDivider"></div>
+
+    <div class="settingRow">
+      <div class="settingInfo">
+        <span class="settingLabel">Colori ad alto contrasto</span>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" id="settingHighContrast" onchange="applySettings()">
+        <span class="toggleSlider"></span>
+      </label>
+    </div>
+
+    <div class="settingDivider"></div>
+  </div>
+</div>
+
 <script src="js/wordle.js"></script>
+<script src="js/wordle_patch.js"></script>
 </body>
 </html>
