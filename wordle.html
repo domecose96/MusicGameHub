@@ -35,10 +35,10 @@
   <div id="config">
     <h2>Seleziona Modalità</h2>
     <div class="buttonGroup wordleModeGroup">
-      <button class="menuButton" onclick="selectMode(this,'daily')">Parola del giorno</button>
       <button class="menuButton" onclick="selectMode(this,'easy')">Facile</button>
       <button class="menuButton" onclick="selectMode(this,'medium')">Medio</button>
       <button class="menuButton" onclick="selectMode(this,'hard')">Difficile</button>
+      <button class="menuButton" onclick="selectMode(this,'daily')">Parola del giorno</button>
     </div>
     <button class="menuButton" onclick="startGame()">Start</button>
     <p class="warningText introSpacer"></p>
@@ -61,8 +61,8 @@
 
       <!-- COLONNA DESTRA: statistiche + impostazioni -->
       <div id="gameSideControlsRight">
-        <button id="gameStatsBtn" class="miniButton hidden" onclick="showStatsModal(false)">Statistiche</button>
         <button id="gameSettingsBtn" class="circleMiniButton hidden" onclick="showSettingsModal()" aria-label="Impostazioni">⚙</button>
+        <button id="gameStatsBtn" class="miniButton hidden" onclick="showStatsModal(false)">Statistiche</button>
       </div>
 
     </div>

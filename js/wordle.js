@@ -221,7 +221,12 @@ function showGame(label){
 
   const helpButton = document.getElementById("gameHelpBtn");
   if(helpButton){
-    helpButton.classList.toggle("hidden", !isDailyGame);
+    helpButton.classList.remove("hidden");
+  }
+
+  const settingsButton = document.getElementById("gameSettingsBtn");
+  if(settingsButton){
+    settingsButton.classList.remove("hidden");
   }
 
   const statsButton = document.getElementById("gameStatsBtn");
