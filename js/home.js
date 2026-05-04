@@ -5,6 +5,7 @@ const NOTE_POSITIONS = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];
 // 50=sopra 5ª, 60=5ª riga, 70=4°spazio, 80=4ªriga, 90=3°spazio,
 // 100=3ªriga, 110=2°spazio, 120=2ªriga, 130=1°spazio, 140=1ªriga, 150=sotto 1ª
 
+
 const X_START  = 148; // x prima nota (subito dopo la chiave)
 const X_END    = 820; // x massima prima del reset
 const X_STEP   = 44;  // px fissi tra una nota e la prossima
@@ -105,21 +106,26 @@ function enterSite() {
 }
 
 // ==================== NAVIGAZIONE SEZIONI ====================
+let isScrollingFromClick = false;
+
 function scrollToSection(id) {
   const el = document.getElementById(id);
   if (!el) return;
   const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--header-height")) || 112;
   const navH    = document.getElementById("siteNav")?.offsetHeight || 48;
   const top     = el.getBoundingClientRect().top + window.scrollY - headerH - navH - 8;
-  window.scrollTo({ top, behavior: "smooth" });
+
   document.querySelectorAll(".navBtn").forEach(b => b.classList.remove("active"));
-  Array.from(document.querySelectorAll(".navBtn"))
-    .find(b => b.getAttribute("onclick")?.includes(id))
-    ?.classList.add("active");
+  document.querySelector(`.navBtn[onclick="scrollToSection('${id}')"]`)?.classList.add("active");
+
+  isScrollingFromClick = true;
+  window.scrollTo({ top, behavior: "smooth" });
+  setTimeout(() => { isScrollingFromClick = false; }, 2500);
 }
 
-const sections = ["games","chiavi","note","figure","espressione","scale","tempi"];
+const sections = ["games","pentagramma","chiavi","note","figure","espressione","scale","tempi"];
 window.addEventListener("scroll", () => {
+  if (isScrollingFromClick) return;
   const intro = document.getElementById("intro");
   if (!intro || (!intro.classList.contains("fadeOut") && intro.style.display !== "none")) return;
   const offset = (parseInt(getComputedStyle(document.documentElement).getPropertyValue("--header-height")) || 112) + 56;
@@ -130,8 +136,7 @@ window.addEventListener("scroll", () => {
   });
   document.querySelectorAll(".navBtn").forEach(b => {
     b.classList.toggle("active",
-      b.getAttribute("onclick")?.includes(`'${current}'`) ||
-      b.getAttribute("onclick")?.includes(`"${current}"`)
+      b.getAttribute("onclick") === `scrollToSection('${current}')`
     );
   });
 }, { passive: true });

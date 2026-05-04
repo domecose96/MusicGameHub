@@ -8,7 +8,7 @@ let errors = 0;
 let startTime;
 let timerInterval;
 
-let currentMode = "sfida"; // nota | figure | teoria
+let currentMode = "sfida";
 
 // ==================== RIFERIMENTI DOM ====================
 const quizDiv = document.getElementById("quiz");
@@ -20,6 +20,22 @@ const figureContainer = document.getElementById("figureContainer");
 const answersDiv = document.getElementById("answers");
 const questionBox = document.getElementById("questionBox");
 const timerDiv = document.getElementById("timer");
+const headerModeLabel = document.getElementById("headerModeLabel");
+
+// ==================== HEADER MODE ====================
+function getModeLabel(){
+  if(numQuestions === 10) return "Sfida breve";
+  if(numQuestions === 20) return "Sfida media";
+  if(numQuestions === 30) return "Sfida completa";
+  return "";
+}
+
+function updateHeaderModeLabel(label = ""){
+  if(!headerModeLabel) return;
+
+  headerModeLabel.textContent = label;
+  headerModeLabel.classList.toggle("hidden", !label);
+}
 
 // ==================== SELEZIONE NUMERO DOMANDE ====================
 function selectNum(btn,num){
@@ -31,9 +47,12 @@ function selectNum(btn,num){
 // ==================== INIZIO SFIDA ====================
 async function startChallenge(){
   currentMode = "sfida";
+
   document.getElementById("config").classList.add("hidden");
   quizDiv.classList.remove("hidden");
   document.getElementById("endScreen").classList.add("hidden");
+
+  updateHeaderModeLabel(getModeLabel());
 
   currentIndex = 0;
   errors = 0;
@@ -48,6 +67,7 @@ async function startChallenge(){
 function startTimer(){
   clearInterval(timerInterval);
   timerDiv.innerText = "Tempo: 0s";
+
   timerInterval = setInterval(()=>{
     const elapsed = Math.floor((Date.now() - startTime)/1000);
     timerDiv.innerText = "Tempo: " + elapsed + "s";
@@ -57,6 +77,7 @@ function startTimer(){
 // ==================== GENERA DOMANDE ====================
 async function generateQuestions(){
   questions = [];
+
   try{
     const response = await fetch("js/sfida/question.json");
     const allData = await response.json();
@@ -77,7 +98,6 @@ function showQuestion() {
   const q = questions[currentIndex];
   answersDiv.innerHTML = "";
 
-  // Reset visualizzazioni
   quizSVG.style.display = "none";
   figureImg.style.display = "none";
   figureContainer.classList.add("hidden");
@@ -96,6 +116,7 @@ function showQuestion() {
       answersDiv.appendChild(btn);
     });
   }
+
   else if (q.type === "figure") {
     figureContainer.classList.remove("hidden");
 
@@ -112,6 +133,7 @@ function showQuestion() {
       answersDiv.appendChild(btn);
     });
   }
+
   else if (q.type === "figurazione" || q.type === "theory") {
     quizSVG.style.display = "none";
     figureContainer.classList.add("hidden");
@@ -130,36 +152,53 @@ function showQuestion() {
 // ==================== CONTROLLO RISPOSTE ====================
 function checkAnswerNote(answer,btn,q){
   document.querySelectorAll(".noteButton").forEach(b=>b.style.pointerEvents="none");
+
   if(answer.trim().toLowerCase() === q.name.trim().toLowerCase()){
     btn.classList.add("correct");
   } else {
     btn.classList.add("wrong");
     errors++;
   }
-  setTimeout(()=>{ currentIndex++; showQuestion(); },1000);
+
+  setTimeout(()=>{
+    currentIndex++;
+    showQuestion();
+  },1000);
 }
 
 function checkAnswerFigurazione(ansIdx, correctIdx, btn){
   document.querySelectorAll(".noteButton").forEach(b=>b.style.pointerEvents="none");
+
   if(ansIdx === correctIdx){
     btn.classList.add("correct");
   } else {
     btn.classList.add("wrong");
     errors++;
   }
-  setTimeout(()=>{ currentIndex++; showQuestion(); },1000);
+
+  setTimeout(()=>{
+    currentIndex++;
+    showQuestion();
+  },1000);
 }
 
 // ==================== PENTAGRAMMA ====================
 function drawLedgerLines(y){
   ledgerGrp.innerHTML = "";
-  for(let pos=150; pos<=165; pos+=10) if(y>=pos) createLedger(pos);
-  for(let pos=90; pos>=80; pos-=10) if(y<=pos) createLedger(pos);
+
+  for(let pos=150; pos<=165; pos+=10) {
+    if(y>=pos) createLedger(pos);
+  }
+
+  for(let pos=90; pos>=80; pos-=10) {
+    if(y<=pos) createLedger(pos);
+  }
 }
 
 function createLedger(y){
   const cx = parseFloat(noteEl.getAttribute("cx"));
   const rx = parseFloat(noteEl.getAttribute("rx"));
+
   const line = document.createElementNS("http://www.w3.org/2000/svg","line");
   line.setAttribute("x1", cx-rx-4);
   line.setAttribute("x2", cx+rx+4);
@@ -167,12 +206,14 @@ function createLedger(y){
   line.setAttribute("y2", y);
   line.setAttribute("stroke","black");
   line.setAttribute("stroke-width","2");
+
   ledgerGrp.appendChild(line);
 }
 
 // ==================== FINE PARTITA ====================
 function endChallenge(){
   clearInterval(timerInterval);
+
   quizDiv.classList.add("hidden");
   document.getElementById("endScreen").classList.remove("hidden");
   document.getElementById("saveScoreBox").style.display = "flex";
@@ -188,17 +229,31 @@ function endChallenge(){
 function saveScore(){
   const nameInput = document.getElementById("playerName");
   const name = nameInput.value.trim();
-  if(!name){ alert("Inserisci il tuo nome!"); nameInput.focus(); return; }
+
+  if(!name){
+    alert("Inserisci il tuo nome!");
+    nameInput.focus();
+    return;
+  }
 
   const timeTaken = Math.floor((Date.now()-startTime)/1000);
   const score = Math.max(0, 1000 - errors*50 - timeTaken*5);
 
-  // Usa numQuestions nella chiave
   const key = `leaderboard_${currentMode}_${numQuestions}`;
   let board = JSON.parse(localStorage.getItem(key) || "[]");
-  board.push({name, score, errors, time: timeTaken, date: new Date().toLocaleString()});
+
+  board.push({
+    name,
+    score,
+    errors,
+    time: timeTaken,
+    date: new Date().toLocaleString()
+  });
+
   board.sort((a,b)=>b.score-a.score);
-  if(board.length>5) board = board.slice(0,5); //modifica numero record classifica 
+
+  if(board.length>5) board = board.slice(0,5);
+
   localStorage.setItem(key, JSON.stringify(board));
 
   nameInput.value = "";
@@ -213,6 +268,9 @@ function showLeaderboard(){
   document.getElementById("endScreen").classList.remove("hidden");
   document.getElementById("scoreText").innerText = "🏆 Classifiche Top 10";
   document.getElementById("saveScoreBox").style.display = "none";
+
+  updateHeaderModeLabel("Classifiche");
+
   loadAllLeaderboards();
 }
 
@@ -226,8 +284,11 @@ function loadLeaderboard(mode, elementId, numQ){
   const key = `leaderboard_${mode}_${numQ}`;
   const board = JSON.parse(localStorage.getItem(key) || "[]");
   const container = document.getElementById(elementId);
+
   if(!container) return;
+
   container.innerHTML = "";
+
   board.slice(0,5).forEach((e,i)=>{
     const row = document.createElement("div");
     row.className = "recordRow bestEver";
@@ -239,10 +300,30 @@ function loadLeaderboard(mode, elementId, numQ){
 // ==================== HOME ====================
 function goHome(){
   document.getElementById("homeBtn").classList.add("selected");
-  setTimeout(()=>{ window.location.href="index.html"; },150);
+
+  setTimeout(()=>{
+    window.location.href="index.html";
+  },150);
 }
+
 function goBack(){
-  document.getElementById("endScreen").classList.add("hidden"); // nasconde classifica/fine partita
-  document.getElementById("config").classList.remove("hidden"); // mostra menu principale
+  clearInterval(timerInterval);
+
+  document.getElementById("endScreen").classList.add("hidden");
+  quizDiv.classList.add("hidden");
+  document.getElementById("config").classList.remove("hidden");
+
   document.querySelectorAll("#config .selected").forEach(btn=>btn.classList.remove("selected"));
+
+  answersDiv.innerHTML = "";
+  ledgerGrp.innerHTML = "";
+  timerDiv.innerText = "";
+  questionBox.innerText = "";
+
+  currentIndex = 0;
+  errors = 0;
+  numQuestions = 10;
+  questions = [];
+
+  updateHeaderModeLabel("");
 }

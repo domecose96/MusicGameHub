@@ -62,6 +62,12 @@
       <h2 class="sectionTitle">Giochi interattivi</h2>
       <p class="sectionSubtitle">Metti alla prova quello che hai imparato</p>
       <div class="gamesGrid">
+        <div class="gameCard" onclick="goTo('pentagramma_game.html')">
+          <div class="gameCardIcon">🎯</div>
+          <h3>Orientati sul pentagramma</h3>
+          <p>Metti alla prova la tua orientazione tra righe, spazi e tagli</p>
+          <span class="gameTag">Teoria · Pentagramma</span>
+        </div>
         <div class="gameCard" onclick="goTo('music_game.html')">
           <div class="gameCardIcon">𝄞</div>
           <h3>Impara le Note</h3>
@@ -103,36 +109,62 @@
         Il <strong>pentagramma</strong> è formato da <strong>5 righe</strong> e
         <strong>4 spazi</strong>. Le note si scrivono sia sulle righe sia negli spazi:
         più una nota è in alto, più il suono è acuto; più è in basso, più il suono è grave.
+        <br><br>
+        Quando le note sono troppo acute o troppo gravi per stare dentro il pentagramma,
+        si usano i <strong>tagli addizionali</strong>, brevi linee poste sopra o sotto il pentagramma.
+        Il taglio può attraversare la nota (detto <strong>in testa</strong>) oppure trovarsi vicino alla nota (detto <strong>in gola</strong>).
       </p>
 
       <div class="clefGrid clefGridSingle">
         <div class="clefCard">
-          <svg class="clefStaffSVG" viewBox="0 -10 420 150">
-            <line x1="70" y1="30" x2="330" y2="30" stroke="#ff6600" stroke-width="2"/>
-            <line x1="70" y1="50" x2="330" y2="50" stroke="#ff6600" stroke-width="2"/>
-            <line x1="70" y1="70" x2="330" y2="70" stroke="#ff6600" stroke-width="2"/>
-            <line x1="70" y1="90" x2="330" y2="90" stroke="#ff6600" stroke-width="2"/>
-            <line x1="70" y1="110" x2="330" y2="110" stroke="#ff6600" stroke-width="2"/>
 
+          <h3 class="cardTopTitle">Struttura del pentagramma</h3>
+
+          <svg class="clefStaffSVG" viewBox="0 -20 420 180">
+            <!-- Taglio addizionale sopra -->
+            <line x1="280" y1="10" x2="320" y2="10" stroke="#ff6600" stroke-width="2"></line>
+            <ellipse cx="300" cy="10" rx="11" ry="8" fill="#ff6600"></ellipse>
+            <text x="300" y="-4" text-anchor="middle" font-size="10" fill="#ff6600" font-weight="bold" font-family="sans-serif">
+              taglio in testa
+            </text>
+
+            <!-- Pentagramma -->
+            <line x1="70" y1="30" x2="330" y2="30" stroke="#ff6600" stroke-width="2"></line>
+            <line x1="70" y1="50" x2="330" y2="50" stroke="#ff6600" stroke-width="2"></line>
+            <line x1="70" y1="70" x2="330" y2="70" stroke="#ff6600" stroke-width="2"></line>
+            <line x1="70" y1="90" x2="330" y2="90" stroke="#ff6600" stroke-width="2"></line>
+            <line x1="70" y1="110" x2="330" y2="110" stroke="#ff6600" stroke-width="2"></line>
+
+            <!-- Etichette righe -->
             <text x="35" y="34" font-size="11" fill="#aaa" font-family="sans-serif">5ª riga</text>
             <text x="35" y="54" font-size="11" fill="#aaa" font-family="sans-serif">4ª riga</text>
             <text x="35" y="74" font-size="11" fill="#aaa" font-family="sans-serif">3ª riga</text>
             <text x="35" y="94" font-size="11" fill="#aaa" font-family="sans-serif">2ª riga</text>
             <text x="35" y="114" font-size="11" fill="#aaa" font-family="sans-serif">1ª riga</text>
 
+            <!-- Etichette spazi -->
             <text x="338" y="45" font-size="11" fill="#777" font-family="sans-serif">4º spazio</text>
             <text x="338" y="65" font-size="11" fill="#777" font-family="sans-serif">3º spazio</text>
             <text x="338" y="85" font-size="11" fill="#777" font-family="sans-serif">2º spazio</text>
             <text x="338" y="105" font-size="11" fill="#777" font-family="sans-serif">1º spazio</text>
 
-            <ellipse cx="130" cy="110" rx="11" ry="8" fill="#ff6600"/>
-            <text x="130" y="132" text-anchor="middle" font-size="12" fill="#ff6600" font-weight="bold" font-family="sans-serif">
+            <!-- Nota sulla riga -->
+            <ellipse cx="110" cy="110" rx="11" ry="8" fill="#ff6600"></ellipse>
+            <text x="110" y="132" text-anchor="middle" font-size="12" fill="#ff6600" font-weight="bold" font-family="sans-serif">
               nota sulla riga
             </text>
 
-            <ellipse cx="270" cy="100" rx="11" ry="8" fill="#ff6600"/>
-            <text x="270" y="132" text-anchor="middle" font-size="12" fill="#ff6600" font-weight="bold" font-family="sans-serif">
+            <!-- Nota nello spazio -->
+            <ellipse cx="180" cy="100" rx="11" ry="8" fill="#ff6600"></ellipse>
+            <text x="180" y="82" text-anchor="middle" font-size="12" fill="#ff6600" font-weight="bold" font-family="sans-serif">
               nota nello spazio
+            </text>
+
+            <!-- Taglio addizionale sotto -->
+            <line x1="220" y1="139" x2="260" y2="139" stroke="#ff6600" stroke-width="2"></line>
+            <ellipse cx="240" cy="130" rx="11" ry="8" fill="#ff6600"></ellipse>
+            <text x="240" y="158" text-anchor="middle" font-size="10" fill="#ff6600" font-weight="bold" font-family="sans-serif">
+              taglio in gola
             </text>
           </svg>
 
@@ -153,12 +185,17 @@
           determinata riga, e da lì si ricavano tutte le altre.
         </p>
       </div>
+      <div class="learnCTA">
+        <button class="menuButton" onclick="goTo('pentagramma_game.html')">
+          🎮 Allenati sul pentagramma
+        </button>
+      </div>
     </section>
 
     <!-- CHIAVI -->
     <section id="chiavi" class="siteSection learnSection">
       <h2 class="sectionTitle">Le chiavi musicali</h2>
-      <p class="sectionIntro">La <strong>chiave</strong> è il simbolo posto all'inizio del pentagramma. Indica l'altezza assoluta delle note. Esistono tre famiglie di chiavi: <em>Sol</em>, <em>Fa</em> e <em>Do</em>, ognuna con varianti che si posizionano su righe diverse.</p>
+      <p class="sectionIntro">La <strong>chiave</strong> è il simbolo posto all'inizio del pentagramma. Stabilisce il nome delle note sul pentagramma. Esistono tre famiglie di chiavi: <em>Sol</em>, <em>Fa</em> e <em>Do</em>, ognuna con varianti che si posizionano su righe diverse.</p>
 
       <!-- CHIAVE DI SOL -->
       <h3 class="clefFamilyTitle">Chiave di Sol</h3>
@@ -315,7 +352,7 @@
     <!-- NOTE -->
     <section id="note" class="siteSection learnSection">
       <h2 class="sectionTitle">Le note sul pentagramma</h2>
-      <p class="sectionIntro">Le note musicali sono 7: <strong>Do, Re, Mi, Fa, Sol, La, Si</strong>. La posizione sul pentagramma cambia in base alla chiave usata.</p>
+      <p class="sectionIntro">Le note musicali sono 7: <strong>Do, Re, Mi, Fa, Sol, La, Si</strong>. Dopo il <strong>Si</strong> si ricomincia dal <strong>Do</strong>: Do, Re, Mi, Fa, Sol, La, Si, Do... La posizione sul pentagramma cambia in base alla chiave usata.</p>
 
       <div class="noteInteractive">
         <h3>Pentagramma interattivo — chiave di violino</h3>
@@ -429,7 +466,7 @@
         <div class="expressionCard"><div class="expSymbol" style="font-size:1.8rem;">—</div><h4>Tenuto</h4><p>Tenere per tutta la durata</p></div>
       </div>
 
-      <h3 class="subSectionTitle" style="margin-top:32px;">Indicazioni di tempo</h3>
+      <h3 class="subSectionTitle" style="margin-top:32px;">Agogica — la velocità</h3>
       <div class="tempoTable">
         <table class="noteTable">
           <thead><tr><th>Termine</th><th>Significato</th><th>BPM</th></tr></thead>
@@ -449,7 +486,15 @@
     <!-- SCALE -->
     <section id="scale" class="siteSection learnSection">
       <h2 class="sectionTitle">Scale e tonalità</h2>
-      <p class="sectionIntro">Una <strong>scala</strong> è una successione di 7 note secondo uno schema fisso di toni e semitoni. Definisce la <strong>tonalità</strong> del brano.</p>
+      <p class="sectionIntro" style="margin-top:10px;">
+        Il <strong>semitono</strong> è la distanza più piccola tra due tasti vicini del pianoforte.
+        Il <strong>tono</strong> equivale a <strong>due semitoni</strong>.
+      </p>
+
+      <p class="sectionIntro">
+        Una <strong>scala</strong> è una successione di 7 note secondo uno schema fisso di toni e semitoni.
+        Definisce la <strong>tonalità</strong> del brano.
+      </p>
 
       <div class="scaleBox">
         <h3>Scala maggiore — schema T T S T T T S</h3>
@@ -537,8 +582,8 @@
           <div class="tonalityCard">La M<span>3#</span></div>
           <div class="tonalityCard">Mi M<span>4#</span></div>
           <div class="tonalityCard">Si M<span>5#</span></div>
-          <div class="tonalityCard">Fa# M<span>6#</span></div>
-          <div class="tonalityCard">Do# M<span>7#</span></div>
+          <div class="tonalityCard">Fa♯ M<span>6#</span></div>
+          <div class="tonalityCard">Do♯ M<span>7#</span></div>
 
           <div class="tonalityCard">Fa M<span>1♭</span></div>
           <div class="tonalityCard">Si♭ M<span>2♭</span></div>
@@ -589,7 +634,7 @@
 
       <div class="didacticBox">
         <h4>📖 Come leggere l'indicazione di tempo</h4>
-        <p>Il <strong>numero in alto</strong> = quanti tempi per misura. Il <strong>numero in basso</strong> = quale figura vale un tempo (4 = semiminima ♩, 8 = croma ♪, 2 = minima). Quindi <em>6/8</em>: 6 tempi, ognuno vale una croma.</p>
+        <p>Il <strong>numero in alto</strong> = quanti tempi per misura. Il <strong>numero in basso</strong> = quale figura vale un tempo (4 = semiminima ♩, 8 = croma ♪, 2 = minima). Quindi <em>6/8</em>: ogni misura contiene 6 crome, spesso percepite in 2 gruppi da 3.</p>
       </div>
 
       <div class="learnCTA">

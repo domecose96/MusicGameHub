@@ -1,0 +1,101 @@
+/* ==================== PENTAGRAMMA GAME ==================== */
+
+#questionBox {
+  font-size: 1.35rem;
+  margin: 12px 0 10px;
+  color: var(--accent);
+  font-weight: 700;
+  min-height: 36px;
+}
+
+.gameTop {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+#staffGameSVG {
+  width: 450px;
+  height: 240px;
+  max-width: 100%;
+  background: var(--surface-solid);
+  border-radius: 16px;
+  box-shadow: var(--panel-shadow);
+  margin: 20px auto;
+  display: block;
+}
+
+.staffLineGame {
+  stroke: #000;
+  stroke-width: 1.5;
+}
+
+.ledgerLine {
+  stroke: #000;
+  stroke-width: 1.5;
+}
+
+.hitZone {
+  fill: transparent;
+  cursor: pointer;
+}
+
+.hitZone:hover {
+  fill: rgba(255, 102, 0, 0.12);
+}
+
+.hitZone.correctZone {
+  fill: rgba(102, 204, 102, 0.22);
+}
+
+.hitZone.wrongZone {
+  fill: rgba(204, 51, 51, 0.18);
+}
+
+#answerNote {
+  fill: #000;
+}
+
+.gameActions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+@media (max-width: 768px) {
+  #staffGameSVG {
+    height: auto;
+    min-height: 220px;
+  }
+
+  #questionBox {
+    font-size: 1.05rem;
+  }
+}
+
+.feedbackText {
+  min-height: 28px;
+  margin-top: 12px;
+  color: var(--accent);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+#timerBox {
+  position: fixed;
+  top: calc(var(--header-height) + 18px);
+  right: 24px;
+  background: rgba(255,102,0,0.1);
+  color: var(--accent);
+  border: 1.5px solid rgba(255,102,0,0.25);
+  border-radius: 14px;
+  padding: 10px 16px;
+  font-weight: 800;
+  z-index: 20;
+}

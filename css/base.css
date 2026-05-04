@@ -17,6 +17,10 @@
   --wordle-center-keys: 7;
 }
 
+html {
+  scroll-padding-top: calc(var(--header-height) + 18px);
+}
+
 body {
   font-family: 'Roboto Slab', Arial, sans-serif;
   background:
@@ -375,6 +379,10 @@ button:focus {
     --wordle-key-gap: 4px;
   }
 
+  html {
+    scroll-padding-top: calc(var(--header-height) + 14px);
+  }
+
   body {
     padding-top: calc(var(--header-height) + 14px);
   }
@@ -410,4 +418,34 @@ button:focus {
     height: auto;
     min-height: 220px;
   }
+}
+
+.headerModeLabel {
+  display: block;
+  margin-top: 4px;
+  color: #777;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  min-height: 16px;   
+}
+
+.headerModeLabel.hidden {
+  visibility: hidden;
+}
+
+#pentagramma .clefStaffSVG,
+#pentagramma .clefStaffSVG * {
+  transform: none !important;
+  transition: none !important;
+}
+
+.cardTopTitle {
+  margin: 0 0 10px;
+  text-align: center;
+  color: var(--text-main);
+  font-size: 1.15rem;
+  font-weight: 800;
 }

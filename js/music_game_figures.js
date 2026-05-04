@@ -9,12 +9,26 @@ document.addEventListener("DOMContentLoaded", () => {
   const menu = document.getElementById("menu");
   const game = document.getElementById("game");
   const feedbackEl = document.getElementById("feedback");
+  const headerModeLabel = document.getElementById("headerModeLabel");
+
+  function getModeLabel(){
+    if(mode === "note") return "Note";
+    if(mode === "pause") return "Pause";
+    if(mode === "misto") return "Misto";
+    return "";
+  }
+
+  function updateHeaderModeLabel(label = ""){
+    if(!headerModeLabel) return;
+
+    headerModeLabel.textContent = label;
+    headerModeLabel.classList.toggle("hidden", !label);
+  }
 
   /* ==================== MENU ==================== */
   window.setMode = function(selectedMode, el){
     mode = selectedMode;
 
-    // rimuove selezione dai bottoni menu
     document.querySelectorAll("#menu .buttonGroup button")
       .forEach(btn => btn.classList.remove("selected"));
 
@@ -31,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     menu.classList.add("hidden");
     game.classList.remove("hidden");
 
+    updateHeaderModeLabel(getModeLabel());
     nextQuestion();
   };
 
@@ -44,6 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelectorAll(".selected")
       .forEach(btn => btn.classList.remove("selected"));
+
+    updateHeaderModeLabel("");
 
     if(figureImage) figureImage.src = "";
     if(answersDiv) answersDiv.innerHTML = "";
@@ -66,23 +83,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if(!figureImage || !answersDiv) return;
 
-    // reset bottoni prima di creare nuovi
     resetButtons();
     if(feedbackEl) feedbackEl.textContent = "";
 
     answersDiv.innerHTML = "";
 
     let pool = [];
-    if(mode==="note") pool = figures;
-    else if(mode==="pause") pool = pauses;
+    if(mode === "note") pool = figures;
+    else if(mode === "pause") pool = pauses;
     else pool = figures.concat(pauses);
 
-    currentFigure = pool[Math.floor(Math.random()*pool.length)];
+    currentFigure = pool[Math.floor(Math.random() * pool.length)];
 
-    // carica immagine
     figureImage.src = "img/" + currentFigure + ".png";
 
-    // crea opzioni
     const options = shuffleOptions(currentFigure);
 
     options.forEach(opt=>{
@@ -100,21 +114,20 @@ document.addEventListener("DOMContentLoaded", () => {
   function checkAnswer(answer, button){
     const allButtons = document.querySelectorAll("#answers .noteButton");
 
-    // rimuove eventuali classi precedenti
     allButtons.forEach(b => {
       b.classList.remove("correct","wrong");
       b.style.pointerEvents = "auto";
     });
 
-    button.style.pointerEvents = "none"; // blocca clic multipli
+    button.style.pointerEvents = "none";
 
     if(answer === currentFigure.replace("pausa_","")){
-      button.classList.add("correct"); // verde
+      button.classList.add("correct");
       if(feedbackEl) feedbackEl.textContent = "Hai indovinato! Nuova figura in arrivo...";
     } else {
-      button.classList.add("wrong");   // rosso
+      button.classList.add("wrong");
       if(feedbackEl) feedbackEl.textContent = `Hai sbagliato! La risposta giusta era ${prettifyLabel(currentFigure)}.`;
-      // evidenzia quello corretto
+
       allButtons.forEach(btn=>{
         if(btn.innerText === prettifyLabel(currentFigure)){
           btn.classList.add("correct");
@@ -122,7 +135,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // dopo 1 secondo passa alla prossima figura
     setTimeout(() => {
       resetButtons();
       nextQuestion();
@@ -139,27 +151,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ==================== GENERA OPZIONI ==================== */
   function prettifyLabel(f){
-  return f
-    .replace("pausa_","")
-    .replace(/_/g," ")
-    .replace(/^\w/,c=>c.toUpperCase());
+    return f
+      .replace("pausa_","")
+      .replace(/_/g," ")
+      .replace(/^\w/, c => c.toUpperCase());
   }
+
   function shuffleOptions(correct){
 
     const correctBase = correct.replace("pausa_","");
-
     const pool = [...figures];
 
     const set = new Set();
     set.add(correctBase);
 
     while(set.size < 4){
-        const rand = pool[Math.floor(Math.random()*pool.length)];
-        set.add(rand);
+      const rand = pool[Math.floor(Math.random() * pool.length)];
+      set.add(rand);
     }
 
     return Array.from(set)
-        .sort(()=>Math.random()-0.5);
+      .sort(() => Math.random() - 0.5);
   }
 
   /* ==================== INVIO TASTIERA ==================== */
@@ -172,13 +184,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-    function goHome() {
-    // Colora il bottone come selezionato
-    const btn = document.getElementById("homeBtn");
-    btn.classList.add("selected");
+/* ==================== HOME ==================== */
+function goHome() {
+  const btn = document.getElementById("homeBtn");
+  btn.classList.add("selected");
 
-    // Torna alla home dopo breve delay per mostrare l'effetto
-    setTimeout(() => {
-        window.location.href = "index.html"; // sostituisci con il tuo file home
-    }, 150);
-    }
+  setTimeout(() => {
+    window.location.href = "index.html";
+  }, 150);
+}

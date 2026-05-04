@@ -24,11 +24,30 @@ const warning = document.getElementById("warning");
 const sequenceEl = document.getElementById("rhythmSequence");
 const answersEl = document.getElementById("answers");
 const infoEl = document.getElementById("rhythmInfo");
+const headerModeLabel = document.getElementById("headerModeLabel");
+
+function getDifficultyLabel(){
+  if(difficulty === "easy") return "Facile";
+  if(difficulty === "medium") return "Medio";
+  if(difficulty === "hard") return "Difficile";
+  return "";
+}
+
+function updateHeaderModeLabel(label = ""){
+  if(!headerModeLabel) return;
+
+  headerModeLabel.textContent = label;
+  headerModeLabel.classList.toggle("hidden", !label);
+}
 
 function setDifficulty(level, button) {
   difficulty = level;
   warning.textContent = "";
-  document.querySelectorAll("#menu .menuButton").forEach(btn => btn.classList.remove("selected"));
+
+  document.querySelectorAll("#menu .menuButton").forEach(btn => {
+    btn.classList.remove("selected");
+  });
+
   button.classList.add("selected");
 }
 
@@ -40,6 +59,8 @@ function startGame() {
 
   menu.classList.add("hidden");
   game.classList.remove("hidden");
+
+  updateHeaderModeLabel(getDifficultyLabel());
   nextRound();
 }
 
@@ -99,6 +120,7 @@ function renderAnswers(correctTotal) {
 
 function checkAnswer(selected, button) {
   const buttons = document.querySelectorAll("#answers .noteButton");
+
   buttons.forEach(btn => {
     btn.style.pointerEvents = "none";
     btn.classList.remove("correct", "wrong");
@@ -130,15 +152,24 @@ function formatBeats(value) {
 function goBack() {
   game.classList.add("hidden");
   menu.classList.remove("hidden");
+
   infoEl.textContent = "";
   answersEl.innerHTML = "";
   sequenceEl.innerHTML = "";
-  document.querySelectorAll("#menu .selected").forEach(btn => btn.classList.remove("selected"));
+
+  document.querySelectorAll(".selected").forEach(btn => {
+    btn.classList.remove("selected");
+  });
+
   difficulty = null;
+  currentTotal = 0;
+
+  updateHeaderModeLabel("");
 }
 
 function goHome() {
   document.getElementById("homeBtn").classList.add("selected");
+
   setTimeout(() => {
     window.location.href = "index.html";
   }, 150);

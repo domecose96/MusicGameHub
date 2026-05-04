@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orientiamoci sul Pentagramma</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/pentagramma_game.css">
+</head>
+
+<body class="pentagrammaGamePage">
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+
+    <div class="headerBrand">
+      <span class="headerEyebrow">Allenamento musicale</span>
+      <h1 class="pageTitle">Orientiamoci sul Pentagramma</h1>
+      <span id="headerModeLabel" class="headerModeLabel hidden"></span>
+    </div>
+  </div>
+</header>
+
+<div id="contentWrapper">
+
+  <div id="menu">
+    <h2>Difficoltà</h2>
+
+    <div class="buttonGroup">
+      <button class="menuButton" onclick="setDifficulty('easy', this)">Facile</button>
+      <button class="menuButton" onclick="setDifficulty('medium', this)">Medio</button>
+      <button class="menuButton" onclick="setDifficulty('hard', this)">Difficile</button>
+    </div>
+
+    <button class="menuButton startButton" onclick="startGame()">Inizia</button>
+
+    <p id="warning" class="warningText"></p>
+    <p class="gameIntro">
+      Clicca la posizione corretta sul pentagramma: righe, spazi e tagli addizionali.
+    </p>
+  </div>
+
+  <div id="game" class="hidden">
+
+    <div id="timerBox" class="hidden">
+    ⏱ <span id="timer">5</span>s
+    </div>
+
+    <div id="questionBox">
+      <span id="question">Clicca sulla posizione indicata</span>
+    </div>
+
+    <div class="staffGameCard">
+      <svg id="staffGameSVG" viewBox="0 0 620 240">
+
+        <!-- tagli addizionali sopra -->
+        <line x1="270" y1="40" x2="350" y2="40" class="ledgerLine"/>
+        <line x1="270" y1="60" x2="350" y2="60" class="ledgerLine"/>
+
+        <!-- pentagramma -->
+        <line x1="70" y1="80" x2="550" y2="80" class="staffLineGame"/>
+        <line x1="70" y1="100" x2="550" y2="100" class="staffLineGame"/>
+        <line x1="70" y1="120" x2="550" y2="120" class="staffLineGame"/>
+        <line x1="70" y1="140" x2="550" y2="140" class="staffLineGame"/>
+        <line x1="70" y1="160" x2="550" y2="160" class="staffLineGame"/>
+
+        <!-- tagli addizionali sotto -->
+        <line x1="270" y1="180" x2="350" y2="180" class="ledgerLine"/>
+        <line x1="270" y1="200" x2="350" y2="200" class="ledgerLine"/>
+
+        <!-- zone cliccabili: tagli e spazi sopra -->
+        <rect class="hitZone" data-id="ledgerTop2" x="70" y="35" width="480" height="10"/>
+        <rect class="hitZone" data-id="spaceTop2" x="70" y="45" width="480" height="10"/>
+        <rect class="hitZone" data-id="ledgerTop1" x="70" y="55" width="480" height="10"/>
+        <rect class="hitZone" data-id="spaceTop1" x="70" y="65" width="480" height="10"/>
+
+        <!-- zone cliccabili: pentagramma -->
+        <rect class="hitZone" data-id="line5" x="70" y="75" width="480" height="10"/>
+        <rect class="hitZone" data-id="space4" x="70" y="85" width="480" height="10"/>
+        <rect class="hitZone" data-id="line4" x="70" y="95" width="480" height="10"/>
+        <rect class="hitZone" data-id="space3" x="70" y="105" width="480" height="10"/>
+        <rect class="hitZone" data-id="line3" x="70" y="115" width="480" height="10"/>
+        <rect class="hitZone" data-id="space2" x="70" y="125" width="480" height="10"/>
+        <rect class="hitZone" data-id="line2" x="70" y="135" width="480" height="10"/>
+        <rect class="hitZone" data-id="space1" x="70" y="145" width="480" height="10"/>
+        <rect class="hitZone" data-id="line1" x="70" y="155" width="480" height="10"/>
+
+        <!-- zone cliccabili: spazi e tagli sotto -->
+        <rect class="hitZone" data-id="spaceBottom1" x="70" y="165" width="480" height="10"/>
+        <rect class="hitZone" data-id="ledgerBottom1" x="70" y="175" width="480" height="10"/>
+        <rect class="hitZone" data-id="spaceBottom2" x="70" y="185" width="480" height="10"/>
+        <rect class="hitZone" data-id="ledgerBottom2" x="70" y="195" width="480" height="10"/>
+
+        <!-- nota feedback -->
+        <ellipse id="answerNote" cx="-100" cy="-100" rx="13" ry="9" opacity="0"/>
+
+      </svg>
+    </div>
+
+    <div id="feedback" class="feedbackText"></div>
+
+    <div class="gameActions">
+      <button class="menuButton" onclick="goBack()">⬅ Indietro</button>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="js/pentagramma_game.js"></script>
+</body>
+</html>
