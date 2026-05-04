@@ -919,3 +919,16 @@
     grid-template-columns: 1fr !important;
   }
 }
+
+/* ==================== PENTAGRAMMA SVG NELLE CARD CHIAVI ==================== */
+.clefStaffSVG {
+  width: 100%;
+  height: auto;
+  background: #fafafa;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.06);
+  padding: 8px;
+  box-sizing: border-box;
+  margin-bottom: 14px;
+  overflow: visible;
+}
