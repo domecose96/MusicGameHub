@@ -1,47 +1,56 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>404 — Pagina non trovata | Music Game Hub</title>
-<meta name="robots" content="noindex, follow">
-<style>
-*{box-sizing:border-box}
-:root{--accent:#ff6600;--accent-soft:#ff9a3d;--text-main:#333;--text-muted:#6d6d6d;--surface:rgba(255,255,255,.94);--shadow:0 18px 45px rgba(0,0,0,.11)}
-html,body{margin:0;min-height:100%;font-family:Georgia,"Times New Roman",serif;color:var(--text-main);background:radial-gradient(circle at top center,rgba(255,102,0,.12),transparent 34%),linear-gradient(180deg,#fff 0%,#fff7f0 52%,#fff 100%)}
-.appHeader{background:rgba(255,255,255,.92);border-bottom:1px solid rgba(255,102,0,.16);padding:26px 22px 24px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.035)}
-.headerEyebrow{display:block;color:var(--text-muted);font-size:clamp(.78rem,2.5vw,.95rem);letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin-bottom:6px}
-.pageTitle{color:var(--accent);font-size:clamp(2.3rem,9vw,4.2rem);line-height:1;margin:0;font-weight:900;text-shadow:0 0 14px rgba(255,102,0,.38)}
-.errorMain{min-height:calc(100vh - 150px);display:flex;align-items:center;justify-content:center;padding:42px 18px 32px}
-.errorBox{width:min(720px,100%);text-align:center;background:var(--surface);border-radius:30px;box-shadow:var(--shadow);padding:clamp(24px,5vw,40px)}
-.errorCode{position:relative;display:inline-block;font-size:clamp(5rem,22vw,8.6rem);line-height:.9;font-weight:900;color:rgba(255,102,0,.17);letter-spacing:-.05em}
-.errorCode::after{content:"404";position:absolute;inset:0;color:var(--accent);clip-path:inset(0 0 44% 0)}
-.errorTitle{font-size:clamp(1.8rem,7vw,2.65rem);line-height:1.1;margin:18px 0 12px}
-.errorDesc{max-width:500px;margin:0 auto 26px;color:var(--text-muted);line-height:1.62;font-size:clamp(1rem,3.7vw,1.16rem)}
-.errorActions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:18px}
-.menuButton{display:inline-flex;align-items:center;justify-content:center;min-width:190px;padding:14px 20px;border-radius:18px;border:1px solid transparent;background:linear-gradient(135deg,var(--accent),var(--accent-soft));color:white;text-decoration:none;font-weight:900;font-size:1rem;line-height:1.2;box-shadow:0 8px 18px rgba(255,102,0,.26)}
-.menuButton.secondary{background:white;color:var(--accent);border-color:rgba(255,102,0,.18);box-shadow:none}
-.errorFooter{text-align:center;color:var(--text-muted);font-size:.85rem;padding:22px 18px 30px}
-@media(max-width:520px){.appHeader{text-align:left}.errorActions{flex-direction:column}.menuButton{width:100%}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>404 — Pagina non trovata | Music Game Hub</title>
+  <meta name="robots" content="noindex, follow">
+
+  <!-- CSS esterno -->
+  <link rel="stylesheet" href="css/404.css">
 </head>
+
 <body>
-<header class="appHeader">
-  <span class="headerEyebrow">Hub musicale</span>
-  <h1 class="pageTitle">Music Game Hub</h1>
-</header>
-<main class="errorMain">
-  <section class="errorBox">
-    <div style="font-size:3rem;">🎼</div>
-    <div class="errorCode">404</div>
-    <h1 class="errorTitle">Pagina fuori pentagramma</h1>
-    <p class="errorDesc">Il link che hai seguito potrebbe essere sbagliato oppure la pagina è stata spostata.</p>
-    <div class="errorActions">
-      <a href="/MusicGameHub/" class="menuButton">← Torna alla home</a>
-      <a href="/MusicGameHub/mappa.html" class="menuButton secondary">🗺️ Vedi la mappa</a>
-    </div>
-  </section>
-</main>
-<footer class="errorFooter"><strong>Music Game Hub</strong> — Impara la teoria musicale giocando.</footer>
+
+  <!-- HEADER -->
+  <header class="appHeader">
+    <span class="headerEyebrow">Hub musicale</span>
+    <h1 class="pageTitle">Music Game Hub</h1>
+  </header>
+
+  <!-- MAIN -->
+  <main class="errorMain">
+    <section class="errorBox">
+
+      <div style="font-size:3rem;">🎼</div>
+
+      <div class="errorCode">404</div>
+
+      <h1 class="errorTitle">Pagina fuori pentagramma</h1>
+
+      <p class="errorDesc">
+        Il link che hai seguito potrebbe essere sbagliato oppure la pagina è stata spostata.
+      </p>
+
+      <!-- BOTTONI -->
+      <div class="errorActions">
+        <a href="/MusicGameHub/" class="menuButton">
+          ← Torna alla home
+        </a>
+
+        <a href="/MusicGameHub/mappa.html" class="menuButton secondary">
+          🗺️ Vedi la mappa
+        </a>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="errorFooter">
+    <strong>Music Game Hub</strong> — Impara la teoria musicale giocando.
+  </footer>
+
 </body>
 </html>
