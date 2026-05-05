@@ -231,15 +231,37 @@ async function loadGoatStats() {
         return;
       }
 
-      // Renderizza le top 5 pagine
-      // Filtra e pulisci i label (rimuove path con typo e prefissi)
-      data.topPages.slice(0, 5).forEach(item => {
+      // Filtra pagine indesiderate
+      const validPages = data.topPages.filter(item => {
+        const path = item.path || "";
+        const label = item.label || "";
+        
+        // Esclude pagine malformate
+        if (path.includes("insdex") || label.includes("insdex")) return false;
+        if (path.includes("404")) return false;
+        if (path.includes("error")) return false;
+        
+        return true;
+      });
+
+      if (validPages.length === 0) {
+        topEl.innerHTML = `
+          <div class="gcTopItem">
+            <span class="gcTopLabel">Nessun dato disponibile</span>
+            <span class="gcTopCount">—</span>
+          </div>
+        `;
+        return;
+      }
+
+      // Renderizza le top 5 pagine valide
+      validPages.slice(0, 5).forEach(item => {
         const row = document.createElement("div");
         row.className = "gcTopItem";
         
-        // Usa il label se disponibile, altrimenti estrae il nome dal path
+        // Usa il label se disponibile e ben formattato
         let displayLabel = item.label;
-        if (!displayLabel || displayLabel.includes("insdex")) {
+        if (!displayLabel || displayLabel.includes("MusicGameHub")) {
           // Se il label è malformato, estrailo dal path
           displayLabel = item.path
             .replace(/^.*\//, "")        // Rimuove il percorso
