@@ -202,8 +202,6 @@ async function loadGoatStats() {
   const totalEl = document.getElementById("gc-total");
   const topEl = document.getElementById("gc-top");
 
-  if (!totalEl && !topEl) return;
-
   try {
     const response = await fetch("https://musicgamehub-stats-api.vercel.app/api/stats");
     const data = await response.json();
@@ -217,7 +215,17 @@ async function loadGoatStats() {
     if (topEl) {
       topEl.innerHTML = "";
 
-      (data.topPages || []).forEach(item => {
+      if (!data.topPages || data.topPages.length === 0) {
+        topEl.innerHTML = `
+          <div class="gcTopItem">
+            <span class="gcTopLabel">Nessun dato disponibile</span>
+            <span class="gcTopCount">—</span>
+          </div>
+        `;
+        return;
+      }
+
+      data.topPages.forEach(item => {
         const row = document.createElement("div");
         row.className = "gcTopItem";
         row.innerHTML = `
