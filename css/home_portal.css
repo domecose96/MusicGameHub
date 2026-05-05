@@ -1,0 +1,332 @@
+/* ==================== HOME PORTAL ADD-ON ==================== */
+
+.homePage #contentWrapper {
+  width: 100%;
+  max-width: 1300px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.hubSection {
+  width: 100%;
+  margin-top: 20px;
+  padding: 20px 0 10px;
+}
+
+.hubGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 26px;
+  margin-top: 28px;
+}
+
+.hubCard {
+  position: relative;
+  min-height: 205px;
+  background: var(--surface);
+  border: 1px solid rgba(255,102,0,0.12);
+  border-radius: 24px;
+  padding: 24px;
+  text-align: left;
+  box-shadow: var(--panel-shadow);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, opacity .25s ease;
+}
+
+.hubCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(255,102,0,.12), transparent 34%);
+  pointer-events: none;
+}
+
+.hubCard:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+  border-color: rgba(255,102,0,0.28);
+}
+
+.hubIcon {
+  font-size: 2.25rem;
+  line-height: 1;
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.hubCard h3 {
+  margin: 0;
+  color: var(--text-main);
+  font-size: 1.18rem;
+  line-height: 1.2;
+  position: relative;
+  z-index: 1;
+}
+
+.hubCard p {
+  margin: 9px 0 18px;
+  color: var(--text-muted);
+  font-size: .94rem;
+  line-height: 1.45;
+  position: relative;
+  z-index: 1;
+}
+
+.hubTag,
+.hubBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: .74rem;
+  font-weight: 900;
+  position: relative;
+  z-index: 1;
+}
+
+.hubTag {
+  background: rgba(255,102,0,0.1);
+  color: var(--accent);
+}
+
+.hubBadge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: white;
+  box-shadow: 0 8px 18px rgba(255,102,0,0.22);
+}
+
+.hubCard.disabled {
+  opacity: .68;
+  cursor: default;
+}
+
+.hubCard.disabled:hover {
+  transform: none;
+  box-shadow: var(--panel-shadow);
+  border-color: rgba(255,102,0,0.12);
+}
+
+/* ==================== CERCA + STATISTICHE HOME ==================== */
+
+.portalSearchSection {
+  width: min(1080px, 100%);
+  margin: 30px auto 36px;
+}
+
+.portalSearchWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.portalSearchInput {
+  width: min(460px, 100%);
+  height: 52px;
+  padding: 0 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,102,0,.22);
+  background: #fff;
+  color: var(--text-main);
+  font-size: 1rem;
+  font-family: inherit;
+  box-shadow: 0 10px 26px rgba(0,0,0,.08);
+  outline: none;
+}
+
+.portalSearchInput:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(255,102,0,.14), 0 12px 28px rgba(0,0,0,.1);
+}
+
+.portalSearchBtn,
+.portalMapBtn {
+  height: 52px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,102,0,.22);
+  padding: 0 24px;
+  font-family: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.portalSearchBtn {
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(255,102,0,.24);
+}
+
+.portalMapBtn {
+  background: rgba(255,255,255,.9);
+  color: var(--accent);
+}
+
+.noSearchResults {
+  margin: 8px auto 22px;
+  color: var(--text-muted);
+  font-weight: 800;
+  text-align: center;
+}
+
+.noSearchResults.hidden {
+  display: none !important;
+}
+
+.portalStatsPanel {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 34px;
+  align-items: center;
+  background: rgba(255,255,255,.78);
+  border: 1px solid rgba(255,102,0,.11);
+  border-radius: 28px;
+  padding: 24px 32px;
+  box-shadow: 0 18px 42px rgba(0,0,0,.07);
+}
+
+.portalStats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  align-items: center;
+}
+
+.portalStat {
+  position: relative;
+  text-align: center;
+}
+
+.portalStat:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: -11px;
+  top: 50%;
+  width: 1px;
+  height: 42px;
+  transform: translateY(-50%);
+  background: rgba(255,102,0,.2);
+}
+
+.portalStat strong {
+  display: block;
+  color: var(--accent);
+  font-size: 1.75rem;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.portalStat span {
+  display: block;
+  color: var(--text-muted);
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: 800;
+}
+
+.popularBox {
+  text-align: left;
+}
+
+.popularBox h3 {
+  margin: 0 0 12px;
+  color: var(--text-muted);
+  font-size: .82rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.gcTopList {
+  display: grid;
+  gap: 7px;
+}
+
+.gcTopItem {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 4px 0;
+  color: var(--text-main);
+}
+
+.gcTopLabel {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gcTopCount {
+  color: var(--accent);
+  font-weight: 900;
+}
+
+.searchHidden {
+  display: none !important;
+}
+
+/* =========================
+   GIOCHI - CARD COME PORTALE
+========================= */
+
+.gamesHubGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 26px;
+  margin-top: 28px;
+}
+
+.gameHubCard {
+  min-height: 205px;
+  background: linear-gradient(180deg, #fff8f2, #fff1e6);
+  border: 1px solid rgba(255,102,0,.2);
+  box-shadow: var(--panel-shadow);
+}
+
+.gameHubCard::before {
+  background: radial-gradient(circle at top right, rgba(255,102,0,.18), transparent 34%);
+}
+
+.gameHubCard:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 18px 40px rgba(255,102,0,.18);
+  border-color: rgba(255,102,0,.35);
+}
+
+.gameHubCard .hubIcon {
+  color: var(--accent);
+  text-shadow: 0 0 12px rgba(255,102,0,.28);
+}
+
+.gameHubCard h3 {
+  color: var(--text-main);
+}
+
+.gameHubCard .hubTag {
+  background: rgba(255,102,0,.1);
+  color: var(--accent);
+  border: 0;
+}
+
+.gameHubCard::after {
+  content: "Gioca";
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: white;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: .74rem;
+  font-weight: 900;
+  box-shadow: 0 8px 18px rgba(255,102,0,.22);
+}
