@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mappa delle risorse | Music Game Hub</title>
+<link rel="stylesheet" href="css/mappa.css">
+</head>
+<body>
+
+<header class="mapHeader">
+  <a class="backLink" href="/MusicGameHub/">← Torna al portale</a>
+  <div class="headerTitle">
+    <h1>Mappa delle risorse</h1>
+    <span>— <strong id="resourceCount">13</strong> risorse attive</span>
+  </div>
+  <div class="headerHint">Filtra · passa col mouse · clicca per dettagli</div>
+</header>
+
+<nav class="toolbar">
+  <div class="filterDock">
+    <button class="filterBtn active" data-filter="all">Tutto</button>
+    <button class="filterBtn" data-filter="theory">📘 Teoria</button>
+    <button class="filterBtn" data-filter="games">🎮 Giochi</button>
+    <button class="filterBtn" data-filter="practice">💡 Allenamento</button>
+    <span class="dockDivider"></span>
+    <button class="filterBtn" data-action="reset">↺ Reset vista</button>
+  </div>
+</nav>
+
+<main>
+  <section class="mapViewport">
+    <div class="mapCanvas" id="mapCanvas">
+
+      <svg class="connectorLayer" viewBox="0 0 1240 720" aria-hidden="true">
+        <path d="M620 150 C620 180 245 180 245 215"></path>
+        <path d="M620 150 C620 180 620 180 620 215"></path>
+        <path d="M620 150 C620 180 995 180 995 215"></path>
+
+        <path class="soft" d="M245 300 C245 325 110 325 110 350"></path>
+        <path class="soft" d="M245 300 C245 325 260 325 260 350"></path>
+        <path class="soft" d="M245 300 C245 325 410 325 410 350"></path>
+        <path class="soft" d="M245 300 C245 480 180 480 180 510"></path>
+        <path class="soft" d="M245 300 C245 480 330 480 330 510"></path>
+
+        <path class="soft" d="M620 300 C620 325 530 325 530 350"></path>
+        <path class="soft" d="M620 300 C620 325 680 325 680 350"></path>
+        <path class="soft" d="M620 300 C620 325 830 325 830 350"></path>
+        <path class="soft" d="M620 300 C620 480 605 480 605 510"></path>
+        <path class="soft" d="M620 300 C620 480 755 480 755 510"></path>
+
+        <path class="soft" d="M995 300 C995 325 960 325 960 350"></path>
+        <path class="soft" d="M995 300 C995 325 1110 325 1110 350"></path>
+        <path class="soft" d="M995 300 C995 480 1035 480 1035 510"></path>
+      </svg>
+
+      <button class="node rootNode" data-root="true">
+        <div class="nodeIcon">🎼</div>
+        <h2>Music Game Hub</h2>
+        <p>homepage</p>
+      </button>
+
+      <button class="node categoryNode cat-theory" data-category-node="theory">
+        <div class="nodeIcon">📘</div><h3>Teoria</h3><p>5 risorse</p>
+      </button>
+      <button class="node categoryNode cat-games" data-category-node="games">
+        <div class="nodeIcon">🎮</div><h3>Giochi</h3><p>5 risorse</p>
+      </button>
+      <button class="node categoryNode cat-practice" data-category-node="practice">
+        <div class="nodeIcon">💡</div><h3>Allenamento</h3><p>3 risorse</p>
+      </button>
+
+      <button id="res-pentagramma" class="node resourceNode featured" data-id="pentagramma" data-type="theory">
+        <span class="featuredRibbon">★ in evidenza</span><span class="badge theory">Teoria</span><div class="resourceIcon">🎼</div><h4>Pentagramma</h4><p>Righe, spazi e tagli</p>
+      </button>
+      <button id="res-chiavi" class="node resourceNode" data-id="chiavi" data-type="theory">
+        <span class="badge theory">Teoria</span><div class="resourceIcon">𝄞</div><h4>Chiavi</h4><p>Sol, Fa e Do</p>
+      </button>
+      <button id="res-note" class="node resourceNode" data-id="note" data-type="theory">
+        <span class="badge theory">Teoria</span><div class="resourceIcon">🎵</div><h4>Note</h4><p>Sul pentagramma</p>
+      </button>
+      <button id="res-figure" class="node resourceNode" data-id="figure" data-type="theory">
+        <span class="badge theory">Teoria</span><div class="resourceIcon">♩</div><h4>Figure</h4><p>Valori ritmici</p>
+      </button>
+      <button id="res-scale" class="node resourceNode" data-id="scale" data-type="theory">
+        <span class="badge theory">Teoria</span><div class="resourceIcon">🎹</div><h4>Scale</h4><p>Toni e tonalità</p>
+      </button>
+
+      <button id="res-pentagramma-game" class="node resourceNode featured" data-id="pentagrammaGame" data-type="games">
+        <span class="featuredRibbon">★ nuovo</span><span class="badge games">Gioco</span><div class="resourceIcon">🎯</div><h4>Orientati</h4><p>Sul pentagramma</p>
+      </button>
+      <button id="res-note-game" class="node resourceNode" data-id="noteGame" data-type="games">
+        <span class="badge games">Gioco</span><div class="resourceIcon">𝄞</div><h4>Impara le Note</h4><p>Violino e basso</p>
+      </button>
+      <button id="res-figures-game" class="node resourceNode" data-id="figuresGame" data-type="games">
+        <span class="badge games">Gioco</span><div class="resourceIcon">♩</div><h4>Figure Musicali</h4><p>Riconoscimento</p>
+      </button>
+      <button id="res-wordle" class="node resourceNode" data-id="wordle" data-type="games">
+        <span class="badge games">Gioco</span><div class="resourceIcon">W</div><h4>Music Wordle</h4><p>Vocabolario</p>
+      </button>
+      <button id="res-guanto" class="node resourceNode" data-id="guanto" data-type="games">
+        <span class="badge games">Gioco</span><div class="resourceIcon">🏆</div><h4>Guanto Sfida</h4><p>Quiz misto</p>
+      </button>
+
+      <button id="res-ritmo" class="node resourceNode featured" data-id="ritmo" data-type="practice">
+        <span class="featuredRibbon">★ utile</span><span class="badge practice">Allenamento</span><div class="resourceIcon">♪</div><h4>Ritmo Challenge</h4><p>Calcolo valori</p>
+      </button>
+      <button id="res-tempi" class="node resourceNode" data-id="tempi" data-type="practice">
+        <span class="badge practice">Teoria</span><div class="resourceIcon">⏱</div><h4>Tempi</h4><p>Metro musicale</p>
+      </button>
+      <button id="res-espressione" class="node resourceNode" data-id="espressione" data-type="practice">
+        <span class="badge practice">Teoria</span><div class="resourceIcon">🎭</div><h4>Espressione</h4><p>Dinamica e agogica</p>
+      </button>
+    </div>
+  </section>
+
+  <section id="mobileList" class="mobileList"></section>
+</main>
+
+<div class="legend">
+  <div><span class="legendDot theory"></span> Teoria</div>
+  <div><span class="legendDot games"></span> Giochi</div>
+  <div><span class="legendDot practice"></span> Allenamento</div>
+  <div><span class="legendDot featured"></span> In evidenza</div>
+</div>
+
+<div class="zoomControls">
+  <button id="zoomIn" type="button">+</button>
+  <button id="zoomOut" type="button">−</button>
+  <button id="zoomReset" type="button">⌂</button>
+</div>
+
+<div class="modalOverlay" id="modalOverlay">
+  <article class="resourceModal">
+    <button class="modalClose" id="modalClose" type="button">×</button>
+    <div class="modalIcon" id="modalIcon"></div>
+    <div class="modalType" id="modalType"></div>
+    <h2 class="modalTitle" id="modalTitle"></h2>
+    <p class="modalDesc" id="modalDesc"></p>
+    <div class="tagList" id="modalTags"></div>
+    <a class="modalAction" id="modalLink" href="#">Apri la risorsa →</a>
+  </article>
+</div>
+
+<script src="js/mappa.js"></script>
+</body>
+</html>

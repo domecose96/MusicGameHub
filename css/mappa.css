@@ -1,0 +1,657 @@
+:root {
+  --accent: #ff6600;
+  --accent-soft: #ff9a3d;
+  --blue: #3d8fc7;
+  --blue-pale: #eef8ff;
+  --green: #2f9562;
+  --green-pale: #eefaf4;
+  --gold: #c58a13;
+  --gold-pale: #fff7dc;
+  --text-main: #333;
+  --text-muted: #6d6d6d;
+  --surface: rgba(255,255,255,.94);
+  --shadow: 0 16px 42px rgba(0,0,0,.10);
+  --shadow-soft: 0 8px 24px rgba(0,0,0,.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--text-main);
+  background:
+    radial-gradient(circle at top center, rgba(255,102,0,.10), transparent 32%),
+    linear-gradient(180deg, #fff 0%, #fff8f1 48%, #fff 100%);
+  overflow-x: hidden;
+}
+
+/* ==================== HEADER ==================== */
+
+.mapHeader {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px clamp(14px, 3vw, 28px);
+  background: rgba(255,255,255,.92);
+  border-bottom: 1px solid rgba(255,102,0,.16);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 24px rgba(0,0,0,.04);
+}
+
+.backLink {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: .92rem;
+  white-space: nowrap;
+}
+
+.backLink:hover {
+  color: var(--accent);
+}
+
+.headerTitle {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.headerTitle h1 {
+  margin: 0;
+  color: var(--accent);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  text-shadow: 0 0 10px rgba(255,102,0,.22);
+}
+
+.headerTitle span,
+.headerHint {
+  color: var(--text-muted);
+  font-size: .88rem;
+  white-space: nowrap;
+}
+
+.headerHint {
+  font-size: .82rem;
+}
+
+/* ==================== FILTRI ==================== */
+
+.toolbar {
+  position: sticky;
+  top: 64px;
+  z-index: 18;
+  display: flex;
+  justify-content: center;
+  padding: 14px 14px 6px;
+  pointer-events: none;
+}
+
+.filterDock {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,.94);
+  border: 1px solid rgba(255,102,0,.14);
+  border-radius: 999px;
+  padding: 8px;
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(10px);
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.filterBtn {
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 16px;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-weight: 900;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .2s ease, color .2s ease, transform .2s ease;
+}
+
+.filterBtn:hover {
+  color: var(--accent);
+  background: rgba(255,102,0,.08);
+}
+
+.filterBtn.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: white;
+  box-shadow: 0 8px 18px rgba(255,102,0,.24);
+}
+
+.dockDivider {
+  width: 1px;
+  height: 24px;
+  background: rgba(0,0,0,.08);
+  margin: 0 4px;
+}
+
+/* ==================== MAPPA ==================== */
+
+.mapViewport {
+  position: relative;
+  min-height: calc(100vh - 135px);
+  padding: 30px 24px 70px;
+  overflow: hidden;
+}
+
+.mapCanvas {
+  position: relative;
+  width: 1320px;
+  height: 740px;
+  margin: 0 auto;
+  transform-origin: top center;
+  transition: transform .25s ease;
+}
+
+.connectorLayer {
+  position: absolute;
+  inset: 0;
+  width: 1320px;
+  height: 740px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.connectorLayer path {
+  fill: none;
+  stroke: rgba(255,102,0,.20);
+  stroke-width: 2;
+}
+
+.connectorLayer path.soft {
+  stroke: rgba(0,0,0,.10);
+  stroke-dasharray: 5 6;
+}
+
+/* ==================== NODI ==================== */
+
+.node {
+  position: absolute;
+  z-index: 2;
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(0,0,0,.06);
+  text-align: center;
+  user-select: none;
+  cursor: pointer;
+  transition:
+    transform .22s ease,
+    box-shadow .22s ease,
+    border-color .22s ease,
+    opacity .22s ease,
+    filter .22s ease;
+  font-family: inherit;
+}
+
+.node:hover,
+.node:focus-visible {
+  transform: translateY(-4px) scale(1.035);
+  box-shadow: 0 18px 36px rgba(0,0,0,.14);
+  border-color: rgba(255,102,0,.35);
+  outline: 0;
+}
+
+.node.dimmed {
+  opacity: .18;
+  filter: grayscale(.4);
+  pointer-events: none;
+}
+
+/* ==================== HUB ==================== */
+
+.rootNode {
+  left: 577px;
+  top: 30px;
+  width: 166px;
+  min-height: 118px;
+  padding: 19px 16px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: white;
+  border: 0;
+  box-shadow: 0 16px 38px rgba(255,102,0,.28);
+}
+
+.rootNode .nodeIcon {
+  font-size: 1.8rem;
+  margin-bottom: 6px;
+}
+
+.rootNode h2 {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.08;
+}
+
+.rootNode p {
+  margin: 6px 0 0;
+  font-size: .78rem;
+  opacity: .9;
+}
+
+/* ==================== CATEGORIE ==================== */
+
+.categoryNode {
+  width: 260px;
+  min-height: 90px;
+  padding: 15px 18px;
+  border-width: 2px;
+}
+
+.categoryNode .nodeIcon {
+  font-size: 1.55rem;
+  margin-bottom: 4px;
+}
+
+.categoryNode h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.categoryNode p {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+  font-size: .8rem;
+}
+
+.cat-theory {
+  left: 130px;
+  top: 220px;
+  background: var(--blue-pale);
+  border-color: rgba(61,143,199,.42);
+}
+
+.cat-games {
+  left: 530px;
+  top: 220px;
+  background: var(--green-pale);
+  border-color: rgba(47,149,98,.42);
+}
+
+.cat-practice {
+  left: 930px;
+  top: 220px;
+  background: var(--gold-pale);
+  border-color: rgba(197,138,19,.42);
+}
+
+/* ==================== CARD RISORSE ==================== */
+
+.resourceNode {
+  width: 132px;
+  min-height: 112px;
+  padding: 14px 10px 12px;
+  border-radius: 14px;
+}
+
+.resourceNode.featured {
+  border-color: rgba(255,102,0,.55);
+  box-shadow: 0 14px 34px rgba(255,102,0,.18);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 20px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: .62rem;
+  text-transform: uppercase;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+.badge.theory {
+  background: rgba(61,143,199,.12);
+  color: var(--blue);
+}
+
+.badge.games {
+  background: rgba(47,149,98,.12);
+  color: var(--green);
+}
+
+.badge.practice {
+  background: rgba(197,138,19,.14);
+  color: var(--gold);
+}
+
+.featuredRibbon {
+  position: absolute;
+  left: 10px;
+  top: -13px;
+  background: var(--accent);
+  color: white;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: .64rem;
+  font-weight: 900;
+  box-shadow: 0 6px 16px rgba(255,102,0,.28);
+}
+
+.resourceIcon {
+  font-size: 1.35rem;
+  line-height: 1;
+  margin: 1px 0 7px;
+}
+
+.resourceNode h4 {
+  margin: 0;
+  font-size: .86rem;
+  line-height: 1.18;
+}
+
+.resourceNode p {
+  margin: 5px 0 0;
+  color: var(--text-muted);
+  font-size: .72rem;
+  line-height: 1.2;
+}
+
+/* ==================== TOOLTIP NERO ==================== */
+
+.resourceNode::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%) translateY(6px);
+  background: rgba(28,28,28,.96);
+  color: white;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: .78rem;
+  font-family: system-ui, sans-serif;
+  line-height: 1.25;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+  z-index: 50;
+  box-shadow: 0 8px 20px rgba(0,0,0,.22);
+}
+
+.resourceNode:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ==================== POSIZIONI CORRETTE ==================== */
+
+#res-pentagramma { left: 40px; top: 370px; }
+#res-chiavi { left: 190px; top: 370px; }
+#res-note { left: 340px; top: 370px; }
+
+#res-figure { left: 115px; top: 535px; }
+#res-scale { left: 265px; top: 535px; }
+
+#res-pentagramma-game { left: 520px; top: 370px; }
+#res-note-game { left: 670px; top: 370px; }
+#res-figures-game { left: 820px; top: 370px; }
+
+#res-wordle { left: 595px; top: 535px; }
+#res-guanto { left: 745px; top: 535px; }
+
+#res-ritmo { left: 1000px; top: 370px; }
+#res-tempi { left: 1150px; top: 370px; }
+#res-espressione { left: 1075px; top: 535px; }
+
+/* ==================== LEGENDA ==================== */
+
+.legend {
+  position: fixed;
+  left: 22px;
+  bottom: 22px;
+  z-index: 15;
+  background: rgba(255,255,255,.92);
+  border: 1px solid rgba(255,102,0,.14);
+  border-radius: 14px;
+  box-shadow: var(--shadow-soft);
+  padding: 13px 15px;
+  display: grid;
+  gap: 9px;
+  color: var(--text-muted);
+  font-size: .82rem;
+  backdrop-filter: blur(10px);
+}
+
+.legend div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.legendDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.legendDot.theory { background: var(--blue); }
+.legendDot.games { background: var(--green); }
+.legendDot.practice { background: var(--gold); }
+.legendDot.featured { background: var(--accent); }
+
+/* ==================== ZOOM ==================== */
+
+.zoomControls {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 15;
+  display: grid;
+  gap: 10px;
+}
+
+.zoomControls button {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255,102,0,.14);
+  border-radius: 12px;
+  background: rgba(255,255,255,.94);
+  color: var(--accent);
+  font-size: 1.2rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: var(--shadow-soft);
+}
+
+/* ==================== MODALE ==================== */
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(0,0,0,.18);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+}
+
+.modalOverlay.show {
+  display: flex;
+}
+
+.resourceModal {
+  width: min(520px, 100%);
+  background: rgba(255,255,255,.98);
+  border: 1px solid rgba(255,102,0,.16);
+  border-radius: 22px;
+  box-shadow: 0 22px 70px rgba(0,0,0,.20);
+  padding: 28px;
+  position: relative;
+  animation: modalIn .22s ease both;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modalClose {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  border: 0;
+  background: rgba(0,0,0,.05);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 1.15rem;
+}
+
+.modalIcon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.modalType {
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--accent);
+  font-size: .78rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.modalTitle {
+  margin: 0 0 8px;
+  font-size: clamp(1.35rem, 5vw, 1.7rem);
+}
+
+.modalDesc {
+  margin: 0 0 14px;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.tagList {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 16px 0 20px;
+}
+
+.tag {
+  background: rgba(255,102,0,.08);
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 6px 9px;
+  font-size: .78rem;
+  font-weight: 800;
+}
+
+.modalAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 170px;
+  padding: 13px 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: white;
+  text-decoration: none;
+  font-weight: 900;
+  box-shadow: 0 8px 18px rgba(255,102,0,.24);
+}
+
+/* ==================== MOBILE ==================== */
+
+.mobileList {
+  display: none;
+  padding: 18px;
+}
+
+.mobileGroup {
+  margin-bottom: 20px;
+}
+
+.mobileGroup h2 {
+  color: var(--accent);
+  font-size: 1.25rem;
+  margin: 0 0 12px;
+}
+
+.mobileCard {
+  background: var(--surface);
+  border: 1px solid rgba(255,102,0,.12);
+  border-radius: 18px;
+  padding: 15px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+}
+
+.mobileCard h3 {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+}
+
+.mobileCard p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: .92rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 860px) {
+  .headerHint,
+  .headerTitle span {
+    display: none;
+  }
+
+  .mapHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .toolbar {
+    top: auto;
+    position: relative;
+    padding-top: 10px;
+  }
+
+  .mapViewport,
+  .legend,
+  .zoomControls {
+    display: none;
+  }
+
+  .mobileList {
+    display: block;
+  }
+
+  .filterDock {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
