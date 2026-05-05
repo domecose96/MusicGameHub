@@ -35,13 +35,23 @@
       Intanto… salta le note!
     </p>
 
-    <!-- MINI GAME -->
-    <div class="gameBox">
-      <canvas id="gameCanvas" width="500" height="160"></canvas>
-      <p class="gameHint">Tocca o premi spazio per saltare</p>
+    <!-- GAME -->
+    <div class="miniGameBox">
+      <div class="gameHeader">
+        <h2>Corsa sul pentagramma</h2>
+        <div class="gameScore">
+          Punteggio: <span id="runnerScore">0</span>
+        </div>
+      </div>
+
+      <canvas id="staffRunnerCanvas" width="560" height="190"></canvas>
+
+      <p class="gameHint">
+        Tocca o premi spazio per saltare
+      </p>
     </div>
 
-    <!-- BOTTONI -->
+    <!-- BUTTONS -->
     <div class="errorActions">
       <a href="/MusicGameHub/" class="menuButton">← Home</a>
       <a href="/MusicGameHub/mappa.html" class="menuButton secondary">🗺️ Mappa</a>
