@@ -34,21 +34,14 @@ function getDifficultyLabel(){
 }
 
 function updateHeaderModeLabel(label = ""){
-  if(!headerModeLabel) return;
-
-  headerModeLabel.textContent = label;
-  headerModeLabel.classList.toggle("hidden", !label);
+  MGH.updateHeaderModeLabel(label);
 }
 
 function setDifficulty(level, button) {
   difficulty = level;
   warning.textContent = "";
 
-  document.querySelectorAll("#menu .menuButton").forEach(btn => {
-    btn.classList.remove("selected");
-  });
-
-  button.classList.add("selected");
+  MGH.selectExclusive("#menu .menuButton", button);
 }
 
 function startGame() {
@@ -165,12 +158,4 @@ function goBack() {
   currentTotal = 0;
 
   updateHeaderModeLabel("");
-}
-
-function goHome() {
-  document.getElementById("homeBtn").classList.add("selected");
-
-  setTimeout(() => {
-    window.location.href = "index.html";
-  }, 150);
 }

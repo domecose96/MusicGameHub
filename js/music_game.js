@@ -22,10 +22,7 @@ buttonNames.forEach(name=>{
 
 /* ==================== FUNZIONI MENU ==================== */
 function selectButton(groupClass, element){
-  document.querySelectorAll(groupClass).forEach(btn=>{
-    btn.classList.remove("selected");
-  });
-  element.classList.add("selected");
+  MGH.selectExclusive(groupClass, element);
 }
 
 function setDifficulty(level, el){
@@ -183,15 +180,4 @@ function resetButtons(){
 
 function setFeedback(message){
   if(feedbackEl) feedbackEl.textContent = message;
-}
-
-function goHome() {
-  // Colora il bottone come selezionato
-  const btn = document.getElementById("homeBtn");
-  btn.classList.add("selected");
-
-  // Torna alla home dopo breve delay per mostrare l'effetto
-  setTimeout(() => {
-    window.location.href = "index.html"; // sostituisci con il tuo file home
-  }, 150);
 }

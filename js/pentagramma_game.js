@@ -48,18 +48,12 @@ function getDifficultyLabel(){
 }
 
 function updateHeaderModeLabel(label = ""){
-  if(!headerModeLabel) return;
-
-  headerModeLabel.textContent = label;
-  headerModeLabel.classList.toggle("hidden", !label);
+  MGH.updateHeaderModeLabel(label);
 }
 
 /* ==================== MENU ==================== */
 function selectButton(groupClass, element){
-  document.querySelectorAll(groupClass).forEach(btn=>{
-    btn.classList.remove("selected");
-  });
-  element.classList.add("selected");
+  MGH.selectExclusive(groupClass, element);
 }
 
 function setDifficulty(level, el){
@@ -203,14 +197,4 @@ function stopTimer(){
 /* ==================== RESET ==================== */
 function clearBoard(){
   answerNote.setAttribute("opacity", 0);
-}
-
-/* ==================== HOME ==================== */
-function goHome(){
-  const btn = document.getElementById("homeBtn");
-  btn.classList.add("selected");
-
-  setTimeout(()=>{
-    window.location.href = "index.html";
-  },150);
 }

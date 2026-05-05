@@ -31,16 +31,12 @@ function getModeLabel(){
 }
 
 function updateHeaderModeLabel(label = ""){
-  if(!headerModeLabel) return;
-
-  headerModeLabel.textContent = label;
-  headerModeLabel.classList.toggle("hidden", !label);
+  MGH.updateHeaderModeLabel(label);
 }
 
 // ==================== SELEZIONE NUMERO DOMANDE ====================
 function selectNum(btn,num){
-  document.querySelectorAll(".menuButton").forEach(b=>b.classList.remove("selected"));
-  btn.classList.add("selected");
+  MGH.selectExclusive("#config .menuButton", btn);
   numQuestions = num;
 }
 
@@ -292,18 +288,15 @@ function loadLeaderboard(mode, elementId, numQ){
   board.slice(0,5).forEach((e,i)=>{
     const row = document.createElement("div");
     row.className = "recordRow bestEver";
-    row.innerHTML = `<strong>${i+1}. ${e.name}</strong><br>${e.score} pts — Err: ${e.errors} — ${e.time}s`;
+
+    const name = document.createElement("strong");
+    name.textContent = `${i+1}. ${e.name}`;
+
+    const details = document.createTextNode(`${e.score} pts — Err: ${e.errors} — ${e.time}s`);
+
+    row.append(name, document.createElement("br"), details);
     container.appendChild(row);
   });
-}
-
-// ==================== HOME ====================
-function goHome(){
-  document.getElementById("homeBtn").classList.add("selected");
-
-  setTimeout(()=>{
-    window.location.href="index.html";
-  },150);
 }
 
 function goBack(){

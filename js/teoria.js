@@ -1,51 +1,6 @@
-function goHome() {
-  const btn = document.getElementById("homeBtn");
-  if (btn) btn.classList.add("selected");
-  setTimeout(() => {
-    window.location.href = "index.html";
-  }, 150);
-}
-
-function goTo(page) {
-  window.location.href = page;
-}
-
-function scrollToSection(id) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--header-height")) || 112;
-  const navH = document.getElementById("siteNav")?.offsetHeight || 48;
-  const top = el.getBoundingClientRect().top + window.scrollY - headerH - navH - 10;
-
-  document.querySelectorAll(".navBtn").forEach(btn => btn.classList.remove("active"));
-  document.querySelector(`.navBtn[onclick="scrollToSection('${id}')"]`)?.classList.add("active");
-  window.scrollTo({ top, behavior: "smooth" });
-}
-
-window.goHome = goHome;
-window.goTo = goTo;
-window.scrollToSection = scrollToSection;
-
 // Detecta quale sezione è visibile durante lo scroll
 function detectActiveSection() {
-  const sections = document.querySelectorAll('.siteSection');
-  let currentSection = null;
-  
-  sections.forEach(section => {
-    const rect = section.getBoundingClientRect();
-    // Se la sezione è nel viewport superiore, è quella attiva
-    if (rect.top < window.innerHeight / 3) {
-      currentSection = section.id;
-    }
-  });
-  
-  if (currentSection) {
-    const btn = document.querySelector(`.navBtn[onclick="scrollToSection('${currentSection}')"]`);
-    if (btn) {
-      document.querySelectorAll(".navBtn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-    }
-  }
+  MGH.detectActiveSection(".siteSection");
 }
 
 // Listener per lo scroll

@@ -87,6 +87,16 @@ body {
   color: var(--text-muted);
 }
 
+.headerModeLabel {
+  display: block;
+  margin-top: 4px;
+  color: #777777;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .pageTitle {
   margin: 0;
   font-size: clamp(2rem, 4vw, 3.2rem);
@@ -316,6 +326,11 @@ button:focus {
   display: none;
 }
 
+.headerModeLabel.hidden {
+  display: block;
+  visibility: hidden;
+}
+
 .actionRow {
   margin-top: 15px;
 }
@@ -437,4 +452,37 @@ button:focus {
   white-space: normal;
   line-height: 1.2;
   text-align: center;
+}
+
+/* ==================== GAME PAGES NO SCROLL ==================== */
+
+body.wordlePage,
+body.gamePage,
+body.figuresGamePage,
+body.ritmoPage,
+body.pentagrammaGamePage,
+body.guantoPage {
+  height: 100vh;
+  overflow: hidden;
+}
+
+body.wordlePage #contentWrapper,
+body.gamePage #contentWrapper,
+body.figuresGamePage #contentWrapper,
+body.ritmoPage #contentWrapper,
+body.pentagrammaGamePage #contentWrapper,
+body.guantoPage #contentWrapper {
+  height: calc(100vh - var(--header-height));
+  overflow: hidden;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+body.wordlePage main,
+body.gamePage main,
+body.figuresGamePage main,
+body.ritmoPage main,
+body.pentagrammaGamePage main,
+body.guantoPage main {
+  overflow: hidden;
 }

@@ -19,20 +19,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateHeaderModeLabel(label = ""){
-    if(!headerModeLabel) return;
-
-    headerModeLabel.textContent = label;
-    headerModeLabel.classList.toggle("hidden", !label);
+    MGH.updateHeaderModeLabel(label);
   }
 
   /* ==================== MENU ==================== */
   window.setMode = function(selectedMode, el){
     mode = selectedMode;
 
-    document.querySelectorAll("#menu .buttonGroup button")
-      .forEach(btn => btn.classList.remove("selected"));
-
-    el.classList.add("selected");
+    MGH.selectExclusive("#menu .buttonGroup button", el);
   };
 
   /* ==================== INIZIO GIOCO ==================== */
@@ -183,13 +177,3 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
-
-/* ==================== HOME ==================== */
-function goHome() {
-  const btn = document.getElementById("homeBtn");
-  btn.classList.add("selected");
-
-  setTimeout(() => {
-    window.location.href = "index.html";
-  }, 150);
-}

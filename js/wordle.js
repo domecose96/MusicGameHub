@@ -16,6 +16,7 @@ const maxRows = 6;
 const dailyMode = "daily";
 const statsStorageKey = "musicWordleStatsV3";
 const dailyStorageKey = "musicWordleDailyV3";
+const settingsStorageKey = "musicWordleSettings";
 const validWords = new Set(words.map(word => normalizeWord(word)));
 
 let secret = "";
@@ -74,31 +75,13 @@ function getModeLabel(selectedMode = activeMode){
 }
 
 function updateHeaderModeLabel(){
-  if(!headerModeLabel) return;
-
-  const label = getModeLabel();
-  headerModeLabel.textContent = label;
-  headerModeLabel.classList.toggle("hidden", !label);
-}
-
-// ==================== NAVIGAZIONE ====================
-function goHome(){
-  document.getElementById("homeBtn")?.classList.add("selected");
-  setTimeout(() => {
-    window.location.href = "index.html";
-  }, 150);
+  MGH.updateHeaderModeLabel(getModeLabel());
 }
 
 // ==================== MODALITÀ ====================
 function selectMode(button, selectedMode){
   mode = selectedMode;
-  document.querySelectorAll("#config .buttonGroup .menuButton").forEach(btn =>
-    btn.classList.remove("selected")
-  );
-
-  if(button){
-    button.classList.add("selected");
-  }
+  MGH.selectExclusive("#config .buttonGroup .menuButton", button);
 
   // La scritta sotto Music Wordle cambia solo dopo Start.
   showMessage("");
@@ -116,12 +99,20 @@ function startDailyRound(){
   resetBoardOnly();
 
   const dailyState = getDailyState();
-  if(dailyState && dailyState.date === getTodayKey() && dailyState.finished){
+
+  if(dailyState && dailyState.date === getTodayKey()){
     restoreDailyBoard(dailyState);
-    showMessage("Hai già giocato la parola del giorno.", 2600);
-    roundLocked = true;
-    gameFinished = true;
-    setTimeout(() => showStatsModal(false), 450);
+
+    if(dailyState.finished){
+      showMessage("Hai già giocato la parola del giorno.", 2600);
+      roundLocked = true;
+      gameFinished = true;
+      setTimeout(() => showStatsModal(false), 450);
+    } else {
+      showMessage("Partita del giorno ripristinata.", 1800);
+      roundLocked = false;
+      gameFinished = false;
+    }
   }
 }
 
@@ -147,11 +138,16 @@ function saveDailyState(finished){
     .slice(0, maxRows * wordLength)
     .reduce((rows, cell, index) => {
       const rowIndex = Math.floor(index / wordLength);
+
       if(!rows[rowIndex]) rows[rowIndex] = [];
+
       rows[rowIndex].push({
         text: cell.textContent,
-        classes: Array.from(cell.classList).filter(cls => ["correct","present","wrong"].includes(cls))
+        classes: Array.from(cell.classList).filter(cls =>
+          ["correct","present","wrong"].includes(cls)
+        )
       });
+
       return rows;
     }, []);
 
@@ -160,6 +156,7 @@ function saveDailyState(finished){
     secret,
     wordLength,
     currentRow,
+    currentGuess,
     finished,
     guesses,
     lastResult
@@ -167,22 +164,29 @@ function saveDailyState(finished){
 }
 
 function restoreDailyBoard(state){
-  if(!state.guesses) return;
+  if(!state || !state.guesses) return;
 
   const cells = document.querySelectorAll(".cell");
+
   state.guesses.forEach((row, rowIndex) => {
     row.forEach((savedCell, colIndex) => {
       const cell = cells[rowIndex * wordLength + colIndex];
       if(!cell) return;
+
       cell.textContent = savedCell.text || "";
-      savedCell.classes.forEach(cls => cell.classList.add(cls));
+
+      savedCell.classes.forEach(cls => {
+        cell.classList.add(cls);
+      });
+
       if(savedCell.text && savedCell.classes[0]){
         updateKeyboardKey(savedCell.text, savedCell.classes[0]);
       }
     });
   });
 
-  currentRow = state.currentRow || 0;
+  currentRow = Number(state.currentRow || 0);
+  currentGuess = state.currentGuess || "";
   lastResult = state.lastResult || null;
 }
 
@@ -209,6 +213,63 @@ function startGame(){
   pickRandomWord();
   showGame(getModeLabel());
   resetBoardOnly();
+}
+
+// ==================== IMPOSTAZIONI ====================
+function getSettings() {
+  try {
+    return Object.assign(
+      { hardMode: false, darkMode: false, highContrast: false },
+      JSON.parse(localStorage.getItem(settingsStorageKey)) || {}
+    );
+  } catch(error) {
+    return { hardMode: false, darkMode: false, highContrast: false };
+  }
+}
+
+function saveSettingsToStorage(settings) {
+  localStorage.setItem(settingsStorageKey, JSON.stringify(settings));
+}
+
+function syncSettingsInputs(settings) {
+  const hardEl = document.getElementById("settingHardMode");
+  const darkEl = document.getElementById("settingDarkMode");
+  const contrastEl = document.getElementById("settingHighContrast");
+
+  if(hardEl) hardEl.checked = settings.hardMode;
+  if(darkEl) darkEl.checked = settings.darkMode;
+  if(contrastEl) contrastEl.checked = settings.highContrast;
+}
+
+function applySettingsClasses(settings) {
+  document.body.classList.toggle("darkMode", settings.darkMode);
+  document.body.classList.toggle("highContrast", settings.highContrast);
+}
+
+function applySettings() {
+  const settings = {
+    hardMode: document.getElementById("settingHardMode")?.checked || false,
+    darkMode: document.getElementById("settingDarkMode")?.checked || false,
+    highContrast: document.getElementById("settingHighContrast")?.checked || false
+  };
+
+  saveSettingsToStorage(settings);
+  applySettingsClasses(settings);
+}
+
+function loadAndApplySettings() {
+  const settings = getSettings();
+  syncSettingsInputs(settings);
+  applySettingsClasses(settings);
+}
+
+function showSettingsModal() {
+  loadAndApplySettings();
+  document.getElementById("settingsModal")?.classList.remove("hidden");
+}
+
+function closeSettingsModal() {
+  document.getElementById("settingsModal")?.classList.add("hidden");
 }
 
 function showGame(label){
@@ -313,6 +374,7 @@ function addLetter(letter){
   if(currentGuess.length < wordLength){
     currentGuess += letter;
     updateGrid();
+    saveDailyState(false);
   }
 }
 
@@ -320,6 +382,7 @@ function removeLetter(){
   if(roundLocked || gameFinished) return;
   currentGuess = currentGuess.slice(0, -1);
   updateGrid();
+  saveDailyState(false);
 }
 
 function updateGrid(){
@@ -354,6 +417,13 @@ function submitGuess(){
     return;
   }
 
+  const hardModeError = getHardModeError();
+  if(hardModeError){
+    showMessage(hardModeError, 2400);
+    shakeCurrentRow();
+    return;
+  }
+
   roundLocked = true;
   showMessage("");
 
@@ -363,6 +433,31 @@ function submitGuess(){
   revealGuess(guessToReveal, result, () => {
     finishTurn(guessToReveal, result);
   });
+}
+
+function getHardModeError() {
+  const settings = getSettings();
+  if(!settings.hardMode || currentRow === 0) return null;
+
+  const cells = document.querySelectorAll(".cell");
+
+  for(let row = 0; row < currentRow; row++){
+    for(let col = 0; col < wordLength; col++){
+      const cell = cells[row * wordLength + col];
+      const letter = cell?.textContent.trim().toUpperCase();
+      if(!letter) continue;
+
+      if(cell.classList.contains("correct") && currentGuess[col] !== letter){
+        return `La posizione ${col + 1} deve essere ${letter}`;
+      }
+
+      if(cell.classList.contains("present") && !currentGuess.includes(letter)){
+        return `Il tentativo deve contenere ${letter}`;
+      }
+    }
+  }
+
+  return null;
 }
 
 // ==================== CONTROLLO RISULTATO ====================
@@ -713,11 +808,20 @@ function resetGame(){
 
 // ==================== INIT ====================
 createKeyboard(); // opzionale: tastiera visibile anche prima
+loadAndApplySettings();
 
 document.addEventListener("keydown", e => {
+  if(e.key === "Escape"){
+    closeHelpModal();
+    closeStatsModal();
+    closeSettingsModal();
+    return;
+  }
+
   if(game.classList.contains("hidden")) return;
   if(!document.getElementById("helpModal")?.classList.contains("hidden")) return;
   if(!document.getElementById("statsModal")?.classList.contains("hidden")) return;
+  if(!document.getElementById("settingsModal")?.classList.contains("hidden")) return;
 
   const key = e.key.toUpperCase();
 

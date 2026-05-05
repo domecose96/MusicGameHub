@@ -525,17 +525,6 @@
   cursor: not-allowed;
 }
 
-/* ==================== SOTTOTITOLO MODALITÃ€ HEADER ==================== */
-.headerModeLabel {
-  display: block;
-  margin-top: 4px;
-  color: #777;
-  font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 /* ==================== MOBILE ==================== */
 @media (max-width: 768px) {
   .cell {

@@ -155,22 +155,20 @@ function renderMobileList(){
       .forEach(([id,item])=>{
         const card=document.createElement("article");
         card.className="mobileCard";
-        card.innerHTML=`<h3>${item.icon} ${item.title}</h3><p>${item.desc}</p>`;
+
+        const cardTitle=document.createElement("h3");
+        cardTitle.textContent=`${item.icon} ${item.title}`;
+
+        const cardDesc=document.createElement("p");
+        cardDesc.textContent=item.desc;
+
+        card.append(cardTitle,cardDesc);
         card.addEventListener("click",()=>openModal(id));
         wrapper.appendChild(card);
       });
 
     mobileList.appendChild(wrapper);
   });
-}
-
-function goHome(){
-  const btn=document.getElementById("homeBtn");
-  if(btn)btn.classList.add("selected");
-
-  setTimeout(()=>{
-    window.location.href="index.html";
-  },150);
 }
 
 renderMobileList();
