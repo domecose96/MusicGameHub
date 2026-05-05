@@ -1,56 +1,57 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>404 — Pagina non trovata | Music Game Hub</title>
-  <meta name="robots" content="noindex, follow">
+<title>404 — Pagina non trovata | Music Game Hub</title>
+<meta name="robots" content="noindex, follow">
 
-  <!-- CSS esterno -->
-  <link rel="stylesheet" href="css/404.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/404.css">
 </head>
 
-<body>
+<body class="errorPage">
 
-  <!-- HEADER -->
-  <header class="appHeader">
-    <span class="headerEyebrow">Hub musicale</span>
-    <h1 class="pageTitle">Music Game Hub</h1>
-  </header>
+<header class="appHeader appHeader--home">
+  <div class="appHeaderInner">
+    <div class="headerBrand">
+      <span class="headerEyebrow">Hub musicale</span>
+      <h1 class="pageTitle">Music Game Hub</h1>
+    </div>
+  </div>
+</header>
 
-  <!-- MAIN -->
-  <main class="errorMain">
-    <section class="errorBox">
+<main class="errorMain">
 
-      <div style="font-size:3rem;">🎼</div>
+  <section class="errorBox">
 
-      <div class="errorCode">404</div>
+    <div class="errorCode">404</div>
 
-      <h1 class="errorTitle">Pagina fuori pentagramma</h1>
+    <h2 class="errorTitle">Pagina fuori pentagramma</h2>
 
-      <p class="errorDesc">
-        Il link che hai seguito potrebbe essere sbagliato oppure la pagina è stata spostata.
-      </p>
+    <p class="errorDesc">
+      Il link potrebbe essere sbagliato oppure la pagina è stata spostata.
+      Intanto… salta le note!
+    </p>
 
-      <!-- BOTTONI -->
-      <div class="errorActions">
-        <a href="/MusicGameHub/" class="menuButton">
-          ← Torna alla home
-        </a>
+    <!-- MINI GAME -->
+    <div class="gameBox">
+      <canvas id="gameCanvas" width="500" height="160"></canvas>
+      <p class="gameHint">Tocca o premi spazio per saltare</p>
+    </div>
 
-        <a href="/MusicGameHub/mappa.html" class="menuButton secondary">
-          🗺️ Vedi la mappa
-        </a>
-      </div>
+    <!-- BOTTONI -->
+    <div class="errorActions">
+      <a href="/MusicGameHub/" class="menuButton">← Home</a>
+      <a href="/MusicGameHub/mappa.html" class="menuButton secondary">🗺️ Mappa</a>
+    </div>
 
-    </section>
-  </main>
+  </section>
 
-  <!-- FOOTER -->
-  <footer class="errorFooter">
-    <strong>Music Game Hub</strong> — Impara la teoria musicale giocando.
-  </footer>
+</main>
+
+<script src="js/404.js"></script>
 
 </body>
 </html>

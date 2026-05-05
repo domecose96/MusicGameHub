@@ -9,68 +9,86 @@
   --shadow:0 18px 45px rgba(0,0,0,.11)
 }
 
-html,body{
+html,
+body{
   margin:0;
-  min-height:100%;
+  width:100%;
+  height:100%;
+  overflow:hidden;
   font-family:Georgia,"Times New Roman",serif;
   color:var(--text-main);
   background:
     radial-gradient(circle at top center,rgba(255,102,0,.12),transparent 34%),
-    linear-gradient(180deg,#fff 0%,#fff7f0 52%,#fff 100%)
+    linear-gradient(180deg,#fff 0%,#fff7f0 52%,#fff 100%);
 }
 
+body.errorPage{
+  padding-top:0;
+  min-height:100vh;
+}
+
+/* HEADER */
 .appHeader{
+  height:112px;
   background:rgba(255,255,255,.92);
   border-bottom:1px solid rgba(255,102,0,.16);
-  padding:26px 22px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   text-align:center;
-  box-shadow:0 4px 24px rgba(0,0,0,.035)
+  box-shadow:0 4px 24px rgba(0,0,0,.035);
 }
 
 .headerEyebrow{
   display:block;
   color:var(--text-muted);
-  font-size:clamp(.78rem,2.5vw,.95rem);
+  font-size:clamp(.72rem,2.4vw,.9rem);
   letter-spacing:.14em;
   text-transform:uppercase;
   font-weight:800;
-  margin-bottom:6px
+  margin-bottom:4px;
 }
 
 .pageTitle{
   color:var(--accent);
-  font-size:clamp(2.3rem,9vw,4.2rem);
+  font-size:clamp(2rem,6vw,3.4rem);
   line-height:1;
   margin:0;
   font-weight:900;
-  text-shadow:0 0 14px rgba(255,102,0,.38)
+  text-shadow:0 0 14px rgba(255,102,0,.38);
 }
 
+/* MAIN */
 .errorMain{
-  min-height:calc(100vh - 150px);
+  height:calc(100vh - 112px);
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:42px 18px 32px
+  padding:12px 16px;
 }
 
 .errorBox{
-  width:min(720px,100%);
+  width:min(680px,100%);
+  max-height:calc(100vh - 136px);
   text-align:center;
   background:var(--surface);
-  border-radius:30px;
+  border-radius:28px;
   box-shadow:var(--shadow);
-  padding:clamp(24px,5vw,40px)
+  padding:clamp(16px,3.4vh,26px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
 }
 
 .errorCode{
   position:relative;
   display:inline-block;
-  font-size:clamp(5rem,22vw,8.6rem);
-  line-height:.9;
+  font-size:clamp(3.8rem,12vh,6.2rem);
+  line-height:.85;
   font-weight:900;
   color:rgba(255,102,0,.17);
-  letter-spacing:-.05em
+  letter-spacing:-.05em;
 }
 
 .errorCode::after{
@@ -78,64 +96,207 @@ html,body{
   position:absolute;
   inset:0;
   color:var(--accent);
-  clip-path:inset(0 0 44% 0)
+  clip-path:inset(0 0 44% 0);
 }
 
 .errorTitle{
-  font-size:clamp(1.8rem,7vw,2.65rem);
+  font-size:clamp(1.35rem,4vh,2rem);
   line-height:1.1;
-  margin:18px 0 12px
+  margin:10px 0 8px;
+  color:var(--text-main);
 }
 
 .errorDesc{
-  max-width:500px;
-  margin:0 auto 26px;
+  max-width:520px;
+  margin:0 auto 12px;
   color:var(--text-muted);
-  line-height:1.62;
-  font-size:clamp(1rem,3.7vw,1.16rem)
+  line-height:1.45;
+  font-size:clamp(.9rem,2.4vh,1.05rem);
 }
 
+/* MINI GAME */
+.miniGameBox{
+  width:min(560px,100%);
+  margin:8px auto 10px;
+  border:1px solid rgba(255,102,0,.18);
+  background:linear-gradient(180deg,rgba(255,102,0,.045),rgba(255,255,255,.82));
+  border-radius:20px;
+  padding:10px;
+  box-shadow:0 12px 32px rgba(255,102,0,.10);
+}
+
+.gameHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:6px;
+}
+
+.gameHeader h2{
+  margin:0;
+  color:var(--accent);
+  font-size:clamp(.95rem,2.6vh,1.15rem);
+}
+
+.gameScore{
+  color:var(--text-muted);
+  font-size:.86rem;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+#staffRunnerCanvas{
+  display:block;
+  width:100%;
+  height:auto;
+  max-height:150px;
+  border-radius:16px;
+  background:linear-gradient(180deg,#fff 0%,#fffaf6 100%);
+  border:1px solid rgba(0,0,0,.05);
+  touch-action:manipulation;
+}
+
+.gameHint{
+  margin:6px 0 0;
+  color:var(--text-muted);
+  font-size:.8rem;
+  line-height:1.25;
+}
+
+/* BOTTONI */
 .errorActions{
   display:flex;
   justify-content:center;
-  gap:14px;
+  gap:12px;
   flex-wrap:wrap;
-  margin-top:18px
+  margin-top:8px;
 }
 
 .menuButton{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  min-width:190px;
-  padding:14px 20px;
+  min-width:170px;
+  padding:12px 18px;
   border-radius:18px;
   border:1px solid transparent;
   background:linear-gradient(135deg,var(--accent),var(--accent-soft));
   color:white;
   text-decoration:none;
   font-weight:900;
-  font-size:1rem;
+  font-size:.95rem;
   line-height:1.2;
-  box-shadow:0 8px 18px rgba(255,102,0,.26)
+  box-shadow:0 8px 18px rgba(255,102,0,.26);
 }
 
 .menuButton.secondary{
   background:white;
   color:var(--accent);
   border-color:rgba(255,102,0,.18);
-  box-shadow:none
+  box-shadow:none;
 }
 
 .errorFooter{
-  text-align:center;
-  color:var(--text-muted);
-  font-size:.85rem;
-  padding:22px 18px 30px
+  display:none;
 }
 
 @media(max-width:520px){
-  .appHeader{text-align:left}
-  .errorActions{flex-direction:column}
-  .menuButton{width:100%}
+  .appHeader{
+    height:96px;
+    padding:0 16px;
+    justify-content:flex-start;
+    text-align:left;
+  }
+
+  .errorMain{
+    height:calc(100vh - 96px);
+    padding:10px 12px;
+  }
+
+  .errorBox{
+    max-height:calc(100vh - 116px);
+    border-radius:24px;
+    padding:14px;
+  }
+
+  .errorCode{
+    font-size:clamp(3.2rem,10vh,4.8rem);
+  }
+
+  .errorDesc{
+    margin-bottom:8px;
+  }
+
+  .miniGameBox{
+    padding:8px;
+    margin:6px auto 8px;
+  }
+
+  #staffRunnerCanvas{
+    max-height:120px;
+  }
+
+  .gameHeader{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:2px;
+  }
+
+  .errorActions{
+    flex-direction:column;
+    width:100%;
+    gap:8px;
+  }
+
+  .menuButton{
+    width:100%;
+    min-width:0;
+    padding:11px 16px;
+  }
+}
+
+@media(max-height:700px){
+  .appHeader{
+    height:86px;
+  }
+
+  .pageTitle{
+    font-size:clamp(1.8rem,5vh,2.6rem);
+  }
+
+  .headerEyebrow{
+    font-size:.72rem;
+  }
+
+  .errorMain{
+    height:calc(100vh - 86px);
+    padding:8px 14px;
+  }
+
+  .errorBox{
+    max-height:calc(100vh - 100px);
+    padding:12px 18px;
+  }
+
+  .errorCode{
+    font-size:clamp(3rem,10vh,4.8rem);
+  }
+
+  .errorTitle{
+    margin:6px 0 4px;
+  }
+
+  .errorDesc{
+    font-size:.86rem;
+    margin-bottom:6px;
+  }
+
+  #staffRunnerCanvas{
+    max-height:110px;
+  }
+
+  .gameHint{
+    display:none;
+  }
 }
