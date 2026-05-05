@@ -123,11 +123,6 @@
   scrollbar-width: none;
 }
 
-/* Compensa l'altezza della navbar fissa */
-.homePage #contentWrapper {
-  padding-top: 52px;
-}
-
 #siteNav::-webkit-scrollbar { display: none; }
 
 .navBtn {
@@ -437,53 +432,65 @@
   font-size: 0.95rem;
 }
 
-/* Albero dei valori */
-.valueTree {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
+/* Valori equivalenti */
+.valueScale {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 16px;
   margin-top: 16px;
 }
 
-.vtRow {
-  display: flex;
-  gap: 6px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.vtBox {
-  background: rgba(255,102,0,0.12);
-  border: 1.5px solid rgba(255,102,0,0.3);
-  border-radius: 8px;
-  padding: 8px 14px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--accent);
+.valueStep {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 14px 10px;
+  border: 1px solid rgba(255,102,0,0.18);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.72);
   text-align: center;
-  min-width: 100px;
 }
 
-.vtBox.main {
-  background: rgba(255,102,0,0.2);
-  min-width: 200px;
-  font-size: 0.95rem;
+.valueStep:not(:last-child)::after {
+  content: "×2";
+  position: absolute;
+  top: 50%;
+  right: -18px;
+  z-index: 1;
+  transform: translateY(-50%);
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: white;
+  font-size: 0.68rem;
+  font-weight: 800;
 }
 
-.vtBox.sm {
-  min-width: 80px;
-  font-size: 0.78rem;
-  padding: 6px 8px;
+.valueCount {
+  color: var(--accent);
+  font-size: 1.8rem;
+  font-weight: 900;
+  line-height: 1;
 }
 
-.vtBox.xs {
-  min-width: 36px;
-  padding: 5px 6px;
-  font-size: 0.78rem;
+.valueStep strong {
+  color: var(--text-main);
+  font-size: 0.82rem;
 }
 
-.vtBox small { display: block; font-weight: 400; font-size: 0.72rem; color: var(--text-muted); }
+.valueStep em {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-style: normal;
+}
+
+.valueRule {
+  margin-top: 12px !important;
+  text-align: center;
+  color: var(--text-muted) !important;
+  font-size: 0.88rem !important;
+}
 
 /* ==================== ESPRESSIONE ==================== */
 .expressionGrid {
@@ -554,7 +561,7 @@
   color: var(--accent);
   font-weight: 700;
   padding: 12px 16px;
-  text-align: left;
+  text-align: center;
 }
 
 .noteTable td {
@@ -706,6 +713,7 @@
 }
 
 .timeCard {
+  position: relative;
   background: var(--surface-solid);
   border-radius: 16px;
   padding: 22px 18px;
@@ -714,6 +722,56 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.timeAudioBtn {
+  appearance: none;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255,102,0,0.22);
+  border-radius: 50%;
+  background: rgba(255,102,0,0.08);
+  color: var(--accent);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  line-height: 0;
+  transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.timeAudioIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 18px;
+  height: 18px;
+  max-width: none;
+  background: transparent;
+  border-radius: 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  overflow: visible;
+  transform: translate(-50%, -160%);
+}
+
+.timeAudioBtn:hover {
+  transform: translateY(-1px);
+  background: rgba(255,102,0,0.16);
+  box-shadow: 0 5px 14px rgba(255,102,0,0.18);
+}
+
+.timeAudioBtn.playing {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 6px 16px rgba(255,102,0,0.28);
 }
 
 .timeSig {
@@ -762,6 +820,11 @@
   color: var(--accent);
 }
 
+.beat.playing {
+  transform: scale(1.14);
+  box-shadow: 0 0 0 4px rgba(255,102,0,0.16);
+}
+
 .beat.small {
   width: 22px;
   height: 22px;
@@ -798,6 +861,21 @@
 }
 
 /* ==================== RESPONSIVE ==================== */
+@media (max-width: 900px) {
+  .valueScale {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    margin-inline: auto;
+  }
+
+  .valueStep:not(:last-child)::after {
+    top: auto;
+    right: 50%;
+    bottom: -18px;
+    transform: translate(50%, 50%);
+  }
+}
+
 @media (max-width: 768px) {
   .clefGrid { grid-template-columns: 1fr; }
   .expressionGrid.twoCol { grid-template-columns: 1fr; }
@@ -839,6 +917,20 @@
   grid-template-columns: 1fr !important;
   max-width: 480px;
   margin: 0 auto 8px;
+}
+
+.clefGridFa {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  max-width: 760px;
+  margin: 0 auto 8px;
+}
+
+.clefGridFa .clefCard {
+  padding: 20px 18px;
+}
+
+.clefGridFa .clefStaffSVG {
+  margin-bottom: 10px;
 }
 
 .clefGridFour {
@@ -911,6 +1003,11 @@
 
   .clefGridFour {
     grid-template-columns: 1fr 1fr !important;
+  }
+
+  .clefGridFa {
+    grid-template-columns: 1fr !important;
+    max-width: 480px;
   }
 }
 

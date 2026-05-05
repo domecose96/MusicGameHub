@@ -7,7 +7,6 @@
 
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/home.css">
-<link rel="stylesheet" href="css/learn.css">
 <link rel="stylesheet" href="css/home_portal.css">
 </head>
 
@@ -77,7 +76,7 @@
         <div class="portalStatsPanel">
           <div class="portalStats">
             <div class="portalStat"><strong>6</strong><span>Giochi</span></div>
-            <div class="portalStat"><strong>1</strong><span>Teoria</span></div>
+            <div class="portalStat"><strong>7</strong><span>Argomenti</span></div>
             <div class="portalStat coming"><strong>3</strong><span>In arrivo</span></div>
             <div class="portalStat views"><strong id="gc-total">—</strong><span>Pageview totali</span></div>
           </div>
@@ -91,104 +90,21 @@
         </div>
       </section>
 
-      <div class="hubGrid">
-        <div class="hubCard" onclick="goTo('teoria.html')">
-          <div class="hubIcon">📚</div>
-          <h3>Teoria musicale</h3>
-          <p>Pentagramma, chiavi, note, figure, scale, tempi ed espressione.</p>
-          <span class="hubTag">Base</span>
-        </div>
-
-        <div class="hubCard" onclick="scrollToSection('games')">
-          <div class="hubIcon">🎮</div>
-          <h3>Giochi interattivi</h3>
-          <p>Allenati con sfide, quiz e giochi musicali già pronti.</p>
-          <span class="hubTag">Interattivo</span>
-        </div>
-
-        <div class="hubCard" onclick="goTo('mappa.html')">
-          <div class="hubIcon">🗺️</div>
-          <h3>Mappa delle risorse</h3>
-          <p>Visualizza tutto il percorso del sito in modo dinamico.</p>
-          <span class="hubTag">Navigazione</span>
-        </div>
-
-        <div class="hubCard disabled" aria-disabled="true">
-          <div class="hubIcon">🕰️</div>
-          <h3>Storia della musica</h3>
-          <p>Dalle origini alla musica contemporanea.</p>
-          <span class="hubBadge">In arrivo</span>
-        </div>
-
-        <div class="hubCard disabled" aria-disabled="true">
-          <div class="hubIcon">🌍</div>
-          <h3>Musica ed educazione civica</h3>
-          <p>Musica, società, diritti, identità e cittadinanza.</p>
-          <span class="hubBadge">In arrivo</span>
-        </div>
-
-        <div class="hubCard disabled" aria-disabled="true">
-          <div class="hubIcon">🎧</div>
-          <h3>Ascolto guidato</h3>
-          <p>Scopri e analizza brani musicali con percorsi guidati.</p>
-          <span class="hubBadge">In arrivo</span>
-        </div>
-      </div>
+      <div id="portalHubGrid" class="hubGrid"></div>
     </section>
 
     <section id="games" class="siteSection">
       <h2 class="sectionTitle">Giochi interattivi</h2>
       <p class="sectionSubtitle">Allenati, sbaglia, riprova: è così che si impara davvero 🎯</p>
 
-      <div class="hubGrid gamesHubGrid">
-        <div class="hubCard gameHubCard" onclick="goTo('pentagramma_game.html')">
-          <div class="hubIcon">🎯</div>
-          <h3>Orientati sul pentagramma</h3>
-          <p>Metti alla prova righe, spazi e tagli addizionali.</p>
-          <span class="hubTag">Pentagramma</span>
-        </div>
-
-        <div class="hubCard gameHubCard" onclick="goTo('music_game.html')">
-          <div class="hubIcon">𝄞</div>
-          <h3>Impara le Note</h3>
-          <p>Indovina la nota sul pentagramma in chiave di violino o basso.</p>
-          <span class="hubTag">Note · Pentagramma</span>
-        </div>
-
-        <div class="hubCard gameHubCard" onclick="goTo('music_game_figures.html')">
-          <div class="hubIcon">♩</div>
-          <h3>Figure Musicali</h3>
-          <p>Riconosci semibreve, minima, croma e valori ritmici.</p>
-          <span class="hubTag">Ritmo · Figure</span>
-        </div>
-
-        <div class="hubCard gameHubCard" onclick="goTo('wordle.html')">
-          <div class="hubIcon">W</div>
-          <h3>Music Wordle</h3>
-          <p>Indovina la parola musicale del giorno in 6 tentativi.</p>
-          <span class="hubTag">Vocabolario</span>
-        </div>
-
-        <div class="hubCard gameHubCard" onclick="goTo('guanto.html')">
-          <div class="hubIcon">🏆</div>
-          <h3>Guanto di Sfida</h3>
-          <p>Quiz misto su note, figure e teoria con classifica.</p>
-          <span class="hubTag">Quiz · Sfida</span>
-        </div>
-
-        <div class="hubCard gameHubCard" onclick="goTo('ritmo_challenge.html')">
-          <div class="hubIcon">♪</div>
-          <h3>Ritmo Challenge</h3>
-          <p>Calcola il valore ritmico delle sequenze.</p>
-          <span class="hubTag">Ritmo</span>
-        </div>
-      </div>
+      <div id="gamesHubGrid" class="hubGrid gamesHubGrid"></div>
     </section>
 
   </div>
 </div>
 
 <script src="js/common.js"></script>
+<script src="js/resources.js"></script>
 <script src="js/home_portal.js"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>

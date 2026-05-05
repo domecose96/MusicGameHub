@@ -25,6 +25,7 @@ let audioEnabled = false;
 
 const noteGroup = document.getElementById("notesGroup");
 const shouldSkipIntro = sessionStorage.getItem(INTRO_SEEN_KEY) === "true";
+const resourceData = window.MusicGameHubResources;
 
 function unlockIntroAudio() {
   if (audioEnabled) return;
@@ -269,6 +270,85 @@ function searchPortal() {
   }
 }
 
+// ==================== RISORSE HOME ====================
+function createCardElement(item, options = {}) {
+  const isDisabled = Boolean(options.disabled);
+  const card = document.createElement(isDisabled ? "article" : "a");
+  card.className = ["hubCard", options.className, isDisabled ? "disabled" : ""]
+    .filter(Boolean)
+    .join(" ");
+
+  if (isDisabled) {
+    card.setAttribute("aria-disabled", "true");
+  } else if (item.target) {
+    card.href = `#${item.target}`;
+    card.addEventListener("click", event => {
+      event.preventDefault();
+      scrollToSection(item.target);
+    });
+  } else {
+    card.href = item.url;
+  }
+
+  const icon = document.createElement("div");
+  icon.className = "hubIcon";
+  icon.textContent = item.icon;
+
+  const title = document.createElement("h3");
+  title.textContent = item.title;
+
+  const desc = document.createElement("p");
+  desc.textContent = item.desc;
+
+  card.append(icon, title, desc);
+
+  const badge = document.createElement("span");
+  badge.className = isDisabled ? "hubBadge" : "hubTag";
+  badge.textContent = isDisabled ? "In arrivo" : item.tag;
+  card.appendChild(badge);
+
+  return card;
+}
+
+function renderHomeResources() {
+  if (!resourceData) return;
+
+  const portalGrid = document.getElementById("portalHubGrid");
+  const gamesGrid = document.getElementById("gamesHubGrid");
+
+  if (portalGrid) {
+    portalGrid.replaceChildren(
+      ...resourceData.homeCards.map(item => createCardElement(item)),
+      ...resourceData.upcoming.map(item => createCardElement(item, { disabled: true }))
+    );
+  }
+
+  if (gamesGrid) {
+    gamesGrid.replaceChildren(
+      ...resourceData.playable.map(item => createCardElement(item, { className: "gameHubCard" }))
+    );
+  }
+}
+
+function renderResourceStats() {
+  if (!resourceData) return;
+
+  const stats = document.querySelectorAll(".portalStats .portalStat");
+  const values = [
+    { count: resourceData.playable.length, label: "Giochi" },
+    { count: resourceData.theoryTopics.length, label: "Argomenti" },
+    { count: resourceData.upcoming.length, label: "In arrivo" }
+  ];
+
+  values.forEach((value, index) => {
+    const stat = stats[index];
+    if (!stat) return;
+
+    stat.querySelector("strong").textContent = value.count;
+    stat.querySelector("span").textContent = value.label;
+  });
+}
+
 // ==================== GOATCOUNTER STATS ====================
 function createStatsRow(label, count = "—") {
   const row = document.createElement("div");
@@ -352,6 +432,8 @@ window.searchPortal = searchPortal;
 
 document.addEventListener("DOMContentLoaded", () => {
   if (shouldSkipIntro) revealSiteImmediately();
+  renderHomeResources();
+  renderResourceStats();
 
   const input = document.getElementById("portalSearch");
   const searchBtn = document.querySelector(".portalSearchBtn");

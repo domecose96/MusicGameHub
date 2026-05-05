@@ -1,18 +1,4 @@
-const resources={
-pentagramma:{icon:"🎼",type:"Teoria",title:"Pentagramma",desc:"Spiegazione delle 5 righe, dei 4 spazi e dei tagli addizionali.",tags:["pentagramma","righe","spazi","tagli"],url:"teoria.html#pentagramma",group:"theory"},
-chiavi:{icon:"𝄞",type:"Teoria",title:"Chiavi musicali",desc:"Famiglie di chiavi: Sol, Fa e Do, con posizionamento sulle righe.",tags:["chiave di sol","chiave di fa","chiave di do"],url:"teoria.html#chiavi",group:"theory"},
-note:{icon:"🎵",type:"Teoria",title:"Note sul pentagramma",desc:"Le 7 note musicali e la loro posizione in chiave di violino.",tags:["do re mi","note","lettura"],url:"teoria.html#note",group:"theory"},
-figure:{icon:"♩",type:"Teoria",title:"Figure musicali",desc:"Figure e pause musicali con i relativi valori ritmici.",tags:["ritmo","figure","pause"],url:"teoria.html#figure",group:"theory"},
-scale:{icon:"🎹",type:"Teoria",title:"Scale e tonalità",desc:"Schema delle scale, toni, semitoni e armatura di chiave.",tags:["scale","tonalità","semitoni"],url:"teoria.html#scale",group:"theory"},
-pentagrammaGame:{icon:"🎯",type:"Gioco",title:"Orientati sul pentagramma",desc:"Allenamento su righe, spazi e tagli addizionali.",tags:["gioco","pentagramma","posizione"],url:"pentagramma_game.html",group:"games"},
-noteGame:{icon:"𝄞",type:"Gioco",title:"Impara le Note",desc:"Riconosci le note in chiave di violino e basso.",tags:["gioco","note","chiavi"],url:"music_game.html",group:"games"},
-figuresGame:{icon:"♩",type:"Gioco",title:"Figure Musicali",desc:"Riconosci figure e pause musicali.",tags:["gioco","ritmo","figure"],url:"music_game_figures.html",group:"games"},
-wordle:{icon:"W",type:"Gioco",title:"Music Wordle",desc:"Indovina una parola musicale in stile Wordle.",tags:["vocabolario","wordle","giornaliero"],url:"wordle.html",group:"games"},
-guanto:{icon:"🏆",type:"Gioco",title:"Guanto di Sfida",desc:"Quiz misto su note, figure e teoria con classifica.",tags:["quiz","sfida","classifica"],url:"guanto.html",group:"games"},
-ritmo:{icon:"♪",type:"Allenamento",title:"Ritmo Challenge",desc:"Calcola il valore ritmico di sequenze di figure musicali.",tags:["ritmo","calcolo","valori"],url:"ritmo_challenge.html",group:"practice"},
-tempi:{icon:"⏱",type:"Teoria",title:"Tempi e metro",desc:"Come leggere l'indicazione di tempo e il raggruppamento delle pulsazioni.",tags:["tempo","metro","misura"],url:"teoria.html#tempi",group:"practice"},
-espressione:{icon:"🎭",type:"Teoria",title:"Segni di espressione",desc:"Dinamica, articolazione e agogica: come suonare un brano.",tags:["dinamica","agogica","articolazione"],url:"teoria.html#espressione",group:"practice"}
-};
+const resources=MusicGameHubResources.byId;
 
 const filterButtons=document.querySelectorAll(".filterBtn[data-filter]");
 const resetButton=document.querySelector(".filterBtn[data-action='reset']");

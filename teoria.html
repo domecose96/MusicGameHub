@@ -30,9 +30,9 @@
   <button class="navBtn" onclick="scrollToSection('chiavi')">🎼 Chiavi</button>
   <button class="navBtn" onclick="scrollToSection('note')">🎵 Note</button>
   <button class="navBtn" onclick="scrollToSection('figure')">♩ Figure</button>
-  <button class="navBtn" onclick="scrollToSection('espressione')">🎭 Espressione</button>
-  <button class="navBtn" onclick="scrollToSection('scale')">🎹 Scale</button>
   <button class="navBtn" onclick="scrollToSection('tempi')">⏱ Tempi</button>
+  <button class="navBtn" onclick="scrollToSection('scale')">🎹 Scale</button>
+  <button class="navBtn" onclick="scrollToSection('espressione')">🎭 Espressione</button>
 </nav>
 
 <div id="contentWrapper">
@@ -156,7 +156,7 @@
       <!-- CHIAVE DI FA -->
       <h3 class="clefFamilyTitle">Chiave di Fa</h3>
       <p class="clefFamilyDesc">I due punti indicano la riga del Fa. Cambia solo la riga su cui si posiziona.</p>
-      <div class="clefGrid">
+      <div class="clefGrid clefGridFa">
         <div class="clefCard">
           <svg class="clefStaffSVG" viewBox="0 -5 400 130">
             <line x1="50" y1="20" x2="330" y2="20" stroke="#ddd" stroke-width="1.5"/>
@@ -172,7 +172,7 @@
             <text x="336" y="104" font-size="10" fill="#aaa" font-family="sans-serif">1ª — Sol2</text>
           </svg>
           <h3>Chiave di basso <span class="clefPosition">Fa sulla 4ª riga</span></h3>
-          <p>La più usata della famiglia. Per violoncello, contrabbasso, fagotto, trombone, tuba, corno e pianoforte (mano sinistra).</p>
+          <p>La più usata della famiglia. Compare in strumenti dal registro grave e nel pianoforte per la mano sinistra.</p>
         </div>
         <div class="clefCard">
           <svg class="clefStaffSVG" viewBox="0 -5 400 130">
@@ -189,7 +189,7 @@
             <text x="336" y="104" font-size="10" fill="#aaa" font-family="sans-serif">1ª — Si2</text>
           </svg>
           <h3>Chiave di baritono <span class="clefPosition">Fa sulla 3ª riga</span></h3>
-          <p>Variante meno comune, usata storicamente per la voce di baritono. Il Fa si trova sulla <strong>3ª riga</strong> anziché sulla 4ª.</p>
+          <p>Variante meno comune e soprattutto storica. Il Fa si trova sulla <strong>3ª riga</strong> anziché sulla 4ª.</p>
         </div>
       </div>
 
@@ -252,7 +252,7 @@
             <text x="216" y="104" font-size="9" fill="#aaa" font-family="sans-serif">Fa3</text>
           </svg>
           <h3>Contralto <span class="clefPosition">Do sulla 3ª riga</span></h3>
-          <p>Il Do4 è sulla <strong>3ª riga</strong>. Usata per la voce di contralto e storicamente per la viola.</p>
+          <p>Il Do4 è sulla <strong>3ª riga</strong>. Usata per la voce di contralto e, ancora oggi, come chiave principale della viola.</p>
         </div>
 
         <div class="clefCard">
@@ -354,14 +354,45 @@
       </div>
 
       <div class="didacticBox">
-        <h4>🌳 L'albero dei valori</h4>
-        <div class="valueTree">
-          <div class="vtRow"><div class="vtBox main">Semibreve = 4 tempi</div></div>
-          <div class="vtRow"><div class="vtBox">Minima (2)</div><div class="vtBox">Minima (2)</div></div>
-          <div class="vtRow"><div class="vtBox sm">Semimin. (1)</div><div class="vtBox sm">Semimin. (1)</div><div class="vtBox sm">Semimin. (1)</div><div class="vtBox sm">Semimin. (1)</div></div>
-          <div class="vtRow wrap"><div class="vtBox xs">C</div><div class="vtBox xs">C</div><div class="vtBox xs">C</div><div class="vtBox xs">C</div><div class="vtBox xs">C</div><div class="vtBox xs">C</div><div class="vtBox xs">C</div><div class="vtBox xs">C</div></div>
+        <h4>Valori equivalenti</h4>
+        <div class="valueScale" aria-label="Equivalenza tra le figure musicali">
+          <div class="valueStep">
+            <span class="valueCount">1</span>
+            <strong>Semibreve</strong>
+            <em>4 tempi</em>
+          </div>
+          <div class="valueStep">
+            <span class="valueCount">2</span>
+            <strong>Minime</strong>
+            <em>2 tempi ciascuna</em>
+          </div>
+          <div class="valueStep">
+            <span class="valueCount">4</span>
+            <strong>Semiminime</strong>
+            <em>1 tempo ciascuna</em>
+          </div>
+          <div class="valueStep">
+            <span class="valueCount">8</span>
+            <strong>Crome</strong>
+            <em>1/2 tempo ciascuna</em>
+          </div>
+          <div class="valueStep">
+            <span class="valueCount">16</span>
+            <strong>Semicrome</strong>
+            <em>1/4 tempo ciascuna</em>
+          </div>
+          <div class="valueStep">
+            <span class="valueCount">32</span>
+            <strong>Biscrome</strong>
+            <em>1/8 tempo ciascuna</em>
+          </div>
+          <div class="valueStep">
+            <span class="valueCount">64</span>
+            <strong>Semibiscrome</strong>
+            <em>1/16 tempo ciascuna</em>
+          </div>
         </div>
-        <p style="text-align:center;font-size:0.85rem;color:var(--text-muted);margin-top:8px;">C = Croma (½ tempo)</p>
+        <p class="valueRule">Ogni passaggio divide il valore precedente in due: la durata si dimezza, la quantità raddoppia.</p>
       </div>
       <div class="learnCTA">
         <button class="menuButton" onclick="goTo('music_game_figures.html')">🎮 Gioco delle figure</button>
@@ -369,38 +400,56 @@
       </div>
     </section>
 
-    <!-- ESPRESSIONE -->
-    <section id="espressione" class="siteSection learnSection">
-      <h2 class="sectionTitle">Segni di espressione</h2>
-      <p class="sectionIntro">I segni di espressione indicano <strong>come suonare</strong>: volume, velocità e carattere. Scritti quasi tutti in italiano, lingua universale della musica classica.</p>
+    <!-- TEMPI -->
+    <section id="tempi" class="siteSection learnSection">
+      <h2 class="sectionTitle">Tempi e metro</h2>
+      <p class="sectionIntro">Il <strong>metro</strong> indica come si raggruppano le pulsazioni. L'<strong>indicazione di tempo</strong> (due numeri a forma di frazione) appare all'inizio del brano.</p>
 
-      <h3 class="subSectionTitle">Dinamica — il volume</h3>
-      <div class="expressionGrid">
-        <div class="expressionCard"><div class="expSymbol small">ppp</div><h4>Pianississimo</h4><p>Estremamente piano</p></div>
-        <div class="expressionCard"><div class="expSymbol small">pp</div><h4>Pianissimo</h4><p>Molto piano</p></div>
-        <div class="expressionCard"><div class="expSymbol">p</div><h4>Piano</h4><p>Piano, dolce</p></div>
-        <div class="expressionCard"><div class="expSymbol small">mp</div><h4>Mezzo piano</h4><p>Moderatamente piano</p></div>
-        <div class="expressionCard"><div class="expSymbol small">mf</div><h4>Mezzo forte</h4><p>Moderatamente forte</p></div>
-        <div class="expressionCard"><div class="expSymbol">f</div><h4>Forte</h4><p>Forte, deciso</p></div>
-        <div class="expressionCard"><div class="expSymbol small">ff</div><h4>Fortissimo</h4><p>Molto forte</p></div>
-        <div class="expressionCard"><div class="expSymbol small">fff</div><h4>Fortississimo</h4><p>Estremamente forte</p></div>
+      <div class="timeSignatureGrid">
+        <div class="timeCard">
+          <button class="timeAudioBtn" type="button" data-rhythm="4-4" aria-label="Ascolta il ritmo in quattro quarti">
+            <svg class="timeAudioIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a8 8 0 0 1 0 12"/></svg>
+          </button>
+          <div class="timeSig"><span>4</span><span>4</span></div>
+          <h4>Quattro quarti</h4>
+          <p>4 tempi per misura, ognuno vale una semiminima. Il più comune.</p>
+          <div class="beatViz"><span class="beat strong">1</span><span class="beat">2</span><span class="beat medium">3</span><span class="beat">4</span></div>
+        </div>
+        <div class="timeCard">
+          <button class="timeAudioBtn" type="button" data-rhythm="3-4" aria-label="Ascolta il ritmo in tre quarti">
+            <svg class="timeAudioIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a8 8 0 0 1 0 12"/></svg>
+          </button>
+          <div class="timeSig"><span>3</span><span>4</span></div>
+          <h4>Tre quarti</h4>
+          <p>3 tempi per misura. Tipico del valzer.</p>
+          <div class="beatViz"><span class="beat strong">1</span><span class="beat">2</span><span class="beat">3</span></div>
+        </div>
+        <div class="timeCard">
+          <button class="timeAudioBtn" type="button" data-rhythm="2-4" aria-label="Ascolta il ritmo in due quarti">
+            <svg class="timeAudioIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a8 8 0 0 1 0 12"/></svg>
+          </button>
+          <div class="timeSig"><span>2</span><span>4</span></div>
+          <h4>Due quarti</h4>
+          <p>2 tempi per misura. Tipico della marcia.</p>
+          <div class="beatViz"><span class="beat strong">1</span><span class="beat">2</span></div>
+        </div>
+        <div class="timeCard">
+          <button class="timeAudioBtn" type="button" data-rhythm="6-8" aria-label="Ascolta il ritmo in sei ottavi">
+            <svg class="timeAudioIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a8 8 0 0 1 0 12"/></svg>
+          </button>
+          <div class="timeSig"><span>6</span><span>8</span></div>
+          <h4>Sei ottavi</h4>
+          <p>6 ottavi, in 2 gruppi da 3. Ritmo ternario composto.</p>
+          <div class="beatViz"><span class="beat strong">1</span><span class="beat small">2</span><span class="beat small">3</span><span class="beat medium">4</span><span class="beat small">5</span><span class="beat small">6</span></div>
+        </div>
       </div>
 
-      <h3 class="subSectionTitle" style="margin-top:32px;">Variazioni graduali</h3>
-      <div class="expressionGrid twoCol">
-        <div class="expressionCard wide"><div class="expSymbol small">cresc.</div><h4>Crescendo</h4><p>Il volume aumenta gradualmente. Simbolo: <span style="font-size:1.3em;font-weight:bold;">&lt;</span></p></div>
-        <div class="expressionCard wide"><div class="expSymbol small">dim.</div><h4>Diminuendo</h4><p>Il volume diminuisce gradualmente. Simbolo: <span style="font-size:1.3em;font-weight:bold;">&gt;</span></p></div>
+      <div class="didacticBox">
+        <h4>📖 Come leggere l'indicazione di tempo</h4>
+        <p>Il <strong>numero in alto</strong> indica quante figure entrano in una misura. Il <strong>numero in basso</strong> indica quale figura si conta: 4 = semiminima ♩, 8 = croma ♪, 2 = minima. Nei tempi semplici, come <em>4/4</em>, questo coincide spesso con le pulsazioni principali. Nei tempi composti, come <em>6/8</em>, ci sono 6 crome per misura, ma di solito si percepiscono <strong>2 pulsazioni principali</strong>, ciascuna formata da 3 crome.</p>
       </div>
 
-      <h3 class="subSectionTitle" style="margin-top:32px;">Articolazione</h3>
-      <div class="expressionGrid">
-        <div class="expressionCard"><div class="expSymbol" style="font-size:2.5rem;">·</div><h4>Staccato</h4><p>Suono breve e separato</p></div>
-        <div class="expressionCard"><div class="expSymbol" style="font-size:2rem;">⌢</div><h4>Legato</h4><p>Note legate senza interruzione</p></div>
-        <div class="expressionCard"><div class="expSymbol">^</div><h4>Accentato</h4><p>Dare più forza alla nota</p></div>
-        <div class="expressionCard"><div class="expSymbol" style="font-size:1.8rem;">—</div><h4>Tenuto</h4><p>Tenere per tutta la durata</p></div>
-      </div>
-
-      <h3 class="subSectionTitle" style="margin-top:32px;">Indicazioni di tempo</h3>
+      <h3 class="subSectionTitle" style="margin-top:28px;">Indicazioni di tempo</h3>
       <div class="tempoTable">
         <table class="noteTable">
           <thead><tr><th>Termine</th><th>Significato</th><th>BPM</th></tr></thead>
@@ -415,12 +464,30 @@
           </tbody>
         </table>
       </div>
+
+      <div class="learnCTA">
+        <button class="menuButton" onclick="goTo('ritmo_challenge.html')">🎮 Allenati con il ritmo</button>
+      </div>
     </section>
 
     <!-- SCALE -->
     <section id="scale" class="siteSection learnSection">
       <h2 class="sectionTitle">Scale e tonalità</h2>
-      <p class="sectionIntro">Una <strong>scala</strong> è una successione di 7 note secondo uno schema fisso di toni e semitoni. Definisce la <strong>tonalità</strong> del brano.</p>
+      <p class="sectionIntro">Una <strong>scala</strong> è una successione di 7 note secondo uno schema fisso di toni e semitoni. Prima di costruirla, è utile conoscere le alterazioni: i segni che alzano, abbassano o ripristinano una nota.</p>
+
+      <div class="didacticBox">
+        <h4>🎹 Alterazioni: diesis, bemolle e bequadro</h4>
+        <p>
+          Il <strong>diesis</strong> (#) alza una nota di un semitono: Fa diventa Fa#.
+          Il <strong>bemolle</strong> (♭) abbassa una nota di un semitono: Si diventa Si♭.
+          Il <strong>bequadro</strong> (♮) annulla un diesis o un bemolle precedente e riporta la nota naturale.
+        </p>
+        <p>
+          Due note possono avere nomi diversi ma produrre lo stesso suono sul pianoforte:
+          per esempio <strong>Fa#</strong> e <strong>Sol♭</strong>. Questo si chiama
+          <strong>enarmonia</strong>.
+        </p>
+      </div>
 
       <div class="scaleBox">
         <h3>Scala maggiore — schema T T S T T T S</h3>
@@ -526,47 +593,40 @@
       </div>
     </section>
 
-    <!-- TEMPI -->
-    <section id="tempi" class="siteSection learnSection">
-      <h2 class="sectionTitle">Tempi e metro</h2>
-      <p class="sectionIntro">Il <strong>metro</strong> indica come si raggruppano le pulsazioni. L'<strong>indicazione di tempo</strong> (due numeri a forma di frazione) appare all'inizio del brano.</p>
 
-      <div class="timeSignatureGrid">
-        <div class="timeCard">
-          <div class="timeSig"><span>4</span><span>4</span></div>
-          <h4>Quattro quarti</h4>
-          <p>4 tempi per misura, ognuno vale una semiminima. Il più comune.</p>
-          <div class="beatViz"><span class="beat strong">1</span><span class="beat">2</span><span class="beat medium">3</span><span class="beat">4</span></div>
-        </div>
-        <div class="timeCard">
-          <div class="timeSig"><span>3</span><span>4</span></div>
-          <h4>Tre quarti</h4>
-          <p>3 tempi per misura. Tipico del valzer.</p>
-          <div class="beatViz"><span class="beat strong">1</span><span class="beat">2</span><span class="beat">3</span></div>
-        </div>
-        <div class="timeCard">
-          <div class="timeSig"><span>2</span><span>4</span></div>
-          <h4>Due quarti</h4>
-          <p>2 tempi per misura. Tipico della marcia.</p>
-          <div class="beatViz"><span class="beat strong">1</span><span class="beat">2</span></div>
-        </div>
-        <div class="timeCard">
-          <div class="timeSig"><span>6</span><span>8</span></div>
-          <h4>Sei ottavi</h4>
-          <p>6 ottavi, in 2 gruppi da 3. Ritmo ternario composto.</p>
-          <div class="beatViz"><span class="beat strong">1</span><span class="beat small">2</span><span class="beat small">3</span><span class="beat medium">4</span><span class="beat small">5</span><span class="beat small">6</span></div>
-        </div>
+    <!-- ESPRESSIONE -->
+    <section id="espressione" class="siteSection learnSection">
+      <h2 class="sectionTitle">Segni di espressione</h2>
+      <p class="sectionIntro">I segni di espressione indicano <strong>come suonare</strong>: volume, velocità e carattere. Scritti quasi tutti in italiano, lingua universale della musica classica.</p>
+
+      <h3 class="subSectionTitle">Dinamica — il volume</h3>
+      <div class="expressionGrid">
+        <div class="expressionCard"><div class="expSymbol small">ppp</div><h4>Pianississimo</h4><p>Estremamente piano</p></div>
+        <div class="expressionCard"><div class="expSymbol small">pp</div><h4>Pianissimo</h4><p>Molto piano</p></div>
+        <div class="expressionCard"><div class="expSymbol">p</div><h4>Piano</h4><p>Piano, dolce</p></div>
+        <div class="expressionCard"><div class="expSymbol small">mp</div><h4>Mezzo piano</h4><p>Moderatamente piano</p></div>
+        <div class="expressionCard"><div class="expSymbol small">mf</div><h4>Mezzo forte</h4><p>Moderatamente forte</p></div>
+        <div class="expressionCard"><div class="expSymbol">f</div><h4>Forte</h4><p>Forte, deciso</p></div>
+        <div class="expressionCard"><div class="expSymbol small">ff</div><h4>Fortissimo</h4><p>Molto forte</p></div>
+        <div class="expressionCard"><div class="expSymbol small">fff</div><h4>Fortississimo</h4><p>Estremamente forte</p></div>
       </div>
 
-      <div class="didacticBox">
-        <h4>📖 Come leggere l'indicazione di tempo</h4>
-        <p>Il <strong>numero in alto</strong> = quanti tempi per misura. Il <strong>numero in basso</strong> = quale figura vale un tempo (4 = semiminima ♩, 8 = croma ♪, 2 = minima). Quindi <em>6/8</em>: 6 tempi, ognuno vale una croma.</p>
+      <h3 class="subSectionTitle" style="margin-top:32px;">Variazioni graduali</h3>
+      <div class="expressionGrid twoCol">
+        <div class="expressionCard wide"><div class="expSymbol small">cresc.</div><h4>Crescendo</h4><p>Il volume aumenta gradualmente. Simbolo: <span style="font-size:1.3em;font-weight:bold;">&lt;</span></p></div>
+        <div class="expressionCard wide"><div class="expSymbol small">dim.</div><h4>Diminuendo</h4><p>Il volume diminuisce gradualmente. Simbolo: <span style="font-size:1.3em;font-weight:bold;">&gt;</span></p></div>
       </div>
 
-      <div class="learnCTA">
-        <button class="menuButton" onclick="goTo('ritmo_challenge.html')">🎮 Allenati con il ritmo</button>
+      <h3 class="subSectionTitle" style="margin-top:32px;">Articolazione</h3>
+      <div class="expressionGrid">
+        <div class="expressionCard"><div class="expSymbol" style="font-size:2.5rem;">·</div><h4>Staccato</h4><p>Suono breve e separato</p></div>
+        <div class="expressionCard"><div class="expSymbol" style="font-size:2rem;">⌢</div><h4>Legato</h4><p>Note legate senza interruzione</p></div>
+        <div class="expressionCard"><div class="expSymbol">^</div><h4>Accentato</h4><p>Dare più forza alla nota</p></div>
+        <div class="expressionCard"><div class="expSymbol" style="font-size:1.8rem;">—</div><h4>Tenuto</h4><p>Tenere per tutta la durata</p></div>
       </div>
+
     </section>
+
 </div>
 
 <script src="js/common.js"></script>

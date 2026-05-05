@@ -70,6 +70,7 @@ const MGH = (() => {
     goTo,
     scrollToSection,
     detectActiveSection,
+    setActiveNav,
     selectExclusive,
     updateHeaderModeLabel
   };
