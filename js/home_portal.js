@@ -15,6 +15,7 @@ const X_END = 820;
 const X_STEP = 44;
 const NOTE_MS = 520;
 const FADE_MS = 900;
+const INTRO_SEEN_KEY = "musicGameHubIntroSeen";
 
 let currentX = X_START;
 let melodyIndex = 0;
@@ -23,6 +24,7 @@ let audioCtx = null;
 let audioEnabled = false;
 
 const noteGroup = document.getElementById("notesGroup");
+const shouldSkipIntro = sessionStorage.getItem(INTRO_SEEN_KEY) === "true";
 
 function unlockIntroAudio() {
   if (audioEnabled) return;
@@ -150,12 +152,33 @@ function spawnNote() {
   if (currentX > X_END) currentX = X_START;
 }
 
-setTimeout(() => {
-  if (noteGroup) noteInterval = setInterval(spawnNote, NOTE_MS);
-}, 950);
+if (!shouldSkipIntro) {
+  setTimeout(() => {
+    if (noteGroup) noteInterval = setInterval(spawnNote, NOTE_MS);
+  }, 950);
+}
 
 // ==================== ENTRA NEL SITO ====================
+function revealSiteImmediately() {
+  const intro = document.getElementById("intro");
+  const header = document.getElementById("mainHeader");
+  const main = document.getElementById("mainContent");
+
+  clearInterval(noteInterval);
+  noteInterval = null;
+
+  if (intro) intro.style.display = "none";
+
+  if (header) {
+    header.style.opacity = "1";
+    header.style.pointerEvents = "auto";
+  }
+
+  if (main) main.style.opacity = "1";
+}
+
 function enterSite() {
+  sessionStorage.setItem(INTRO_SEEN_KEY, "true");
   unlockIntroAudio();
 
   clearInterval(noteInterval);
@@ -328,6 +351,8 @@ window.goTo = goTo;
 window.searchPortal = searchPortal;
 
 document.addEventListener("DOMContentLoaded", () => {
+  if (shouldSkipIntro) revealSiteImmediately();
+
   const input = document.getElementById("portalSearch");
   const searchBtn = document.querySelector(".portalSearchBtn");
 

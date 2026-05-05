@@ -1,6 +1,7 @@
 const MGH = (() => {
   function goHome(delay = 150) {
     document.getElementById("homeBtn")?.classList.add("selected");
+    sessionStorage.setItem("musicGameHubIntroSeen", "true");
 
     setTimeout(() => {
       window.location.href = "index.html";

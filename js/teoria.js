@@ -8,6 +8,13 @@ window.addEventListener('scroll', detectActiveSection);
 document.addEventListener('DOMContentLoaded', detectActiveSection);
 
 document.addEventListener("DOMContentLoaded", () => {
+  const targetId = window.location.hash.slice(1);
+  if (targetId && document.getElementById(targetId)) {
+    setTimeout(() => scrollToSection(targetId), 80);
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
   const hintNote = document.getElementById("hintNote");
   const hintLabel = document.getElementById("hintLabel");
   const message = document.getElementById("noteHintMessage");
