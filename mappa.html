@@ -4,17 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mappa delle risorse | Music Game Hub</title>
+<link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/mappa.css">
 </head>
 <body>
 
-<header class="mapHeader">
-  <a class="backLink" href="/MusicGameHub/">← Torna al portale</a>
-  <div class="headerTitle">
-    <h1>Mappa delle risorse</h1>
-    <span>— <strong id="resourceCount">13</strong> risorse attive</span>
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+
+    <div class="headerBrand">
+      <span class="headerEyebrow">Hub musicale</span>
+      <h1 class="pageTitle">Mappa delle risorse</h1>
+    </div>
   </div>
-  <div class="headerHint">Filtra · passa col mouse · clicca per dettagli</div>
 </header>
 
 <nav class="toolbar">
