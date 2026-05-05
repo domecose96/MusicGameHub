@@ -9,104 +9,214 @@
   --shadow:0 18px 45px rgba(0,0,0,.11)
 }
 
-/* NO SCROLL */
 html,body{
   margin:0;
+  width:100%;
   height:100%;
-  max-height:100vh;
   overflow:hidden;
   font-family:Georgia,"Times New Roman",serif;
   color:var(--text-main);
   background:
     radial-gradient(circle at top center,rgba(255,102,0,.12),transparent 34%),
-    linear-gradient(180deg,#fff 0%,#fff7f0 52%,#fff 100%)
+    linear-gradient(180deg,#fff 0%,#fff7f0 52%,#fff 100%);
 }
 
-.errorPage{
-  height:100vh;
-  overflow:hidden;
-}
-
-/* HEADER */
 .appHeader{
-  height:110px;
+  height:112px;
+  background:rgba(255,255,255,.92);
+  border-bottom:1px solid rgba(255,102,0,.16);
   display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
   text-align:center;
+  box-shadow:0 4px 24px rgba(0,0,0,.035);
 }
 
-/* MAIN */
+.headerEyebrow{
+  color:var(--text-muted);
+  font-size:.9rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-weight:800;
+  margin-bottom:4px;
+}
+
+.pageTitle{
+  color:var(--accent);
+  font-size:clamp(2.2rem,5vw,3.6rem);
+  line-height:1;
+  margin:0;
+  font-weight:900;
+  text-shadow:0 0 14px rgba(255,102,0,.38);
+}
+
 .errorMain{
-  height:calc(100vh - 110px);
+  height:calc(100vh - 112px);
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:10px;
+  padding:12px;
 }
 
-/* BOX */
 .errorBox{
-  width:min(650px,100%);
+  width:min(680px,100%);
+  max-height:calc(100vh - 136px);
   text-align:center;
   background:var(--surface);
-  border-radius:24px;
+  border-radius:28px;
   box-shadow:var(--shadow);
-  padding:20px;
+  padding:18px 24px;
 }
 
-/* TEXT */
 .errorCode{
-  font-size:5rem;
+  position:relative;
+  display:inline-block;
+  font-size:clamp(4rem,12vh,6.8rem);
+  line-height:.82;
   font-weight:900;
-  color:rgba(255,102,0,.2);
+  color:rgba(255,102,0,.17);
+  letter-spacing:-.05em;
+}
+
+.errorCode::after{
+  content:"404";
+  position:absolute;
+  inset:0;
+  color:var(--accent);
+  clip-path:inset(0 0 44% 0);
 }
 
 .errorTitle{
   color:var(--accent);
-  margin:10px 0;
+  font-size:clamp(1.35rem,3.5vh,2rem);
+  margin:10px 0 6px;
 }
 
 .errorDesc{
   color:var(--text-muted);
-  margin-bottom:10px;
+  max-width:520px;
+  margin:0 auto 10px;
+  line-height:1.35;
+  font-size:.95rem;
 }
 
-/* GAME */
 .miniGameBox{
-  margin:10px auto;
+  width:min(560px,100%);
+  margin:8px auto 12px;
+  border:1px solid rgba(255,102,0,.18);
+  background:linear-gradient(180deg,rgba(255,102,0,.045),rgba(255,255,255,.82));
+  border-radius:20px;
+  padding:10px;
+  box-shadow:0 12px 32px rgba(255,102,0,.10);
+}
+
+.gameHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:6px;
+}
+
+.gameHeader h2{
+  margin:0;
+  color:var(--accent);
+  font-size:1.1rem;
+}
+
+.gameScore{
+  color:var(--text-muted);
+  font-size:.9rem;
+  font-weight:800;
 }
 
 #staffRunnerCanvas{
+  display:block;
   width:100%;
-  max-height:150px;
-  border-radius:12px;
-  background:#fff;
+  height:170px;
+  border-radius:16px;
+  background:linear-gradient(180deg,#fff 0%,#fffaf6 100%);
+  border:1px solid rgba(0,0,0,.05);
+  touch-action:manipulation;
 }
 
 .gameHint{
-  font-size:.8rem;
+  margin:6px 0 0;
   color:var(--text-muted);
+  font-size:.8rem;
 }
 
-/* BUTTONS */
 .errorActions{
   display:flex;
-  gap:10px;
   justify-content:center;
-  margin-top:10px;
+  gap:12px;
   flex-wrap:wrap;
 }
 
-/* SCALE per schermi piccoli */
-@media (max-height:600px){
-  .errorBox{
-    transform:scale(0.85);
-  }
+.menuButton{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:165px;
+  padding:12px 18px;
+  border-radius:18px;
+  border:1px solid transparent;
+  background:linear-gradient(135deg,var(--accent),var(--accent-soft));
+  color:white;
+  text-decoration:none;
+  font-weight:900;
+  font-size:.95rem;
+  box-shadow:0 8px 18px rgba(255,102,0,.26);
 }
 
-@media (max-height:500px){
+.menuButton.secondary{
+  background:white;
+  color:var(--accent);
+  border-color:rgba(255,102,0,.18);
+  box-shadow:none;
+}
+
+@media(max-height:720px){
+  .appHeader{height:92px}
+  .errorMain{height:calc(100vh - 92px)}
+  .errorBox{transform:scale(.9)}
+}
+
+@media(max-height:620px){
+  .errorBox{transform:scale(.8)}
+}
+
+@media(max-width:520px){
+  .appHeader{
+    height:96px;
+    align-items:flex-start;
+    padding-left:20px;
+    text-align:left;
+  }
+
+  .errorMain{
+    height:calc(100vh - 96px);
+  }
+
   .errorBox{
-    transform:scale(0.75);
+    padding:14px;
+  }
+
+  #staffRunnerCanvas{
+    height:135px;
+  }
+
+  .gameHeader{
+    flex-direction:column;
+    gap:2px;
+  }
+
+  .errorActions{
+    flex-direction:column;
+  }
+
+  .menuButton{
+    width:100%;
   }
 }

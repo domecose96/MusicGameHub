@@ -4,8 +4,8 @@ const scoreEl = document.getElementById("runnerScore");
 
 let player = {
   x: 60,
-  y: 120,
-  baseY: 120,
+  y: 122,
+  baseY: 122,
   vy: 0,
   jumping: false
 };
@@ -18,21 +18,21 @@ let spawnTimer = 0;
 let gameOver = false;
 let started = false;
 
-function jump() {
-  if (gameOver) {
+function jump(){
+  if(gameOver){
     resetGame();
     return;
   }
 
   started = true;
 
-  if (!player.jumping) {
+  if(!player.jumping){
     player.vy = -11;
     player.jumping = true;
   }
 }
 
-function resetGame() {
+function resetGame(){
   obstacles = [];
   score = 0;
   speed = 3;
@@ -45,7 +45,7 @@ function resetGame() {
   scoreEl.textContent = score;
 }
 
-function spawnObstacle() {
+function spawnObstacle(){
   const symbols = ["♪","♩","♫","♬"];
 
   obstacles.push({
@@ -56,13 +56,13 @@ function spawnObstacle() {
   });
 }
 
-function update() {
-  if (!started || gameOver) return;
+function update(){
+  if(!started || gameOver) return;
 
   player.vy += gravity;
   player.y += player.vy;
 
-  if (player.y >= player.baseY) {
+  if(player.y >= player.baseY){
     player.y = player.baseY;
     player.vy = 0;
     player.jumping = false;
@@ -70,52 +70,58 @@ function update() {
 
   spawnTimer--;
 
-  if (spawnTimer <= 0) {
+  if(spawnTimer <= 0){
     spawnObstacle();
-    spawnTimer = 90 + Math.random()*70;
+    spawnTimer = 85 + Math.floor(Math.random()*70);
   }
 
-  obstacles.forEach(obs => {
+  obstacles.forEach(obs=>{
     obs.x -= speed;
 
-    if (!obs.passed && obs.x < player.x) {
+    if(!obs.passed && obs.x < player.x){
       obs.passed = true;
       score++;
       scoreEl.textContent = score;
       speed += 0.05;
     }
 
-    if (
+    const hit =
       obs.x < player.x + 30 &&
-      obs.x + 20 > player.x &&
-      player.y > 90
-    ) {
+      obs.x + 22 > player.x &&
+      player.y > 88;
+
+    if(hit){
       gameOver = true;
     }
   });
 
-  obstacles = obstacles.filter(o => o.x > -40);
+  obstacles = obstacles.filter(o=>o.x > -40);
 }
 
-function draw() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+function drawStaff(){
+  ctx.strokeStyle = "rgba(51,51,51,.55)";
+  ctx.lineWidth = 1.5;
 
-  // pentagramma
   for(let i=0;i<5;i++){
+    const y = 72 + i*12;
     ctx.beginPath();
-    ctx.moveTo(0,70+i*12);
-    ctx.lineTo(canvas.width,70+i*12);
+    ctx.moveTo(15,y);
+    ctx.lineTo(canvas.width-15,y);
     ctx.stroke();
   }
+}
 
-  // player
-  ctx.font="40px serif";
-  ctx.fillStyle="#ff6600";
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  drawStaff();
+
+  ctx.font = "42px serif";
+  ctx.fillStyle = "#ff6600";
   ctx.fillText("𝄢",player.x,player.y);
 
-  // ostacoli
-  ctx.font="28px serif";
-  ctx.fillStyle="#333";
+  ctx.font = "30px serif";
+  ctx.fillStyle = "#333";
   obstacles.forEach(o=>{
     ctx.fillText(o.symbol,o.x,o.y);
   });
@@ -130,13 +136,15 @@ function draw() {
 }
 
 function drawMsg(text){
-  ctx.fillStyle="rgba(255,255,255,.85)";
+  ctx.save();
+  ctx.fillStyle = "rgba(255,255,255,.86)";
   ctx.fillRect(0,0,canvas.width,canvas.height);
 
-  ctx.fillStyle="#ff6600";
-  ctx.font="bold 20px serif";
-  ctx.textAlign="center";
+  ctx.fillStyle = "#ff6600";
+  ctx.font = "bold 22px Georgia, serif";
+  ctx.textAlign = "center";
   ctx.fillText(text,canvas.width/2,canvas.height/2);
+  ctx.restore();
 }
 
 function loop(){
