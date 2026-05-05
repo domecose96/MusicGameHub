@@ -201,41 +201,42 @@ function renderFallbackStats(message = "Statistiche in caricamento") {
 async function loadGoatStats() {
   const totalEl = document.getElementById("gc-total");
   const topEl = document.getElementById("gc-top");
+
   if (!totalEl && !topEl) return;
 
   try {
-    const totalRes = await fetch("https://musicgamehub.goatcounter.com/api/v0/stats/total");
-    const totalData = await totalRes.json();
-    if (totalEl && typeof totalData.count !== "undefined") {
-      totalEl.textContent = Number(totalData.count).toLocaleString("it-IT");
+    const response = await fetch("https://musicgamehub-stats-api.vercel.app/api/stats");
+    const data = await response.json();
+
+    if (!response.ok) throw new Error("Stats unavailable");
+
+    if (totalEl) {
+      totalEl.textContent = Number(data.total || 0).toLocaleString("it-IT");
+    }
+
+    if (topEl) {
+      topEl.innerHTML = "";
+
+      (data.topPages || []).forEach(item => {
+        const row = document.createElement("div");
+        row.className = "gcTopItem";
+        row.innerHTML = `
+          <span class="gcTopLabel">${item.label}</span>
+          <span class="gcTopCount">${Number(item.count || 0).toLocaleString("it-IT")}</span>
+        `;
+        topEl.appendChild(row);
+      });
     }
   } catch (error) {
     if (totalEl) totalEl.textContent = "—";
-  }
-
-  try {
-    const pathsRes = await fetch("https://musicgamehub.goatcounter.com/api/v0/stats/path");
-    const pathsData = await pathsRes.json();
-    const list = Array.isArray(pathsData) ? pathsData : pathsData.paths || pathsData.data || [];
-
-    if (!topEl) return;
-    topEl.innerHTML = "";
-
-    if (!Array.isArray(list) || list.length === 0) {
-      renderFallbackStats("Statistiche non ancora disponibili");
-      return;
+    if (topEl) {
+      topEl.innerHTML = `
+        <div class="gcTopItem">
+          <span class="gcTopLabel">Statistiche non disponibili</span>
+          <span class="gcTopCount">—</span>
+        </div>
+      `;
     }
-
-    list.slice(0, 3).forEach(item => {
-      const path = item.path || item.name || item.url || "/";
-      const count = item.count || item.views || item.value || 0;
-      const row = document.createElement("div");
-      row.className = "gcTopItem";
-      row.innerHTML = `<span class="gcTopLabel">${formatPageName(path)}</span><span class="gcTopCount">${Number(count).toLocaleString("it-IT")}</span>`;
-      topEl.appendChild(row);
-    });
-  } catch (error) {
-    renderFallbackStats("Statistiche in caricamento");
   }
 }
 
