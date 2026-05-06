@@ -65,6 +65,14 @@ const MGH = (() => {
     labelEl.classList.toggle("hidden", !label);
   }
 
+  function setWarning(message = "", selector = ".warningText") {
+    const warning = document.querySelector(selector);
+    if (!warning) return;
+
+    warning.textContent = message;
+    warning.classList.toggle("introSpacer", !message);
+  }
+
   return {
     goHome,
     goTo,
@@ -72,7 +80,8 @@ const MGH = (() => {
     detectActiveSection,
     setActiveNav,
     selectExclusive,
-    updateHeaderModeLabel
+    updateHeaderModeLabel,
+    setWarning
   };
 })();
 

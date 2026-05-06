@@ -41,26 +41,26 @@
   <section class="mapViewport">
     <div class="mapCanvas" id="mapCanvas">
 
-      <svg class="connectorLayer" viewBox="0 0 1240 720" aria-hidden="true">
-        <path d="M620 150 C620 180 245 180 245 215"></path>
-        <path d="M620 150 C620 180 620 180 620 215"></path>
-        <path d="M620 150 C620 180 995 180 995 215"></path>
+      <svg class="connectorLayer" viewBox="0 0 1260 720" aria-hidden="true">
+        <path d="M630 150 C630 180 300 180 300 215"></path>
+        <path d="M630 150 C630 180 820 180 820 215"></path>
+        <path d="M630 150 C630 180 1145 180 1145 215"></path>
 
-        <path class="soft" d="M245 300 C245 325 110 325 110 350"></path>
-        <path class="soft" d="M245 300 C245 325 260 325 260 350"></path>
-        <path class="soft" d="M245 300 C245 325 410 325 410 350"></path>
-        <path class="soft" d="M245 300 C245 480 180 480 180 510"></path>
-        <path class="soft" d="M245 300 C245 480 330 480 330 510"></path>
+        <path class="soft" d="M300 300 C300 325 96 325 96 350"></path>
+        <path class="soft" d="M300 300 C300 325 236 325 236 350"></path>
+        <path class="soft" d="M300 300 C300 325 376 325 376 350"></path>
+        <path class="soft" d="M300 300 C300 325 516 325 516 350"></path>
+        <path class="soft" d="M300 300 C300 480 166 480 166 510"></path>
+        <path class="soft" d="M300 300 C300 480 306 480 306 510"></path>
+        <path class="soft" d="M300 300 C300 480 446 480 446 510"></path>
 
-        <path class="soft" d="M620 300 C620 325 530 325 530 350"></path>
-        <path class="soft" d="M620 300 C620 325 680 325 680 350"></path>
-        <path class="soft" d="M620 300 C620 325 830 325 830 350"></path>
-        <path class="soft" d="M620 300 C620 480 605 480 605 510"></path>
-        <path class="soft" d="M620 300 C620 480 755 480 755 510"></path>
+        <path class="soft" d="M820 300 C820 325 696 325 696 350"></path>
+        <path class="soft" d="M820 300 C820 325 836 325 836 350"></path>
+        <path class="soft" d="M820 300 C820 325 976 325 976 350"></path>
+        <path class="soft" d="M820 300 C820 480 766 480 766 510"></path>
+        <path class="soft" d="M820 300 C820 480 906 480 906 510"></path>
 
-        <path class="soft" d="M995 300 C995 325 960 325 960 350"></path>
-        <path class="soft" d="M995 300 C995 325 1110 325 1110 350"></path>
-        <path class="soft" d="M995 300 C995 480 1035 480 1035 510"></path>
+        <path class="soft" d="M1145 300 C1145 325 1146 325 1146 350"></path>
       </svg>
 
       <button class="node rootNode" data-root="true">
@@ -70,13 +70,13 @@
       </button>
 
       <button class="node categoryNode cat-theory" data-category-node="theory">
-        <div class="nodeIcon">📘</div><h3>Teoria</h3><p>5 risorse</p>
+        <div class="nodeIcon">📘</div><h3>Teoria</h3><p>7 risorse</p>
       </button>
       <button class="node categoryNode cat-games" data-category-node="games">
         <div class="nodeIcon">🎮</div><h3>Giochi</h3><p>5 risorse</p>
       </button>
       <button class="node categoryNode cat-practice" data-category-node="practice">
-        <div class="nodeIcon">💡</div><h3>Allenamento</h3><p>3 risorse</p>
+        <div class="nodeIcon">💡</div><h3>Allenamento</h3><p>1 risorsa</p>
       </button>
 
       <button id="res-pentagramma" class="node resourceNode featured" data-id="pentagramma" data-type="theory">
@@ -93,6 +93,12 @@
       </button>
       <button id="res-scale" class="node resourceNode" data-id="scale" data-type="theory">
         <span class="badge theory">Teoria</span><div class="resourceIcon">🎹</div><h4>Scale</h4><p>Toni e tonalità</p>
+      </button>
+      <button id="res-tempi" class="node resourceNode" data-id="tempi" data-type="theory">
+        <span class="badge theory">Teoria</span><div class="resourceIcon">⏱</div><h4>Tempi</h4><p>Metro musicale</p>
+      </button>
+      <button id="res-espressione" class="node resourceNode" data-id="espressione" data-type="theory">
+        <span class="badge theory">Teoria</span><div class="resourceIcon">🎭</div><h4>Espressione</h4><p>Dinamica e agogica</p>
       </button>
 
       <button id="res-pentagramma-game" class="node resourceNode featured" data-id="pentagrammaGame" data-type="games">
@@ -113,12 +119,6 @@
 
       <button id="res-ritmo" class="node resourceNode featured" data-id="ritmo" data-type="practice">
         <span class="featuredRibbon">★ utile</span><span class="badge practice">Allenamento</span><div class="resourceIcon">♪</div><h4>Ritmo Challenge</h4><p>Calcolo valori</p>
-      </button>
-      <button id="res-tempi" class="node resourceNode" data-id="tempi" data-type="practice">
-        <span class="badge practice">Teoria</span><div class="resourceIcon">⏱</div><h4>Tempi</h4><p>Metro musicale</p>
-      </button>
-      <button id="res-espressione" class="node resourceNode" data-id="espressione" data-type="practice">
-        <span class="badge practice">Teoria</span><div class="resourceIcon">🎭</div><h4>Espressione</h4><p>Dinamica e agogica</p>
       </button>
     </div>
   </section>

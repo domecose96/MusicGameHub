@@ -44,10 +44,17 @@
 <div id="mainContent" style="opacity:0;transition:opacity 0.8s ease;">
 
   <nav id="siteNav">
-    <button class="navBtn" onclick="scrollToSection('portal')">🏠 Home</button>
-    <button class="navBtn" onclick="scrollToSection('games')">🎮 Giochi</button>
-    <button class="navBtn" onclick="goTo('teoria.html')">📚 Teoria</button>
-    <button class="navBtn" onclick="goTo('mappa.html')">🗺️ Mappa</button>
+    <div class="navPrimary">
+      <button class="navBtn" onclick="scrollToSection('portal')">🏠 Home</button>
+      <button class="navBtn" onclick="scrollToSection('games')">🎮 Giochi</button>
+      <button class="navBtn" onclick="goTo('teoria.html')">📚 Teoria</button>
+      <button class="navBtn" onclick="goTo('mappa.html')">🗺️ Mappa</button>
+    </div>
+    <div class="navActions" aria-label="Azioni rapide">
+      <button class="navActionBtn" onclick="openHomePanel('about')">Chi sono</button>
+      <button class="navActionBtn" onclick="openHomePanel('contact')">Contatti</button>
+      <button class="navActionBtn navBtnAccess" onclick="openHomePanel('access')">Accedi</button>
+    </div>
   </nav>
 
   <div id="contentWrapper">
@@ -101,6 +108,69 @@
     </section>
 
   </div>
+</div>
+
+<div class="homePanelOverlay" id="homePanelOverlay" aria-hidden="true">
+  <article class="homePanel" id="homePanelAbout" data-panel="about" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+    <button class="homePanelClose" type="button" onclick="closeHomePanel()" aria-label="Chiudi">×</button>
+    <div class="homePanelHeader">
+      <span class="infoEyebrow">Music Game Hub</span>
+      <h2 id="aboutTitle">Chi sono</h2>
+      <p>Un percorso didattico per studiare teoria musicale, lettura, ritmo e ascolto attraverso risorse brevi e giochi interattivi.</p>
+    </div>
+    <div class="homePanelBody">
+      <div class="infoHighlights" aria-label="Punti forti del progetto">
+        <div><strong>7</strong><span>argomenti teorici</span></div>
+        <div><strong>6</strong><span>giochi e allenamenti</span></div>
+        <div><strong>1</strong><span>hub in crescita</span></div>
+      </div>
+    </div>
+  </article>
+
+  <article class="homePanel" id="homePanelContact" data-panel="contact" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+    <button class="homePanelClose" type="button" onclick="closeHomePanel()" aria-label="Chiudi">×</button>
+    <div class="homePanelHeader">
+      <span class="infoEyebrow">Scrivimi</span>
+      <h2 id="contactTitle">Contatti</h2>
+      <p>Un errore, un suggerimento, una proposta per una nuova attività musicale: ogni messaggio è benvenuto.</p>
+    </div>
+    <div class="homePanelBody">
+      <form class="homePanelForm" onsubmit="handleContactSubmit(event)">
+        <label>Nome <input type="text" name="name" autocomplete="name"></label>
+        <label>Email <input type="email" name="email" autocomplete="email"></label>
+        <label>Motivo
+          <select name="reason">
+            <option>Segnalare un errore</option>
+            <option>Suggerire una nuova attività</option>
+            <option>Collaborare al progetto</option>
+            <option>Altro</option>
+          </select>
+        </label>
+        <label>Messaggio <textarea name="message" rows="4"></textarea></label>
+        <button class="accessButton" type="submit">Invia messaggio →</button>
+        <p id="contactMessage" class="accessMessage" aria-live="polite"></p>
+      </form>
+    </div>
+  </article>
+
+  <article class="homePanel" id="homePanelAccess" data-panel="access" role="dialog" aria-modal="true" aria-labelledby="accessTitle">
+    <button class="homePanelClose" type="button" onclick="closeHomePanel()" aria-label="Chiudi">×</button>
+    <div class="homePanelHeader">
+      <span class="infoEyebrow">Area personale</span>
+      <h2 id="accessTitle">Accedi al portale</h2>
+      <p>Inserisci la tua email: l'area personale servirà per salvare progressi, risultati e risorse preferite.</p>
+    </div>
+    <div class="homePanelBody">
+      <form class="homePanelForm" onsubmit="handleAccessSubmit(event)">
+        <label>
+          Email
+          <input type="email" name="email" placeholder="nome@email.it" autocomplete="email">
+        </label>
+        <button class="accessButton" type="submit">Invia link →</button>
+        <p id="accessMessage" class="accessMessage" aria-live="polite"></p>
+      </form>
+    </div>
+  </article>
 </div>
 
 <script src="js/common.js"></script>

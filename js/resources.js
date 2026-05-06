@@ -130,7 +130,7 @@ const MusicGameHubResources = (() => {
       desc: "Come leggere l'indicazione di tempo e il raggruppamento delle pulsazioni.",
       tags: ["tempo", "metro", "misura"],
       url: "teoria.html#tempi",
-      group: "practice"
+      group: "theory"
     },
     {
       id: "espressione",
@@ -140,7 +140,7 @@ const MusicGameHubResources = (() => {
       desc: "Dinamica, articolazione e agogica: come suonare un brano.",
       tags: ["dinamica", "agogica", "articolazione"],
       url: "teoria.html#espressione",
-      group: "practice"
+      group: "theory"
     }
   ];
 

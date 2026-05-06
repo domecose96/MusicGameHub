@@ -152,6 +152,45 @@
   overflow: visible;
 }
 
+.wordleModeGroup .dailyModeButton {
+  position: relative;
+  background: linear-gradient(180deg, #fff8ed, #fff0dc);
+  border-color: rgba(232, 93, 4, 0.36);
+  color: #8f3a00;
+}
+
+.wordleModeGroup .dailyModeButton:hover:not(.selected) {
+  background: linear-gradient(180deg, #fff1dc, #ffe4bf);
+  border-color: rgba(232, 93, 4, 0.52);
+  color: var(--action-orange);
+  box-shadow: 0 12px 26px rgba(232, 93, 4, 0.18);
+}
+
+.wordleModeGroup .dailyModeButton.selected {
+  background: linear-gradient(135deg, var(--action-orange), var(--action-orange-soft));
+  color: #ffffff;
+  box-shadow: 0 12px 28px rgba(232, 93, 4, 0.32);
+}
+
+.dailyModeBadge {
+  position: absolute;
+  top: -11px;
+  right: 14px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--action-orange);
+  color: #ffffff;
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  box-shadow: 0 6px 14px rgba(232, 93, 4, 0.24);
+}
+
+.dailyModeButton.selected .dailyModeBadge {
+  background: #ffffff;
+  color: var(--action-orange);
+}
+
 /* ==================== FIX 2: etichetta modalitÃ  DENTRO l'header ==================== */
 /* Rimuove il position:absolute che la spingeva fuori dal flusso dell'header */
 .wordlePage .headerBrand {

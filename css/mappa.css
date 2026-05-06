@@ -17,7 +17,7 @@ body {
 }
 
 .connectorLayer {
-  width: 1320px !important;
+  width: 1260px !important;
   height: 740px !important;
   max-width: none !important;
   background: transparent !important;
@@ -104,7 +104,7 @@ body {
 
 .mapCanvas {
   position: relative;
-  width: 1320px;
+  width: 1260px;
   height: 740px;
   margin: 0 auto;
   transform-origin: top center;
@@ -169,7 +169,7 @@ body {
 /* ==================== HUB ==================== */
 
 .rootNode {
-  left: 577px;
+  left: 547px;
   top: 30px;
   width: 166px;
   min-height: 118px;
@@ -228,21 +228,21 @@ body {
 }
 
 .cat-theory {
-  left: 130px;
+  left: 170px;
   top: 220px;
   background: var(--blue-pale);
   border-color: rgba(61,143,199,.42);
 }
 
 .cat-games {
-  left: 530px;
+  left: 690px;
   top: 220px;
   background: var(--green-pale);
   border-color: rgba(47,149,98,.42);
 }
 
 .cat-practice {
-  left: 930px;
+  left: 1015px;
   top: 220px;
   background: var(--gold-pale);
   border-color: rgba(197,138,19,.42);
@@ -356,23 +356,23 @@ body {
 
 /* ==================== POSIZIONI ==================== */
 
-#res-pentagramma { left: 40px; top: 370px; }
-#res-chiavi { left: 190px; top: 370px; }
-#res-note { left: 340px; top: 370px; }
+#res-pentagramma { left: 30px; top: 370px; }
+#res-chiavi { left: 170px; top: 370px; }
+#res-note { left: 310px; top: 370px; }
+#res-figure { left: 450px; top: 370px; }
 
-#res-figure { left: 115px; top: 535px; }
-#res-scale { left: 265px; top: 535px; }
+#res-scale { left: 100px; top: 535px; }
+#res-tempi { left: 240px; top: 535px; }
+#res-espressione { left: 380px; top: 535px; }
 
-#res-pentagramma-game { left: 520px; top: 370px; }
-#res-note-game { left: 670px; top: 370px; }
-#res-figures-game { left: 820px; top: 370px; }
+#res-pentagramma-game { left: 630px; top: 370px; }
+#res-note-game { left: 770px; top: 370px; }
+#res-figures-game { left: 910px; top: 370px; }
 
-#res-wordle { left: 595px; top: 535px; }
-#res-guanto { left: 745px; top: 535px; }
+#res-wordle { left: 700px; top: 535px; }
+#res-guanto { left: 840px; top: 535px; }
 
-#res-ritmo { left: 1000px; top: 370px; }
-#res-tempi { left: 1150px; top: 370px; }
-#res-espressione { left: 1075px; top: 535px; }
+#res-ritmo { left: 1080px; top: 370px; }
 
 /* ==================== LEGENDA ==================== */
 

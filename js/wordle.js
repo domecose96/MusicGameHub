@@ -82,6 +82,7 @@ function updateHeaderModeLabel(){
 function selectMode(button, selectedMode){
   mode = selectedMode;
   MGH.selectExclusive("#config .buttonGroup .menuButton", button);
+  MGH.setWarning("", "#config .warningText");
 
   // La scritta sotto Music Wordle cambia solo dopo Start.
   showMessage("");
@@ -193,10 +194,11 @@ function restoreDailyBoard(state){
 // ==================== START GIOCO ====================
 function startGame(){
   if(!mode){
-    showMessage("Seleziona una modalità.", 2200);
+    MGH.setWarning("Seleziona una modalità prima di iniziare", "#config .warningText");
     return;
   }
 
+  MGH.setWarning("", "#config .warningText");
   activeMode = mode;
 
   if(mode === dailyMode){

@@ -8,6 +8,7 @@ const ledgerGroup = document.getElementById("ledgerLines");
 const buttonsDiv = document.getElementById("buttons");
 const clefSymbol = document.getElementById("clefSymbol");
 const feedbackEl = document.getElementById("feedback");
+const warning = document.getElementById("warning");
 
 const buttonNames = ["Do","Re","Mi","Fa","Sol","La","Si"];
 
@@ -27,12 +28,14 @@ function selectButton(groupClass, element){
 
 function setDifficulty(level, el){
   difficulty = level;
+  warning.textContent = "";
   selectButton(".menuButton", el);
 }
 
 // gestione chiave separata per calibrare posizione e grandezza
 function setClef(type, el){
   clef = type;
+  warning.textContent = "";
   let clefChar, posY, fontSize;
   if(type === "treble"){
     clefChar = "𝄞";
@@ -51,9 +54,10 @@ function setClef(type, el){
 
 function startGame(){
   if(!difficulty || !clef){
-    alert("Seleziona modalità e chiave prima di iniziare");
+    warning.textContent = "Seleziona modalità e chiave prima di iniziare";
     return;
   }
+  warning.textContent = "";
   document.getElementById("menu").classList.add("hidden");
   document.getElementById("game").classList.remove("hidden");
   newNote();

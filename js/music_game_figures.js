@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const game = document.getElementById("game");
   const feedbackEl = document.getElementById("feedback");
   const headerModeLabel = document.getElementById("headerModeLabel");
+  const warning = document.getElementById("warning");
 
   function getModeLabel(){
     if(mode === "note") return "Note";
@@ -25,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ==================== MENU ==================== */
   window.setMode = function(selectedMode, el){
     mode = selectedMode;
+    warning.textContent = "";
 
     MGH.selectExclusive("#menu .buttonGroup button", el);
   };
@@ -32,10 +34,11 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ==================== INIZIO GIOCO ==================== */
   window.startGame = function(){
     if(!mode){
-      alert("Seleziona una modalità prima di iniziare");
+      warning.textContent = "Seleziona una modalità prima di iniziare";
       return;
     }
 
+    warning.textContent = "";
     menu.classList.add("hidden");
     game.classList.remove("hidden");
 

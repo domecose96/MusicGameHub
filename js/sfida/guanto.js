@@ -1,7 +1,7 @@
 // ==================== VARIABILI GLOBALI ====================
 const allNotes = ["Do","Re","Mi","Fa","Sol","La","Si"];
 
-let numQuestions = 10;
+let numQuestions = null;
 let questions = [];
 let currentIndex = 0;
 let errors = 0;
@@ -38,11 +38,18 @@ function updateHeaderModeLabel(label = ""){
 function selectNum(btn,num){
   MGH.selectExclusive("#config .menuButton", btn);
   numQuestions = num;
+  MGH.setWarning("", "#config .warningText");
 }
 
 // ==================== INIZIO SFIDA ====================
 async function startChallenge(){
+  if(!numQuestions){
+    MGH.setWarning("Seleziona una modalità prima di iniziare", "#config .warningText");
+    return;
+  }
+
   currentMode = "sfida";
+  MGH.setWarning("", "#config .warningText");
 
   document.getElementById("config").classList.add("hidden");
   quizDiv.classList.remove("hidden");

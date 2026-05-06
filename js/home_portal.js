@@ -270,6 +270,45 @@ function searchPortal() {
   }
 }
 
+function handleAccessSubmit(event) {
+  event.preventDefault();
+
+  const message = document.getElementById("accessMessage");
+  if (message) {
+    message.textContent = "Area personale in preparazione: presto potrai salvare progressi e risultati.";
+  }
+}
+
+function handleContactSubmit(event) {
+  event.preventDefault();
+
+  const message = document.getElementById("contactMessage");
+  if (message) {
+    message.textContent = "Grazie per il messaggio: la funzione di invio sarà collegata presto.";
+  }
+}
+
+function openHomePanel(panelName) {
+  const overlay = document.getElementById("homePanelOverlay");
+  if (!overlay) return;
+
+  overlay.classList.add("show");
+  overlay.setAttribute("aria-hidden", "false");
+
+  document.querySelectorAll(".homePanel").forEach(panel => {
+    panel.classList.toggle("active", panel.dataset.panel === panelName);
+  });
+}
+
+function closeHomePanel() {
+  const overlay = document.getElementById("homePanelOverlay");
+  if (!overlay) return;
+
+  overlay.classList.remove("show");
+  overlay.setAttribute("aria-hidden", "true");
+  document.querySelectorAll(".homePanel").forEach(panel => panel.classList.remove("active"));
+}
+
 // ==================== RISORSE HOME ====================
 function createCardElement(item, options = {}) {
   const isDisabled = Boolean(options.disabled);
@@ -429,6 +468,10 @@ window.enterSite = enterSite;
 window.scrollToSection = scrollToSection;
 window.goTo = goTo;
 window.searchPortal = searchPortal;
+window.handleAccessSubmit = handleAccessSubmit;
+window.handleContactSubmit = handleContactSubmit;
+window.openHomePanel = openHomePanel;
+window.closeHomePanel = closeHomePanel;
 
 document.addEventListener("DOMContentLoaded", () => {
   if (shouldSkipIntro) revealSiteImmediately();
@@ -455,6 +498,14 @@ document.addEventListener("DOMContentLoaded", () => {
       searchBtn.blur();
     });
   }
+
+  document.getElementById("homePanelOverlay")?.addEventListener("click", event => {
+    if (event.target.id === "homePanelOverlay") closeHomePanel();
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeHomePanel();
+  });
 
   loadGoatStats();
 });
