@@ -16,6 +16,7 @@ const X_STEP = 44;
 const NOTE_MS = 520;
 const FADE_MS = 900;
 const INTRO_SEEN_KEY = "musicGameHubIntroSeen";
+const WEB3FORMS_ACCESS_KEY = "b72ee878-1ec1-47e2-adfa-2cc026b69a63";
 
 let currentX = X_START;
 let melodyIndex = 0;
@@ -270,12 +271,50 @@ function searchPortal() {
   }
 }
 
-function handleAccessSubmit(event) {
+function switchAccessTab(tabName) {
+  document.querySelectorAll(".accessTab").forEach(tab => {
+    tab.classList.toggle("active", tab.dataset.accessTab === tabName);
+  });
+
+  document.querySelectorAll(".accessPane").forEach(pane => {
+    pane.classList.toggle("active", pane.dataset.accessPane === tabName);
+  });
+
+  const message = document.getElementById("accessMessage");
+  if (message) message.textContent = "";
+}
+
+function handleAccessSubmit(event, mode = "login") {
   event.preventDefault();
 
   const message = document.getElementById("accessMessage");
   if (message) {
-    message.textContent = "Area personale in preparazione: presto potrai salvare progressi e risultati.";
+    message.textContent = mode === "register"
+      ? "Registrazione pronta nel layout: serve Firebase/Auth per creare account reali."
+      : "Accesso pronto nel layout: serve Firebase/Auth per email e password.";
+  }
+}
+
+function handleGoogleAccess(mode = "login") {
+  const message = document.getElementById("accessMessage");
+  if (message) {
+    message.textContent = mode === "register"
+      ? "Registrazione con Google pronta: serve collegare Google Auth."
+      : "Login with Google pronto: serve collegare Google Auth.";
+  }
+}
+
+function handlePasswordReset() {
+  const message = document.getElementById("accessMessage");
+  if (message) {
+    message.textContent = "Ripristino password pronto nel layout: serve collegare l'invio email con il servizio di autenticazione.";
+  }
+}
+
+function showAccessTerms() {
+  const message = document.getElementById("accessMessage");
+  if (message) {
+    message.textContent = "Termini di servizio pronti: useremo l'area personale solo per accesso, progressi e preferenze del portale.";
   }
 }
 
@@ -283,9 +322,40 @@ function handleContactSubmit(event) {
   event.preventDefault();
 
   const message = document.getElementById("contactMessage");
-  if (message) {
-    message.textContent = "Grazie per il messaggio: la funzione di invio sarà collegata presto.";
+  const form = event.currentTarget;
+  const accessKeyInput = form.querySelector("input[name='access_key']");
+
+  if (!WEB3FORMS_ACCESS_KEY) {
+    if (message) {
+      message.textContent = "Form pronto: inserisci la tua Web3Forms access key per collegare l'invio.";
+    }
+    return;
   }
+
+  if (accessKeyInput) {
+    accessKeyInput.value = WEB3FORMS_ACCESS_KEY;
+  }
+
+  if (message) {
+    message.textContent = "Invio in corso...";
+  }
+
+  fetch("https://api.web3forms.com/submit", {
+    method: "POST",
+    body: new FormData(form)
+  })
+    .then(response => response.json())
+    .then(result => {
+      if (!result.success) {
+        throw new Error(result.message || "Invio non riuscito");
+      }
+
+      form.reset();
+      if (message) message.textContent = "Messaggio inviato. Grazie!";
+    })
+    .catch(() => {
+      if (message) message.textContent = "Invio non riuscito. Riprova tra poco.";
+    });
 }
 
 function openHomePanel(panelName) {
@@ -468,7 +538,11 @@ window.enterSite = enterSite;
 window.scrollToSection = scrollToSection;
 window.goTo = goTo;
 window.searchPortal = searchPortal;
+window.switchAccessTab = switchAccessTab;
 window.handleAccessSubmit = handleAccessSubmit;
+window.handleGoogleAccess = handleGoogleAccess;
+window.handlePasswordReset = handlePasswordReset;
+window.showAccessTerms = showAccessTerms;
 window.handleContactSubmit = handleContactSubmit;
 window.openHomePanel = openHomePanel;
 window.closeHomePanel = closeHomePanel;

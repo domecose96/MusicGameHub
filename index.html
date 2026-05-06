@@ -113,17 +113,37 @@
 <div class="homePanelOverlay" id="homePanelOverlay" aria-hidden="true">
   <article class="homePanel" id="homePanelAbout" data-panel="about" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
     <button class="homePanelClose" type="button" onclick="closeHomePanel()" aria-label="Chiudi">×</button>
-    <div class="homePanelHeader">
-      <span class="infoEyebrow">Music Game Hub</span>
-      <h2 id="aboutTitle">Chi sono</h2>
-      <p>Un percorso didattico per studiare teoria musicale, lettura, ritmo e ascolto attraverso risorse brevi e giochi interattivi.</p>
-    </div>
-    <div class="homePanelBody">
-      <div class="infoHighlights" aria-label="Punti forti del progetto">
-        <div><strong>7</strong><span>argomenti teorici</span></div>
-        <div><strong>6</strong><span>giochi e allenamenti</span></div>
-        <div><strong>1</strong><span>hub in crescita</span></div>
+    <div class="profileHeader">
+      <div class="profileAvatar" aria-hidden="true">
+        <img src="img/mgh-logo.png" alt="">
       </div>
+      <div>
+        <h2 id="aboutTitle">Domenico Cosentino</h2>
+        <p>Docente di Musica di I e II grado</p>
+        <span>Creatore di Music Game Hub</span>
+      </div>
+    </div>
+    <div class="homePanelBody profileBody">
+      <p class="aboutText">
+        Music Game Hub nasce dalla mia esperienza didattica e dal desiderio di
+        rendere la teoria musicale più chiara, pratica e accessibile.
+        Ho creato questo spazio per accompagnare studenti e studentesse nello
+        studio della musica attraverso spiegazioni semplici, esercizi e giochi.
+      </p>
+      <p class="aboutText">
+        L'obiettivo è aiutarti a capire la musica con gli occhi, con l'orecchio
+        e con la pratica, trasformando lo studio in un percorso fatto di giochi,
+        esercizi e curiosità.
+      </p>
+      <div class="profileTags" aria-label="Argomenti del progetto">
+        <span>🎼 Teoria musicale</span>
+        <span>🎮 Giochi interattivi</span>
+        <span>🏫 Scuola secondaria</span>
+        <span>⏱ Ritmo</span>
+      </div>
+    </div>
+    <div class="homePanelFooter">
+      <button class="panelPrimaryBtn" type="button" onclick="openHomePanel('contact')">Scrivimi</button>
     </div>
   </article>
 
@@ -135,19 +155,41 @@
       <p>Un errore, un suggerimento, una proposta per una nuova attività musicale: ogni messaggio è benvenuto.</p>
     </div>
     <div class="homePanelBody">
-      <form class="homePanelForm" onsubmit="handleContactSubmit(event)">
-        <label>Nome <input type="text" name="name" autocomplete="name"></label>
-        <label>Email <input type="email" name="email" autocomplete="email"></label>
-        <label>Motivo
-          <select name="reason">
+      <form class="homePanelForm" id="contactForm" onsubmit="handleContactSubmit(event)">
+        <input type="hidden" name="access_key" value="">
+        <input type="hidden" name="subject" value="Nuovo messaggio da Music Game Hub">
+        <input type="hidden" name="from_name" value="Music Game Hub">
+        <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off">
+
+        <label><span class="fieldLabel">Nome <span class="requiredMark">*</span></span><input type="text" name="name" autocomplete="name" required></label>
+        <label><span class="fieldLabel">Email <span class="requiredMark">*</span></span><input type="email" name="email" autocomplete="email" required></label>
+        <label><span class="fieldLabel">Motivo <span class="requiredMark">*</span></span>
+          <select name="reason" required>
             <option>Segnalare un errore</option>
             <option>Suggerire una nuova attività</option>
             <option>Collaborare al progetto</option>
             <option>Altro</option>
           </select>
         </label>
-        <label>Messaggio <textarea name="message" rows="4"></textarea></label>
+        <label><span class="fieldLabel">Messaggio <span class="requiredMark">*</span></span><textarea name="message" rows="4" required></textarea></label>
+
+        <fieldset class="ratingField">
+          <legend>Come valuti il portale? <span>(facoltativo)</span></legend>
+          <div class="starRating">
+            <input type="radio" id="rating5" name="rating" value="5 stelle"><label for="rating5">★</label>
+            <input type="radio" id="rating4" name="rating" value="4 stelle"><label for="rating4">★</label>
+            <input type="radio" id="rating3" name="rating" value="3 stelle"><label for="rating3">★</label>
+            <input type="radio" id="rating2" name="rating" value="2 stelle"><label for="rating2">★</label>
+            <input type="radio" id="rating1" name="rating" value="1 stella"><label for="rating1">★</label>
+          </div>
+        </fieldset>
+
+        <label>Come hai trovato questo portale? <span>(facoltativo)</span>
+          <input type="text" name="source" placeholder="Es. un collega, Google, social..." autocomplete="off">
+        </label>
+
         <button class="accessButton" type="submit">Invia messaggio →</button>
+        <p class="privacyNote">I tuoi dati sono usati solo per rispondere e non vengono condivisi con terzi.</p>
         <p id="contactMessage" class="accessMessage" aria-live="polite"></p>
       </form>
     </div>
@@ -157,18 +199,56 @@
     <button class="homePanelClose" type="button" onclick="closeHomePanel()" aria-label="Chiudi">×</button>
     <div class="homePanelHeader">
       <span class="infoEyebrow">Area personale</span>
-      <h2 id="accessTitle">Accedi al portale</h2>
-      <p>Inserisci la tua email: l'area personale servirà per salvare progressi, risultati e risorse preferite.</p>
+      <h2 id="accessTitle">Accedi o registrati</h2>
+      <p>L'area personale servirà per salvare progressi, risultati e risorse preferite.</p>
     </div>
     <div class="homePanelBody">
-      <form class="homePanelForm" onsubmit="handleAccessSubmit(event)">
-        <label>
-          Email
-          <input type="email" name="email" placeholder="nome@email.it" autocomplete="email">
-        </label>
-        <button class="accessButton" type="submit">Invia link →</button>
-        <p id="accessMessage" class="accessMessage" aria-live="polite"></p>
-      </form>
+      <div class="accessTabs" role="tablist" aria-label="Accesso o registrazione">
+        <button class="accessTab active" type="button" data-access-tab="login" onclick="switchAccessTab('login')">Accedi</button>
+        <button class="accessTab" type="button" data-access-tab="register" onclick="switchAccessTab('register')">Registrati</button>
+      </div>
+
+      <section class="accessPane active" data-access-pane="login">
+        <form class="homePanelForm" onsubmit="handleAccessSubmit(event, 'login')">
+          <label>Email <input type="email" name="email" placeholder="nome@email.it" autocomplete="email" required></label>
+          <label>Password <input type="password" name="password" placeholder="••••••••" autocomplete="current-password" required></label>
+          <button class="accessButton" type="submit">Accedi</button>
+        </form>
+        <div class="accessDivider"><span>oppure</span></div>
+        <button class="googleAccessButton" type="button" onclick="handleGoogleAccess('login')">
+          <span class="googleLogo" aria-hidden="true">
+            <span class="g-blue">G</span>
+          </span>
+          Login with Google
+        </button>
+        <div class="accessLinks">
+          <button type="button" onclick="handlePasswordReset()">Ripristina password</button>
+          <button type="button" onclick="showAccessTerms()">Termini di servizio</button>
+        </div>
+      </section>
+
+      <section class="accessPane" data-access-pane="register">
+        <form class="homePanelForm" onsubmit="handleAccessSubmit(event, 'register')">
+          <label>Nome <input type="text" name="firstName" autocomplete="given-name" required></label>
+          <label>Cognome <input type="text" name="lastName" autocomplete="family-name" required></label>
+          <label>Anni <input type="number" name="age" min="6" max="99" inputmode="numeric" required></label>
+          <label>Email <input type="email" name="email" placeholder="nome@email.it" autocomplete="email" required></label>
+          <label>Password <input type="password" name="password" placeholder="Scegli una password" autocomplete="new-password" minlength="8" required></label>
+          <button class="accessButton" type="submit">Crea account</button>
+        </form>
+        <div class="accessDivider"><span>oppure</span></div>
+        <button class="googleAccessButton" type="button" onclick="handleGoogleAccess('register')">
+          <span class="googleLogo" aria-hidden="true">
+            <span class="g-blue">G</span>
+          </span>
+          Registrati con Google
+        </button>
+        <div class="accessLinks single">
+          <button type="button" onclick="showAccessTerms()">Termini di servizio</button>
+        </div>
+      </section>
+
+      <p id="accessMessage" class="accessMessage" aria-live="polite"></p>
     </div>
   </article>
 </div>
