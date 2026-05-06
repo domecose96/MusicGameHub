@@ -144,6 +144,8 @@
   margin-left: auto;
   padding-left: 16px;
   border-left: 1px solid rgba(255,102,0,.16);
+  justify-content: flex-end;
+  min-width: max-content;
 }
 
 .navBtn {
@@ -178,8 +180,12 @@
 
 .navActionBtn {
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: auto;
-  height: auto;
+  min-width: 82px;
+  height: 34px;
   padding: 7px 13px;
   border-radius: 999px;
   border: 1px solid rgba(255,102,0,.12);
@@ -243,6 +249,11 @@
     padding: 8px 10px;
     gap: 10px;
     justify-content: flex-start;
+  }
+
+  .navActions {
+    margin-left: 0;
+    padding-left: 10px;
   }
 
   .siteSection {
