@@ -23,12 +23,21 @@ const MGH = (() => {
   }
 
   function setActiveNav(id) {
-    document.querySelectorAll(".navBtn").forEach(btn => {
-      const matchesOnclick = btn.getAttribute("onclick") === `scrollToSection('${id}')`;
-      const matchesTarget = btn.dataset.target === id;
-      btn.classList.toggle("active", matchesOnclick || matchesTarget);
-    });
-  }
+  document.querySelectorAll(".navBtn").forEach(btn => {
+
+    const onclick = btn.getAttribute("onclick") || "";
+
+    const matchesOnclick =
+      onclick.includes(`scrollToSection('${id}')`) ||
+      onclick.includes(`scrollToSection("${id}")`) ||
+      onclick.includes(`MGH.scrollToSection('${id}')`) ||
+      onclick.includes(`MGH.scrollToSection("${id}")`);
+
+    const matchesTarget = btn.dataset.target === id;
+
+    btn.classList.toggle("active", matchesOnclick || matchesTarget);
+  });
+}
 
   function scrollToSection(id) {
     const el = document.getElementById(id);

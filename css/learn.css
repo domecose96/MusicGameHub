@@ -501,11 +501,17 @@
   margin: 20px 0 28px;
 }
 
+/* La griglia dei ritornelli resta su una sola riga quando c'è spazio */
+.repeatGrid {
+  grid-template-columns: repeat(7, minmax(128px, 1fr));
+  align-items: stretch;
+}
+
 .symbolCard,
 .repeatCard {
   background: var(--surface-solid);
   border-radius: 14px;
-  padding: 18px 14px 14px;
+  padding: 18px 14px 16px;
   box-shadow: var(--panel-shadow);
   text-align: center;
   display: flex;
@@ -514,9 +520,15 @@
   gap: 8px;
 }
 
+.repeatCard {
+  justify-content: flex-start;
+}
+
 .symbolMark,
 .repeatMark {
-  min-height: 46px;
+  width: 72px;
+  height: 72px;
+  min-height: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -525,40 +537,30 @@
   font-size: 2.7rem;
   font-weight: 900;
   line-height: 1;
+  margin: 0 auto 2px;
 }
 
-.repeatMark {
-  font-size: 2.35rem;
-  letter-spacing: 0.08em;
+.symbolMark {
+  width: auto;
+  min-width: 72px;
 }
 
 .repeatMarkSvg svg {
-  width: 54px;
-  height: 54px;
+  width: 64px;
+  height: 64px;
   display: block;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  overflow: visible;
 }
 
-.repeatMarkSvg circle {
-  fill: currentColor;
-  stroke: none;
+.repeatMarkText {
+  font-size: 2.7rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
-.segnoGlyph {
-  fill: none;
-  stroke: #2d2d2d;
-  stroke-width: 4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.segnoGlyph circle {
-  fill: #2d2d2d;
-  stroke: none;
+.repeatMarkWide {
+  font-size: 2.45rem;
+  letter-spacing: 0.06em;
 }
 
 .symbolCard h4,
@@ -566,6 +568,10 @@
   margin: 0;
   color: var(--text-main);
   font-size: 0.9rem;
+  min-height: 1.15em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .symbolCard p,
@@ -637,6 +643,24 @@
 
 .repeatExampleCard .repeatSVG text[font-family="serif"] {
   fill: #2d2d2d;
+}
+
+@media (max-width: 1180px) {
+  .repeatGrid {
+    grid-template-columns: repeat(4, minmax(150px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .repeatGrid {
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .repeatGrid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ==================== ESPRESSIONE ==================== */
