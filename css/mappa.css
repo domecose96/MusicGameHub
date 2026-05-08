@@ -361,9 +361,10 @@ body {
 #res-note { left: 310px; top: 370px; }
 #res-figure { left: 450px; top: 370px; }
 
-#res-scale { left: 100px; top: 535px; }
-#res-tempi { left: 240px; top: 535px; }
-#res-espressione { left: 380px; top: 535px; }
+#res-scale { left: 30px; top: 535px; }
+#res-tempi { left: 170px; top: 535px; }
+#res-simboli{left: 310px;   top: 535px;}  
+#res-espressione { left: 450px; top: 535px; }
 
 #res-pentagramma-game { left: 630px; top: 370px; }
 #res-note-game { left: 770px; top: 370px; }
