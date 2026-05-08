@@ -164,6 +164,14 @@ const MusicGameHubResources = (() => {
       url: "teoria.html"
     },
     {
+      id: "homeAdvancedTheory",
+      icon: "📚",
+      title: "Teoria avanzata",
+      desc: "Intervalli, accordi, rivolti, cadenze, modulazioni e forme musicali.",
+      tag: "Avanzata",
+      url: "teoria_avanzata.html"
+    },
+    {
       id: "homeGames",
       icon: "🎮",
       title: "Giochi interattivi",
