@@ -32,6 +32,7 @@
   <button class="navBtn" onclick="scrollToSection('figure')">♩ Figure</button>
   <button class="navBtn" onclick="scrollToSection('tempi')">⏱ Tempi</button>
   <button class="navBtn" onclick="scrollToSection('scale')">🎹 Scale</button>
+  <button class="navBtn" onclick="scrollToSection('simboli')">♯ Simboli</button>
   <button class="navBtn" onclick="scrollToSection('espressione')">🎭 Espressione</button>
 </nav>
 
@@ -473,21 +474,7 @@
     <!-- SCALE -->
     <section id="scale" class="siteSection learnSection">
       <h2 class="sectionTitle">Scale e tonalità</h2>
-      <p class="sectionIntro">Una <strong>scala</strong> è una successione di 7 note secondo uno schema fisso di toni e semitoni. Prima di costruirla, è utile conoscere le alterazioni: i segni che alzano, abbassano o ripristinano una nota.</p>
-
-      <div class="didacticBox">
-        <h4>🎹 Alterazioni: diesis, bemolle e bequadro</h4>
-        <p>
-          Il <strong>diesis</strong> (#) alza una nota di un semitono: Fa diventa Fa#.
-          Il <strong>bemolle</strong> (♭) abbassa una nota di un semitono: Si diventa Si♭.
-          Il <strong>bequadro</strong> (♮) annulla un diesis o un bemolle precedente e riporta la nota naturale.
-        </p>
-        <p>
-          Due note possono avere nomi diversi ma produrre lo stesso suono sul pianoforte:
-          per esempio <strong>Fa#</strong> e <strong>Sol♭</strong>. Questo si chiama
-          <strong>enarmonia</strong>.
-        </p>
-      </div>
+      <p class="sectionIntro">Una <strong>scala</strong> è una successione di 7 note secondo uno schema fisso di toni e semitoni. Le scale aiutano a capire la tonalità di un brano e l'organizzazione dei suoni.</p>
 
       <div class="scaleBox">
         <h3>Scala maggiore — schema T T S T T T S</h3>
@@ -560,11 +547,6 @@
       </p>
     </div>
 
-      <div class="didacticBox">
-        <h4>🎵 Armatura di chiave</h4>
-        <p>L'armatura di chiave è l'insieme di diesis (#) o bemolle (♭) all'inizio del pentagramma. Indicano le note sempre alterate nel brano. Più diesis o bemolle = tonalità più "lontana" da Do maggiore.</p>
-      </div>
-
       <div class="tonalityGrid">
         <h3>Tonalità maggiori</h3>
         <div class="tonalityRow">
@@ -590,6 +572,253 @@
       <div class="didacticBox">
         <h4>🎵 Tonalità enarmoniche</h4>
         <p>Alcune tonalità possono avere due nomi diversi ma suonano uguali: si chiamano <strong>enarmoniche</strong> (es. Fa♯ = Sol♭, Do♯ = Re♭). In pratica si usa la versione più facile da leggere.</p>
+      </div>
+    </section>
+
+    <!-- SIMBOLI -->
+    <section id="simboli" class="siteSection learnSection">
+      <h2 class="sectionTitle">Alterazioni e simboli di ripetizione</h2>
+      <p class="sectionIntro">
+        Alcuni simboli modificano le note, altri indicano come ripetere una parte del brano.
+        Sono fondamentali per leggere uno spartito in modo corretto.
+      </p>
+
+      <h3 class="subSectionTitle">Alterazioni</h3>
+      <div class="symbolGrid">
+        <div class="symbolCard">
+          <div class="symbolMark">♯</div>
+          <h4>Diesis</h4>
+          <p>Alza la nota di un semitono: Fa diventa Fa♯.</p>
+        </div>
+        <div class="symbolCard">
+          <div class="symbolMark">♭</div>
+          <h4>Bemolle</h4>
+          <p>Abbassa la nota di un semitono: Si diventa Si♭.</p>
+        </div>
+        <div class="symbolCard">
+          <div class="symbolMark">♮</div>
+          <h4>Bequadro</h4>
+          <p>Annulla diesis o bemolle e riporta la nota naturale.</p>
+        </div>
+        <div class="symbolCard">
+          <div class="symbolMark">𝄪</div>
+          <h4>Doppio diesis</h4>
+          <p>Alza la nota di due semitoni. Si incontra in contesti più avanzati.</p>
+        </div>
+        <div class="symbolCard">
+          <div class="symbolMark">𝄫</div>
+          <h4>Doppio bemolle</h4>
+          <p>Abbassa la nota di due semitoni. È meno frequente nella lettura base.</p>
+        </div>
+      </div>
+
+      <div class="clefGrid clefGridSingle symbolStaffWrap">
+        <div class="clefCard">
+          <h3 class="cardTopTitle">La stessa posizione, suono diverso</h3>
+          <svg class="clefStaffSVG" viewBox="0 -8 430 150">
+            <line x1="52" y1="30" x2="380" y2="30" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="52" y1="50" x2="380" y2="50" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="52" y1="70" x2="380" y2="70" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="52" y1="90" x2="380" y2="90" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="52" y1="110" x2="380" y2="110" stroke="#ddd" stroke-width="1.5"/>
+            <text x="40" y="126" font-size="150" font-family="serif" fill="#ff6600">𝄞</text>
+
+            <ellipse cx="145" cy="100" rx="11" ry="8" fill="#ff6600"/>
+            <text x="145" y="130" text-anchor="middle" font-size="12" fill="#ff6600" font-weight="bold">Fa</text>
+
+            <text x="202" y="105" text-anchor="middle" font-size="24" fill="#ff6600" font-weight="bold">♯</text>
+            <ellipse cx="220" cy="100" rx="11" ry="8" fill="#ff6600"/>
+            <text x="220" y="130" text-anchor="middle" font-size="12" fill="#ff6600" font-weight="bold">Fa♯</text>
+
+            <text x="274" y="75" text-anchor="middle" font-size="24" fill="#ff6600" font-weight="bold">♭</text>
+            <ellipse cx="292" cy="70" rx="11" ry="8" fill="#ff6600"/>
+            <text x="292" y="130" text-anchor="middle" font-size="12" fill="#ff6600" font-weight="bold">Si♭</text>
+
+            <text x="342" y="105" text-anchor="middle" font-size="24" fill="#ff6600" font-weight="bold">♮</text>
+            <ellipse cx="360" cy="100" rx="11" ry="8" fill="#ff6600"/>
+            <text x="360" y="130" text-anchor="middle" font-size="12" fill="#ff6600" font-weight="bold">Fa♮</text>
+          </svg>
+          <p>
+            L'alterazione si scrive <strong>prima</strong> della nota, ma si legge insieme alla nota.
+            La posizione sul pentagramma resta la stessa: cambia l'altezza del suono.
+          </p>
+        </div>
+      </div>
+
+      <div class="didacticBox">
+        <h4>🎹 Enarmonia</h4>
+        <p>
+          Due note possono avere nomi diversi ma produrre lo stesso suono sul pianoforte:
+          per esempio <strong>Fa♯</strong> e <strong>Sol♭</strong>. Questo si chiama
+          <strong>enarmonia</strong>.
+        </p>
+      </div>
+
+      <h3 class="subSectionTitle" style="margin-top:32px;">Armatura di chiave</h3>
+      <div class="didacticBox">
+        <h4>🎵 Alterazioni all'inizio del brano</h4>
+        <p>
+          L'<strong>armatura di chiave</strong> è l'insieme di diesis o bemolli scritti subito dopo la chiave.
+          Indica quali note saranno alterate per tutto il brano, salvo indicazione diversa con un bequadro.
+        </p>
+      </div>
+
+      <div class="clefGrid clefGridSingle symbolStaffWrap">
+        <div class="clefCard">
+          <h3 class="cardTopTitle">Esempio: Sol maggiore</h3>
+          <svg class="clefStaffSVG" viewBox="0 -8 430 150">
+            <line x1="52" y1="30" x2="380" y2="30" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="52" y1="50" x2="380" y2="50" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="52" y1="70" x2="380" y2="70" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="52" y1="90" x2="380" y2="90" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="52" y1="110" x2="380" y2="110" stroke="#ddd" stroke-width="1.5"/>
+            <!-- Chiave di violino più grande -->
+            <text x="25" y="128" font-size="200" font-family="serif" fill="#ff6600">𝄞</text>
+            <!-- Diesis sulla 5ª riga (la riga più alta del Fa in chiave di violino) -->
+            <text x="132" y="38" text-anchor="middle" font-size="28" fill="#ff6600" font-weight="bold">♯</text>
+            <text x="132" y="132" text-anchor="middle" font-size="12" fill="#ff6600" font-weight="bold">Fa♯ in chiave</text>
+            <!-- Nota Fa♯ sulla 5ª riga (y=30) -->
+            <ellipse cx="260" cy="30" rx="11" ry="8" fill="#ff6600"/>
+            <line x1="249" y1="30" x2="249" y2="74" stroke="#ff6600" stroke-width="2"/>
+            <text x="260" y="132" text-anchor="middle" font-size="12" fill="#ff6600" font-weight="bold">Fa♯ nota</text>
+          </svg>
+          <p>
+            Se trovi un diesis sul Fa nell'armatura, tutti i Fa del brano si suonano come <strong>Fa♯</strong>,
+            anche quando il diesis non viene riscritto accanto alla nota.
+          </p>
+        </div>
+      </div>
+
+      <h3 class="subSectionTitle" style="margin-top:32px;">Ritornelli e ripetizioni</h3>
+
+      <div class="repeatGrid">
+        <div class="repeatCard">
+          <div class="repeatMark repeatMarkSvg" aria-hidden="true">
+            <svg viewBox="0 0 64 64" role="img">
+              <circle cx="18" cy="18" r="4"></circle>
+              <circle cx="46" cy="46" r="4"></circle>
+              <path d="M16 50 C38 52 50 36 42 24 C34 12 17 18 21 30 C26 45 49 42 48 20"></path>
+              <line x1="14" y1="50" x2="50" y2="14"></line>
+            </svg>
+          </div>
+          <h4>Segno</h4>
+          <p>Punto di ritorno indicato da D.S. o Dal Segno.</p>
+        </div>
+        <div class="repeatCard">
+          <div class="repeatMark repeatMarkSvg" aria-hidden="true">
+            <svg viewBox="0 0 64 64" role="img">
+              <line x1="32" y1="10" x2="32" y2="54"></line>
+              <line x1="12" y1="32" x2="52" y2="32"></line>
+              <path d="M32 14 C48 14 55 24 55 32 C55 40 48 50 32 50 C16 50 9 40 9 32 C9 24 16 14 32 14 Z"></path>
+            </svg>
+          </div>
+          <h4>Coda</h4>
+          <p>Indica una sezione finale o un punto verso cui saltare.</p>
+        </div>
+        <div class="repeatCard">
+          <div class="repeatMark">𝄆 𝄇</div>
+          <h4>Ritornello</h4>
+          <p>La parte compresa tra i segni si ripete.</p>
+        </div>
+        <div class="repeatCard">
+          <div class="repeatMark">%</div>
+          <h4>Ripeti battuta</h4>
+          <p>Ripete la battuta precedente senza riscriverla.</p>
+        </div>
+        <div class="repeatCard">
+          <div class="repeatMark">1. 2.</div>
+          <h4>Prima e seconda volta</h4>
+          <p>Alla ripetizione si salta la prima casella e si passa alla seconda.</p>
+        </div>
+        <div class="repeatCard">
+          <div class="repeatMark">D.C.</div>
+          <h4>Da capo al Fine</h4>
+          <p>Si torna all'inizio e si conclude dove compare la parola Fine.</p>
+        </div>
+        <div class="repeatCard">
+          <div class="repeatMark">D.S.</div>
+          <h4>Dal segno al Fine</h4>
+          <p>Si torna al segno 𝄋 e si conclude alla parola Fine.</p>
+        </div>
+      </div>
+
+      <h3 class="subSectionTitle" style="margin-top:28px;">Esempi di lettura</h3>
+      <div class="repeatExampleGrid">
+        <div class="repeatExampleCard">
+          <h4>Ritornello con prima e seconda volta</h4>
+          <svg class="repeatSVG" viewBox="0 0 560 170">
+            <line x1="40" y1="44" x2="520" y2="44" stroke="#ddd" stroke-width="1.5"></line>
+            <line x1="40" y1="64" x2="520" y2="64" stroke="#ddd" stroke-width="1.5"></line>
+            <line x1="40" y1="84" x2="520" y2="84" stroke="#ddd" stroke-width="1.5"></line>
+            <line x1="40" y1="104" x2="520" y2="104" stroke="#ddd" stroke-width="1.5"></line>
+            <line x1="40" y1="124" x2="520" y2="124" stroke="#ddd" stroke-width="1.5"></line>
+            <text x="30" y="140" font-size="180" font-family="serif" fill="#ff6600">𝄞</text>
+            <text x="95" y="125" font-size="120" font-family="serif" fill="#ff6600">𝄆</text>
+            <ellipse cx="170" cy="84" rx="8" ry="6" fill="#ff6600"></ellipse>
+            <line x1="178" y1="84" x2="178" y2="48" stroke="#ff6600" stroke-width="1.5"></line>
+            <ellipse cx="205" cy="74" rx="8" ry="6" fill="#ff6600"></ellipse>
+            <line x1="213" y1="74" x2="213" y2="38" stroke="#ff6600" stroke-width="1.5"></line>
+            <path d="M245 24 H330 V40" fill="none" stroke="#ff6600" stroke-width="2"></path>
+            <text x="262" y="20" font-size="12" fill="#ff6600" font-weight="bold">1ª volta</text>
+            <ellipse cx="265" cy="94" rx="8" ry="6" fill="#ff6600"></ellipse>
+            <line x1="273" y1="94" x2="273" y2="58" stroke="#ff6600" stroke-width="1.5"></line>
+            <text x="310" y="125" font-size="120" font-family="serif" fill="#ff6600">𝄇</text>
+            <path d="M375 24 H465 V40" fill="none" stroke="#ff6600" stroke-width="2"></path>
+            <text x="392" y="20" font-size="12" fill="#ff6600" font-weight="bold">2ª volta</text>
+            <ellipse cx="402" cy="64" rx="8" ry="6" fill="#ff6600"></ellipse>
+            <line x1="394" y1="64" x2="394" y2="104" stroke="#ff6600" stroke-width="1.5"></line>
+            <line x1="510" y1="43" x2="510" y2="124" stroke="#ff6600" stroke-width="3"></line>
+            <line x1="520" y1="43" x2="520" y2="124" stroke="#ff6600" stroke-width="6"></line>
+          </svg>
+          <p>Si suona fino alla 1ª volta, si torna indietro, poi si passa direttamente alla 2ª volta.</p>
+        </div>
+
+        <div class="repeatExampleCard">
+          <h4>Da capo al Fine</h4>
+          <svg class="repeatSVG" viewBox="0 0 560 135">
+            <line x1="40" y1="34" x2="520" y2="34" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="40" y1="54" x2="520" y2="54" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="40" y1="74" x2="520" y2="74" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="40" y1="94" x2="520" y2="94" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="40" y1="114" x2="520" y2="114" stroke="#ddd" stroke-width="1.5"/>
+            <text x="30" y="130" font-size="180" font-family="serif" fill="#ff6600">𝄞</text>
+            <ellipse cx="130" cy="74" rx="8" ry="6" fill="#ff6600"/>
+            <line x1="138" y1="74" x2="138" y2="38" stroke="#ff6600" stroke-width="1.5"/>
+            <ellipse cx="205" cy="54" rx="8" ry="6" fill="#ff6600"/>
+            <line x1="213" y1="54" x2="213" y2="18" stroke="#ff6600" stroke-width="1.5"/>
+            <text x="285" y="122" text-anchor="middle" font-size="13" fill="#ff6600" font-weight="bold">Fine</text>
+            <ellipse cx="370" cy="94" rx="8" ry="6" fill="#ff6600"/>
+            <line x1="378" y1="94" x2="378" y2="58" stroke="#ff6600" stroke-width="1.5"/>
+            <text x="450" y="122" text-anchor="middle" font-size="13" fill="#ff6600" font-weight="bold">D.C. al Fine</text>
+          </svg>
+          <p>Quando trovi D.C. al Fine, torni all'inizio e ti fermi al punto indicato con Fine.</p>
+        </div>
+
+        <div class="repeatExampleCard">
+          <h4>Dal segno al Fine</h4>
+          <svg class="repeatSVG" viewBox="0 0 560 135">
+            <line x1="40" y1="34" x2="520" y2="34" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="40" y1="54" x2="520" y2="54" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="40" y1="74" x2="520" y2="74" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="40" y1="94" x2="520" y2="94" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="40" y1="114" x2="520" y2="114" stroke="#ddd" stroke-width="1.5"/>
+            <text x="30" y="130" font-size="180" font-family="serif" fill="#ff6600">𝄞</text>
+            <ellipse cx="120" cy="74" rx="8" ry="6" fill="#ff6600"/>
+            <line x1="128" y1="74" x2="128" y2="38" stroke="#ff6600" stroke-width="1.5"/>
+            <g class="segnoGlyph" transform="translate(163 67) scale(.7)">
+              <circle cx="18" cy="18" r="4"></circle>
+              <circle cx="46" cy="46" r="4"></circle>
+              <path d="M16 50 C38 52 50 36 42 24 C34 12 17 18 21 30 C26 45 49 42 48 20"></path>
+              <line x1="14" y1="50" x2="50" y2="14"></line>
+            </g>
+            <text x="185" y="122" text-anchor="middle" font-size="11" fill="#ff6600" font-weight="bold">segno</text>
+            <ellipse cx="260" cy="54" rx="8" ry="6" fill="#ff6600"/>
+            <line x1="268" y1="54" x2="268" y2="18" stroke="#ff6600" stroke-width="1.5"/>
+            <text x="345" y="122" text-anchor="middle" font-size="13" fill="#ff6600" font-weight="bold">Fine</text>
+            <text x="455" y="122" text-anchor="middle" font-size="13" fill="#ff6600" font-weight="bold">D.S. al Fine</text>
+          </svg>
+          <p>Quando trovi D.S. al Fine, torni al segno 𝄋 e ti fermi alla parola Fine.</p>
+        </div>
       </div>
     </section>
 
@@ -622,6 +851,7 @@
         <div class="expressionCard"><div class="expSymbol" style="font-size:2.5rem;">·</div><h4>Staccato</h4><p>Suono breve e separato</p></div>
         <div class="expressionCard"><div class="expSymbol" style="font-size:2rem;">⌢</div><h4>Legato</h4><p>Note legate senza interruzione</p></div>
         <div class="expressionCard"><div class="expSymbol">^</div><h4>Accentato</h4><p>Dare più forza alla nota</p></div>
+        <div class="expressionCard"><div class="expSymbol small">sfz</div><h4>Sforzato</h4><p>Accento forte e improvviso su una nota o accordo</p></div>
         <div class="expressionCard"><div class="expSymbol" style="font-size:1.8rem;">—</div><h4>Tenuto</h4><p>Tenere per tutta la durata</p></div>
       </div>
 

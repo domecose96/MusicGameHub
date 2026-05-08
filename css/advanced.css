@@ -1,0 +1,382 @@
+/* ==================== ADVANCED THEORY STYLES ==================== */
+
+/* Grid layout per le carte avanzate */
+.advancedGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin: 28px 0;
+}
+
+.advancedCard {
+  background: var(--surface-solid);
+  border: 1px solid rgba(255, 102, 0, 0.12);
+  border-radius: 18px;
+  padding: 28px 24px;
+  box-shadow: var(--panel-shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.advancedCard::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(255, 102, 0, 0.08), transparent 40%);
+  pointer-events: none;
+}
+
+.advancedCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+  border-color: rgba(255, 102, 0, 0.2);
+}
+
+.advancedCard h3 {
+  margin: 0 0 12px;
+  color: var(--text-main);
+  font-size: 1.1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.advancedCard p {
+  margin: 8px 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+.smallText {
+  font-size: 0.85rem !important;
+  color: var(--text-muted) !important;
+  font-style: italic;
+}
+
+/* Box didattici avanzati */
+.advancedBox {
+  background: linear-gradient(135deg, rgba(255, 102, 0, 0.08), rgba(255, 153, 51, 0.04));
+  border-left: 4px solid var(--accent);
+  border-radius: 0 14px 14px 0;
+  padding: 20px;
+  margin: 28px auto;
+  max-width: 800px;
+}
+
+.advancedBox h4 {
+  margin: 0 0 12px;
+  color: var(--accent);
+  font-size: 1.05rem;
+}
+
+.advancedBox p {
+  margin: 0 0 8px;
+  color: var(--text-main);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.advancedBox p:last-child {
+  margin-bottom: 0;
+}
+
+/* ==================== INTERVALLI ==================== */
+
+.intervalSVG,
+.chordSVG,
+.rhythmSVG,
+.circleSVG {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  display: block;
+  margin: 16px 0;
+}
+
+.intervalTable,
+.rhythmTable {
+  width: 100%;
+  max-width: 100%;
+  margin: 16px 0;
+  border-collapse: collapse;
+  background: var(--surface-solid);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.intervalTable thead,
+.rhythmTable thead {
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: #fff;
+}
+
+.intervalTable th,
+.rhythmTable th {
+  padding: 14px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.intervalTable td,
+.rhythmTable td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 102, 0, 0.1);
+  color: var(--text-main);
+  font-size: 0.92rem;
+}
+
+.intervalTable tbody tr:hover {
+  background: rgba(255, 102, 0, 0.04);
+}
+
+.intervalTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ==================== ACCORDI ==================== */
+
+.chordCard {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 250, 240, 0.8));
+  border: 1px solid rgba(255, 102, 0, 0.16);
+}
+
+.chordCard .chordNotes {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 102, 0, 0.1);
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* ==================== FORME MUSICALI ==================== */
+
+.formCard {
+  text-align: center;
+}
+
+.formCard svg {
+  margin: 12px 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* ==================== CIRCOLO DELLE QUINTE ==================== */
+
+.circleBigContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 32px 0;
+  width: 100%;
+}
+
+.circleSVG {
+  width: 100%;
+  max-width: 450px;
+  height: auto;
+  background: var(--surface-solid);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--panel-shadow);
+}
+
+/* ==================== SCALE E TONALITÀ ==================== */
+
+.scaleBox {
+  background: var(--surface);
+  border: 1px solid rgba(255, 102, 0, 0.12);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 12px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.scaleBox p {
+  margin: 8px 0;
+  color: var(--text-main);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.scaleBox p strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.scaleBox p:first-child {
+  margin-top: 0;
+}
+
+/* ==================== RITMO ==================== */
+
+.rhythmBox {
+  background: linear-gradient(135deg, rgba(255, 102, 0, 0.06), rgba(255, 153, 51, 0.02));
+  border: 1px solid rgba(255, 102, 0, 0.12);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 12px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.rhythmBox p {
+  margin: 6px 0;
+  color: var(--text-main);
+  font-size: 0.93rem;
+  line-height: 1.5;
+}
+
+.rhythmBox p:first-child {
+  margin-top: 0;
+}
+
+.rhythmBox strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 1024px) {
+  .advancedGrid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .advancedCard {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .advancedGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .advancedCard {
+    padding: 14px;
+  }
+
+  .advancedCard h3 {
+    font-size: 1rem;
+  }
+
+  .advancedCard p {
+    font-size: 0.9rem;
+  }
+
+  .advancedBox {
+    padding: 16px;
+    margin: 20px auto;
+  }
+
+  .advancedBox h4 {
+    font-size: 1rem;
+  }
+
+  .intervalTable,
+  .rhythmTable {
+    font-size: 0.85rem;
+  }
+
+  .intervalTable th,
+  .rhythmTable th {
+    padding: 10px;
+  }
+
+  .intervalTable td,
+  .rhythmTable td {
+    padding: 8px 10px;
+  }
+
+  .circleSVG {
+    max-width: 350px;
+  }
+
+  .scaleBox,
+  .rhythmBox {
+    padding: 12px;
+  }
+
+  .scaleBox p,
+  .rhythmBox p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .advancedGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .advancedCard {
+    padding: 12px;
+  }
+
+  .advancedCard h3 {
+    font-size: 0.95rem;
+  }
+
+  .advancedCard p {
+    font-size: 0.85rem;
+  }
+
+  .circleSVG {
+    max-width: 280px;
+  }
+
+  .advancedBox {
+    padding: 12px;
+  }
+
+  .advancedBox h4 {
+    font-size: 0.95rem;
+  }
+
+  .intervalSVG,
+  .chordSVG,
+  .rhythmSVG,
+  .circleSVG {
+    margin: 12px 0;
+  }
+}
+
+/* ==================== ANIMAZIONI ==================== */
+
+@keyframes fadeInCard {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.advancedCard {
+  animation: fadeInCard 0.4s ease-out;
+}
+
+.advancedCard:nth-child(1) { animation-delay: 0.05s; }
+.advancedCard:nth-child(2) { animation-delay: 0.1s; }
+.advancedCard:nth-child(3) { animation-delay: 0.15s; }
+.advancedCard:nth-child(4) { animation-delay: 0.2s; }
+.advancedCard:nth-child(5) { animation-delay: 0.25s; }
+.advancedCard:nth-child(6) { animation-delay: 0.3s; }
+
+/* ==================== ADVANCED LEARN CTA ==================== */
+
+.advancedLearnCTA {
+  margin-top: 60px;
+  padding: 40px 0;
+}

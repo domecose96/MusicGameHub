@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teoria Avanzata | Music Game Hub</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/learn.css">
+<link rel="stylesheet" href="css/advanced.css">
+</head>
+
+<body>
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="MGH.goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+    <div class="headerBrand">
+      <span class="headerEyebrow">Percorso didattico</span>
+      <h1 class="pageTitle">Teoria avanzata</h1>
+    </div>
+  </div>
+</header>
+
+<nav id="siteNav" class="theoryNav">
+  <button class="navBtn" onclick="MGH.scrollToSection('intervalli')">📏 Intervalli</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('accordi')">🎸 Accordi</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('rivolti')">🔄 Rivolti</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('minori')">🌑 Minori</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('circolo')">🔵 Circolo</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('cadenze')">🎼 Cadenze</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('modulazioni')">🎹 Modulazioni</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('ritmica')">⚡ Ritmica</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('abbellimenti')">✨ Abbellimenti</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('forma')">🏗️ Forma</button>
+</nav>
+
+<div id="contentWrapper">
+
+  <!-- ==================== INTERVALLI ==================== -->
+  <section id="intervalli" class="siteSection learnSection">
+    <h2 class="sectionTitle">Intervalli Musicali</h2>
+    <p class="sectionIntro">
+      Un <strong>intervallo</strong> è la distanza tra due note. Si misura in <strong>semitoni</strong> (la più piccola distanza tra due note consecutive) 
+      e si identifica con il numero che rappresenta le note coinvolte (2ª, 3ª, 4ª, ecc.).
+    </p>
+
+    <div class="advancedGrid">
+      <div class="advancedCard">
+        <h3>Intervalli Melodici</h3>
+        <p>Le due note suonano <strong>una dopo l'altra</strong>. Creano una linea melodica.</p>
+        <svg class="intervalSVG" viewBox="0 0 380 140">
+          <line x1="50" y1="30" x2="330" y2="30" stroke="#ff6600" stroke-width="2"/>
+          <line x1="50" y1="50" x2="330" y2="50" stroke="#ff6600" stroke-width="2"/>
+          <line x1="50" y1="70" x2="330" y2="70" stroke="#ff6600" stroke-width="2"/>
+          <line x1="50" y1="90" x2="330" y2="90" stroke="#ff6600" stroke-width="2"/>
+          <line x1="50" y1="110" x2="330" y2="110" stroke="#ff6600" stroke-width="2"/>
+          
+          <!-- Prima nota (Do) -->
+          <ellipse cx="100" cy="110" rx="9" ry="6" fill="#ff6600"/>
+          <line x1="109" y1="110" x2="109" y2="60" stroke="#ff6600" stroke-width="2"/>
+          
+          <!-- Seconda nota (Mi) -->
+          <ellipse cx="160" cy="70" rx="9" ry="6" fill="#ff6600"/>
+          <line x1="169" y1="70" x2="169" y2="20" stroke="#ff6600" stroke-width="2"/>
+          
+          <!-- Etichette -->
+          <text x="100" y="135" text-anchor="middle" font-size="12" fill="#ff6600" font-weight="bold">Do</text>
+          <text x="160" y="135" text-anchor="middle" font-size="12" fill="#ff6600" font-weight="bold">Mi</text>
+          <text x="130" y="25" text-anchor="middle" font-size="13" fill="#ff6600" font-weight="bold">3ª ascendente</text>
+        </svg>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Intervalli Armonici</h3>
+        <p>Le due note suonano <strong>contemporaneamente</strong>. Creano un accordo semplice.</p>
+        <svg class="intervalSVG" viewBox="0 0 380 140">
+          <line x1="50" y1="30" x2="330" y2="30" stroke="#ff6600" stroke-width="2"/>
+          <line x1="50" y1="50" x2="330" y2="50" stroke="#ff6600" stroke-width="2"/>
+          <line x1="50" y1="70" x2="330" y2="70" stroke="#ff6600" stroke-width="2"/>
+          <line x1="50" y1="90" x2="330" y2="90" stroke="#ff6600" stroke-width="2"/>
+          <line x1="50" y1="110" x2="330" y2="110" stroke="#ff6600" stroke-width="2"/>
+          
+          <!-- Do e Mi insieme -->
+          <ellipse cx="150" cy="110" rx="9" ry="6" fill="#ff6600"/>
+          <ellipse cx="165" cy="70" rx="9" ry="6" fill="#ff6600"/>
+          <line x1="159" y1="110" x2="159" y2="60" stroke="#ff6600" stroke-width="2"/>
+          <line x1="174" y1="70" x2="174" y2="20" stroke="#ff6600" stroke-width="2"/>
+          
+          <text x="157" y="135" text-anchor="middle" font-size="11" fill="#ff6600" font-weight="bold">Do-Mi</text>
+          <text x="157" y="25" text-anchor="middle" font-size="13" fill="#ff6600" font-weight="bold">3ª armonica</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="advancedBox">
+      <h4>Classificazione degli Intervalli</h4>
+      <table class="intervalTable">
+        <thead>
+          <tr>
+            <th>Intervallo</th>
+            <th>Semitoni</th>
+            <th>Qualità</th>
+            <th>Esempio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Unisono</td>
+            <td>0</td>
+            <td>Perfetto</td>
+            <td>Do - Do</td>
+          </tr>
+          <tr>
+            <td>2ª</td>
+            <td>1-2</td>
+            <td>Minore / Maggiore</td>
+            <td>Do - Re♭ / Do - Re</td>
+          </tr>
+          <tr>
+            <td>3ª</td>
+            <td>3-4</td>
+            <td>Minore / Maggiore</td>
+            <td>Do - Mi♭ / Do - Mi</td>
+          </tr>
+          <tr>
+            <td>4ª</td>
+            <td>5</td>
+            <td>Perfetto</td>
+            <td>Do - Fa</td>
+          </tr>
+          <tr>
+            <td>5ª</td>
+            <td>7</td>
+            <td>Perfetto</td>
+            <td>Do - Sol</td>
+          </tr>
+          <tr>
+            <td>6ª</td>
+            <td>8-9</td>
+            <td>Minore / Maggiore</td>
+            <td>Do - La♭ / Do - La</td>
+          </tr>
+          <tr>
+            <td>7ª</td>
+            <td>10-11</td>
+            <td>Minore / Maggiore</td>
+            <td>Do - Si♭ / Do - Si</td>
+          </tr>
+          <tr>
+            <td>8ª</td>
+            <td>12</td>
+            <td>Perfetto</td>
+            <td>Do - Do (acuto)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="didacticBox">
+      <h4>💡 Memoria: Il ciclo degli intervalli</h4>
+      <p>
+        Partendo da una nota, gli intervalli ascendenti seguono un ordine prevedibile:
+        <strong>Unisono → 2ª → 3ª → 4ª → 5ª → 6ª → 7ª → 8ª</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== ACCORDI ==================== -->
+  <section id="accordi" class="siteSection learnSection">
+    <h2 class="sectionTitle">Accordi e Triadi</h2>
+    <p class="sectionIntro">
+      Un <strong>accordo</strong> è una combinazione di 3 o più note diverse suonate insieme. 
+      La <strong>triade</strong> è l'accordo più comune e consiste in 3 note: <strong>fondamentale, terza e quinta</strong>.
+    </p>
+
+    <div class="advancedGrid">
+      <div class="advancedCard chordCard">
+        <h3>Accordo Maggiore</h3>
+        <p><strong>Fondamentale + 3ª maggiore + 5ª giusta</strong></p>
+        <svg class="chordSVG" viewBox="0 0 320 160">
+          <line x1="40" y1="30" x2="300" y2="30" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="50" x2="300" y2="50" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="70" x2="300" y2="70" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="90" x2="300" y2="90" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="110" x2="300" y2="110" stroke="#ff6600" stroke-width="2"/>
+          
+          <!-- Do maggiore: Do (riga 1), Mi (spazio 2), Sol (riga 2) -->
+          <ellipse cx="100" cy="110" rx="9" ry="6" fill="#66cc66"/>
+          <ellipse cx="130" cy="70" rx="9" ry="6" fill="#66cc66"/>
+          <ellipse cx="160" cy="30" rx="9" ry="6" fill="#66cc66"/>
+          
+          <text x="100" y="135" text-anchor="middle" font-size="12" fill="#66cc66" font-weight="bold">Do</text>
+          <text x="130" y="135" text-anchor="middle" font-size="12" fill="#66cc66" font-weight="bold">Mi</text>
+          <text x="160" y="135" text-anchor="middle" font-size="12" fill="#66cc66" font-weight="bold">Sol</text>
+          <text x="130" y="20" text-anchor="middle" font-size="13" fill="#66cc66" font-weight="bold">Do Maggiore</text>
+        </svg>
+        <p class="chordNotes">Caratteristica: <strong>Suono luminoso, allegro</strong></p>
+      </div>
+
+      <div class="advancedCard chordCard">
+        <h3>Accordo Minore</h3>
+        <p><strong>Fondamentale + 3ª minore + 5ª giusta</strong></p>
+        <svg class="chordSVG" viewBox="0 0 320 160">
+          <line x1="40" y1="30" x2="300" y2="30" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="50" x2="300" y2="50" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="70" x2="300" y2="70" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="90" x2="300" y2="90" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="110" x2="300" y2="110" stroke="#ff6600" stroke-width="2"/>
+          
+          <!-- Do minore: Do (riga 1), Mi♭ (tra spazio 1 e 2), Sol (riga 2) -->
+          <ellipse cx="100" cy="110" rx="9" ry="6" fill="#9966ff"/>
+          <ellipse cx="130" cy="80" rx="9" ry="6" fill="#9966ff"/>
+          <ellipse cx="160" cy="30" rx="9" ry="6" fill="#9966ff"/>
+          
+          <text x="100" y="135" text-anchor="middle" font-size="11" fill="#9966ff" font-weight="bold">Do</text>
+          <text x="130" y="135" text-anchor="middle" font-size="11" fill="#9966ff" font-weight="bold">Mi♭</text>
+          <text x="160" y="135" text-anchor="middle" font-size="11" fill="#9966ff" font-weight="bold">Sol</text>
+          <text x="130" y="20" text-anchor="middle" font-size="13" fill="#9966ff" font-weight="bold">Do Minore</text>
+        </svg>
+        <p class="chordNotes">Caratteristica: <strong>Suono scuro, malinconico</strong></p>
+      </div>
+
+      <div class="advancedCard chordCard">
+        <h3>Accordo Diminuito</h3>
+        <p><strong>Fondamentale + 3ª minore + 5ª diminuita</strong></p>
+        <svg class="chordSVG" viewBox="0 0 320 160">
+          <line x1="40" y1="30" x2="300" y2="30" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="50" x2="300" y2="50" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="70" x2="300" y2="70" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="90" x2="300" y2="90" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="110" x2="300" y2="110" stroke="#ff6600" stroke-width="2"/>
+          
+          <ellipse cx="100" cy="110" rx="9" ry="6" fill="#ff6666"/>
+          <ellipse cx="130" cy="80" rx="9" ry="6" fill="#ff6666"/>
+          <ellipse cx="160" cy="50" rx="9" ry="6" fill="#ff6666"/>
+          
+          <text x="100" y="135" text-anchor="middle" font-size="11" fill="#ff6666" font-weight="bold">Do</text>
+          <text x="130" y="135" text-anchor="middle" font-size="11" fill="#ff6666" font-weight="bold">Mi♭</text>
+          <text x="160" y="135" text-anchor="middle" font-size="11" fill="#ff6666" font-weight="bold">Sol♭</text>
+          <text x="130" y="20" text-anchor="middle" font-size="13" fill="#ff6666" font-weight="bold">Do Diminuito</text>
+        </svg>
+        <p class="chordNotes">Caratteristica: <strong>Suono tenebroso, inquieto</strong></p>
+      </div>
+
+      <div class="advancedCard chordCard">
+        <h3>Accordo Eccedente</h3>
+        <p><strong>Fondamentale + 3ª maggiore + 5ª eccedente</strong></p>
+        <svg class="chordSVG" viewBox="0 0 320 160">
+          <line x1="40" y1="30" x2="300" y2="30" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="50" x2="300" y2="50" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="70" x2="300" y2="70" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="90" x2="300" y2="90" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="110" x2="300" y2="110" stroke="#ff6600" stroke-width="2"/>
+          
+          <ellipse cx="100" cy="110" rx="9" ry="6" fill="#ffcc00"/>
+          <ellipse cx="130" cy="70" rx="9" ry="6" fill="#ffcc00"/>
+          <ellipse cx="160" cy="20" rx="9" ry="6" fill="#ffcc00"/>
+          
+          <text x="100" y="135" text-anchor="middle" font-size="11" fill="#ffcc00" font-weight="bold">Do</text>
+          <text x="130" y="135" text-anchor="middle" font-size="11" fill="#ffcc00" font-weight="bold">Mi</text>
+          <text x="160" y="135" text-anchor="middle" font-size="11" fill="#ffcc00" font-weight="bold">Sol♯</text>
+          <text x="130" y="10" text-anchor="middle" font-size="12" fill="#ffcc00" font-weight="bold">Do Eccedente</text>
+        </svg>
+        <p class="chordNotes">Caratteristica: <strong>Suono strano, esoterico</strong></p>
+      </div>
+    </div>
+
+    <div class="didacticBox">
+      <h4>🎵 I 4 Tipi di Triadi</h4>
+      <p>
+        <strong>Maggiore:</strong> Fondamentale + 4 semitoni + 3 semitoni = suono allegro<br>
+        <strong>Minore:</strong> Fondamentale + 3 semitoni + 4 semitoni = suono triste<br>
+        <strong>Diminuito:</strong> Fondamentale + 3 semitoni + 3 semitoni = suono instabile<br>
+        <strong>Eccedente:</strong> Fondamentale + 4 semitoni + 4 semitoni = suono strano
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== RIVOLTI ==================== -->
+  <section id="rivolti" class="siteSection learnSection">
+    <h2 class="sectionTitle">Rivolti degli Accordi</h2>
+    <p class="sectionIntro">
+      Un accordo può avere diverse <strong>disposizioni</strong> cambiando quale nota è alla base. 
+      Quando la fondamentale è al basso, l'accordo è in <strong>posizione fondamentale</strong>. 
+      Se cambia la nota più bassa, otteniamo i <strong>rivolti</strong>.
+    </p>
+
+    <div class="advancedGrid">
+      <div class="advancedCard">
+        <h3>Posizione Fondamentale</h3>
+        <p>La <strong>fondamentale è al basso</strong></p>
+        <svg class="chordSVG" viewBox="0 0 320 160">
+          <line x1="40" y1="30" x2="300" y2="30" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="50" x2="300" y2="50" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="70" x2="300" y2="70" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="90" x2="300" y2="90" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="110" x2="300" y2="110" stroke="#ff6600" stroke-width="2"/>
+          
+          <ellipse cx="100" cy="110" rx="9" ry="6" fill="#66cc66" stroke="#000" stroke-width="2"/>
+          <ellipse cx="130" cy="70" rx="9" ry="6" fill="#66cc66"/>
+          <ellipse cx="160" cy="30" rx="9" ry="6" fill="#66cc66"/>
+          
+          <text x="100" y="135" text-anchor="middle" font-size="12" fill="#333" font-weight="bold">Do (base)</text>
+          <text x="130" y="20" text-anchor="middle" font-size="12" fill="#333" font-weight="bold">Posizione</text>
+          <text x="130" y="35" text-anchor="middle" font-size="12" fill="#333" font-weight="bold">Fondamentale</text>
+        </svg>
+      </div>
+
+      <div class="advancedCard">
+        <h3>1º Rivolto</h3>
+        <p>La <strong>terza è al basso</strong></p>
+        <svg class="chordSVG" viewBox="0 0 320 160">
+          <line x1="40" y1="30" x2="300" y2="30" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="50" x2="300" y2="50" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="70" x2="300" y2="70" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="90" x2="300" y2="90" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="110" x2="300" y2="110" stroke="#ff6600" stroke-width="2"/>
+          
+          <ellipse cx="100" cy="110" rx="9" ry="6" fill="#9966ff" stroke="#000" stroke-width="2"/>
+          <ellipse cx="130" cy="70" rx="9" ry="6" fill="#9966ff"/>
+          <ellipse cx="160" cy="30" rx="9" ry="6" fill="#9966ff"/>
+          
+          <text x="100" y="135" text-anchor="middle" font-size="12" fill="#333" font-weight="bold">Mi (base)</text>
+          <text x="130" y="20" text-anchor="middle" font-size="12" fill="#333" font-weight="bold">1º</text>
+          <text x="130" y="35" text-anchor="middle" font-size="12" fill="#333" font-weight="bold">Rivolto</text>
+        </svg>
+      </div>
+
+      <div class="advancedCard">
+        <h3>2º Rivolto</h3>
+        <p>La <strong>quinta è al basso</strong></p>
+        <svg class="chordSVG" viewBox="0 0 320 160">
+          <line x1="40" y1="30" x2="300" y2="30" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="50" x2="300" y2="50" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="70" x2="300" y2="70" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="90" x2="300" y2="90" stroke="#ff6600" stroke-width="2"/>
+          <line x1="40" y1="110" x2="300" y2="110" stroke="#ff6600" stroke-width="2"/>
+          
+          <ellipse cx="100" cy="110" rx="9" ry="6" fill="#ffcc00" stroke="#000" stroke-width="2"/>
+          <ellipse cx="130" cy="70" rx="9" ry="6" fill="#ffcc00"/>
+          <ellipse cx="160" cy="30" rx="9" ry="6" fill="#ffcc00"/>
+          
+          <text x="100" y="135" text-anchor="middle" font-size="12" fill="#333" font-weight="bold">Sol (base)</text>
+          <text x="130" y="20" text-anchor="middle" font-size="12" fill="#333" font-weight="bold">2º</text>
+          <text x="130" y="35" text-anchor="middle" font-size="12" fill="#333" font-weight="bold">Rivolto</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="advancedBox">
+      <h4>Notazione dei Rivolti</h4>
+      <p>
+        <strong>Posizione Fondamentale:</strong> C (do) oppure C/C<br>
+        <strong>1º Rivolto:</strong> C/E (do su mi)<br>
+        <strong>2º Rivolto:</strong> C/G (do su sol)<br>
+        La nota dopo lo slash indica la nota al basso.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== TONALITÀ MINORI ==================== -->
+  <section id="minori" class="siteSection learnSection">
+    <h2 class="sectionTitle">Tonalità Minori: Naturale, Armonica, Melodica</h2>
+    <p class="sectionIntro">
+      La tonalità minore ha tre forme diverse, ognuna con caratteristiche specifiche. 
+      Tutte derivano dalla <strong>scala minore naturale</strong>, ma aggiungono alterazioni per motivi armonici e melodici.
+    </p>
+
+    <div class="advancedGrid">
+      <div class="advancedCard">
+        <h3>Minore Naturale</h3>
+        <p>Schema: <strong>T - S - 3 - S - T - S - 3</strong></p>
+        <p class="smallText">(T = tono, S = semitono, 3 = 3 semitoni)</p>
+        <div class="scaleBox">
+          <p><strong>La minore naturale:</strong><br>La - Si - Do - Re - Mi - Fa - Sol</p>
+          <p><strong>Caratteristica:</strong> Suono puro e naturale, il più usato in musica popolare</p>
+        </div>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Minore Armonica</h3>
+        <p>Schema: <strong>T - S - 3 - S - T - 3 - S</strong></p>
+        <p class="smallText">(il VII grado è innalzato di un semitono)</p>
+        <div class="scaleBox">
+          <p><strong>La minore armonica:</strong><br>La - Si - Do - Re - Mi - Fa - Sol♯</p>
+          <p><strong>Caratteristica:</strong> Crea accordi di dominante ricchi, suono esotico e orientale</p>
+        </div>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Minore Melodica</h3>
+        <p>Schema ascendente: <strong>T - S - 3 - S - T - T - S</strong></p>
+        <p class="smallText">(VI e VII grado innalzati in salita)</p>
+        <div class="scaleBox">
+          <p><strong>La minore melodica (ascendente):</strong><br>La - Si - Do - Re - Mi - Fa♯ - Sol♯</p>
+          <p><strong>Caratteristica:</strong> Scorre bene melodicamente, come la scala maggiore</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="advancedBox">
+      <h4>Confronto delle tre forme</h4>
+      <table class="intervalTable">
+        <thead>
+          <tr>
+            <th>Forma</th>
+            <th>VII grado</th>
+            <th>VI grado</th>
+            <th>Uso principale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Naturale</strong></td>
+            <td>Bemolle</td>
+            <td>Bemolle</td>
+            <td>Melodia e armonia pura</td>
+          </tr>
+          <tr>
+            <td><strong>Armonica</strong></td>
+            <td>Naturale ♯</td>
+            <td>Bemolle</td>
+            <td>Accordi di dominante ricchi</td>
+          </tr>
+          <tr>
+            <td><strong>Melodica</strong></td>
+            <td>Naturale ♯</td>
+            <td>Naturale ♯</td>
+            <td>Melodia fluente, assenza di 2ª eccedente</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ==================== CIRCOLO DELLE QUINTE ==================== -->
+  <section id="circolo" class="siteSection learnSection">
+    <h2 class="sectionTitle">Circolo delle Quinte</h2>
+    <p class="sectionIntro">
+      Il <strong>circolo delle quinte</strong> è uno strumento fondamentale che mostra la relazione tra tutte le tonalità. 
+      Ogni tonalità ha una quinta giusta di distanza dalla successiva, formando un cerchio. 
+      È utile per capire l'ordine dei diesis e bemolli, le progressioni armoniche e le modulazioni.
+    </p>
+
+    <div class="didacticBox">
+      <h4>📘 Nota: Schema introduttivo</h4>
+      <p>
+        Il circolo qui mostrato è una versione <strong>semplificata per scopo didattico</strong>, 
+        che include le tonalità più comuni e i loro relativi minori. Il circolo completo contiene 
+        tutte le 12 tonalità maggiori e i loro relativi minori, con enarmonie multiple. 
+        Per un approfondimento completo, studia il circolo con le tonalità omologhe e le enarmonie.
+      </p>
+    </div>
+
+    <div class="circleBigContainer">
+      <svg class="circleSVG" viewBox="0 0 420 420">
+        <!-- Cerchio esterno -->
+        <circle cx="210" cy="210" r="180" fill="none" stroke="rgba(255,102,0,0.1)" stroke-width="2"/>
+        
+        <!-- Linee di riferimento verso il centro -->
+        <line x1="210" y1="30" x2="210" y2="210" stroke="rgba(255,102,0,0.15)" stroke-width="1"/>
+        <line x1="210" y1="390" x2="210" y2="210" stroke="rgba(255,102,0,0.15)" stroke-width="1"/>
+        <line x1="30" y1="210" x2="210" y2="210" stroke="rgba(255,102,0,0.15)" stroke-width="1"/>
+        <line x1="390" y1="210" x2="210" y2="210" stroke="rgba(255,102,0,0.15)" stroke-width="1"/>
+
+        <!-- Tonalità Maggiori (esterne) -->
+        <!-- 12 tonalità disposte in cerchio -->
+        <g id="majorKeys">
+          <!-- Do (top) -->
+          <circle cx="210" cy="50" r="20" fill="#ff6600" opacity="0.8"/>
+          <text x="210" y="57" text-anchor="middle" font-size="13" fill="#fff" font-weight="bold">C</text>
+          
+          <!-- Sol (top-right) -->
+          <circle cx="306" cy="80" r="20" fill="#ff6600" opacity="0.8"/>
+          <text x="306" y="87" text-anchor="middle" font-size="13" fill="#fff" font-weight="bold">G</text>
+          
+          <!-- Re (right) -->
+          <circle cx="370" cy="160" r="20" fill="#ff6600" opacity="0.8"/>
+          <text x="370" y="167" text-anchor="middle" font-size="13" fill="#fff" font-weight="bold">D</text>
+          
+          <!-- La (bottom-right) -->
+          <circle cx="370" cy="260" r="20" fill="#ff6600" opacity="0.8"/>
+          <text x="370" y="267" text-anchor="middle" font-size="13" fill="#fff" font-weight="bold">A</text>
+          
+          <!-- Mi (bottom-right) -->
+          <circle cx="306" cy="340" r="20" fill="#ff6600" opacity="0.8"/>
+          <text x="306" y="347" text-anchor="middle" font-size="13" fill="#fff" font-weight="bold">E</text>
+          
+          <!-- Si (bottom) -->
+          <circle cx="210" cy="370" r="20" fill="#ff6600" opacity="0.8"/>
+          <text x="210" y="377" text-anchor="middle" font-size="13" fill="#fff" font-weight="bold">B</text>
+          
+          <!-- Fa♯ (bottom-left) -->
+          <circle cx="114" cy="340" r="20" fill="#ff6600" opacity="0.8"/>
+          <text x="114" y="347" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">F♯</text>
+          
+          <!-- Do♯ (left) -->
+          <circle cx="50" cy="260" r="20" fill="#ff6600" opacity="0.8"/>
+          <text x="50" y="267" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">C♯</text>
+          
+          <!-- Sol♯ (top-left) -->
+          <circle cx="50" cy="160" r="20" fill="#ff6600" opacity="0.8"/>
+          <text x="50" y="167" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">G♯</text>
+          
+          <!-- Re♯ (top-left) -->
+          <circle cx="114" cy="80" r="20" fill="#ff6600" opacity="0.8"/>
+          <text x="114" y="87" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">D♯</text>
+        </g>
+
+        <!-- Tonalità con bemolli (sinistra del circolo) -->
+        <g id="flatKeys">
+          <!-- Fa (left) -->
+          <circle cx="50" cy="210" r="20" fill="#9966ff" opacity="0.7"/>
+          <text x="50" y="217" text-anchor="middle" font-size="13" fill="#fff" font-weight="bold">F</text>
+          
+          <!-- Si♭ (bottom-left) -->
+          <circle cx="114" cy="140" r="20" fill="#9966ff" opacity="0.7"/>
+          <text x="114" y="147" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">B♭</text>
+          
+          <!-- Mi♭ (bottom) -->
+          <circle cx="210" cy="290" r="20" fill="#9966ff" opacity="0.7"/>
+          <text x="210" y="297" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">E♭</text>
+        </g>
+
+        <!-- Centro info -->
+        <circle cx="210" cy="210" r="40" fill="rgba(255,255,255,0.9)" stroke="#ff6600" stroke-width="2"/>
+        <text x="210" y="207" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">Circolo</text>
+        <text x="210" y="220" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">delle Quinte</text>
+      </svg>
+    </div>
+
+    <div class="advancedBox">
+      <h4>Come leggere il Circolo</h4>
+      <p>
+        <strong>Verso il basso (aggiungere bemolli):</strong> Ogni posizione a sinistra aggiunge un bemolle<br>
+        <strong>Verso l'alto (aggiungere diesis):</strong> Ogni posizione a destra aggiunge un diesis<br>
+        <strong>Le quinte:</strong> Ogni note è a una quinta giusta dalle vicine<br>
+        <strong>Tonalità relative:</strong> Minore si trova 3 posizioni in senso orario (sempre la minore relativa di Do è La minore)
+      </p>
+    </div>
+
+    <div class="didacticBox">
+      <h4>📚 Memorizzare il Circolo</h4>
+      <p>
+        <strong>Ordine diesis (in salita):</strong> Fa♯, Do♯, Sol♯, Re♯, La♯, Mi♯, Si♯<br>
+        <strong>Ordine bemolli (in discesa):</strong> Si♭, Mi♭, La♭, Re♭, Sol♭, Do♭, Fa♭<br>
+        Nota il trucco: gli ordini sono inversi! I bemolli al contrario danno i diesis.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== CADENZE ==================== -->
+  <section id="cadenze" class="siteSection learnSection">
+    <h2 class="sectionTitle">Cadenze Armoniche</h2>
+    <p class="sectionIntro">
+      Una <strong>cadenza</strong> è una progressione di accordi che conclude una frase musicale, creando un senso di conclusione o sospensione. 
+      Le cadenze sono elementi fondamentali della forma musicale e della grammatica armonica.
+    </p>
+
+    <div class="advancedGrid">
+      <div class="advancedCard">
+        <h3>Cadenza Perfetta</h3>
+        <p><strong>V → I</strong> (Dominante → Tonica)</p>
+        <p>In Do maggiore:<br>Sol (V) → Do (I)</p>
+        <p class="smallText">Effetto: <strong>Conclusione forte e definitiva</strong></p>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Cadenza Plagale</h3>
+        <p><strong>IV → I</strong> (Sottodominante → Tonica)</p>
+        <p>In Do maggiore:<br>Fa (IV) → Do (I)</p>
+        <p class="smallText">Effetto: <strong>Conclusione dolce, quasi liturgica (Amen cadence)</strong></p>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Cadenza Autentica</h3>
+        <p><strong>IV → V → I</strong></p>
+        <p>In Do maggiore:<br>Fa (IV) → Sol (V) → Do (I)</p>
+        <p class="smallText">Effetto: <strong>Conclusione completa e armonica</strong></p>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Cadenza Sospesa</h3>
+        <p><strong>V → V</strong> oppure <strong>I → V</strong></p>
+        <p>La melodia termina sulla dominante (V)</p>
+        <p class="smallText">Effetto: <strong>Sospensione, mancanza di risoluzione</strong></p>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Cadenza d'Inganno</h3>
+        <p><strong>V → VI</strong> (Dominante → Sopratonica minore)</p>
+        <p>In Do maggiore:<br>Sol (V) → La (VI minore)</p>
+        <p class="smallText">Effetto: <strong>Inaspettato, crea sorpresa</strong></p>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Cadenza Mezz'Aria</h3>
+        <p><strong>I → IV</strong> oppure <strong>I → V</strong></p>
+        <p>Simile alla sospesa, ma parte da tonica</p>
+        <p class="smallText">Effetto: <strong>Conclusione intermedia, invita a continuare</strong></p>
+      </div>
+    </div>
+
+    <div class="advancedBox">
+      <h4>Progressioni armoniche comuni</h4>
+      <p>
+        <strong>I - IV - V - I:</strong> Progressione classica (Es: "Let it Be" dei Beatles)<br>
+        <strong>vi - IV - I - V:</strong> Progressione molto moderna (Es: "Pachelbel Canon")<br>
+        <strong>I - V - vi - IV:</strong> Pop progressione (Es: molte canzoni moderne)<br>
+        Sperimenta con queste per capire come suonano diverse sequenze!
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== MODULAZIONI ==================== -->
+  <section id="modulazioni" class="siteSection learnSection">
+    <h2 class="sectionTitle">Modulazioni</h2>
+    <p class="sectionIntro">
+      Una <strong>modulazione</strong> è il cambio di tonalità durante un brano musicale. 
+      Non è un cambio casuale: avviene attraverso accordi comuni, note comuni (modulazioni diatoniche) 
+      o progressioni armoniche che preparano la nuova tonalità.
+    </p>
+
+    <div class="advancedGrid">
+      <div class="advancedCard">
+        <h3>Modulazione per Accordo Comune</h3>
+        <p>Si usa un accordo che appartiene a <strong>entrambe le tonalità</strong></p>
+        <p class="smallText">Es: In Do Maggiore, l'accordo di Fa Maggiore (IV) è anche il I grado della nuova tonalità (Fa Maggiore)</p>
+        <p><strong>Effetto:</strong> Fluida e naturale</p>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Modulazione per Nota Comune</h3>
+        <p>Una nota rimane ferma mentre gli altri accordi cambiano</p>
+        <p class="smallText">Es: La nota Do rimane mentre gli accordi intorno cambiano tonalità</p>
+        <p><strong>Effetto:</strong> Elegante e quasi impercettibile</p>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Modulazione per Dominante</h3>
+        <p>Si introduce l'accordo di dominante (V) della <strong>nuova tonalità</strong></p>
+        <p class="smallText">Es: Per modulare a Sol, introduciamo Re 7 (V della nuova tonalità)</p>
+        <p><strong>Effetto:</strong> Evidente ma naturale</p>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Modulazione per Accordo di Settima</h3>
+        <p>Si usa una settima dominante per preparare il cambio</p>
+        <p class="smallText">Es: Sol 7 (V7 in Do) prepara a Fa come nuova tonica</p>
+        <p><strong>Effetto:</strong> Drammatica e consapevole</p>
+      </div>
+    </div>
+
+    <div class="advancedBox">
+      <h4>Tipi di modulazione per distanza</h4>
+      <p>
+        <strong>Modulazione vicina:</strong> A tonalità relative, a tonalità a una quinta di distanza (suono naturale)<br>
+        <strong>Modulazione lontana:</strong> A tonalità distanti nel circolo delle quinte (suono più drammatico)<br>
+        <strong>Modulazione enarmonica:</strong> Usa lo stesso accordo scritto diversamente (Es: Do♯ = Re♭)
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== RITMICA AVANZATA ==================== -->
+  <section id="ritmica" class="siteSection learnSection">
+    <h2 class="sectionTitle">Lettura Ritmica Avanzata</h2>
+    <p class="sectionIntro">
+      Oltre alle figure base, la musica usa elementi ritmici avanzati come sincopi, terzine, 
+      punti di valore e legature di valore per creare varietà ritmica.
+    </p>
+
+    <div class="advancedGrid">
+      <div class="advancedCard">
+        <h3>Sincope</h3>
+        <p>Una nota inizia in un tempo <strong>debole</strong> e si protrae al tempo <strong>forte</strong></p>
+        <svg class="rhythmSVG" viewBox="0 0 380 100">
+          <text x="20" y="30" font-size="12" font-weight="bold" fill="#333">Ritmo normale:</text>
+          <circle cx="80" cy="45" r="8" fill="#ff6600"/>
+          <circle cx="120" cy="45" r="8" fill="#ccc"/>
+          <circle cx="160" cy="45" r="8" fill="#ff6600"/>
+          <circle cx="200" cy="45" r="8" fill="#ccc"/>
+          
+          <text x="20" y="80" font-size="12" font-weight="bold" fill="#333">Con sincope:</text>
+          <circle cx="80" cy="95" r="8" fill="#ccc"/>
+          <path d="M 100 95 Q 110 85 120 95" stroke="#ff6600" stroke-width="2" fill="none"/>
+          <circle cx="120" cy="95" r="8" fill="#ff6600"/>
+          <circle cx="160" cy="95" r="8" fill="#ccc"/>
+          <path d="M 180 95 Q 190 85 200 95" stroke="#ff6600" stroke-width="2" fill="none"/>
+          <circle cx="200" cy="95" r="8" fill="#ff6600"/>
+        </svg>
+        <p class="smallText">Crea <strong>tensione ritmica</strong> e dinamismo</p>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Punto di Valore</h3>
+        <p>Un <strong>puntino</strong> dopo una nota ne aumenta la durata di <strong>metà</strong></p>
+        <div class="rhythmBox">
+          <p><strong>Minima puntata:</strong> Minima (2 tempi) + Quarto (1 tempo) = 3 tempi</p>
+          <p><strong>Quarto puntato:</strong> Quarto (1 tempo) + Ottavo (½ tempo) = 1½ tempi</p>
+          <p><strong>Ottavo puntato:</strong> Ottavo (½ tempo) + Sedicesimo (¼ tempo) = ¾ tempi</p>
+        </div>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Legatura di Valore</h3>
+        <p>Una <strong>curva</strong> che unisce due note della <strong>stessa altezza</strong> = si sommano i valori</p>
+        <div class="rhythmBox">
+          <p>Minima legata a Quarto = 2 + 1 = <strong>3 tempi</strong></p>
+          <p>Non si ri-attacca la nota, ma si prolunga il suono</p>
+          <p><strong>Differenza dal punto:</strong> Il punto è sempre dopo la nota, la legatura unisce note diverse</p>
+        </div>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Terzina</h3>
+        <p><strong>3 note nel tempo di 2</strong> della stessa figura</p>
+        <div class="rhythmBox">
+          <p><strong>Terzina di quarti:</strong> 3 quarti nel tempo di 2 quarti (nel tempo di una minima)</p>
+          <p><strong>Terzina di ottavi:</strong> 3 ottavi nel tempo di 2 ottavi (nel tempo di un quarto)</p>
+          <p>Si scrive con un "3" sopra le note raggruppate</p>
+        </div>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Combinazioni Avanzate</h3>
+        <div class="rhythmBox">
+          <p><strong>Terzina puntata:</strong> 3 note puntate (rara)</p>
+          <p><strong>Sincope + Terzina:</strong> Sincope costruita con terzine (molto moderna)</p>
+          <p><strong>Multipli di terzine:</strong> Sestine (6 note nel tempo di 4), nonine, ecc.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="advancedBox">
+      <h4>💡 Pratica ritmica</h4>
+      <p>
+        Prova a leggere ritmi con sincopi e terzine battendo il tempo con il piede. 
+        La coordinazione tra piede (tempo) e mani (ritmo complesso) è essenziale per la musica avanzata!
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== ABBELLIMENTI ==================== -->
+  <section id="abbellimenti" class="siteSection learnSection">
+    <h2 class="sectionTitle">Abbellimenti e Ornamenti</h2>
+    <p class="sectionIntro">
+      Gli <strong>abbellimenti</strong> sono note aggiuntive che decorano la melodia. 
+      Non fanno parte dell'armonia strutturale, ma arricchiscono il suono e l'espressione.
+    </p>
+
+    <div class="advancedGrid">
+      <div class="advancedCard">
+        <h3>Acciaccatura</h3>
+        <p>Una nota breve <strong>non accentata</strong> prima della nota principale</p>
+        <p class="smallText">Si scrive con una nota piccola con una sbarretta</p>
+        <p><strong>Effetto:</strong> Grazia, leggerezza</p>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Appoggiatura</h3>
+        <p>Una nota dissonante <strong>accentata</strong> che si risolve</p>
+        <p class="smallText">Crea tensione e movimento melodico</p>
+        <p><strong>Effetto:</strong> Drammaticità, sospensione</p>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Mordente</h3>
+        <p>La nota principale alternata con la nota <strong>sopra o sotto</strong>, molto rapidamente</p>
+        <p class="smallText">Es: Do - Re - Do (mordente superiore)</p>
+        <p><strong>Effetto:</strong> Vivacità, scintillio</p>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Trillo</h3>
+        <p>Alternanza <strong>prolungata</strong> tra la nota e quella sopra</p>
+        <p class="smallText">Tipico del barocco (Bach, Handel)</p>
+        <p><strong>Effetto:</strong> Brillantezza, virtuosismo</p>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Gruppetto</h3>
+        <p>Nota sopra, principale, nota sotto, principale (4 note veloci)</p>
+        <p class="smallText">Es: Re - Do - Si - Do</p>
+        <p><strong>Effetto:</strong> Eleganza, fluidità</p>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Glissando</h3>
+        <p><strong>Scorrimento</strong> di tutte le note tra due altezze</p>
+        <p class="smallText">Freccia che unisce le due note</p>
+        <p><strong>Effetto:</strong> Scorrevolezza, talvolta comico</p>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Portamento</h3>
+        <p>Passaggio <strong>leggero</strong> tra due note</p>
+        <p class="smallText">Non tutte le note intermedie, solo la transizione</p>
+        <p><strong>Effetto:</strong> Morbidezza</p>
+      </div>
+
+      <div class="advancedCard">
+        <h3>Fermata</h3>
+        <p>Un simbolo sopra la nota che <strong>prolunga</strong> il valore a piacere</p>
+        <p class="smallText">U rovesciata sopra la nota</p>
+        <p><strong>Effetto:</strong> Pausa drammatica, respiro</p>
+      </div>
+    </div>
+
+    <div class="didacticBox">
+      <h4>📚 Nota importante</h4>
+      <p>
+        Gli abbellimenti variano in <strong>interpretazione</strong> a seconda dell'epoca (Barocco, Classico, Romanticismo). 
+        Un trillo barocco suona diverso da uno romantico! Leggi sempre il periodo della composizione.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== FORMA MUSICALE ==================== -->
+  <section id="forma" class="siteSection learnSection">
+    <h2 class="sectionTitle">Forma Musicale</h2>
+    <p class="sectionIntro">
+      La <strong>forma musicale</strong> è la struttura complessiva di un brano. 
+      Descrive come sezioni melodiche si combinano per creare un tutto coerente. 
+      Le forme sono come le "architetture" della musica.
+    </p>
+
+    <div class="advancedGrid">
+      <div class="advancedCard formCard">
+        <h3>Forma Binaria (AB)</h3>
+        <p><strong>Due sezioni</strong> diverse, ciascuna solitamente ripetuta</p>
+        <svg viewBox="0 0 300 80">
+          <rect x="20" y="20" width="60" height="40" fill="#ff6600" opacity="0.7" stroke="#000" stroke-width="2"/>
+          <text x="50" y="50" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">A</text>
+          <line x1="100" y1="40" x2="100" y2="60" stroke="#000" stroke-width="2"/>
+          <rect x="120" y="20" width="60" height="40" fill="#9966ff" opacity="0.7" stroke="#000" stroke-width="2"/>
+          <text x="150" y="50" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">B</text>
+          <text x="150" y="75" text-anchor="middle" font-size="11" fill="#333">A | B (ognuna ripetuta)</text>
+        </svg>
+      </div>
+
+      <div class="advancedCard formCard">
+        <h3>Forma Ternaria (ABA)</h3>
+        <p><strong>Tre sezioni:</strong> prima, contrasto, ritorno alla prima</p>
+        <svg viewBox="0 0 300 80">
+          <rect x="20" y="20" width="50" height="40" fill="#ff6600" opacity="0.7" stroke="#000" stroke-width="2"/>
+          <text x="45" y="50" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">A</text>
+          <rect x="85" y="20" width="50" height="40" fill="#9966ff" opacity="0.7" stroke="#000" stroke-width="2"/>
+          <text x="110" y="50" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">B</text>
+          <rect x="150" y="20" width="50" height="40" fill="#ff6600" opacity="0.7" stroke="#000" stroke-width="2"/>
+          <text x="175" y="50" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">A</text>
+          <text x="150" y="75" text-anchor="middle" font-size="11" fill="#333">A | B | A</text>
+        </svg>
+      </div>
+
+      <div class="advancedCard formCard">
+        <h3>Rondò (ABACA)</h3>
+        <p><strong>Ritornello</strong> che alterna con episodi diversi</p>
+        <svg viewBox="0 0 300 80">
+          <rect x="10" y="20" width="40" height="40" fill="#ff6600" opacity="0.7" stroke="#000" stroke-width="2"/>
+          <text x="30" y="50" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">A</text>
+          <rect x="55" y="20" width="35" height="40" fill="#9966ff" opacity="0.7" stroke="#000" stroke-width="2"/>
+          <text x="72" y="50" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">B</text>
+          <rect x="95" y="20" width="40" height="40" fill="#ff6600" opacity="0.7" stroke="#000" stroke-width="2"/>
+          <text x="115" y="50" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">A</text>
+          <rect x="140" y="20" width="35" height="40" fill="#66cc66" opacity="0.7" stroke="#000" stroke-width="2"/>
+          <text x="157" y="50" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">C</text>
+          <rect x="180" y="20" width="40" height="40" fill="#ff6600" opacity="0.7" stroke="#000" stroke-width="2"/>
+          <text x="200" y="50" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">A</text>
+          <text x="150" y="75" text-anchor="middle" font-size="10" fill="#333">A B A C A...</text>
+        </svg>
+      </div>
+
+      <div class="advancedCard formCard">
+        <h3>Forma Sonata</h3>
+        <p><strong>3 parti:</strong> Esposizione (tema 1 + tema 2), Sviluppo, Riesposizione</p>
+        <svg viewBox="0 0 300 100">
+          <text x="15" y="25" font-size="12" font-weight="bold" fill="#333">Esposizione:</text>
+          <rect x="15" y="30" width="40" height="30" fill="#ff6600" opacity="0.7" stroke="#000" stroke-width="1"/>
+          <text x="35" y="50" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">T1</text>
+          <rect x="60" y="30" width="40" height="30" fill="#ffcc00" opacity="0.7" stroke="#000" stroke-width="1"/>
+          <text x="80" y="50" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">T2</text>
+          
+          <text x="15" y="80" font-size="12" font-weight="bold" fill="#333">Sviluppo:</text>
+          <rect x="15" y="85" width="85" height="15" fill="#9966ff" opacity="0.7" stroke="#000" stroke-width="1"/>
+          <text x="57" y="97" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Mod. + Variazioni</text>
+        </svg>
+      </div>
+
+      <div class="advancedCard formCard">
+        <h3>Tema e Variazioni</h3>
+        <p><strong>Un tema base</strong> ripetuto con modifiche progressive</p>
+        <svg viewBox="0 0 300 80">
+          <rect x="10" y="20" width="50" height="40" fill="#ff6600" opacity="0.8" stroke="#000" stroke-width="2"/>
+          <text x="35" y="50" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">Tema</text>
+          <rect x="65" y="20" width="45" height="40" fill="#ff6600" opacity="0.6" stroke="#000" stroke-width="1" stroke-dasharray="2,2"/>
+          <text x="87" y="50" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">Var 1</text>
+          <rect x="115" y="20" width="45" height="40" fill="#ff6600" opacity="0.4" stroke="#000" stroke-width="1" stroke-dasharray="2,2"/>
+          <text x="137" y="50" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">Var 2</text>
+          <rect x="165" y="20" width="45" height="40" fill="#ff6600" opacity="0.25" stroke="#000" stroke-width="1" stroke-dasharray="2,2"/>
+          <text x="187" y="50" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">Var 3</text>
+        </svg>
+      </div>
+
+      <div class="advancedCard formCard">
+        <h3>Suite</h3>
+        <p><strong>Raccolta di movimenti</strong> (danze, caratteri) senza legame armonico</p>
+        <p class="smallText">Es: Allemanda, Corrente, Sarabanda, Giga (Barocco)</p>
+      </div>
+    </div>
+
+    <div class="advancedBox">
+      <h4>Forme comuni in diversi generi</h4>
+      <p>
+        <strong>Musica classica:</strong> Sonata, Concerto, Sinfonia (movimenti multipli)<br>
+        <strong>Musica pop/rock:</strong> Verso-Ritornello-Verso-Ponte-Ritornello (modificazione di ABAB)<br>
+        <strong>Barocco:</strong> Suite, Rondò, Tema e Variazioni<br>
+        <strong>Jazz:</strong> Blues 12 battute, AABA (32 battute)
+      </p>
+    </div>
+
+    <div class="didacticBox">
+      <h4>🎵 Ascolto consigliato</h4>
+      <p>
+        <strong>Forma Sonata:</strong> 1º movimento di una Sinfonia Mozart o Beethoven<br>
+        <strong>Tema e Variazioni:</strong> "Le Variazioni Diabelli" di Beethoven<br>
+        <strong>Rondò:</strong> "Marcia alla Turca" Mozart<br>
+        <strong>ABA (Ternaria):</strong> Molti Lieder romantici
+      </p>
+    </div>
+  </section>
+
+  <div class="learnCTA advancedLearnCTA">
+    <button class="menuButton" onclick="MGH.goTo('teoria.html')">← Torna a Teoria Base</button>
+    <button class="menuButton" onclick="MGH.goTo('index.html')">🏠 Torna alla Home</button>
+  </div>
+
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/advanced.js"></script>
+</body>
+</html>

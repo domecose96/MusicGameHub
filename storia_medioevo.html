@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Storia: Il Medioevo | Music Game Hub</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/learn.css">
+<link rel="stylesheet" href="css/storia.css">
+</head>
+
+<body class="storyPage">
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="MGH.goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+    <div class="headerBrand">
+      <span class="headerEyebrow">Storia della musica</span>
+      <h1 class="pageTitle">Il Medioevo</h1>
+    </div>
+  </div>
+</header>
+
+<nav id="siteNav" class="theoryNav">
+  <button class="navBtn" onclick="MGH.scrollToSection('timeline')">📅 Timeline</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('sacra')">⛪ Musica sacra</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('profana')">🎭 Musica profana</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('protagonisti')">👑 Protagonisti</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('strumenti')">🎵 Strumenti</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('riassunto')">📊 Riassunto</button>
+  <button class="navBtn" onclick="openQuizModal()">❓ Quiz</button>
+</nav>
+
+<div id="contentWrapper">
+
+  <!-- ==================== TIMELINE ==================== -->
+  <section id="timeline" class="siteSection learnSection">
+    <h2 class="sectionTitle">Il Medioevo in breve</h2>
+    <p class="sectionIntro">
+      Il <strong>Medioevo</strong> è il periodo storico che va dalla caduta dell'Impero Romano (476 d.C.) 
+      alla scoperta dell'America (1492). Nel mondo della musica, è un'epoca di grande trasformazione 
+      dove nasce la notazione musicale moderna e si sviluppa il canto gregoriano.
+    </p>
+
+    <div class="timelineContainer">
+      <svg class="timelineSVG" viewBox="0 0 900 180">
+        <!-- Sfondo decorativo -->
+        <defs>
+          <linearGradient id="timelineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#ff6600;stop-opacity:0.1" />
+            <stop offset="50%" style="stop-color:#ff6600;stop-opacity:0.2" />
+            <stop offset="100%" style="stop-color:#ff6600;stop-opacity:0.1" />
+          </linearGradient>
+        </defs>
+        
+        <!-- Rettangolo di sfondo gradiente -->
+        <rect x="50" y="40" width="800" height="80" fill="url(#timelineGrad)" rx="10"/>
+        
+        <!-- Linea timeline -->
+        <line x1="50" y1="80" x2="850" y2="80" stroke="#ff6600" stroke-width="4" opacity="0.6"/>
+        
+        <!-- Alto Medioevo (476-900) -->
+        <circle cx="180" cy="80" r="12" fill="#ff6600"/>
+        <rect x="140" y="130" width="80" height="35" fill="white" stroke="#ff6600" stroke-width="2" rx="5"/>
+        <text x="180" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">476-900</text>
+        <text x="180" y="162" text-anchor="middle" font-size="10" fill="#ff6600" font-weight="bold">Alto Medioevo</text>
+        
+        <!-- Basso Medioevo (900-1200) -->
+        <circle cx="450" cy="80" r="12" fill="#ff6600"/>
+        <rect x="410" y="130" width="80" height="35" fill="white" stroke="#ff6600" stroke-width="2" rx="5"/>
+        <text x="450" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">900-1200</text>
+        <text x="450" y="162" text-anchor="middle" font-size="10" fill="#ff6600" font-weight="bold">Basso Medioevo</text>
+        
+        <!-- Tardo Medioevo (1200-1492) -->
+        <circle cx="720" cy="80" r="12" fill="#ff6600"/>
+        <rect x="680" y="130" width="80" height="35" fill="white" stroke="#ff6600" stroke-width="2" rx="5"/>
+        <text x="720" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">1200-1492</text>
+        <text x="720" y="162" text-anchor="middle" font-size="10" fill="#ff6600" font-weight="bold">Tardo Medioevo</text>
+      </svg>
+    </div>
+
+    <div class="periodGrid">
+      <div class="periodCard eraCard">
+        <div class="eraIcon">🏛️</div>
+        <h3>Alto Medioevo (476-900)</h3>
+        <p>
+          La musica è prevalentemente <strong>liturgica e sacra</strong>. 
+          Si diffonde il <strong>canto gregoriano</strong> nei monasteri. 
+          L'Italia è attraversata da guerre e invasioni barbariche.
+        </p>
+      </div>
+
+      <div class="periodCard eraCard">
+        <div class="eraIcon">⚔️</div>
+        <h3>Basso Medioevo (900-1200)</h3>
+        <p>
+          Nascono i <strong>trovatori e trovieri</strong> in Francia. 
+          Si sviluppa la <strong>polifonia</strong> nelle chiese. 
+          La musica profana inizia a diffondersi fuori dai conventi.
+        </p>
+      </div>
+
+      <div class="periodCard eraCard">
+        <div class="eraIcon">🎭</div>
+        <h3>Tardo Medioevo (1200-1492)</h3>
+        <p>
+          Si diffonde l'<strong>Ars Nova</strong> in Italia. 
+          Nasce il <strong>balletto</strong> e la <strong>danza</strong>. 
+          La musica strumentale guadagna importanza.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MUSICA SACRA ==================== -->
+  <section id="sacra" class="siteSection learnSection">
+    <h2 class="sectionTitle">Musica Sacra</h2>
+    <p class="sectionIntro">
+      La musica sacra medievale è il cuore della tradizione musicale europea. 
+      Nata nei monasteri, è strettamente legata alla liturgia cristiana.
+    </p>
+
+    <div class="storyGrid">
+      <div class="storyCard mediaCard">
+        <div class="mediaThumb">
+          <div class="mediaIcon">🎙️</div>
+        </div>
+        <h3>Canto Gregoriano</h3>
+        <p class="cardSubtitle">Il fondamento della musica occidentale</p>
+        <p>
+          Prende il nome da <strong>Papa Gregorio Magno</strong> (590-604). 
+          È un canto <strong>monodico</strong> (una sola melodia), senza accompagnamento strumentale. 
+          Scritto in <strong>latino</strong>, è la base della liturgia cristiana per secoli.
+        </p>
+        <div class="cardAudio">
+          <label>🎵 Ascolta:</label>
+          <audio controls style="width: 100%; margin-top: 8px;">
+            <source src="https://upload.wikimedia.org/wikipedia/commons/4/46/Victimae_Paschali_laudes.ogg" type="audio/ogg">
+            <a href="https://www.youtube.com/watch?v=U0qZMVq41qc" target="_blank">Ascolta su YouTube</a>
+          </audio>
+        </div>
+        <div class="cardHighlight">
+          <strong>Caratteristiche:</strong> melodia fluida, scala diatonica, ritmo libero
+        </div>
+      </div>
+
+      <div class="storyCard mediaCard">
+        <div class="mediaThumb">
+          <div class="mediaIcon">✨</div>
+        </div>
+        <h3>Polifonia Sacra</h3>
+        <p class="cardSubtitle">L'aggiunta di voci parallele</p>
+        <p>
+          Dopo l'anno Mille, si sviluppa l'<strong>organum</strong>: due voci cantano parallele. 
+          Inizialmente il secondo canto raddoppia la melodia principale a distanza di una 4ª o 5ª. 
+          Più tardi, il contrappunto permette alle voci di muoversi indipendentemente.
+        </p>
+        <div class="cardAudio">
+          <label>🎵 Ascolta:</label>
+          <audio controls style="width: 100%; margin-top: 8px;">
+            <source src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Organum_-_Viderunt_omnes.ogg" type="audio/ogg">
+            <a href="https://commons.wikimedia.org/wiki/File:Organum_-_Viderunt_omnes.ogg" target="_blank">Ascolta su Wikimedia</a>
+          </audio>
+        </div>
+        <div class="cardHighlight">
+          <strong>Evoluzione:</strong> organum parallelo → organum libero → discanto
+        </div>
+      </div>
+
+      <div class="storyCard mediaCard">
+        <div class="mediaThumb">
+          <div class="mediaIcon">📜</div>
+        </div>
+        <h3>Notazione Musicale</h3>
+        <p class="cardSubtitle">Come si scriveva la musica</p>
+        <p>
+          Nel Medioevo si sviluppa la <strong>notazione musicale</strong> moderna. 
+          <strong>Guido d'Arezzo</strong> (992-1050) inventa il <strong>tetagramma</strong> (4 righe). 
+          Più tardi diventa il pentagramma (5 righe) che usiamo ancora oggi.
+        </p>
+        <div class="cardHighlight">
+          <strong>Innovazione:</strong> le note hanno una durata precisa (semibreve, minima, ecc.)
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MUSICA PROFANA ==================== -->
+  <section id="profana" class="siteSection learnSection">
+    <h2 class="sectionTitle">Musica Profana</h2>
+    <p class="sectionIntro">
+      Accanto alla musica sacra, nasce una musica per il popolo, i cavalieri e le corti. 
+      È la musica dei banchetti, delle feste, delle piazze.
+    </p>
+
+    <div class="storyGrid">
+      <div class="storyCard mediaCard">
+        <div class="mediaThumb">
+          <div class="mediaIcon">🎼</div>
+        </div>
+        <h3>Trovatori e Trovieri</h3>
+        <p class="cardSubtitle">I poeti-musicisti del Medioevo</p>
+        <p>
+          Nel sud della Francia nascono i <strong>trovatori</strong> (lingua d'oc). 
+          Nel nord nascono i <strong>trovieri</strong> (lingua d'oïl). 
+          Cantano di <strong>amore cortese</strong>, avventure cavallersche, critiche sociali.
+        </p>
+        <div class="cardAudio">
+          <label>🎵 Ascolta un trovatore:</label>
+          <audio controls style="width: 100%; margin-top: 8px;">
+            <source src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Kalenda_Maya.ogg" type="audio/ogg">
+            <a href="https://commons.wikimedia.org/wiki/File:Kalenda_Maya.ogg" target="_blank">Ascolta su Wikimedia</a>
+          </audio>
+        </div>
+        <div class="cardHighlight">
+          <strong>Tema dominante:</strong> l'amor cortese, l'ideale del cavaliere nobile
+        </div>
+      </div>
+
+      <div class="storyCard mediaCard">
+        <div class="mediaThumb">
+          <div class="mediaIcon">💃</div>
+        </div>
+        <h3>Musica nei Castelli</h3>
+        <p class="cardSubtitle">Danze, feste, intrattenimento</p>
+        <p>
+          Nei castelli e nelle piazze si suona musica profana per feste, banchetti, danze. 
+          Nascono forme musicali come la <strong>danza</strong> (veloce, energica) 
+          e il <strong>balletto</strong> (ballo con canto, poesia e danza combinati).
+        </p>
+        <div class="cardAudio">
+          <label>🎵 Ascolta una danza medievale:</label>
+          <audio controls style="width: 100%; margin-top: 8px;">
+            <source src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Saltarello.ogg" type="audio/ogg">
+            <a href="https://www.youtube.com/watch?v=5VqqO9ioSyY" target="_blank">Ascolta su YouTube</a>
+          </audio>
+        </div>
+        <div class="cardHighlight">
+          <strong>Contesto:</strong> musica viva, partecipata, legata alla vita di corte
+        </div>
+      </div>
+
+      <div class="storyCard mediaCard">
+        <div class="mediaThumb">
+          <div class="mediaIcon">🎭</div>
+        </div>
+        <h3>Ars Nova Italiana</h3>
+        <p class="cardSubtitle">La rivoluzione del Tardo Medioevo</p>
+        <p>
+          Nel 1300 in Italia nasce l'<strong>Ars Nova</strong>, un nuovo stile di composizione. 
+          Introdotta da compositori come <strong>Francesco Landini</strong>, 
+          usa la <strong>polifonia sofisticata</strong> e ritmi complessi.
+        </p>
+        <div class="cardAudio">
+          <label>🎵 Ascolta Ars Nova:</label>
+          <audio controls style="width: 100%; margin-top: 8px;">
+            <source src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Francesco_Landini_-_Ecco_la_primavera.ogg" type="audio/ogg">
+            <a href="https://commons.wikimedia.org/wiki/File:Francesco_Landini_-_Ecco_la_primavera.ogg" target="_blank">Ascolta su Wikimedia</a>
+          </audio>
+        </div>
+        <div class="cardHighlight">
+          <strong>Innovazione:</strong> ritmi irregolari (terzine, sincopi), armonie ricche
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROTAGONISTI ==================== -->
+  <section id="protagonisti" class="siteSection learnSection">
+    <h2 class="sectionTitle">Protagonisti del Medioevo</h2>
+    <p class="sectionIntro">
+      Grandi musicisti, teorici e innovatori che hanno plasmato la musica medievale.
+    </p>
+
+    <div class="protagonistGrid">
+      <div class="protagonistCard historicalCard">
+        <div class="cardDate">590-604</div>
+        <div class="protagonistIcon">🙏</div>
+        <h3>Gregorio Magno</h3>
+        <p class="role">Papa e riformatore</p>
+        <p>
+          Riformatore del repertorio sacro in latino. 
+          Da qui nasce il "canto gregoriano", base della musica liturgica occidentale.
+        </p>
+      </div>
+
+      <div class="protagonistCard historicalCard">
+        <div class="cardDate">992-1050</div>
+        <div class="protagonistIcon">🎓</div>
+        <h3>Guido d'Arezzo</h3>
+        <p class="role">Teorico e innovatore</p>
+        <p>
+          Inventore della <strong>notazione musicale moderna</strong>. 
+          Crea il pentagramma, le note (Do-Re-Mi-Fa-Sol-La-Si).
+        </p>
+      </div>
+
+      <div class="protagonistCard historicalCard">
+        <div class="cardDate">1071-1127</div>
+        <div class="protagonistIcon">🎸</div>
+        <h3>Guglielmo d'Aquitania</h3>
+        <p class="role">Primo trovatore</p>
+        <p>
+          Il primo grande trovatore documentato. 
+          Scrive canzoni d'amore e guerra in lingua d'oc.
+        </p>
+      </div>
+
+      <div class="protagonistCard historicalCard">
+        <div class="cardDate">1098-1179</div>
+        <div class="protagonistIcon">👸</div>
+        <h3>Hildegard von Bingen</h3>
+        <p class="role">Badessa compositrice</p>
+        <p>
+          Compositrice, mistica e scrittrice tedesca. 
+          Prima donna documentata a comporre musica in occidente.
+        </p>
+      </div>
+
+      <div class="protagonistCard historicalCard">
+        <div class="cardDate">1325-1397</div>
+        <div class="protagonistIcon">🎼</div>
+        <h3>Francesco Landini</h3>
+        <p class="role">Massimo compositore Ars Nova</p>
+        <p>
+          Cieco dalla nascita, compone madrigali e ballate di straordinaria bellezza. 
+          Modello di polifonia sofisticata.
+        </p>
+      </div>
+
+      <div class="protagonistCard historicalCard">
+        <div class="cardDate">1300-1377</div>
+        <div class="protagonistIcon">🎵</div>
+        <h3>Guillaume de Machaut</h3>
+        <p class="role">Massimo compositore francese</p>
+        <p>
+          Il più grande compositore francese del Medioevo. 
+          Crea la forma della "ballata" con accompagnamento polifonico.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== STRUMENTI ==================== -->
+  <section id="strumenti" class="siteSection learnSection">
+    <h2 class="sectionTitle">Strumenti Medievali</h2>
+    <p class="sectionIntro">
+      La musica medievale usa strumenti molto diversi da quelli moderni. 
+      Alcuni si sono evoluti, altri sono completamente scomparsi.
+    </p>
+
+    <div class="instrumentGrid">
+      <div class="instrumentCard">
+        <h3>🎸 Strumenti a Corda</h3>
+        <ul>
+          <li><strong>Lira</strong> - Strumento antico a corda sfregata</li>
+          <li><strong>Liuto</strong> - Corda pizzicata, progenitore della chitarra</li>
+          <li><strong>Arpa</strong> - Suonata nelle corti e nelle chiese</li>
+          <li><strong>Viella</strong> - Corda sfregata con arco, progenitore del violino</li>
+        </ul>
+      </div>
+
+      <div class="instrumentCard">
+        <h3>🎺 Strumenti a Fiato</h3>
+        <ul>
+          <li><strong>Flauto</strong> - Legno, suono dolce</li>
+          <li><strong>Oboe</strong> - Antenato dell'oboe moderno</li>
+          <li><strong>Tromba</strong> - Metallo, suono squillante</li>
+          <li><strong>Cornamusa</strong> - Fiato con sacca di pelle</li>
+        </ul>
+      </div>
+
+      <div class="instrumentCard">
+        <h3>🥁 Strumenti a Percussione</h3>
+        <ul>
+          <li><strong>Tamburo</strong> - Percussione a due teste</li>
+          <li><strong>Castagnette</strong> - Percussione a mano</li>
+          <li><strong>Cimbali</strong> - Due piatti di metallo</li>
+          <li><strong>Campanelli</strong> - Percussione intonata</li>
+        </ul>
+      </div>
+
+      <div class="instrumentCard">
+        <h3>⛪ Organo</h3>
+        <ul>
+          <li><strong>Organo positivo</strong> - Piccolo, portatile, solo per musica profana</li>
+          <li><strong>Organo portativo</strong> - Ancora più piccolo, usato nei banchetti</li>
+          <li><strong>Organo da chiesa</strong> - Grande, fisso, per la liturgia</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MAPPA RIASSUNTIVA ==================== -->
+  <section id="riassunto" class="siteSection learnSection">
+    <h2 class="sectionTitle">Mappa Riassuntiva</h2>
+    <p class="sectionIntro">
+      Uno schema visivo equilibrato dei concetti chiave del Medioevo musicale.
+    </p>
+
+    <svg class="summaryMap" viewBox="0 0 1000 600">
+      <defs>
+        <linearGradient id="mapGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#ff6600;stop-opacity:0.15" />
+          <stop offset="100%" style="stop-color:#ff9933;stop-opacity:0.05" />
+        </linearGradient>
+        <linearGradient id="mapGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#9966ff;stop-opacity:0.15" />
+          <stop offset="100%" style="stop-color:#cc99ff;stop-opacity:0.05" />
+        </linearGradient>
+      </defs>
+
+      <!-- Titolo centrale -->
+      <rect x="250" y="10" width="500" height="50" fill="#ff6600" rx="10"/>
+      <text x="500" y="40" text-anchor="middle" font-size="18" fill="#fff" font-weight="bold">IL MEDIOEVO MUSICALE (476-1492)</text>
+
+      <!-- SEZIONE MUSICA SACRA -->
+      <rect x="20" y="90" width="420" height="250" fill="url(#mapGrad1)" stroke="#ff6600" stroke-width="2" rx="12"/>
+      <text x="230" y="115" text-anchor="middle" font-size="15" fill="#ff6600" font-weight="bold">⛪ MUSICA SACRA</text>
+      
+      <rect x="40" y="130" width="380" height="190" fill="#fff" stroke="#ff6600" stroke-width="1" rx="8"/>
+      
+      <text x="50" y="155" font-size="12" font-weight="bold" fill="#333">Canto Gregoriano</text>
+      <text x="50" y="172" font-size="10" fill="#666">• Monodico, latino, liturgico</text>
+      <text x="50" y="187" font-size="10" fill="#666">• Papa Gregorio Magno (590-604)</text>
+      
+      <text x="50" y="215" font-size="12" font-weight="bold" fill="#333">Polifonia Sacra</text>
+      <text x="50" y="232" font-size="10" fill="#666">• Organum, discanto, contrappunto</text>
+      <text x="50" y="247" font-size="10" fill="#666">• Sviluppo dopo l'anno Mille</text>
+      
+      <text x="50" y="275" font-size="12" font-weight="bold" fill="#333">Notazione Musicale</text>
+      <text x="50" y="292" font-size="10" fill="#666">• Guido d'Arezzo (992-1050)</text>
+      <text x="50" y="307" font-size="10" fill="#666">• Pentagramma e note (Do-Re-Mi...)</text>
+
+      <!-- SEZIONE MUSICA PROFANA -->
+      <rect x="560" y="90" width="420" height="250" fill="url(#mapGrad2)" stroke="#9966ff" stroke-width="2" rx="12"/>
+      <text x="770" y="115" text-anchor="middle" font-size="15" fill="#9966ff" font-weight="bold">🎭 MUSICA PROFANA</text>
+      
+      <rect x="580" y="130" width="380" height="190" fill="#fff" stroke="#9966ff" stroke-width="1" rx="8"/>
+      
+      <text x="590" y="155" font-size="12" font-weight="bold" fill="#333">Trovatori e Trovieri</text>
+      <text x="590" y="172" font-size="10" fill="#666">• Sud Francia: trovatori (lingua d'oc)</text>
+      <text x="590" y="187" font-size="10" fill="#666">• Nord Francia: trovieri (lingua d'oïl)</text>
+      
+      <text x="590" y="215" font-size="12" font-weight="bold" fill="#333">Musica di Corte</text>
+      <text x="590" y="232" font-size="10" fill="#666">• Danze, balletti, banchetti</text>
+      <text x="590" y="247" font-size="10" fill="#666">• Strumenti e musica dal vivo</text>
+      
+      <text x="590" y="275" font-size="12" font-weight="bold" fill="#333">Ars Nova (1300+)</text>
+      <text x="590" y="292" font-size="10" fill="#666">• Francesco Landini (1325-1397)</text>
+      <text x="590" y="307" font-size="10" fill="#666">• Polifonia sofisticata, ritmi complessi</text>
+
+      <!-- SEZIONE PERIODI STORICI -->
+      <rect x="20" y="360" width="960" height="120" fill="rgba(102,204,102,0.1)" stroke="#66cc66" stroke-width="2" rx="12"/>
+      <text x="500" y="385" text-anchor="middle" font-size="14" fill="#66cc66" font-weight="bold">📅 PERIODI STORICI</text>
+      
+      <rect x="40" y="405" width="280" height="60" fill="#fff" stroke="#ff6600" stroke-width="1" rx="6"/>
+      <text x="180" y="430" text-anchor="middle" font-size="11" font-weight="bold" fill="#333">Alto Medioevo (476-900)</text>
+      <text x="180" y="448" text-anchor="middle" font-size="9" fill="#666">Musica liturgica, monasteri</text>
+      <text x="180" y="460" text-anchor="middle" font-size="9" fill="#666">Canto gregoriano</text>
+      
+      <rect x="360" y="405" width="280" height="60" fill="#fff" stroke="#9966ff" stroke-width="1" rx="6"/>
+      <text x="500" y="430" text-anchor="middle" font-size="11" font-weight="bold" fill="#333">Basso Medioevo (900-1200)</text>
+      <text x="500" y="448" text-anchor="middle" font-size="9" fill="#666">Polifonia, trovatori nascenti</text>
+      <text x="500" y="460" text-anchor="middle" font-size="9" fill="#666">Musica profana emergente</text>
+      
+      <rect x="680" y="405" width="280" height="60" fill="#fff" stroke="#ffcc00" stroke-width="1" rx="6"/>
+      <text x="820" y="430" text-anchor="middle" font-size="11" font-weight="bold" fill="#333">Tardo Medioevo (1200-1492)</text>
+      <text x="820" y="448" text-anchor="middle" font-size="9" fill="#666">Ars Nova, balletti, danze</text>
+      <text x="820" y="460" text-anchor="middle" font-size="9" fill="#666">Musica strumentale prominente</text>
+
+      <!-- STRUMENTI -->
+      <rect x="20" y="500" width="960" height="80" fill="rgba(255,200,0,0.1)" stroke="#ffcc00" stroke-width="2" rx="12"/>
+      <text x="500" y="525" text-anchor="middle" font-size="14" fill="#ff6600" font-weight="bold">🎵 STRUMENTI</text>
+      
+      <text x="40" y="555" font-size="10" fill="#333"><tspan font-weight="bold">Corda:</tspan> Liuto, lira, viella, arpa</text>
+      <text x="280" y="555" font-size="10" fill="#333"><tspan font-weight="bold">Fiato:</tspan> Flauto, oboe, tromba, cornamusa</text>
+      <text x="560" y="555" font-size="10" fill="#333"><tspan font-weight="bold">Percussione:</tspan> Tamburo, cimbali, campanelli</text>
+      <text x="880" y="555" font-size="10" fill="#333"><tspan font-weight="bold">Organo</tspan></text>
+    </svg>
+  </section>
+
+  <!-- ==================== CTA ==================== -->
+  <div class="learnCTA storyLearnCTA">
+    <button class="menuButton" onclick="MGH.goTo('teoria.html')">📚 Torna a Teoria</button>
+    <button class="menuButton" onclick="MGH.goTo('index.html')">🏠 Home</button>
+  </div>
+
+</div>
+
+<!-- ==================== QUIZ MODAL ==================== -->
+<div id="quizModal" class="modal" style="display: none;">
+  <div class="modalContent">
+    <div class="modalHeader">
+      <h2>Quiz: Cosa hai imparato?</h2>
+      <button class="closeBtn" onclick="closeQuizModal()">&times;</button>
+    </div>
+
+    <div class="modalBody">
+      <p class="quizIntro">Metti alla prova le tue conoscenze sul Medioevo musicale.</p>
+
+      <div class="quizContainer">
+        <div class="quizQuestion">
+          <h4>1. Chi è il padre del canto gregoriano?</h4>
+          <div class="quizOptions">
+            <label>
+              <input type="radio" name="q1" value="a"> 
+              <span class="optionText">A) Papa Gregorio Magno</span>
+            </label>
+            <label>
+              <input type="radio" name="q1" value="b"> 
+              <span class="optionText">B) Guido d'Arezzo</span>
+            </label>
+            <label>
+              <input type="radio" name="q1" value="c"> 
+              <span class="optionText">C) Francesco Landini</span>
+            </label>
+            <label>
+              <input type="radio" name="q1" value="d"> 
+              <span class="optionText">D) Hildegard von Bingen</span>
+            </label>
+          </div>
+          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: A - Papa Gregorio Magno</p>
+        </div>
+
+        <div class="quizQuestion">
+          <h4>2. Cosa ha inventato Guido d'Arezzo?</h4>
+          <div class="quizOptions">
+            <label>
+              <input type="radio" name="q2" value="a"> 
+              <span class="optionText">A) La chiave di violino</span>
+            </label>
+            <label>
+              <input type="radio" name="q2" value="b"> 
+              <span class="optionText">B) La notazione musicale moderna (pentagramma e note)</span>
+            </label>
+            <label>
+              <input type="radio" name="q2" value="c"> 
+              <span class="optionText">C) L'organo</span>
+            </label>
+            <label>
+              <input type="radio" name="q2" value="d"> 
+              <span class="optionText">D) La ballata</span>
+            </label>
+          </div>
+          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: B - La notazione musicale moderna (pentagramma e note Do-Re-Mi-Fa-Sol-La-Si)</p>
+        </div>
+
+        <div class="quizQuestion">
+          <h4>3. Quali sono i due tipi di musica medievale?</h4>
+          <div class="quizOptions">
+            <label>
+              <input type="radio" name="q3" value="a"> 
+              <span class="optionText">A) Musica classica e musica pop</span>
+            </label>
+            <label>
+              <input type="radio" name="q3" value="b"> 
+              <span class="optionText">B) Musica vocale e musica strumentale</span>
+            </label>
+            <label>
+              <input type="radio" name="q3" value="c"> 
+              <span class="optionText">C) Musica sacra e musica profana</span>
+            </label>
+            <label>
+              <input type="radio" name="q3" value="d"> 
+              <span class="optionText">D) Musica gregoriana e musica polifonica</span>
+            </label>
+          </div>
+          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: C - Musica sacra (chiesa) e musica profana (corti e popolo)</p>
+        </div>
+
+        <div class="quizQuestion">
+          <h4>4. Cosa cantavano i trovatori?</h4>
+          <div class="quizOptions">
+            <label>
+              <input type="radio" name="q4" value="a"> 
+              <span class="optionText">A) Canti religiosi in latino</span>
+            </label>
+            <label>
+              <input type="radio" name="q4" value="b"> 
+              <span class="optionText">B) Canzoni di amor cortese e avventure cavallersche</span>
+            </label>
+            <label>
+              <input type="radio" name="q4" value="c"> 
+              <span class="optionText">C) Inni liturgici</span>
+            </label>
+            <label>
+              <input type="radio" name="q4" value="d"> 
+              <span class="optionText">D) Marce militari</span>
+            </label>
+          </div>
+          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: B - Canzoni di amor cortese e avventure cavallersche</p>
+        </div>
+
+        <div class="quizQuestion">
+          <h4>5. Qual è la caratteristica principale del canto gregoriano?</h4>
+          <div class="quizOptions">
+            <label>
+              <input type="radio" name="q5" value="a"> 
+              <span class="optionText">A) È polifonico (molte voci)</span>
+            </label>
+            <label>
+              <input type="radio" name="q5" value="b"> 
+              <span class="optionText">B) È accompagnato da strumenti</span>
+            </label>
+            <label>
+              <input type="radio" name="q5" value="c"> 
+              <span class="optionText">C) È monodico (una sola melodia) e senza accompagnamento</span>
+            </label>
+            <label>
+              <input type="radio" name="q5" value="d"> 
+              <span class="optionText">D) Ha un ritmo veloce e allegro</span>
+            </label>
+          </div>
+          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: C - È monodico (una sola melodia) e senza accompagnamento</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modalFooter">
+      <button class="menuButton" onclick="resetQuiz()">🔄 Ricomincia</button>
+      <button class="menuButton" style="background: linear-gradient(135deg, #ff6600, #ff9933); color: white;" onclick="checkQuiz()">✅ Correggi Quiz</button>
+      <button class="menuButton" onclick="closeQuizModal()">Chiudi</button>
+    </div>
+
+    <div id="quizResult" class="quizResult" style="display:none; margin-top: 20px;"></div>
+  </div>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/storia.js"></script>
+</body>
+</html>

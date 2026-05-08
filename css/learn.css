@@ -492,6 +492,153 @@
   font-size: 0.88rem !important;
 }
 
+/* ==================== SIMBOLI ==================== */
+.symbolGrid,
+.repeatGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 16px;
+  margin: 20px 0 28px;
+}
+
+.symbolCard,
+.repeatCard {
+  background: var(--surface-solid);
+  border-radius: 14px;
+  padding: 18px 14px 14px;
+  box-shadow: var(--panel-shadow);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.symbolMark,
+.repeatMark {
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  font-family: serif;
+  font-size: 2.7rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.repeatMark {
+  font-size: 2.35rem;
+  letter-spacing: 0.08em;
+}
+
+.repeatMarkSvg svg {
+  width: 54px;
+  height: 54px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.repeatMarkSvg circle {
+  fill: currentColor;
+  stroke: none;
+}
+
+.segnoGlyph {
+  fill: none;
+  stroke: #2d2d2d;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.segnoGlyph circle {
+  fill: #2d2d2d;
+  stroke: none;
+}
+
+.symbolCard h4,
+.repeatCard h4 {
+  margin: 0;
+  color: var(--text-main);
+  font-size: 0.9rem;
+}
+
+.symbolCard p,
+.repeatCard p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.symbolStaffWrap {
+  margin-top: 6px;
+}
+
+.repeatWide {
+  grid-column: span 2;
+}
+
+.repeatSVG {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  display: block;
+}
+
+.repeatExampleGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 18px;
+  margin: 18px 0 28px;
+}
+
+.repeatExampleCard {
+  background: var(--surface-solid);
+  border-radius: 18px;
+  padding: 24px 20px;
+  box-shadow: var(--panel-shadow);
+  text-align: center;
+}
+
+.repeatExampleCard h4 {
+  margin: 0 0 10px;
+  color: var(--text-main);
+  font-size: 1rem;
+}
+
+.repeatExampleCard p {
+  margin: 10px auto 0;
+  max-width: 760px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.repeatExampleCard .repeatSVG {
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.repeatExampleCard .repeatSVG line[stroke="#ddd"] {
+  stroke: #2d2d2d;
+}
+
+.repeatExampleCard .repeatSVG ellipse,
+.repeatExampleCard .repeatSVG line[stroke="#ff6600"] {
+  fill: #2d2d2d;
+  stroke: #2d2d2d;
+}
+
+.repeatExampleCard .repeatSVG text[font-family="serif"] {
+  fill: #2d2d2d;
+}
+
 /* ==================== ESPRESSIONE ==================== */
 .expressionGrid {
   display: grid;
@@ -882,6 +1029,7 @@
   .figureGrid { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); }
   .timeSignatureGrid { grid-template-columns: 1fr 1fr; }
   .gamesGrid { grid-template-columns: 1fr 1fr; }
+  .repeatWide { grid-column: span 1; }
   .siteSection { padding: 40px 0 28px; }
   .pianoKeys { transform: scale(0.85); transform-origin: top center; }
   .tonalityRow { gap: 6px; }

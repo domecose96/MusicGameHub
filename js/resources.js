@@ -41,6 +41,16 @@ const MusicGameHubResources = (() => {
       group: "theory"
     },
     {
+      id: "tempi",
+      icon: "⏱",
+      type: "Teoria",
+      title: "Tempi e metro",
+      desc: "Come leggere l'indicazione di tempo e il raggruppamento delle pulsazioni.",
+      tags: ["tempo", "metro", "misura"],
+      url: "teoria.html#tempi",
+      group: "theory"
+    },
+    {
       id: "scale",
       icon: "🎹",
       type: "Teoria",
@@ -48,6 +58,26 @@ const MusicGameHubResources = (() => {
       desc: "Schema delle scale, toni, semitoni e armatura di chiave.",
       tags: ["scale", "tonalità", "semitoni"],
       url: "teoria.html#scale",
+      group: "theory"
+    },
+    {
+      id: "simboli",
+      icon: "♯",
+      type: "Teoria",
+      title: "Alterazioni e simboli",
+      desc: "Diesis, bemolle, bequadro, armatura di chiave, ritornelli, segno, coda, Da Capo e Dal Segno.",
+      tags: ["alterazioni", "diesis", "bemolle", "armatura", "ritornello", "segno", "coda", "da capo", "dal segno"],
+      url: "teoria.html#simboli",
+      group: "theory"
+    },
+    {
+      id: "espressione",
+      icon: "🎭",
+      type: "Teoria",
+      title: "Segni di espressione",
+      desc: "Dinamica, articolazione e agogica: come suonare un brano.",
+      tags: ["dinamica", "agogica", "articolazione"],
+      url: "teoria.html#espressione",
       group: "theory"
     },
     {
@@ -121,26 +151,6 @@ const MusicGameHubResources = (() => {
       group: "practice",
       homeGame: true,
       tag: "Ritmo"
-    },
-    {
-      id: "tempi",
-      icon: "⏱",
-      type: "Teoria",
-      title: "Tempi e metro",
-      desc: "Come leggere l'indicazione di tempo e il raggruppamento delle pulsazioni.",
-      tags: ["tempo", "metro", "misura"],
-      url: "teoria.html#tempi",
-      group: "theory"
-    },
-    {
-      id: "espressione",
-      icon: "🎭",
-      type: "Teoria",
-      title: "Segni di espressione",
-      desc: "Dinamica, articolazione e agogica: come suonare un brano.",
-      tags: ["dinamica", "agogica", "articolazione"],
-      url: "teoria.html#espressione",
-      group: "theory"
     }
   ];
 
@@ -149,7 +159,7 @@ const MusicGameHubResources = (() => {
       id: "homeTheory",
       icon: "📚",
       title: "Teoria musicale",
-      desc: "Pentagramma, chiavi, note, figure, scale, tempi ed espressione.",
+      desc: "Pentagramma, chiavi, note, figure, tempi, scale, simboli ed espressione.",
       tag: "Base",
       url: "teoria.html"
     },
