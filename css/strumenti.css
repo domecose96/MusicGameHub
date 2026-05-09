@@ -1,0 +1,713 @@
+/* ==================== STRUMENTI MUSICALI - MUSIC GAME HUB ==================== */
+
+.instrumentPage {
+  background:
+    radial-gradient(circle at top left, rgba(0, 166, 189, 0.13), transparent 30%),
+    radial-gradient(circle at top right, rgba(255, 102, 0, 0.12), transparent 32%),
+    repeating-linear-gradient(0deg, rgba(0, 166, 189, 0.025) 0px, transparent 1px, transparent 3px),
+    linear-gradient(to bottom, #f7fcfb, #fff8ef);
+}
+
+.instrumentPage .pageTitle {
+  color: #00a6bd;
+  text-shadow: 0 0 6px rgba(0, 188, 212, 0.25), 0 0 12px rgba(40, 210, 199, 0.22);
+}
+
+.instrumentPage .sectionTitle {
+  color: #00a6bd;
+}
+
+.instrumentNav .navBtn.active,
+.instrumentNav .navBtn:hover {
+  background: linear-gradient(135deg, #00a6bd, #28d2c7);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+/* ==================== HERO ==================== */
+
+.instrumentHeroSection {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(240px, 0.65fr);
+  gap: 28px;
+  align-items: center;
+  padding-top: 56px;
+}
+
+.instrumentHeroText {
+  text-align: left;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(0, 166, 189, 0.16);
+  border-radius: 26px;
+  padding: clamp(24px, 4vw, 38px);
+  box-shadow: var(--panel-shadow);
+}
+
+.instrumentBadge {
+  display: inline-flex;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(0, 166, 189, 0.1);
+  border: 1px solid rgba(0, 166, 189, 0.25);
+  color: #00798a;
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.instrumentHeroText h2 {
+  margin: 14px 0 12px;
+  color: #063744;
+  font-size: clamp(2rem, 5vw, 4.2rem);
+  line-height: 0.96;
+}
+
+.instrumentHeroText p {
+  margin: 0;
+  max-width: 820px;
+  color: var(--text-muted);
+  line-height: 1.72;
+  font-size: 1.02rem;
+}
+
+.toolBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 24px 0 18px;
+}
+
+.filterBtn {
+  width: auto;
+  height: auto;
+  padding: 10px 15px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(0, 166, 189, 0.28);
+  background: #ffffff;
+  color: #075465;
+  font-size: 0.92rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.filterBtn:hover,
+.filterBtn.active {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #00a6bd, #28d2c7);
+  color: #ffffff;
+  box-shadow: 0 10px 24px rgba(0, 166, 189, 0.22);
+}
+
+.searchPanel {
+  max-width: 560px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 166, 189, 0.18);
+  border-radius: 18px;
+  padding: 14px 16px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+}
+
+.searchPanel label {
+  display: block;
+  margin-bottom: 8px;
+  color: #00798a;
+  font-weight: 900;
+  font-size: 0.9rem;
+}
+
+.searchPanel input {
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--text-main);
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.instrumentHeroVisual {
+  min-height: 290px;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.bigSoundOrb {
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 35% 30%, #ffffff, rgba(255,255,255,0.2) 25%, transparent 27%),
+    linear-gradient(135deg, #00a6bd, #ffb84d);
+  color: white;
+  font-size: 5.5rem;
+  font-weight: 900;
+  box-shadow: 0 30px 70px rgba(0, 166, 189, 0.28);
+  animation: pulseOrb 4s ease-in-out infinite;
+}
+
+.miniOrb {
+  position: absolute;
+  width: 62px;
+  height: 62px;
+  border-radius: 22px;
+  display: grid;
+  place-items: center;
+  background: white;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
+  font-size: 1.9rem;
+  animation: floatIcon 4s ease-in-out infinite;
+}
+
+.m1 { top: 14%; left: 10%; animation-delay: 0s; }
+.m2 { top: 8%; right: 8%; animation-delay: .6s; }
+.m3 { bottom: 12%; left: 12%; animation-delay: 1.2s; }
+.m4 { bottom: 14%; right: 10%; animation-delay: 1.8s; }
+
+@keyframes pulseOrb {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+@keyframes floatIcon {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-12px) rotate(3deg); }
+}
+
+/* ==================== MAPPA FAMIGLIE ==================== */
+
+.familyOverviewGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin-top: 26px;
+}
+
+.familyOverviewCard {
+  width: 100%;
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+  padding: 22px;
+  text-align: left;
+  color: var(--text-main);
+  background: rgba(255,255,255,0.86);
+  border: 1px solid rgba(0,166,189,0.16);
+  border-radius: 22px;
+  box-shadow: var(--panel-shadow);
+  cursor: pointer;
+}
+
+.familyOverviewCard span {
+  font-size: 2.5rem;
+}
+
+.familyOverviewCard strong {
+  font-size: 1.18rem;
+}
+
+.familyOverviewCard small {
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.familyOverviewCard:hover {
+  transform: translateY(-5px);
+  background: white;
+  color: #00798a;
+}
+
+/* ==================== SOTTOFAMIGLIE ==================== */
+
+.subFamilyMiniGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin: 22px 0 30px;
+}
+
+.subFamilyMiniGrid div {
+  background: rgba(255,255,255,0.78);
+  border: 1px solid rgba(0,166,189,0.14);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.05);
+  text-align: left;
+}
+
+.subFamilyMiniGrid strong {
+  display: block;
+  color: #00a6bd;
+  margin-bottom: 6px;
+}
+
+.subFamilyMiniGrid span {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+/* ==================== CARD STRUMENTI ==================== */
+
+.instrumentGallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 30px;
+  margin-top: 28px;
+}
+
+.instrumentTile {
+  min-height: 320px;
+  padding: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #ffffff, #fffaf2);
+  border: 1px solid rgba(0,166,189,0.16);
+  border-radius: 24px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.07);
+  cursor: pointer;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  scroll-margin-top: calc(var(--header-height) + 80px);
+}
+
+.instrumentTile:hover {
+  transform: translateY(-6px);
+  border-color: rgba(0,166,189,0.36);
+  box-shadow: 0 20px 42px rgba(0,166,189,0.16);
+}
+
+.instrumentTile.hiddenCard {
+  display: none;
+}
+
+.instrumentImage {
+  width: 100%;
+  height: 235px;
+  border-radius: 22px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(0,166,189,0.12), transparent 42%),
+    #f4f7fb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  box-sizing: border-box;
+  position: relative;
+  perspective: 900px;
+  border: 1px solid rgba(0,166,189,0.09);
+}
+
+.instrumentFlip {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.7s ease;
+}
+
+.instrumentTile:hover .instrumentFlip {
+  transform: rotateY(180deg);
+}
+
+.instrumentFlip img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  backface-visibility: hidden;
+}
+
+.instrumentFlip .blueSide {
+  transform: rotateY(180deg);
+}
+
+.instrumentImage > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.instrumentImage span,
+.fallbackEmoji {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: clamp(2.8rem, 8vw, 4.8rem);
+  color: #00a6bd;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.instrumentTile h3 {
+  margin: 18px 4px 4px;
+  color: #073642;
+  font-size: 1.08rem;
+  line-height: 1.25;
+  min-height: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 900;
+}
+
+.instrumentTile.hashFocus {
+  animation: hashPulse 1.6s ease;
+}
+
+@keyframes hashPulse {
+  0% { box-shadow: 0 0 0 0 rgba(255,102,0,0.45); }
+  50% { box-shadow: 0 0 0 12px rgba(255,102,0,0.12); }
+  100% { box-shadow: 0 0 0 0 rgba(255,102,0,0); }
+}
+
+/* ==================== MODAL ==================== */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+.modalContent {
+  width: 92%;
+  max-width: 760px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: linear-gradient(135deg, #fff9f3, #fffaf5);
+  border: 2px solid rgba(0,166,189,0.18);
+  border-radius: 22px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.24);
+}
+
+.modalHeader {
+  background: linear-gradient(135deg, #00a6bd, #28d2c7);
+  color: white;
+  padding: 24px;
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.modalHeader h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  text-align: left;
+}
+
+.closeBtn {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.22);
+  color: white;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.closeBtn:hover {
+  background: rgba(255,255,255,0.36);
+  color: white;
+  transform: scale(1.08);
+}
+
+.modalBody {
+  padding: 24px;
+}
+
+.instrumentModalBody {
+  display: grid;
+  gap: 18px;
+}
+
+/* POPUP IMMAGINE CON FLIP */
+
+.modalInstrumentImage {
+  width: min(420px, 100%);
+  height: 310px;
+  margin: 0 auto 22px;
+  border-radius: 26px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(0,166,189,0.12), transparent 45%),
+    #f4f7fb;
+  padding: 12px;
+  box-sizing: border-box;
+  perspective: 900px;
+  border: 1px solid rgba(0,166,189,0.16);
+  position: relative;
+}
+
+.modalInstrumentImage .instrumentFlip {
+  width: 100%;
+  height: 100%;
+}
+
+.modalInstrumentImage:hover .instrumentFlip {
+  transform: rotateY(180deg);
+}
+
+.modalInstrumentImage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  backface-visibility: hidden;
+}
+
+.modalInstrumentImage .blueSide {
+  transform: rotateY(180deg);
+}
+
+.modalInstrumentImage .fallbackEmoji {
+  font-size: 5rem;
+  opacity: 0;
+}
+
+#instrumentModalText {
+  margin: 0;
+  color: var(--text-main);
+  line-height: 1.7;
+  text-align: left;
+}
+
+.instrumentMeta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.instrumentMeta span {
+  padding: 11px 12px;
+  border-radius: 13px;
+  background: rgba(0,166,189,0.08);
+  color: #075465;
+  font-weight: 800;
+  font-size: 0.88rem;
+  text-align: left;
+}
+
+/* ==================== AUDIO ==================== */
+
+.audioSlot {
+  background: rgba(255,102,0,0.07);
+  border-left: 4px solid var(--accent);
+  border-radius: 12px;
+  padding: 14px 16px;
+  text-align: left;
+}
+
+.audioSlot label {
+  display: block;
+  color: var(--accent);
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+.audioSlot audio {
+  width: 100%;
+}
+
+.audioSlot small {
+  display: block;
+  margin-top: 8px;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.audioSlot code {
+  color: #075465;
+  font-weight: 800;
+}
+
+/* ==================== QUIZ ==================== */
+
+.quizIntro {
+  color: var(--text-muted);
+}
+
+.quizQuestion {
+  text-align: left;
+  margin: 22px 0;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+}
+
+.quizQuestion h4 {
+  margin: 0 0 14px;
+  color: var(--text-main);
+}
+
+.quizOptions {
+  display: grid;
+  gap: 10px;
+}
+
+.quizOptions label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.quizOptions label:hover {
+  background: rgba(0,166,189,0.07);
+}
+
+.quizOptions input {
+  margin-top: 4px;
+  accent-color: #00a6bd;
+}
+
+.quizAnswer {
+  background: rgba(102,204,102,0.12);
+  border-left: 4px solid #66cc66;
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--text-main);
+  font-weight: 800;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 18px 24px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+
+.primaryQuizBtn {
+  background: linear-gradient(135deg, #00a6bd, #28d2c7) !important;
+}
+
+.quizResult {
+  margin: 0 24px 24px;
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(102,204,102,0.14);
+  border: 2px solid #66cc66;
+  font-weight: 800;
+}
+
+.quizResult.incorrect {
+  background: rgba(255,102,102,0.14);
+  border-color: #ff6666;
+}
+
+.instrumentsCTA {
+  margin-top: 48px;
+  padding: 32px 0 44px;
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 900px) {
+  .instrumentHeroSection {
+    grid-template-columns: 1fr;
+    padding-top: 40px;
+  }
+
+  .instrumentHeroText {
+    text-align: center;
+  }
+
+  .instrumentHeroText p {
+    margin-inline: auto;
+  }
+
+  .toolBar {
+    justify-content: center;
+  }
+
+  .searchPanel {
+    margin-inline: auto;
+    text-align: left;
+  }
+
+  .instrumentHeroVisual {
+    min-height: 210px;
+  }
+
+  .bigSoundOrb {
+    width: 160px;
+    height: 160px;
+    font-size: 4rem;
+  }
+
+  .miniOrb {
+    width: 48px;
+    height: 48px;
+    font-size: 1.45rem;
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .instrumentGallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .instrumentTile {
+    min-height: 250px;
+    padding: 12px;
+    border-radius: 18px;
+  }
+
+  .instrumentImage {
+    height: 170px;
+    border-radius: 14px;
+    padding: 8px;
+  }
+
+  .instrumentTile h3 {
+    font-size: 0.92rem;
+  }
+
+  .filterBtn {
+    padding: 9px 11px;
+    font-size: 0.85rem;
+  }
+
+  .modalHeader,
+  .modalBody {
+    padding: 18px;
+  }
+
+  .modalInstrumentImage {
+    width: min(320px, 100%);
+    height: 240px;
+  }
+}
+
+@media (max-width: 420px) {
+  .instrumentGallery {
+    grid-template-columns: 1fr 1fr;
+  }
+}

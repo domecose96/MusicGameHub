@@ -74,8 +74,8 @@ class GameManager {
         // Chiudi menù
         document.getElementById('main-menu').style.display = 'none';
 
-        // Avvia quiz
-        window.quizSystem?.startQuiz(levelId);
+        // Avvia RAP QUIZ (nuovo sistema!)
+        window.rapQuizSystem?.startRapQuiz(levelId);
     }
 
     startLevel(levelId) {

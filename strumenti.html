@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strumenti Musicali | Music Game Hub</title>
+
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/learn.css">
+  <link rel="stylesheet" href="css/strumenti.css">
+</head>
+
+<body class="instrumentPage">
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="MGH.goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+
+    <div class="headerBrand">
+      <span class="headerEyebrow">Esplora il suono</span>
+      <h1 class="pageTitle">Gli Strumenti Musicali</h1>
+    </div>
+  </div>
+</header>
+
+<nav id="siteNav" class="instrumentNav">
+  <button class="navBtn" onclick="MGH.scrollToSection('panoramica')">🎧 Panoramica</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('percussioni')">🥁 Percussioni</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('fiato')">🎺 Fiato</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('corde')">🎻 Corde</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('tastiera')">🎹 Tastiera</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('elettrofoni')">⚡ Elettrofoni</button>
+  <button class="navBtn" onclick="openInstrumentQuiz()">❓ Quiz</button>
+</nav>
+
+<div id="contentWrapper">
+
+  <!-- ==================== PANORAMICA ==================== -->
+  <section id="panoramica" class="siteSection learnSection instrumentHeroSection">
+    <div class="instrumentHeroText">
+      <span class="instrumentBadge">Atlante sonoro</span>
+
+      <h2>Scopri le famiglie degli strumenti</h2>
+
+      <p>
+        Gli strumenti musicali producono il suono in modi diversi: può vibrare il corpo dello strumento,
+        una membrana, una colonna d’aria, una corda, un meccanismo a tastiera oppure un circuito elettrico.
+        Clicca su ogni strumento per aprire la scheda completa con descrizione, famiglia, curiosità e spazio per l’audio.
+      </p>
+
+      <div class="toolBar" aria-label="Filtri strumenti">
+        <button class="filterBtn active" data-filter="all">Tutti</button>
+        <button class="filterBtn" data-filter="percussioni">Percussioni</button>
+        <button class="filterBtn" data-filter="fiato">Fiato</button>
+        <button class="filterBtn" data-filter="corde">Corde</button>
+        <button class="filterBtn" data-filter="tastiera">Tastiera</button>
+        <button class="filterBtn" data-filter="elettrofoni">Elettrofoni</button>
+      </div>
+
+      <div class="searchPanel">
+        <label for="instrumentSearch">🔎 Cerca uno strumento</label>
+        <input id="instrumentSearch" type="search" placeholder="Es. liuto, flauto, pianoforte...">
+      </div>
+    </div>
+
+    <div class="instrumentHeroVisual" aria-hidden="true">
+      <div class="bigSoundOrb">♪</div>
+      <span class="miniOrb m1">🥁</span>
+      <span class="miniOrb m2">🎺</span>
+      <span class="miniOrb m3">🎻</span>
+      <span class="miniOrb m4">🎹</span>
+    </div>
+  </section>
+
+  <!-- ==================== MAPPA FAMIGLIE ==================== -->
+  <section class="siteSection learnSection familyOverviewSection">
+    <h2 class="sectionTitle">Mappa delle famiglie</h2>
+    <p class="sectionIntro">
+      La classificazione parte da ciò che vibra o dal modo in cui nasce il suono.
+    </p>
+
+    <div class="familyOverviewGrid">
+      <button class="familyOverviewCard" onclick="MGH.scrollToSection('percussioni')">
+        <span>🥁</span>
+        <strong>Percussioni</strong>
+        <small>Idiofoni e membranofoni</small>
+      </button>
+
+      <button class="familyOverviewCard" onclick="MGH.scrollToSection('fiato')">
+        <span>🎺</span>
+        <strong>Strumenti a fiato</strong>
+        <small>Legni e ottoni</small>
+      </button>
+
+      <button class="familyOverviewCard" onclick="MGH.scrollToSection('corde')">
+        <span>🎻</span>
+        <strong>Strumenti a corde</strong>
+        <small>Strofinate e pizzicate</small>
+      </button>
+
+      <button class="familyOverviewCard" onclick="MGH.scrollToSection('tastiera')">
+        <span>🎹</span>
+        <strong>Strumenti a tastiera</strong>
+        <small>Corde pizzicate, percosse o aria</small>
+      </button>
+
+      <button class="familyOverviewCard" onclick="MGH.scrollToSection('elettrofoni')">
+        <span>⚡</span>
+        <strong>Elettrofoni</strong>
+        <small>Suono elettrico o elettronico</small>
+      </button>
+    </div>
+  </section>
+
+  <!-- ==================== PERCUSSIONI ==================== -->
+  <section id="percussioni" class="siteSection learnSection familySection" data-family-section="percussioni">
+    <h2 class="sectionTitle">🥁 Percussioni</h2>
+
+    <p class="sectionIntro">
+      Gli strumenti a percussione producono il suono quando vengono colpiti, scossi, raschiati o percossi.
+      Possono avere suoni determinati, cioè note precise, oppure suoni indeterminati.
+    </p>
+
+    <div class="subFamilyMiniGrid">
+      <div>
+        <strong>Idiofoni</strong>
+        <span>Vibra il corpo stesso dello strumento: metallo, legno o altro materiale.</span>
+      </div>
+      <div>
+        <strong>Membranofoni</strong>
+        <span>Vibra una membrana tesa, come nei tamburi e nei timpani.</span>
+      </div>
+    </div>
+
+    <div class="instrumentGallery">
+
+      <article id="gong" class="instrumentTile" data-family="percussioni" data-name="gong idiofono metallo" onclick="openInstrumentInfo('gong')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/gong.png" alt="Gong" loading="lazy">
+            <img class="blueSide" src="img/strumenti/gong_blueprint.png" alt="Gong stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Gong</h3>
+      </article>
+
+      <article id="tam-tam" class="instrumentTile" data-family="percussioni" data-name="tam tam idiofono metallo" onclick="openInstrumentInfo('tam-tam')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/tam_tam.png" alt="Tam-tam" loading="lazy">
+            <img class="blueSide" src="img/strumenti/tam_tam_blueprint.png" alt="Tam-tam stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Tam-tam</h3>
+      </article>
+
+      <article id="piatti" class="instrumentTile" data-family="percussioni" data-name="piatti idiofono metallo" onclick="openInstrumentInfo('piatti')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/piatti.png" alt="Piatti" loading="lazy">
+            <img class="blueSide" src="img/strumenti/piatti_blueprint.png" alt="Piatti stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Piatti</h3>
+      </article>
+
+      <article id="triangolo" class="instrumentTile" data-family="percussioni" data-name="triangolo idiofono metallo" onclick="openInstrumentInfo('triangolo')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/triangolo.png" alt="Triangolo" loading="lazy">
+            <img class="blueSide" src="img/strumenti/triangolo_blueprint.png" alt="Triangolo stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Triangolo</h3>
+      </article>
+
+      <article id="castagnette" class="instrumentTile" data-family="percussioni" data-name="castagnette nacchere idiofono legno" onclick="openInstrumentInfo('castagnette')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/castagnette.png" alt="Castagnette" loading="lazy">
+            <img class="blueSide" src="img/strumenti/castagnette_blueprint.png" alt="Castagnette stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Castagnette</h3>
+      </article>
+
+      <article id="xilofono" class="instrumentTile" data-family="percussioni" data-name="xilofono idiofono intonato legno" onclick="openInstrumentInfo('xilofono')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/xilofono.png" alt="Xilofono" loading="lazy">
+            <img class="blueSide" src="img/strumenti/xilofono_blueprint.png" alt="Xilofono stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Xilofono</h3>
+      </article>
+
+      <article id="vibrafono" class="instrumentTile" data-family="percussioni" data-name="vibrafono idiofono intonato metallo" onclick="openInstrumentInfo('vibrafono')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/vibrafono.png" alt="Vibrafono" loading="lazy">
+            <img class="blueSide" src="img/strumenti/vibrafono_blueprint.png" alt="Vibrafono stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Vibrafono</h3>
+      </article>
+
+      <article id="timpani" class="instrumentTile" data-family="percussioni" data-name="timpani membranofono intonato" onclick="openInstrumentInfo('timpani')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/timpani.png" alt="Timpani" loading="lazy">
+            <img class="blueSide" src="img/strumenti/timpani_blueprint.png" alt="Timpani stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Timpani</h3>
+      </article>
+
+      <article id="tamburo" class="instrumentTile" data-family="percussioni" data-name="tamburo membranofono rullante grancassa tamburello" onclick="openInstrumentInfo('tamburo')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/tamburo.png" alt="Tamburo" loading="lazy">
+            <img class="blueSide" src="img/strumenti/tamburo_blueprint.png" alt="Tamburo stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Tamburo</h3>
+      </article>
+
+      <article id="batteria" class="instrumentTile" data-family="percussioni" data-name="batteria drum set tamburi piatti" onclick="openInstrumentInfo('batteria')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/batteria.png" alt="Batteria" loading="lazy">
+            <img class="blueSide" src="img/strumenti/batteria_blueprint.png" alt="Batteria stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Batteria</h3>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ==================== FIATO ==================== -->
+  <section id="fiato" class="siteSection learnSection familySection" data-family-section="fiato">
+    <h2 class="sectionTitle">🎺 Strumenti a fiato</h2>
+
+    <p class="sectionIntro">
+      Negli strumenti a fiato il suono nasce dalla vibrazione dell’aria. Si dividono in legni e ottoni:
+      la differenza non dipende sempre dal materiale, ma dal modo in cui l’aria viene messa in vibrazione.
+    </p>
+
+    <div class="subFamilyMiniGrid">
+      <div>
+        <strong>Legni</strong>
+        <span>L’aria vibra attraverso un foro, un’imboccatura o un’ancia semplice o doppia.</span>
+      </div>
+      <div>
+        <strong>Ottoni</strong>
+        <span>Il suono nasce dalla vibrazione delle labbra nel bocchino.</span>
+      </div>
+    </div>
+
+    <div class="instrumentGallery">
+
+      <article id="flauto" class="instrumentTile" data-family="fiato" data-name="flauto flauto dolce flauto traverso ottavino legni" onclick="openInstrumentInfo('flauto')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/flauto.png" alt="Flauto" loading="lazy">
+            <img class="blueSide" src="img/strumenti/flauto_blueprint.png" alt="Flauto stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Flauto</h3>
+      </article>
+
+      <article id="oboe" class="instrumentTile" data-family="fiato" data-name="oboe corno inglese legni ancia doppia" onclick="openInstrumentInfo('oboe')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/oboe.png" alt="Oboe" loading="lazy">
+            <img class="blueSide" src="img/strumenti/oboe_blueprint.png" alt="Oboe stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Oboe</h3>
+      </article>
+
+      <article id="clarinetto" class="instrumentTile" data-family="fiato" data-name="clarinetto legni ancia semplice" onclick="openInstrumentInfo('clarinetto')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/clarinetto.png" alt="Clarinetto" loading="lazy">
+            <img class="blueSide" src="img/strumenti/clarinetto_blueprint.png" alt="Clarinetto stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Clarinetto</h3>
+      </article>
+
+      <article id="sassofono" class="instrumentTile" data-family="fiato" data-name="sassofono sax legni ancia semplice" onclick="openInstrumentInfo('sassofono')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/sassofono.png" alt="Sassofono" loading="lazy">
+            <img class="blueSide" src="img/strumenti/sassofono_blueprint.png" alt="Sassofono stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Sassofono</h3>
+      </article>
+
+      <article id="fagotto" class="instrumentTile" data-family="fiato" data-name="fagotto controfagotto legni ancia doppia" onclick="openInstrumentInfo('fagotto')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/fagotto.png" alt="Fagotto" loading="lazy">
+            <img class="blueSide" src="img/strumenti/fagotto_blueprint.png" alt="Fagotto stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Fagotto</h3>
+      </article>
+
+      <article id="tromba" class="instrumentTile" data-family="fiato" data-name="tromba ottoni bocchino" onclick="openInstrumentInfo('tromba')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/tromba.png" alt="Tromba" loading="lazy">
+            <img class="blueSide" src="img/strumenti/tromba_blueprint.png" alt="Tromba stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Tromba</h3>
+      </article>
+
+      <article id="trombone" class="instrumentTile" data-family="fiato" data-name="trombone ottoni coulisse bocchino" onclick="openInstrumentInfo('trombone')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/trombone.png" alt="Trombone" loading="lazy">
+            <img class="blueSide" src="img/strumenti/trombone_blueprint.png" alt="Trombone stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Trombone</h3>
+      </article>
+
+      <article id="corno" class="instrumentTile" data-family="fiato" data-name="corno ottoni bocchino" onclick="openInstrumentInfo('corno')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/corno.png" alt="Corno" loading="lazy">
+            <img class="blueSide" src="img/strumenti/corno_blueprint.png" alt="Corno stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Corno</h3>
+      </article>
+
+      <article id="bassotuba" class="instrumentTile" data-family="fiato" data-name="bassotuba tuba ottoni bocchino" onclick="openInstrumentInfo('bassotuba')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/bassotuba.png" alt="Bassotuba" loading="lazy">
+            <img class="blueSide" src="img/strumenti/bassotuba_blueprint.png" alt="Bassotuba stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Bassotuba</h3>
+      </article>
+
+      <article id="cornamusa" class="instrumentTile" data-family="fiato" data-name="cornamusa sacca aria" onclick="openInstrumentInfo('cornamusa')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/cornamusa.png" alt="Cornamusa" loading="lazy">
+            <img class="blueSide" src="img/strumenti/cornamusa_blueprint.png" alt="Cornamusa stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Cornamusa</h3>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ==================== CORDE ==================== -->
+  <section id="corde" class="siteSection learnSection familySection" data-family-section="corde">
+    <h2 class="sectionTitle">🎻 Strumenti a corde</h2>
+
+    <p class="sectionIntro">
+      Negli strumenti a corde il suono nasce dalla vibrazione di corde tese. Le corde possono essere strofinate
+      con l’archetto oppure pizzicate con le dita o con un plettro.
+    </p>
+
+    <div class="subFamilyMiniGrid">
+      <div>
+        <strong>Corde strofinate</strong>
+        <span>Le corde vibrano grazie allo sfregamento dell’archetto.</span>
+      </div>
+      <div>
+        <strong>Corde pizzicate</strong>
+        <span>Le corde vengono pizzicate con dita, unghie o plettro.</span>
+      </div>
+    </div>
+
+    <div class="instrumentGallery">
+
+      <article id="violino" class="instrumentTile" data-family="corde" data-name="violino corde strofinate archetto" onclick="openInstrumentInfo('violino')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/violino.png" alt="Violino" loading="lazy">
+            <img class="blueSide" src="img/strumenti/violino_blueprint.png" alt="Violino stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Violino</h3>
+      </article>
+
+      <article id="viola" class="instrumentTile" data-family="corde" data-name="viola corde strofinate archetto" onclick="openInstrumentInfo('viola')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/viola.png" alt="Viola" loading="lazy">
+            <img class="blueSide" src="img/strumenti/viola_blueprint.png" alt="Viola stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Viola</h3>
+      </article>
+
+      <article id="violoncello" class="instrumentTile" data-family="corde" data-name="violoncello cello corde strofinate archetto" onclick="openInstrumentInfo('violoncello')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/violoncello.png" alt="Violoncello" loading="lazy">
+            <img class="blueSide" src="img/strumenti/violoncello_blueprint.png" alt="Violoncello stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Violoncello</h3>
+      </article>
+
+      <article id="contrabbasso" class="instrumentTile" data-family="corde" data-name="contrabbasso corde strofinate pizzicate archetto pizzicato" onclick="openInstrumentInfo('contrabbasso')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/contrabbasso.png" alt="Contrabbasso" loading="lazy">
+            <img class="blueSide" src="img/strumenti/contrabbasso_blueprint.png" alt="Contrabbasso stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Contrabbasso</h3>
+      </article>
+
+      <article id="arpa" class="instrumentTile" data-family="corde" data-name="arpa corde pizzicate" onclick="openInstrumentInfo('arpa')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/arpa.png" alt="Arpa" loading="lazy">
+            <img class="blueSide" src="img/strumenti/arpa_blueprint.png" alt="Arpa stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Arpa</h3>
+      </article>
+
+      <article id="chitarra" class="instrumentTile" data-family="corde" data-name="chitarra corde pizzicate" onclick="openInstrumentInfo('chitarra')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/chitarra.png" alt="Chitarra" loading="lazy">
+            <img class="blueSide" src="img/strumenti/chitarra_blueprint.png" alt="Chitarra stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Chitarra</h3>
+      </article>
+
+      <article id="liuto" class="instrumentTile" data-family="corde" data-name="liuto medievale corde pizzicate" onclick="openInstrumentInfo('liuto')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/liuto.png" alt="Liuto" loading="lazy">
+            <img class="blueSide" src="img/strumenti/liuto_blueprint.png" alt="Liuto stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Liuto</h3>
+      </article>
+
+      <article id="mandolino" class="instrumentTile" data-family="corde" data-name="mandolino corde pizzicate" onclick="openInstrumentInfo('mandolino')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/mandolino.png" alt="Mandolino" loading="lazy">
+            <img class="blueSide" src="img/strumenti/mandolino_blueprint.png" alt="Mandolino stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Mandolino</h3>
+      </article>
+
+      <article id="lira" class="instrumentTile" data-family="corde" data-name="lira corde pizzicate antica" onclick="openInstrumentInfo('lira')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/lira.png" alt="Lira" loading="lazy">
+            <img class="blueSide" src="img/strumenti/lira_blueprint.png" alt="Lira stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Lira</h3>
+      </article>
+
+      <article id="viella" class="instrumentTile" data-family="corde" data-name="viella vielle medievale corde strofinate" onclick="openInstrumentInfo('viella')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/viella.png" alt="Viella" loading="lazy">
+            <img class="blueSide" src="img/strumenti/viella_blueprint.png" alt="Viella stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Viella</h3>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ==================== TASTIERA ==================== -->
+  <section id="tastiera" class="siteSection learnSection familySection" data-family-section="tastiera">
+    <h2 class="sectionTitle">🎹 Strumenti a tastiera</h2>
+
+    <p class="sectionIntro">
+      Negli strumenti a tastiera l’esecutore preme dei tasti, ma il suono può nascere in modi diversi:
+      corde pizzicate, corde percosse oppure aria spinta in canne o ance.
+    </p>
+
+    <div class="subFamilyMiniGrid">
+      <div>
+        <strong>Corde pizzicate</strong>
+        <span>Nel clavicembalo piccoli plettri pizzicano le corde.</span>
+      </div>
+      <div>
+        <strong>Corde percosse</strong>
+        <span>Nel pianoforte i martelletti colpiscono le corde.</span>
+      </div>
+      <div>
+        <strong>Con l’aria</strong>
+        <span>Organo e fisarmonica usano aria per produrre il suono.</span>
+      </div>
+    </div>
+
+    <div class="instrumentGallery">
+
+      <article id="clavicembalo" class="instrumentTile" data-family="tastiera" data-name="clavicembalo spinetta virginale tastiera corde pizzicate" onclick="openInstrumentInfo('clavicembalo')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/clavicembalo.png" alt="Clavicembalo" loading="lazy">
+            <img class="blueSide" src="img/strumenti/clavicembalo_blueprint.png" alt="Clavicembalo stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Clavicembalo</h3>
+      </article>
+
+      <article id="pianoforte" class="instrumentTile" data-family="tastiera" data-name="pianoforte piano tastiera corde percosse" onclick="openInstrumentInfo('pianoforte')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/pianoforte.png" alt="Pianoforte" loading="lazy">
+            <img class="blueSide" src="img/strumenti/pianoforte_blueprint.png" alt="Pianoforte stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Pianoforte</h3>
+      </article>
+
+      <article id="organo" class="instrumentTile" data-family="tastiera" data-name="organo tastiera aria canne mantice" onclick="openInstrumentInfo('organo')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/organo.png" alt="Organo" loading="lazy">
+            <img class="blueSide" src="img/strumenti/organo_blueprint.png" alt="Organo stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Organo</h3>
+      </article>
+
+      <article id="fisarmonica" class="instrumentTile" data-family="tastiera" data-name="fisarmonica tastiera aria mantice ance" onclick="openInstrumentInfo('fisarmonica')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/fisarmonica.png" alt="Fisarmonica" loading="lazy">
+            <img class="blueSide" src="img/strumenti/fisarmonica_blueprint.png" alt="Fisarmonica stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Fisarmonica</h3>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ==================== ELETTROFONI ==================== -->
+  <section id="elettrofoni" class="siteSection learnSection familySection" data-family-section="elettrofoni">
+    <h2 class="sectionTitle">⚡ Elettrofoni</h2>
+
+    <p class="sectionIntro">
+      Gli elettrofoni producono o amplificano il suono grazie all’elettricità. Alcuni partono da una vibrazione reale
+      amplificata, altri generano il suono direttamente con circuiti elettronici o software.
+    </p>
+
+    <div class="subFamilyMiniGrid">
+      <div>
+        <strong>Elettromeccanici</strong>
+        <span>La vibrazione fisica viene trasformata e amplificata elettricamente.</span>
+      </div>
+      <div>
+        <strong>Elettronici</strong>
+        <span>Il suono nasce da circuiti, oscillatori, campioni o software.</span>
+      </div>
+    </div>
+
+    <div class="instrumentGallery">
+
+      <article id="chitarra-elettrica" class="instrumentTile" data-family="elettrofoni" data-name="chitarra elettrica elettromeccanico pickup" onclick="openInstrumentInfo('chitarra-elettrica')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/chitarra_elettrica.png" alt="Chitarra elettrica" loading="lazy">
+            <img class="blueSide" src="img/strumenti/chitarra_elettrica_blueprint.png" alt="Chitarra elettrica stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Chitarra elettrica</h3>
+      </article>
+
+      <article id="basso-elettrico" class="instrumentTile" data-family="elettrofoni" data-name="basso elettrico elettromeccanico pickup" onclick="openInstrumentInfo('basso-elettrico')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/basso_elettrico.png" alt="Basso elettrico" loading="lazy">
+            <img class="blueSide" src="img/strumenti/basso_elettrico_blueprint.png" alt="Basso elettrico stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Basso elettrico</h3>
+      </article>
+
+      <article id="organo-hammond" class="instrumentTile" data-family="elettrofoni" data-name="organo hammond elettromeccanico tastiera" onclick="openInstrumentInfo('organo-hammond')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/organo_hammond.png" alt="Organo Hammond" loading="lazy">
+            <img class="blueSide" src="img/strumenti/organo_hammond_blueprint.png" alt="Organo Hammond stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Organo Hammond</h3>
+      </article>
+
+      <article id="theremin" class="instrumentTile" data-family="elettrofoni" data-name="theremin elettronico senza contatto" onclick="openInstrumentInfo('theremin')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/theremin.png" alt="Theremin" loading="lazy">
+            <img class="blueSide" src="img/strumenti/theremin_blueprint.png" alt="Theremin stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Theremin</h3>
+      </article>
+
+      <article id="onde-martenot" class="instrumentTile" data-family="elettrofoni" data-name="onde martenot elettronico" onclick="openInstrumentInfo('onde-martenot')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/onde_martenot.png" alt="Onde Martenot" loading="lazy">
+            <img class="blueSide" src="img/strumenti/onde_martenot_blueprint.png" alt="Onde Martenot stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Onde Martenot</h3>
+      </article>
+
+      <article id="sintetizzatore" class="instrumentTile" data-family="elettrofoni" data-name="sintetizzatore moog elettronico" onclick="openInstrumentInfo('sintetizzatore')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/sintetizzatore.png" alt="Sintetizzatore" loading="lazy">
+            <img class="blueSide" src="img/strumenti/sintetizzatore_blueprint.png" alt="Sintetizzatore stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Sintetizzatore</h3>
+      </article>
+
+      <article id="campionatore" class="instrumentTile" data-family="elettrofoni" data-name="campionatore sampler elettronico" onclick="openInstrumentInfo('campionatore')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/campionatore.png" alt="Campionatore" loading="lazy">
+            <img class="blueSide" src="img/strumenti/campionatore_blueprint.png" alt="Campionatore stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Campionatore</h3>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ==================== CTA ==================== -->
+  <div class="learnCTA instrumentsCTA">
+    <button class="menuButton" onclick="openInstrumentQuiz()">❓ Vai al Quiz</button>
+  </div>
+
+</div>
+
+<!-- ==================== MODAL STRUMENTO ==================== -->
+<div id="instrumentModal" class="modal" style="display:none;">
+  <div class="modalContent instrumentModalContent">
+    <div class="modalHeader">
+      <h2 id="instrumentModalTitle">Strumento</h2>
+      <button class="closeBtn" onclick="closeInstrumentInfo()">&times;</button>
+    </div>
+
+    <div class="modalBody instrumentModalBody">
+      <div class="modalInstrumentImage" id="instrumentModalImage">
+        <span>🎵</span>
+      </div>
+
+      <p id="instrumentModalText"></p>
+
+      <div id="instrumentModalMeta" class="instrumentMeta"></div>
+
+      <div class="audioSlot">
+        <label id="audioLabel">🎧 Audio dello strumento</label>
+        <audio id="instrumentAudio" controls preload="none"></audio>
+        <small>
+          Predisposizione: inserisci il file in
+          <code>audio/strumenti/NOME_STRUMENTO.mp3</code>.
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MODAL QUIZ ==================== -->
+<div id="instrumentQuizModal" class="modal" style="display:none;">
+  <div class="modalContent">
+    <div class="modalHeader">
+      <h2>Quiz: famiglie degli strumenti</h2>
+      <button class="closeBtn" onclick="closeInstrumentQuiz()">&times;</button>
+    </div>
+
+    <div class="modalBody">
+      <p class="quizIntro">Metti alla prova la classificazione degli strumenti.</p>
+
+      <div class="quizContainer">
+
+        <div class="quizQuestion">
+          <h4>1. In quale famiglia vibra una colonna d'aria?</h4>
+          <div class="quizOptions">
+            <label>
+              <input type="radio" name="iq1" value="a">
+              <span class="optionText">A) Strumenti a fiato</span>
+            </label>
+            <label>
+              <input type="radio" name="iq1" value="b">
+              <span class="optionText">B) Percussioni</span>
+            </label>
+            <label>
+              <input type="radio" name="iq1" value="c">
+              <span class="optionText">C) Elettrofoni</span>
+            </label>
+          </div>
+          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: A - Strumenti a fiato</p>
+        </div>
+
+        <div class="quizQuestion">
+          <h4>2. Quale strumento è a corde percosse?</h4>
+          <div class="quizOptions">
+            <label>
+              <input type="radio" name="iq2" value="a">
+              <span class="optionText">A) Arpa</span>
+            </label>
+            <label>
+              <input type="radio" name="iq2" value="b">
+              <span class="optionText">B) Pianoforte</span>
+            </label>
+            <label>
+              <input type="radio" name="iq2" value="c">
+              <span class="optionText">C) Tromba</span>
+            </label>
+          </div>
+          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: B - Pianoforte</p>
+        </div>
+
+        <div class="quizQuestion">
+          <h4>3. Quale strumento si suona senza toccarlo?</h4>
+          <div class="quizOptions">
+            <label>
+              <input type="radio" name="iq3" value="a">
+              <span class="optionText">A) Theremin</span>
+            </label>
+            <label>
+              <input type="radio" name="iq3" value="b">
+              <span class="optionText">B) Tamburo</span>
+            </label>
+            <label>
+              <input type="radio" name="iq3" value="c">
+              <span class="optionText">C) Clarinetto</span>
+            </label>
+          </div>
+          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: A - Theremin</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modalFooter">
+      <button class="menuButton" onclick="resetInstrumentQuiz()">🔄 Ricomincia</button>
+      <button class="menuButton primaryQuizBtn" onclick="checkInstrumentQuiz()">✅ Correggi</button>
+      <button class="menuButton" onclick="closeInstrumentQuiz()">Chiudi</button>
+    </div>
+
+    <div id="instrumentQuizResult" class="quizResult" style="display:none;"></div>
+  </div>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/strumenti.js"></script>
+
+</body>
+</html>
