@@ -98,3 +98,32 @@ window.MGH = MGH;
 window.goHome = MGH.goHome;
 window.goTo = MGH.goTo;
 window.scrollToSection = MGH.scrollToSection;
+
+/* ==================== SCROLL TO TOP ==================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const scrollBtn = document.getElementById("scrollTopBtn");
+
+  if (!scrollBtn) return;
+
+  const toggleScrollButton = () => {
+
+    if (window.scrollY > 350) {
+      scrollBtn.classList.add("show");
+    } else {
+      scrollBtn.classList.remove("show");
+    }
+  };
+
+  window.addEventListener("scroll", toggleScrollButton, { passive: true });
+
+  scrollBtn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+
+  toggleScrollButton();
+});

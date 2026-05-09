@@ -17,13 +17,6 @@
   color: #00a6bd;
 }
 
-.instrumentNav .navBtn.active,
-.instrumentNav .navBtn:hover {
-  background: linear-gradient(135deg, #00a6bd, #28d2c7);
-  color: #ffffff;
-  border-color: transparent;
-}
-
 /* ==================== HERO ==================== */
 
 .instrumentHeroSection {
@@ -710,4 +703,15 @@
   .instrumentGallery {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+/* ==================== COLORI PAGINA STRUMENTI ==================== */
+
+body.instrumentPage{
+  --accent: #00a6bd;
+  --accent-soft: #28d2c7;
+  --accent-glow: rgba(0,166,189,0.22);
+
+  --action-orange: #00a6bd;
+  --action-orange-soft: #28d2c7;
 }

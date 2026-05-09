@@ -195,9 +195,9 @@ button:focus {
 }
 
 #homeBtn.selected {
-  background: linear-gradient(135deg, #ff6600, #ff9933);
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
   color: white;
-  box-shadow: 0 0 12px rgba(255,102,0,0.6);
+  box-shadow: 0 0 12px var(--accent-glow);
 }
 
 #answers {
@@ -536,4 +536,102 @@ body.ritmoPage main,
 body.pentagrammaGamePage main,
 body.guantoPage main {
   overflow: hidden;
+}
+
+/* ==================== FLOATING SCROLL TOP ==================== */
+
+button#scrollTopBtn{
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+
+  width: 48px;
+  height: 48px;
+
+  padding: 0;
+  margin: 0;
+
+  border: none;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  z-index: 9999;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+
+  transition:
+    opacity .22s ease,
+    transform .22s ease,
+    box-shadow .22s ease;
+
+  background: linear-gradient(135deg, #ff6600, #ff9933);
+
+  box-shadow:
+    0 10px 22px rgba(255,102,0,0.22);
+}
+
+/* FRECCIA CENTRATA */
+
+button#scrollTopBtn span{
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1;
+
+  transform: translateY(-4px);
+}
+
+/* PAGINA STRUMENTI */
+
+body.instrumentPage button#scrollTopBtn{
+  background: linear-gradient(135deg, #00a6bd, #28d2c7);
+
+  box-shadow:
+    0 10px 22px rgba(0,166,189,0.22);
+}
+
+/* VISIBILE */
+
+button#scrollTopBtn.show{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* HOVER */
+
+button#scrollTopBtn:hover{
+  transform: translateY(-3px);
+}
+
+/* MOBILE */
+
+@media (max-width: 640px){
+
+  button#scrollTopBtn{
+    width: 44px;
+    height: 44px;
+    right: 14px;
+    bottom: 14px;
+  }
+
+  button#scrollTopBtn span{
+    font-size: 20px;
+  }
+
 }
