@@ -33,6 +33,7 @@
   <button class="navBtn" onclick="MGH.scrollToSection('protagonisti')">👑 Protagonisti</button>
   <button class="navBtn" onclick="MGH.scrollToSection('strumenti')">🎵 Strumenti</button>
   <button class="navBtn" onclick="MGH.scrollToSection('riassunto')">📊 Riassunto</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('video-medioevo')">🎬 Video</button>
   <button class="navBtn" onclick="openQuizModal()">❓ Quiz</button>
 </nav>
 
@@ -138,10 +139,10 @@
           Scritto in <strong>latino</strong>, è la base della liturgia cristiana per secoli.
         </p>
         <div class="cardAudio">
-          <label>🎵 Ascolta:</label>
+          <label>🎵 Ascolta: Veni Sancte Spiritus</label>
           <audio controls style="width: 100%; margin-top: 8px;">
-            <source src="https://upload.wikimedia.org/wikipedia/commons/4/46/Victimae_Paschali_laudes.ogg" type="audio/ogg">
-            <a href="https://www.youtube.com/watch?v=U0qZMVq41qc" target="_blank">Ascolta su YouTube</a>
+            <source src="audio/Storia_medioevo/VENI_SANCTE_SPIRITUS.mp3" type="audio/mpeg">
+            Il tuo browser non supporta l'audio.
           </audio>
         </div>
         <div class="cardHighlight">
@@ -160,12 +161,16 @@
           Inizialmente il secondo canto raddoppia la melodia principale a distanza di una 4ª o 5ª. 
           Più tardi, il contrappunto permette alle voci di muoversi indipendentemente.
         </p>
-        <div class="cardAudio">
-          <label>🎵 Ascolta:</label>
-          <audio controls style="width: 100%; margin-top: 8px;">
-            <source src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Organum_-_Viderunt_omnes.ogg" type="audio/ogg">
-            <a href="https://commons.wikimedia.org/wiki/File:Organum_-_Viderunt_omnes.ogg" target="_blank">Ascolta su Wikimedia</a>
-          </audio>
+        <div class="cardVideo">
+          <label>🎬 Guarda la polifonia medievale:</label>
+
+          <div class="videoWrapperSmall">
+            <iframe
+              src="https://www.youtube.com/embed/3oaRM1uDsw8"
+              title="Polifonia medievale"
+              allowfullscreen>
+            </iframe>
+          </div>
         </div>
         <div class="cardHighlight">
           <strong>Evoluzione:</strong> organum parallelo → organum libero → discanto
@@ -183,6 +188,17 @@
           <strong>Guido d'Arezzo</strong> (992-1050) inventa il <strong>tetagramma</strong> (4 righe). 
           Più tardi diventa il pentagramma (5 righe) che usiamo ancora oggi.
         </p>
+        <div class="cardVideo">
+          <label>🎬 Guarda: Guido d'Arezzo</label>
+
+          <div class="videoWrapperSmall">
+            <iframe
+              src="https://www.youtube.com/embed/qkme3DyfQt8"
+              title="Guido d'Arezzo"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
         <div class="cardHighlight">
           <strong>Innovazione:</strong> le note hanno una durata precisa (semibreve, minima, ecc.)
         </div>
@@ -211,10 +227,10 @@
           Cantano di <strong>amore cortese</strong>, avventure cavallersche, critiche sociali.
         </p>
         <div class="cardAudio">
-          <label>🎵 Ascolta un trovatore:</label>
+          <label>🎵 Ascolta: Kalenda Maya - Raimbaut de Vaqueiras</label>
           <audio controls style="width: 100%; margin-top: 8px;">
-            <source src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Kalenda_Maya.ogg" type="audio/ogg">
-            <a href="https://commons.wikimedia.org/wiki/File:Kalenda_Maya.ogg" target="_blank">Ascolta su Wikimedia</a>
+            <source src="audio/Storia_medioevo/KALENDA_MAYA.mp3" type="audio/mpeg">
+            Il tuo browser non supporta l'audio.
           </audio>
         </div>
         <div class="cardHighlight">
@@ -234,10 +250,10 @@
           e il <strong>balletto</strong> (ballo con canto, poesia e danza combinati).
         </p>
         <div class="cardAudio">
-          <label>🎵 Ascolta una danza medievale:</label>
+          <label>🎵 Ascolta: Saltarello</label>
           <audio controls style="width: 100%; margin-top: 8px;">
-            <source src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Saltarello.ogg" type="audio/ogg">
-            <a href="https://www.youtube.com/watch?v=5VqqO9ioSyY" target="_blank">Ascolta su YouTube</a>
+            <source src="audio/Storia_medioevo/SALTARELLO.mp3" type="audio/mpeg">
+            Il tuo browser non supporta l'audio.
           </audio>
         </div>
         <div class="cardHighlight">
@@ -257,10 +273,10 @@
           usa la <strong>polifonia sofisticata</strong> e ritmi complessi.
         </p>
         <div class="cardAudio">
-          <label>🎵 Ascolta Ars Nova:</label>
+          <label>🎵 Ascolta: Ecco la primavera - Francesco Landini</label>
           <audio controls style="width: 100%; margin-top: 8px;">
-            <source src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Francesco_Landini_-_Ecco_la_primavera.ogg" type="audio/ogg">
-            <a href="https://commons.wikimedia.org/wiki/File:Francesco_Landini_-_Ecco_la_primavera.ogg" target="_blank">Ascolta su Wikimedia</a>
+            <source src="audio/Storia_medioevo/ECCO_LA_PRIMAVERA.mp3" type="audio/mpeg">
+            Il tuo browser non supporta l'audio.
           </audio>
         </div>
         <div class="cardHighlight">
@@ -358,39 +374,39 @@
       <div class="instrumentCard">
         <h3>🎸 Strumenti a Corda</h3>
         <ul>
-          <li><strong>Lira</strong> - Strumento antico a corda sfregata</li>
-          <li><strong>Liuto</strong> - Corda pizzicata, progenitore della chitarra</li>
-          <li><strong>Arpa</strong> - Suonata nelle corti e nelle chiese</li>
-          <li><strong>Viella</strong> - Corda sfregata con arco, progenitore del violino</li>
+          <li><a class="instrumentLink" href="strumenti.html#lira"><strong>Lira</strong></a> - Strumento antico a corda sfregata</li>
+          <li><a class="instrumentLink" href="strumenti.html#liuto"><strong>Liuto</strong></a> - Corda pizzicata, progenitore della chitarra</li>
+          <li><a class="instrumentLink" href="strumenti.html#arpa"><strong>Arpa</strong></a> - Suonata nelle corti e nelle chiese</li>
+          <li><a class="instrumentLink" href="strumenti.html#viella"><strong>Viella</strong></a> - Corda sfregata con arco, progenitore del violino</li>
         </ul>
       </div>
 
       <div class="instrumentCard">
         <h3>🎺 Strumenti a Fiato</h3>
         <ul>
-          <li><strong>Flauto</strong> - Legno, suono dolce</li>
-          <li><strong>Oboe</strong> - Antenato dell'oboe moderno</li>
-          <li><strong>Tromba</strong> - Metallo, suono squillante</li>
-          <li><strong>Cornamusa</strong> - Fiato con sacca di pelle</li>
+          <li><a class="instrumentLink" href="strumenti.html#flauto"><strong>Flauto</strong></a> - Legno, suono dolce</li>
+          <li><a class="instrumentLink" href="strumenti.html#oboe"><strong>Oboe</strong></a> - Antenato dell'oboe moderno</li>
+          <li><a class="instrumentLink" href="strumenti.html#tromba"><strong>Tromba</strong></a> - Metallo, suono squillante</li>
+          <li><a class="instrumentLink" href="strumenti.html#cornamusa"><strong>Cornamusa</strong></a> - Fiato con sacca di pelle</li>
         </ul>
       </div>
 
       <div class="instrumentCard">
         <h3>🥁 Strumenti a Percussione</h3>
         <ul>
-          <li><strong>Tamburo</strong> - Percussione a due teste</li>
-          <li><strong>Castagnette</strong> - Percussione a mano</li>
-          <li><strong>Cimbali</strong> - Due piatti di metallo</li>
-          <li><strong>Campanelli</strong> - Percussione intonata</li>
+          <li><a class="instrumentLink" href="strumenti.html#tamburo"><strong>Tamburo</strong></a> - Percussione a due teste</li>
+          <li><a class="instrumentLink" href="strumenti.html#castagnette"><strong>Castagnette</strong></a> - Percussione a mano</li>
+          <li><a class="instrumentLink" href="strumenti.html#cimbali"><strong>Cimbali</strong></a> - Due piatti di metallo</li>
+          <li><a class="instrumentLink" href="strumenti.html#campanelli"><strong>Campanelli</strong></a> - Percussione intonata</li>
         </ul>
       </div>
 
       <div class="instrumentCard">
         <h3>⛪ Organo</h3>
         <ul>
-          <li><strong>Organo positivo</strong> - Piccolo, portatile, solo per musica profana</li>
-          <li><strong>Organo portativo</strong> - Ancora più piccolo, usato nei banchetti</li>
-          <li><strong>Organo da chiesa</strong> - Grande, fisso, per la liturgia</li>
+          <li><a class="instrumentLink" href="strumenti.html#organo-positivo"><strong>Organo positivo</strong></a> - Piccolo, portatile, solo per musica profana</li>
+          <li><a class="instrumentLink" href="strumenti.html#organo-portativo"><strong>Organo portativo</strong></a> - Ancora più piccolo, usato nei banchetti</li>
+          <li><a class="instrumentLink" href="strumenti.html#organo-da-chiesa"><strong>Organo da chiesa</strong></a> - Grande, fisso, per la liturgia</li>
         </ul>
       </div>
     </div>
@@ -485,12 +501,33 @@
     </svg>
   </section>
 
-  <!-- ==================== CTA ==================== -->
-  <div class="learnCTA storyLearnCTA">
-    <button class="menuButton" onclick="MGH.goTo('teoria.html')">📚 Torna a Teoria</button>
-    <button class="menuButton" onclick="MGH.goTo('index.html')">🏠 Home</button>
-  </div>
+  <!-- ==================== VIDEO APPROFONDIMENTO ==================== -->
+  <section id="video-medioevo" class="siteSection learnSection">
+    <h2 class="sectionTitle">Video di approfondimento</h2>
+    <p class="sectionIntro">
+      Guarda questo video di HUB Scuola per ripassare i concetti principali sulla musica medievale.
+    </p>
 
+    <div class="videoCard">
+      <h3>🎬 La musica nel Medioevo</h3>
+      <p class="cardSubtitle">Approfondimento sulla storia della musica medievale</p>
+
+      <div class="videoWrapper">
+        <iframe 
+          src="https://www.youtube.com/embed/_bp9jlpNRVs"
+          title="La musica nel Medioevo - HUB Scuola"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+    <!-- ==================== CTA ==================== -->
+    <div class="learnCTA storyLearnCTA">
+      <button class="menuButton" onclick="openQuizModal()">
+        ❓ Vai al Quiz
+      </button>
+    </div>
 </div>
 
 <!-- ==================== QUIZ MODAL ==================== -->
