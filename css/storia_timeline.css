@@ -1,0 +1,505 @@
+/* ==================== STORIA MUSICA - TIMELINE ORIZZONTALE ==================== */
+
+body.historyTimelinePage {
+  height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(255, 102, 0, 0.13), transparent 30%),
+    radial-gradient(circle at top right, rgba(153, 102, 255, 0.10), transparent 34%),
+    linear-gradient(to bottom, #fffaf5, #eeeeee);
+}
+
+body.historyTimelinePage #contentWrapper.timelineWrapper {
+  height: calc(100vh - var(--header-height));
+  overflow: hidden;
+  padding: 0 18px 10px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 0;
+}
+
+/* INTRO */
+
+.timelineIntro {
+  width: min(1050px, 100%);
+  margin: 0 auto -40px;
+  padding: 0;
+  text-align: center;
+  position: relative;
+  z-index: 3;
+}
+
+.timelineBadge {
+  display: inline-flex;
+  padding: 6px 13px;
+  border-radius: 999px;
+  background: rgba(255, 102, 0, 0.09);
+  border: 1px solid rgba(255, 102, 0, 0.22);
+  color: var(--accent);
+  font-weight: 900;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.timelineIntro h2 {
+  margin: 0;
+  color: var(--text-main);
+  font-size: clamp(1.7rem, 3.4vw, 3rem);
+  line-height: 1;
+}
+
+.timelineIntro p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* STAGE */
+
+.timelineStage {
+  width: min(1240px, 100%);
+  height: 100%;
+  min-height: 0;
+  margin: 0 auto;
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px 1fr 48px;
+  align-items: center;
+  gap: 12px;
+  transform: translateY(-42px);
+}
+
+.timelineViewport {
+  height: 460px;
+  min-height: 460px;
+  overflow: hidden;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1.5px solid rgba(255, 102, 0, 0.14);
+  box-shadow: var(--panel-shadow);
+  align-self: center;
+}
+
+.timelineTrack {
+  height: 100%;
+  display: flex;
+  transition: transform 0.55s ease;
+}
+
+.timelineSlide {
+  min-width: 100%;
+  height: 100%;
+  padding: 18px 28px;
+  box-sizing: border-box;
+}
+
+/* CANVAS */
+
+.timelineCanvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr 58px 1fr;
+  align-items: center;
+}
+
+/* LINEA */
+
+.timelineLine {
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  color: var(--accent);
+  font-weight: 900;
+  z-index: 2;
+  transform: translateY(8px);
+}
+
+.lineStart {
+  font-size: 1.6rem;
+  letter-spacing: 4px;
+}
+
+.lineBody {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+  box-shadow: 0 0 18px rgba(255, 102, 0, 0.25);
+  position: relative;
+}
+
+.lineBody::before,
+.lineBody::after,
+.lineBody .middleDot {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: white;
+  border: 4px solid var(--accent);
+  box-shadow: 0 0 16px rgba(255,102,0,0.28);
+}
+
+.lineBody::before {
+  left: 22%;
+  transform: translateY(-50%);
+}
+
+.lineBody::after {
+  right: 22%;
+  transform: translateY(-50%);
+}
+
+.lineBody .middleDot {
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.threeCards .lineBody::before {
+  left: 16%;
+}
+
+.threeCards .lineBody::after {
+  right: 16%;
+}
+
+.lineArrow {
+  font-size: 2.45rem;
+  line-height: 1;
+}
+
+/* CARD */
+
+.eraCardsRow {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(36px, 5vw, 70px);
+  pointer-events: none;
+}
+
+.eraCardsRow.threeCards {
+  gap: clamp(18px, 3vw, 38px);
+}
+
+.eraCard {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 310px;
+  min-height: 155px;
+  background: var(--surface-solid);
+  border-radius: 20px;
+  padding: 18px 18px 16px;
+  box-shadow: var(--panel-shadow);
+  border: 2px solid transparent;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+}
+
+.eraCard::before {
+  content: "";
+  position: absolute;
+  right: -44px;
+  top: -44px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(255, 102, 0, 0.08);
+  pointer-events: none;
+}
+
+.eraCard:nth-child(odd) {
+  transform: translateY(-110px);
+}
+
+.eraCard:nth-child(even) {
+  transform: translateY(124px);
+}
+
+.eraCard:nth-child(odd):hover {
+  transform: translateY(-124px);
+}
+
+.eraCard:nth-child(even):hover {
+  transform: translateY(112px);
+}
+
+.eraCard:hover {
+  box-shadow: 0 22px 44px rgba(255, 102, 0, 0.14);
+  border-color: rgba(255, 102, 0, 0.24);
+}
+
+.eraIcon {
+  font-size: 2rem;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.eraYears {
+  width: fit-content;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(255, 102, 0, 0.10);
+  color: var(--accent);
+  font-weight: 900;
+  font-size: 0.67rem;
+  position: relative;
+  z-index: 1;
+}
+
+.eraCard h3 {
+  margin: 0;
+  color: var(--text-main);
+  font-size: 1.15rem;
+  line-height: 1.12;
+  position: relative;
+  z-index: 1;
+}
+
+.eraCard p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.42;
+  font-size: 0.78rem;
+  position: relative;
+  z-index: 1;
+}
+
+.eraButton {
+  width: fit-content;
+  height: auto;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: white;
+  border: none;
+  font-weight: 800;
+  font-size: 0.74rem;
+  box-shadow: 0 8px 18px rgba(255, 102, 0, 0.20);
+  position: relative;
+  z-index: 1;
+}
+
+.eraButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(255, 102, 0, 0.25);
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: white;
+}
+
+.disabledEra {
+  opacity: 0.72;
+  cursor: not-allowed;
+  background: linear-gradient(135deg, #b3b3b3, #d0d0d0);
+  box-shadow: none;
+}
+
+.activeEra {
+  border-color: rgba(255, 102, 0, 0.26);
+}
+
+/* COLORI EPOCHE */
+
+.ancientCard::before { background: rgba(153, 102, 255, 0.10); }
+.medievalCard::before { background: rgba(255, 102, 0, 0.12); }
+.renaissanceCard::before { background: rgba(179, 92, 255, 0.11); }
+.baroqueCard::before { background: rgba(0, 166, 189, 0.11); }
+.classicCard::before { background: rgba(102, 204, 102, 0.12); }
+.romanticCard::before { background: rgba(255, 77, 166, 0.11); }
+.modernCard::before { background: rgba(68, 68, 255, 0.11); }
+.contemporaryCard::before { background: rgba(0, 166, 189, 0.13); }
+
+/* FRECCE */
+
+.timelineArrow {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: white;
+  font-size: 2.6rem;
+  line-height: 0;
+  font-weight: 900;
+  box-shadow: 0 12px 28px rgba(255, 102, 0, 0.24);
+  cursor: pointer;
+}
+
+.timelineArrow:hover {
+  transform: scale(1.06);
+  box-shadow: 0 16px 34px rgba(255, 102, 0, 0.30);
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: white;
+}
+
+.timelineArrow:disabled {
+  opacity: 0.32;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.leftArrow{
+  padding-bottom: 6px;
+  padding-right: 4px;
+}
+
+.rightArrow{
+  padding-bottom: 6px;
+  padding-left: 4px;
+}
+
+/* DOT */
+
+.timelineControls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.dotBtn {
+  width: 11px;
+  height: 11px;
+  padding: 0;
+  border-radius: 999px;
+  border: none;
+  background: rgba(255, 102, 0, 0.26);
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.dotBtn.activeDot {
+  width: 36px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 950px) {
+  body.historyTimelinePage {
+    height: auto;
+    overflow: auto;
+  }
+
+  body.historyTimelinePage #contentWrapper.timelineWrapper {
+    height: auto;
+    overflow: visible;
+  }
+
+  .timelineStage {
+    grid-template-columns: 44px 1fr 44px;
+    transform: none;
+  }
+
+  .timelineViewport {
+    height: auto;
+    min-height: 640px;
+  }
+
+  .timelineSlide {
+    height: auto;
+    min-height: 640px;
+  }
+
+  .timelineCanvas {
+    height: auto;
+    min-height: 600px;
+    grid-template-rows: 54px auto;
+    gap: 18px;
+  }
+
+  .timelineLine {
+    grid-row: 1;
+    transform: none;
+  }
+
+  .eraCardsRow,
+  .eraCardsRow.threeCards {
+    position: static;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    pointer-events: auto;
+  }
+
+  .eraCard,
+  .eraCard:nth-child(odd),
+  .eraCard:nth-child(even),
+  .eraCard:nth-child(odd):hover,
+  .eraCard:nth-child(even):hover {
+    max-width: none;
+    min-height: 150px;
+    transform: none;
+  }
+
+  .timelineArrow {
+    width: 44px;
+    height: 44px;
+    font-size: 2.4rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .timelineIntro h2 {
+    font-size: 1.9rem;
+  }
+
+  .timelineStage {
+    grid-template-columns: 1fr;
+  }
+
+  .timelineArrow {
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+  }
+
+  .leftArrow {
+    left: 8px;
+  }
+
+  .rightArrow {
+    right: 8px;
+  }
+
+  .timelineViewport {
+    border-radius: 22px;
+  }
+
+  .timelineSlide {
+    padding: 18px;
+  }
+
+  .timelineLine {
+    padding: 0 40px;
+  }
+
+  .lineStart {
+    font-size: 1.3rem;
+  }
+
+  .lineArrow {
+    font-size: 2.1rem;
+  }
+}

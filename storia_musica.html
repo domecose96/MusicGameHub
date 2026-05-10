@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Storia della Musica | Music Game Hub</title>
+
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/storia_timeline.css">
+</head>
+
+<body class="historyTimelinePage">
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="MGH.goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+
+    <div class="headerBrand">
+      <span class="headerEyebrow">Viaggio nel tempo</span>
+      <h1 class="pageTitle">Storia della Musica</h1>
+    </div>
+  </div>
+</header>
+
+<main id="contentWrapper" class="timelineWrapper">
+
+  <section class="timelineIntro">
+    <span class="timelineBadge">Timeline interattiva</span>
+    <h2>Dalla musica antica alla contemporanea</h2>
+    <p>Scorri la linea del tempo con le frecce e scegli il periodo da esplorare.</p>
+  </section>
+
+  <section class="timelineStage" aria-label="Timeline storia della musica">
+
+    <button id="prevEraBtn" class="timelineArrow leftArrow" aria-label="Indietro">‹</button>
+
+    <div class="timelineViewport">
+      <div id="timelineTrack" class="timelineTrack">
+
+        <!-- SLIDE 1 -->
+        <div class="timelineSlide activeSlide">
+          <div class="timelineCanvas">
+
+            <div class="timelineLine">
+              <span class="lineStart">...</span>
+              <span class="lineBody"></span>
+              <span class="lineArrow">➜</span>
+            </div>
+
+            <div class="eraCardsRow twoCards">
+              <article class="eraCard ancientCard">
+                <div class="eraIcon">🏛️</div>
+                <span class="eraYears">fino al 476 d.C.</span>
+                <h3>Antichità</h3>
+                <p>Musica legata a riti, poesia, teatro e danza. Strumenti come lira, cetra, aulos e percussioni.</p>
+                <button class="eraButton disabledEra" type="button">Pagina in arrivo</button>
+              </article>
+
+              <article class="eraCard medievalCard activeEra">
+                <div class="eraIcon">🏰</div>
+                <span class="eraYears">476 - 1400 circa</span>
+                <h3>Medioevo</h3>
+                <p>Canto gregoriano, notazione musicale, trovatori, giullari e nascita della polifonia.</p>
+                <button class="eraButton" onclick="MGH.goTo('storia_medioevo.html')">Apri Medioevo</button>
+              </article>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SLIDE 2 -->
+        <div class="timelineSlide">
+          <div class="timelineCanvas">
+
+            <div class="timelineLine">
+              <span class="lineStart">...</span>
+              <span class="lineBody">
+                <span class="middleDot"></span>
+              </span>
+              <span class="lineArrow">➜</span>
+            </div>
+
+            <div class="eraCardsRow threeCards">
+              <article class="eraCard renaissanceCard">
+                <div class="eraIcon">🎨</div>
+                <span class="eraYears">1400 - 1600</span>
+                <h3>Rinascimento</h3>
+                <p>Polifonia vocale, madrigale, musica nelle corti e diffusione della stampa musicale.</p>
+                <button class="eraButton disabledEra" type="button">Pagina in arrivo</button>
+              </article>
+
+              <article class="eraCard baroqueCard">
+                <div class="eraIcon">👑</div>
+                <span class="eraYears">1600 - 1750</span>
+                <h3>Barocco</h3>
+                <p>Opera, concerto, fuga, basso continuo, virtuosismo e grandi contrasti sonori.</p>
+                <button class="eraButton disabledEra" type="button">Pagina in arrivo</button>
+              </article>
+
+              <article class="eraCard classicCard">
+                <div class="eraIcon">🎼</div>
+                <span class="eraYears">1750 - 1820</span>
+                <h3>Classicismo</h3>
+                <p>Equilibrio, chiarezza, forma sonata, sinfonia e grandi autori come Mozart e Beethoven.</p>
+                <button class="eraButton disabledEra" type="button">Pagina in arrivo</button>
+              </article>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SLIDE 3 -->
+        <div class="timelineSlide">
+          <div class="timelineCanvas">
+
+            <div class="timelineLine">
+              <span class="lineStart">...</span>
+              <span class="lineBody">
+                <span class="middleDot"></span>
+              </span>
+              <span class="lineArrow">➜</span>
+            </div>
+
+            <div class="eraCardsRow threeCards">
+              <article class="eraCard romanticCard">
+                <div class="eraIcon">🌹</div>
+                <span class="eraYears">1800 - 1900</span>
+                <h3>Romanticismo</h3>
+                <p>Emozione, fantasia, pianoforte, grande orchestra, virtuosismo e identità nazionale.</p>
+                <button class="eraButton disabledEra" type="button">Pagina in arrivo</button>
+              </article>
+
+              <article class="eraCard modernCard">
+                <div class="eraIcon">⚡</div>
+                <span class="eraYears">1900 - 2000</span>
+                <h3>Novecento</h3>
+                <p>Jazz, cinema, avanguardie, elettronica, sperimentazione e nuove tecniche compositive.</p>
+                <button class="eraButton disabledEra" type="button">Pagina in arrivo</button>
+              </article>
+
+              <article class="eraCard contemporaryCard">
+                <div class="eraIcon">🎧</div>
+                <span class="eraYears">2000 - oggi</span>
+                <h3>Età contemporanea</h3>
+                <p>Pop, rock, digitale, produzione elettronica, streaming e nuove forme di ascolto.</p>
+                <button class="eraButton disabledEra" type="button">Pagina in arrivo</button>
+              </article>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <button id="nextEraBtn" class="timelineArrow rightArrow" aria-label="Avanti">›</button>
+
+  </section>
+
+  <div class="timelineControls">
+    <button class="dotBtn activeDot" data-slide="0" aria-label="Sezione 1"></button>
+    <button class="dotBtn" data-slide="1" aria-label="Sezione 2"></button>
+    <button class="dotBtn" data-slide="2" aria-label="Sezione 3"></button>
+  </div>
+
+</main>
+
+<script src="js/common.js"></script>
+<script src="js/storia_timeline.js"></script>
+</body>
+</html>
