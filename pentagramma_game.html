@@ -8,6 +8,13 @@
 <link rel="stylesheet" href="css/pentagramma_game.css">
 </head>
 
+<button id="rankedLeaderboardBtn"
+        class="rankedLeaderboardButton"
+        onclick="showRankedLeaderboardModal()"
+        aria-label="Classifica">
+  🏆
+</button>
+
 <body class="pentagrammaGamePage">
 
 <header class="appHeader">
@@ -32,10 +39,14 @@
   <div id="menu">
     <h2>Difficoltà</h2>
 
-    <div class="buttonGroup">
+    <div class="buttonGroup pentagrammaModeGroup">
       <button class="menuButton" onclick="setDifficulty('easy', this)">Facile</button>
       <button class="menuButton" onclick="setDifficulty('medium', this)">Medio</button>
       <button class="menuButton" onclick="setDifficulty('hard', this)">Difficile</button>
+      <button class="menuButton dailyModeButton rankedModeButton" onclick="selectMode(this,'ranked')">
+        <span class="dailyModeBadge">Ranked</span>
+        Classificata
+      </button>
     </div>
 
     <button class="menuButton startButton" onclick="startGame()">Inizia</button>
@@ -48,6 +59,24 @@
 
   <div id="game" class="hidden">
 
+    <div id="rankedUI" class="hidden">
+
+      <div id="rankedScoreDisplay">
+        Score: <span id="rankedScore">0</span>
+      </div>
+
+      <div id="rankedProgressWrapper">
+        <div id="rankedProgressLabel">
+          <span>Progressione</span>
+          <span id="rankedQuestionCounter">1/10</span>
+        </div>
+
+        <div id="rankedProgressBar">
+          <div id="rankedProgressFill"></div>
+        </div>
+      </div>
+
+    </div>
     <div id="timerBox" class="hidden">
     ⏱ <span id="timer">5</span>s
     </div>
@@ -106,7 +135,7 @@
     <div id="feedback" class="feedbackText"></div>
 
     <div class="gameActions">
-      <button class="menuButton" onclick="goBack()">⬅ Indietro</button>
+      <button id="backButton" class="menuButton" onclick="goBack()">⬅ Indietro</button>
     </div>
 
   </div>
@@ -114,6 +143,7 @@
 </div>
 
 <script src="js/common.js"></script>
+<script src="js/ranked.js"></script>
 <script src="js/pentagramma_game.js"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>

@@ -1,8 +1,10 @@
 /* ==================== VARIABILI GLOBALI ==================== */
 let difficulty = null;
+let gameMode = "training";
 let currentTarget = null;
 let timerInterval = null;
 let timeLeft = 5;
+let questionStartTime = null;
 
 const menu = document.getElementById("menu");
 const game = document.getElementById("game");
@@ -12,7 +14,6 @@ const answerNote = document.getElementById("answerNote");
 const timerBox = document.getElementById("timerBox");
 const timerEl = document.getElementById("timer");
 const warning = document.getElementById("warning");
-const headerModeLabel = document.getElementById("headerModeLabel");
 
 const zones = document.querySelectorAll(".hitZone");
 
@@ -40,30 +41,44 @@ const positions = {
 };
 
 /* ==================== HEADER MODE ==================== */
-function getDifficultyLabel(){
-  if(difficulty === "easy") return "Facile";
-  if(difficulty === "medium") return "Medio";
-  if(difficulty === "hard") return "Difficile";
+function getDifficultyLabel() {
+  if (difficulty === "easy") return "Facile";
+  if (difficulty === "medium") return "Medio";
+  if (difficulty === "hard") return "Difficile";
   return "";
 }
 
-function updateHeaderModeLabel(label = ""){
+function updateHeaderModeLabel(label = "") {
   MGH.updateHeaderModeLabel(label);
 }
 
 /* ==================== MENU ==================== */
-function selectButton(groupClass, element){
+function selectButton(groupClass, element) {
   MGH.selectExclusive(groupClass, element);
 }
 
-function setDifficulty(level, el){
+function setDifficulty(level, el) {
   difficulty = level;
+  gameMode = "training";
   selectButton(".menuButton", el);
 }
 
+function selectMode(el, mode) {
+  if (mode === "ranked") {
+    gameMode = "ranked";
+    difficulty = null;
+    selectButton(".menuButton", el);
+  }
+}
+
 /* ==================== START ==================== */
-function startGame(){
-  if(!difficulty){
+function startGame() {
+  if (gameMode === "ranked") {
+    showRankedIntroModal();
+    return;
+  }
+
+  if (!difficulty) {
     warning.textContent = "Seleziona una difficoltà";
     return;
   }
@@ -73,75 +88,286 @@ function startGame(){
   menu.classList.add("hidden");
   game.classList.remove("hidden");
 
+  hideLeaderboardButton();
+  showBackButton();
+
   updateHeaderModeLabel(getDifficultyLabel());
+
+  hideRankedUI();
   newRound();
 }
 
-function goBack(){
+function showRankedIntroModal() {
+  const modal = document.createElement("div");
+  modal.className = "rankedModal rankedIntroModal";
+
+  modal.innerHTML = `
+    <div class="modalOverlay"></div>
+
+    <div class="modalPanel rankedIntroPanel">
+      <h2>🏆 Modalità Classificata</h2>
+
+      <p class="rankedIntroText">
+        Entra nella modalità classificata e scala le classifiche di MusicGameHub.<br><br>
+
+        Competi nella classifica del gioco e nella classifica generale contro tutti gli altri giocatori.<br><br>
+
+        Il punteggio finale dipende da:
+        velocità, accuratezza e difficoltà delle risposte.<br><br>
+
+        Più sarai rapido e preciso, più salirai in classifica.<br><br>
+
+        Una volta iniziata la sfida, la sessione va completata. 🔥
+      </p>
+
+      <button class="rankedIntroStartBtn" onclick="startRankedGameFromModal(this)">
+        Inizia
+      </button>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+}
+
+function startRankedGameFromModal(button) {
+  button.closest(".rankedModal")?.remove();
+  startRankedGame();
+}
+
+function startRankedGame() {
+  warning.textContent = "";
+
+  if (typeof startRankedMode !== "function") {
+    warning.textContent = "Errore: ranked.js non è stato caricato.";
+    return;
+  }
+
+  startRankedMode("pentagramma");
+
+  menu.classList.add("hidden");
+  game.classList.remove("hidden");
+
+  hideLeaderboardButton();
+  hideBackButton();
+
+  updateHeaderModeLabel("Classificata");
+
+  showRankedUI();
+  updateRankedUI();
+
+  newRound();
+}
+
+function goBack() {
+  if (gameMode === "ranked") return;
+
   stopTimer();
 
   game.classList.add("hidden");
   menu.classList.remove("hidden");
 
-  difficulty = null;
-  currentTarget = null;
+  showLeaderboardButton();
+  showBackButton();
 
-  document.querySelectorAll(".selected").forEach(btn=>{
+  difficulty = null;
+  gameMode = "training";
+  currentTarget = null;
+  questionStartTime = null;
+
+  if (typeof resetRankedMode === "function") {
+    resetRankedMode();
+  }
+
+  document.querySelectorAll(".selected").forEach(btn => {
     btn.classList.remove("selected");
   });
 
   updateHeaderModeLabel("");
   clearBoard();
   setFeedback("");
+  hideRankedUI();
 }
 
 /* ==================== ROUND ==================== */
-function newRound(){
+function newRound() {
   clearBoard();
   setFeedback("");
+  stopTimer();
 
   let pool = [];
 
-  if(difficulty === "easy"){
-    pool = ["line1","space1","line2","space2","line3","space3","line4","space4","line5"];
+  if (gameMode === "ranked") {
+    const rankedDifficulty = getRankedDifficulty();
+
+    if (rankedDifficulty === "easy") {
+      pool = ["line1", "space1", "line2", "space2", "line3", "space3", "line4", "space4", "line5"];
+    }
+
+    if (rankedDifficulty === "medium") {
+      pool = Object.keys(positions).filter(id => !id.includes("ledger"));
+    }
+
+    if (rankedDifficulty === "hard") {
+      pool = Object.keys(positions);
+    }
+
+    startTimer(5);
+    startRankedQuestionTimer();
+    updateRankedUI();
   }
 
-  if(difficulty === "medium"){
-    pool = Object.keys(positions);
-  }
+  if (gameMode === "training") {
+    if (difficulty === "easy") {
+      pool = ["line1", "space1", "line2", "space2", "line3", "space3", "line4", "space4", "line5"];
+    }
 
-  if(difficulty === "hard"){
-    pool = Object.keys(positions);
-    startTimer();
+    if (difficulty === "medium") {
+      pool = Object.keys(positions);
+    }
+
+    if (difficulty === "hard") {
+      pool = Object.keys(positions);
+      startTimer(5);
+    }
   }
 
   const id = pool[Math.floor(Math.random() * pool.length)];
   currentTarget = id;
+  questionStartTime = Date.now();
 
   questionEl.textContent = "Clicca: " + positions[id].label;
 }
 
 /* ==================== CLICK ==================== */
-zones.forEach(zone=>{
-  zone.addEventListener("click", ()=>{
-    if(!currentTarget) return;
+zones.forEach(zone => {
+  zone.addEventListener("click", () => {
+    if (!currentTarget) return;
 
     const id = zone.dataset.id;
+    const isCorrect = id === currentTarget;
 
     stopTimer();
 
-    if(id === currentTarget){
+    if (isCorrect) {
       showCorrect();
     } else {
       showWrong();
+    }
+
+    if (gameMode === "ranked") {
+      handleRankedAnswer(isCorrect);
+      return;
     }
 
     setTimeout(newRound, 1200);
   });
 });
 
+/* ==================== RANKED ==================== */
+function handleRankedAnswer(isCorrect) {
+  const session = answerRankedQuestion(isCorrect);
+
+  updateRankedUI();
+
+  if (session && session.isComplete()) {
+    setTimeout(showRankedResults, 1200);
+  } else {
+    setTimeout(newRound, 1200);
+  }
+}
+
+function showRankedUI() {
+  const rankedUI = document.getElementById("rankedUI");
+  if (rankedUI) rankedUI.classList.remove("hidden");
+}
+
+function hideRankedUI() {
+  const rankedUI = document.getElementById("rankedUI");
+  if (rankedUI) rankedUI.classList.add("hidden");
+}
+
+function hideLeaderboardButton() {
+  document.getElementById("rankedLeaderboardBtn")?.classList.add("hidden");
+}
+
+function showLeaderboardButton() {
+  document.getElementById("rankedLeaderboardBtn")?.classList.remove("hidden");
+}
+
+function hideBackButton() {
+  document.getElementById("backButton")?.classList.add("hidden");
+}
+
+function showBackButton() {
+  document.getElementById("backButton")?.classList.remove("hidden");
+}
+
+function updateRankedUI() {
+  if (!currentRankedSession) return;
+
+  const scoreEl = document.getElementById("rankedScore");
+  const counterEl = document.getElementById("rankedQuestionCounter");
+  const fillEl = document.getElementById("rankedProgressFill");
+
+  if (scoreEl) {
+    scoreEl.textContent = currentRankedSession.totalScore;
+  }
+
+  if (counterEl) {
+    const current = Math.min(
+      currentRankedSession.currentQuestion + 1,
+      currentRankedSession.maxQuestions
+    );
+
+    counterEl.textContent = `${current}/${currentRankedSession.maxQuestions}`;
+  }
+
+  if (fillEl) {
+    const progress =
+      (currentRankedSession.currentQuestion / currentRankedSession.maxQuestions) * 100;
+
+    fillEl.style.width = `${progress}%`;
+  }
+}
+
+async function showRankedResults() {
+  stopTimer();
+
+  const finalData = await finishRankedMode();
+
+  if (!finalData || !finalData.session) {
+    setFeedback("Errore nel salvataggio della classificata.");
+    return;
+  }
+
+  const session = finalData.session;
+
+  game.classList.add("hidden");
+  menu.classList.remove("hidden");
+  hideRankedUI();
+
+  showLeaderboardButton();
+  showBackButton();
+
+  warning.innerHTML =
+    `Classificata completata! ` +
+    `Punteggio: <strong>${session.totalScore}</strong> · ` +
+    `Corrette: <strong>${session.correct}/${session.maxQuestions}</strong> · ` +
+    `Accuratezza: <strong>${session.accuracy}%</strong>`;
+
+  updateHeaderModeLabel("");
+
+  document.querySelectorAll(".selected").forEach(btn => {
+    btn.classList.remove("selected");
+  });
+
+  gameMode = "training";
+  difficulty = null;
+  currentTarget = null;
+}
+
 /* ==================== FEEDBACK ==================== */
-function showCorrect(){
+function showCorrect() {
   const pos = positions[currentTarget];
 
   answerNote.setAttribute("cx", 310);
@@ -151,7 +377,7 @@ function showCorrect(){
   setFeedback("✔ Corretto!");
 }
 
-function showWrong(){
+function showWrong() {
   const pos = positions[currentTarget];
 
   answerNote.setAttribute("cx", 310);
@@ -161,32 +387,50 @@ function showWrong(){
   setFeedback("✖ Sbagliato! Era: " + pos.label);
 }
 
-function setFeedback(msg){
-  if(feedbackEl) feedbackEl.textContent = msg;
+function showTimeExpired() {
+  const pos = positions[currentTarget];
+
+  answerNote.setAttribute("cx", 310);
+  answerNote.setAttribute("cy", pos.y);
+  answerNote.setAttribute("opacity", 1);
+
+  setFeedback("⏱ Tempo scaduto! La risposta corretta era: " + pos.label);
+}
+
+function setFeedback(msg) {
+  if (feedbackEl) feedbackEl.textContent = msg;
 }
 
 /* ==================== TIMER ==================== */
-function startTimer(){
+function startTimer(duration = 5) {
   stopTimer();
 
-  timeLeft = 5;
+  timeLeft = duration;
   timerEl.textContent = timeLeft;
   timerBox.classList.remove("hidden");
 
-  timerInterval = setInterval(()=>{
+  timerInterval = setInterval(() => {
     timeLeft--;
     timerEl.textContent = timeLeft;
 
-    if(timeLeft <= 0){
+    if (timeLeft <= 0) {
       stopTimer();
-      showWrong();
-      setTimeout(newRound, 1200);
+
+      if (!currentTarget) return;
+
+      showTimeExpired();
+
+      if (gameMode === "ranked") {
+        handleRankedAnswer(false);
+      } else {
+        setTimeout(newRound, 1200);
+      }
     }
-  },1000);
+  }, 1000);
 }
 
-function stopTimer(){
-  if(timerInterval){
+function stopTimer() {
+  if (timerInterval) {
     clearInterval(timerInterval);
     timerInterval = null;
   }
@@ -195,6 +439,106 @@ function stopTimer(){
 }
 
 /* ==================== RESET ==================== */
-function clearBoard(){
+function clearBoard() {
   answerNote.setAttribute("opacity", 0);
+}
+
+/* ==================== LEADERBOARD ==================== */
+async function showRankedLeaderboardModal() {
+  if (typeof rankedLeaderboard === "undefined") {
+    alert("Classifica non disponibile: ranked.js non caricato.");
+    return;
+  }
+
+  const userId = localStorage.getItem("mgh_userId");
+  const gameTop = await rankedLeaderboard.getGameLeaderboard("pentagramma", 10);
+  const globalTop = await rankedLeaderboard.getGlobalLeaderboard(10);
+
+  const userGameBest = userId
+    ? await rankedLeaderboard.getUserBestScore("pentagramma", userId)
+    : null;
+
+  const modal = document.createElement("div");
+  modal.className = "rankedModal";
+  modal.innerHTML = `
+    <div class="modalOverlay" onclick="closeRankedLeaderboardModal()"></div>
+
+    <div class="modalPanel">
+      <button class="modalClose" onclick="closeRankedLeaderboardModal()" aria-label="Chiudi">×</button>
+
+      <h2>🏆 Classifiche</h2>
+
+      <div class="rankedTabs">
+        <button class="rankedTab active" onclick="switchRankedTab(this, 'game')">Pentagramma</button>
+        <button class="rankedTab" onclick="switchRankedTab(this, 'global')">Generale</button>
+      </div>
+
+      <div id="rankedGameTab">
+        ${renderLeaderboardRows(gameTop, userId)}
+
+        ${
+          userGameBest
+            ? `<div class="leaderboardRow userRow">
+                <span class="rank">Tu</span>
+                <span>${escapeHTML(userGameBest.username || "Tu")}</span>
+                <span class="score">${userGameBest.total_score}</span>
+              </div>`
+            : `<p class="gameIntro">Non hai ancora un punteggio in questo gioco.</p>`
+        }
+      </div>
+
+      <div id="rankedGlobalTab" class="hidden">
+        ${renderLeaderboardRows(globalTop, userId, true)}
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+}
+
+function renderLeaderboardRows(rows, userId, global = false) {
+  if (!rows || rows.length === 0) {
+    return `<p class="gameIntro">Nessun punteggio disponibile.</p>`;
+  }
+
+  return rows.map((row, index) => {
+    const isUser = row.user_id === userId;
+
+    const username = escapeHTML(row.username || "Player");
+    const score = global
+      ? row.best_score || row.total_score || 0
+      : row.total_score || 0;
+
+    return `
+      <div class="leaderboardRow ${isUser ? "userRow" : ""}">
+        <span class="rank">#${index + 1}</span>
+        <span>${username}</span>
+        <span class="score">${score}</span>
+      </div>
+    `;
+  }).join("");
+}
+
+function switchRankedTab(button, tab) {
+  document.querySelectorAll(".rankedTab").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  button.classList.add("active");
+
+  document.getElementById("rankedGameTab")?.classList.toggle("hidden", tab !== "game");
+  document.getElementById("rankedGlobalTab")?.classList.toggle("hidden", tab !== "global");
+}
+
+function closeRankedLeaderboardModal() {
+  document.querySelector(".rankedModal")?.remove();
+}
+
+function escapeHTML(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }

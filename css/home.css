@@ -260,3 +260,123 @@
     padding: 40px 0 28px;
   }
 }
+
+.siteFooter {
+  margin-top: 70px;
+  padding: 34px 20px 42px;
+  border-top: 1px solid rgba(255, 102, 0, 0.18);
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.siteFooterInner {
+  width: min(980px, 92vw);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.siteFooterAbout strong {
+  display: block;
+  color: var(--text-main);
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.siteFooterAbout p {
+  margin: 0 auto 18px;
+  max-width: 660px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.siteFooterLinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 9px;
+
+  color: var(--text-muted);
+  font-weight: 700;
+  text-align: center;
+}
+
+.siteFooterLinks a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.siteFooterLinks a:hover {
+  text-decoration: underline;
+}
+
+/* ==================== LEGAL PAGES FOOTER ==================== */
+
+.legalFooter {
+  margin-top: 40px;
+  padding: 24px 0 0;
+
+  border-top: 1px solid rgba(255, 102, 0, 0.18);
+
+  text-align: center;
+}
+
+.legalFooter .siteFooterLinks {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 9px;
+
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+/* ==================== PRIVACY CHECK ==================== */
+
+.privacyCheck {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start;
+
+  gap: 10px;
+
+  margin: 14px 0 16px;
+
+  font-size: 0.9rem;
+  line-height: 1.2;
+
+  color: var(--text-muted);
+}
+
+.privacyCheck input {
+  width: 18px !important;
+  height: 18px !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  flex: 0 0 18px;
+
+  accent-color: var(--accent);
+}
+
+.privacyCheck span {
+  display: inline !important;
+  white-space: nowrap;
+}
+
+.privacyCheck a {
+  display: inline !important;
+  color: var(--accent);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.privacyCheck a:hover {
+  text-decoration: underline;
+}

@@ -180,6 +180,22 @@ const MusicGameHubResources = (() => {
       target: "games"
     },
     {
+      id: "homeHistory",
+      icon: "🕰️",
+      title: "Storia della musica",
+      desc: "Dalle origini alla musica contemporanea: esplora epoche, autori e trasformazioni.",
+      tag: "Timeline",
+      url: "storia_musica.html"
+    },
+    {
+      id: "homeStrumenti",
+      icon: "🎺",
+      title: "Strumenti musicali",
+      desc: "Scopri famiglie, caratteristiche e curiosità degli strumenti musicali attraverso percorsi interattivi.",
+      tag: "Esplora",
+      url: "strumenti.html"
+    },
+    {
       id: "homeMap",
       icon: "🗺️",
       title: "Mappa delle risorse",
@@ -190,12 +206,6 @@ const MusicGameHubResources = (() => {
   ];
 
   const upcoming = [
-    {
-      id: "history",
-      icon: "🕰️",
-      title: "Storia della musica",
-      desc: "Dalle origini alla musica contemporanea."
-    },
     {
       id: "civic",
       icon: "🌍",

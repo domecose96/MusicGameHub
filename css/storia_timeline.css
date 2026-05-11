@@ -120,8 +120,11 @@ body.historyTimelinePage #contentWrapper.timelineWrapper {
 }
 
 .lineStart {
-  font-size: 1.6rem;
+  font-size: 3rem;
   letter-spacing: 4px;
+
+  position: relative;
+  top: -16px;
 }
 
 .lineBody {
@@ -172,6 +175,9 @@ body.historyTimelinePage #contentWrapper.timelineWrapper {
 .lineArrow {
   font-size: 2.45rem;
   line-height: 1;
+
+  position: relative;
+  top: -2px;
 }
 
 /* CARD */
@@ -313,6 +319,14 @@ body.historyTimelinePage #contentWrapper.timelineWrapper {
 
 .activeEra {
   border-color: rgba(255, 102, 0, 0.26);
+}
+
+.clickableEra {
+  cursor: pointer;
+}
+
+.clickableEra .eraButton {
+  pointer-events: none;
 }
 
 /* COLORI EPOCHE */
@@ -502,4 +516,15 @@ body.historyTimelinePage #contentWrapper.timelineWrapper {
   .lineArrow {
     font-size: 2.1rem;
   }
+}
+
+/* ==================== COLORI PAGINA STORIA ==================== */
+
+body.historyTimelinePage{
+  --accent: #c218ff;
+  --accent-soft: #ff4fd8;
+  --accent-glow: rgba(194,24,255,0.28);
+
+  --action-orange: #c218ff;
+  --action-orange-soft: #ff4fd8;
 }

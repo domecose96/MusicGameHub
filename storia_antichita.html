@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Storia: L'Antichità | Music Game Hub</title>
+
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/learn.css">
+<link rel="stylesheet" href="css/storia.css">
+</head>
+
+<body class="storyPage">
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="MGH.goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+
+    <div class="headerBrand">
+      <span class="headerEyebrow">Storia della musica</span>
+      <h1 class="pageTitle">L'Antichità</h1>
+    </div>
+  </div>
+</header>
+
+<nav id="siteNav" class="theoryNav">
+  <button class="navBtn" onclick="MGH.scrollToSection('timeline')">📅 Timeline</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('popoli')">🏛️ Popoli antichi</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('funzioni')">🎭 Funzioni</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('strumenti')">🎵 Strumenti</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('riassunto')">📊 Riassunto</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('ascolto')">🎧 Ascolto</button>
+  <button class="navBtn" onclick="openQuizModal()">❓ Quiz</button>
+</nav>
+
+<div id="contentWrapper">
+
+  <section id="timeline" class="siteSection learnSection">
+    <h2 class="sectionTitle">L'Antichità in breve</h2>
+
+    <p class="sectionIntro">
+        Le prime grandi civiltà del mondo antico si sviluppano dal 3000 a.C.
+        circa in Mesopotamia, Egitto e nel bacino del Mediterraneo.
+        La musica accompagna riti, cerimonie, banchetti, teatro, poesia e vita sociale.
+    </p>
+
+    <div class="timelineContainer">
+        <svg class="timelineSVG" viewBox="0 0 980 230">
+        <defs>
+            <linearGradient id="antichitaTimelineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#ff6600;stop-opacity:0.10" />
+            <stop offset="50%" style="stop-color:#ff6600;stop-opacity:0.22" />
+            <stop offset="100%" style="stop-color:#ff6600;stop-opacity:0.10" />
+            </linearGradient>
+        </defs>
+
+        <rect x="50" y="54" width="880" height="86" fill="url(#antichitaTimelineGrad)" rx="14"/>
+
+        <line x1="70" y1="100" x2="910" y2="100" stroke="#ff6600" stroke-width="4" opacity="0.65"/>
+
+        <circle cx="110" cy="100" r="11" fill="#ff6600"/>
+        <text x="110" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">3500 a.C.</text>
+        <text x="110" y="168" text-anchor="middle" font-size="11" fill="#ff6600" font-weight="bold">Prime civiltà</text>
+        <text x="110" y="184" text-anchor="middle" font-size="10" fill="#666">Mesopotamia</text>
+
+        <circle cx="300" cy="100" r="11" fill="#ff6600"/>
+        <text x="300" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">3000 a.C.</text>
+        <text x="300" y="168" text-anchor="middle" font-size="11" fill="#ff6600" font-weight="bold">Egitto antico</text>
+        <text x="300" y="184" text-anchor="middle" font-size="10" fill="#666">cerimonie e strumenti</text>
+
+        <circle cx="490" cy="100" r="11" fill="#ff6600"/>
+        <text x="490" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">2000 a.C.</text>
+        <text x="490" y="168" text-anchor="middle" font-size="11" fill="#ff6600" font-weight="bold">Antichi Ebrei</text>
+        <text x="490" y="184" text-anchor="middle" font-size="10" fill="#666">musica e culto</text>
+
+        <circle cx="680" cy="100" r="11" fill="#ff6600"/>
+        <text x="680" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">1000 a.C.</text>
+        <text x="680" y="168" text-anchor="middle" font-size="11" fill="#ff6600" font-weight="bold">Grecia antica</text>
+        <text x="680" y="184" text-anchor="middle" font-size="10" fill="#666">teatro, poesia, danza</text>
+
+        <circle cx="850" cy="100" r="11" fill="#ff6600"/>
+        <text x="850" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">753 a.C.</text>
+        <text x="850" y="168" text-anchor="middle" font-size="11" fill="#ff6600" font-weight="bold">Roma antica</text>
+        <text x="850" y="184" text-anchor="middle" font-size="10" fill="#666">riti e spettacoli</text>
+
+        </svg>
+    </div>
+
+    <div class="periodGrid">
+        <div class="periodCard eraCard">
+        <div class="eraIcon">🌾</div>
+        <h3>Mesopotamia</h3>
+        <p>
+            Presso i popoli della Mesopotamia la musica accompagna le cerimonie.
+            Sono diffusi strumenti a corde, come arpa e cetra, e strumenti a percussione.
+        </p>
+        </div>
+
+        <div class="periodCard eraCard">
+        <div class="eraIcon">🐪</div>
+        <h3>Egitto</h3>
+        <p>
+            In Egitto la musica ha una funzione importante nelle cerimonie religiose,
+            nei cortei funebri e nei banchetti. Sono usati arpa, lira, liuto,
+            flauti, sistri e tamburi.
+        </p>
+        </div>
+
+        <div class="periodCard eraCard">
+        <div class="eraIcon">🕎</div>
+        <h3>Antichi Ebrei</h3>
+        <p>
+            La musica è legata al culto religioso. Nella Bibbia sono citati strumenti
+            come il kinnor, lo shofar e i tamburi.
+        </p>
+        </div>
+    </div>
+    </section>
+
+  <section id="popoli" class="siteSection learnSection">
+    <h2 class="sectionTitle">I popoli dell'Antichità</h2>
+
+    <p class="sectionIntro">
+      Ogni civiltà antica attribuisce alla musica funzioni diverse:
+      religiose, sociali, teatrali, poetiche e militari.
+    </p>
+
+    <div class="storyGrid">
+
+      <div class="storyCard mediaCard">
+        <div class="mediaThumb">
+          <div class="mediaIcon">🏺</div>
+        </div>
+
+        <h3>Mesopotamia, Egitto e Antichi Ebrei</h3>
+        <p class="cardSubtitle">Musica, rito e vita sociale</p>
+
+        <p>
+          In Mesopotamia la musica accompagna cerimonie e momenti pubblici.
+          Nell'antico Egitto partecipa alla vita religiosa, ai banchetti
+          e ai cortei funebri.
+        </p>
+
+        <p>
+          Presso gli antichi Ebrei la musica ha soprattutto una funzione religiosa
+          ed è collegata al canto, alla preghiera e agli strumenti citati nei testi sacri.
+        </p>
+
+        <div class="cardHighlight">
+          <strong>Idea chiave:</strong> la musica non è solo divertimento,
+          ma parte della vita religiosa e sociale.
+        </div>
+      </div>
+
+      <div class="storyCard mediaCard">
+        <div class="mediaThumb">
+          <div class="mediaIcon">🏛️</div>
+        </div>
+
+        <h3>Antica Grecia</h3>
+        <p class="cardSubtitle">Poesia, danza, teatro e pensiero</p>
+
+        <p>
+          I Greci usano il termine <strong>mousiké</strong> per indicare
+          un insieme di poesia, musica e danza. La musica accompagna
+          banchetti, cerimonie, teatro, tragedie e attività educative.
+        </p>
+
+        <p>
+          La teoria musicale greca si basa sul <strong>tetracordo</strong>,
+          una successione discendente di quattro suoni.
+        </p>
+
+        <div class="cardHighlight">
+          <strong>Idea chiave:</strong> per i Greci la musica è arte,
+          educazione e forma di pensiero.
+        </div>
+      </div>
+
+      <div class="storyCard mediaCard">
+        <div class="mediaThumb">
+          <div class="mediaIcon">🏟️</div>
+        </div>
+
+        <h3>Antica Roma</h3>
+        <p class="cardSubtitle">Cerimonie, spettacoli e vita pubblica</p>
+
+        <p>
+          Nell'antica Roma la musica accompagna cerimonie religiose,
+          banchetti, spettacoli, parate militari e momenti pubblici.
+        </p>
+
+        <p>
+          I Romani utilizzano strumenti a corda, a fiato e a percussione,
+          tra cui lira, tibia, tuba, cornu, cymbala e tympanum.
+        </p>
+
+        <div class="cardHighlight">
+          <strong>Idea chiave:</strong> la musica romana è molto legata
+          alla vita collettiva e agli eventi pubblici.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="funzioni" class="siteSection learnSection">
+    <h2 class="sectionTitle">Le funzioni della musica antica</h2>
+
+    <p class="sectionIntro">
+      Nel mondo antico la musica svolge funzioni diverse:
+      accompagna la religione, la danza, il teatro, le feste e la guerra.
+    </p>
+
+    <div class="storyGrid">
+
+      <div class="storyCard">
+        <h3>🙏 Funzione religiosa</h3>
+        <p>
+          La musica accompagna riti, preghiere, cerimonie e momenti sacri.
+          È presente presso Mesopotamici, Egizi, Ebrei, Greci e Romani.
+        </p>
+      </div>
+
+      <div class="storyCard">
+        <h3>🎭 Funzione teatrale e poetica</h3>
+        <p>
+          In Grecia musica, poesia e danza sono unite.
+          Il teatro antico usa cori, canto e movimento per rafforzare
+          il significato della tragedia.
+        </p>
+      </div>
+
+      <div class="storyCard">
+        <h3>🎉 Funzione sociale</h3>
+        <p>
+          La musica accompagna banchetti, feste, danze e occasioni comunitarie,
+          diventando parte della vita quotidiana e delle relazioni sociali.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="strumenti" class="siteSection learnSection">
+    <h2 class="sectionTitle">Gli strumenti dell'Antichità</h2>
+
+    <p class="sectionIntro">
+        Gli strumenti antichi appartengono a tre grandi famiglie:
+        corde, fiati e percussioni.
+    </p>
+
+    <div class="instrumentGrid">
+
+        <div class="instrumentCard">
+        <h3>🎸 Strumenti a corda</h3>
+        <ul>
+            <li><a class="instrumentLink" href="strumenti.html#arpa"><strong>Arpa</strong></a> - diffusa in Mesopotamia ed Egitto</li>
+            <li><a class="instrumentLink" href="strumenti.html#cetra"><strong>Cetra</strong></a> - usata nel mondo greco</li>
+            <li><a class="instrumentLink" href="strumenti.html#lira"><strong>Lira</strong></a> - importante in Grecia e Roma</li>
+            <li><a class="instrumentLink" href="strumenti.html#kinnor"><strong>Kinnor</strong></a> - strumento simile alla lira presso gli Ebrei</li>
+        </ul>
+        </div>
+
+        <div class="instrumentCard">
+        <h3>🎺 Strumenti a fiato</h3>
+        <ul>
+            <li><a class="instrumentLink" href="strumenti.html#aulos"><strong>Aulos</strong></a> - strumento greco a doppia canna</li>
+            <li><a class="instrumentLink" href="strumenti.html#flauto"><strong>Flauto</strong></a> - usato in Egitto e nel mondo antico</li>
+            <li><a class="instrumentLink" href="strumenti.html#tibia"><strong>Tibia</strong></a> - strumento romano a fiato</li>
+            <li><a class="instrumentLink" href="strumenti.html#shofar"><strong>Shofar</strong></a> - corno rituale ebraico</li>
+        </ul>
+        </div>
+
+        <div class="instrumentCard">
+        <h3>🥁 Percussioni</h3>
+        <ul>
+            <li><a class="instrumentLink" href="strumenti.html#sistro"><strong>Sistro</strong></a> - strumento egizio a sonagli</li>
+            <li><a class="instrumentLink" href="strumenti.html#tamburo"><strong>Tamburi</strong></a> - usati in molte civiltà antiche</li>
+            <li><a class="instrumentLink" href="strumenti.html#cimbali"><strong>Cymbala</strong></a> - piatti metallici romani</li>
+            <li><a class="instrumentLink" href="strumenti.html#tympanum"><strong>Tympanum</strong></a> - tamburello usato nel mondo romano</li>
+        </ul>
+        </div>
+
+    </div>
+    </section>
+
+  <section id="riassunto" class="siteSection learnSection">
+    <h2 class="sectionTitle">Mappa riassuntiva</h2>
+
+    <p class="sectionIntro">
+      Uno schema semplice per ricordare popoli, funzioni e strumenti
+      della musica nell'Antichità.
+    </p>
+
+    <svg class="summaryMap" viewBox="0 0 1000 560">
+      <rect x="240" y="20" width="520" height="55" fill="#ff6600" rx="12"/>
+      <text x="500" y="55" text-anchor="middle" font-size="20" fill="#fff" font-weight="bold">
+        LA MUSICA NELL'ANTICHITÀ
+      </text>
+
+      <rect x="40" y="110" width="280" height="150" fill="#fff" stroke="#ff6600" stroke-width="2" rx="12"/>
+      <text x="180" y="140" text-anchor="middle" font-size="16" fill="#ff6600" font-weight="bold">Popoli</text>
+      <text x="70" y="175" font-size="13" fill="#333">• Mesopotamici</text>
+      <text x="70" y="200" font-size="13" fill="#333">• Egizi</text>
+      <text x="70" y="225" font-size="13" fill="#333">• Antichi Ebrei</text>
+      <text x="70" y="250" font-size="13" fill="#333">• Greci e Romani</text>
+
+      <rect x="360" y="110" width="280" height="150" fill="#fff" stroke="#9966ff" stroke-width="2" rx="12"/>
+      <text x="500" y="140" text-anchor="middle" font-size="16" fill="#9966ff" font-weight="bold">Funzioni</text>
+      <text x="390" y="175" font-size="13" fill="#333">• Religiosa</text>
+      <text x="390" y="200" font-size="13" fill="#333">• Sociale</text>
+      <text x="390" y="225" font-size="13" fill="#333">• Teatrale</text>
+      <text x="390" y="250" font-size="13" fill="#333">• Militare</text>
+
+      <rect x="680" y="110" width="280" height="150" fill="#fff" stroke="#66cc66" stroke-width="2" rx="12"/>
+      <text x="820" y="140" text-anchor="middle" font-size="16" fill="#66cc66" font-weight="bold">Strumenti</text>
+      <text x="710" y="175" font-size="13" fill="#333">• Corde: arpa, lira, cetra</text>
+      <text x="710" y="200" font-size="13" fill="#333">• Fiati: aulos, tibia, shofar</text>
+      <text x="710" y="225" font-size="13" fill="#333">• Percussioni: sistro, tamburi</text>
+
+      <rect x="80" y="330" width="840" height="130" fill="rgba(255,102,0,0.08)" stroke="#ff6600" stroke-width="2" rx="14"/>
+      <text x="500" y="365" text-anchor="middle" font-size="17" fill="#ff6600" font-weight="bold">
+        IDEA CENTRALE
+      </text>
+      <text x="500" y="405" text-anchor="middle" font-size="14" fill="#333">
+        Nel mondo antico la musica accompagna la vita religiosa, sociale,
+      </text>
+      <text x="500" y="430" text-anchor="middle" font-size="14" fill="#333">
+        teatrale e pubblica delle grandi civiltà del Mediterraneo.
+      </text>
+    </svg>
+  </section>
+
+  <section id="ascolto" class="siteSection learnSection">
+    <h2 class="sectionTitle">Ascolto e video guidati</h2>
+
+    <p class="sectionIntro">
+        Nell'Antichità la musica era legata alla voce, alla poesia, al teatro,
+        ai riti e agli strumenti. Qui trovi alcuni esempi per ascoltare e osservare
+        meglio il mondo sonoro antico.
+    </p>
+
+    <div class="storyGrid">
+
+        <div class="storyCard mediaCard">
+        <div class="mediaThumb">
+            <div class="mediaIcon">🎧</div>
+        </div>
+
+        <h3>Katolophyromai - Oreste</h3>
+        <p class="cardSubtitle">Esempio di canto corale ispirato alla tragedia greca</p>
+
+        <p>
+            Il coro nella tragedia greca commenta l'azione scenica e unisce parola,
+            musica e movimento. È un esempio utile per capire il legame tra teatro
+            e musica nell'antica Grecia.
+        </p>
+
+        <div class="cardAudio">
+            <label>🎵 Ascolta: Katolophyromai</label>
+            <audio controls style="width: 100%; margin-top: 8px;">
+            <source src="audio/Storia_antichita/KATOLOPHYROMAI.mp3" type="audio/mpeg">
+            Il tuo browser non supporta l'audio.
+            </audio>
+        </div>
+
+        <div class="cardHighlight">
+            <strong>Idea chiave:</strong> nella tragedia greca il coro aveva una funzione narrativa,
+            musicale e collettiva.
+        </div>
+        </div>
+
+        <div class="storyCard mediaCard">
+        <div class="mediaThumb">
+            <div class="mediaIcon">🎬</div>
+        </div>
+
+        <h3>Gli strumenti dell'Antichità</h3>
+        <p class="cardSubtitle">Lira, aulos, sistro, shofar e percussioni</p>
+
+        <p>
+            Gli strumenti antichi avevano forme e funzioni diverse: alcuni erano legati
+            al culto, altri al teatro, alla danza, ai banchetti o alle cerimonie pubbliche.
+        </p>
+
+        <div class="cardVideo">
+            <label>🎬 Guarda un approfondimento sugli strumenti antichi</label>
+
+            <div class="videoWrapperSmall">
+                <iframe
+                src="https://www.youtube.com/embed/YWLTU7mkaT0"
+                title="Strumenti musicali dell'Antichità"
+                allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+    </section>
+
+  <div class="learnCTA storyLearnCTA">
+    <button class="menuButton" onclick="openQuizModal()">
+      ❓ Vai al Quiz
+    </button>
+  </div>
+
+</div>
+
+<div id="quizModal" class="modal" style="display: none;">
+  <div class="modalContent">
+    <div class="modalHeader">
+      <h2>Quiz: L'Antichità</h2>
+      <button class="closeBtn" onclick="closeQuizModal()">&times;</button>
+    </div>
+
+    <div class="modalBody">
+      <p class="quizIntro">Metti alla prova le tue conoscenze sulla musica nell'Antichità.</p>
+
+      <div class="quizContainer">
+
+        <div class="quizQuestion">
+          <h4>1. Quali strumenti erano diffusi in Mesopotamia?</h4>
+          <div class="quizOptions">
+            <label><input type="radio" name="q1" value="a"><span class="optionText">A) Arpa, cetra e percussioni</span></label>
+            <label><input type="radio" name="q1" value="b"><span class="optionText">B) Pianoforte e violino</span></label>
+            <label><input type="radio" name="q1" value="c"><span class="optionText">C) Sassofono e batteria</span></label>
+          </div>
+          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: A - Arpa, cetra e percussioni</p>
+        </div>
+
+        <div class="quizQuestion">
+          <h4>2. Che cos'era lo shofar?</h4>
+          <div class="quizOptions">
+            <label><input type="radio" name="q2" value="a"><span class="optionText">A) Un tamburo romano</span></label>
+            <label><input type="radio" name="q2" value="b"><span class="optionText">B) Un corno rituale degli antichi Ebrei</span></label>
+            <label><input type="radio" name="q2" value="c"><span class="optionText">C) Una danza greca</span></label>
+          </div>
+          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: B - Un corno rituale degli antichi Ebrei</p>
+        </div>
+
+        <div class="quizQuestion">
+          <h4>3. In Grecia la musica era collegata soprattutto a:</h4>
+          <div class="quizOptions">
+            <label><input type="radio" name="q3" value="a"><span class="optionText">A) Poesia, danza e teatro</span></label>
+            <label><input type="radio" name="q3" value="b"><span class="optionText">B) Solo alla guerra</span></label>
+            <label><input type="radio" name="q3" value="c"><span class="optionText">C) Solo alla musica elettronica</span></label>
+          </div>
+          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: A - Poesia, danza e teatro</p>
+        </div>
+
+        <div class="quizQuestion">
+          <h4>4. Quale strumento romano era a percussione?</h4>
+          <div class="quizOptions">
+            <label><input type="radio" name="q4" value="a"><span class="optionText">A) Tympanum</span></label>
+            <label><input type="radio" name="q4" value="b"><span class="optionText">B) Flauto traverso moderno</span></label>
+            <label><input type="radio" name="q4" value="c"><span class="optionText">C) Pianoforte</span></label>
+          </div>
+          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: A - Tympanum</p>
+        </div>
+
+        <div class="quizQuestion">
+          <h4>5. Quale funzione aveva spesso la musica nell'Antichità?</h4>
+          <div class="quizOptions">
+            <label><input type="radio" name="q5" value="a"><span class="optionText">A) Religiosa e sociale</span></label>
+            <label><input type="radio" name="q5" value="b"><span class="optionText">B) Solo pubblicitaria</span></label>
+            <label><input type="radio" name="q5" value="c"><span class="optionText">C) Nessuna funzione</span></label>
+          </div>
+          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: A - Religiosa e sociale</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modalFooter">
+      <button class="menuButton" onclick="resetQuiz()">🔄 Ricomincia</button>
+      <button class="menuButton" style="background: linear-gradient(135deg, #ff6600, #ff9933); color: white;" onclick="checkQuiz()">✅ Correggi Quiz</button>
+      <button class="menuButton" onclick="closeQuizModal()">Chiudi</button>
+    </div>
+
+    <div id="quizResult" class="quizResult" style="display:none; margin-top: 20px;"></div>
+  </div>
+</div>
+
+<button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
+
+<script src="js/common.js"></script>
+<script src="js/storia.js"></script>
+</body>
+</html>

@@ -102,8 +102,12 @@ body {
 .pageTitle {
   margin: 0;
   font-size: clamp(2rem, 4vw, 3.2rem);
+
   color: var(--accent);
-  text-shadow: 0 0 6px #ff9900, 0 0 10px #ffcc99;
+
+  text-shadow:
+    0 0 6px var(--accent-soft),
+    0 0 12px var(--accent-glow);
 }
 
 .homeButton {

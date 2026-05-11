@@ -237,6 +237,10 @@
           <label>Anni <input type="number" name="age" min="6" max="99" inputmode="numeric" required></label>
           <label>Email <input type="email" name="email" placeholder="nome@email.it" autocomplete="email" required></label>
           <label>Password <input type="password" name="password" placeholder="Scegli una password" autocomplete="new-password" minlength="8" required></label>
+          <label class="privacyCheck">
+            <input type="checkbox" name="privacy" required>
+            <span>Ho letto e accetto la <a href="privacy.html" target="_blank">Privacy Policy</a></span>
+          </label>
           <button class="accessButton" type="submit">Crea account</button>
         </form>
         <div class="accessDivider"><span>oppure</span></div>
@@ -255,6 +259,24 @@
     </div>
   </article>
 </div>
+<footer class="siteFooter">
+  <div class="siteFooterInner">
+    <div class="siteFooterAbout">
+      <strong>Chi sono — Domenico Cosentino</strong>
+      <p>
+        Music Game Hub è un portale didattico per imparare la teoria musicale
+        attraverso spiegazioni semplici, giochi interattivi e percorsi guidati.
+      </p>
+    </div>
+
+    <div class="siteFooterLinks">
+      <a href="privacy.html">Privacy Policy</a>
+      <span>·</span>
+      <a href="cookie.html">Cookie Policy</a>
+    </div>
+  </div>
+</footer>
+
 <button id="scrollTopBtn" aria-label="Torna in alto">
   ⇧
 </button>

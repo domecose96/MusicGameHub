@@ -5,10 +5,10 @@
   background: 
     repeating-linear-gradient(
       0deg,
-      rgba(255, 102, 0, 0.02) 0px,
+      rgba(var(--accent-rgb), 0.02) 0px,
       transparent 1px,
       transparent 2px,
-      rgba(255, 102, 0, 0.02) 3px
+      rgba(var(--accent-rgb), 0.02) 3px
     ),
     linear-gradient(to bottom, #fff9f3, #f5f0ea);
 }
@@ -29,7 +29,7 @@
   border-radius: 12px;
   padding: 20px 0;
   box-shadow: var(--panel-shadow);
-  border: 1px solid rgba(255, 102, 0, 0.12);
+  border: 1px solid rgba(var(--accent-rgb), 0.12);
 }
 
 /* ==================== PERIOD CARDS ==================== */
@@ -42,8 +42,8 @@
 }
 
 .periodCard {
-  background: linear-gradient(135deg, rgba(255, 102, 0, 0.08), rgba(255, 153, 51, 0.04));
-  border: 2px solid rgba(255, 102, 0, 0.16);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.08), rgba(var(--accent-soft-rgb), 0.04));
+  border: 2px solid rgba(var(--accent-rgb), 0.16);
   border-radius: 16px;
   padding: 28px 24px;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
@@ -56,14 +56,14 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at bottom right, rgba(255, 102, 0, 0.04), transparent 60%);
+  background: radial-gradient(circle at bottom right, rgba(var(--accent-rgb), 0.04), transparent 60%);
   pointer-events: none;
 }
 
 .periodCard:hover {
   transform: translateY(-6px);
-  box-shadow: 0 16px 40px rgba(255, 102, 0, 0.15);
-  border-color: rgba(255, 102, 0, 0.32);
+  box-shadow: 0 16px 40px rgba(var(--accent-rgb), 0.15);
+  border-color: rgba(var(--accent-rgb), 0.32);
 }
 
 .eraCard .eraIcon {
@@ -100,7 +100,7 @@
 
 .storyCard {
   background: linear-gradient(135deg, #fff9f3, #fffaf5);
-  border: 1px solid rgba(255, 102, 0, 0.14);
+  border: 1px solid rgba(var(--accent-rgb), 0.14);
   border-radius: 18px;
   padding: 28px;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
@@ -113,14 +113,14 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at top right, rgba(255, 102, 0, 0.06), transparent 45%);
+  background: radial-gradient(circle at top right, rgba(var(--accent-rgb), 0.06), transparent 45%);
   pointer-events: none;
 }
 
 .storyCard:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 48px rgba(255, 102, 0, 0.12);
-  border-color: rgba(255, 102, 0, 0.24);
+  box-shadow: 0 20px 48px rgba(var(--accent-rgb), 0.12);
+  border-color: rgba(var(--accent-rgb), 0.24);
 }
 
 .mediaCard {
@@ -130,7 +130,7 @@
 }
 
 .mediaThumb {
-  background: linear-gradient(135deg, rgba(255, 102, 0, 0.12), rgba(255, 153, 51, 0.08));
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.12), rgba(var(--accent-soft-rgb), 0.08));
   height: 120px;
   display: flex;
   align-items: center;
@@ -204,7 +204,7 @@
 }
 
 .cardHighlight {
-  background: rgba(255, 102, 0, 0.08);
+  background: rgba(var(--accent-rgb), 0.08);
   border-left: 4px solid var(--accent);
   padding: 12px 16px;
   margin-top: 12px !important;
@@ -227,8 +227,8 @@
 }
 
 .protagonistCard {
-  background: linear-gradient(135deg, rgba(255, 102, 0, 0.08), rgba(255, 153, 51, 0.04));
-  border: 2px solid rgba(255, 102, 0, 0.16);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.08), rgba(var(--accent-soft-rgb), 0.04));
+  border: 2px solid rgba(var(--accent-rgb), 0.16);
   border-radius: 16px;
   padding: 24px;
   text-align: center;
@@ -244,7 +244,7 @@
 
 .cardDate {
   display: block;
-  background: linear-gradient(135deg, #ff6600, #ff9933);
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
   color: white;
   font-weight: 700;
   font-size: 0.95rem;
@@ -258,8 +258,8 @@
 
 .protagonistCard:hover {
   transform: translateY(-6px);
-  box-shadow: 0 16px 40px rgba(255, 102, 0, 0.15);
-  border-color: rgba(255, 102, 0, 0.32);
+  box-shadow: 0 16px 40px rgba(var(--accent-rgb), 0.15);
+  border-color: rgba(var(--accent-rgb), 0.32);
 }
 
 .protagonistIcon {
@@ -301,22 +301,22 @@
 }
 
 .instrumentCard {
-  background: linear-gradient(135deg, rgba(102, 204, 102, 0.08), rgba(152, 224, 152, 0.04));
-  border: 2px solid rgba(102, 204, 102, 0.16);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.08), rgba(var(--accent-soft-rgb), 0.04));
+  border: 2px solid rgba(var(--accent-rgb), 0.16);
   border-radius: 14px;
   padding: 24px;
-  box-shadow: 0 8px 24px rgba(102, 204, 102, 0.08);
+  box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.08);
   transition: all 0.3s ease;
 }
 
 .instrumentCard:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(102, 204, 102, 0.12);
+  box-shadow: 0 12px 32px rgba(var(--accent-rgb), 0.12);
 }
 
 .instrumentCard h3 {
   margin: 0 0 16px;
-  color: #66cc66;
+  color: var(--accent);
   font-size: 1.1rem;
 }
 
@@ -348,7 +348,7 @@
   border-radius: 14px;
   margin: 20px 0;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(255, 102, 0, 0.12);
+  border: 1px solid rgba(var(--accent-rgb), 0.12);
   padding: 20px;
   box-sizing: border-box;
 }
@@ -386,7 +386,7 @@
   max-width: 700px;
   max-height: 90vh;
   overflow-y: auto;
-  border: 2px solid rgba(255, 102, 0, 0.16);
+  border: 2px solid rgba(var(--accent-rgb), 0.16);
   animation: slideUp 0.4s ease;
 }
 
@@ -409,7 +409,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 12px rgba(255, 102, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.2);
 }
 
 .modalHeader h2 {
@@ -455,7 +455,7 @@
 .quizQuestion {
   margin: 24px 0;
   padding-bottom: 24px;
-  border-bottom: 1px solid rgba(255, 102, 0, 0.1);
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.1);
   animation: fadeIn 0.4s ease;
 }
 
@@ -488,7 +488,7 @@
 }
 
 .quizOptions label:hover {
-  background: rgba(255, 102, 0, 0.06);
+  background: rgba(var(--accent-rgb), 0.06);
   transform: translateX(4px);
 }
 
@@ -508,8 +508,8 @@
 .quizAnswer {
   margin: 8px 0 !important;
   padding: 10px 12px;
-  background: linear-gradient(135deg, rgba(102, 204, 102, 0.1), rgba(102, 204, 102, 0.05));
-  border-left: 4px solid #66cc66;
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1), rgba(var(--accent-rgb), 0.05));
+  border-left: 4px solid var(--accent);
   font-size: 0.9rem;
   color: var(--text-main);
   border-radius: 4px;
@@ -521,7 +521,7 @@
   justify-content: center;
   gap: 12px;
   padding: 20px 28px;
-  border-top: 1px solid rgba(255, 102, 0, 0.1);
+  border-top: 1px solid rgba(var(--accent-rgb), 0.1);
   flex-wrap: wrap;
 }
 
@@ -532,8 +532,8 @@
 }
 
 .quizResult {
-  background: linear-gradient(135deg, rgba(102, 204, 102, 0.15), rgba(255, 102, 0, 0.08));
-  border: 2px solid #66cc66;
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.15), rgba(var(--accent-rgb), 0.08));
+  border: 2px solid var(--accent);
   border-radius: 12px;
   padding: 20px;
   text-align: center;
@@ -546,7 +546,7 @@
 
 .quizResult.incorrect {
   border-color: #ff6666;
-  background: linear-gradient(135deg, rgba(255, 102, 102, 0.15), rgba(255, 102, 0, 0.08));
+  background: linear-gradient(135deg, rgba(255, 102, 102, 0.15), rgba(var(--accent-rgb), 0.08));
 }
 
 /* ==================== STORY LEARN CTA ==================== */
@@ -663,7 +663,7 @@
 
 .videoCard {
   background: linear-gradient(135deg, #fff9f3, #fffaf5);
-  border: 1px solid rgba(255, 102, 0, 0.14);
+  border: 1px solid rgba(var(--accent-rgb), 0.14);
   border-radius: 18px;
   padding: 28px;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
@@ -686,7 +686,7 @@
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
-  border: 1px solid rgba(255, 102, 0, 0.18);
+  border: 1px solid rgba(var(--accent-rgb), 0.18);
 }
 
 .videoWrapper iframe {
@@ -704,7 +704,7 @@
   border-radius: 14px;
   overflow: hidden;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(255, 102, 0, 0.18);
+  border: 1px solid rgba(var(--accent-rgb), 0.18);
 }
 
 .videoWrapperSmall iframe {
@@ -722,4 +722,81 @@
 
 .instrumentLink:hover {
   text-decoration: underline;
+}
+
+body.storyPage{
+  --accent: #8b5cf6;
+  --accent-soft: #d8b4fe;
+  --accent-glow: rgba(139, 92, 246, 0.24);
+
+  --action-orange: #8b5cf6;
+  --action-orange-soft: #d8b4fe;
+
+  --accent-rgb: 139, 92, 246;
+  --accent-soft-rgb: 216, 180, 254;
+}
+
+/* ==================== FIX COLORI TIMELINE E MAPPA ==================== */
+
+.storyPage .timelineSVG rect,
+.storyPage .summaryMap rect{
+  fill: rgba(194,24,255,0.08) !important;
+}
+
+.storyPage .timelineSVG line,
+.storyPage .summaryMap line{
+  stroke: var(--accent) !important;
+}
+
+.storyPage .timelineSVG circle,
+.storyPage .summaryMap circle{
+  fill: var(--accent) !important;
+}
+
+.storyPage .timelineSVG text,
+.storyPage .summaryMap text{
+  fill: var(--text-main);
+}
+
+.storyPage .timelineSVG text[fill="#ff6600"],
+.storyPage .summaryMap text[fill="#ff6600"]{
+  fill: var(--accent) !important;
+}
+
+.storyPage .timelineSVG stop:first-child{
+  stop-color: rgba(194,24,255,0.10) !important;
+}
+
+.storyPage .timelineSVG stop:nth-child(2){
+  stop-color: rgba(194,24,255,0.22) !important;
+}
+
+.storyPage .timelineSVG stop:last-child{
+  stop-color: rgba(194,24,255,0.10) !important;
+}
+
+.storyPage .summaryMap{
+  border-color: rgba(194,24,255,0.14) !important;
+}
+
+.storyPage .timelineSVG{
+  border-color: rgba(194,24,255,0.14) !important;
+}
+
+/* ==================== SCROLL TOP STORIA ==================== */
+
+.storyPage #scrollTopBtn{
+  background: linear-gradient(
+    135deg,
+    var(--accent),
+    var(--accent-soft)
+  ) !important;
+
+  box-shadow:
+    0 12px 28px rgba(var(--accent-rgb),0.24) !important;
+}
+
+.storyPage #scrollTopBtn:hover{
+  box-shadow:
+    0 18px 36px rgba(var(--accent-rgb),0.34) !important;
 }
