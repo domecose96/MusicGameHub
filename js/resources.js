@@ -87,7 +87,7 @@ const MusicGameHubResources = (() => {
       title: "Orientati sul pentagramma",
       desc: "Allenamento su righe, spazi e tagli addizionali.",
       tags: ["gioco", "pentagramma", "posizione"],
-      url: "pentagramma_game.html",
+      url: "giochi/pentagramma_game.html",
       group: "games",
       homeGame: true,
       tag: "Pentagramma"
@@ -99,7 +99,7 @@ const MusicGameHubResources = (() => {
       title: "Impara le Note",
       desc: "Indovina la nota sul pentagramma in chiave di violino o basso.",
       tags: ["gioco", "note", "chiavi"],
-      url: "music_game.html",
+      url: "giochi/music_game.html",
       group: "games",
       homeGame: true,
       tag: "Note · Pentagramma"
@@ -111,7 +111,7 @@ const MusicGameHubResources = (() => {
       title: "Figure Musicali",
       desc: "Riconosci semibreve, minima, croma e valori ritmici.",
       tags: ["gioco", "ritmo", "figure"],
-      url: "music_game_figures.html",
+      url: "giochi/music_game_figures.html",
       group: "games",
       homeGame: true,
       tag: "Ritmo · Figure"
@@ -123,7 +123,7 @@ const MusicGameHubResources = (() => {
       title: "Music Wordle",
       desc: "Indovina la parola musicale del giorno in 6 tentativi.",
       tags: ["vocabolario", "wordle", "giornaliero"],
-      url: "wordle.html",
+      url: "giochi/wordle.html",
       group: "games",
       homeGame: true,
       tag: "Vocabolario"
@@ -135,7 +135,7 @@ const MusicGameHubResources = (() => {
       title: "Guanto di Sfida",
       desc: "Quiz misto su note, figure e teoria con classifica.",
       tags: ["quiz", "sfida", "classifica"],
-      url: "guanto.html",
+      url: "giochi/guanto.html",
       group: "games",
       homeGame: true,
       tag: "Quiz · Sfida"
@@ -147,7 +147,7 @@ const MusicGameHubResources = (() => {
       title: "Ritmo Challenge",
       desc: "Calcola il valore ritmico delle sequenze.",
       tags: ["ritmo", "calcolo", "valori"],
-      url: "ritmo_challenge.html",
+      url: "giochi/ritmo_challenge.html",
       group: "practice",
       homeGame: true,
       tag: "Ritmo"
@@ -185,7 +185,7 @@ const MusicGameHubResources = (() => {
       title: "Storia della musica",
       desc: "Dalle origini alla musica contemporanea: esplora epoche, autori e trasformazioni.",
       tag: "Timeline",
-      url: "storia_musica.html"
+      url: "storia/storia_musica.html"
     },
     {
       id: "homeStrumenti",

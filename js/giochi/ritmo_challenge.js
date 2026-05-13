@@ -1,12 +1,12 @@
 const rhythmValues = [
-  { id: "semibreve", label: "Semibreve", beats: 4, img: "img/semibreve.png" },
-  { id: "minima", label: "Minima", beats: 2, img: "img/minima.png" },
-  { id: "semiminima", label: "Semiminima", beats: 1, img: "img/semiminima.png" },
-  { id: "croma", label: "Croma", beats: 0.5, img: "img/croma.png" },
-  { id: "pausa_semibreve", label: "Pausa di semibreve", beats: 4, img: "img/pausa_semibreve.png" },
-  { id: "pausa_minima", label: "Pausa di minima", beats: 2, img: "img/pausa_minima.png" },
-  { id: "pausa_semiminima", label: "Pausa di semiminima", beats: 1, img: "img/pausa_semiminima.png" },
-  { id: "pausa_croma", label: "Pausa di croma", beats: 0.5, img: "img/pausa_croma.png" }
+  { id: "semibreve", label: "Semibreve", beats: 4, img: "../img/semibreve.png" },
+  { id: "minima", label: "Minima", beats: 2, img: "../img/minima.png" },
+  { id: "semiminima", label: "Semiminima", beats: 1, img: "../img/semiminima.png" },
+  { id: "croma", label: "Croma", beats: 0.5, img: "../img/croma.png" },
+  { id: "pausa_semibreve", label: "Pausa di semibreve", beats: 4, img: "../img/pausa_semibreve.png" },
+  { id: "pausa_minima", label: "Pausa di minima", beats: 2, img: "../img/pausa_minima.png" },
+  { id: "pausa_semiminima", label: "Pausa di semiminima", beats: 1, img: "../img/pausa_semiminima.png" },
+  { id: "pausa_croma", label: "Pausa di croma", beats: 0.5, img: "../img/pausa_croma.png" }
 ];
 
 const difficultyConfig = {

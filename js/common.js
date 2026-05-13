@@ -1,10 +1,27 @@
 const MGH = (() => {
+
   function goHome(delay = 150) {
-    document.getElementById("homeBtn")?.classList.add("selected");
-    sessionStorage.setItem("musicGameHubIntroSeen", "true");
+
+    document.getElementById("homeBtn")
+      ?.classList.add("selected");
+
+    sessionStorage.setItem(
+      "musicGameHubIntroSeen",
+      "true"
+    );
+
+    const path = window.location.pathname;
+
+    const target =
+      path.includes("/storia/") ||
+      path.includes("/giochi/") ||
+      path.includes("/strumenti/") ||
+      path.includes("/legal/")
+        ? "../index.html"
+        : "index.html";
 
     setTimeout(() => {
-      window.location.href = "index.html";
+      window.location.href = target;
     }, delay);
   }
 

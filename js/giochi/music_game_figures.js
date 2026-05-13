@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     currentFigure = pool[Math.floor(Math.random() * pool.length)];
 
-    figureImage.src = "img/" + currentFigure + ".png";
+    figureImage.src = "../img/" + currentFigure + ".png";
 
     const options = shuffleOptions(currentFigure);
 

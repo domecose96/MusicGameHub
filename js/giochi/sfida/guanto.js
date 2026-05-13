@@ -82,7 +82,7 @@ async function generateQuestions(){
   questions = [];
 
   try{
-    const response = await fetch("js/sfida/question.json");
+    const response = await fetch("../js/giochi/sfida/question.json");
     const allData = await response.json();
     questions = allData.sort(()=> Math.random()-0.5).slice(0, numQuestions);
   }catch(err){
@@ -124,7 +124,7 @@ function showQuestion() {
     figureContainer.classList.remove("hidden");
 
     figureImg.style.display = "block";
-    figureImg.src = "img/" + q.img;
+    figureImg.src = "../img/" + q.img;
 
     questionBox.innerText = "Indovina la figura musicale:";
 
