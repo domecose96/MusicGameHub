@@ -10,6 +10,13 @@
 
 <body class="ritmoPage">
 
+<button id="rankedLeaderboardBtn"
+        class="rankedLeaderboardButton"
+        onclick="showGenericRankedLeaderboardModal('ritmo')"
+        aria-label="Classifica">
+  🏆
+</button>
+
 <header class="appHeader">
   <div class="appHeaderInner">
     <button id="homeBtn" class="homeButton" onclick="goHome()" aria-label="Torna alla home">
@@ -33,6 +40,10 @@
       <button class="menuButton" onclick="setDifficulty('easy', this)">Facile</button>
       <button class="menuButton" onclick="setDifficulty('medium', this)">Medio</button>
       <button class="menuButton" onclick="setDifficulty('hard', this)">Difficile</button>
+      <button class="menuButton rankedModeButton" onclick="selectRankedMode(this)">
+        <span class="dailyModeBadge">Ranked</span>
+        Classificata
+      </button>
     </div>
     <button class="menuButton" onclick="startGame()">Inizia</button>
     <p id="warning" class="warningText"></p>
@@ -40,6 +51,18 @@
   </div>
 
   <div id="game" class="hidden">
+    <div id="rankedUI" class="rankedUI hidden">
+      <div class="rankedScoreDisplay">Score: <span id="rankedScore">0</span></div>
+      <div class="rankedProgressWrapper">
+        <div class="rankedProgressLabel">
+          <span>Progressione</span>
+          <span id="rankedQuestionCounter">1/10</span>
+        </div>
+        <div class="rankedProgressBar">
+          <div id="rankedProgressFill" class="rankedProgressFill"></div>
+        </div>
+      </div>
+    </div>
     <h2>Quante pulsazioni vale questa sequenza?</h2>
     <div id="rhythmSequence" class="rhythmSequence"></div>
     <div id="rhythmInfo" class="rhythmInfo"></div>
@@ -49,6 +72,7 @@
 </div>
 
 <script src="../js/common.js"></script>
+<script src="../js/giochi/ranked.js"></script>
 <script src="../js/giochi/ritmo_challenge.js"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 

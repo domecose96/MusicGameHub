@@ -16,7 +16,14 @@ const difficultyConfig = {
 };
 
 let difficulty = null;
+let gameMode = "training";
 let currentTotal = 0;
+let rankedCorrect = 0;
+let rankedWrong = 0;
+let rankedScore = 0;
+let rankedQuestionIndex = 0;
+let rankedStartTime = 0;
+let rankedQuestionStart = 0;
 
 const menu = document.getElementById("menu");
 const game = document.getElementById("game");
@@ -39,12 +46,30 @@ function updateHeaderModeLabel(label = ""){
 
 function setDifficulty(level, button) {
   difficulty = level;
+  gameMode = "training";
   warning.textContent = "";
 
   MGH.selectExclusive("#menu .menuButton", button);
 }
 
+function selectRankedMode(button) {
+  difficulty = null;
+  gameMode = "ranked";
+  warning.textContent = "";
+  MGH.selectExclusive("#menu .menuButton", button);
+}
+
 function startGame() {
+  if (gameMode === "ranked") {
+    showRankedIntro({
+      gameName: "ritmo",
+      title: "Modalità Classificata",
+      text: "Risolvi 10 sequenze ritmiche. La difficoltà cresce e il punteggio premia velocità e precisione.",
+      onStart: startRankedGame
+    });
+    return;
+  }
+
   if (!difficulty) {
     warning.textContent = "Seleziona una difficoltà prima di iniziare.";
     return;
@@ -52,13 +77,33 @@ function startGame() {
 
   menu.classList.add("hidden");
   game.classList.remove("hidden");
+  hideLeaderboardButton();
+  hideRankedUI();
 
   updateHeaderModeLabel(getDifficultyLabel());
   nextRound();
 }
 
+function startRankedGame() {
+  warning.textContent = "";
+  rankedCorrect = 0;
+  rankedWrong = 0;
+  rankedScore = 0;
+  rankedQuestionIndex = 0;
+  rankedStartTime = Date.now();
+
+  menu.classList.add("hidden");
+  game.classList.remove("hidden");
+  hideLeaderboardButton();
+  showRankedUI();
+  updateHeaderModeLabel("Classificata");
+  updateRankedProgressUI({ score: rankedScore, current: rankedQuestionIndex, total: RANKED_DEFAULT_QUESTIONS });
+  nextRound();
+}
+
 function nextRound() {
-  const config = difficultyConfig[difficulty];
+  const activeDifficulty = gameMode === "ranked" ? getRankedRhythmDifficulty() : difficulty;
+  const config = difficultyConfig[activeDifficulty];
   const figures = [];
 
   for (let i = 0; i < config.length; i++) {
@@ -70,6 +115,13 @@ function nextRound() {
   renderSequence(figures);
   renderAnswers(currentTotal);
   infoEl.textContent = "";
+  rankedQuestionStart = Date.now();
+}
+
+function getRankedRhythmDifficulty() {
+  if (rankedQuestionIndex < 3) return "easy";
+  if (rankedQuestionIndex < 7) return "medium";
+  return "hard";
 }
 
 function renderSequence(figures) {
@@ -119,7 +171,9 @@ function checkAnswer(selected, button) {
     btn.classList.remove("correct", "wrong");
   });
 
-  if (selected === currentTotal) {
+  const isCorrect = selected === currentTotal;
+
+  if (isCorrect) {
     button.classList.add("correct");
     infoEl.textContent = "Giusto! Nuova sequenza in arrivo...";
   } else {
@@ -133,9 +187,58 @@ function checkAnswer(selected, button) {
     });
   }
 
+  if (gameMode === "ranked") {
+    handleRankedAnswer(isCorrect);
+    return;
+  }
+
   setTimeout(() => {
     nextRound();
   }, 1200);
+}
+
+function handleRankedAnswer(isCorrect) {
+  const elapsed = (Date.now() - rankedQuestionStart) / 1000;
+
+  if (isCorrect) {
+    rankedCorrect++;
+    rankedScore += elapsed <= 3 ? 125 : elapsed <= 7 ? 110 : 100;
+  } else {
+    rankedWrong++;
+  }
+
+  rankedQuestionIndex++;
+  updateRankedProgressUI({ score: rankedScore, current: rankedQuestionIndex, total: RANKED_DEFAULT_QUESTIONS });
+
+  setTimeout(async () => {
+    if (rankedQuestionIndex >= RANKED_DEFAULT_QUESTIONS) {
+      await finishRankedGame();
+    } else {
+      nextRound();
+    }
+  }, 1200);
+}
+
+async function finishRankedGame() {
+  const totalTime = Math.round((Date.now() - rankedStartTime) / 1000);
+  const saved = await saveRankedScore({
+    gameName: "ritmo",
+    totalScore: rankedScore,
+    correct: rankedCorrect,
+    wrong: rankedWrong,
+    totalQuestions: RANKED_DEFAULT_QUESTIONS,
+    totalTime
+  });
+
+  game.classList.add("hidden");
+  menu.classList.remove("hidden");
+  hideRankedUI();
+  showLeaderboardButton();
+  updateHeaderModeLabel("");
+  warning.innerHTML = `Classificata completata! Punteggio: <strong>${Math.round(rankedScore)}</strong> · Corrette: <strong>${rankedCorrect}/${RANKED_DEFAULT_QUESTIONS}</strong>${saved ? "" : " · salvataggio non riuscito"}`;
+  document.querySelectorAll(".selected").forEach(btn => btn.classList.remove("selected"));
+  gameMode = "training";
+  difficulty = null;
 }
 
 function formatBeats(value) {
@@ -155,7 +258,10 @@ function goBack() {
   });
 
   difficulty = null;
+  gameMode = "training";
   currentTotal = 0;
 
   updateHeaderModeLabel("");
+  hideRankedUI();
+  showLeaderboardButton();
 }

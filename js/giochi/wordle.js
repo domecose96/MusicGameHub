@@ -14,8 +14,10 @@ const words = [
 // ==================== VARIABILI GLOBALI ====================
 const maxRows = 6;
 const dailyMode = "daily";
+const rankedMode = "ranked";
 const statsStorageKey = "musicWordleStatsV3";
 const dailyStorageKey = "musicWordleDailyV3";
+const dailyCompletionStorageKey = "musicWordleDailyCompletedDateV3";
 const settingsStorageKey = "musicWordleSettings";
 const validWords = new Set(words.map(word => normalizeWord(word)));
 
@@ -23,6 +25,7 @@ let secret = "";
 let currentRow = 0;
 let currentGuess = "";
 let wordLength = 5;
+let dailyDifficulty = "easy";
 let mode = null;
 let activeMode = null;
 let roundLocked = false;
@@ -66,8 +69,22 @@ function getWordsForMode(selectedMode){
   });
 }
 
+function getWordDifficulty(word){
+  if(word.length === 5) return "easy";
+  if(word.length >= 6 && word.length <= 7) return "medium";
+  return "hard";
+}
+
+function getDifficultyName(selectedDifficulty = dailyDifficulty){
+  if(selectedDifficulty === "easy") return "facile";
+  if(selectedDifficulty === "medium") return "media";
+  if(selectedDifficulty === "hard") return "difficile";
+  return "facile";
+}
+
 function getModeLabel(selectedMode = activeMode){
   if(selectedMode === dailyMode) return "Parola del giorno";
+  if(selectedMode === rankedMode) return "Classificata";
   if(selectedMode === "easy") return "Facile";
   if(selectedMode === "medium") return "Medio";
   if(selectedMode === "hard") return "Difficile";
@@ -104,7 +121,7 @@ function startDailyRound(){
   if(dailyState && dailyState.date === getTodayKey()){
     restoreDailyBoard(dailyState);
 
-    if(dailyState.finished){
+    if(dailyState.finished || isDailyCompletedToday()){
       showMessage("Hai già giocato la parola del giorno.", 2600);
       roundLocked = true;
       gameFinished = true;
@@ -118,10 +135,11 @@ function startDailyRound(){
 }
 
 function pickDailyWord(){
-  const dailyWords = getWordsForMode("easy");
+  const dailyWords = words;
   const index = getDaysFromStart() % dailyWords.length;
   secret = dailyWords[index];
   wordLength = secret.length;
+  dailyDifficulty = getWordDifficulty(secret);
 }
 
 function getDailyState(){
@@ -132,8 +150,37 @@ function getDailyState(){
   }
 }
 
+function markDailyCompletedToday(){
+  localStorage.setItem(dailyCompletionStorageKey, getTodayKey());
+}
+
+function isDailyCompletedToday(){
+  const dailyState = getDailyState();
+  const inferredFinished = Boolean(dailyState && dailyState.date === getTodayKey() && (
+    dailyState.finished ||
+    dailyState.currentRow >= maxRows ||
+    (dailyState.guesses || []).some(row =>
+      row.map(cell => cell.text || "").join("").toUpperCase() === String(dailyState.secret || "").toUpperCase()
+    )
+  ));
+
+  if(inferredFinished){
+    markDailyCompletedToday();
+  }
+
+  return localStorage.getItem(dailyCompletionStorageKey) === getTodayKey() ||
+    inferredFinished;
+}
+
+function updateDailyAvailabilityBadge(){
+  const badge = document.getElementById("dailyAvailabilityBadge");
+  if(!badge) return;
+
+  badge.classList.toggle("dailyAvailable", !isDailyCompletedToday());
+}
+
 function saveDailyState(finished){
-  if(activeMode !== dailyMode) return;
+  if(activeMode !== dailyMode && activeMode !== rankedMode) return;
 
   const guesses = Array.from(document.querySelectorAll(".cell"))
     .slice(0, maxRows * wordLength)
@@ -156,16 +203,29 @@ function saveDailyState(finished){
     date: getTodayKey(),
     secret,
     wordLength,
+    dailyDifficulty,
     currentRow,
     currentGuess,
     finished,
     guesses,
     lastResult
   }));
+
+  if(finished){
+    markDailyCompletedToday();
+  }
+
+  updateDailyAvailabilityBadge();
 }
 
 function restoreDailyBoard(state){
   if(!state || !state.guesses) return;
+
+  secret = state.secret || secret;
+  wordLength = Number(state.wordLength || secret.length || wordLength);
+  dailyDifficulty = state.dailyDifficulty || getWordDifficulty(secret);
+  initGrid();
+  createKeyboard();
 
   const cells = document.querySelectorAll(".cell");
 
@@ -206,6 +266,21 @@ function startGame(){
     return;
   }
 
+  if(mode === rankedMode){
+    if(isDailyCompletedToday()){
+      startRankedRound();
+      return;
+    }
+
+    showRankedIntro({
+      gameName: "wordle",
+      title: "Wordle Classificato",
+      text: "La parola è quella del giorno. Il punteggio premia chi indovina con meno tentativi e aggiunge un bonus se giochi con la modalità difficile attiva.",
+      onStart: startRankedRound
+    });
+    return;
+  }
+
   const filtered = getWordsForMode(mode);
   if(filtered.length === 0){
     showMessage("Nessuna parola disponibile per questa modalità!", 2200);
@@ -215,6 +290,41 @@ function startGame(){
   pickRandomWord();
   showGame(getModeLabel());
   resetBoardOnly();
+}
+
+function startRankedRound(){
+  activeMode = rankedMode;
+  pickDailyWord();
+  showGame(getModeLabel());
+  resetBoardOnly();
+
+  const dailyState = getDailyState();
+
+  if(dailyState && dailyState.date === getTodayKey()){
+    restoreDailyBoard(dailyState);
+
+    if(dailyState.finished || isDailyCompletedToday()){
+      showMessage("Hai già giocato la parola del giorno. Torna domani per una nuova sfida.", 2800);
+      roundLocked = true;
+      gameFinished = true;
+      setTimeout(() => showStatsModal(false), 450);
+    } else {
+      showMessage("Partita del giorno ripristinata.", 1800);
+      roundLocked = false;
+      gameFinished = false;
+    }
+
+    return;
+  }
+
+  if(isDailyCompletedToday()){
+    showMessage("Hai già giocato la parola del giorno. Torna domani per una nuova sfida.", 2800);
+    roundLocked = true;
+    gameFinished = true;
+    return;
+  }
+
+  showMessage(`Wordle classificato: parola ${getDifficultyName()}, più punti se è più difficile.`, 2600);
 }
 
 // ==================== IMPOSTAZIONI ====================
@@ -280,7 +390,7 @@ function showGame(label){
 
   updateHeaderModeLabel();
 
-  const isDailyGame = activeMode === dailyMode;
+  const isDailyGame = activeMode === dailyMode || activeMode === rankedMode;
 
   const helpButton = document.getElementById("gameHelpBtn");
   if(helpButton){
@@ -542,9 +652,13 @@ function endGame(won, attempts, result){
     rows: collectResultRows()
   };
 
-  if(activeMode === dailyMode){
+  if(activeMode === dailyMode || activeMode === rankedMode){
     saveStats(won, attempts);
     saveDailyState(true);
+  }
+
+  if(activeMode === rankedMode){
+    saveRankedWordleResult(won, attempts);
   }
 
   if(won){
@@ -553,9 +667,48 @@ function endGame(won, attempts, result){
     showMessage("Hai sbagliato! La parola era " + secret);
   }
 
-  if(activeMode === dailyMode){
+  if(activeMode === dailyMode || activeMode === rankedMode){
     setTimeout(() => showStatsModal(true), 700);
   }
+}
+
+async function saveRankedWordleResult(won, attempts){
+  const settings = getSettings();
+  const hardBonus = settings.hardMode ? 150 : 0;
+  const difficultyScores = {
+    easy: { base: 1000, penalty: 140 },
+    medium: { base: 1350, penalty: 120 },
+    hard: { base: 1750, penalty: 100 }
+  };
+  const scoreConfig = difficultyScores[dailyDifficulty] || difficultyScores.easy;
+  const score = won
+    ? Math.max(100, scoreConfig.base - ((attempts - 1) * scoreConfig.penalty) + hardBonus)
+    : 0;
+
+  const saved = await saveRankedScore({
+    gameName: "wordle",
+    mode: settings.hardMode ? "ranked_hard" : "ranked",
+    totalScore: score,
+    correct: won ? 1 : 0,
+    wrong: won ? attempts - 1 : maxRows,
+    totalQuestions: 1,
+    totalTime: attempts,
+    accuracy: won ? 100 : 0,
+    answers: [{
+      date: getTodayKey(),
+      difficulty: dailyDifficulty,
+      wordLength,
+      attempts: won ? attempts : "X",
+      hardMode: settings.hardMode
+    }]
+  });
+
+  showMessage(
+    saved
+      ? `Punteggio ranked: ${score}`
+      : "Punteggio calcolato, ma salvataggio ranked non riuscito.",
+    3200
+  );
 }
 
 function collectResultRows(){
@@ -612,7 +765,7 @@ function saveStats(won, attempts){
 }
 
 function showStatsModal(fromEndGame = false){
-  if(activeMode !== dailyMode){
+  if(activeMode !== dailyMode && activeMode !== rankedMode){
     showMessage("Le statistiche sono disponibili solo per la parola del giorno.", 2400);
     return;
   }
@@ -811,6 +964,7 @@ function resetGame(){
 // ==================== INIT ====================
 createKeyboard(); // opzionale: tastiera visibile anche prima
 loadAndApplySettings();
+updateDailyAvailabilityBadge();
 
 document.addEventListener("keydown", e => {
   if(e.key === "Escape"){

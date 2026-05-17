@@ -4,6 +4,111 @@ const SUPABASE_URL = "https://scyvwnzrykwejflbbmjx.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_Zk2mItmcS4M2XIw2nDJk5w_z2ZqZtpg";
 
 const RANKED_TABLE = "ranked_scores";
+const RANKED_DEFAULT_QUESTIONS = 10;
+const RANKED_GAME_LABELS = {
+  pentagramma: "Pentagramma",
+  note: "Note",
+  figure: "Figure musicali",
+  ritmo: "Ritmo Challenge",
+  guanto: "Guanto di sfida",
+  wordle: "Music Wordle"
+};
+
+function getRankedGameLabel(gameName) {
+  return RANKED_GAME_LABELS[gameName] || gameName || "Gioco";
+}
+
+function getOrCreateRankedUserId() {
+  let userId = localStorage.getItem("mgh_userId");
+
+  if (!userId) {
+    userId = "user_" + Math.random().toString(36).slice(2, 12);
+    localStorage.setItem("mgh_userId", userId);
+  }
+
+  return userId;
+}
+
+function getRankedAuthUser() {
+  try {
+    return JSON.parse(localStorage.getItem("mgh_auth_user") || "null");
+  } catch {
+    return null;
+  }
+}
+
+function getRankedUsernameKey() {
+  const user = getRankedAuthUser();
+  return user?.id ? `mgh_username_${user.id}` : "mgh_username";
+}
+
+function getRankedDisplayName() {
+  const user = getRankedAuthUser();
+  const metadata = user?.user_metadata || user?.raw_user_meta_data || {};
+  const fullName = metadata.full_name || metadata.name;
+  const firstName = metadata.first_name || metadata.given_name;
+  const emailName = user?.email ? user.email.split("@")[0] : "";
+  return (firstName || fullName || emailName || "").trim();
+}
+
+function getOrCreateRankedUsername() {
+  const usernameKey = getRankedUsernameKey();
+  let username = localStorage.getItem(usernameKey) || localStorage.getItem("mgh_username");
+
+  if (!username) {
+    username = getRankedDisplayName().slice(0, 20) || "Player_" + Math.floor(Math.random() * 10000);
+  }
+
+  localStorage.setItem(usernameKey, username);
+  localStorage.setItem("mgh_username", username);
+  return username;
+}
+
+function setRankedUsername(username) {
+  const cleanUsername = String(username || "")
+    .trim()
+    .replace(/\s+/g, " ")
+    .slice(0, 20);
+
+  if (!cleanUsername) return getOrCreateRankedUsername();
+
+  localStorage.setItem(getRankedUsernameKey(), cleanUsername);
+  localStorage.setItem("mgh_username", cleanUsername);
+  return cleanUsername;
+}
+
+function toRankedDbRecord(snapshot) {
+  return {
+    sessionid: snapshot.session_id,
+    userid: snapshot.user_id,
+    username: snapshot.username,
+    gamename: snapshot.game_name,
+    mode: snapshot.mode,
+    starttime: snapshot.start_time,
+    endtime: snapshot.end_time,
+    totaltime: snapshot.total_time,
+    totalquestions: snapshot.total_questions,
+    correct: snapshot.correct,
+    wrong: snapshot.wrong,
+    accuracy: snapshot.accuracy,
+    basescore: snapshot.base_score,
+    bonusspeed: snapshot.bonus_speed,
+    totalscore: snapshot.total_score,
+    answers: snapshot.answers
+  };
+}
+
+function fromRankedDbRecord(row = {}) {
+  return {
+    user_id: row.userid,
+    username: row.username,
+    game_name: row.gamename,
+    total_score: row.totalscore,
+    accuracy: row.accuracy,
+    total_time: row.totaltime,
+    created_at: row.created_at
+  };
+}
 
 // ==================== SUPABASE CLIENT SEMPLICE ====================
 
@@ -75,8 +180,8 @@ class RankedSession {
 
     this.answers = [];
 
-    this.userId = this.getOrCreateUserId();
-    this.username = this.getOrCreateUsername();
+    this.userId = getOrCreateRankedUserId();
+    this.username = getOrCreateRankedUsername();
   }
 
   generateSessionId() {
@@ -84,34 +189,15 @@ class RankedSession {
   }
 
   getOrCreateUserId() {
-    let userId = localStorage.getItem("mgh_userId");
-
-    if (!userId) {
-      userId = "user_" + Math.random().toString(36).slice(2, 12);
-      localStorage.setItem("mgh_userId", userId);
-    }
-
-    return userId;
+    return getOrCreateRankedUserId();
   }
 
   getOrCreateUsername() {
-    let username = localStorage.getItem("mgh_username");
-
-    if (!username) {
-      username = "Player_" + Math.floor(Math.random() * 10000);
-      localStorage.setItem("mgh_username", username);
-    }
-
-    return username;
+    return getOrCreateRankedUsername();
   }
 
   setUsername(username) {
-    const cleanUsername = String(username || "").trim().slice(0, 20);
-
-    if (!cleanUsername) return;
-
-    this.username = cleanUsername;
-    localStorage.setItem("mgh_username", cleanUsername);
+    this.username = setRankedUsername(username);
   }
 
   getDifficultyForQuestion(questionNumber = this.currentQuestion + 1) {
@@ -259,15 +345,15 @@ class RankedSession {
 
   async saveToSupabase() {
     const snapshot = this.getSnapshot();
+    const dbRecord = toRankedDbRecord(snapshot);
 
-    const result = await supabase.insert(RANKED_TABLE, snapshot);
+    const result = await supabase.insert(RANKED_TABLE, dbRecord);
 
     if (!result) {
       console.error("Salvataggio ranked fallito");
       return null;
     }
 
-    console.log("Risultato ranked salvato:", result);
     return result;
   }
 }
@@ -280,12 +366,13 @@ class RankedLeaderboard {
     const safeLimit = Number(limit) || 10;
 
     const path =
-      `${RANKED_TABLE}?game_name=eq.${safeGameName}` +
-      `&select=username,total_score,accuracy,total_time,created_at` +
-      `&order=total_score.desc` +
+      `${RANKED_TABLE}?gamename=eq.${safeGameName}` +
+      `&select=userid,username,gamename,totalscore,accuracy,totaltime,created_at` +
+      `&order=totalscore.desc` +
       `&limit=${safeLimit}`;
 
-    return await supabase.select(path) || [];
+    const rows = await supabase.select(path) || [];
+    return rows.map(fromRankedDbRecord);
   }
 
   async getUserBestScore(gameName, userId) {
@@ -293,28 +380,28 @@ class RankedLeaderboard {
     const safeUserId = encodeURIComponent(userId);
 
     const path =
-      `${RANKED_TABLE}?game_name=eq.${safeGameName}` +
-      `&user_id=eq.${safeUserId}` +
-      `&select=username,total_score,accuracy,total_time,created_at` +
-      `&order=total_score.desc` +
+      `${RANKED_TABLE}?gamename=eq.${safeGameName}` +
+      `&userid=eq.${safeUserId}` +
+      `&select=userid,username,gamename,totalscore,accuracy,totaltime,created_at` +
+      `&order=totalscore.desc` +
       `&limit=1`;
 
     const result = await supabase.select(path);
 
-    return result && result.length ? result[0] : null;
+    return result && result.length ? fromRankedDbRecord(result[0]) : null;
   }
 
   async getGlobalLeaderboard(limit = 10) {
     const safeLimit = Number(limit) || 10;
 
     const path =
-      `${RANKED_TABLE}?select=user_id,username,total_score,accuracy,game_name` +
-      `&order=total_score.desc` +
+      `${RANKED_TABLE}?select=userid,username,gamename,totalscore,accuracy,created_at` +
+      `&order=totalscore.desc` +
       `&limit=200`;
 
-    const scores = await supabase.select(path);
+    const scores = (await supabase.select(path) || []).map(fromRankedDbRecord);
 
-    if (!scores) return [];
+    if (!scores.length) return [];
 
     const users = {};
 
@@ -325,7 +412,8 @@ class RankedLeaderboard {
           username: score.username,
           best_score: 0,
           total_score: 0,
-          games_played: new Set()
+          games_played: new Set(),
+          last_played_at: null
         };
       }
 
@@ -336,6 +424,11 @@ class RankedLeaderboard {
 
       users[score.user_id].total_score += score.total_score;
       users[score.user_id].games_played.add(score.game_name);
+
+      if (score.created_at && (!users[score.user_id].last_played_at ||
+        new Date(score.created_at) > new Date(users[score.user_id].last_played_at))) {
+        users[score.user_id].last_played_at = score.created_at;
+      }
     });
 
     return Object.values(users)
@@ -344,7 +437,8 @@ class RankedLeaderboard {
         username: user.username,
         best_score: user.best_score,
         total_score: user.total_score,
-        games_played: user.games_played.size
+        games_played: user.games_played.size,
+        last_played_at: user.last_played_at
       }))
       .sort((a, b) => b.best_score - a.best_score)
       .slice(0, safeLimit);
@@ -352,6 +446,192 @@ class RankedLeaderboard {
 }
 
 const rankedLeaderboard = new RankedLeaderboard();
+
+async function saveRankedScore({
+  gameName,
+  username = "",
+  totalScore = 0,
+  correct = 0,
+  wrong = 0,
+  totalQuestions = RANKED_DEFAULT_QUESTIONS,
+  totalTime = 0,
+  mode = "ranked",
+  accuracy,
+  answers = []
+}) {
+  const now = new Date().toISOString();
+  const safeCorrect = Number(correct) || 0;
+  const safeWrong = Number(wrong) || 0;
+  const safeTotalQuestions = Number(totalQuestions) || RANKED_DEFAULT_QUESTIONS;
+  const safeTotalScore = Math.max(0, Math.round(Number(totalScore) || 0));
+  const safeTotalTime = Math.max(0, Math.round(Number(totalTime) || 0));
+  const safeAccuracy = Number.isFinite(Number(accuracy))
+    ? Math.round(Number(accuracy))
+    : Math.round((safeCorrect / Math.max(1, safeTotalQuestions)) * 100);
+
+  const snapshot = {
+    session_id: "session_" + Date.now() + "_" + Math.random().toString(36).slice(2, 10),
+    user_id: getOrCreateRankedUserId(),
+    username: setRankedUsername(username),
+    game_name: gameName || "unknown_game",
+    mode,
+    start_time: now,
+    end_time: now,
+    total_time: safeTotalTime,
+    total_questions: safeTotalQuestions,
+    correct: safeCorrect,
+    wrong: safeWrong,
+    accuracy: safeAccuracy,
+    base_score: safeTotalScore,
+    bonus_speed: 0,
+    total_score: safeTotalScore,
+    answers
+  };
+
+  return await supabase.insert(RANKED_TABLE, toRankedDbRecord(snapshot));
+}
+
+function escapeRankedHTML(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function formatRankedDate(value) {
+  if (!value) return "Data non disponibile";
+
+  try {
+    return new Intl.DateTimeFormat("it-IT", {
+      dateStyle: "short",
+      timeStyle: "short"
+    }).format(new Date(value));
+  } catch (error) {
+    return value;
+  }
+}
+
+function showRankedIntro({ gameName, title = "Modalità Classificata", text = "", onStart }) {
+  const modal = document.createElement("div");
+  modal.className = "rankedModal rankedIntroModal";
+
+  modal.innerHTML = `
+    <div class="modalOverlay"></div>
+    <div class="modalPanel rankedIntroPanel">
+      <button class="modalClose" type="button" aria-label="Annulla">×</button>
+      <h2>🏆 ${escapeRankedHTML(title)}</h2>
+      <p class="rankedIntroText">${text || "Completa la sfida e salva il punteggio nella classifica di Music Game Hub."}</p>
+      <label class="rankedNicknameField">
+        <span>Nickname in classifica</span>
+        <input id="rankedNicknameInput" type="text" maxlength="20" placeholder="Es. MusicPlayer23" autocomplete="nickname" value="${escapeRankedHTML(getOrCreateRankedUsername())}">
+      </label>
+      <p class="rankedPrivacyHint">Usa un nickname: evita nome e cognome reali.</p>
+      <button class="rankedIntroStartBtn" type="button">Inizia</button>
+    </div>
+  `;
+
+  modal.querySelector(".modalClose")?.addEventListener("click", () => {
+    modal.remove();
+  });
+
+  modal.querySelector(".modalOverlay")?.addEventListener("click", () => {
+    modal.remove();
+  });
+
+  modal.querySelector(".rankedIntroStartBtn")?.addEventListener("click", () => {
+    const nickname = modal.querySelector("#rankedNicknameInput")?.value || "";
+    modal.remove();
+    if (typeof onStart === "function") onStart(setRankedUsername(nickname), gameName);
+  });
+
+  document.body.appendChild(modal);
+}
+
+function updateRankedProgressUI({ score = 0, current = 0, total = RANKED_DEFAULT_QUESTIONS } = {}) {
+  const scoreEl = document.getElementById("rankedScore");
+  const counterEl = document.getElementById("rankedQuestionCounter");
+  const fillEl = document.getElementById("rankedProgressFill");
+
+  if (scoreEl) scoreEl.textContent = Math.max(0, Math.round(score));
+  if (counterEl) counterEl.textContent = `${Math.min(current + 1, total)}/${total}`;
+  if (fillEl) fillEl.style.width = `${Math.min(100, (current / Math.max(1, total)) * 100)}%`;
+}
+
+function showRankedUI() {
+  document.getElementById("rankedUI")?.classList.remove("hidden");
+}
+
+function hideRankedUI() {
+  document.getElementById("rankedUI")?.classList.add("hidden");
+}
+
+function showLeaderboardButton() {
+  document.getElementById("rankedLeaderboardBtn")?.classList.remove("hidden");
+}
+
+function hideLeaderboardButton() {
+  document.getElementById("rankedLeaderboardBtn")?.classList.add("hidden");
+}
+
+function renderGenericLeaderboardRows(rows, userId) {
+  if (!rows || rows.length === 0) {
+    return `<p class="gameIntro">Nessun punteggio disponibile.</p>`;
+  }
+
+  return rows.map((row, index) => {
+    const isUser = row.user_id === userId;
+    const scoreDate = row.last_played_at || row.created_at;
+    const title = row.last_played_at
+      ? `Ultimo aggiornamento: ${formatRankedDate(scoreDate)}`
+      : `Partita del: ${formatRankedDate(scoreDate)}`;
+
+    return `
+      <div class="leaderboardRow ${isUser ? "userRow" : ""}" title="${escapeRankedHTML(title)}">
+        <span class="rank">#${index + 1}</span>
+        <span>${escapeRankedHTML(row.username || "Player")}</span>
+        <span class="score">${Math.round(row.total_score || row.best_score || 0)}</span>
+      </div>
+    `;
+  }).join("");
+}
+
+async function showGenericRankedLeaderboardModal(gameName) {
+  const userId = localStorage.getItem("mgh_userId");
+  const gameTop = await rankedLeaderboard.getGameLeaderboard(gameName, 10);
+  const globalTop = await rankedLeaderboard.getGlobalLeaderboard(10);
+  const title = getRankedGameLabel(gameName);
+
+  const modal = document.createElement("div");
+  modal.className = "rankedModal";
+  modal.innerHTML = `
+    <div class="modalOverlay" onclick="closeGenericRankedLeaderboardModal()"></div>
+    <div class="modalPanel">
+      <button class="modalClose" onclick="closeGenericRankedLeaderboardModal()" aria-label="Chiudi">×</button>
+      <h2>🏆 Classifiche</h2>
+      <div class="rankedTabs">
+        <button class="rankedTab active" onclick="switchGenericRankedTab(this, 'game')">${escapeRankedHTML(title)}</button>
+        <button class="rankedTab" onclick="switchGenericRankedTab(this, 'global')">Generale</button>
+      </div>
+      <div id="rankedGameTab">${renderGenericLeaderboardRows(gameTop, userId)}</div>
+      <div id="rankedGlobalTab" class="hidden">${renderGenericLeaderboardRows(globalTop, userId)}</div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+}
+
+function switchGenericRankedTab(button, tab) {
+  document.querySelectorAll(".rankedTab").forEach(btn => btn.classList.remove("active"));
+  button.classList.add("active");
+  document.getElementById("rankedGameTab")?.classList.toggle("hidden", tab !== "game");
+  document.getElementById("rankedGlobalTab")?.classList.toggle("hidden", tab !== "global");
+}
+
+function closeGenericRankedLeaderboardModal() {
+  document.querySelector(".rankedModal")?.remove();
+}
 
 // ==================== VARIABILI GLOBALI DA USARE NEL GIOCO ====================
 
@@ -363,8 +643,6 @@ let rankedQuestionStartTime = null;
 function startRankedMode(gameName) {
   currentRankedSession = new RankedSession(gameName);
   rankedQuestionStartTime = Date.now();
-
-  console.log("Ranked iniziata:", currentRankedSession);
 
   return currentRankedSession;
 }

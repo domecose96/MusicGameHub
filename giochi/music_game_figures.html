@@ -9,6 +9,13 @@
 
 <body class="figuresGamePage">
 
+<button id="rankedLeaderboardBtn"
+        class="rankedLeaderboardButton"
+        onclick="showGenericRankedLeaderboardModal('figure')"
+        aria-label="Classifica">
+  🏆
+</button>
+
 <header class="appHeader">
   <div class="appHeaderInner">
     <button id="homeBtn" class="homeButton" onclick="goHome()" aria-label="Torna alla home">
@@ -36,6 +43,10 @@
         <button id="noteBtn" class="menuButton" onclick="setMode('note', this)">Note</button>
         <button id="pauseBtn" class="menuButton" onclick="setMode('pause', this)">Pause</button>
         <button id="mistoBtn" class="menuButton" onclick="setMode('misto', this)">Misto</button>
+        <button class="menuButton rankedModeButton" onclick="setMode('ranked', this)">
+          <span class="dailyModeBadge">Ranked</span>
+          Classificata
+        </button>
     </div>
 
     <button class="menuButton" onclick="startGame()">Inizia</button>
@@ -46,6 +57,19 @@
 
     <!-- ==================== SCHERMATA DI GIOCO ==================== -->
     <div id="game" class="hidden">
+
+        <div id="rankedUI" class="rankedUI hidden">
+          <div class="rankedScoreDisplay">Score: <span id="rankedScore">0</span></div>
+          <div class="rankedProgressWrapper">
+            <div class="rankedProgressLabel">
+              <span>Progressione</span>
+              <span id="rankedQuestionCounter">1/10</span>
+            </div>
+            <div class="rankedProgressBar">
+              <div id="rankedProgressFill" class="rankedProgressFill"></div>
+            </div>
+          </div>
+        </div>
 
         <!-- BOX FIGURA (stessa dimensione dello svg note) -->
         <div class="gameDisplay">
@@ -65,6 +89,7 @@
 
     </div>
 <script src="../js/common.js"></script>
+<script src="../js/giochi/ranked.js"></script>
 <script src="../js/giochi/music_game_figures.js"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 

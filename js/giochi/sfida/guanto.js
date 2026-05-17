@@ -9,6 +9,8 @@ let startTime;
 let timerInterval;
 
 let currentMode = "sfida";
+let isRankedChallenge = false;
+let rankedSavedScore = 0;
 
 // ==================== RIFERIMENTI DOM ====================
 const quizDiv = document.getElementById("quiz");
@@ -38,6 +40,14 @@ function updateHeaderModeLabel(label = ""){
 function selectNum(btn,num){
   MGH.selectExclusive("#config .menuButton", btn);
   numQuestions = num;
+  isRankedChallenge = false;
+  MGH.setWarning("", "#config .warningText");
+}
+
+function selectRankedChallenge(btn){
+  MGH.selectExclusive("#config .menuButton", btn);
+  numQuestions = RANKED_DEFAULT_QUESTIONS;
+  isRankedChallenge = true;
   MGH.setWarning("", "#config .warningText");
 }
 
@@ -48,14 +58,42 @@ async function startChallenge(){
     return;
   }
 
+  if(isRankedChallenge){
+    showRankedIntro({
+      gameName: "guanto",
+      title: "Modalità Classificata",
+      text: "Affronta 10 domande miste. Il punteggio tiene conto di errori e tempo totale.",
+      onStart: startRankedChallenge
+    });
+    return;
+  }
+
   currentMode = "sfida";
+  await beginChallenge();
+}
+
+async function startRankedChallenge(){
+  currentMode = "ranked";
+  numQuestions = RANKED_DEFAULT_QUESTIONS;
+  isRankedChallenge = true;
+  await beginChallenge();
+}
+
+async function beginChallenge(){
   MGH.setWarning("", "#config .warningText");
 
   document.getElementById("config").classList.add("hidden");
   quizDiv.classList.remove("hidden");
   document.getElementById("endScreen").classList.add("hidden");
 
-  updateHeaderModeLabel(getModeLabel());
+  updateHeaderModeLabel(isRankedChallenge ? "Classificata" : getModeLabel());
+  if(isRankedChallenge){
+    hideLeaderboardButton();
+    showRankedUI();
+    updateRankedProgressUI({ score: 0, current: 0, total: RANKED_DEFAULT_QUESTIONS });
+  } else {
+    hideRankedUI();
+  }
 
   currentIndex = 0;
   errors = 0;
@@ -87,7 +125,8 @@ async function generateQuestions(){
     questions = allData.sort(()=> Math.random()-0.5).slice(0, numQuestions);
   }catch(err){
     console.error("Errore caricamento domande:", err);
-    alert("Errore nel caricamento delle domande.");
+    MGH.setWarning("Errore nel caricamento delle domande. Riprova tra poco.", "#config .warningText");
+    questions = [];
   }
 }
 
@@ -165,6 +204,7 @@ function checkAnswerNote(answer,btn,q){
 
   setTimeout(()=>{
     currentIndex++;
+    updateGuantoRankedProgress();
     showQuestion();
   },1000);
 }
@@ -181,8 +221,21 @@ function checkAnswerFigurazione(ansIdx, correctIdx, btn){
 
   setTimeout(()=>{
     currentIndex++;
+    updateGuantoRankedProgress();
     showQuestion();
   },1000);
+}
+
+function updateGuantoRankedProgress(){
+  if(!isRankedChallenge) return;
+
+  const elapsed = Math.floor((Date.now() - startTime) / 1000);
+  rankedSavedScore = Math.max(0, 1000 - errors * 50 - elapsed * 5);
+  updateRankedProgressUI({
+    score: rankedSavedScore,
+    current: currentIndex,
+    total: RANKED_DEFAULT_QUESTIONS
+  });
 }
 
 // ==================== PENTAGRAMMA ====================
@@ -219,91 +272,40 @@ function endChallenge(){
 
   quizDiv.classList.add("hidden");
   document.getElementById("endScreen").classList.remove("hidden");
-  document.getElementById("saveScoreBox").style.display = "flex";
+  document.getElementById("saveScoreBox").style.display = "none";
+  document.getElementById("leaderboardsContainer").classList.add("hidden");
 
   const timeTaken = Math.floor((Date.now()-startTime)/1000);
   const score = Math.max(0, 1000 - errors*50 - timeTaken*5);
+  rankedSavedScore = score;
 
   document.getElementById("scoreText").innerText =
     `Punteggio: ${score} — Errori: ${errors} — Tempo: ${timeTaken}s`;
-}
 
-// ==================== SALVA PUNTEGGIO ====================
-function saveScore(){
-  const nameInput = document.getElementById("playerName");
-  const name = nameInput.value.trim();
-
-  if(!name){
-    alert("Inserisci il tuo nome!");
-    nameInput.focus();
-    return;
+  if(isRankedChallenge){
+    finishRankedChallenge(score, timeTaken);
   }
+}
 
-  const timeTaken = Math.floor((Date.now()-startTime)/1000);
-  const score = Math.max(0, 1000 - errors*50 - timeTaken*5);
+async function finishRankedChallenge(score, timeTaken){
+  document.getElementById("saveScoreBox").style.display = "none";
+  hideRankedUI();
+  showLeaderboardButton();
 
-  const key = `leaderboard_${currentMode}_${numQuestions}`;
-  let board = JSON.parse(localStorage.getItem(key) || "[]");
-
-  board.push({
-    name,
-    score,
-    errors,
-    time: timeTaken,
-    date: new Date().toLocaleString()
+  const correct = Math.max(0, numQuestions - errors);
+  const saved = await saveRankedScore({
+    gameName: "guanto",
+    totalScore: score,
+    correct,
+    wrong: errors,
+    totalQuestions: numQuestions,
+    totalTime: timeTaken
   });
 
-  board.sort((a,b)=>b.score-a.score);
-
-  if(board.length>5) board = board.slice(0,5);
-
-  localStorage.setItem(key, JSON.stringify(board));
-
-  nameInput.value = "";
-  document.getElementById("saveScoreBox").style.display = "none";
-  loadAllLeaderboards();
-}
-
-// ==================== CLASSIFICHE ====================
-function showLeaderboard(){
-  document.getElementById("config").classList.add("hidden");
-  quizDiv.classList.add("hidden");
-  document.getElementById("endScreen").classList.remove("hidden");
-  document.getElementById("scoreText").innerText = "🏆 Classifiche Top 10";
-  document.getElementById("saveScoreBox").style.display = "none";
-
-  updateHeaderModeLabel("Classifiche");
-
-  loadAllLeaderboards();
-}
-
-function loadAllLeaderboards(){
-  loadLeaderboard("sfida","lb_note",10);
-  loadLeaderboard("sfida","lb_teoria",20);
-  loadLeaderboard("sfida","lb_sfida",30);
-}
-
-function loadLeaderboard(mode, elementId, numQ){
-  const key = `leaderboard_${mode}_${numQ}`;
-  const board = JSON.parse(localStorage.getItem(key) || "[]");
-  const container = document.getElementById(elementId);
-
-  if(!container) return;
-
-  container.innerHTML = "";
-
-  board.slice(0,5).forEach((e,i)=>{
-    const row = document.createElement("div");
-    row.className = "recordRow bestEver";
-
-    const name = document.createElement("strong");
-    name.textContent = `${i+1}. ${e.name}`;
-
-    const details = document.createTextNode(`${e.score} pts — Err: ${e.errors} — ${e.time}s`);
-
-    row.append(name, document.createElement("br"), details);
-    container.appendChild(row);
-  });
+  const scoreText = document.getElementById("scoreText");
+  if(scoreText && !saved){
+    scoreText.innerText += " — salvataggio non riuscito";
+  }
 }
 
 function goBack(){
@@ -323,7 +325,10 @@ function goBack(){
   currentIndex = 0;
   errors = 0;
   numQuestions = 10;
+  isRankedChallenge = false;
   questions = [];
 
   updateHeaderModeLabel("");
+  hideRankedUI();
+  showLeaderboardButton();
 }

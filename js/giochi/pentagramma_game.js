@@ -74,7 +74,12 @@ function selectMode(el, mode) {
 /* ==================== START ==================== */
 function startGame() {
   if (gameMode === "ranked") {
-    showRankedIntroModal();
+    showRankedIntro({
+      gameName: "pentagramma",
+      title: "Modalità Classificata",
+      text: "Orientati sul pentagramma per 10 domande. La difficoltà cresce durante la partita e il punteggio premia velocità e precisione.",
+      onStart: startRankedGame
+    });
     return;
   }
 
@@ -97,44 +102,7 @@ function startGame() {
   newRound();
 }
 
-function showRankedIntroModal() {
-  const modal = document.createElement("div");
-  modal.className = "rankedModal rankedIntroModal";
-
-  modal.innerHTML = `
-    <div class="modalOverlay"></div>
-
-    <div class="modalPanel rankedIntroPanel">
-      <h2>🏆 Modalità Classificata</h2>
-
-      <p class="rankedIntroText">
-        Entra nella modalità classificata e scala le classifiche di MusicGameHub.<br><br>
-
-        Competi nella classifica del gioco e nella classifica generale contro tutti gli altri giocatori.<br><br>
-
-        Il punteggio finale dipende da:
-        velocità, accuratezza e difficoltà delle risposte.<br><br>
-
-        Più sarai rapido e preciso, più salirai in classifica.<br><br>
-
-        Una volta iniziata la sfida, la sessione va completata. 🔥
-      </p>
-
-      <button class="rankedIntroStartBtn" onclick="startRankedGameFromModal(this)">
-        Inizia
-      </button>
-    </div>
-  `;
-
-  document.body.appendChild(modal);
-}
-
-function startRankedGameFromModal(button) {
-  button.closest(".rankedModal")?.remove();
-  startRankedGame();
-}
-
-function startRankedGame() {
+function startRankedGame(nickname = "") {
   warning.textContent = "";
 
   if (typeof startRankedMode !== "function") {
@@ -142,7 +110,8 @@ function startRankedGame() {
     return;
   }
 
-  startRankedMode("pentagramma");
+  const rankedSession = startRankedMode("pentagramma");
+  rankedSession.setUsername(nickname);
 
   menu.classList.add("hidden");
   game.classList.remove("hidden");
@@ -441,104 +410,4 @@ function stopTimer() {
 /* ==================== RESET ==================== */
 function clearBoard() {
   answerNote.setAttribute("opacity", 0);
-}
-
-/* ==================== LEADERBOARD ==================== */
-async function showRankedLeaderboardModal() {
-  if (typeof rankedLeaderboard === "undefined") {
-    alert("Classifica non disponibile: ranked.js non caricato.");
-    return;
-  }
-
-  const userId = localStorage.getItem("mgh_userId");
-  const gameTop = await rankedLeaderboard.getGameLeaderboard("pentagramma", 10);
-  const globalTop = await rankedLeaderboard.getGlobalLeaderboard(10);
-
-  const userGameBest = userId
-    ? await rankedLeaderboard.getUserBestScore("pentagramma", userId)
-    : null;
-
-  const modal = document.createElement("div");
-  modal.className = "rankedModal";
-  modal.innerHTML = `
-    <div class="modalOverlay" onclick="closeRankedLeaderboardModal()"></div>
-
-    <div class="modalPanel">
-      <button class="modalClose" onclick="closeRankedLeaderboardModal()" aria-label="Chiudi">×</button>
-
-      <h2>🏆 Classifiche</h2>
-
-      <div class="rankedTabs">
-        <button class="rankedTab active" onclick="switchRankedTab(this, 'game')">Pentagramma</button>
-        <button class="rankedTab" onclick="switchRankedTab(this, 'global')">Generale</button>
-      </div>
-
-      <div id="rankedGameTab">
-        ${renderLeaderboardRows(gameTop, userId)}
-
-        ${
-          userGameBest
-            ? `<div class="leaderboardRow userRow">
-                <span class="rank">Tu</span>
-                <span>${escapeHTML(userGameBest.username || "Tu")}</span>
-                <span class="score">${userGameBest.total_score}</span>
-              </div>`
-            : `<p class="gameIntro">Non hai ancora un punteggio in questo gioco.</p>`
-        }
-      </div>
-
-      <div id="rankedGlobalTab" class="hidden">
-        ${renderLeaderboardRows(globalTop, userId, true)}
-      </div>
-    </div>
-  `;
-
-  document.body.appendChild(modal);
-}
-
-function renderLeaderboardRows(rows, userId, global = false) {
-  if (!rows || rows.length === 0) {
-    return `<p class="gameIntro">Nessun punteggio disponibile.</p>`;
-  }
-
-  return rows.map((row, index) => {
-    const isUser = row.user_id === userId;
-
-    const username = escapeHTML(row.username || "Player");
-    const score = global
-      ? row.best_score || row.total_score || 0
-      : row.total_score || 0;
-
-    return `
-      <div class="leaderboardRow ${isUser ? "userRow" : ""}">
-        <span class="rank">#${index + 1}</span>
-        <span>${username}</span>
-        <span class="score">${score}</span>
-      </div>
-    `;
-  }).join("");
-}
-
-function switchRankedTab(button, tab) {
-  document.querySelectorAll(".rankedTab").forEach(btn => {
-    btn.classList.remove("active");
-  });
-
-  button.classList.add("active");
-
-  document.getElementById("rankedGameTab")?.classList.toggle("hidden", tab !== "game");
-  document.getElementById("rankedGlobalTab")?.classList.toggle("hidden", tab !== "global");
-}
-
-function closeRankedLeaderboardModal() {
-  document.querySelector(".rankedModal")?.remove();
-}
-
-function escapeHTML(value) {
-  return String(value || "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
 }

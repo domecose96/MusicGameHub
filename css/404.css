@@ -180,6 +180,22 @@ body.errorPage{
   flex-wrap:wrap;
 }
 
+.errorLegalLinks{
+  margin:12px 0 0;
+  color:var(--text-muted);
+  font-size:.78rem;
+  font-weight:800;
+}
+
+.errorLegalLinks a{
+  color:var(--accent);
+  text-decoration:none;
+}
+
+.errorLegalLinks a:hover{
+  text-decoration:underline;
+}
+
 .menuButton{
   display:inline-flex;
   align-items:center;

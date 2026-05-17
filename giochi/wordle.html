@@ -11,6 +11,13 @@
 
 <body class="wordlePage">
 
+<button id="rankedLeaderboardBtn"
+        class="rankedLeaderboardButton"
+        onclick="showGenericRankedLeaderboardModal('wordle')"
+        aria-label="Classifica">
+  🏆
+</button>
+
 <header class="appHeader">
   <div class="appHeaderInner">
     <button id="homeBtn" class="homeButton" onclick="goHome()" aria-label="Torna alla home">
@@ -39,15 +46,16 @@
       <button class="menuButton" onclick="selectMode(this,'easy')">Facile</button>
       <button class="menuButton" onclick="selectMode(this,'medium')">Medio</button>
       <button class="menuButton" onclick="selectMode(this,'hard')">Difficile</button>
-      <button class="menuButton dailyModeButton" onclick="selectMode(this,'daily')">
-        <span class="dailyModeBadge">Daily</span>
+      <button class="menuButton dailyModeButton wordleDailyRankedButton" onclick="selectMode(this,'ranked')">
+        <span class="dailyModeBadge">Ranked</span>
+        <span id="dailyAvailabilityBadge" class="dailyModeBadge rankedBadge">Daily</span>
         Parola del giorno
       </button>
     </div>
     <button class="menuButton" onclick="startGame()">Start</button>
     <p class="warningText introSpacer"></p>
     <p class="gameIntro">Indovina la parola musicale del giorno in 6 tentativi scegliendo lettere dalla tastiera.</p>
-    <p class="gameIntro smallIntro">La parola del giorno è uguale per tutti, si può giocare una sola volta e si aggiorna a mezzanotte.</p>
+    <p class="gameIntro smallIntro">La parola del giorno è uguale per tutti, può essere facile, media o difficile, si gioca una sola volta e si aggiorna a mezzanotte.</p>
   </div>
 
   <!-- ==================== GIOCO ==================== -->
@@ -197,6 +205,7 @@
 </div>
 
 <script src="../js/common.js"></script>
+<script src="../js/giochi/ranked.js"></script>
 <script src="../js/giochi/wordle.js"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 

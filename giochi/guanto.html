@@ -9,6 +9,13 @@
 </head>
 <body class="guantoPage">
 
+<button id="rankedLeaderboardBtn"
+        class="rankedLeaderboardButton"
+        onclick="showGenericRankedLeaderboardModal('guanto')"
+        aria-label="Classifica">
+  🏆
+</button>
+
 <header class="appHeader">
   <div class="appHeaderInner">
     <button id="homeBtn" class="homeButton" onclick="goHome()" aria-label="Torna alla home">
@@ -34,10 +41,14 @@
       <button class="menuButton" onclick="selectNum(this,10)">10</button>
       <button class="menuButton" onclick="selectNum(this,20)">20</button>
       <button class="menuButton" onclick="selectNum(this,30)">30</button>
+      <button class="menuButton rankedModeButton" onclick="selectRankedChallenge(this)">
+        <span class="dailyModeBadge">Ranked</span>
+        Classificata
+      </button>
     </div>
     <div class="guantoActions">
       <button class="menuButton" onclick="startChallenge()">Start</button>
-      <button class="menuButton" onclick="showLeaderboard()">Classifica</button>
+      <button class="menuButton" onclick="showGenericRankedLeaderboardModal('guanto')">Classifica</button>
     </div>
     <p class="warningText introSpacer"></p>
     <p class="gameIntro">Affronta una serie di domande miste su note, figure e teoria musicale cercando di fare meno errori possibile.</p>
@@ -45,6 +56,18 @@
 
   <!-- ==================== SCHERMATA QUIZ ==================== -->
   <div id="quiz" class="hidden">
+    <div id="rankedUI" class="rankedUI hidden">
+      <div class="rankedScoreDisplay">Score: <span id="rankedScore">0</span></div>
+      <div class="rankedProgressWrapper">
+        <div class="rankedProgressLabel">
+          <span>Progressione</span>
+          <span id="rankedQuestionCounter">1/10</span>
+        </div>
+        <div class="rankedProgressBar">
+          <div id="rankedProgressFill" class="rankedProgressFill"></div>
+        </div>
+      </div>
+    </div>
     <div id="timer">Tempo: 0s</div>
     <div id="questionBox" class="questionBox"></div>
 
@@ -79,14 +102,9 @@
 
     <h2 id="scoreText"></h2>
 
-    <!-- INSERIMENTO NOME (solo fine partita) -->
-    <div id="saveScoreBox" class="saveBox">
-      <input type="text" id="playerName" placeholder="Inserisci il tuo nome">
-      <button class="invioButton" onclick="saveScore()">Invia</button>
-    </div>
+    <div id="saveScoreBox" class="saveBox hidden"></div>
 
-    <!-- CONTAINER 3 CLASSIFICHE -->
-    <div id="leaderboardsContainer" class="leaderboards">
+    <div id="leaderboardsContainer" class="leaderboards hidden">
 
       <div class="leaderboardColumn">
         <h3>🎼 Modalità 10</h3>
@@ -112,6 +130,7 @@
 </div>
 
 <script src="../js/common.js"></script>
+<script src="../js/giochi/ranked.js"></script>
 <script src="../js/giochi/sfida/guanto.js"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 

@@ -57,7 +57,7 @@
     <div class="navActions" aria-label="Azioni rapide">
       <button class="navActionBtn" onclick="openHomePanel('about')">Chi sono</button>
       <button class="navActionBtn" onclick="openHomePanel('contact')">Contatti</button>
-      <button class="navActionBtn navBtnAccess" onclick="openHomePanel('access')">Accedi</button>
+      <button class="navActionBtn navBtnAccess" onclick="openAccountPanel()">Accedi</button>
     </div>
   </nav>
 
@@ -227,7 +227,7 @@
         </button>
         <div class="accessLinks">
           <button type="button" onclick="handlePasswordReset()">Ripristina password</button>
-          <button type="button" onclick="showAccessTerms()">Termini di servizio</button>
+          <a href="legal/termini.html" target="_blank">Termini di servizio</a>
         </div>
       </section>
 
@@ -235,9 +235,10 @@
         <form class="homePanelForm" onsubmit="handleAccessSubmit(event, 'register')">
           <label>Nome <input type="text" name="firstName" autocomplete="given-name" required></label>
           <label>Cognome <input type="text" name="lastName" autocomplete="family-name" required></label>
-          <label>Anni <input type="number" name="age" min="6" max="99" inputmode="numeric" required></label>
+          <label>Anni <input type="number" name="age" min="14" max="99" inputmode="numeric" required></label>
           <label>Email <input type="email" name="email" placeholder="nome@email.it" autocomplete="email" required></label>
-          <label>Password <input type="password" name="password" placeholder="Scegli una password" autocomplete="new-password" minlength="8" required></label>
+          <label>Password <input type="password" name="password" placeholder="Min. 8 caratteri, numero e simbolo" autocomplete="new-password" minlength="8" pattern="(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}" required></label>
+          <p class="passwordHint">La password deve contenere almeno 8 caratteri, un numero e un simbolo.</p>
           <label class="privacyCheck">
             <input type="checkbox" name="privacy" required>
             <span>Ho letto e accetto la <a href="legal/privacy.html" target="_blank">Privacy Policy</a></span>
@@ -252,11 +253,63 @@
           Registrati con Google
         </button>
         <div class="accessLinks single">
-          <button type="button" onclick="showAccessTerms()">Termini di servizio</button>
+          <a href="legal/termini.html" target="_blank">Termini di servizio</a>
+        </div>
+      </section>
+
+      <section class="accessPane" data-access-pane="reset">
+        <form class="homePanelForm" onsubmit="handlePasswordUpdate(event)">
+          <label>Nuova password <input type="password" name="password" placeholder="Min. 8 caratteri, numero e simbolo" autocomplete="new-password" minlength="8" pattern="(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}" required></label>
+          <label>Conferma password <input type="password" name="confirmPassword" placeholder="Ripeti la nuova password" autocomplete="new-password" required></label>
+          <p class="passwordHint">La password deve contenere almeno 8 caratteri, un numero e un simbolo.</p>
+          <button class="accessButton" type="submit">Aggiorna password</button>
+        </form>
+        <div class="accessLinks single">
+          <button type="button" onclick="switchAccessTab('login')">Torna ad accedi</button>
         </div>
       </section>
 
       <p id="accessMessage" class="accessMessage" aria-live="polite"></p>
+      <button class="accessLogoutButton" id="accessLogoutButton" type="button" onclick="signOut()" hidden>Esci dall'account</button>
+    </div>
+  </article>
+
+  <article class="homePanel" id="homePanelAccount" data-panel="account" role="dialog" aria-modal="true" aria-labelledby="accountTitle">
+    <button class="homePanelClose" type="button" onclick="closeHomePanel()" aria-label="Chiudi">×</button>
+    <div class="homePanelHeader accountPanelHeader">
+      <span class="infoEyebrow">Area personale</span>
+      <h2 id="accountTitle">Il tuo account</h2>
+      <p id="accountSubtitle">Gestisci accesso, nome visibile e dati collegati alle classifiche.</p>
+    </div>
+    <div class="homePanelBody accountPanelBody">
+      <div class="accountSummary">
+        <div class="accountAvatar" id="accountAvatar" aria-hidden="true">U</div>
+        <div>
+          <strong id="accountName">Utente</strong>
+          <span id="accountEmail">Email non disponibile</span>
+        </div>
+      </div>
+
+      <form class="homePanelForm accountSettingsForm" onsubmit="saveAccountSettings(event)">
+        <label>Nome visibile nelle classifiche
+          <input type="text" id="accountNickname" maxlength="20" autocomplete="nickname">
+        </label>
+        <button class="accessButton" type="submit">Salva impostazioni</button>
+      </form>
+
+      <div class="accountInfoGrid">
+        <div>
+          <span>Accesso</span>
+          <strong id="accountProvider">Account attivo</strong>
+        </div>
+        <div>
+          <span>Classifiche</span>
+          <strong>Collegate al tuo account</strong>
+        </div>
+      </div>
+
+      <p id="accountMessage" class="accessMessage" aria-live="polite"></p>
+      <button class="accessLogoutButton" type="button" onclick="signOut()">Esci dall'account</button>
     </div>
   </article>
 </div>
@@ -274,6 +327,8 @@
       <a href="legal/privacy.html">Privacy Policy</a>
       <span>·</span>
       <a href="legal/cookie.html">Cookie Policy</a>
+      <span>·</span>
+      <a href="legal/termini.html">Termini di servizio</a>
     </div>
   </div>
 </footer>

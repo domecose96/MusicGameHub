@@ -2,6 +2,13 @@
 let difficulty = null;
 let clef = null;
 let currentNote;
+let gameMode = "training";
+let rankedCorrect = 0;
+let rankedWrong = 0;
+let rankedScore = 0;
+let rankedQuestionIndex = 0;
+let rankedStartTime = 0;
+let rankedQuestionStart = 0;
 
 const noteElement = document.getElementById("note");
 const ledgerGroup = document.getElementById("ledgerLines");
@@ -9,6 +16,8 @@ const buttonsDiv = document.getElementById("buttons");
 const clefSymbol = document.getElementById("clefSymbol");
 const feedbackEl = document.getElementById("feedback");
 const warning = document.getElementById("warning");
+const menu = document.getElementById("menu");
+const game = document.getElementById("game");
 
 const buttonNames = ["Do","Re","Mi","Fa","Sol","La","Si"];
 
@@ -28,6 +37,14 @@ function selectButton(groupClass, element){
 
 function setDifficulty(level, el){
   difficulty = level;
+  gameMode = "training";
+  warning.textContent = "";
+  selectButton(".menuButton", el);
+}
+
+function selectRankedMode(el){
+  difficulty = null;
+  gameMode = "ranked";
   warning.textContent = "";
   selectButton(".menuButton", el);
 }
@@ -53,29 +70,69 @@ function setClef(type, el){
 }
 
 function startGame(){
+  if(gameMode === "ranked"){
+    if(!clef){
+      warning.textContent = "Seleziona una chiave prima di iniziare la classificata";
+      return;
+    }
+
+    showRankedIntro({
+      gameName: "note",
+      title: "Modalità Classificata",
+      text: "Indovina 10 note. La difficoltà cresce durante la partita e il punteggio premia velocità e precisione.",
+      onStart: startRankedGame
+    });
+    return;
+  }
+
   if(!difficulty || !clef){
     warning.textContent = "Seleziona modalità e chiave prima di iniziare";
     return;
   }
   warning.textContent = "";
-  document.getElementById("menu").classList.add("hidden");
-  document.getElementById("game").classList.remove("hidden");
+  menu.classList.add("hidden");
+  game.classList.remove("hidden");
+  hideRankedUI();
+  hideLeaderboardButton();
+  MGH.updateHeaderModeLabel(difficulty === "easy" ? "Facile" : "Difficile");
+  newNote();
+}
+
+function startRankedGame(){
+  warning.textContent = "";
+  rankedCorrect = 0;
+  rankedWrong = 0;
+  rankedScore = 0;
+  rankedQuestionIndex = 0;
+  rankedStartTime = Date.now();
+
+  menu.classList.add("hidden");
+  game.classList.remove("hidden");
+  hideLeaderboardButton();
+  showRankedUI();
+  MGH.updateHeaderModeLabel("Classificata");
+  updateRankedProgressUI({ score: rankedScore, current: rankedQuestionIndex, total: RANKED_DEFAULT_QUESTIONS });
   newNote();
 }
 
 function goBack(){
 
-  document.getElementById("game").classList.add("hidden");
-  document.getElementById("menu").classList.remove("hidden");
+  game.classList.add("hidden");
+  menu.classList.remove("hidden");
 
   difficulty = null;
   clef = null;
+  gameMode = "training";
+  rankedQuestionIndex = 0;
 
   document.querySelectorAll(".selected").forEach(btn=>{
     btn.classList.remove("selected");
   });
 
   resetButtons();
+  hideRankedUI();
+  showLeaderboardButton();
+  MGH.updateHeaderModeLabel("");
 }
 
 
@@ -84,15 +141,17 @@ function getNotes(){
   const positionsEasy = [140,135,130,125,120,115,110,105,100]; // facile
   const positionsHard = [165,160,155,150,145,140,135,130,125,120,115,110,105,100,95,90,85,80]; // difficile
 
-  const positions = difficulty === "easy" ? positionsEasy : positionsHard;
+  const rankedDifficulty = gameMode === "ranked" ? getRankedDifficultyForNoteGame() : null;
+  const activeDifficulty = rankedDifficulty || difficulty;
+  const positions = activeDifficulty === "easy" ? positionsEasy : positionsHard;
 
   let names = [];
   if(clef === "treble"){
-    names = difficulty === "easy" 
+    names = activeDifficulty === "easy"
       ? ["Mi","Fa","Sol","La","Si","Do","Re","Mi","Fa"]
       : ["Sol","La","Si","Do","Re","Mi","Fa","Sol","La","Si","Do","Re","Mi","Fa","Sol","La","Si","Do"];
   } else {
-    names = difficulty === "easy" 
+    names = activeDifficulty === "easy"
       ? ["Sol","La","Si","Do","Re","Mi","Fa","Sol","La"]
       : ["Si","Do","Re","Mi","Fa","Sol","La","Si","Do","Re","Mi","Fa","Sol","La","Si","Do","Re","Mi"];
   }
@@ -107,12 +166,19 @@ function newNote(){
   currentNote = notes[Math.floor(Math.random()*notes.length)];
   noteElement.setAttribute("cy", currentNote.y);
   drawLedgerLines(currentNote.y);
+  rankedQuestionStart = Date.now();
+}
+
+function getRankedDifficultyForNoteGame(){
+  if(rankedQuestionIndex < 4) return "easy";
+  return "hard";
 }
 
 /* ==================== RIGHE AGGIUNTIVE ==================== */
 function drawLedgerLines(y){
   ledgerGroup.innerHTML = "";
-  if(difficulty === "easy") return;
+  const activeDifficulty = gameMode === "ranked" ? getRankedDifficultyForNoteGame() : difficulty;
+  if(activeDifficulty === "easy") return;
 
   for(let pos=150; pos<=165; pos+=10){
     if(y >= pos) createLedger(pos);
@@ -147,13 +213,20 @@ function checkAnswer(answer, button){
   button.style.pointerEvents = "none"; // blocca clic multipli
   button.blur(); // elimina focus/arancione residuo
 
-  if(answer === currentNote.name){
+  const isCorrect = answer === currentNote.name;
+
+  if(isCorrect){
     button.classList.add("correct"); // bordo verde
     setFeedback("Hai indovinato! Arriva una nuova nota...");
   } else {
     button.classList.add("wrong");   // bordo rosso
     highlightCorrect();
     setFeedback(`Hai sbagliato! La risposta giusta era ${currentNote.name}.`);
+  }
+
+  if(gameMode === "ranked"){
+    handleRankedAnswer(isCorrect);
+    return;
   }
 
   setTimeout(()=>{
@@ -165,6 +238,52 @@ function checkAnswer(answer, button){
 
     newNote();
   },1000);
+}
+
+function handleRankedAnswer(isCorrect){
+  const elapsed = (Date.now() - rankedQuestionStart) / 1000;
+
+  if(isCorrect){
+    rankedCorrect++;
+    rankedScore += elapsed <= 2 ? 125 : elapsed <= 5 ? 110 : 100;
+  } else {
+    rankedWrong++;
+  }
+
+  rankedQuestionIndex++;
+  updateRankedProgressUI({ score: rankedScore, current: rankedQuestionIndex, total: RANKED_DEFAULT_QUESTIONS });
+
+  setTimeout(async () => {
+    resetButtons();
+
+    if(rankedQuestionIndex >= RANKED_DEFAULT_QUESTIONS){
+      await finishRankedGame();
+    } else {
+      newNote();
+    }
+  }, 1000);
+}
+
+async function finishRankedGame(){
+  const totalTime = Math.round((Date.now() - rankedStartTime) / 1000);
+  const saved = await saveRankedScore({
+    gameName: "note",
+    totalScore: rankedScore,
+    correct: rankedCorrect,
+    wrong: rankedWrong,
+    totalQuestions: RANKED_DEFAULT_QUESTIONS,
+    totalTime
+  });
+
+  game.classList.add("hidden");
+  menu.classList.remove("hidden");
+  hideRankedUI();
+  showLeaderboardButton();
+  MGH.updateHeaderModeLabel("");
+  warning.innerHTML = `Classificata completata! Punteggio: <strong>${Math.round(rankedScore)}</strong> · Corrette: <strong>${rankedCorrect}/${RANKED_DEFAULT_QUESTIONS}</strong>${saved ? "" : " · salvataggio non riuscito"}`;
+  document.querySelectorAll(".selected").forEach(btn=>btn.classList.remove("selected"));
+  gameMode = "training";
+  difficulty = null;
 }
 
 function highlightCorrect(){

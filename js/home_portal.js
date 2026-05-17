@@ -17,6 +17,12 @@ const NOTE_MS = 520;
 const FADE_MS = 900;
 const INTRO_SEEN_KEY = "musicGameHubIntroSeen";
 const WEB3FORMS_ACCESS_KEY = "b72ee878-1ec1-47e2-adfa-2cc026b69a63";
+const SUPABASE_URL = "https://scyvwnzrykwejflbbmjx.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_Zk2mItmcS4M2XIw2nDJk5w_z2ZqZtpg";
+const AUTH_USER_KEY = "mgh_auth_user";
+const AUTH_TOKEN_KEY = "mgh_auth_token";
+const AUTH_REFRESH_KEY = "mgh_auth_refresh_token";
+const PASSWORD_RECOVERY_TOKEN_KEY = "mgh_password_recovery_token";
 
 let currentX = X_START;
 let melodyIndex = 0;
@@ -276,6 +282,8 @@ function switchAccessTab(tabName) {
     tab.classList.toggle("active", tab.dataset.accessTab === tabName);
   });
 
+  document.querySelector(".accessTabs")?.classList.toggle("hidden", tabName === "reset");
+
   document.querySelectorAll(".accessPane").forEach(pane => {
     pane.classList.toggle("active", pane.dataset.accessPane === tabName);
   });
@@ -284,37 +292,386 @@ function switchAccessTab(tabName) {
   if (message) message.textContent = "";
 }
 
+function showPasswordResetPane(messageText = "") {
+  switchAccessTab("reset");
+  openHomePanel("access");
+
+  const message = document.getElementById("accessMessage");
+  if (message) message.textContent = messageText;
+}
+
 function handleAccessSubmit(event, mode = "login") {
   event.preventDefault();
 
   const message = document.getElementById("accessMessage");
-  if (message) {
-    message.textContent = mode === "register"
-      ? "Registrazione pronta nel layout: serve Firebase/Auth per creare account reali."
-      : "Accesso pronto nel layout: serve Firebase/Auth per email e password.";
+  const form = event.currentTarget;
+  const email = form.elements.email?.value.trim();
+  const password = form.elements.password?.value || "";
+
+  if (mode === "register") {
+    const age = Number(form.elements.age?.value || 0);
+
+    if (age < 14) {
+      if (message) {
+        message.textContent = "Per registrarti autonomamente devi avere almeno 14 anni. Se hai meno di 14 anni, chiedi il supporto di un genitore, tutore o docente.";
+      }
+      return;
+    }
+
+    const passwordError = getPasswordValidationMessage(password);
+    if (passwordError) {
+      if (message) message.textContent = passwordError;
+      return;
+    }
   }
+
+  if (mode === "login") {
+    signInWithEmail(email, password, message);
+    return;
+  }
+
+  signUpWithEmail(form, message);
 }
 
 function handleGoogleAccess(mode = "login") {
-  const message = document.getElementById("accessMessage");
-  if (message) {
-    message.textContent = mode === "register"
-      ? "Registrazione con Google pronta: serve collegare Google Auth."
-      : "Login with Google pronto: serve collegare Google Auth.";
-  }
+  const redirectTo = encodeURIComponent(window.location.href.split("#")[0]);
+  window.location.href = `${SUPABASE_URL}/auth/v1/authorize?provider=google&redirect_to=${redirectTo}`;
 }
 
 function handlePasswordReset() {
   const message = document.getElementById("accessMessage");
-  if (message) {
-    message.textContent = "Ripristino password pronto nel layout: serve collegare l'invio email con il servizio di autenticazione.";
+  const email = document.querySelector('[data-access-pane="login"] input[name="email"]')?.value.trim();
+
+  if (!email) {
+    if (message) message.textContent = "Inserisci prima la tua email, poi richiedi il ripristino password.";
+    return;
+  }
+
+  requestPasswordReset(email, message);
+}
+
+function getPasswordValidationMessage(password) {
+  if (password.length < 8) return "La password deve avere almeno 8 caratteri.";
+  if (!/[0-9]/.test(password)) return "La password deve contenere almeno un numero.";
+  if (!/[^A-Za-z0-9]/.test(password)) return "La password deve contenere almeno un simbolo.";
+  return "";
+}
+
+async function supabaseAuthRequest(path, body) {
+  const response = await fetch(`${SUPABASE_URL}/auth/v1/${path}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "apikey": SUPABASE_ANON_KEY
+    },
+    body: JSON.stringify(body)
+  });
+
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(data.msg || data.message || data.error_description || "Operazione non riuscita.");
+  }
+
+  return data;
+}
+
+async function supabaseAuthGetUser(accessToken) {
+  const response = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+    headers: {
+      "apikey": SUPABASE_ANON_KEY,
+      "Authorization": `Bearer ${accessToken}`
+    }
+  });
+
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(data.msg || data.message || "Utente non disponibile.");
+  }
+
+  return data;
+}
+
+async function supabaseAuthUpdatePassword(accessToken, password) {
+  const response = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "apikey": SUPABASE_ANON_KEY,
+      "Authorization": `Bearer ${accessToken}`
+    },
+    body: JSON.stringify({ password })
+  });
+
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(data.msg || data.message || "Password non aggiornata.");
+  }
+
+  return data;
+}
+
+function getStoredAuthUser() {
+  try {
+    return JSON.parse(localStorage.getItem(AUTH_USER_KEY) || "null");
+  } catch {
+    return null;
   }
 }
 
-function showAccessTerms() {
+function getAuthDisplayName(user) {
+  const metadata = user?.user_metadata || user?.raw_user_meta_data || {};
+  const fullName = metadata.full_name || metadata.name;
+  const firstName = metadata.first_name || metadata.given_name;
+  const emailName = user?.email ? user.email.split("@")[0] : "";
+  return (firstName || fullName || emailName || "utente").trim();
+}
+
+function getUserNicknameKey(user) {
+  return user?.id ? `mgh_username_${user.id}` : "mgh_username";
+}
+
+function getStoredNickname(user) {
+  const userNickname = localStorage.getItem(getUserNicknameKey(user));
+  if (userNickname) return userNickname;
+
+  const legacyNickname = localStorage.getItem("mgh_username");
+  if (legacyNickname) return legacyNickname;
+
+  return getAuthDisplayName(user).slice(0, 20);
+}
+
+function storeNicknameForUser(user, nickname) {
+  const cleanNickname = String(nickname || "")
+    .trim()
+    .replace(/\s+/g, " ")
+    .slice(0, 20);
+
+  if (!cleanNickname) return "";
+
+  localStorage.setItem(getUserNicknameKey(user), cleanNickname);
+  localStorage.setItem("mgh_username", cleanNickname);
+  return cleanNickname;
+}
+
+function storeAuthSession(user, accessToken, refreshToken = "") {
+  if (!user) return;
+
+  localStorage.setItem(AUTH_USER_KEY, JSON.stringify(user));
+  if (accessToken) localStorage.setItem(AUTH_TOKEN_KEY, accessToken);
+  if (refreshToken) localStorage.setItem(AUTH_REFRESH_KEY, refreshToken);
+
+  if (user.id) localStorage.setItem("mgh_userId", user.id);
+  storeNicknameForUser(user, getStoredNickname(user));
+
+  updateAccessButton();
+  populateAccountPanel();
+}
+
+function updateAccessButton() {
+  const accessButton = document.querySelector(".navBtnAccess");
+  const logoutButton = document.getElementById("accessLogoutButton");
+  if (!accessButton) return;
+
+  const user = getStoredAuthUser();
+
+  if (!user) {
+    accessButton.textContent = "Accedi";
+    accessButton.classList.remove("logged");
+    accessButton.title = "Accedi o registrati";
+    if (logoutButton) logoutButton.hidden = true;
+    return;
+  }
+
+  const displayName = getAuthDisplayName(user).split(" ")[0];
+  accessButton.textContent = `Ciao ${displayName}`;
+  accessButton.classList.add("logged");
+  accessButton.title = user.email || "Account attivo";
+  if (logoutButton) logoutButton.hidden = false;
+}
+
+function populateAccountPanel() {
+  const user = getStoredAuthUser();
+  if (!user) return;
+
+  const displayName = getAuthDisplayName(user);
+  const nickname = getStoredNickname(user);
+  const initial = (displayName || "U").trim().charAt(0).toUpperCase();
+  const metadata = user.user_metadata || user.raw_user_meta_data || {};
+
+  const nameEl = document.getElementById("accountName");
+  const emailEl = document.getElementById("accountEmail");
+  const avatarEl = document.getElementById("accountAvatar");
+  const nicknameInput = document.getElementById("accountNickname");
+  const providerEl = document.getElementById("accountProvider");
+
+  if (nameEl) nameEl.textContent = displayName;
+  if (emailEl) emailEl.textContent = user.email || "Email non disponibile";
+  if (avatarEl) avatarEl.textContent = initial;
+  if (nicknameInput) nicknameInput.value = nickname;
+  if (providerEl) providerEl.textContent = metadata.provider === "google" ? "Google" : "Email e password";
+}
+
+function openAccountPanel() {
+  const user = getStoredAuthUser();
+
+  if (!user) {
+    openHomePanel("access");
+    return;
+  }
+
+  populateAccountPanel();
+  openHomePanel("account");
+}
+
+function saveAccountSettings(event) {
+  event.preventDefault();
+
+  const input = document.getElementById("accountNickname");
+  const message = document.getElementById("accountMessage");
+  const cleanNickname = String(input?.value || "")
+    .trim()
+    .replace(/\s+/g, " ")
+    .slice(0, 20);
+
+  if (!cleanNickname) {
+    if (message) message.textContent = "Inserisci un nome visibile valido.";
+    return;
+  }
+
+  const user = getStoredAuthUser();
+  storeNicknameForUser(user, cleanNickname);
+  if (message) message.textContent = "Impostazioni salvate.";
+}
+
+function signOut() {
+  localStorage.removeItem(AUTH_USER_KEY);
+  localStorage.removeItem(AUTH_TOKEN_KEY);
+  localStorage.removeItem(AUTH_REFRESH_KEY);
+  updateAccessButton();
+
+  closeHomePanel();
   const message = document.getElementById("accessMessage");
-  if (message) {
-    message.textContent = "Termini di servizio pronti: useremo l'area personale solo per accesso, progressi e preferenze del portale.";
+  if (message) message.textContent = "Sei uscito dall'area personale.";
+}
+
+async function handleAuthRedirect() {
+  const hash = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+  const accessToken = hash.get("access_token");
+  const refreshToken = hash.get("refresh_token") || "";
+  const authType = hash.get("type");
+
+  if (!accessToken) {
+    updateAccessButton();
+    return;
+  }
+
+  try {
+    const user = await supabaseAuthGetUser(accessToken);
+    storeAuthSession(user, accessToken, refreshToken);
+    window.history.replaceState(null, document.title, window.location.pathname + window.location.search);
+
+    if (authType === "recovery") {
+      sessionStorage.setItem(PASSWORD_RECOVERY_TOKEN_KEY, accessToken);
+      showPasswordResetPane("Inserisci la nuova password per completare il ripristino.");
+    }
+  } catch (error) {
+    console.error("Errore accesso Google:", error);
+    updateAccessButton();
+  }
+}
+
+async function signInWithEmail(email, password, message) {
+  if (message) message.textContent = "Accesso in corso...";
+
+  try {
+    const data = await supabaseAuthRequest("token?grant_type=password", { email, password });
+    storeAuthSession(data.user || {}, data.access_token, data.refresh_token);
+    if (message) message.textContent = "Accesso effettuato.";
+    closeHomePanel();
+  } catch (error) {
+    if (message) message.textContent = "Accesso non riuscito: controlla email e password.";
+  }
+}
+
+async function signUpWithEmail(form, message) {
+  if (message) message.textContent = "Registrazione in corso...";
+
+  const email = form.elements.email?.value.trim();
+  const password = form.elements.password?.value || "";
+
+  try {
+    await supabaseAuthRequest("signup", {
+      email,
+      password,
+      data: {
+        first_name: form.elements.firstName?.value.trim() || "",
+        last_name: form.elements.lastName?.value.trim() || "",
+        age: Number(form.elements.age?.value || 0)
+      }
+    });
+
+    if (message) {
+      message.textContent = "Registrazione inviata. Controlla la mail per confermare l'account, se la conferma email è attiva su Supabase.";
+    }
+  } catch (error) {
+    if (message) message.textContent = `Registrazione non riuscita: ${error.message}`;
+  }
+}
+
+async function requestPasswordReset(email, message) {
+  if (message) message.textContent = "Invio email di ripristino...";
+
+  try {
+    await supabaseAuthRequest("recover", {
+      email,
+      redirect_to: window.location.href.split("#")[0]
+    });
+
+    if (message) message.textContent = "Email di ripristino inviata, se l'indirizzo è registrato.";
+  } catch (error) {
+    if (message) message.textContent = `Ripristino non riuscito: ${error.message}`;
+  }
+}
+
+async function handlePasswordUpdate(event) {
+  event.preventDefault();
+
+  const message = document.getElementById("accessMessage");
+  const form = event.currentTarget;
+  const password = form.elements.password?.value || "";
+  const confirmPassword = form.elements.confirmPassword?.value || "";
+  const passwordError = getPasswordValidationMessage(password);
+  const recoveryToken = sessionStorage.getItem(PASSWORD_RECOVERY_TOKEN_KEY) || localStorage.getItem(AUTH_TOKEN_KEY);
+
+  if (passwordError) {
+    if (message) message.textContent = passwordError;
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    if (message) message.textContent = "Le due password non coincidono.";
+    return;
+  }
+
+  if (!recoveryToken) {
+    if (message) message.textContent = "Link di ripristino non valido o scaduto. Richiedi una nuova email.";
+    return;
+  }
+
+  if (message) message.textContent = "Aggiornamento password...";
+
+  try {
+    const user = await supabaseAuthUpdatePassword(recoveryToken, password);
+    sessionStorage.removeItem(PASSWORD_RECOVERY_TOKEN_KEY);
+    storeAuthSession(user, recoveryToken, localStorage.getItem(AUTH_REFRESH_KEY) || "");
+    form.reset();
+    switchAccessTab("login");
+    if (message) message.textContent = "Password aggiornata. Ora puoi accedere anche con email e password.";
+  } catch (error) {
+    if (message) message.textContent = `Aggiornamento non riuscito: ${error.message}`;
   }
 }
 
@@ -542,13 +899,17 @@ window.switchAccessTab = switchAccessTab;
 window.handleAccessSubmit = handleAccessSubmit;
 window.handleGoogleAccess = handleGoogleAccess;
 window.handlePasswordReset = handlePasswordReset;
-window.showAccessTerms = showAccessTerms;
+window.handlePasswordUpdate = handlePasswordUpdate;
+window.openAccountPanel = openAccountPanel;
+window.saveAccountSettings = saveAccountSettings;
+window.signOut = signOut;
 window.handleContactSubmit = handleContactSubmit;
 window.openHomePanel = openHomePanel;
 window.closeHomePanel = closeHomePanel;
 
 document.addEventListener("DOMContentLoaded", () => {
   if (shouldSkipIntro) revealSiteImmediately();
+  handleAuthRedirect();
   renderHomeResources();
   renderResourceStats();
 

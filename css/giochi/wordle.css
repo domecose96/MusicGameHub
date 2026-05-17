@@ -191,6 +191,38 @@
   color: var(--action-orange);
 }
 
+.wordleDailyRankedButton {
+  min-width: 190px;
+  padding-inline: 28px;
+}
+
+.wordleDailyRankedButton .rankedBadge {
+  right: auto;
+  left: 14px;
+  background: #2d8cff;
+}
+
+.wordleDailyRankedButton.selected .rankedBadge {
+  background: #ffffff;
+  color: #2d8cff;
+}
+
+.wordleDailyRankedButton .rankedBadge.dailyAvailable {
+  animation: dailyBadgePulse 1.25s ease-in-out infinite;
+}
+
+@keyframes dailyBadgePulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 6px 14px rgba(45, 140, 255, 0.24);
+  }
+
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 5px rgba(45, 140, 255, 0.16), 0 10px 20px rgba(45, 140, 255, 0.3);
+  }
+}
+
 /* ==================== FIX 2: etichetta modalitÃ  DENTRO l'header ==================== */
 /* Rimuove il position:absolute che la spingeva fuori dal flusso dell'header */
 .wordlePage .headerBrand {
