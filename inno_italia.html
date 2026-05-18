@@ -30,6 +30,7 @@
 
 <nav id="siteNav" class="theoryNav anthemNav">
   <button class="navBtn" onclick="MGH.scrollToSection('hero')">🇮🇹 Inizio</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('timeline')">📅 Timeline</button>
   <button class="navBtn" onclick="MGH.scrollToSection('video')">🎥 Video</button>
   <button class="navBtn" onclick="MGH.scrollToSection('simboli')">🛡️ Simboli</button>
   <button class="navBtn" onclick="MGH.scrollToSection('autori')">✍️ Autori</button>
@@ -69,6 +70,59 @@
         <span>Rispetto</span>
         <span>Collaborazione</span>
       </div>
+    </div>
+  </section>
+
+  <!-- ==================== TIMELINE ==================== -->
+  <section id="timeline" class="siteSection learnSection">
+    <h2 class="sectionTitle">L'Inno d'Italia in breve</h2>
+
+    <p class="sectionIntro">
+      Il <strong>Canto degli Italiani</strong> nasce nel clima del Risorgimento:
+      un periodo in cui molti italiani desideravano libertà, unità e indipendenza.
+    </p>
+
+    <div class="timelineContainer">
+      <svg class="timelineSVG" viewBox="0 0 980 230">
+
+        <defs>
+          <linearGradient id="anthemTimelineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#168a4a;stop-opacity:0.10" />
+            <stop offset="50%" style="stop-color:#168a4a;stop-opacity:0.22" />
+            <stop offset="100%" style="stop-color:#d43d3d;stop-opacity:0.14" />
+          </linearGradient>
+        </defs>
+
+        <rect x="50" y="54" width="880" height="86" rx="14" fill="url(#anthemTimelineGrad)" />
+
+        <line x1="90" y1="100" x2="860" y2="100" stroke="#168a4a" stroke-width="4" opacity="0.65" />
+
+        <circle cx="130" cy="100" r="11" fill="#168a4a"/>
+        <text x="130" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">1847</text>
+        <text x="130" y="168" text-anchor="middle" font-size="11" fill="#168a4a" font-weight="bold">Nasce l'inno</text>
+        <text x="130" y="184" text-anchor="middle" font-size="10" fill="#666">testo e musica</text>
+
+        <circle cx="320" cy="100" r="11" fill="#168a4a"/>
+        <text x="320" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">10 dic. 1847</text>
+        <text x="320" y="168" text-anchor="middle" font-size="11" fill="#168a4a" font-weight="bold">Prima esecuzione</text>
+        <text x="320" y="184" text-anchor="middle" font-size="10" fill="#666">a Genova</text>
+
+        <circle cx="500" cy="100" r="11" fill="#168a4a"/>
+        <text x="500" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">1861</text>
+        <text x="500" y="168" text-anchor="middle" font-size="11" fill="#168a4a" font-weight="bold">Regno d'Italia</text>
+        <text x="500" y="184" text-anchor="middle" font-size="10" fill="#666">non è inno ufficiale</text>
+
+        <circle cx="680" cy="100" r="11" fill="#d43d3d"/>
+        <text x="680" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">12 ott. 1946</text>
+        <text x="680" y="168" text-anchor="middle" font-size="11" fill="#d43d3d" font-weight="bold">Uso provvisorio</text>
+        <text x="680" y="184" text-anchor="middle" font-size="10" fill="#666">nella Repubblica</text>
+
+        <circle cx="850" cy="100" r="11" fill="#d43d3d"/>
+        <text x="850" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">2017</text>
+        <text x="850" y="168" text-anchor="middle" font-size="11" fill="#d43d3d" font-weight="bold">Inno ufficiale</text>
+        <text x="850" y="184" text-anchor="middle" font-size="10" fill="#666">legge 181</text>
+
+      </svg>
     </div>
   </section>
 
@@ -193,20 +247,29 @@
           <span>Strofa 1</span>
           <h3>Testo</h3>
           <p>Fratelli d'Italia<br>
-          L'Italia s'è desta,<br>
-          Dell'elmo di Scipio<br>
+          L'Italia s'è desta<sup>1</sup>,<br>
+          Dell'elmo di Scipio<sup>2</sup><br>
           S'è cinta la testa.<br>
           Dov'è la Vittoria?<br>
           Le porga la chioma,<br>
-          Ché schiava di Roma<br>
+          Ché schiava di Roma<sup>3</sup><br>
           Iddio la creò.<br>
-          Stringiamci a coorte<br>
+          Stringiamci a coorte<sup>4</sup><br>
           Siam pronti alla morte<br>
           L'Italia chiamò.</p>
         </div>
         <div class="stanzaExplain">
           <h3>Nascita di un popolo unito</h3>
           <p>La prima strofa presenta l'Italia come una comunità che prende coscienza di sé. I riferimenti a Roma e alla Vittoria servono a dare forza e solennità al messaggio.</p>
+          <div class="stanzaGlossary">
+            <h4>Parole difficili</h4>
+            <ul>
+              <li><sup>1</sup> <strong>Desta:</strong> sveglia, pronta ad agire.</li>
+              <li><sup>2</sup> <strong>Scipio:</strong> Scipione l'Africano, antico comandante romano ricordato come simbolo di coraggio.</li>
+              <li><sup>3</sup> <strong>Schiava di Roma:</strong> immagine poetica per dire che la Vittoria appartiene alla grandezza di Roma.</li>
+              <li><sup>4</sup> <strong>Coorte:</strong> gruppo compatto e unito, come una squadra che resta insieme.</li>
+            </ul>
+          </div>
         </div>
       </article>
 
@@ -215,20 +278,29 @@
           <span>Strofa 2</span>
           <h3>Testo</h3>
           <p>Noi siamo da secoli<br>
-          Calpesti, derisi,<br>
+          Calpesti<sup>1</sup>, derisi,<br>
           Perché non siam popolo,<br>
           Perché siam divisi.<br>
-          Raccolgaci un'unica<br>
-          Bandiera, una speme:<br>
+          Raccolgaci<sup>2</sup> un'unica<br>
+          Bandiera, una speme<sup>3</sup>:<br>
           Di fonderci insieme<br>
           Già l'ora suonò.<br>
-          Stringiamci a coorte<br>
+          Stringiamci a coorte<sup>4</sup><br>
           Siam pronti alla morte<br>
           L'Italia chiamò.</p>
         </div>
         <div class="stanzaExplain">
           <h3>Memoria delle divisioni</h3>
           <p>Questa strofa spiega il problema storico: gli italiani sono stati divisi e quindi più deboli. La bandiera diventa il segno di una speranza comune.</p>
+          <div class="stanzaGlossary">
+            <h4>Parole difficili</h4>
+            <ul>
+              <li><sup>1</sup> <strong>Calpesti:</strong> oppressi, trattati senza rispetto.</li>
+              <li><sup>2</sup> <strong>Raccolgaci:</strong> ci riunisca, ci tenga insieme.</li>
+              <li><sup>3</sup> <strong>Speme:</strong> speranza.</li>
+              <li><sup>4</sup> <strong>Coorte:</strong> gruppo unito che procede compatto.</li>
+            </ul>
+          </div>
         </div>
       </article>
 
@@ -238,19 +310,27 @@
           <h3>Testo</h3>
           <p>Uniamoci, amiamoci,<br>
           l'Unione, e l'amore<br>
-          Rivelano ai Popoli<br>
+          Rivelano<sup>1</sup> ai Popoli<br>
           Le vie del Signore;<br>
           Giuriamo far libero<br>
-          Il suolo natìo:<br>
+          Il suolo natìo<sup>2</sup>:<br>
           Uniti per Dio<br>
           Chi vincer ci può?<br>
-          Stringiamci a coorte<br>
+          Stringiamci a coorte<sup>3</sup><br>
           Siam pronti alla morte<br>
           L'Italia chiamò.</p>
         </div>
         <div class="stanzaExplain">
           <h3>Unione e speranza</h3>
           <p>Il centro della strofa è l'idea che unità e amore rendano forte un popolo. In educazione civica si può collegare alla collaborazione e al rispetto reciproco.</p>
+          <div class="stanzaGlossary">
+            <h4>Parole difficili</h4>
+            <ul>
+              <li><sup>1</sup> <strong>Rivelano:</strong> mostrano, fanno capire.</li>
+              <li><sup>2</sup> <strong>Suolo natìo:</strong> la terra in cui si nasce, la propria patria.</li>
+              <li><sup>3</sup> <strong>Coorte:</strong> gruppo compatto, unito da uno stesso obiettivo.</li>
+            </ul>
+          </div>
         </div>
       </article>
 
@@ -259,20 +339,31 @@
           <span>Strofa 4</span>
           <h3>Testo</h3>
           <p>Dall'Alpi a Sicilia<br>
-          Dovunque è Legnano,<br>
-          Ogn'uom di Ferruccio<br>
+          Dovunque è Legnano<sup>1</sup>,<br>
+          Ogn'uom di Ferruccio<sup>2</sup><br>
           Ha il core, ha la mano,<br>
           I bimbi d'Italia<br>
-          Si chiaman Balilla,<br>
-          Il suon d'ogni squilla<br>
-          I Vespri suonò.<br>
-          Stringiamci a coorte<br>
+          Si chiaman Balilla<sup>3</sup>,<br>
+          Il suon d'ogni squilla<sup>4</sup><br>
+          I Vespri<sup>5</sup> suonò.<br>
+          Stringiamci a coorte<sup>6</sup><br>
           Siam pronti alla morte<br>
           L'Italia chiamò.</p>
         </div>
         <div class="stanzaExplain">
           <h3>Riferimenti storici</h3>
           <p>Qui Mameli richiama episodi e figure della storia italiana: Legnano, Ferruccio, Balilla e i Vespri. Sono esempi usati per dire che il coraggio appartiene a tutta l'Italia.</p>
+          <div class="stanzaGlossary">
+            <h4>Parole difficili</h4>
+            <ul>
+              <li><sup>1</sup> <strong>Legnano:</strong> riferimento alla battaglia di Legnano, ricordata come simbolo di resistenza.</li>
+              <li><sup>2</sup> <strong>Ferruccio:</strong> Francesco Ferrucci, figura storica associata al coraggio.</li>
+              <li><sup>3</sup> <strong>Balilla:</strong> giovane genovese ricordato come simbolo di ribellione e coraggio popolare.</li>
+              <li><sup>4</sup> <strong>Squilla:</strong> campana.</li>
+              <li><sup>5</sup> <strong>Vespri:</strong> riferimento ai Vespri siciliani, episodio storico di rivolta.</li>
+              <li><sup>6</sup> <strong>Coorte:</strong> gruppo unito e compatto.</li>
+            </ul>
+          </div>
         </div>
       </article>
 
@@ -280,21 +371,31 @@
         <div class="stanzaText">
           <span>Strofa 5</span>
           <h3>Testo</h3>
-          <p>Son giunchi che piegano<br>
-          Le spade vendute:<br>
-          Già l'Aquila d'Austria<br>
+          <p>Son giunchi<sup>1</sup> che piegano<br>
+          Le spade vendute<sup>2</sup>:<br>
+          Già l'Aquila d'Austria<sup>3</sup><br>
           Le penne ha perdute.<br>
           Il sangue d'Italia,<br>
           Il sangue Polacco,<br>
-          Bevé, col cosacco,<br>
+          Bevé, col cosacco<sup>4</sup>,<br>
           Ma il cor le bruciò.<br>
-          Stringiamci a coorte<br>
+          Stringiamci a coorte<sup>5</sup><br>
           Siam pronti alla morte<br>
           L'Italia chiamò.</p>
         </div>
         <div class="stanzaExplain">
           <h3>Conclusione patriottica</h3>
           <p>La strofa usa immagini forti contro l'oppressione straniera. Va letta nel contesto del Risorgimento: oggi possiamo trasformare quell'energia in cittadinanza responsabile.</p>
+          <div class="stanzaGlossary">
+            <h4>Parole difficili</h4>
+            <ul>
+              <li><sup>1</sup> <strong>Giunchi:</strong> piante sottili che si piegano facilmente; qui indicano fragilità.</li>
+              <li><sup>2</sup> <strong>Spade vendute:</strong> soldati o eserciti che combattono per interesse, non per ideali.</li>
+              <li><sup>3</sup> <strong>Aquila d'Austria:</strong> simbolo dell'Impero austriaco, avversario degli italiani nel Risorgimento.</li>
+              <li><sup>4</sup> <strong>Cosacco:</strong> soldato dell'area russa; qui rappresenta un potere straniero.</li>
+              <li><sup>5</sup> <strong>Coorte:</strong> gruppo compatto e solidale.</li>
+            </ul>
+          </div>
         </div>
       </article>
     </div>
@@ -361,12 +462,35 @@
         <p>Mameli era giovanissimo quando scrisse il testo.</p>
       </article>
       <article class="factCard">
-        <span>1847</span>
-        <p>Il canto nasce nel clima del Risorgimento italiano.</p>
+        <span>🎼</span>
+        <p>Il titolo originale è <strong>Il Canto degli Italiani</strong>, anche se molti lo chiamano Inno di Mameli.</p>
       </article>
       <article class="factCard">
-        <span>2017</span>
-        <p>La legge 181 riconosce ufficialmente il Canto degli Italiani come inno nazionale.</p>
+        <span>70+</span>
+        <p>Per molti anni è stato usato come inno nazionale prima del riconoscimento ufficiale del 2017.</p>
+      </article>
+    </div>
+  </section>
+
+
+  <section id="riflessioni" class="siteSection learnSection reflectionSection">
+    <h2 class="sectionTitle">Riflettiamo insieme</h2>
+    <p class="sectionIntro">
+      L'inno non parla solo del passato: ci aiuta a pensare a come vivere insieme oggi.
+    </p>
+
+    <div class="reflectionGrid">
+      <article class="reflectionCard">
+        <h3>🤝 Unità</h3>
+        <p>Cosa significa oggi sentirsi parte di una comunità?</p>
+      </article>
+      <article class="reflectionCard">
+        <h3>🇮🇹 Simboli</h3>
+        <p>Perché una bandiera o un inno possono unire le persone?</p>
+      </article>
+      <article class="reflectionCard">
+        <h3>🎵 Musica</h3>
+        <p>Come cambia una canzone quando viene cantata da tante persone insieme?</p>
       </article>
     </div>
   </section>

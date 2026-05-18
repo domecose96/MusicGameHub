@@ -34,6 +34,14 @@
   box-shadow: 0 10px 22px rgba(22, 138, 74, 0.24);
 }
 
+.anthemPage .siteLegalLinks a {
+  color: var(--anthem-green);
+}
+
+.anthemPage .siteLegalLinks a:hover {
+  color: #0f6f3c;
+}
+
 .anthemPage #siteNav {
   border-bottom-color: rgba(22, 138, 74, 0.16);
 }
@@ -719,6 +727,11 @@
   object-fit: contain;
 }
 
+.symbolModalIcon[hidden],
+.symbolModalMedia img[hidden] {
+  display: none !important;
+}
+
 .symbolModalIcon {
   width: 72px;
   height: 72px;
@@ -849,23 +862,34 @@
   }
 }
 
-.symbolModalIcon[hidden],
-.symbolModalMedia img[hidden] {
-  display: none !important;
-}
-
-.symbolModalMedia img {
-  width: 100%;
-  max-height: 260px;
-  object-fit: cover;
-}
-
-.symbolModalMedia img.containImage {
-  object-fit: contain;
-}
-
 .singHint {
   margin-top: 8px;
   color: var(--text-muted);
   font-size: 0.95rem;
+}
+
+/* ==================== TIMELINE INNO ==================== */
+
+.anthemPage .timelineContainer {
+  width: 100%;
+  max-width: 900px;
+  margin: 28px auto;
+}
+
+.anthemPage .timelineSVG {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  display: block;
+  background: linear-gradient(135deg, #ffffff, #eef2f1);
+  border-radius: 12px;
+  padding: 20px 0;
+  box-shadow: var(--panel-shadow);
+  border: 1px solid rgba(22, 138, 74, 0.12);
+}
+
+@media (max-width: 768px) {
+  .anthemPage .timelineSVG {
+    padding: 12px 0;
+  }
 }
