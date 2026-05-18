@@ -29,6 +29,7 @@ const symbolDetails = {
   inno: {
     icon: "🎵",
     image: "img/inno_italia/inno.webp",
+    contain: true,
     label: "Simbolo musicale",
     title: "L'Inno nazionale",
     text: "L'inno nazionale non è solo un brano da cantare: è una musica che unisce le persone in un momento comune. Quando viene eseguito, invita a pensare alla storia del Paese, alla cittadinanza e al rispetto verso gli altri.",
@@ -43,6 +44,7 @@ const symbolDetails = {
   stemma: {
     icon: "🛡️",
     image: "img/inno_italia/stemma.webp",
+    contain: true,
     label: "Emblema dello Stato",
     title: "Lo Stemma della Repubblica",
     text: "Lo stemma della Repubblica Italiana è un emblema ufficiale dello Stato. Non è uno scudo medievale: è un insieme di simboli che parlano di lavoro, pace, dignità e appartenenza alla comunità nazionale.",
@@ -60,6 +62,7 @@ const authorDetails = {
   mameli: {
     icon: "✍️",
     image: "img/inno_italia/mameli.webp",
+    contain: true,
     label: "Autore del testo",
     title: "Goffredo Mameli",
     text: "Goffredo Mameli nacque a Genova nel 1827. Fu poeta, patriota e figura del Risorgimento: scrisse il testo del Canto degli Italiani nel 1847, in un momento in cui cresceva il desiderio di libertà e unità nazionale.",
@@ -74,6 +77,7 @@ const authorDetails = {
   novaro: {
     icon: "🎼",
     image: "img/inno_italia/novaro.webp",
+    contain: true,
     label: "Compositore della musica",
     title: "Michele Novaro",
     text: "Michele Novaro, musicista genovese, compose la musica del Canto degli Italiani nel 1847. La melodia ha un carattere energico e solenne, pensato per essere cantato insieme e facilmente riconosciuto.",
@@ -101,18 +105,31 @@ function initSymbolCards() {
   const openModal = (detail) => {
     if (!detail) return;
 
-    modalIcon.textContent = detail.icon;
-    modalIcon.hidden = Boolean(detail.image);
-    modalImage.hidden = !detail.image;
-    modalImage.onload = () => {
-      modalIcon.hidden = true;
-      modalImage.hidden = false;
-    };
-    modalImage.onerror = () => {
-      modalImage.hidden = true;
+    modalIcon.textContent = detail.icon || "";
+    modalImage.onload = null;
+    modalImage.onerror = null;
+
+    modalImage.hidden = true;
+    modalIcon.hidden = true;
+    modalImage.removeAttribute("src");
+
+    modalImage.classList.toggle("containImage", detail.contain);
+
+    if (detail.image) {
+      modalImage.onload = () => {
+        modalIcon.hidden = true;
+        modalImage.hidden = false;
+      };
+
+      modalImage.onerror = () => {
+        modalImage.hidden = true;
+        modalIcon.hidden = false;
+      };
+
+      modalImage.src = detail.image;
+    } else {
       modalIcon.hidden = false;
-    };
-    modalImage.src = detail.image || "";
+    }
     modalImage.alt = detail.title;
     modalLabel.textContent = detail.label;
     modalTitle.textContent = detail.title;
