@@ -38,6 +38,7 @@
   <button class="navBtn" onclick="MGH.scrollToSection('tastiera')">🎹 Tastiera</button>
   <button class="navBtn" onclick="MGH.scrollToSection('elettrofoni')">⚡ Elettrofoni</button>
   <button class="navBtn" onclick="openInstrumentQuiz()">❓ Quiz</button>
+  <button class="navBtn" onclick="MGH.goTo('giochi/strumenti_game.html')">🎮 Gioco</button>
 </nav>
 
 <div id="contentWrapper">
@@ -144,8 +145,8 @@
       <article id="gong" class="instrumentTile" data-family="percussioni" data-name="gong idiofono metallo" onclick="openInstrumentInfo('gong')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/gong.png" alt="Gong" loading="lazy">
-            <img class="blueSide" src="img/strumenti/gong_blueprint.png" alt="Gong stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/gong.webp" alt="Gong" loading="lazy">
+            <img class="blueSide" src="img/strumenti/gong_blueprint.webp" alt="Gong stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Gong</h3>
@@ -154,8 +155,8 @@
       <article id="tam-tam" class="instrumentTile" data-family="percussioni" data-name="tam tam idiofono metallo" onclick="openInstrumentInfo('tam-tam')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/tam_tam.png" alt="Tam-tam" loading="lazy">
-            <img class="blueSide" src="img/strumenti/tam_tam_blueprint.png" alt="Tam-tam stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/tam_tam.webp" alt="Tam-tam" loading="lazy">
+            <img class="blueSide" src="img/strumenti/tam_tam_blueprint.webp" alt="Tam-tam stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Tam-tam</h3>
@@ -164,38 +165,108 @@
       <article id="piatti" class="instrumentTile" data-family="percussioni" data-name="piatti idiofono metallo" onclick="openInstrumentInfo('piatti')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/piatti.png" alt="Piatti" loading="lazy">
-            <img class="blueSide" src="img/strumenti/piatti_blueprint.png" alt="Piatti stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/piatti.webp" alt="Piatti" loading="lazy">
+            <img class="blueSide" src="img/strumenti/piatti_blueprint.webp" alt="Piatti stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Piatti</h3>
       </article>
 
+      <article id="piatto-sospeso" class="instrumentTile" data-family="percussioni" data-name="piatto sospeso idiofono metallo" onclick="openInstrumentInfo('piatto-sospeso')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/piatto_sospeso.webp" alt="Piatto sospeso" loading="lazy">
+            <img class="blueSide" src="img/strumenti/piatto_sospeso_blueprint.webp" alt="Piatto sospeso stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Piatto sospeso</h3>
+      </article>
+
       <article id="triangolo" class="instrumentTile" data-family="percussioni" data-name="triangolo idiofono metallo" onclick="openInstrumentInfo('triangolo')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/triangolo.png" alt="Triangolo" loading="lazy">
-            <img class="blueSide" src="img/strumenti/triangolo_blueprint.png" alt="Triangolo stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/triangolo.webp" alt="Triangolo" loading="lazy">
+            <img class="blueSide" src="img/strumenti/triangolo_blueprint.webp" alt="Triangolo stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Triangolo</h3>
       </article>
 
+      <article id="campane-tubolari" class="instrumentTile" data-family="percussioni" data-name="campane tubolari idiofono intonato metallo" onclick="openInstrumentInfo('campane-tubolari')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/campane_tubolari.webp" alt="Campane tubolari" loading="lazy">
+            <img class="blueSide" src="img/strumenti/campane_tubolari_blueprint.webp" alt="Campane tubolari stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Campane tubolari</h3>
+      </article>
+
       <article id="castagnette" class="instrumentTile" data-family="percussioni" data-name="castagnette nacchere idiofono legno" onclick="openInstrumentInfo('castagnette')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/castagnette.png" alt="Castagnette" loading="lazy">
-            <img class="blueSide" src="img/strumenti/castagnette_blueprint.png" alt="Castagnette stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/castagnette.webp" alt="Castagnette" loading="lazy">
+            <img class="blueSide" src="img/strumenti/castagnette_blueprint.webp" alt="Castagnette stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Castagnette</h3>
       </article>
 
+      <article id="woodblock" class="instrumentTile" data-family="percussioni" data-name="woodblock blocco di legno idiofono legno" onclick="openInstrumentInfo('woodblock')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/woodblock.webp" alt="Woodblock" loading="lazy">
+            <img class="blueSide" src="img/strumenti/woodblock_blueprint.webp" alt="Woodblock stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Woodblock</h3>
+      </article>
+
+      <article id="temple-block" class="instrumentTile" data-family="percussioni" data-name="temple block idiofono legno blocchi cinesi" onclick="openInstrumentInfo('temple-block')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/temple_block.webp" alt="Temple block" loading="lazy">
+            <img class="blueSide" src="img/strumenti/temple_block_blueprint.webp" alt="Temple block stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Temple block</h3>
+      </article>
+
+      <article id="raganella" class="instrumentTile" data-family="percussioni" data-name="raganella idiofono raschiato legno" onclick="openInstrumentInfo('raganella')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/raganella.webp" alt="Raganella" loading="lazy">
+            <img class="blueSide" src="img/strumenti/raganella_blueprint.webp" alt="Raganella stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Raganella</h3>
+      </article>
+
+      <article id="frusta" class="instrumentTile" data-family="percussioni" data-name="frusta slapstick idiofono legno" onclick="openInstrumentInfo('frusta')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/frusta.webp" alt="Frusta" loading="lazy">
+            <img class="blueSide" src="img/strumenti/frusta_blueprint.webp" alt="Frusta stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Frusta</h3>
+      </article>
+
+      <article id="maracas" class="instrumentTile" data-family="percussioni" data-name="maracas idiofono scosso" onclick="openInstrumentInfo('maracas')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/maracas.webp" alt="Maracas" loading="lazy">
+            <img class="blueSide" src="img/strumenti/maracas_blueprint.webp" alt="Maracas stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Maracas</h3>
+      </article>
+
       <article id="xilofono" class="instrumentTile" data-family="percussioni" data-name="xilofono idiofono intonato legno" onclick="openInstrumentInfo('xilofono')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/xilofono.png" alt="Xilofono" loading="lazy">
-            <img class="blueSide" src="img/strumenti/xilofono_blueprint.png" alt="Xilofono stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/xilofono.webp" alt="Xilofono" loading="lazy">
+            <img class="blueSide" src="img/strumenti/xilofono_blueprint.webp" alt="Xilofono stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Xilofono</h3>
@@ -204,18 +275,58 @@
       <article id="vibrafono" class="instrumentTile" data-family="percussioni" data-name="vibrafono idiofono intonato metallo" onclick="openInstrumentInfo('vibrafono')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/vibrafono.png" alt="Vibrafono" loading="lazy">
-            <img class="blueSide" src="img/strumenti/vibrafono_blueprint.png" alt="Vibrafono stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/vibrafono.webp" alt="Vibrafono" loading="lazy">
+            <img class="blueSide" src="img/strumenti/vibrafono_blueprint.webp" alt="Vibrafono stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Vibrafono</h3>
       </article>
 
+      <article id="glockenspiel" class="instrumentTile" data-family="percussioni" data-name="glockenspiel metallofono campanelli idiofono intonato" onclick="openInstrumentInfo('glockenspiel')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/glockenspiel.webp" alt="Glockenspiel" loading="lazy">
+            <img class="blueSide" src="img/strumenti/glockenspiel_blueprint.webp" alt="Glockenspiel stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Glockenspiel</h3>
+      </article>
+
+      <article id="marimba" class="instrumentTile" data-family="percussioni" data-name="marimba idiofono intonato legno" onclick="openInstrumentInfo('marimba')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/marimba.webp" alt="Marimba" loading="lazy">
+            <img class="blueSide" src="img/strumenti/marimba_blueprint.webp" alt="Marimba stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Marimba</h3>
+      </article>
+
+      <article id="grancassa" class="instrumentTile" data-family="percussioni" data-name="grancassa membranofono grave" onclick="openInstrumentInfo('grancassa')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/grancassa.webp" alt="Grancassa" loading="lazy">
+            <img class="blueSide" src="img/strumenti/grancassa_blueprint.webp" alt="Grancassa stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Grancassa</h3>
+      </article>
+
+      <article id="tamburo-a-sonagli" class="instrumentTile" data-family="percussioni" data-name="tamburo a sonagli tamburello membranofono sonagli" onclick="openInstrumentInfo('tamburo-a-sonagli')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/tamburo_a_sonagli.webp" alt="Tamburo a sonagli" loading="lazy">
+            <img class="blueSide" src="img/strumenti/tamburo_a_sonagli_blueprint.webp" alt="Tamburo a sonagli stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Tamburo a sonagli</h3>
+      </article>
+
       <article id="timpani" class="instrumentTile" data-family="percussioni" data-name="timpani membranofono intonato" onclick="openInstrumentInfo('timpani')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/timpani.png" alt="Timpani" loading="lazy">
-            <img class="blueSide" src="img/strumenti/timpani_blueprint.png" alt="Timpani stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/timpani.webp" alt="Timpani" loading="lazy">
+            <img class="blueSide" src="img/strumenti/timpani_blueprint.webp" alt="Timpani stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Timpani</h3>
@@ -224,8 +335,8 @@
       <article id="tamburo" class="instrumentTile" data-family="percussioni" data-name="tamburo membranofono rullante grancassa tamburello" onclick="openInstrumentInfo('tamburo')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/tamburo.png" alt="Tamburo" loading="lazy">
-            <img class="blueSide" src="img/strumenti/tamburo_blueprint.png" alt="Tamburo stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/tamburo.webp" alt="Tamburo" loading="lazy">
+            <img class="blueSide" src="img/strumenti/tamburo_blueprint.webp" alt="Tamburo stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Tamburo</h3>
@@ -234,8 +345,8 @@
       <article id="batteria" class="instrumentTile" data-family="percussioni" data-name="batteria drum set tamburi piatti" onclick="openInstrumentInfo('batteria')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/batteria.png" alt="Batteria" loading="lazy">
-            <img class="blueSide" src="img/strumenti/batteria_blueprint.png" alt="Batteria stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/batteria.webp" alt="Batteria" loading="lazy">
+            <img class="blueSide" src="img/strumenti/batteria_blueprint.webp" alt="Batteria stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Batteria</h3>
@@ -264,33 +375,144 @@
       </div>
     </div>
 
+    <div class="mouthpieceGuide" aria-label="Tipi di imboccatura degli strumenti a fiato">
+      <div class="mouthpieceGuideHeader">
+        <span class="mouthpieceEyebrow">Come nasce il suono</span>
+        <h3>Tipi di imboccatura</h3>
+      </div>
+
+      <div class="mouthpieceGrid">
+        <article class="mouthpieceCard mouthpieceCardWide">
+          <div class="mouthpieceContent">
+            <h4>Imboccatura naturale</h4>
+            <p>L’aria viene diretta contro un bordo e mette in vibrazione la colonna d’aria.</p>
+            <div class="mouthpieceSubtypes">
+              <div>
+                <img src="img/strumenti/imboccature/imboccatura_naturale_flauto.webp" alt="Imboccatura naturale a becco" loading="lazy">
+                <strong>A becco</strong>
+                <span>L’aria passa in un canale e colpisce il bordo interno.</span>
+                <div class="mouthpieceLinks">
+                  <a href="#flauto-dolce">Flauto dolce</a>
+                </div>
+              </div>
+              <div>
+                <img src="img/strumenti/imboccature/imboccatura_naturale_semplice.webp" alt="Imboccatura naturale a labbro" loading="lazy">
+                <strong>A labbro</strong>
+                <span>L’esecutore dirige il soffio contro il foro d’imboccatura.</span>
+                <div class="mouthpieceLinks">
+                  <a href="#flauto">Flauto</a>
+                  <a href="#ottavino">Ottavino</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="mouthpieceCard">
+          <div class="mouthpieceVisual">
+            <img src="img/strumenti/imboccature/imboccatura_ancia_semplice.webp" alt="Imboccatura ad ancia semplice" loading="lazy">
+          </div>
+          <div class="mouthpieceContent">
+            <h4>Ancia semplice</h4>
+            <p>Una sola lamella vibra contro il bocchino.</p>
+            <div class="mouthpieceLinks">
+              <a href="#clarinetto">Clarinetto</a>
+              <a href="#sassofono">Sassofono</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="mouthpieceCard">
+          <div class="mouthpieceVisual">
+            <img src="img/strumenti/imboccature/imboccatura_ancia_doppia.webp" alt="Imboccatura ad ancia doppia" loading="lazy">
+          </div>
+          <div class="mouthpieceContent">
+            <h4>Ancia doppia</h4>
+            <p>Due lamelle vibrano una contro l’altra.</p>
+            <div class="mouthpieceLinks">
+              <a href="#oboe">Oboe</a>
+              <a href="#corno-inglese">Corno inglese</a>
+              <a href="#fagotto">Fagotto</a>
+              <a href="#controfagotto">Controfagotto</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="mouthpieceCard">
+          <div class="mouthpieceVisual">
+            <img src="img/strumenti/imboccature/imboccatura_bocchino.webp" alt="Imboccatura a bocchino" loading="lazy">
+          </div>
+          <div class="mouthpieceContent">
+            <h4>Bocchino</h4>
+            <p>Il suono nasce dalla vibrazione delle labbra dell’esecutore.</p>
+            <div class="mouthpieceLinks">
+              <a href="#tromba">Tromba</a>
+              <a href="#trombone">Trombone</a>
+              <a href="#corno">Corno</a>
+              <a href="#bassotuba">Bassotuba</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
     <div class="instrumentGallery">
+
+      <article id="flauto-dolce" class="instrumentTile" data-family="fiato" data-name="flauto dolce legni imboccatura naturale" onclick="openInstrumentInfo('flauto-dolce')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/flauto_dolce.webp" alt="Flauto dolce" loading="lazy">
+            <img class="blueSide" src="img/strumenti/flauto_dolce_blueprint.webp" alt="Flauto dolce stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Flauto dolce</h3>
+      </article>
 
       <article id="flauto" class="instrumentTile" data-family="fiato" data-name="flauto flauto dolce flauto traverso ottavino legni" onclick="openInstrumentInfo('flauto')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/flauto.png" alt="Flauto" loading="lazy">
-            <img class="blueSide" src="img/strumenti/flauto_blueprint.png" alt="Flauto stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/flauto.webp" alt="Flauto" loading="lazy">
+            <img class="blueSide" src="img/strumenti/flauto_blueprint.webp" alt="Flauto stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Flauto</h3>
       </article>
 
+      <article id="ottavino" class="instrumentTile" data-family="fiato" data-name="ottavino piccolo flauto traverso acuto legni" onclick="openInstrumentInfo('ottavino')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/ottavino.webp" alt="Ottavino" loading="lazy">
+            <img class="blueSide" src="img/strumenti/ottavino_blueprint.webp" alt="Ottavino stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Ottavino</h3>
+      </article>
+
       <article id="oboe" class="instrumentTile" data-family="fiato" data-name="oboe corno inglese legni ancia doppia" onclick="openInstrumentInfo('oboe')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/oboe.png" alt="Oboe" loading="lazy">
-            <img class="blueSide" src="img/strumenti/oboe_blueprint.png" alt="Oboe stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/oboe.webp" alt="Oboe" loading="lazy">
+            <img class="blueSide" src="img/strumenti/oboe_blueprint.webp" alt="Oboe stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Oboe</h3>
       </article>
 
+      <article id="corno-inglese" class="instrumentTile" data-family="fiato" data-name="corno inglese legni ancia doppia" onclick="openInstrumentInfo('corno-inglese')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/corno_inglese.webp" alt="Corno inglese" loading="lazy">
+            <img class="blueSide" src="img/strumenti/corno_inglese_blueprint.webp" alt="Corno inglese stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Corno inglese</h3>
+      </article>
+
       <article id="clarinetto" class="instrumentTile" data-family="fiato" data-name="clarinetto legni ancia semplice" onclick="openInstrumentInfo('clarinetto')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/clarinetto.png" alt="Clarinetto" loading="lazy">
-            <img class="blueSide" src="img/strumenti/clarinetto_blueprint.png" alt="Clarinetto stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/clarinetto.webp" alt="Clarinetto" loading="lazy">
+            <img class="blueSide" src="img/strumenti/clarinetto_blueprint.webp" alt="Clarinetto stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Clarinetto</h3>
@@ -299,8 +521,8 @@
       <article id="sassofono" class="instrumentTile" data-family="fiato" data-name="sassofono sax legni ancia semplice" onclick="openInstrumentInfo('sassofono')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/sassofono.png" alt="Sassofono" loading="lazy">
-            <img class="blueSide" src="img/strumenti/sassofono_blueprint.png" alt="Sassofono stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/sassofono.webp" alt="Sassofono" loading="lazy">
+            <img class="blueSide" src="img/strumenti/sassofono_blueprint.webp" alt="Sassofono stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Sassofono</h3>
@@ -309,18 +531,28 @@
       <article id="fagotto" class="instrumentTile" data-family="fiato" data-name="fagotto controfagotto legni ancia doppia" onclick="openInstrumentInfo('fagotto')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/fagotto.png" alt="Fagotto" loading="lazy">
-            <img class="blueSide" src="img/strumenti/fagotto_blueprint.png" alt="Fagotto stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/fagotto.webp" alt="Fagotto" loading="lazy">
+            <img class="blueSide" src="img/strumenti/fagotto_blueprint.webp" alt="Fagotto stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Fagotto</h3>
       </article>
 
+      <article id="controfagotto" class="instrumentTile" data-family="fiato" data-name="controfagotto legni ancia doppia grave" onclick="openInstrumentInfo('controfagotto')">
+        <div class="instrumentImage">
+          <div class="instrumentFlip">
+            <img class="normalSide" src="img/strumenti/controfagotto.webp" alt="Controfagotto" loading="lazy">
+            <img class="blueSide" src="img/strumenti/controfagotto_blueprint.webp" alt="Controfagotto stile blueprint" loading="lazy">
+          </div>
+        </div>
+        <h3>Controfagotto</h3>
+      </article>
+
       <article id="tromba" class="instrumentTile" data-family="fiato" data-name="tromba ottoni bocchino" onclick="openInstrumentInfo('tromba')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/tromba.png" alt="Tromba" loading="lazy">
-            <img class="blueSide" src="img/strumenti/tromba_blueprint.png" alt="Tromba stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/tromba.webp" alt="Tromba" loading="lazy">
+            <img class="blueSide" src="img/strumenti/tromba_blueprint.webp" alt="Tromba stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Tromba</h3>
@@ -329,8 +561,8 @@
       <article id="trombone" class="instrumentTile" data-family="fiato" data-name="trombone ottoni coulisse bocchino" onclick="openInstrumentInfo('trombone')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/trombone.png" alt="Trombone" loading="lazy">
-            <img class="blueSide" src="img/strumenti/trombone_blueprint.png" alt="Trombone stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/trombone.webp" alt="Trombone" loading="lazy">
+            <img class="blueSide" src="img/strumenti/trombone_blueprint.webp" alt="Trombone stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Trombone</h3>
@@ -339,8 +571,8 @@
       <article id="corno" class="instrumentTile" data-family="fiato" data-name="corno ottoni bocchino" onclick="openInstrumentInfo('corno')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/corno.png" alt="Corno" loading="lazy">
-            <img class="blueSide" src="img/strumenti/corno_blueprint.png" alt="Corno stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/corno.webp" alt="Corno" loading="lazy">
+            <img class="blueSide" src="img/strumenti/corno_blueprint.webp" alt="Corno stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Corno</h3>
@@ -349,8 +581,8 @@
       <article id="bassotuba" class="instrumentTile" data-family="fiato" data-name="bassotuba tuba ottoni bocchino" onclick="openInstrumentInfo('bassotuba')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/bassotuba.png" alt="Bassotuba" loading="lazy">
-            <img class="blueSide" src="img/strumenti/bassotuba_blueprint.png" alt="Bassotuba stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/bassotuba.webp" alt="Bassotuba" loading="lazy">
+            <img class="blueSide" src="img/strumenti/bassotuba_blueprint.webp" alt="Bassotuba stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Bassotuba</h3>
@@ -359,8 +591,8 @@
       <article id="cornamusa" class="instrumentTile" data-family="fiato" data-name="cornamusa sacca aria" onclick="openInstrumentInfo('cornamusa')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/cornamusa.png" alt="Cornamusa" loading="lazy">
-            <img class="blueSide" src="img/strumenti/cornamusa_blueprint.png" alt="Cornamusa stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/cornamusa.webp" alt="Cornamusa" loading="lazy">
+            <img class="blueSide" src="img/strumenti/cornamusa_blueprint.webp" alt="Cornamusa stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Cornamusa</h3>
@@ -394,8 +626,8 @@
       <article id="violino" class="instrumentTile" data-family="corde" data-name="violino corde strofinate archetto" onclick="openInstrumentInfo('violino')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/violino.png" alt="Violino" loading="lazy">
-            <img class="blueSide" src="img/strumenti/violino_blueprint.png" alt="Violino stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/violino.webp" alt="Violino" loading="lazy">
+            <img class="blueSide" src="img/strumenti/violino_blueprint.webp" alt="Violino stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Violino</h3>
@@ -404,8 +636,8 @@
       <article id="viola" class="instrumentTile" data-family="corde" data-name="viola corde strofinate archetto" onclick="openInstrumentInfo('viola')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/viola.png" alt="Viola" loading="lazy">
-            <img class="blueSide" src="img/strumenti/viola_blueprint.png" alt="Viola stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/viola.webp" alt="Viola" loading="lazy">
+            <img class="blueSide" src="img/strumenti/viola_blueprint.webp" alt="Viola stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Viola</h3>
@@ -414,8 +646,8 @@
       <article id="violoncello" class="instrumentTile" data-family="corde" data-name="violoncello cello corde strofinate archetto" onclick="openInstrumentInfo('violoncello')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/violoncello.png" alt="Violoncello" loading="lazy">
-            <img class="blueSide" src="img/strumenti/violoncello_blueprint.png" alt="Violoncello stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/violoncello.webp" alt="Violoncello" loading="lazy">
+            <img class="blueSide" src="img/strumenti/violoncello_blueprint.webp" alt="Violoncello stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Violoncello</h3>
@@ -424,8 +656,8 @@
       <article id="contrabbasso" class="instrumentTile" data-family="corde" data-name="contrabbasso corde strofinate pizzicate archetto pizzicato" onclick="openInstrumentInfo('contrabbasso')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/contrabbasso.png" alt="Contrabbasso" loading="lazy">
-            <img class="blueSide" src="img/strumenti/contrabbasso_blueprint.png" alt="Contrabbasso stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/contrabbasso.webp" alt="Contrabbasso" loading="lazy">
+            <img class="blueSide" src="img/strumenti/contrabbasso_blueprint.webp" alt="Contrabbasso stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Contrabbasso</h3>
@@ -434,8 +666,8 @@
       <article id="arpa" class="instrumentTile" data-family="corde" data-name="arpa corde pizzicate" onclick="openInstrumentInfo('arpa')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/arpa.png" alt="Arpa" loading="lazy">
-            <img class="blueSide" src="img/strumenti/arpa_blueprint.png" alt="Arpa stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/arpa.webp" alt="Arpa" loading="lazy">
+            <img class="blueSide" src="img/strumenti/arpa_blueprint.webp" alt="Arpa stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Arpa</h3>
@@ -444,8 +676,8 @@
       <article id="chitarra" class="instrumentTile" data-family="corde" data-name="chitarra corde pizzicate" onclick="openInstrumentInfo('chitarra')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/chitarra.png" alt="Chitarra" loading="lazy">
-            <img class="blueSide" src="img/strumenti/chitarra_blueprint.png" alt="Chitarra stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/chitarra.webp" alt="Chitarra" loading="lazy">
+            <img class="blueSide" src="img/strumenti/chitarra_blueprint.webp" alt="Chitarra stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Chitarra</h3>
@@ -454,8 +686,8 @@
       <article id="liuto" class="instrumentTile" data-family="corde" data-name="liuto medievale corde pizzicate" onclick="openInstrumentInfo('liuto')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/liuto.png" alt="Liuto" loading="lazy">
-            <img class="blueSide" src="img/strumenti/liuto_blueprint.png" alt="Liuto stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/liuto.webp" alt="Liuto" loading="lazy">
+            <img class="blueSide" src="img/strumenti/liuto_blueprint.webp" alt="Liuto stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Liuto</h3>
@@ -464,8 +696,8 @@
       <article id="mandolino" class="instrumentTile" data-family="corde" data-name="mandolino corde pizzicate" onclick="openInstrumentInfo('mandolino')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/mandolino.png" alt="Mandolino" loading="lazy">
-            <img class="blueSide" src="img/strumenti/mandolino_blueprint.png" alt="Mandolino stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/mandolino.webp" alt="Mandolino" loading="lazy">
+            <img class="blueSide" src="img/strumenti/mandolino_blueprint.webp" alt="Mandolino stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Mandolino</h3>
@@ -474,8 +706,8 @@
       <article id="lira" class="instrumentTile" data-family="corde" data-name="lira corde pizzicate antica" onclick="openInstrumentInfo('lira')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/lira.png" alt="Lira" loading="lazy">
-            <img class="blueSide" src="img/strumenti/lira_blueprint.png" alt="Lira stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/lira.webp" alt="Lira" loading="lazy">
+            <img class="blueSide" src="img/strumenti/lira_blueprint.webp" alt="Lira stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Lira</h3>
@@ -484,8 +716,8 @@
       <article id="viella" class="instrumentTile" data-family="corde" data-name="viella vielle medievale corde strofinate" onclick="openInstrumentInfo('viella')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/viella.png" alt="Viella" loading="lazy">
-            <img class="blueSide" src="img/strumenti/viella_blueprint.png" alt="Viella stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/viella.webp" alt="Viella" loading="lazy">
+            <img class="blueSide" src="img/strumenti/viella_blueprint.webp" alt="Viella stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Viella</h3>
@@ -523,8 +755,8 @@
       <article id="clavicembalo" class="instrumentTile" data-family="tastiera" data-name="clavicembalo spinetta virginale tastiera corde pizzicate" onclick="openInstrumentInfo('clavicembalo')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/clavicembalo.png" alt="Clavicembalo" loading="lazy">
-            <img class="blueSide" src="img/strumenti/clavicembalo_blueprint.png" alt="Clavicembalo stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/clavicembalo.webp" alt="Clavicembalo" loading="lazy">
+            <img class="blueSide" src="img/strumenti/clavicembalo_blueprint.webp" alt="Clavicembalo stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Clavicembalo</h3>
@@ -533,8 +765,8 @@
       <article id="pianoforte" class="instrumentTile" data-family="tastiera" data-name="pianoforte piano tastiera corde percosse" onclick="openInstrumentInfo('pianoforte')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/pianoforte.png" alt="Pianoforte" loading="lazy">
-            <img class="blueSide" src="img/strumenti/pianoforte_blueprint.png" alt="Pianoforte stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/pianoforte.webp" alt="Pianoforte" loading="lazy">
+            <img class="blueSide" src="img/strumenti/pianoforte_blueprint.webp" alt="Pianoforte stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Pianoforte</h3>
@@ -543,8 +775,8 @@
       <article id="organo" class="instrumentTile" data-family="tastiera" data-name="organo tastiera aria canne mantice" onclick="openInstrumentInfo('organo')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/organo.png" alt="Organo" loading="lazy">
-            <img class="blueSide" src="img/strumenti/organo_blueprint.png" alt="Organo stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/organo.webp" alt="Organo" loading="lazy">
+            <img class="blueSide" src="img/strumenti/organo_blueprint.webp" alt="Organo stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Organo</h3>
@@ -553,8 +785,8 @@
       <article id="fisarmonica" class="instrumentTile" data-family="tastiera" data-name="fisarmonica tastiera aria mantice ance" onclick="openInstrumentInfo('fisarmonica')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/fisarmonica.png" alt="Fisarmonica" loading="lazy">
-            <img class="blueSide" src="img/strumenti/fisarmonica_blueprint.png" alt="Fisarmonica stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/fisarmonica.webp" alt="Fisarmonica" loading="lazy">
+            <img class="blueSide" src="img/strumenti/fisarmonica_blueprint.webp" alt="Fisarmonica stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Fisarmonica</h3>
@@ -588,8 +820,8 @@
       <article id="chitarra-elettrica" class="instrumentTile" data-family="elettrofoni" data-name="chitarra elettrica elettromeccanico pickup" onclick="openInstrumentInfo('chitarra-elettrica')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/chitarra_elettrica.png" alt="Chitarra elettrica" loading="lazy">
-            <img class="blueSide" src="img/strumenti/chitarra_elettrica_blueprint.png" alt="Chitarra elettrica stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/chitarra_elettrica.webp" alt="Chitarra elettrica" loading="lazy">
+            <img class="blueSide" src="img/strumenti/chitarra_elettrica_blueprint.webp" alt="Chitarra elettrica stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Chitarra elettrica</h3>
@@ -598,8 +830,8 @@
       <article id="basso-elettrico" class="instrumentTile" data-family="elettrofoni" data-name="basso elettrico elettromeccanico pickup" onclick="openInstrumentInfo('basso-elettrico')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/basso_elettrico.png" alt="Basso elettrico" loading="lazy">
-            <img class="blueSide" src="img/strumenti/basso_elettrico_blueprint.png" alt="Basso elettrico stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/basso_elettrico.webp" alt="Basso elettrico" loading="lazy">
+            <img class="blueSide" src="img/strumenti/basso_elettrico_blueprint.webp" alt="Basso elettrico stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Basso elettrico</h3>
@@ -608,8 +840,8 @@
       <article id="organo-hammond" class="instrumentTile" data-family="elettrofoni" data-name="organo hammond elettromeccanico tastiera" onclick="openInstrumentInfo('organo-hammond')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/organo_hammond.png" alt="Organo Hammond" loading="lazy">
-            <img class="blueSide" src="img/strumenti/organo_hammond_blueprint.png" alt="Organo Hammond stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/organo_hammond.webp" alt="Organo Hammond" loading="lazy">
+            <img class="blueSide" src="img/strumenti/organo_hammond_blueprint.webp" alt="Organo Hammond stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Organo Hammond</h3>
@@ -618,8 +850,8 @@
       <article id="theremin" class="instrumentTile" data-family="elettrofoni" data-name="theremin elettronico senza contatto" onclick="openInstrumentInfo('theremin')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/theremin.png" alt="Theremin" loading="lazy">
-            <img class="blueSide" src="img/strumenti/theremin_blueprint.png" alt="Theremin stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/theremin.webp" alt="Theremin" loading="lazy">
+            <img class="blueSide" src="img/strumenti/theremin_blueprint.webp" alt="Theremin stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Theremin</h3>
@@ -628,8 +860,8 @@
       <article id="onde-martenot" class="instrumentTile" data-family="elettrofoni" data-name="onde martenot elettronico" onclick="openInstrumentInfo('onde-martenot')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/onde_martenot.png" alt="Onde Martenot" loading="lazy">
-            <img class="blueSide" src="img/strumenti/onde_martenot_blueprint.png" alt="Onde Martenot stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/onde_martenot.webp" alt="Onde Martenot" loading="lazy">
+            <img class="blueSide" src="img/strumenti/onde_martenot_blueprint.webp" alt="Onde Martenot stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Onde Martenot</h3>
@@ -638,8 +870,8 @@
       <article id="sintetizzatore" class="instrumentTile" data-family="elettrofoni" data-name="sintetizzatore moog elettronico" onclick="openInstrumentInfo('sintetizzatore')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/sintetizzatore.png" alt="Sintetizzatore" loading="lazy">
-            <img class="blueSide" src="img/strumenti/sintetizzatore_blueprint.png" alt="Sintetizzatore stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/sintetizzatore.webp" alt="Sintetizzatore" loading="lazy">
+            <img class="blueSide" src="img/strumenti/sintetizzatore_blueprint.webp" alt="Sintetizzatore stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Sintetizzatore</h3>
@@ -648,8 +880,8 @@
       <article id="campionatore" class="instrumentTile" data-family="elettrofoni" data-name="campionatore sampler elettronico" onclick="openInstrumentInfo('campionatore')">
         <div class="instrumentImage">
           <div class="instrumentFlip">
-            <img class="normalSide" src="img/strumenti/campionatore.png" alt="Campionatore" loading="lazy">
-            <img class="blueSide" src="img/strumenti/campionatore_blueprint.png" alt="Campionatore stile blueprint" loading="lazy">
+            <img class="normalSide" src="img/strumenti/campionatore.webp" alt="Campionatore" loading="lazy">
+            <img class="blueSide" src="img/strumenti/campionatore_blueprint.webp" alt="Campionatore stile blueprint" loading="lazy">
           </div>
         </div>
         <h3>Campionatore</h3>
@@ -661,6 +893,7 @@
   <!-- ==================== CTA ==================== -->
   <div class="learnCTA instrumentsCTA">
     <button class="menuButton" onclick="openInstrumentQuiz()">❓ Vai al Quiz</button>
+    <button class="menuButton startButton" onclick="MGH.goTo('giochi/strumenti_game.html')">🎮 Gioco degli strumenti</button>
   </div>
 
 </div>
@@ -783,6 +1016,8 @@
     <a href="legal/privacy.html">Privacy Policy</a>
     <span>·</span>
     <a href="legal/cookie.html">Cookie Policy</a>
+    <span>·</span>
+    <a href="legal/termini.html">Termini di servizio</a>
   </div>
 </footer>
 

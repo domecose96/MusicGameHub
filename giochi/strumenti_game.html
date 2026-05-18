@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strumenti Musicali Game</title>
+<link rel="icon" type="image/png" href="../img/mgh-logo.png">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/giochi/strumenti_game.css">
+</head>
+
+<body class="strumentiGamePage">
+
+<button id="rankedLeaderboardBtn"
+        class="rankedLeaderboardButton"
+        onclick="showGenericRankedLeaderboardModal('strumenti')"
+        aria-label="Classifica">
+  🏆
+</button>
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+
+    <div class="headerBrand">
+      <span class="headerEyebrow">Allenamento musicale</span>
+      <h1 class="pageTitle">Strumenti Musicali</h1>
+      <span id="headerModeLabel" class="headerModeLabel hidden"></span>
+    </div>
+  </div>
+</header>
+
+<div id="contentWrapper">
+
+  <!-- MENU PRINCIPALE -->
+  <div id="menu">
+    <h2>Modalità di Gioco</h2>
+
+    <div class="buttonGroup strumentiModeGroup">
+      <button class="menuButton gameTypeButton" onclick="selectGameMode('recognize', this)">
+        <span class="gameTypeIcon">🎺</span>
+        Riconosci lo Strumento
+      </button>
+      <button class="menuButton gameTypeButton" onclick="selectGameMode('memory', this)">
+        <span class="gameTypeIcon">🎴</span>
+        Memory Strumenti
+      </button>
+      <button class="menuButton gameTypeButton" onclick="selectGameMode('listen', this)">
+        <span class="gameTypeIcon">🔊</span>
+        Ascolta e Riconosci
+      </button>
+    </div>
+
+    <h2 style="margin-top: 28px;">Modalità Classificata</h2>
+
+    <div class="buttonGroup">
+      <button class="menuButton rankedModeButton" onclick="selectMode(this, 'ranked')">
+        <span class="dailyModeBadge">Ranked</span>
+        Classificata
+      </button>
+    </div>
+
+    <button class="menuButton startButton" onclick="startGame()">Inizia</button>
+
+    <p id="warning" class="warningText"></p>
+    <p class="gameIntro">
+      Scegli una modalità e mettiti alla prova con strumenti musicali da tutto il mondo. Sfida te stesso in modalità classificata e conquista la classifica!
+    </p>
+  </div>
+
+  <!-- AREA DI GIOCO -->
+  <div id="game" class="hidden">
+
+    <!-- RANKED UI -->
+    <div id="rankedUI" class="hidden">
+      <div id="rankedScoreDisplay">
+        Score: <span id="rankedScore">0</span>
+      </div>
+      <div id="rankedProgressWrapper">
+        <div id="rankedProgressLabel">
+          <span>Progressione</span>
+          <span id="rankedQuestionCounter">1/10</span>
+        </div>
+        <div id="rankedProgressBar">
+          <div id="rankedProgressFill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIMER -->
+    <div id="timerBox" class="hidden">
+      ⏱ <span id="timer">5</span>s
+    </div>
+
+    <!-- DOMANDA/TITOLO -->
+    <div id="questionBox" class="questionBoxStrumenti">
+      <span id="question"></span>
+    </div>
+
+    <!-- AREA GIOCO DINAMICA -->
+    <div id="gameArea" class="gameAreaStrumenti">
+      <!-- Riempito dinamicamente da JS -->
+    </div>
+
+    <!-- FEEDBACK -->
+    <div id="feedback" class="feedbackText"></div>
+
+    <!-- BOTTONI AZIONI -->
+    <div class="gameActions">
+      <button id="backButton" class="menuButton" onclick="goBack()">⬅ Indietro</button>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="../js/common.js"></script>
+<script src="../js/giochi/ranked.js"></script>
+<script src="../js/giochi/strumenti_game.js"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

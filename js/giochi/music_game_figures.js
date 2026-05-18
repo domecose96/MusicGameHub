@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
     currentFigure = pool[Math.floor(Math.random() * pool.length)];
     rankedQuestionStart = Date.now();
 
-    figureImage.src = "../img/" + currentFigure + ".png";
+    figureImage.src = "../img/" + currentFigure + ".webp";
 
     const options = shuffleOptions(currentFigure);
 

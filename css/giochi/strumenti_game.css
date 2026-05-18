@@ -1,0 +1,512 @@
+/* ==================== STRUMENTI GAME PAGE ==================== */
+
+.strumentiGamePage {
+  height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(255, 102, 0, 0.15), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(255, 153, 51, 0.08), transparent 35%),
+    linear-gradient(to bottom, #ffffff, #f8f4f0);
+}
+
+.strumentiGamePage #contentWrapper {
+  height: calc(100vh - var(--header-height));
+  overflow: hidden;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* ==================== HEADER ==================== */
+
+#questionBox {
+  font-size: 1.3rem;
+  margin: 8px 0 12px;
+  color: var(--accent);
+  font-weight: 700;
+  min-height: 34px;
+  line-height: 1.4;
+}
+
+.questionBoxStrumenti {
+  text-align: center;
+  padding: 0 20px;
+}
+
+.gameIntro {
+  color: var(--text-muted);
+  max-width: 700px;
+  margin: 20px auto;
+  line-height: 1.6;
+}
+
+/* ==================== GAME MODE SELECTION ==================== */
+
+.strumentiModeGroup {
+  align-items: center;
+  overflow: visible;
+}
+
+.gameTypeButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  overflow: visible;
+  background: rgba(255, 255, 255, 0.86) !important;
+  border: 1.5px solid rgba(255, 102, 0, 0.18) !important;
+  color: var(--text-main) !important;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07) !important;
+}
+
+.gameTypeButton:hover:not(.selected) {
+  background: rgba(255, 102, 0, 0.08) !important;
+  border-color: rgba(255, 102, 0, 0.34) !important;
+  color: var(--accent) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(255, 102, 0, 0.16) !important;
+}
+
+.gameTypeButton.selected {
+  background: linear-gradient(135deg, var(--action-orange), var(--action-orange-soft)) !important;
+  border-color: transparent !important;
+  color: #ffffff !important;
+  box-shadow: 0 12px 26px rgba(232, 93, 4, 0.28) !important;
+}
+
+.gameTypeIcon {
+  font-size: 2rem;
+  display: block;
+}
+
+/* ==================== GAME AREA ==================== */
+
+.gameAreaStrumenti {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin: 10px 0;
+  min-height: 0;
+}
+
+/* ==================== RECOGNIZE MODE: INSTRUMENT TILES ==================== */
+
+.instrumentOptionGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(170px, 1fr));
+  gap: 16px;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.instrumentOptionTile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 190px;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 2px solid rgba(255, 102, 0, 0.18);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+}
+
+.instrumentOptionTile:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 102, 0, 0.38);
+  box-shadow: 0 12px 28px rgba(255, 102, 0, 0.16);
+}
+
+.instrumentOptionTile img {
+  width: 100%;
+  height: 148px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
+}
+
+.instrumentOptionTile .instrumentName {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-main);
+  text-align: center;
+}
+
+/* ==================== MEMORY MODE: CARD GRID ==================== */
+
+.memoryCardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  perspective: 1000px;
+}
+
+.memoryCard {
+  width: 100%;
+  min-height: 140px;
+  position: relative;
+  cursor: pointer;
+  background: rgba(255, 102, 0, 0.1);
+  border: 2px solid rgba(255, 102, 0, 0.28);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  transition: all 0.2s ease;
+  transform-style: preserve-3d;
+}
+
+.memoryCard:hover {
+  border-color: rgba(255, 102, 0, 0.48);
+  box-shadow: 0 6px 16px rgba(255, 102, 0, 0.15);
+}
+
+.memoryCard.flipped {
+  background: linear-gradient(135deg, #fff8ed, #fff0dc);
+  border-color: rgba(255, 102, 0, 0.38);
+  box-shadow: 0 8px 20px rgba(255, 102, 0, 0.16);
+}
+
+.memoryCard.matched {
+  background: rgba(102, 204, 102, 0.18);
+  border-color: #66cc66;
+  cursor: default;
+}
+
+.memoryCard.matched:hover {
+  border-color: #66cc66;
+  box-shadow: 0 6px 16px rgba(102, 204, 102, 0.15);
+}
+
+.memoryCardInner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.memoryCardLabel {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.memoryCard.flipped .memoryCardLabel {
+  opacity: 1;
+}
+
+.memoryStats {
+  margin-top: 16px;
+  text-align: center;
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* ==================== LISTEN MODE: AUDIO + OPTIONS ==================== */
+
+.listenModeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.audioPlaybackArea {
+  background: rgba(255, 102, 0, 0.08);
+  border: 2px solid rgba(255, 102, 0, 0.24);
+  border-radius: 16px;
+  padding: 20px 24px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.audioPlayLabel {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.audioButton {
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 24px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  width: auto;
+  height: auto;
+}
+
+.audioButton:hover {
+  transform: scale(1.04);
+  box-shadow: 0 8px 20px rgba(255, 102, 0, 0.25);
+}
+
+.audioButton:active {
+  transform: scale(0.96);
+}
+
+.audioButton.playing {
+  animation: pulse-audio 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse-audio {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 102, 0, 0.7); }
+  50% { box-shadow: 0 0 0 12px rgba(255, 102, 0, 0.1); }
+}
+
+.audioNotAvailable {
+  background: rgba(200, 100, 50, 0.12);
+  border: 2px solid rgba(200, 100, 50, 0.24);
+  border-radius: 12px;
+  padding: 16px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-align: center;
+  margin: 8px 0;
+}
+
+.listenOptionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.listenOptionButton {
+  background: rgba(255, 255, 255, 0.88);
+  border: 2px solid rgba(255, 102, 0, 0.18);
+  color: var(--text-main);
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.listenOptionButton:hover {
+  background: rgba(255, 102, 0, 0.08);
+  border-color: rgba(255, 102, 0, 0.38);
+  color: var(--accent);
+  transform: translateX(4px);
+}
+
+.listenOptionButton.correct {
+  background: rgba(102, 204, 102, 0.18);
+  border-color: #66cc66;
+  color: #2d7a2d;
+}
+
+.listenOptionButton.wrong {
+  background: rgba(255, 102, 102, 0.18);
+  border-color: #ff6666;
+  color: #cc3333;
+}
+
+/* ==================== FEEDBACK ==================== */
+
+.feedbackText {
+  min-height: 28px;
+  margin-top: 6px;
+  color: var(--accent);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* ==================== TIMER ==================== */
+
+#timerBox {
+  position: fixed;
+  top: calc(var(--header-height) + 18px);
+  right: 24px;
+  background: rgba(255, 102, 0, 0.1);
+  color: var(--accent);
+  border: 1.5px solid rgba(255, 102, 0, 0.25);
+  border-radius: 14px;
+  padding: 10px 16px;
+  font-weight: 800;
+  z-index: 20;
+  font-size: 1rem;
+}
+
+#timerBox.hidden {
+  display: none;
+}
+
+/* ==================== GAME ACTIONS ==================== */
+
+.gameActions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.startButton {
+  background: linear-gradient(135deg, var(--action-orange), var(--action-orange-soft));
+  border: 1.5px solid rgba(168, 63, 0, 0.22);
+  color: #ffffff;
+  box-shadow: 0 12px 28px rgba(232, 93, 4, 0.28);
+  width: auto;
+  height: auto;
+  padding: 14px 32px;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.startButton:hover {
+  background: linear-gradient(135deg, #d94f00, var(--action-orange));
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(232, 93, 4, 0.34);
+}
+
+/* ==================== MENU STYLING ==================== */
+
+#menu {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+#menu h2 {
+  color: var(--accent);
+  margin-top: 24px;
+  margin-bottom: 18px;
+  font-size: 1.45rem;
+}
+
+#menu h2:first-child {
+  margin-top: 0;
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+
+@media (max-width: 768px) {
+  .instrumentOptionGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    max-width: 100%;
+  }
+
+  .instrumentOptionTile {
+    min-height: 150px;
+    padding: 10px;
+    border-radius: 14px;
+  }
+
+  .instrumentOptionTile img {
+    height: 108px;
+  }
+
+  .instrumentOptionTile .instrumentName {
+    font-size: 0.9rem;
+  }
+
+  .memoryCardGrid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+    max-width: 100%;
+  }
+
+  .memoryCard {
+    min-height: 120px;
+    border-radius: 12px;
+    font-size: 2rem;
+  }
+
+  #questionBox {
+    font-size: 1.05rem;
+  }
+
+  .listenOptionButton {
+    font-size: 0.95rem;
+  }
+
+  #timerBox {
+    top: calc(var(--header-height) + 10px);
+    right: 16px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .instrumentOptionGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .instrumentOptionTile {
+    min-height: 126px;
+    padding: 8px;
+  }
+
+  .instrumentOptionTile img {
+    height: 90px;
+  }
+
+  .memoryCardGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .gameTypeIcon {
+    font-size: 1.5rem;
+  }
+
+  .buttonGroup .menuButton {
+    width: 100%;
+    height: auto;
+    min-height: 80px;
+    padding: 12px;
+  }
+
+  #questionBox {
+    font-size: 0.95rem;
+    padding: 0 12px;
+  }
+
+  .gameActions {
+    gap: 10px;
+  }
+}
