@@ -196,6 +196,14 @@ const MusicGameHubResources = (() => {
       url: "strumenti.html"
     },
     {
+      id: "homeCivic",
+      icon: "🌍",
+      title: "Musica ed educazione civica",
+      desc: "Percorsi didattici su identità, ambiente, cittadinanza e responsabilità.",
+      tag: "Percorsi",
+      url: "educazione_civica/index.html"
+    },
+    {
       id: "homeMap",
       icon: "🗺️",
       title: "Mappa delle risorse",
@@ -206,12 +214,6 @@ const MusicGameHubResources = (() => {
   ];
 
   const upcoming = [
-    {
-      id: "civic",
-      icon: "🌍",
-      title: "Musica ed educazione civica",
-      desc: "Musica, società, diritti, identità e cittadinanza."
-    },
     {
       id: "listening",
       icon: "🎧",

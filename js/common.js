@@ -16,6 +16,7 @@ const MGH = (() => {
       path.includes("/storia/") ||
       path.includes("/giochi/") ||
       path.includes("/strumenti/") ||
+      path.includes("/educazione_civica/") ||
       path.includes("/legal/")
         ? "../index.html"
         : "index.html";

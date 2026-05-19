@@ -1,0 +1,257 @@
+.civicPage {
+  --civic-green: #168a4a;
+  --civic-blue: #12324a;
+  --civic-sky: #0d6f9f;
+  --civic-red: #d43d3d;
+  background:
+    radial-gradient(circle at 16% 14%, rgba(22, 138, 74, 0.14), transparent 30%),
+    radial-gradient(circle at 84% 18%, rgba(13, 111, 159, 0.12), transparent 32%),
+    linear-gradient(to bottom, #ffffff, #eef5f2);
+}
+
+.civicPage .pageTitle {
+  color: var(--civic-blue);
+  text-shadow:
+    0 0 8px rgba(22, 138, 74, 0.16),
+    0 0 14px rgba(13, 111, 159, 0.16);
+}
+
+.civicPage .appHeader,
+.civicPage #siteNav {
+  border-bottom-color: rgba(22, 138, 74, 0.16);
+}
+
+.civicPage #homeBtn.selected,
+.civicPage .homeButton.selected,
+.civicPage #scrollTopBtn {
+  color: #ffffff;
+  border-color: var(--civic-green);
+  background: linear-gradient(135deg, var(--civic-green), var(--civic-sky));
+  box-shadow: 0 10px 22px rgba(22, 138, 74, 0.24);
+}
+
+.civicPage .sectionTitle,
+.civicPage .siteLegalLinks a {
+  color: var(--civic-green);
+}
+
+.civicPage .siteLegalLinks a:hover {
+  color: #0f6f3c;
+}
+
+.civicNav .navBtn {
+  border-color: rgba(22, 138, 74, 0.26);
+  color: var(--civic-green);
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.civicPage button:focus,
+.civicPage button:focus-visible,
+.civicPathCard:focus-visible {
+  outline: 3px solid var(--civic-green);
+  outline-offset: 4px;
+}
+
+.civicPage .selected,
+.civicNav .navBtn.active {
+  background: linear-gradient(135deg, var(--civic-green), var(--civic-sky));
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 8px 20px rgba(22, 138, 74, 0.18);
+}
+
+.civicHero {
+  min-height: min(560px, calc(100vh - var(--header-height) - 90px));
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+  align-items: center;
+  gap: clamp(24px, 5vw, 62px);
+  padding: 52px 0 44px;
+  border-bottom: none;
+}
+
+.civicHeroText {
+  text-align: left;
+}
+
+.civicBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(22, 138, 74, 0.1);
+  color: var(--civic-green);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.civicHero h2 {
+  margin: 18px 0 12px;
+  color: var(--civic-blue);
+  font-size: clamp(3rem, 7vw, 6.2rem);
+  line-height: 0.94;
+}
+
+.civicHero p {
+  max-width: 740px;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: clamp(1.05rem, 2vw, 1.28rem);
+  line-height: 1.55;
+}
+
+.civicHeroPanel {
+  min-height: 310px;
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  padding: 34px;
+  border: 1px solid rgba(18, 50, 74, 0.1);
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(22, 138, 74, 0.1), rgba(13, 111, 159, 0.1)),
+    rgba(255, 255, 255, 0.86);
+  box-shadow: 0 22px 60px rgba(18, 50, 74, 0.1);
+  text-align: center;
+}
+
+.civicHeroPanel span {
+  font-size: clamp(2.4rem, 6vw, 4rem);
+}
+
+.civicHeroPanel strong {
+  color: var(--civic-blue);
+  font-size: 1.35rem;
+}
+
+.civicPathGrid,
+.civicMethodGrid {
+  display: grid;
+  gap: 22px;
+}
+
+.civicPathGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.civicPathCard {
+  position: relative;
+  min-height: 360px;
+  padding: 34px;
+  overflow: hidden;
+  border: 1px solid rgba(18, 50, 74, 0.1);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 18px 46px rgba(18, 50, 74, 0.08);
+  color: var(--civic-blue);
+  text-decoration: none;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.civicPathCard::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 7px;
+  background: linear-gradient(90deg, var(--civic-green), #ffffff, var(--civic-red));
+}
+
+.environmentPath::before {
+  background: linear-gradient(90deg, var(--civic-green), var(--civic-sky));
+}
+
+.civicPathCard:hover {
+  transform: translateY(-5px);
+  border-color: rgba(22, 138, 74, 0.34);
+  box-shadow: 0 24px 58px rgba(18, 50, 74, 0.12);
+}
+
+.pathClass {
+  display: inline-flex;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(22, 138, 74, 0.1);
+  color: var(--civic-green);
+  font-weight: 900;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+}
+
+.pathIcon {
+  margin: 32px 0 18px;
+  font-size: 3rem;
+}
+
+.civicPathCard h3 {
+  margin: 0;
+  color: var(--civic-blue);
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  line-height: 1;
+}
+
+.pathPeriod {
+  margin: 14px 0 12px;
+  color: var(--civic-green);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+.civicPathCard p:not(.pathPeriod),
+.civicMethodGrid p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.civicMethodGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.civicMethodGrid article {
+  padding: 26px;
+  border: 1px solid rgba(18, 50, 74, 0.1);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 14px 34px rgba(18, 50, 74, 0.07);
+}
+
+.civicMethodGrid span {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 2rem;
+}
+
+.civicMethodGrid h3 {
+  margin: 0 0 8px;
+  color: var(--civic-blue);
+  font-size: 1.2rem;
+}
+
+@media (max-width: 900px) {
+  .civicHero,
+  .civicPathGrid,
+  .civicMethodGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .civicHeroText {
+    text-align: center;
+  }
+
+  .civicHero p {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 620px) {
+  .civicPathCard,
+  .civicMethodGrid article {
+    padding: 24px;
+  }
+}

@@ -1,0 +1,805 @@
+.environmentPage {
+  --env-green: #168a4a;
+  --env-green-soft: #54b780;
+  --env-blue: #0d6f9f;
+  --env-deep: #12324a;
+  --env-sky: #dff4f6;
+  --env-sand: #f4ead8;
+  --env-earth: #9d6b42;
+  background:
+    radial-gradient(circle at 18% 14%, rgba(22, 138, 74, 0.14), transparent 30%),
+    radial-gradient(circle at 82% 18%, rgba(13, 111, 159, 0.14), transparent 32%),
+    linear-gradient(to bottom, #ffffff, #eef6f3);
+}
+
+.environmentPage .pageTitle {
+  color: var(--env-deep);
+  text-shadow:
+    0 0 8px rgba(22, 138, 74, 0.16),
+    0 0 14px rgba(13, 111, 159, 0.18);
+}
+
+.environmentPage .appHeader,
+.environmentPage #siteNav {
+  border-bottom-color: rgba(22, 138, 74, 0.16);
+}
+
+.environmentPage #homeBtn.selected,
+.environmentPage .homeButton.selected,
+.environmentPage #scrollTopBtn {
+  color: #ffffff;
+  border-color: var(--env-green);
+  background: linear-gradient(135deg, var(--env-green), var(--env-blue));
+  box-shadow: 0 10px 22px rgba(22, 138, 74, 0.24);
+}
+
+.environmentPage .siteLegalLinks a {
+  color: var(--env-green);
+}
+
+.environmentPage .siteLegalLinks a:hover {
+  color: #0f6f3c;
+}
+
+.environmentPage .sectionTitle {
+  color: var(--env-green);
+  text-shadow: 0 0 10px rgba(22, 138, 74, 0.14);
+}
+
+.environmentNav .navBtn {
+  border-color: rgba(22, 138, 74, 0.26);
+  color: var(--env-green);
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.environmentPage button:focus,
+.environmentPage button:focus-visible {
+  outline: 3px solid var(--env-green);
+  outline-offset: 3px;
+}
+
+.environmentPage .selected {
+  background: linear-gradient(135deg, var(--env-green), var(--env-blue));
+  color: #ffffff;
+  border-color: var(--env-green);
+  box-shadow: 0 0 12px rgba(22, 138, 74, 0.38);
+}
+
+.environmentNav .navBtn:hover {
+  color: var(--env-green);
+  border-color: rgba(22, 138, 74, 0.55);
+  background: rgba(22, 138, 74, 0.08);
+}
+
+.environmentNav .navBtn.active {
+  background: linear-gradient(135deg, var(--env-green), var(--env-blue));
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 8px 20px rgba(22, 138, 74, 0.18);
+}
+
+.environmentHero {
+  min-height: min(680px, calc(100vh - var(--header-height) - 90px));
+  display: grid;
+  grid-template-columns: minmax(0, 1.04fr) minmax(320px, 0.96fr);
+  align-items: center;
+  gap: clamp(24px, 5vw, 62px);
+  padding: 52px 0 44px;
+  border-bottom: none;
+}
+
+.environmentHeroText {
+  text-align: left;
+}
+
+.environmentBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(22, 138, 74, 0.1);
+  color: var(--env-green);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.environmentHero h2 {
+  margin: 18px 0 8px;
+  color: var(--env-deep);
+  font-size: clamp(3rem, 7.8vw, 6.6rem);
+  line-height: 0.94;
+}
+
+.environmentLead {
+  color: var(--env-blue);
+  font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+  font-weight: 900;
+}
+
+.environmentHero p {
+  max-width: 720px;
+  color: var(--text-muted);
+  font-size: 1.08rem;
+  line-height: 1.65;
+}
+
+.environmentHeroActions,
+.quizActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 22px;
+}
+
+.environmentButton {
+  min-height: 46px;
+  width: auto;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--env-green), var(--env-blue));
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 12px 26px rgba(22, 138, 74, 0.2);
+}
+
+.environmentButton:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #0f7640, #0b5f88);
+  color: #ffffff;
+}
+
+.environmentButton.secondary {
+  color: var(--env-green);
+  background: rgba(255, 255, 255, 0.88);
+  border: 1.5px solid rgba(22, 138, 74, 0.2);
+  box-shadow: 0 10px 22px rgba(18, 50, 74, 0.08);
+}
+
+.natureScene {
+  position: relative;
+  min-height: 430px;
+  border-radius: 28px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #b9edf3 0%, #ecf9f5 48%, #d8efe9 100%);
+  border: 1px solid rgba(22, 138, 74, 0.15);
+  box-shadow: 0 26px 70px rgba(18, 50, 74, 0.15);
+}
+
+.sceneSky,
+.sceneSun,
+.sceneMountains,
+.sceneForest,
+.sceneWater,
+.soundWaves {
+  position: absolute;
+  inset: 0;
+}
+
+.sceneSun {
+  width: 92px;
+  height: 92px;
+  inset: 42px auto auto 52px;
+  border-radius: 50%;
+  background: #f8c96a;
+  box-shadow: 0 0 42px rgba(248, 201, 106, 0.48);
+}
+
+.sceneMountains span {
+  position: absolute;
+  bottom: 128px;
+  width: 72%;
+  height: 190px;
+  clip-path: polygon(0 100%, 42% 18%, 100% 100%);
+  background: linear-gradient(135deg, rgba(22, 138, 74, 0.6), rgba(13, 111, 159, 0.35));
+}
+
+.sceneMountains span:first-child {
+  left: -12%;
+}
+
+.sceneMountains span:last-child {
+  right: -18%;
+  height: 230px;
+  background: linear-gradient(135deg, rgba(18, 50, 74, 0.38), rgba(22, 138, 74, 0.42));
+}
+
+.sceneForest {
+  top: auto;
+  bottom: 112px;
+  height: 120px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding: 0 28px;
+}
+
+.sceneForest span {
+  width: 54px;
+  height: 112px;
+  background: linear-gradient(to bottom, #1e9653, #0f6f3c);
+  clip-path: polygon(50% 0, 100% 72%, 70% 72%, 94% 100%, 6% 100%, 30% 72%, 0 72%);
+}
+
+.sceneForest span:nth-child(2),
+.sceneForest span:nth-child(4) {
+  height: 92px;
+  opacity: 0.82;
+}
+
+.sceneWater {
+  top: auto;
+  bottom: 0;
+  height: 160px;
+  background:
+    linear-gradient(180deg, rgba(13, 111, 159, 0.12), rgba(13, 111, 159, 0.5)),
+    var(--env-sky);
+}
+
+.sceneWater span {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.sceneWater span:nth-child(1) { top: 38px; }
+.sceneWater span:nth-child(2) { top: 76px; left: 22%; }
+.sceneWater span:nth-child(3) { top: 112px; right: 24%; }
+
+.soundWaves {
+  display: grid;
+  place-items: center;
+}
+
+.soundWaves span {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border: 3px solid rgba(255, 255, 255, 0.72);
+  border-radius: 50%;
+  animation: envWave 3s ease-in-out infinite;
+}
+
+.soundWaves span:nth-child(2) {
+  animation-delay: 0.6s;
+}
+
+.soundWaves span:nth-child(3) {
+  animation-delay: 1.2s;
+}
+
+@keyframes envWave {
+  0% { transform: scale(0.55); opacity: 0; }
+  35% { opacity: 0.75; }
+  100% { transform: scale(2.1); opacity: 0; }
+}
+
+.introPanel,
+.natureSoundGrid,
+.listeningGrid,
+.songReflectionGrid,
+.descriptionPanel,
+.sustainabilityGrid,
+.ecoInstrumentGrid,
+.soundscapeSteps,
+.reflectionGrid,
+.environmentQuiz {
+  display: grid;
+  gap: 18px;
+}
+
+.introPanel,
+.descriptionPanel,
+.environmentQuiz {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.natureSoundGrid,
+.listeningGrid,
+.songReflectionGrid,
+.sustainabilityGrid,
+.ecoInstrumentGrid,
+.soundscapeSteps,
+.reflectionGrid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.natureSoundGrid {
+  max-width: 1120px;
+  grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
+  margin: 0 auto;
+}
+
+.introPanel article,
+.natureSoundCard,
+.natureSoundOutput,
+.listeningCard,
+.sustainabilityDefinition,
+.descriptionPanel article,
+.sustainabilityGrid article,
+.ecoInstrumentGrid article,
+.soundscapeSteps article,
+.reflectionCard,
+.resourceGrid article,
+.quizQuestion {
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(18, 50, 74, 0.1);
+  box-shadow: 0 14px 34px rgba(18, 50, 74, 0.07);
+}
+
+.introPanel article,
+.listeningCard,
+.sustainabilityDefinition,
+.descriptionPanel article,
+.sustainabilityGrid article,
+.ecoInstrumentGrid article,
+.soundscapeSteps article,
+.reflectionCard,
+.resourceGrid article,
+.quizQuestion {
+  padding: 22px;
+}
+
+.introPanel span,
+.listeningCard span,
+.soundscapeSteps span {
+  display: inline-flex;
+  margin-bottom: 8px;
+  color: var(--env-green);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.introPanel h3,
+.natureSoundOutput h3,
+.listeningCard h3,
+.sustainabilityDefinition h3,
+.descriptionPanel h3,
+.sustainabilityGrid h3,
+.ecoInstrumentGrid h3,
+.soundscapeSteps h3,
+.reflectionCard h3,
+.resourceGrid h3,
+.quizQuestion h3 {
+  margin: 0 0 8px;
+  color: var(--env-deep);
+}
+
+.introPanel p,
+.natureSoundOutput p,
+.listeningCard p,
+.sustainabilityDefinition p,
+.descriptionPanel p,
+.sustainabilityGrid p,
+.ecoInstrumentGrid p,
+.soundscapeSteps p,
+.reflectionCard p,
+.resourceGrid p,
+.quizQuestion p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.natureSoundCard {
+  display: flex;
+  min-height: 168px;
+  padding: 14px;
+  color: var(--env-deep);
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.natureSoundSelect {
+  width: 100%;
+  min-height: 168px;
+  padding: 12px 8px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.natureSoundSelect span,
+.descriptionPanel span,
+.sustainabilityGrid span,
+.ecoInstrumentGrid span {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 2.15rem;
+}
+
+.natureSoundSelect strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--env-deep);
+  font-size: 1rem;
+}
+
+.natureSoundSelect small {
+  color: var(--text-muted);
+  font-weight: 800;
+  font-size: 0.76rem;
+}
+
+.natureSoundCard:hover,
+.natureSoundCard.active {
+  transform: translateY(-4px);
+  border-color: rgba(22, 138, 74, 0.42);
+  box-shadow: 0 18px 38px rgba(22, 138, 74, 0.11);
+}
+
+.natureSoundCard.active {
+  box-shadow:
+    inset 0 0 0 2px rgba(22, 138, 74, 0.12),
+    0 18px 38px rgba(22, 138, 74, 0.11);
+}
+
+.natureSoundOutput {
+  max-width: 860px;
+  margin: 26px auto 0;
+  padding: 24px 28px;
+  border-top: 5px solid var(--env-green);
+}
+
+.listeningCard {
+  text-align: left;
+  border-top: 5px solid rgba(13, 111, 159, 0.42);
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.listeningCard:hover,
+.listeningCard:focus-visible {
+  transform: translateY(-4px);
+  border-color: rgba(22, 138, 74, 0.3);
+  box-shadow: 0 18px 38px rgba(22, 138, 74, 0.11);
+  outline: none;
+}
+
+.songReflectionGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.songReflectionCard {
+  border-top-color: rgba(22, 138, 74, 0.48);
+}
+
+.environmentAudio {
+  width: 100%;
+  height: 38px;
+  margin-top: 14px;
+  accent-color: var(--env-green);
+}
+
+.environmentAudio.mini {
+  height: 32px;
+  margin-top: 6px;
+}
+
+.listeningMedia {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.listeningMedia .environmentAudio {
+  margin-top: 0;
+}
+
+.videoLink {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 38px;
+  margin-top: 14px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(22, 138, 74, 0.2);
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--env-green);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.videoLink:hover {
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--env-green), var(--env-blue));
+}
+
+.listeningCard em {
+  display: block;
+  margin-top: 14px;
+  color: var(--env-blue);
+  font-style: normal;
+  font-weight: 900;
+}
+
+.descriptionPanel article,
+.sustainabilityGrid article,
+.ecoInstrumentGrid article {
+  text-align: left;
+}
+
+.sustainabilitySection {
+  background:
+    linear-gradient(135deg, rgba(22, 138, 74, 0.08), rgba(13, 111, 159, 0.07)),
+    rgba(255, 255, 255, 0.82);
+  border-radius: 24px;
+}
+
+.sustainabilityDefinition {
+  max-width: 920px;
+  margin: 0 auto 22px;
+  padding: 24px;
+  border-left: 5px solid var(--env-green);
+  text-align: left;
+}
+
+.sustainabilityGrid {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 14px;
+  padding: 0 12px;
+}
+
+.sustainabilityGrid article {
+  aspect-ratio: 1;
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sustainabilityGrid span {
+  font-size: 1.8rem;
+}
+
+.sustainabilityGrid h3 {
+  font-size: 1rem;
+}
+
+.sustainabilityGrid p {
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.resourceGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.resourceGrid span {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 2.4rem;
+}
+
+.soundscapeSteps article span {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--env-green), var(--env-blue));
+  color: #ffffff;
+  font-size: 1.1rem;
+  letter-spacing: 0;
+}
+
+.quizQuestion button {
+  width: 100%;
+  min-height: 42px;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1.5px solid rgba(18, 50, 74, 0.14);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--env-deep);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.quizQuestion button:hover,
+.quizQuestion button.selected {
+  border-color: rgba(22, 138, 74, 0.42);
+  background: rgba(22, 138, 74, 0.09);
+}
+
+.quizQuestion button.correct {
+  background: rgba(22, 138, 74, 0.14);
+  border-color: var(--env-green);
+  color: var(--env-green);
+}
+
+.quizQuestion button.wrong {
+  background: rgba(212, 61, 61, 0.1);
+  border-color: #d43d3d;
+  color: #d43d3d;
+}
+
+.quizActions {
+  justify-content: center;
+}
+
+.environmentQuizResult {
+  min-height: 34px;
+  margin-top: 16px;
+  color: var(--env-deep);
+  font-weight: 900;
+}
+
+.environmentConclusion {
+  padding: 54px 28px;
+  border-radius: 24px;
+  background:
+    linear-gradient(90deg, rgba(22, 138, 74, 0.14), rgba(255, 255, 255, 0.88), rgba(13, 111, 159, 0.12));
+  box-shadow: var(--panel-shadow);
+}
+
+.environmentConclusion h2 {
+  max-width: 940px;
+  margin: 0 auto;
+  color: var(--env-deep);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.2;
+}
+
+.listeningModal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  place-items: center;
+  padding: 20px;
+}
+
+.listeningModal.open {
+  display: grid;
+}
+
+.listeningModalOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 50, 74, 0.42);
+  backdrop-filter: blur(7px);
+}
+
+.listeningModalPanel {
+  position: relative;
+  width: min(780px, 94vw);
+  max-height: 88vh;
+  overflow: auto;
+  padding: 34px;
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(244, 250, 247, 0.96));
+  border: 1px solid rgba(22, 138, 74, 0.16);
+  box-shadow: 0 26px 80px rgba(18, 50, 74, 0.28);
+  text-align: left;
+}
+
+.listeningModalClose {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(22, 138, 74, 0.2);
+  background: rgba(22, 138, 74, 0.08);
+  color: var(--env-green);
+  font-size: 1.45rem;
+}
+
+.listeningModalLabel {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--env-green);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.listeningModalPanel h2 {
+  margin: 0 0 8px;
+  color: var(--env-deep);
+  font-size: clamp(1.9rem, 4vw, 3rem);
+}
+
+.listeningModalComposer {
+  margin: 0 0 18px;
+  color: var(--text-muted);
+  font-weight: 900;
+}
+
+.listeningModalMedia {
+  display: grid;
+  gap: 14px;
+  margin: 0 0 22px;
+}
+
+.listeningModalMedia .environmentAudio {
+  margin-top: 0;
+}
+
+.listeningModalBody {
+  display: grid;
+  gap: 12px;
+}
+
+.listeningModalBody p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.listeningModalQuestion {
+  margin-top: 20px;
+  padding: 16px 18px;
+  border-left: 5px solid var(--env-green);
+  border-radius: 16px;
+  background: rgba(22, 138, 74, 0.08);
+  color: var(--env-deep);
+  font-weight: 900;
+}
+
+@media (max-width: 900px) {
+  .environmentHero,
+  .introPanel,
+  .descriptionPanel,
+  .sustainabilityGrid,
+  .songReflectionGrid,
+  .resourceGrid,
+  .environmentQuiz {
+    grid-template-columns: 1fr;
+  }
+
+  .environmentHeroText {
+    text-align: center;
+  }
+
+  .environmentHeroActions {
+    justify-content: center;
+  }
+
+  .natureScene {
+    min-height: 340px;
+  }
+}
+
+@media (max-width: 620px) {
+  .environmentHero {
+    padding-top: 34px;
+  }
+
+  .introPanel article,
+  .listeningCard,
+  .listeningModalPanel,
+  .descriptionPanel article,
+  .sustainabilityGrid article,
+  .ecoInstrumentGrid article,
+  .soundscapeSteps article,
+  .reflectionCard,
+  .quizQuestion {
+    padding: 18px;
+  }
+}

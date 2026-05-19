@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Musica e ambiente | Music Game Hub</title>
+<link rel="icon" type="image/png" href="../img/mgh-logo.png">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/learn.css">
+<link rel="stylesheet" href="../css/educazione_civica/musica_ambiente.css">
+</head>
+
+<body class="environmentPage">
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="MGH.goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+
+    <div class="headerBrand">
+      <span class="headerEyebrow">Educazione civica musicale</span>
+      <h1 class="pageTitle">Musica e ambiente</h1>
+    </div>
+  </div>
+</header>
+
+<nav id="siteNav" class="theoryNav environmentNav">
+  <button class="navBtn" onclick="MGH.scrollToSection('hero')">🌍 Inizio</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('introduzione')">🌱 Introduzione</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('suoni')">🎧 Suoni</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('ascolto')">🎼 Ascolti</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('canzoni')">🎤 Canzoni</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('descrittiva')">🖼️ Descrittiva</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('sostenibilita')">♻️ Sostenibilità</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('laboratorio')">🛠️ Laboratorio</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('attivita')">👥 Gruppo</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('riflessione')">💬 Riflessione</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('quiz')">❓ Quiz</button>
+</nav>
+
+<div id="contentWrapper">
+
+  <section id="hero" class="siteSection environmentHero">
+    <div class="environmentHeroText">
+      <span class="environmentBadge">🌍 Natura, suono, responsabilità</span>
+      <h2>Musica e ambiente</h2>
+      <p class="environmentLead">I suoni della natura e la sostenibilità.</p>
+      <p>
+        Scopriamo come la natura ispira la musica e come possiamo usare i suoni
+        per riflettere sul rispetto dell'ambiente.
+      </p>
+      <div class="environmentHeroActions">
+        <button class="environmentButton" onclick="MGH.scrollToSection('suoni')">Esplora i suoni</button>
+        <button class="environmentButton secondary" onclick="MGH.scrollToSection('quiz')">Vai al quiz</button>
+      </div>
+    </div>
+
+    <div class="natureScene" aria-label="Paesaggio naturale con mare, cielo e onde sonore">
+      <div class="sceneSky"></div>
+      <div class="sceneSun"></div>
+      <div class="sceneMountains">
+        <span></span>
+        <span></span>
+      </div>
+      <div class="sceneForest">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="sceneWater">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="soundWaves">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </section>
+
+  <section id="introduzione" class="siteSection learnSection">
+    <h2 class="sectionTitle">Che legame c'è tra musica e natura?</h2>
+    <p class="sectionIntro">
+      La natura è piena di suoni: il vento, la pioggia, il mare, il canto degli uccelli.
+      Da sempre questi suoni hanno ispirato i musicisti e ci aiutano a riflettere
+      sull'importanza di proteggere il pianeta.
+    </p>
+
+    <div class="introPanel">
+      <article>
+        <span>Ascolto</span>
+        <h3>Sentire il paesaggio</h3>
+        <p>Prima di suonare, possiamo imparare ad ascoltare: ogni ambiente ha una propria identità sonora.</p>
+      </article>
+      <article>
+        <span>Musica</span>
+        <h3>Trasformare i suoni</h3>
+        <p>Un compositore può imitare, evocare o reinventare i rumori naturali con strumenti e ritmo.</p>
+      </article>
+      <article>
+        <span>Cittadinanza</span>
+        <h3>Proteggere ciò che ascoltiamo</h3>
+        <p>Se un ambiente è sano, anche il suo paesaggio sonoro è più ricco, equilibrato e vivo.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="suoni" class="siteSection learnSection">
+    <h2 class="sectionTitle">I suoni della natura</h2>
+    <p class="sectionIntro">Clicca una card e osserva quale emozione può trasmettere quel suono.</p>
+
+    <div class="natureSoundGrid">
+      <article class="natureSoundCard active">
+        <button class="natureSoundSelect" type="button" data-sound="vento">
+          <span>🌬️</span>
+          <strong>Vento</strong>
+          <small>leggerezza, movimento</small>
+        </button>
+      </article>
+      <article class="natureSoundCard">
+        <button class="natureSoundSelect" type="button" data-sound="acqua">
+          <span>🌊</span>
+          <strong>Acqua</strong>
+          <small>calma, energia</small>
+        </button>
+      </article>
+      <article class="natureSoundCard">
+        <button class="natureSoundSelect" type="button" data-sound="animali">
+          <span>🐦</span>
+          <strong>Animali</strong>
+          <small>vita, dialogo</small>
+        </button>
+      </article>
+      <article class="natureSoundCard">
+        <button class="natureSoundSelect" type="button" data-sound="pioggia">
+          <span>🌧️</span>
+          <strong>Pioggia</strong>
+          <small>attesa, ritmo</small>
+        </button>
+      </article>
+      <article class="natureSoundCard">
+        <button class="natureSoundSelect" type="button" data-sound="bosco">
+          <span>🌳</span>
+          <strong>Bosco</strong>
+          <small>mistero, respiro</small>
+        </button>
+      </article>
+      <article class="natureSoundCard">
+        <button class="natureSoundSelect" type="button" data-sound="terra">
+          <span>🌋</span>
+          <strong>Terra</strong>
+          <small>forza, profondità</small>
+        </button>
+      </article>
+    </div>
+
+    <div id="natureSoundOutput" class="natureSoundOutput" aria-live="polite">
+      <div class="natureSoundText">
+        <h3>Vento</h3>
+        <p>Può sembrare leggero o impetuoso: in musica spesso diventa una linea fluida, fatta di crescendi, soffi e movimenti continui.</p>
+      </div>
+      <audio id="natureSoundAudio" class="environmentAudio" controls preload="none">
+        <source src="../audio/ambiente/vento.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </section>
+
+  <section id="ascolto" class="siteSection learnSection">
+    <h2 class="sectionTitle">Ascolta la natura nella musica</h2>
+    <p class="sectionIntro">
+      Alcuni brani non descrivono la natura con le parole, ma con timbri, ritmo,
+      melodia e atmosfera. Durante l'ascolto prova a immaginare una scena.
+    </p>
+
+    <div class="listeningGrid">
+      <article class="listeningCard" data-listening="vivaldi" tabindex="0" role="button" aria-label="Apri approfondimento su Le quattro stagioni">
+        <span>Primavera, estate, autunno, inverno</span>
+        <h3>Le quattro stagioni</h3>
+        <p><strong>Antonio Vivaldi</strong></p>
+        <p>Elemento naturale: stagioni, temporali, vento, paesaggi.</p>
+        <em>Che immagine ti viene in mente ascoltando questo brano?</em>
+      </article>
+      <article class="listeningCard" data-listening="beethoven" tabindex="0" role="button" aria-label="Apri approfondimento sulla Sinfonia Pastorale">
+        <span>Paesaggio e vita all'aperto</span>
+        <h3>Sinfonia Pastorale</h3>
+        <p><strong>Ludwig van Beethoven</strong></p>
+        <p>Elemento naturale: campagna, ruscelli, temporale.</p>
+        <em>Quali strumenti sembrano descrivere il paesaggio?</em>
+      </article>
+      <article class="listeningCard" data-listening="saens" tabindex="0" role="button" aria-label="Apri approfondimento sul Carnevale degli animali">
+        <span>Animali in musica</span>
+        <h3>Il carnevale degli animali</h3>
+        <p><strong>Camille Saint-Saëns</strong></p>
+        <p>Elemento naturale: movimenti e caratteri degli animali.</p>
+        <em>Quale animale riconosci dal ritmo o dal timbro?</em>
+      </article>
+    </div>
+  </section>
+
+  <section id="canzoni" class="siteSection learnSection">
+    <h2 class="sectionTitle">Canzoni per riflettere sul pianeta</h2>
+    <p class="sectionIntro">
+      Alcune canzoni usano parole, musica e immagini poetiche per parlare dei danni
+      causati dall'uomo e della necessità di prendersi cura del mondo.
+    </p>
+
+    <div class="songReflectionGrid">
+      <article class="listeningCard songReflectionCard" data-listening="bertoli" tabindex="0" role="button" aria-label="Apri approfondimento su Eppure soffia">
+        <span>Ambiente e speranza</span>
+        <h3>Eppure soffia</h3>
+        <p><strong>Pierangelo Bertoli</strong></p>
+        <p>Una canzone che denuncia l'inquinamento e la distruzione della natura, ma lascia spazio alla speranza.</p>
+        <em>Come cambia il messaggio tra denuncia e speranza?</em>
+      </article>
+      <article class="listeningCard songReflectionCard" data-listening="earth" tabindex="0" role="button" aria-label="Apri approfondimento su Earth Song">
+        <span>Responsabilità ambientale</span>
+        <h3>Earth Song</h3>
+        <p><strong>Michael Jackson</strong></p>
+        <p>Una canzone di denuncia che trasforma il dolore per la Terra in una domanda collettiva.</p>
+        <em>Una canzone può aiutare le persone a cambiare atteggiamento verso l'ambiente?</em>
+      </article>
+      <article class="listeningCard songReflectionCard" data-listening="guccini" tabindex="0" role="button" aria-label="Apri approfondimento su Il vecchio e il bambino">
+        <span>Memoria e futuro</span>
+        <h3>Il vecchio e il bambino</h3>
+        <p><strong>Francesco Guccini</strong></p>
+        <p>Un dialogo immaginario tra generazioni in un mondo rovinato dall'uomo.</p>
+        <em>Che cosa rischiamo di perdere se non proteggiamo l'ambiente?</em>
+      </article>
+    </div>
+  </section>
+
+  <section id="descrittiva" class="siteSection learnSection">
+    <h2 class="sectionTitle">Cos'è la musica descrittiva?</h2>
+    <p class="sectionIntro">
+      È una musica che prova a raccontare immagini, paesaggi, animali o fenomeni naturali
+      usando suoni, ritmo, melodia e strumenti.
+    </p>
+
+    <div class="descriptionPanel">
+      <article>
+        <span>🎻</span>
+        <h3>Violino</h3>
+        <p>Può ricordare il canto degli uccelli con suoni acuti, veloci e leggeri.</p>
+      </article>
+      <article>
+        <span>🥁</span>
+        <h3>Tamburo</h3>
+        <p>Può ricordare il temporale con colpi forti, ripetuti e improvvisi.</p>
+      </article>
+      <article>
+        <span>🪈</span>
+        <h3>Flauto</h3>
+        <p>Può ricordare il vento con frasi morbide, soffiate e ondulate.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="sostenibilita" class="siteSection learnSection sustainabilitySection">
+    <h2 class="sectionTitle">Musica e sostenibilità</h2>
+    <p class="sectionIntro">
+      Anche la musica può diventare uno strumento per parlare di ambiente e responsabilità.
+    </p>
+
+    <div class="sustainabilityDefinition">
+      <h3>Sviluppo sostenibile</h3>
+      <p>
+        Significa soddisfare i bisogni del presente senza compromettere quelli
+        delle generazioni future. Per riuscirci bisogna proteggere ecosistemi,
+        biodiversità e risorse naturali.
+      </p>
+    </div>
+
+    <div class="sustainabilityGrid">
+      <article><span>🌱</span><h3>Rispetto</h3><p>Proteggere luoghi, animali, piante e risorse naturali.</p></article>
+      <article><span>🧺</span><h3>Meno sprechi</h3><p>Ridurre rifiuti, consumi inutili e materiali usa e getta.</p></article>
+      <article><span>♻️</span><h3>Riutilizzo</h3><p>Dare nuova vita agli oggetti, anche per creare strumenti sonori.</p></article>
+      <article><span>👂</span><h3>Territorio</h3><p>Ascoltare i suoni del luogo in cui viviamo e riconoscerne il valore.</p></article>
+      <article><span>🔇</span><h3>Silenzio</h3><p>Evitare l'inquinamento acustico e rispettare il bisogno di quiete.</p></article>
+      <article><span>🦋</span><h3>Biodiversità</h3><p>Difendere la varietà di specie e ambienti che rende vivo il pianeta.</p></article>
+    </div>
+  </section>
+
+  <section id="laboratorio" class="siteSection learnSection">
+    <h2 class="sectionTitle">Costruiamo strumenti ecologici</h2>
+    <p class="sectionIntro">
+      Con materiali semplici e riciclati possiamo costruire piccoli strumenti,
+      ascoltare timbri diversi e lavorare in modo creativo.
+    </p>
+
+    <div class="ecoInstrumentGrid">
+      <article>
+        <span>🥤</span>
+        <h3>Maracas riciclate</h3>
+        <p><strong>Materiali:</strong> bottigliette, riso, legumi.</p>
+      </article>
+      <article>
+        <span>🥫</span>
+        <h3>Tamburo ecologico</h3>
+        <p><strong>Materiali:</strong> barattoli, carta resistente, elastici.</p>
+      </article>
+      <article>
+        <span>🌧️</span>
+        <h3>Bastone della pioggia</h3>
+        <p><strong>Materiali:</strong> tubo di cartone, semi, sassolini.</p>
+      </article>
+      <article>
+        <span>🐚</span>
+        <h3>Sonagli naturali</h3>
+        <p><strong>Materiali:</strong> tappi, conchiglie, legnetti.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="attivita" class="siteSection learnSection">
+    <h2 class="sectionTitle">Crea il paesaggio sonoro</h2>
+    <p class="sectionIntro">
+      In gruppo create una breve composizione che rappresenti un ambiente naturale:
+      bosco, mare, temporale o città sostenibile.
+    </p>
+
+    <div class="soundscapeSteps">
+      <article><span>1</span><h3>Scegliete un ambiente</h3><p>Decidete quale luogo volete far immaginare alla classe.</p></article>
+      <article><span>2</span><h3>Scegliete i suoni</h3><p>Individuate rumori, ritmi e timbri adatti a quel paesaggio.</p></article>
+      <article><span>3</span><h3>Usate corpo e oggetti</h3><p>Voce, mani, piedi, carta, bottiglie e materiali riciclati possono diventare strumenti.</p></article>
+      <article><span>4</span><h3>Eseguite</h3><p>Presentate la composizione e chiedete alla classe quale ambiente ha riconosciuto.</p></article>
+    </div>
+  </section>
+
+  <section id="riflessione" class="siteSection learnSection reflectionSection">
+    <h2 class="sectionTitle">Domande di riflessione</h2>
+    <p class="sectionIntro">
+      Rispondi a voce, sul quaderno o in gruppo: l'obiettivo è collegare ascolto,
+      musica e responsabilità.
+    </p>
+
+    <div class="reflectionGrid">
+      <article class="reflectionCard"><h3>Suono preferito</h3><p>Quale suono naturale ti piace di più?</p></article>
+      <article class="reflectionCard"><h3>Ascolto</h3><p>Quale brano ti ha colpito maggiormente?</p></article>
+      <article class="reflectionCard"><h3>Ambiente</h3><p>La musica può aiutare a proteggere l'ambiente?</p></article>
+      <article class="reflectionCard"><h3>Azioni quotidiane</h3><p>Che cosa possiamo fare ogni giorno per essere più sostenibili?</p></article>
+    </div>
+  </section>
+
+  <section id="approfondimenti" class="siteSection learnSection">
+    <h2 class="sectionTitle">Guarda, leggi, approfondisci</h2>
+    <p class="sectionIntro">
+      Film, documentari e racconti possono aiutare a guardare il pianeta con più attenzione.
+    </p>
+
+    <div class="resourceGrid">
+      <article><span>🎬</span><h3>Wall-E</h3><p>Un film d'animazione utile per riflettere su rifiuti, consumi e futuro della Terra.</p></article>
+      <article><span>🌊</span><h3>Documentari naturalistici</h3><p>I documentari di David Attenborough mostrano bellezza, fragilità e ricchezza degli ecosistemi.</p></article>
+      <article><span>📚</span><h3>Storie sul clima</h3><p>Romanzi, fumetti e racconti possono trasformare i temi ambientali in storie vicine agli studenti.</p></article>
+    </div>
+  </section>
+
+  <section id="quiz" class="siteSection learnSection">
+    <h2 class="sectionTitle">Quiz finale</h2>
+    <p class="sectionIntro">Rispondi alle domande e controlla subito il risultato.</p>
+
+    <div class="environmentQuiz">
+      <article class="quizQuestion" data-answer="pioggia">
+        <h3>Quale suono appartiene alla natura?</h3>
+        <button type="button" data-value="clacson">Clacson</button>
+        <button type="button" data-value="pioggia">Pioggia</button>
+        <button type="button" data-value="trapano">Trapano</button>
+      </article>
+
+      <article class="quizQuestion" data-answer="rispetto">
+        <h3>Che cosa significa sostenibilità?</h3>
+        <button type="button" data-value="consumo">Consumare senza limiti</button>
+        <button type="button" data-value="rispetto">Rispettare l'ambiente</button>
+        <button type="button" data-value="rifiuti">Produrre più rifiuti</button>
+      </article>
+
+      <article class="quizQuestion" data-answer="riciclati">
+        <h3>Con cosa possiamo costruire strumenti ecologici?</h3>
+        <button type="button" data-value="riciclati">Materiali riciclati</button>
+        <button type="button" data-value="costosi">Solo strumenti costosi</button>
+        <button type="button" data-value="nuova">Plastica nuova</button>
+      </article>
+    </div>
+
+    <div class="quizActions">
+      <button class="environmentButton" type="button" id="checkEnvironmentQuiz">Controlla risposte</button>
+      <button class="environmentButton secondary" type="button" id="resetEnvironmentQuiz">Riprova</button>
+    </div>
+
+    <div id="environmentQuizResult" class="environmentQuizResult" aria-live="polite"></div>
+  </section>
+
+  <section id="conclusione" class="siteSection environmentConclusion">
+    <h2>Ascoltare la natura significa imparare a rispettarla.</h2>
+  </section>
+
+</div>
+
+<div id="listeningModal" class="listeningModal" aria-hidden="true">
+  <div class="listeningModalOverlay" data-close-listening></div>
+  <div class="listeningModalPanel" role="dialog" aria-modal="true" aria-labelledby="listeningModalTitle">
+    <button class="listeningModalClose" type="button" data-close-listening aria-label="Chiudi ascolto guidato">×</button>
+    <span id="listeningModalLabel" class="listeningModalLabel">Ascolto guidato</span>
+    <h2 id="listeningModalTitle">Brano</h2>
+    <p id="listeningModalComposer" class="listeningModalComposer"></p>
+    <div id="listeningModalMedia" class="listeningModalMedia"></div>
+    <div id="listeningModalBody" class="listeningModalBody"></div>
+    <div id="listeningModalQuestion" class="listeningModalQuestion"></div>
+  </div>
+</div>
+
+<footer class="siteLegalFooter">
+  <p>Music Game Hub tutela la privacy e usa solo strumenti tecnici o statistici necessari al portale.</p>
+  <div class="siteLegalLinks">
+    <a href="../legal/privacy.html">Privacy Policy</a>
+    <span>·</span>
+    <a href="../legal/cookie.html">Cookie Policy</a>
+    <span>·</span>
+    <a href="../legal/termini.html">Termini di servizio</a>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
+
+<script src="../js/common.js"></script>
+<script src="../js/educazione_civica/musica_ambiente.js"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

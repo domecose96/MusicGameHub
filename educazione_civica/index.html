@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Educazione civica musicale | Music Game Hub</title>
+<link rel="icon" type="image/png" href="../img/mgh-logo.png">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/learn.css">
+<link rel="stylesheet" href="../css/educazione_civica/index.css">
+</head>
+
+<body class="civicPage">
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="MGH.goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+
+    <div class="headerBrand">
+      <span class="headerEyebrow">Percorsi didattici</span>
+      <h1 class="pageTitle">Educazione civica musicale</h1>
+    </div>
+  </div>
+</header>
+
+<nav id="siteNav" class="theoryNav civicNav">
+  <button class="navBtn" onclick="MGH.scrollToSection('percorsi')">🌍 Percorsi</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('metodo')">🎼 Metodo</button>
+</nav>
+
+<div id="contentWrapper">
+  <section id="hero" class="siteSection civicHero">
+    <div class="civicHeroText">
+      <span class="civicBadge">Musica, cittadinanza, responsabilità</span>
+      <h2>Educazione civica musicale</h2>
+      <p>
+        Due lezioni pronte per collegare la musica ai temi della cittadinanza:
+        identità, simboli, ambiente, ascolto e rispetto del mondo che ci circonda.
+      </p>
+    </div>
+
+    <div class="civicHeroPanel" aria-label="Temi dei percorsi">
+      <span>🇮🇹</span>
+      <span>🎵</span>
+      <span>🌍</span>
+      <strong>Ascoltare, capire, partecipare</strong>
+    </div>
+  </section>
+
+  <section id="percorsi" class="siteSection civicPathsSection">
+    <h2 class="sectionTitle">Percorsi disponibili</h2>
+    <p class="sectionIntro">
+      Ogni card apre una lezione completa, pensata per essere usata in classe
+      con video, ascolti, attività e quiz finale.
+    </p>
+
+    <div class="civicPathGrid">
+      <a class="civicPathCard anthemPath" href="inno_italia.html">
+        <span class="pathClass">CLASSE 1</span>
+        <div class="pathIcon">🇮🇹</div>
+        <h3>L'Inno d'Italia</h3>
+        <p class="pathPeriod">II QUADRIMESTRE</p>
+        <p>
+          Un percorso su identità nazionale, simboli della Repubblica,
+          significato del testo e rispetto della Costituzione.
+        </p>
+      </a>
+
+      <a class="civicPathCard environmentPath" href="musica_ambiente.html">
+        <span class="pathClass">CLASSE 2</span>
+        <div class="pathIcon">🌍</div>
+        <h3>Musica e ambiente</h3>
+        <p class="pathPeriod">II QUADRIMESTRE</p>
+        <p>
+          Una lezione sui suoni della natura, la musica descrittiva,
+          la sostenibilità e la responsabilità verso il pianeta.
+        </p>
+      </a>
+    </div>
+  </section>
+
+  <section id="metodo" class="siteSection civicMethodSection">
+    <h2 class="sectionTitle">Come usare i percorsi</h2>
+    <div class="civicMethodGrid">
+      <article>
+        <span>🎧</span>
+        <h3>Ascolto guidato</h3>
+        <p>Gli studenti partono da immagini sonore, video e domande brevi.</p>
+      </article>
+      <article>
+        <span>💬</span>
+        <h3>Riflessione</h3>
+        <p>Ogni tema collega musica, parole e comportamenti responsabili.</p>
+      </article>
+      <article>
+        <span>✅</span>
+        <h3>Verifica</h3>
+        <p>Il quiz finale aiuta a fissare i concetti in modo leggero.</p>
+      </article>
+    </div>
+  </section>
+</div>
+
+<footer class="siteLegalFooter">
+  <p>Music Game Hub tutela la privacy e usa solo strumenti tecnici o statistici necessari al portale.</p>
+  <div class="siteLegalLinks">
+    <a href="../legal/privacy.html">Privacy Policy</a>
+    <span>·</span>
+    <a href="../legal/cookie.html">Cookie Policy</a>
+    <span>·</span>
+    <a href="../legal/termini.html">Termini di servizio</a>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
+
+<script src="../js/common.js"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
