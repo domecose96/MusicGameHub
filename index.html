@@ -7,7 +7,7 @@
 
 <link rel="icon" type="image/png" href="img/mgh-logo.png">
 <link rel="stylesheet" href="css/base.css?v=20260506-2">
-<link rel="stylesheet" href="css/home.css?v=20260506-2">
+<link rel="stylesheet" href="css/home.css?v=20260520-nav">
 <link rel="stylesheet" href="css/home_portal.css?v=20260506-2">
 </head>
 
@@ -47,11 +47,9 @@
   <nav id="siteNav">
     <div class="navPrimary">
       <button class="navBtn" onclick="scrollToSection('portal')">🏠 Home</button>
+      <button class="navBtn" onclick="scrollToSection('theoryHome')">📚 Teoria</button>
+      <button class="navBtn" onclick="scrollToSection('pathsHome')">🧭 Percorsi</button>
       <button class="navBtn" onclick="scrollToSection('games')">🎮 Giochi</button>
-      <button class="navBtn" onclick="goTo('teoria.html')">📚 Teoria</button>
-      <button class="navBtn" onclick="goTo('teoria_avanzata.html')">📚 Teoria Avanzata</button>
-      <button class="navBtn" onclick="goTo('strumenti.html')">🎺 Strumenti Musicali</button>
-      <button class="navBtn" onclick="MGH.goTo('storia/storia_musica.html')">🕰️ Storia</button>
       <button class="navBtn" onclick="goTo('mappa.html')">🗺️ Mappa</button>
     </div>
     <div class="navActions" aria-label="Azioni rapide">
@@ -101,7 +99,20 @@
         </div>
       </section>
 
-      <div id="portalHubGrid" class="hubGrid"></div>
+    </section>
+
+    <section id="theoryHome" class="siteSection">
+      <h2 class="sectionTitle">Teoria musicale</h2>
+      <p class="sectionSubtitle">Prima capisci il suono, poi leggi la musica, poi approfondisci.</p>
+
+      <div id="theoryHubGrid" class="hubGrid"></div>
+    </section>
+
+    <section id="pathsHome" class="siteSection">
+      <h2 class="sectionTitle">Percorsi didattici</h2>
+      <p class="sectionSubtitle">Lezioni tematiche per collegare la musica alla storia, agli strumenti e alla cittadinanza.</p>
+
+      <div id="pathsHubGrid" class="hubGrid"></div>
     </section>
 
     <section id="games" class="siteSection">
@@ -337,8 +348,8 @@
   ⇧
 </button>
 <script src="js/common.js?v=20260506-2"></script>
-<script src="js/resources.js?v=20260506-2"></script>
-<script src="js/home_portal.js?v=20260506-2"></script>
+<script src="js/resources.js?v=20260520-home-sections"></script>
+<script src="js/home_portal.js?v=20260520-home-sections"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

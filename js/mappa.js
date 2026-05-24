@@ -2,7 +2,6 @@ const resources=MusicGameHubResources.byId;
 
 const filterButtons=document.querySelectorAll(".filterBtn[data-filter]");
 const resetButton=document.querySelector(".filterBtn[data-action='reset']");
-const nodes=document.querySelectorAll(".resourceNode");
 const categoryNodes=document.querySelectorAll(".categoryNode");
 const mapCanvas=document.getElementById("mapCanvas");
 const mobileList=document.getElementById("mobileList");
@@ -18,14 +17,117 @@ const rootNode=document.querySelector("[data-root='true']");
 
 let zoom=1;
 
+const clusterContent={
+  elementiMusica:[
+    {label:"Eventi",url:"elementi_musica.html#eventi"},
+    {label:"Suono/Rumore",url:"elementi_musica.html#rumore"},
+    {label:"Elementi",url:"elementi_musica.html#elementi"},
+    {label:"Caratteristiche",url:"elementi_musica.html#caratteristiche"},
+    {label:"Udito",url:"elementi_musica.html#udito"},
+    {label:"Laboratorio",url:"elementi_musica.html#laboratorio"}
+  ],
+  teoriaBase:[
+    {label:"Pentagramma",id:"pentagramma"},
+    {label:"Chiavi",id:"chiavi"},
+    {label:"Note",id:"note"},
+    {label:"Figure",id:"figure"},
+    {label:"Tempi",id:"tempi"},
+    {label:"Scale",id:"scale"},
+    {label:"Simboli",id:"simboli"},
+    {label:"Espressione",id:"espressione"}
+  ],
+  teoriaAvanzata:[
+    {label:"Intervalli",id:"intervalliAvanzati"},
+    {label:"Accordi",id:"accordiAvanzati"},
+    {label:"Rivolti",id:"rivoltiAvanzati"},
+    {label:"Scale minori",id:"scaleMinoriAvanzate"},
+    {label:"Circolo quinte",id:"circoloQuinte"},
+    {label:"Cadenze",id:"cadenzeAvanzate"},
+    {label:"Modulazioni",id:"modulazioniAvanzate"},
+    {label:"Ritmica",id:"ritmicaAvanzata"},
+    {label:"Abbellimenti",id:"abbellimentiAvanzati"},
+    {label:"Forma",id:"formaAvanzata"}
+  ],
+  storiaMusica:[
+    {label:"Antichità",url:"storia/storia_antichita.html"},
+    {label:"Medioevo",url:"storia/storia_medioevo.html"},
+    {label:"Rinascimento",disabled:true},
+    {label:"Barocco",disabled:true},
+    {label:"Classicismo",disabled:true},
+    {label:"Romanticismo",disabled:true},
+    {label:"Novecento",disabled:true},
+    {label:"Contemporanea",disabled:true}
+  ],
+  strumentiMusicali:[
+    {label:"Panoramica",url:"strumenti.html#panoramica"},
+    {label:"Percussioni",url:"strumenti.html#percussioni"},
+    {label:"Fiato",url:"strumenti.html#fiato"},
+    {label:"Corde",url:"strumenti.html#corde"},
+    {label:"Tastiera",url:"strumenti.html#tastiera"},
+    {label:"Elettrofoni",url:"strumenti.html#elettrofoni"},
+    {label:"Gioco strumenti",url:"giochi/strumenti_game.html"}
+  ],
+  educazioneCivica:[
+    {label:"Inno d'Italia",id:"innoItalia"},
+    {label:"Musica e ambiente",id:"musicaAmbiente"},
+    {label:"Copyright e media",id:"copyrightMedia"}
+  ],
+  innoItalia:[
+    {label:"Timeline",url:"educazione_civica/inno_italia.html#timeline"},
+    {label:"Ascolto",url:"educazione_civica/inno_italia.html#video"},
+    {label:"Simboli",url:"educazione_civica/inno_italia.html#simboli"},
+    {label:"Autori",url:"educazione_civica/inno_italia.html#autori"},
+    {label:"Significato",url:"educazione_civica/inno_italia.html#significato"},
+    {label:"Canto",url:"educazione_civica/inno_italia.html#canta"},
+    {label:"Curiosità",url:"educazione_civica/inno_italia.html#curiosita"},
+    {label:"Quiz",url:"educazione_civica/inno_italia.html#quiz"}
+  ],
+  musicaAmbiente:[
+    {label:"Introduzione",url:"educazione_civica/musica_ambiente.html#introduzione"},
+    {label:"Suoni natura",url:"educazione_civica/musica_ambiente.html#suoni"},
+    {label:"Ascolto",url:"educazione_civica/musica_ambiente.html#ascolto"},
+    {label:"Canzoni",url:"educazione_civica/musica_ambiente.html#canzoni"},
+    {label:"Sostenibilità",url:"educazione_civica/musica_ambiente.html#sostenibilita"},
+    {label:"Laboratorio",url:"educazione_civica/musica_ambiente.html#laboratorio"},
+    {label:"Quiz",url:"educazione_civica/musica_ambiente.html#quiz"}
+  ],
+  copyrightMedia:[
+    {label:"Introduzione",url:"educazione_civica/rispetto_copyright_media.html#introduzione"},
+    {label:"Film",url:"educazione_civica/rispetto_copyright_media.html#film"},
+    {label:"Copyright",url:"educazione_civica/rispetto_copyright_media.html#copyright"},
+    {label:"Licenze",url:"educazione_civica/rispetto_copyright_media.html#licenze"},
+    {label:"Posso usarlo?",url:"educazione_civica/rispetto_copyright_media.html#simulatore"},
+    {label:"Plagio",url:"educazione_civica/rispetto_copyright_media.html#plagio"},
+    {label:"Pirateria",url:"educazione_civica/rispetto_copyright_media.html#pirateria"},
+    {label:"Piattaforme",url:"educazione_civica/rispetto_copyright_media.html#piattaforme"},
+    {label:"Carta contenuto",url:"educazione_civica/rispetto_copyright_media.html#carta"},
+    {label:"IA",url:"educazione_civica/rispetto_copyright_media.html#ia"},
+    {label:"Patto",url:"educazione_civica/rispetto_copyright_media.html#patto"},
+    {label:"Quiz",url:"educazione_civica/rispetto_copyright_media.html#quiz"}
+  ]
+};
+
+function getNodes(){
+  return document.querySelectorAll(".resourceNode");
+}
+
+function getClusters(){
+  return document.querySelectorAll(".resourceCluster");
+}
+
 function setFilter(filter){
   filterButtons.forEach(btn=>{
     btn.classList.toggle("active",btn.dataset.filter===filter);
   });
 
-  nodes.forEach(node=>{
+  getNodes().forEach(node=>{
     const visible=filter==="all"||node.dataset.type===filter;
     node.classList.toggle("dimmed",!visible);
+  });
+
+  getClusters().forEach(cluster=>{
+    const visible=filter==="all"||cluster.dataset.type===filter;
+    cluster.classList.toggle("dimmed",!visible);
   });
 
   categoryNodes.forEach(node=>{
@@ -58,12 +160,131 @@ rootNode?.addEventListener("click",()=>{
   MGH.goHome();
 });
 
-nodes.forEach(node=>{
-  node.addEventListener("click",()=>{
-    openModal(node.dataset.id);
+function setupClusters(){
+  document.querySelectorAll(".mapResourceGrid").forEach(grid=>{
+    Array.from(grid.children).forEach((child,index)=>{
+      const node=child.matches?.(".resourceNode")?child:child.querySelector?.(".resourceNode");
+      if(!node||!clusterContent[node.dataset.id])return;
+
+      let wrapper=child.matches?.(".resourceCluster")?child:null;
+      if(!wrapper){
+        wrapper=document.createElement("article");
+        wrapper.className="resourceCluster";
+        wrapper.dataset.type=node.dataset.type;
+        grid.insertBefore(wrapper,node);
+        wrapper.appendChild(node);
+      }
+
+      wrapper.classList.toggle("clusterFromRight",index%2===1);
+      node.classList.add("clusterToggle");
+      node.setAttribute("aria-expanded",node.getAttribute("aria-expanded")||"false");
+      node.dataset.toggleCluster=node.dataset.id;
+
+      if(!node.querySelector(".clusterHint")){
+        const hint=document.createElement("span");
+        hint.className="clusterHint";
+        node.appendChild(hint);
+      }
+      node.querySelector(".clusterHint").textContent="Apri contenuti";
+
+      let panel=wrapper.querySelector(".clusterLinks");
+      if(!panel){
+        panel=document.createElement("div");
+        panel.className="clusterLinks";
+        panel.id=`cluster-${node.dataset.id}`;
+        panel.hidden=true;
+        wrapper.appendChild(panel);
+      }
+
+      panel.innerHTML="";
+      clusterContent[node.dataset.id].forEach(item=>{
+        const button=document.createElement("button");
+        button.type="button";
+        button.textContent=item.label;
+        if(item.id)button.dataset.id=item.id;
+        if(item.url)button.dataset.url=item.url;
+        if(item.disabled){
+          button.disabled=true;
+          button.title="Pagina in arrivo";
+        }
+        panel.appendChild(button);
+      });
+    });
+  });
+}
+
+setupClusters();
+
+getNodes().forEach(node=>{
+  if(node.dataset.toggleCluster||node.querySelector(".cardHint"))return;
+
+  const hint=document.createElement("span");
+  hint.className="cardHint directHint";
+  hint.textContent=node.dataset.type==="games"?"Apri gioco":"Apri pagina";
+  node.appendChild(hint);
+});
+
+getNodes().forEach(node=>{
+  node.addEventListener("click",event=>{
+    const hint=event.target.closest?.(".clusterHint");
+    if(hint){
+      event.preventDefault();
+      event.stopPropagation();
+      toggleCluster(node);
+      node.blur();
+      return;
+    }
+
+    goToResource(node.dataset.id);
     node.blur();
   });
 });
+
+function toggleCluster(button){
+  const cluster=document.getElementById(`cluster-${button.dataset.toggleCluster}`);
+  const wrapper=button.closest(".resourceCluster");
+  if(!cluster||!wrapper)return;
+
+  const isOpen=button.getAttribute("aria-expanded")==="true";
+
+  document.querySelectorAll(".resourceCluster.open").forEach(openWrapper=>{
+    if(openWrapper===wrapper)return;
+    const openButton=openWrapper.querySelector(".clusterToggle");
+    const openCluster=openWrapper.querySelector(".clusterLinks");
+    const openHint=openButton?.querySelector(".clusterHint");
+
+    openWrapper.classList.remove("open");
+    if(openButton)openButton.setAttribute("aria-expanded","false");
+    if(openCluster)openCluster.hidden=true;
+    if(openHint)openHint.firstChild.textContent="Apri contenuti";
+  });
+
+  button.setAttribute("aria-expanded",String(!isOpen));
+  wrapper.classList.toggle("open",!isOpen);
+  cluster.hidden=isOpen;
+
+  const hint=button.querySelector(".clusterHint");
+  if(hint){
+    hint.firstChild.textContent=isOpen?"Apri contenuti":"Chiudi contenuti";
+  }
+}
+
+document.querySelectorAll(".clusterLinks button").forEach(link=>{
+  link.addEventListener("click",()=>{
+    if(link.disabled)return;
+    if(link.dataset.url){
+      MGH.goTo(link.dataset.url);
+    }else{
+      goToResource(link.dataset.id);
+    }
+    link.blur();
+  });
+});
+
+function goToResource(id){
+  const item=resources[id];
+  if(item?.url)MGH.goTo(item.url);
+}
 
 function openModal(id){
   const item=resources[id];
@@ -130,7 +351,7 @@ document.querySelectorAll(".resourceNode").forEach(node=>{
 });
 
 function renderMobileList(){
-  const labels={theory:"📘 Teoria",games:"🎮 Giochi",practice:"💡 Allenamento"};
+  const labels={theory:"📘 Teoria",paths:"🧭 Percorsi",games:"🎮 Giochi"};
   mobileList.innerHTML="";
 
   Object.entries(labels).forEach(([group,label])=>{
@@ -142,7 +363,7 @@ function renderMobileList(){
     wrapper.appendChild(title);
 
     Object.entries(resources)
-      .filter(([,item])=>item.group===group)
+      .filter(([,item])=>item.group===group&&!item.excludeFromStats)
       .forEach(([id,item])=>{
         const card=document.createElement("article");
         card.className="mobileCard";

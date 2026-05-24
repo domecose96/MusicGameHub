@@ -613,6 +613,7 @@
 .quizQuestion button.selected {
   border-color: rgba(22, 138, 74, 0.42);
   background: rgba(22, 138, 74, 0.09);
+  color: var(--anthem-blue);
 }
 
 .quizQuestion button.correct {

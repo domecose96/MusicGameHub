@@ -31,8 +31,8 @@
   <div class="filterDock">
     <button class="filterBtn active" data-filter="all">Tutto</button>
     <button class="filterBtn" data-filter="theory">📘 Teoria</button>
+    <button class="filterBtn" data-filter="paths">🧭 Percorsi</button>
     <button class="filterBtn" data-filter="games">🎮 Giochi</button>
-    <button class="filterBtn" data-filter="practice">💡 Allenamento</button>
     <span class="dockDivider"></span>
     <button class="filterBtn" data-action="reset">↺ Reset vista</button>
   </div>
@@ -40,91 +40,100 @@
 
 <main>
   <section class="mapViewport">
-    <div class="mapCanvas" id="mapCanvas">
-
-      <svg class="connectorLayer" viewBox="0 0 1260 720" aria-hidden="true">
-        <path d="M630 150 C630 180 300 180 300 215"></path>
-        <path d="M630 150 C630 180 820 180 820 215"></path>
-        <path d="M630 150 C630 180 1145 180 1145 215"></path>
-
-        <path class="soft" d="M300 300 C300 325 96 325 96 350"></path>
-        <path class="soft" d="M300 300 C300 325 236 325 236 350"></path>
-        <path class="soft" d="M300 300 C300 325 376 325 376 350"></path>
-        <path class="soft" d="M300 300 C300 325 516 325 516 350"></path>
-        <path class="soft" d="M300 300 C300 480 96 480 96 510"></path>
-        <path class="soft" d="M300 300 C300 480 236 480 236 510"></path>
-        <path class="soft" d="M300 300 C300 480 376 480 376 510"></path>
-        <path class="soft" d="M300 300 C300 480 516 480 516 510"></path>
-
-        <path class="soft" d="M820 300 C820 325 696 325 696 350"></path>
-        <path class="soft" d="M820 300 C820 325 836 325 836 350"></path>
-        <path class="soft" d="M820 300 C820 325 976 325 976 350"></path>
-        <path class="soft" d="M820 300 C820 480 766 480 766 510"></path>
-        <path class="soft" d="M820 300 C820 480 906 480 906 510"></path>
-
-        <path class="soft" d="M1145 300 C1145 325 1146 325 1146 350"></path>
-      </svg>
-
+    <div class="mapCanvas structuredMap" id="mapCanvas">
       <button class="node rootNode" data-root="true">
         <div class="nodeIcon">🎼</div>
         <h2>Music Game Hub</h2>
-        <p>homepage</p>
+        <p>torna alla home</p>
       </button>
 
-      <button class="node categoryNode cat-theory" data-category-node="theory">
-        <div class="nodeIcon">📘</div><h3>Teoria</h3><p>8 risorse</p>
-      </button>
-      <button class="node categoryNode cat-games" data-category-node="games">
-        <div class="nodeIcon">🎮</div><h3>Giochi</h3><p>5 risorse</p>
-      </button>
-      <button class="node categoryNode cat-practice" data-category-node="practice">
-        <div class="nodeIcon">💡</div><h3>Allenamento</h3><p>1 risorsa</p>
-      </button>
+      <div class="mapColumns">
+        <section class="mapColumn mapColumnTheory">
+          <button class="node categoryNode cat-theory" data-category-node="theory">
+            <div class="nodeIcon">📘</div><h3>Teoria</h3><p>3 risorse principali</p>
+          </button>
+          <div class="mapResourceGrid">
+            <button class="node resourceNode featured" data-id="elementiMusica" data-type="theory">
+              <span class="featuredRibbon">★ nuovo</span><span class="badge theory">Teoria</span><div class="resourceIcon">〰</div><h4>Suono ed elementi</h4><p>Onde e udito</p>
+            </button>
+            <article class="resourceCluster clusterFromRight" data-type="theory">
+              <button class="node resourceNode clusterToggle" data-id="teoriaBase" data-type="theory" data-toggle-cluster="teoriaBase" aria-expanded="false">
+                <span class="badge theory">Teoria</span><div class="resourceIcon">📚</div><h4>Teoria musicale</h4><p>Pentagramma, note, ritmo e simboli</p><span class="clusterHint">Apri argomenti</span>
+              </button>
+              <div class="clusterLinks" id="cluster-teoriaBase" aria-label="Argomenti di teoria musicale" hidden>
+                <button type="button" data-id="pentagramma">Pentagramma</button>
+                <button type="button" data-id="chiavi">Chiavi</button>
+                <button type="button" data-id="note">Note</button>
+                <button type="button" data-id="figure">Figure</button>
+                <button type="button" data-id="tempi">Tempi</button>
+                <button type="button" data-id="scale">Scale</button>
+                <button type="button" data-id="simboli">Simboli</button>
+                <button type="button" data-id="espressione">Espressione</button>
+              </div>
+            </article>
+            <article class="resourceCluster" data-type="theory">
+              <button class="node resourceNode featured clusterToggle" data-id="teoriaAvanzata" data-type="theory" data-toggle-cluster="teoriaAvanzata" aria-expanded="false">
+                <span class="featuredRibbon">★ avanzata</span><span class="badge theory">Teoria</span><div class="resourceIcon">🧠</div><h4>Teoria avanzata</h4><p>Accordi, forme e armonia</p><span class="clusterHint">Apri argomenti</span>
+              </button>
+              <div class="clusterLinks" id="cluster-teoriaAvanzata" aria-label="Argomenti di teoria avanzata" hidden>
+                <button type="button" data-id="intervalliAvanzati">Intervalli</button>
+                <button type="button" data-id="accordiAvanzati">Accordi</button>
+                <button type="button" data-id="rivoltiAvanzati">Rivolti</button>
+                <button type="button" data-id="scaleMinoriAvanzate">Scale minori</button>
+                <button type="button" data-id="circoloQuinte">Circolo quinte</button>
+                <button type="button" data-id="cadenzeAvanzate">Cadenze</button>
+                <button type="button" data-id="modulazioniAvanzate">Modulazioni</button>
+                <button type="button" data-id="ritmicaAvanzata">Ritmica</button>
+                <button type="button" data-id="abbellimentiAvanzati">Abbellimenti</button>
+                <button type="button" data-id="formaAvanzata">Forma</button>
+              </div>
+            </article>
+          </div>
+        </section>
 
-      <button id="res-pentagramma" class="node resourceNode featured" data-id="pentagramma" data-type="theory">
-        <span class="featuredRibbon">★ in evidenza</span><span class="badge theory">Teoria</span><div class="resourceIcon">🎼</div><h4>Pentagramma</h4><p>Righe, spazi e tagli</p>
-      </button>
-      <button id="res-chiavi" class="node resourceNode" data-id="chiavi" data-type="theory">
-        <span class="badge theory">Teoria</span><div class="resourceIcon">𝄞</div><h4>Chiavi</h4><p>Sol, Fa e Do</p>
-      </button>
-      <button id="res-note" class="node resourceNode" data-id="note" data-type="theory">
-        <span class="badge theory">Teoria</span><div class="resourceIcon">🎵</div><h4>Note</h4><p>Sul pentagramma</p>
-      </button>
-      <button id="res-figure" class="node resourceNode" data-id="figure" data-type="theory">
-        <span class="badge theory">Teoria</span><div class="resourceIcon">♩</div><h4>Figure</h4><p>Valori ritmici</p>
-      </button>
-      <button id="res-tempi" class="node resourceNode" data-id="tempi" data-type="theory">
-        <span class="badge theory">Teoria</span><div class="resourceIcon">⏱</div><h4>Tempi</h4><p>Metro musicale</p>
-      </button>
-      <button id="res-scale" class="node resourceNode" data-id="scale" data-type="theory">
-        <span class="badge theory">Teoria</span><div class="resourceIcon">🎹</div><h4>Scale</h4><p>Toni e tonalità</p>
-      </button>
-      <button id="res-simboli" class="node resourceNode" data-id="simboli" data-type="theory">
-        <span class="badge theory">Teoria</span><div class="resourceIcon">♯</div><h4>Simboli</h4><p>Segni musicali</p>
-      </button>
-      <button id="res-espressione" class="node resourceNode" data-id="espressione" data-type="theory">
-        <span class="badge theory">Teoria</span><div class="resourceIcon">🎭</div><h4>Espressione</h4><p>Dinamica e agogica</p>
-      </button>
+        <section class="mapColumn mapColumnPaths">
+          <button class="node categoryNode cat-paths" data-category-node="paths">
+            <div class="nodeIcon">🧭</div><h3>Percorsi</h3><p>3 risorse principali</p>
+          </button>
+          <div class="mapResourceGrid">
+            <button class="node resourceNode featured" data-id="storiaMusica" data-type="paths">
+              <span class="featuredRibbon">★ timeline</span><span class="badge paths">Percorso</span><div class="resourceIcon">🕰️</div><h4>Storia</h4><p>Epoche e autori</p>
+            </button>
+            <button class="node resourceNode" data-id="strumentiMusicali" data-type="paths">
+              <span class="badge paths">Percorso</span><div class="resourceIcon">🎺</div><h4>Strumenti</h4><p>Famiglie e gioco</p>
+            </button>
+            <button class="node resourceNode featured" data-id="educazioneCivica" data-type="paths">
+              <span class="featuredRibbon">★ indice</span><span class="badge paths">Percorso</span><div class="resourceIcon">🌍</div><h4>Educazione civica</h4><p>Indice lezioni</p>
+            </button>
+          </div>
+        </section>
 
-      <button id="res-pentagramma-game" class="node resourceNode featured" data-id="pentagrammaGame" data-type="games">
-        <span class="featuredRibbon">★ nuovo</span><span class="badge games">Gioco</span><div class="resourceIcon">🎯</div><h4>Orientati</h4><p>Sul pentagramma</p>
-      </button>
-      <button id="res-note-game" class="node resourceNode" data-id="noteGame" data-type="games">
-        <span class="badge games">Gioco</span><div class="resourceIcon">𝄞</div><h4>Impara le Note</h4><p>Violino e basso</p>
-      </button>
-      <button id="res-figures-game" class="node resourceNode" data-id="figuresGame" data-type="games">
-        <span class="badge games">Gioco</span><div class="resourceIcon">♩</div><h4>Figure Musicali</h4><p>Riconoscimento</p>
-      </button>
-      <button id="res-wordle" class="node resourceNode" data-id="wordle" data-type="games">
-        <span class="badge games">Gioco</span><div class="resourceIcon">W</div><h4>Music Wordle</h4><p>Vocabolario</p>
-      </button>
-      <button id="res-guanto" class="node resourceNode" data-id="guanto" data-type="games">
-        <span class="badge games">Gioco</span><div class="resourceIcon">🏆</div><h4>Guanto Sfida</h4><p>Quiz misto</p>
-      </button>
-
-      <button id="res-ritmo" class="node resourceNode featured" data-id="ritmo" data-type="practice">
-        <span class="featuredRibbon">★ utile</span><span class="badge practice">Allenamento</span><div class="resourceIcon">♪</div><h4>Ritmo Challenge</h4><p>Calcolo valori</p>
-      </button>
+        <section class="mapColumn mapColumnGames">
+          <button class="node categoryNode cat-games" data-category-node="games">
+            <div class="nodeIcon">🎮</div><h3>Giochi</h3><p>6 risorse</p>
+          </button>
+          <div class="mapResourceGrid">
+            <button class="node resourceNode featured" data-id="pentagrammaGame" data-type="games">
+              <span class="featuredRibbon">★ nuovo</span><span class="badge games">Gioco</span><div class="resourceIcon">🎯</div><h4>Orientati</h4><p>Sul pentagramma</p>
+            </button>
+            <button class="node resourceNode" data-id="noteGame" data-type="games">
+              <span class="badge games">Gioco</span><div class="resourceIcon">𝄞</div><h4>Impara le Note</h4><p>Violino e basso</p>
+            </button>
+            <button class="node resourceNode" data-id="figuresGame" data-type="games">
+              <span class="badge games">Gioco</span><div class="resourceIcon">♩</div><h4>Figure Musicali</h4><p>Riconoscimento</p>
+            </button>
+            <button class="node resourceNode" data-id="wordle" data-type="games">
+              <span class="badge games">Gioco</span><div class="resourceIcon">W</div><h4>Music Wordle</h4><p>Vocabolario</p>
+            </button>
+            <button class="node resourceNode" data-id="guanto" data-type="games">
+              <span class="badge games">Gioco</span><div class="resourceIcon">🏆</div><h4>Guanto Sfida</h4><p>Quiz misto</p>
+            </button>
+            <button class="node resourceNode featured" data-id="ritmo" data-type="games">
+              <span class="featuredRibbon">★ ritmo</span><span class="badge games">Gioco</span><div class="resourceIcon">♪</div><h4>Ritmo Challenge</h4><p>Calcolo valori</p>
+            </button>
+          </div>
+        </section>
+      </div>
     </div>
   </section>
 
@@ -133,8 +142,8 @@
 
 <div class="legend">
   <div><span class="legendDot theory"></span> Teoria</div>
+  <div><span class="legendDot paths"></span> Percorsi</div>
   <div><span class="legendDot games"></span> Giochi</div>
-  <div><span class="legendDot practice"></span> Allenamento</div>
   <div><span class="legendDot featured"></span> In evidenza</div>
 </div>
 

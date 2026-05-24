@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rispetto, copyright e uso consapevole dei media | Music Game Hub</title>
+<link rel="icon" type="image/png" href="../img/mgh-logo.png">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/learn.css">
+<link rel="stylesheet" href="../css/educazione_civica/rispetto_copyright_media.css">
+</head>
+
+<body class="mediaRightsPage">
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="MGH.goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+
+    <div class="headerBrand">
+      <span class="headerEyebrow">Educazione civica musicale</span>
+      <h1 class="pageTitle">Rispetto, copyright e uso consapevole dei media</h1>
+    </div>
+  </div>
+</header>
+
+<nav id="siteNav" class="theoryNav mediaRightsNav">
+  <button class="navBtn" onclick="MGH.scrollToSection('hero')">🎧 Inizio</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('introduzione')">💡 Introduzione</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('film')">🎬 Caso film</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('copyright')">© Copyright</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('licenze')">🔎 Licenze</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('simulatore')">🧭 Posso usarlo?</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('plagio')">🧠 Plagio</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('pirateria')">⚠️ Pirateria</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('piattaforme')">📱 Piattaforme</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('carta')">🪪 Carta</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('ia')">🤖 IA</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('patto')">🤝 Patto</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('quiz')">✅ Quiz</button>
+</nav>
+
+<div id="contentWrapper">
+
+  <section id="hero" class="siteSection mediaHero">
+    <div class="mediaHeroText">
+      <span class="mediaBadge">🎧 Cittadinanza digitale</span>
+      <h2>Usare la musica online con rispetto.</h2>
+      <p>
+        Ogni giorno ascoltiamo, condividiamo e riutilizziamo contenuti digitali.
+        Questa lezione aiuta a capire quando un uso è corretto, quando diventa
+        scorretto e perché rispettare gli autori significa rispettare il lavoro
+        creativo.
+      </p>
+      <div class="mediaHeroActions">
+        <button class="mediaButton" onclick="MGH.scrollToSection('introduzione')">Inizia la lezione</button>
+        <button class="mediaButton secondary" onclick="MGH.scrollToSection('simulatore')">Prova i casi</button>
+      </div>
+    </div>
+
+    <div class="mediaHeroPanel" aria-label="Contenuti digitali e rispetto degli autori">
+      <div class="mediaRightsScene">
+        <div class="mediaPlayerMock">
+          <div class="playerTop">
+            <span></span>
+            <strong>Contenuto online</strong>
+            <small>fonte, autore, licenza</small>
+          </div>
+          <div class="playerWave" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="playerCredit">
+            <span>Autore</span>
+            <strong>citato</strong>
+          </div>
+        </div>
+        <div class="rightsOrbit">
+          <span class="rightsTile tileA">©</span>
+          <span class="rightsTile tileB">CC</span>
+          <span class="rightsTile tileC">AI</span>
+          <span class="rightsTile tileD">link</span>
+        </div>
+      </div>
+      <strong>Ascoltare, creare, citare, rispettare</strong>
+    </div>
+  </section>
+
+  <section id="introduzione" class="siteSection learnSection">
+    <h2 class="sectionTitle">Di cosa parliamo?</h2>
+    <p class="sectionIntro">
+      Usare i media in modo consapevole vuol dire saper riconoscere il valore di
+      una canzone, di un video, di un'immagine o di una base musicale. Prima di
+      copiare, pubblicare o modificare un contenuto, bisogna chiedersi chi lo ha
+      creato, da dove arriva e quali regole ne permettono l'uso.
+    </p>
+
+    <div class="filmScenario">
+      <article class="filmCard">
+        <span>1</span>
+        <h3>Riconoscere</h3>
+        <p>Capire che dietro un contenuto ci sono autori, interpreti, tecnici, studio e lavoro.</p>
+      </article>
+      <article class="filmCard">
+        <span>2</span>
+        <h3>Verificare</h3>
+        <p>Controllare fonte, piattaforma, licenza e permessi prima di usare o pubblicare.</p>
+      </article>
+      <article class="filmCard">
+        <span>3</span>
+        <h3>Usare bene</h3>
+        <p>Citare, condividere link ufficiali, evitare copie illegali e dichiarare ciò che si rielabora.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="film" class="siteSection learnSection">
+    <h2 class="sectionTitle">Un caso per discutere: se tutti dimenticassero gli autori?</h2>
+    <p class="sectionIntro">
+      Se la classe conosce il film <strong>Yesterday</strong>, questa situazione
+      può aiutare ad aprire il dibattito: un musicista canta brani famosissimi,
+      ma il mondo sembra non ricordare chi li ha scritti. La domanda guida è:
+      diventare famoso con opere altrui è giusto o sbagliato?
+    </p>
+
+    <div class="filmScenario">
+      <article class="filmCard">
+        <span>1</span>
+        <h3>Opera</h3>
+        <p>Una canzone nasce da idee, tempo, studio, prove, errori e scelte creative.</p>
+      </article>
+      <article class="filmCard">
+        <span>2</span>
+        <h3>Autore</h3>
+        <p>Chi crea un'opera ha diritto a essere riconosciuto e rispettato.</p>
+      </article>
+      <article class="filmCard">
+        <span>3</span>
+        <h3>Responsabilità</h3>
+        <p>Usare un contenuto richiede attenzione: non tutto ciò che è online è libero.</p>
+      </article>
+    </div>
+
+    <div class="decisionBox" aria-live="polite">
+      <h3>Discussione rapida</h3>
+      <p>Secondo te, nel caso del film, qual è il comportamento più corretto?</p>
+      <div class="mediaChoiceGrid">
+        <button class="mediaChoice" type="button" data-feedback="Rischioso: il pubblico non saprebbe chi ha creato davvero quelle canzoni.">Usare le canzoni e basta</button>
+        <button class="mediaChoice" type="button" data-feedback="Corretto: riconoscere la fonte è il primo passo per rispettare l'opera e l'autore.">Dire da dove arrivano</button>
+        <button class="mediaChoice" type="button" data-feedback="Creativo: ispirarsi è possibile, ma bisogna trasformare e dichiarare il proprio lavoro.">Creare qualcosa di nuovo</button>
+      </div>
+      <p id="decisionFeedback" class="decisionFeedback">Scegli una risposta per aprire il confronto.</p>
+    </div>
+  </section>
+
+  <section id="copyright" class="siteSection learnSection">
+    <h2 class="sectionTitle">Copyright e diritto d'autore</h2>
+    <p class="sectionIntro">
+      Il copyright tutela chi crea un'opera. In musica protegge canzoni,
+      registrazioni, testi, arrangiamenti e interpretazioni. Non serve solo a
+      vietare: serve anche a riconoscere il lavoro e permettere agli artisti di
+      decidere come la loro opera può essere usata.
+    </p>
+
+    <div class="rightsGrid">
+      <article>
+        <span>©</span>
+        <h3>Riconoscimento</h3>
+        <p>Citare l'autore significa non cancellare chi ha creato l'opera.</p>
+      </article>
+      <article>
+        <span>⚙</span>
+        <h3>Uso consentito</h3>
+        <p>Un contenuto può essere ascoltato, condiviso o riusato solo secondo le condizioni previste.</p>
+      </article>
+      <article>
+        <span>💶</span>
+        <h3>Valore</h3>
+        <p>La musica è anche lavoro: richiede tempo, creatività e competenze.</p>
+      </article>
+    </div>
+
+    <div class="quotePanel">
+      <strong>Idea chiave</strong>
+      <p>
+        Online non basta trovare un file per poterlo usare liberamente.
+        Prima si controlla la fonte, poi si citano autore e piattaforma, infine
+        si verifica se il riuso è permesso.
+      </p>
+    </div>
+  </section>
+
+  <section id="licenze" class="siteSection learnSection">
+    <h2 class="sectionTitle">Licenze e fonti: come capisco se posso usare un contenuto?</h2>
+    <p class="sectionIntro">
+      Prima di inserire una musica in un video, una presentazione o un post,
+      bisogna controllare da dove arriva e quali condizioni prevede. Il punto
+      non è avere paura di usare i media: è usarli con criterio.
+    </p>
+
+    <div class="licenseGrid">
+      <article>
+        <span>©</span>
+        <h3>Tutti i diritti riservati</h3>
+        <p>Serve un permesso o bisogna restare dentro gli usi concessi dalla piattaforma.</p>
+      </article>
+      <article>
+        <span>CC</span>
+        <h3>Creative Commons</h3>
+        <p>Alcune opere permettono il riuso, ma possono richiedere citazione, divieto commerciale o condivisione allo stesso modo.</p>
+      </article>
+      <article>
+        <span>PD</span>
+        <h3>Pubblico dominio</h3>
+        <p>Alcune opere non sono più protette, ma va comunque indicata una fonte affidabile.</p>
+      </article>
+      <article>
+        <span>↗</span>
+        <h3>Link ufficiale</h3>
+        <p>Spesso condividere il link alla fonte ufficiale è più corretto che copiare e ricaricare il file.</p>
+      </article>
+    </div>
+
+    <div class="sourceRecipe">
+      <h3>Formula minima per citare</h3>
+      <p><strong>Titolo</strong> · <strong>autore</strong> · <strong>fonte/piattaforma</strong> · <strong>licenza o permesso</strong></p>
+    </div>
+  </section>
+
+  <section id="simulatore" class="siteSection learnSection">
+    <h2 class="sectionTitle">Posso usarlo?</h2>
+    <p class="sectionIntro">
+      Scegli una situazione reale e ragiona prima di pubblicare. La risposta
+      non dipende solo dal contenuto, ma anche da fonte, permessi e modo in cui
+      lo usi.
+    </p>
+
+    <div class="useSimulator">
+      <div class="simulatorChoices" aria-label="Casi pratici di uso dei media">
+        <button type="button" class="simulatorOption active" data-case="presentation">
+          <span>Presentazione</span>
+          <strong>Inserire una canzone in una slide</strong>
+        </button>
+        <button type="button" class="simulatorOption" data-case="video">
+          <span>Video</span>
+          <strong>Usare un brano come sottofondo</strong>
+        </button>
+        <button type="button" class="simulatorOption" data-case="remix">
+          <span>Remix</span>
+          <strong>Modificare una base trovata online</strong>
+        </button>
+        <button type="button" class="simulatorOption" data-case="social">
+          <span>Social</span>
+          <strong>Pubblicare un audio su una piattaforma</strong>
+        </button>
+      </div>
+
+      <article class="simulatorResult" id="simulatorResult" aria-live="polite">
+        <span class="resultBadge caution">Attenzione</span>
+        <h3>Usa una fonte affidabile e cita autore, titolo e piattaforma.</h3>
+        <p>Per un lavoro di classe puoi usare brevi riferimenti se sono funzionali alla spiegazione, ma non caricare file copiati o senza fonte.</p>
+        <ul>
+          <li>Controlla da dove arriva il brano.</li>
+          <li>Scrivi i crediti nella slide finale.</li>
+          <li>Preferisci link ufficiali quando devi condividere.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="plagio" class="siteSection learnSection">
+    <h2 class="sectionTitle">Plagio: quando copiare diventa scorretto</h2>
+    <p class="sectionIntro">
+      Il plagio avviene quando si copia un'opera, un'idea o una parte riconoscibile
+      facendola passare come propria. Non riguarda solo i compiti: può riguardare
+      testi, basi musicali, video, immagini, presentazioni e contenuti social.
+    </p>
+
+    <div class="plagiarismBoard">
+      <article class="mediaScenarioCard" tabindex="0" role="button">
+        <span>Non corretto</span>
+        <h3>Copio una base e dico che è mia</h3>
+        <p>Manca il riconoscimento dell'autore e il pubblico viene ingannato.</p>
+      </article>
+      <article class="mediaScenarioCard" tabindex="0" role="button">
+        <span>Da correggere</span>
+        <h3>Uso 20 secondi senza citare</h3>
+        <p>Anche un frammento può essere riconoscibile: bisogna controllare permessi e fonte.</p>
+      </article>
+      <article class="mediaScenarioCard" tabindex="0" role="button">
+        <span>Più responsabile</span>
+        <h3>Cito, trasformo, spiego</h3>
+        <p>Se il lavoro è ispirato a qualcosa, lo dichiaro e aggiungo un contributo personale.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="pirateria" class="siteSection learnSection">
+    <h2 class="sectionTitle">Pirateria: scaricare non significa avere il diritto</h2>
+    <p class="sectionIntro">
+      La pirateria è l'uso o la diffusione non autorizzata di contenuti.
+      Scaricare musica illegalmente, usare file presi da siti non affidabili o
+      caricare brani protetti senza permesso danneggia autori, interpreti e tecnici.
+    </p>
+
+    <div class="comparisonGrid">
+      <article class="goodUse">
+        <h3>Condivisione corretta</h3>
+        <ul>
+          <li>Usare piattaforme legali.</li>
+          <li>Condividere link ufficiali.</li>
+          <li>Citare autore e fonte.</li>
+          <li>Controllare licenza e permessi.</li>
+        </ul>
+      </article>
+      <article class="badUse">
+        <h3>Pirateria</h3>
+        <ul>
+          <li>Scaricare da siti illegali.</li>
+          <li>Ricaricare brani protetti.</li>
+          <li>Usare contenuti senza permesso.</li>
+          <li>Togliere nome o crediti all'autore.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="piattaforme" class="siteSection learnSection">
+    <h2 class="sectionTitle">Piattaforme e comportamento digitale</h2>
+    <p class="sectionIntro">
+      YouTube, Spotify, TikTok e le altre piattaforme non sono tutte uguali.
+      Alcune permettono solo l'ascolto, altre anche la condivisione o il remix,
+      ma sempre dentro regole precise.
+    </p>
+
+    <div class="platformGrid">
+      <article>
+        <span>▶</span>
+        <h3>YouTube</h3>
+        <p>Preferisci link ufficiali, descrizioni complete e crediti visibili.</p>
+      </article>
+      <article>
+        <span>♬</span>
+        <h3>Spotify</h3>
+        <p>Usa la piattaforma per ascoltare legalmente e condividere link, non file copiati.</p>
+      </article>
+      <article>
+        <span>#</span>
+        <h3>Social</h3>
+        <p>Prima di usare un audio in un video, controlla se la piattaforma lo consente.</p>
+      </article>
+    </div>
+
+    <div class="checklistPanel">
+      <h3>Prima di pubblicare chiediti:</h3>
+      <div class="checklistGrid">
+        <span>Ho citato autore e fonte?</span>
+        <span>La musica viene da una fonte affidabile?</span>
+        <span>Il riuso è consentito?</span>
+        <span>Sto aggiungendo qualcosa di mio?</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="carta" class="siteSection learnSection">
+    <h2 class="sectionTitle">Carta d'identità del contenuto</h2>
+    <p class="sectionIntro">
+      Prima di usare una canzone, un video o un'immagine, prova a compilare
+      questa scheda. Se mancano troppe informazioni, forse il contenuto non è
+      adatto a un lavoro scolastico o a una pubblicazione.
+    </p>
+
+    <div class="contentPassport">
+      <form class="passportForm" aria-label="Carta d'identità del contenuto">
+        <label>Titolo <input id="passportTitle" type="text" value="Yesterday"></label>
+        <label>Autore <input id="passportAuthor" type="text" value="The Beatles"></label>
+        <label>Fonte <input id="passportSource" type="text" value="Link ufficiale o piattaforma legale"></label>
+        <label>Licenza/permesso <input id="passportLicense" type="text" value="Uso consentito dalla piattaforma"></label>
+      </form>
+
+      <article class="passportPreview">
+        <span>Contenuto verificato</span>
+        <h3 id="passportPreviewTitle">Yesterday</h3>
+        <dl>
+          <div><dt>Autore</dt><dd id="passportPreviewAuthor">The Beatles</dd></div>
+          <div><dt>Fonte</dt><dd id="passportPreviewSource">Link ufficiale o piattaforma legale</dd></div>
+          <div><dt>Uso</dt><dd id="passportPreviewLicense">Uso consentito dalla piattaforma</dd></div>
+        </dl>
+        <p id="passportCitation">Citazione: Yesterday · The Beatles · Link ufficiale o piattaforma legale · Uso consentito dalla piattaforma</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="ia" class="siteSection learnSection">
+    <h2 class="sectionTitle">Intelligenza artificiale e musica</h2>
+    <p class="sectionIntro">
+      L'IA apre nuove possibilità creative, ma anche nuove domande: chi è l'autore?
+      È corretto imitare una voce? È giusto usare lo stile di un artista senza
+      dichiararlo? La tecnologia non elimina la responsabilità.
+    </p>
+
+    <div class="aiGrid">
+      <article>
+        <h3>Creare con IA</h3>
+        <p>Usare uno strumento digitale può essere utile, ma va dichiarato quando conta per il lavoro finale.</p>
+      </article>
+      <article>
+        <h3>Imitare artisti</h3>
+        <p>Riprodurre voce, stile o identità di una persona richiede attenzione e rispetto.</p>
+      </article>
+      <article>
+        <h3>Restare autori</h3>
+        <p>La scelta, la revisione, il messaggio e la responsabilità restano umani.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="patto" class="siteSection learnSection">
+    <h2 class="sectionTitle">Patto della classe</h2>
+    <p class="sectionIntro">
+      Scegli le regole più importanti per costruire un patto condiviso sull'uso
+      della musica online.
+    </p>
+
+    <div class="pactBuilder">
+      <div class="pactOptions" aria-label="Regole del patto">
+        <button type="button" data-pact="Useremo piattaforme legali e link ufficiali.">Piattaforme legali</button>
+        <button type="button" data-pact="Citeremo sempre autore, titolo e fonte.">Citare gli autori</button>
+        <button type="button" data-pact="Non presenteremo come nostre opere create da altri.">No plagio</button>
+        <button type="button" data-pact="Controlleremo le condizioni prima di riusare musica o immagini.">Controllare i permessi</button>
+        <button type="button" data-pact="Dichiareremo l'uso di strumenti di IA quando è rilevante.">Uso trasparente dell'IA</button>
+      </div>
+
+      <div class="pactOutput">
+        <span class="pactSeal">Manifesto</span>
+        <h3>Il nostro patto</h3>
+        <ul id="pactList">
+          <li>Seleziona almeno una regola per iniziare.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="quiz" class="siteSection learnSection">
+    <h2 class="sectionTitle">Quiz finale</h2>
+    <p class="sectionIntro">Controlla se hai capito le differenze principali.</p>
+
+    <div class="mediaQuiz" id="mediaQuiz">
+      <article class="quizCard">
+        <h3>1. Qual è il comportamento più corretto?</h3>
+        <button type="button" data-correct="false">Scaricare una canzone da un sito casuale.</button>
+        <button type="button" data-correct="true">Usare una piattaforma legale e citare la fonte.</button>
+        <button type="button" data-correct="false">Togliere il nome dell'autore dal file.</button>
+      </article>
+      <article class="quizCard">
+        <h3>2. Il plagio è...</h3>
+        <button type="button" data-correct="true">Presentare come proprio un lavoro altrui.</button>
+        <button type="button" data-correct="false">Ascoltare musica online.</button>
+        <button type="button" data-correct="false">Condividere un link ufficiale.</button>
+      </article>
+      <article class="quizCard">
+        <h3>3. Con l'intelligenza artificiale è importante...</h3>
+        <button type="button" data-correct="false">Nascondere sempre lo strumento usato.</button>
+        <button type="button" data-correct="true">Usarla con trasparenza e responsabilità.</button>
+        <button type="button" data-correct="false">Imitare chiunque senza pensarci.</button>
+      </article>
+    </div>
+
+    <p id="quizResult" class="quizResult">Rispondi alle domande per vedere il risultato.</p>
+  </section>
+
+</div>
+
+<footer class="siteLegalFooter">
+  <p>Music Game Hub tutela la privacy e usa solo strumenti tecnici o statistici necessari al portale.</p>
+  <div class="siteLegalLinks">
+    <a href="../legal/privacy.html">Privacy Policy</a>
+    <span>·</span>
+    <a href="../legal/cookie.html">Cookie Policy</a>
+    <span>·</span>
+    <a href="../legal/termini.html">Termini di servizio</a>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
+
+<script src="../js/common.js"></script>
+<script src="../js/educazione_civica/rispetto_copyright_media.js"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

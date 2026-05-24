@@ -1,0 +1,1108 @@
+.elementsPage {
+  --sound-blue: #2f83b7;
+  --sound-green: #2f8f67;
+  --sound-red: #d34b4b;
+  --sound-violet: #8a6fca;
+  --sound-ink: var(--text-main);
+  --theory-soft: rgba(255, 102, 0, 0.1);
+  --theory-border: rgba(255, 102, 0, 0.2);
+}
+
+.elementsPage .pageTitle {
+  color: var(--accent);
+}
+
+.elementsPage #siteNav {
+  border-bottom-color: rgba(255, 102, 0, 0.12);
+}
+
+.elementsPage .navBtn {
+  border-color: var(--theory-border);
+  color: var(--text-muted);
+}
+
+.elementsPage .navBtn:hover,
+.elementsPage .sectionTitle {
+  color: var(--accent);
+}
+
+.elementsPage .navBtn.active,
+.elementsButton {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: #ffffff;
+}
+
+.elementsPage #homeBtn.selected,
+.elementsPage .homeButton.selected,
+.elementsPage #scrollTopBtn {
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+}
+
+.elementsHero {
+  min-height: 520px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.92fr);
+  gap: 32px;
+  align-items: center;
+  padding: 72px 0 52px;
+}
+
+.heroCopy,
+.heroWave,
+.elementCard,
+.listeningGrid article,
+.conceptMap,
+.detailGrid article,
+.soundFeaturePanel article,
+.waveCard,
+.soundNoiseGrid article,
+.waveLab {
+  border: 1px solid rgba(24, 50, 74, 0.1);
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: var(--panel-shadow);
+}
+
+.heroCopy {
+  padding: 34px;
+  border-radius: 20px;
+  border-color: rgba(255, 102, 0, 0.16);
+}
+
+.lessonBadge {
+  display: inline-flex;
+  margin-bottom: 12px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.heroCopy h2 {
+  margin: 0;
+  color: var(--text-main);
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  line-height: 1.08;
+}
+
+.heroCopy p {
+  max-width: 680px;
+  margin: 18px 0 0;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.heroActions,
+.labControls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.heroActions {
+  margin-top: 24px;
+}
+
+.elementsButton {
+  min-height: 44px;
+  padding: 11px 18px;
+  border: 0;
+  border-radius: 14px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.elementsButton.secondary {
+  border: 1px solid var(--theory-border);
+  background: var(--theory-soft);
+  color: var(--accent);
+}
+
+.heroWave {
+  height: 320px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 26% 28%, rgba(35, 135, 107, 0.18), transparent 36%),
+    linear-gradient(135deg, rgba(255, 102, 0, 0.12), rgba(255, 255, 255, 0.94));
+}
+
+.heroWave svg {
+  width: min(560px, 92%);
+}
+
+.waveAxis,
+.labAxis,
+.waveCard line,
+.soundNoiseGrid line {
+  stroke: rgba(24, 50, 74, 0.22);
+  stroke-width: 2;
+}
+
+.waveBack,
+.waveFront {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.waveBack {
+  stroke: rgba(23, 99, 166, 0.18);
+  stroke-width: 28;
+}
+
+.waveFront {
+  stroke: var(--sound-blue);
+  stroke-width: 8;
+}
+
+.elementsGrid,
+.listeningGrid,
+.detailGrid,
+.waveComparison,
+.soundNoiseGrid,
+.earJourney {
+  display: grid;
+  gap: 18px;
+}
+
+.elementsGrid,
+.listeningGrid,
+.earJourney {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.listeningGrid article,
+.detailGrid article,
+.earJourney article {
+  min-height: 180px;
+  padding: 22px;
+  border-radius: 18px;
+  text-align: left;
+}
+
+.listeningGrid span {
+  display: inline-flex;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--theory-soft);
+  color: var(--accent);
+  font-size: 0.76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.listeningGrid h3,
+.detailGrid h3,
+.earJourney h3 {
+  margin: 0 0 10px;
+  color: var(--text-main);
+}
+
+.listeningGrid p,
+.detailGrid p,
+.detailGrid li,
+.earJourney p {
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.detailGrid p,
+.earJourney p {
+  margin: 0;
+}
+
+.conceptMap {
+  max-width: 980px;
+  margin: 24px auto 0;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.mapNode.main {
+  width: fit-content;
+  margin: 0 auto 16px;
+  padding: 12px 18px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: #ffffff;
+  font-weight: 900;
+}
+
+.mapBranches {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.mapBranches div {
+  padding: 14px;
+  border: 1px solid var(--theory-border);
+  border-radius: 14px;
+  background: rgba(255, 102, 0, 0.05);
+}
+
+.mapBranches strong,
+.mapBranches span {
+  display: block;
+}
+
+.mapBranches strong {
+  margin-bottom: 6px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.mapBranches span {
+  color: var(--text-main);
+  font-weight: 800;
+}
+
+.mapNote {
+  max-width: 760px;
+  margin: 16px auto 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.elementCard {
+  min-height: 210px;
+  padding: 24px;
+  border-radius: 18px;
+}
+
+.elementCard span {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  margin-bottom: 16px;
+  border-radius: 16px;
+  background: var(--theory-soft);
+  color: var(--accent);
+  font-size: 1.8rem;
+  font-weight: 900;
+}
+
+.elementCard h3,
+.soundFeaturePanel strong,
+.waveCard h3,
+.soundNoiseGrid h3 {
+  margin: 0 0 10px;
+  color: var(--sound-ink);
+}
+
+.elementCard p,
+.soundFeaturePanel p,
+.waveCard p,
+.soundNoiseGrid p,
+#waveCaption {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.elementCard.rhythm { border-top: 5px solid var(--sound-blue); }
+.elementCard.melody { border-top: 5px solid var(--sound-green); }
+.elementCard.harmony { border-top: 5px solid var(--sound-violet); }
+.elementCard.timbre { border-top: 5px solid var(--accent); }
+.elementCard.dynamics { border-top: 5px solid var(--sound-red); }
+.elementCard.form { border-top: 5px solid #4d7891; }
+
+.sectionClosingNote {
+  max-width: 860px;
+  margin: 22px auto 0;
+  padding: 18px 22px;
+  border: 1px solid var(--theory-border);
+  border-radius: 16px;
+  background: rgba(255, 102, 0, 0.05);
+  color: var(--text-muted);
+  font-weight: 800;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.soundFeatureVisualGrid,
+.soundFeaturePanel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.soundFeatureVisualCard,
+.soundFeaturePanel article {
+  padding: 22px;
+  border-radius: 16px;
+}
+
+.soundFeatureVisualCard {
+  display: grid;
+  gap: 16px;
+  min-height: 320px;
+}
+
+.featureText strong,
+.soundFeaturePanel strong,
+.soundFeaturePanel span {
+  display: block;
+}
+
+.featureText strong,
+.soundFeaturePanel strong {
+  font-size: 1.18rem;
+}
+
+.featureText span,
+.soundFeaturePanel span {
+  margin-bottom: 12px;
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.featureText p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.featureWavePair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.featureWavePair div,
+.durationVisual,
+.timbreVisual {
+  padding: 14px;
+  border: 1px solid var(--theory-border);
+  border-radius: 14px;
+  background: rgba(255, 102, 0, 0.045);
+}
+
+.featureWavePair small {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--accent);
+  font-size: 0.76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.timbreVisual {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.timbreInstrument {
+  min-width: 0;
+}
+
+.timbreInstrument small {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.instrumentLink {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 900;
+}
+
+.instrumentLink:hover {
+  text-decoration: underline;
+}
+
+.featureWavePair svg,
+.timbreInstrument svg {
+  display: block;
+  width: 100%;
+  height: 96px;
+}
+
+.featureWavePair line,
+.timbreInstrument line {
+  stroke: rgba(24, 50, 74, 0.2);
+  stroke-width: 4;
+}
+
+.featureWavePair path,
+.timbreInstrument path {
+  fill: none;
+  stroke: var(--sound-blue);
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  shape-rendering: geometricPrecision;
+}
+
+.timbreVisual .secondTimbreWave {
+  stroke: var(--sound-violet);
+}
+
+.durationVisual {
+  display: grid;
+  gap: 12px;
+}
+
+.durationVisual span {
+  position: relative;
+  display: block;
+  padding-top: 20px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.durationVisual span::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 0;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.durationVisual .shortSound::before {
+  width: 24%;
+}
+
+.durationVisual .longSound::before {
+  width: 76%;
+}
+
+.durationVisual .restSound::before {
+  width: 42%;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(24, 50, 74, 0.35) 0,
+    rgba(24, 50, 74, 0.35) 8px,
+    transparent 8px,
+    transparent 14px
+  );
+}
+
+.detailGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 18px;
+}
+
+.detailGrid ul {
+  margin: 12px 0 0;
+  padding-left: 18px;
+}
+
+.dynamicStrip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.dynamicStrip span {
+  display: grid;
+  min-height: 42px;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--theory-soft);
+  color: var(--accent);
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+.waveComparison,
+.soundNoiseGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.waveComparison {
+  margin-top: 18px;
+}
+
+.soundNoiseGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.waveCard,
+.soundNoiseGrid article {
+  padding: 22px;
+  border-radius: 18px;
+}
+
+.waveCard svg,
+.soundNoiseGrid svg {
+  width: 100%;
+  margin: 4px 0 14px;
+}
+
+.waveCard path,
+.soundNoiseGrid path,
+.soundNoiseGrid polyline,
+#interactiveWavePath {
+  fill: none;
+  stroke: var(--sound-blue);
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.soundNoiseGrid article:last-child path,
+.soundNoiseGrid article:last-child polyline {
+  stroke: var(--sound-red);
+}
+
+.earJourney article {
+  position: relative;
+  padding-left: 72px;
+}
+
+.earJourney span {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 900;
+}
+
+.waveLab {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 24px;
+  padding: 24px;
+  border-radius: 20px;
+}
+
+.labControls {
+  align-content: start;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.labMode {
+  min-height: 42px;
+  padding: 10px 14px;
+  border: 1px solid var(--theory-border);
+  border-radius: 12px;
+  background: #ffffff;
+  color: var(--sound-ink);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.labMode.active {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.labSoundToggle {
+  min-height: 42px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 102, 0, 0.28);
+  border-radius: 12px;
+  background: rgba(255, 102, 0, 0.08);
+  color: var(--accent);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.labSoundToggle.active {
+  background: var(--accent);
+  color: #ffffff;
+  box-shadow: 0 10px 22px rgba(255, 102, 0, 0.2);
+}
+
+.labControls label {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  color: var(--sound-ink);
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.labControls input {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.labControls input[type="range"] {
+  appearance: none;
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), #9ca3af);
+  cursor: pointer;
+}
+
+.labControls input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 3px 10px rgba(24, 50, 74, 0.22);
+}
+
+.labControls input[type="range"]::-moz-range-track {
+  height: 8px;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), #9ca3af);
+}
+
+.labControls input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 3px 10px rgba(24, 50, 74, 0.22);
+}
+
+.labScreen {
+  display: grid;
+  gap: 12px;
+  align-content: center;
+  min-height: 280px;
+  padding: 18px;
+  border-radius: 16px;
+  background: rgba(255, 102, 0, 0.06);
+}
+
+#interactiveWave {
+  width: 100%;
+  min-height: 220px;
+}
+
+#waveCaption {
+  min-height: 28px;
+  font-weight: 800;
+  text-align: center;
+}
+
+/* APPARATO UDITIVO INTERATTIVO */
+
+.earInteractiveLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1040px) minmax(390px, 440px);
+  gap: 32px;
+  align-items: start;
+  justify-content: center;
+}
+
+.earInfoCard,
+.earLab {
+  border: 1px solid rgba(24, 50, 74, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--panel-shadow);
+  border-radius: 24px;
+  padding: 30px 32px;
+}
+
+.earSidePanel {
+  display: grid;
+  gap: 22px;
+}
+
+.earInfoCard {
+  display: grid;
+  gap: 16px;
+}
+
+.earInfoCard span {
+  --ear-info-color: #f28a4b;
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--ear-info-color);
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+
+.earInfoCard span.earOuter {
+  --ear-info-color: #f28a4b;
+}
+
+.earInfoCard span.earMiddle {
+  --ear-info-color: #d9a04f;
+}
+
+.earInfoCard span.earInner {
+  --ear-info-color: #8a6fca;
+}
+
+.earInfoCard h3 {
+  margin: 0;
+  color: var(--text-main);
+  font-size: 1.25rem;
+}
+
+.earInfoCard p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.earPlainFigure {
+  position: relative;
+  margin: 0;
+  padding: 16px;
+  border: 1px solid rgba(24, 50, 74, 0.1);
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: var(--panel-shadow);
+  justify-self: end;
+}
+
+.earPlainFigure img {
+  display: block;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+}
+
+.earRegionLegend {
+  display: grid;
+  grid-template-columns: 38% 20% 42%;
+  gap: 0;
+  margin: 12px 4px 0;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-align: center;
+}
+
+.earRegionLegend span {
+  position: relative;
+  padding-top: 14px;
+}
+
+.earRegionLegend span::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 6px;
+  right: 6px;
+  height: 4px;
+  border-radius: 999px;
+}
+
+.earRegionLegend .outerEar::before {
+  background: #f28a4b;
+}
+
+.earRegionLegend .middleEar::before {
+  background: #d9a04f;
+}
+
+.earRegionLegend .innerEar::before {
+  background: #8a6fca;
+}
+
+/* STAGE ORECCHIO */
+.earHotspotStage {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  background: #ffffff !important;
+  border: 1px solid rgba(24, 50, 74, 0.1) !important;
+  border-radius: 22px !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+}
+
+.earHotspotStage::before,
+.earHotspotStage::after {
+  display: none !important;
+}
+
+.earImage {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  opacity: 1;
+  visibility: visible;
+  z-index: 1;
+  background: transparent;
+  border: none;
+  pointer-events: none;
+}
+
+.soundTravelDot,
+.soundTrailDot {
+  position: absolute;
+  z-index: 11;
+  left: calc(16px + (100% - 32px) * 0.14);
+  top: calc(16px + (100% - 32px) * 0.48);
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.soundTravelDot {
+  width: 18px;
+  height: 18px;
+  border: 3px solid #ffffff;
+  box-shadow: 0 0 0 8px rgba(255, 102, 0, 0.18), 0 0 24px rgba(255, 102, 0, 0.65);
+}
+
+.soundTrailDot {
+  width: 10px;
+  height: 10px;
+  box-shadow: 0 0 14px rgba(255, 102, 0, 0.55);
+  z-index: 9;
+}
+
+.earPlainFigure.playing .soundTravelDot {
+  animation: travelEarSound 4.2s ease-in-out forwards;
+}
+
+.earPlainFigure.playing .soundTrailDot {
+  animation: travelEarTrail 4.2s ease-in-out forwards;
+}
+
+.earPlainFigure.playing .trailOne {
+  animation-delay: 0.12s;
+}
+
+.earPlainFigure.playing .trailTwo {
+  animation-delay: 0.24s;
+}
+
+.earPlainFigure.playing .trailThree {
+  animation-delay: 0.36s;
+}
+
+@keyframes travelEarSound {
+  0% {
+    opacity: 1;
+    left: calc(16px + (100% - 32px) * 0.14);
+    top: calc(16px + (100% - 32px) * 0.48);
+  }
+  26% {
+    left: calc(16px + (100% - 32px) * 0.36);
+    top: calc(16px + (100% - 32px) * 0.53);
+  }
+  45% {
+    left: calc(16px + (100% - 32px) * 0.51);
+    top: calc(16px + (100% - 32px) * 0.53);
+  }
+  62% {
+    left: calc(16px + (100% - 32px) * 0.58);
+    top: calc(16px + (100% - 32px) * 0.48);
+  }
+  82% {
+    left: calc(16px + (100% - 32px) * 0.78);
+    top: calc(16px + (100% - 32px) * 0.58);
+  }
+  100% {
+    opacity: 1;
+    left: calc(16px + (100% - 32px) * 0.89);
+    top: calc(16px + (100% - 32px) * 0.40);
+  }
+}
+
+@keyframes travelEarTrail {
+  0% {
+    opacity: 0;
+    left: calc(16px + (100% - 32px) * 0.14);
+    top: calc(16px + (100% - 32px) * 0.48);
+  }
+  12% {
+    opacity: 0.42;
+  }
+  26% {
+    left: calc(16px + (100% - 32px) * 0.36);
+    top: calc(16px + (100% - 32px) * 0.53);
+  }
+  45% {
+    left: calc(16px + (100% - 32px) * 0.51);
+    top: calc(16px + (100% - 32px) * 0.53);
+  }
+  62% {
+    left: calc(16px + (100% - 32px) * 0.58);
+    top: calc(16px + (100% - 32px) * 0.48);
+  }
+  82% {
+    left: calc(16px + (100% - 32px) * 0.78);
+    top: calc(16px + (100% - 32px) * 0.58);
+  }
+  100% {
+    opacity: 0.22;
+    left: calc(16px + (100% - 32px) * 0.89);
+    top: calc(16px + (100% - 32px) * 0.40);
+  }
+}
+
+/* HOTSPOT BUTTONS */
+.earHotspot {
+  --ear-color: var(--accent);
+  --ear-border: #ffffff;
+  --ear-ring: rgba(255, 102, 0, 0.18);
+  --ear-ring-hover: rgba(255, 102, 0, 0.24);
+  --ear-ring-active: rgba(255, 102, 0, 0.28);
+  --ear-pulse-low: rgba(255, 102, 0, 0.2);
+  --ear-pulse-high: rgba(255, 102, 0, 0.34);
+  position: absolute;
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--ear-border);
+  border-radius: 50%;
+  background: var(--ear-color);
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 0.85rem;
+  cursor: pointer;
+  box-shadow: 0 0 0 6px var(--ear-ring), 0 8px 16px rgba(0, 0, 0, 0.22);
+  outline: 0;
+  transform: translate(-50%, -50%);
+  transition: background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.earHotspot.earOuter {
+  --ear-color: #f28a4b;
+  --ear-border: #f7c09e;
+  --ear-ring: rgba(242, 138, 75, 0.2);
+  --ear-ring-hover: rgba(242, 138, 75, 0.28);
+  --ear-ring-active: rgba(242, 138, 75, 0.32);
+  --ear-pulse-low: rgba(242, 138, 75, 0.22);
+  --ear-pulse-high: rgba(242, 138, 75, 0.38);
+}
+
+.earHotspot.earMiddle {
+  --ear-color: #d9a04f;
+  --ear-border: #efd19c;
+  --ear-ring: rgba(217, 160, 79, 0.22);
+  --ear-ring-hover: rgba(217, 160, 79, 0.3);
+  --ear-ring-active: rgba(217, 160, 79, 0.34);
+  --ear-pulse-low: rgba(217, 160, 79, 0.24);
+  --ear-pulse-high: rgba(217, 160, 79, 0.4);
+}
+
+.earHotspot.earInner {
+  --ear-color: #8a6fca;
+  --ear-border: #c6b9ec;
+  --ear-ring: rgba(138, 111, 202, 0.22);
+  --ear-ring-hover: rgba(138, 111, 202, 0.3);
+  --ear-ring-active: rgba(138, 111, 202, 0.34);
+  --ear-pulse-low: rgba(138, 111, 202, 0.24);
+  --ear-pulse-high: rgba(138, 111, 202, 0.4);
+}
+
+.earHotspot:hover {
+  transform: translate(-50%, -50%) !important;
+  border-color: var(--ear-border);
+  box-shadow: 0 0 0 8px var(--ear-ring-hover), 0 8px 16px rgba(0, 0, 0, 0.22);
+}
+
+.earHotspot:focus,
+.earHotspot:active {
+  outline: 0;
+  transform: translate(-50%, -50%) !important;
+}
+
+.earHotspot:focus-visible {
+  outline: 0;
+  border-color: var(--ear-border);
+  box-shadow: 0 0 0 9px var(--ear-ring-active), 0 12px 28px rgba(0, 0, 0, 0.28);
+}
+
+.earHotspot.active {
+  transform: translate(-50%, -50%) !important;
+  background: var(--ear-color);
+  box-shadow: 0 0 0 8px var(--ear-ring-active), 0 12px 28px rgba(0, 0, 0, 0.3);
+  animation: activeEarPulse 1.35s ease-in-out infinite;
+}
+
+@keyframes activeEarPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 7px var(--ear-pulse-low), 0 8px 18px rgba(0, 0, 0, 0.24);
+  }
+  50% {
+    box-shadow: 0 0 0 11px var(--ear-pulse-high), 0 10px 24px rgba(0, 0, 0, 0.28);
+  }
+}
+
+.earLab {
+  display: grid;
+  gap: 16px;
+}
+
+.earLab > div:first-child h3 {
+  margin: 0 0 12px;
+  color: var(--text-main);
+  font-size: 1.1rem;
+}
+
+.earLab > div:first-child p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.earLabControls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+@media (max-width: 1180px) {
+  .earInteractiveLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .earPlainFigure {
+    justify-self: stretch;
+  }
+
+  .earSidePanel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .earSidePanel {
+    grid-template-columns: 1fr;
+  }
+}

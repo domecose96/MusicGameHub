@@ -1,6 +1,27 @@
 const MusicGameHubResources = (() => {
   const items = [
     {
+      id: "elementiMusica",
+      icon: "〰",
+      type: "Teoria",
+      title: "Suono ed elementi della musica",
+      desc: "Eventi sonori, onde, frequenza, intensità, timbro, durata, udito e differenza tra suono e rumore.",
+      tags: ["suono", "rumore", "ritmo", "melodia", "armonia", "onda sonora", "frequenza", "intensità", "timbro", "durata", "orecchio"],
+      url: "elementi_musica.html",
+      group: "theory"
+    },
+    {
+      id: "teoriaBase",
+      icon: "📚",
+      type: "Teoria",
+      title: "Teoria musicale",
+      desc: "Risorsa principale con pentagramma, chiavi, note, figure, tempi, scale, simboli ed espressione.",
+      tags: ["teoria base", "pentagramma", "chiavi", "note", "figure", "tempi", "scale", "simboli", "espressione"],
+      url: "teoria.html",
+      group: "theory",
+      excludeFromStats: true
+    },
+    {
       id: "pentagramma",
       icon: "🎼",
       type: "Teoria",
@@ -81,6 +102,126 @@ const MusicGameHubResources = (() => {
       group: "theory"
     },
     {
+      id: "teoriaAvanzata",
+      icon: "🧠",
+      type: "Teoria",
+      title: "Teoria avanzata",
+      desc: "Intervalli, accordi, rivolti, cadenze, modulazioni e forme musicali.",
+      tags: ["intervalli", "accordi", "rivolti", "cadenze", "modulazioni", "forme"],
+      url: "teoria_avanzata.html",
+      group: "theory"
+    },
+    {
+      id: "intervalliAvanzati",
+      icon: "📏",
+      type: "Teoria",
+      title: "Intervalli",
+      desc: "Distanze tra le note, semitoni, classificazione e qualità degli intervalli.",
+      tags: ["intervalli", "semitoni", "distanze"],
+      url: "teoria_avanzata.html#intervalli",
+      group: "theory",
+      excludeFromStats: true
+    },
+    {
+      id: "accordiAvanzati",
+      icon: "🎸",
+      type: "Teoria",
+      title: "Accordi",
+      desc: "Triadi, combinazioni di note e costruzione armonica.",
+      tags: ["accordi", "triadi", "armonia"],
+      url: "teoria_avanzata.html#accordi",
+      group: "theory",
+      excludeFromStats: true
+    },
+    {
+      id: "rivoltiAvanzati",
+      icon: "🔄",
+      type: "Teoria",
+      title: "Rivolti",
+      desc: "Disposizioni diverse dello stesso accordo cambiando la nota al basso.",
+      tags: ["rivolti", "basso", "accordi"],
+      url: "teoria_avanzata.html#rivolti",
+      group: "theory",
+      excludeFromStats: true
+    },
+    {
+      id: "scaleMinoriAvanzate",
+      icon: "🎹",
+      type: "Teoria",
+      title: "Scale minori",
+      desc: "Scale minori e carattere armonico delle diverse strutture.",
+      tags: ["scale minori", "tonalità", "modo minore"],
+      url: "teoria_avanzata.html#minori",
+      group: "theory",
+      excludeFromStats: true
+    },
+    {
+      id: "circoloQuinte",
+      icon: "⭕",
+      type: "Teoria",
+      title: "Circolo delle quinte",
+      desc: "Relazioni tra tonalità, diesis, bemolli e armature di chiave.",
+      tags: ["circolo delle quinte", "tonalità", "armature"],
+      url: "teoria_avanzata.html#circolo",
+      group: "theory",
+      excludeFromStats: true
+    },
+    {
+      id: "cadenzeAvanzate",
+      icon: "🎼",
+      type: "Teoria",
+      title: "Cadenze",
+      desc: "Progressioni armoniche che concludono o sospendono una frase musicale.",
+      tags: ["cadenze", "armonia", "frase musicale"],
+      url: "teoria_avanzata.html#cadenze",
+      group: "theory",
+      excludeFromStats: true
+    },
+    {
+      id: "modulazioniAvanzate",
+      icon: "🧭",
+      type: "Teoria",
+      title: "Modulazioni",
+      desc: "Cambi di tonalità attraverso accordi comuni, note comuni o dominanti.",
+      tags: ["modulazioni", "tonalità", "accordi comuni"],
+      url: "teoria_avanzata.html#modulazioni",
+      group: "theory",
+      excludeFromStats: true
+    },
+    {
+      id: "ritmicaAvanzata",
+      icon: "🥁",
+      type: "Teoria",
+      title: "Ritmica avanzata",
+      desc: "Approfondimenti su organizzazione ritmica, accenti e complessità del tempo.",
+      tags: ["ritmica", "accenti", "tempo"],
+      url: "teoria_avanzata.html#ritmica",
+      group: "theory",
+      excludeFromStats: true
+    },
+    {
+      id: "abbellimentiAvanzati",
+      icon: "✨",
+      type: "Teoria",
+      title: "Abbellimenti",
+      desc: "Ornamenti musicali e piccoli segni che arricchiscono la linea melodica.",
+      tags: ["abbellimenti", "ornamenti", "melodia"],
+      url: "teoria_avanzata.html#abbellimenti",
+      group: "theory",
+      excludeFromStats: true
+    },
+    {
+      id: "formaAvanzata",
+      icon: "🏗️",
+      type: "Teoria",
+      title: "Forma musicale",
+      desc: "Struttura complessiva del brano, sezioni, ripetizioni e contrasti.",
+      tags: ["forma", "struttura", "sezioni"],
+      url: "teoria_avanzata.html#forma",
+      group: "theory",
+      excludeFromStats: true
+    },
+    {
       id: "pentagrammaGame",
       icon: "🎯",
       type: "Gioco",
@@ -143,25 +284,95 @@ const MusicGameHubResources = (() => {
     {
       id: "ritmo",
       icon: "♪",
-      type: "Allenamento",
+      type: "Gioco",
       title: "Ritmo Challenge",
       desc: "Calcola il valore ritmico delle sequenze.",
       tags: ["ritmo", "calcolo", "valori"],
       url: "giochi/ritmo_challenge.html",
-      group: "practice",
+      group: "games",
       homeGame: true,
       tag: "Ritmo"
+    },
+    {
+      id: "storiaMusica",
+      icon: "🕰️",
+      type: "Percorso",
+      title: "Storia della musica",
+      desc: "Timeline didattica dalle origini alla musica contemporanea.",
+      tags: ["storia", "timeline", "epoche", "autori"],
+      url: "storia/storia_musica.html",
+      group: "paths"
+    },
+    {
+      id: "strumentiMusicali",
+      icon: "🎺",
+      type: "Percorso",
+      title: "Strumenti musicali",
+      desc: "Famiglie strumentali, imboccature, immagini e gioco di riconoscimento.",
+      tags: ["strumenti", "famiglie", "imboccature", "orchestra"],
+      url: "strumenti.html",
+      group: "paths"
+    },
+    {
+      id: "educazioneCivica",
+      icon: "🌍",
+      type: "Percorso",
+      title: "Educazione civica",
+      desc: "Indice dei percorsi musicali su cittadinanza, identità, ambiente e media digitali.",
+      tags: ["educazione civica", "cittadinanza", "ambiente", "identità", "copyright", "media"],
+      url: "educazione_civica/index.html",
+      group: "paths"
+    },
+    {
+      id: "innoItalia",
+      icon: "🇮🇹",
+      type: "Percorso",
+      title: "L'Inno d'Italia",
+      desc: "Lezione su simboli, autori, strofe, ritornello e identità nazionale.",
+      tags: ["inno", "italia", "mameli", "novaro", "simboli"],
+      url: "educazione_civica/inno_italia.html",
+      group: "paths"
+    },
+    {
+      id: "musicaAmbiente",
+      icon: "🌿",
+      type: "Percorso",
+      title: "Musica e ambiente",
+      desc: "Ascolti, suoni della natura, canzoni e riflessioni sulla sostenibilità.",
+      tags: ["ambiente", "natura", "sostenibilità", "ascolto"],
+      url: "educazione_civica/musica_ambiente.html",
+      group: "paths"
+    },
+    {
+      id: "copyrightMedia",
+      icon: "🎧",
+      type: "Percorso",
+      title: "Rispetto, copyright e media",
+      desc: "Lezione su cittadinanza digitale, licenze, diritto d'autore, casi pratici, plagio, pirateria, piattaforme e IA.",
+      tags: ["copyright", "diritto d'autore", "licenze", "plagio", "pirateria", "media", "intelligenza artificiale"],
+      url: "educazione_civica/rispetto_copyright_media.html",
+      group: "paths"
     }
   ];
 
   const homeCards = [
+    {
+      id: "homeSoundElements",
+      icon: "〰",
+      title: "Suono ed elementi della musica",
+      desc: "Eventi sonori, onde, altezza, intensità, timbro, durata e apparato uditivo.",
+      tag: "Fondamenti",
+      url: "elementi_musica.html",
+      homeGroup: "theory"
+    },
     {
       id: "homeTheory",
       icon: "📚",
       title: "Teoria musicale",
       desc: "Pentagramma, chiavi, note, figure, tempi, scale, simboli ed espressione.",
       tag: "Base",
-      url: "teoria.html"
+      url: "teoria.html",
+      homeGroup: "theory"
     },
     {
       id: "homeAdvancedTheory",
@@ -169,15 +380,8 @@ const MusicGameHubResources = (() => {
       title: "Teoria avanzata",
       desc: "Intervalli, accordi, rivolti, cadenze, modulazioni e forme musicali.",
       tag: "Avanzata",
-      url: "teoria_avanzata.html"
-    },
-    {
-      id: "homeGames",
-      icon: "🎮",
-      title: "Giochi interattivi",
-      desc: "Allenati con sfide, quiz e giochi musicali già pronti.",
-      tag: "Interattivo",
-      target: "games"
+      url: "teoria_avanzata.html",
+      homeGroup: "theory"
     },
     {
       id: "homeHistory",
@@ -185,7 +389,8 @@ const MusicGameHubResources = (() => {
       title: "Storia della musica",
       desc: "Dalle origini alla musica contemporanea: esplora epoche, autori e trasformazioni.",
       tag: "Timeline",
-      url: "storia/storia_musica.html"
+      url: "storia/storia_musica.html",
+      homeGroup: "paths"
     },
     {
       id: "homeStrumenti",
@@ -193,15 +398,17 @@ const MusicGameHubResources = (() => {
       title: "Strumenti musicali",
       desc: "Scopri famiglie, caratteristiche e curiosità degli strumenti musicali attraverso percorsi interattivi.",
       tag: "Esplora",
-      url: "strumenti.html"
+      url: "strumenti.html",
+      homeGroup: "paths"
     },
     {
       id: "homeCivic",
       icon: "🌍",
       title: "Musica ed educazione civica",
-      desc: "Percorsi didattici su identità, ambiente, cittadinanza e responsabilità.",
+      desc: "Percorsi didattici su identità, ambiente, cittadinanza, media e responsabilità.",
       tag: "Percorsi",
-      url: "educazione_civica/index.html"
+      url: "educazione_civica/index.html",
+      homeGroup: "paths"
     },
     {
       id: "homeMap",
@@ -209,6 +416,41 @@ const MusicGameHubResources = (() => {
       title: "Mappa delle risorse",
       desc: "Visualizza tutto il percorso del sito in modo dinamico.",
       tag: "Navigazione",
+      url: "mappa.html"
+    }
+  ];
+
+  const homeEntrypoints = [
+    {
+      id: "entryTheory",
+      icon: "📚",
+      title: "Teoria",
+      desc: "Concetti, linguaggio musicale e approfondimenti.",
+      tag: "Studia",
+      target: "theoryHome"
+    },
+    {
+      id: "entryPaths",
+      icon: "🧭",
+      title: "Percorsi",
+      desc: "Lezioni tematiche per storia, strumenti ed educazione civica.",
+      tag: "Esplora",
+      target: "pathsHome"
+    },
+    {
+      id: "entryGames",
+      icon: "🎮",
+      title: "Giochi",
+      desc: "Esercizi interattivi per allenarti passo dopo passo.",
+      tag: "Allenati",
+      target: "games"
+    },
+    {
+      id: "entryMap",
+      icon: "🗺️",
+      title: "Mappa",
+      desc: "Guarda tutte le risorse del sito in una vista unica.",
+      tag: "Orientati",
       url: "mappa.html"
     }
   ];
@@ -224,9 +466,9 @@ const MusicGameHubResources = (() => {
 
   const byId = Object.fromEntries(items.map(item => [item.id, item]));
   const playable = items.filter(item => item.homeGame);
-  const theoryTopics = items.filter(item => item.type === "Teoria");
+  const theoryTopics = items.filter(item => item.type === "Teoria" && !item.excludeFromStats);
 
-  return { items, byId, homeCards, upcoming, playable, theoryTopics };
+  return { items, byId, homeCards, homeEntrypoints, upcoming, playable, theoryTopics };
 })();
 
 window.MusicGameHubResources = MusicGameHubResources;

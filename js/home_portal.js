@@ -211,7 +211,7 @@ function enterSite() {
 
 // ==================== NAVIGAZIONE ====================
 let isScrollingFromClick = false;
-const sections = ["portal", "games"];
+const sections = ["portal", "theoryHome", "pathsHome", "games"];
 
 function scrollToSection(id) {
   const el = document.getElementById(id);
@@ -779,13 +779,23 @@ function createCardElement(item, options = {}) {
 function renderHomeResources() {
   if (!resourceData) return;
 
-  const portalGrid = document.getElementById("portalHubGrid");
+  const theoryGrid = document.getElementById("theoryHubGrid");
+  const pathsGrid = document.getElementById("pathsHubGrid");
   const gamesGrid = document.getElementById("gamesHubGrid");
 
-  if (portalGrid) {
-    portalGrid.replaceChildren(
-      ...resourceData.homeCards.map(item => createCardElement(item)),
-      ...resourceData.upcoming.map(item => createCardElement(item, { disabled: true }))
+  if (theoryGrid) {
+    theoryGrid.replaceChildren(
+      ...resourceData.homeCards
+        .filter(item => item.homeGroup === "theory")
+        .map(item => createCardElement(item))
+    );
+  }
+
+  if (pathsGrid) {
+    pathsGrid.replaceChildren(
+      ...resourceData.homeCards
+        .filter(item => item.homeGroup === "paths")
+        .map(item => createCardElement(item))
     );
   }
 

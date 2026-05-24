@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Il suono e gli elementi della musica | Music Game Hub</title>
+<link rel="icon" type="image/png" href="img/mgh-logo.png">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/learn.css">
+<link rel="stylesheet" href="css/elementi_musica.css?v=20260523-audio">
+</head>
+
+<body class="elementsPage">
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="MGH.goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+    <div class="headerBrand">
+      <span class="headerEyebrow">Teoria musicale</span>
+      <h1 class="pageTitle">Suono ed elementi della musica</h1>
+    </div>
+  </div>
+</header>
+
+<nav id="siteNav" class="theoryNav elementsNav">
+  <button class="navBtn" onclick="MGH.scrollToSection('eventi')">👂 Eventi</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('rumore')">⚡ Suono/Rumore</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('elementi')">🎼 Elementi</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('caratteristiche')">🔎 Caratteristiche</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('udito')">👂 Udito</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('laboratorio')">🎛 Laboratorio</button>
+</nav>
+
+<div id="contentWrapper">
+
+  <section id="hero" class="siteSection elementsHero">
+    <div class="heroCopy">
+      <span class="lessonBadge">Base · ascolto consapevole</span>
+      <h2>Prima di leggere la musica, capiamo di che cosa è fatta.</h2>
+      <p>
+        La musica nasce da eventi sonori che ascoltiamo con attenzione.
+        In questa pagina distinguiamo gli elementi musicali, le caratteristiche
+        del suono, la differenza tra suono e rumore e il modo in cui l'orecchio
+        ci permette di percepirli.
+      </p>
+      <div class="heroActions">
+        <button class="elementsButton" onclick="MGH.scrollToSection('elementi')">Inizia dagli elementi</button>
+        <button class="elementsButton secondary" onclick="MGH.scrollToSection('caratteristiche')">Guarda le caratteristiche</button>
+      </div>
+    </div>
+
+    <div class="heroWave" aria-label="Onda sonora stilizzata">
+      <svg viewBox="0 0 620 260" role="img">
+        <title>Onda sonora regolare</title>
+        <path class="waveBack travellingWave" data-amplitude="78" data-wavelength="210" data-speed="0.0011" data-center="130" d=""></path>
+        <path class="waveFront travellingWave" data-amplitude="78" data-wavelength="210" data-speed="0.0011" data-center="130" d=""></path>
+        <line x1="20" y1="130" x2="600" y2="130" class="waveAxis"></line>
+      </svg>
+    </div>
+  </section>
+
+  <section id="eventi" class="siteSection learnSection">
+    <h2 class="sectionTitle">Gli eventi sonori</h2>
+    <p class="sectionIntro">
+      Un evento sonoro è un fenomeno acustico prodotto da un corpo che vibra.
+      Può essere naturale o artificiale, gradevole o sgradevole, vicino o lontano.
+      Può essere una voce, una porta che sbatte, una corda pizzicata o il vento tra gli alberi.
+      Per riconoscerlo davvero non basta sentire: serve ascoltare con attenzione.
+    </p>
+
+    <div class="listeningGrid">
+      <article>
+        <span>Sentire</span>
+        <h3>Percepire un suono</h3>
+        <p>È ciò che accade quando l'orecchio riceve uno stimolo acustico, anche senza concentrarsi.</p>
+      </article>
+      <article>
+        <span>Ascoltare</span>
+        <h3>Capire ciò che si sente</h3>
+        <p>Richiede attenzione: permette di cogliere dettagli, provenienza, qualità e cambiamenti del suono.</p>
+      </article>
+      <article>
+        <span>Sorgente sonora</span>
+        <h3>Il corpo che vibra</h3>
+        <p>Una corda, una membrana, una voce o un oggetto producono suono quando entrano in vibrazione.</p>
+      </article>
+    </div>
+
+    <div class="conceptMap">
+      <div class="mapNode main">Evento sonoro</div>
+      <div class="mapBranches">
+        <div><strong>può essere</strong><span>suono o rumore</span></div>
+        <div><strong>nasce da</strong><span>una sorgente che vibra</span></div>
+        <div><strong>viaggia attraverso</strong><span>aria o altri materiali</span></div>
+        <div><strong>viene percepito da</strong><span>apparato uditivo</span></div>
+      </div>
+      <p class="mapNote">
+        Quando il suono è regolare e riconoscibile possiamo descriverlo con altezza,
+        intensità, timbro e durata.
+      </p>
+    </div>
+  </section>
+
+  <section id="rumore" class="siteSection learnSection">
+    <h2 class="sectionTitle">Suono e rumore</h2>
+    <p class="sectionIntro">
+      In musica chiamiamo suono una vibrazione organizzata e riconoscibile.
+      Il rumore ha vibrazioni più irregolari: può essere fastidioso, ma può
+      anche diventare materiale musicale se usato con intenzione.
+    </p>
+
+    <div class="soundNoiseGrid">
+      <article>
+        <h3>Suono</h3>
+        <svg viewBox="0 0 560 150" aria-label="Onda regolare del suono">
+          <line x1="20" y1="75" x2="540" y2="75"></line>
+          <path class="travellingWave" data-amplitude="47" data-wavelength="160" data-speed="0.0018" data-center="75" d=""></path>
+        </svg>
+        <p>Onda più regolare, altezza più riconoscibile, sensazione di ordine.</p>
+      </article>
+      <article>
+        <h3>Rumore</h3>
+        <svg viewBox="0 0 560 150" aria-label="Onda irregolare del rumore">
+          <line x1="20" y1="75" x2="540" y2="75"></line>
+          <path class="travellingWave noiseWave" data-amplitude="42" data-wavelength="92" data-speed="0.003" data-center="75" data-shape="noise" d=""></path>
+        </svg>
+        <p>Onda irregolare, altezza meno definita, energia distribuita in modo disordinato.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="elementi" class="siteSection learnSection">
+    <h2 class="sectionTitle">Gli elementi della musica</h2>
+    <p class="sectionIntro">
+      Gli elementi sono gli ingredienti con cui costruiamo e riconosciamo un brano.
+      Alcuni organizzano il tempo, altri disegnano le altezze, altri ancora danno
+      colore, energia e forma alla musica.
+    </p>
+
+    <div class="elementsGrid">
+      <article class="elementCard rhythm">
+        <span>♩</span>
+        <h3>Ritmo</h3>
+        <p>
+          Organizza i suoni nel tempo:
+          <a class="instrumentLink" href="teoria.html#figure">durate e pause</a>,
+          <a class="instrumentLink" href="teoria.html#tempi">accenti e pulsazione</a>.
+        </p>
+      </article>
+      <article class="elementCard melody">
+        <span>♪</span>
+        <h3>Melodia</h3>
+        <p>
+          È una successione di
+          <a class="instrumentLink" href="teoria.html#note">suoni di altezza diversa</a>,
+          percepita come una linea cantabile.
+        </p>
+      </article>
+      <article class="elementCard harmony">
+        <span>𝄞</span>
+        <h3>Armonia</h3>
+        <p>
+          Nasce quando più suoni si combinano insieme:
+          <a class="instrumentLink" href="teoria_avanzata.html#accordi">accordi</a>,
+          tensioni e riposi.
+        </p>
+      </article>
+      <article class="elementCard timbre">
+        <span>◌</span>
+        <h3>Timbro</h3>
+        <p>Dà identità al suono: una stessa melodia cambia carattere se passa da una voce a una tromba.</p>
+      </article>
+      <article class="elementCard dynamics">
+        <span>f</span>
+        <h3>Dinamica</h3>
+        <p>
+          Regola l'energia del brano:
+          <a class="instrumentLink" href="teoria.html#espressione">piano, forte, crescendo e diminuendo</a>
+          guidano l'espressione.
+        </p>
+      </article>
+      <article class="elementCard form">
+        <span>↻</span>
+        <h3>Forma</h3>
+        <p>È l'architettura del brano: sezioni, ripetizioni, contrasti e ritorni.</p>
+      </article>
+    </div>
+
+    <p class="sectionClosingNote">
+      In un brano questi elementi lavorano insieme: il ritmo dà movimento,
+      la melodia dà direzione, l'armonia sostiene, mentre timbro, dinamica e
+      forma aiutano a costruire il carattere della musica.
+    </p>
+  </section>
+
+  <section id="caratteristiche" class="siteSection learnSection">
+    <h2 class="sectionTitle">Le caratteristiche del suono</h2>
+    <p class="sectionIntro">
+      Ogni suono può essere descritto attraverso quattro qualità fondamentali.
+      Servono per capire che cosa ascoltiamo e per trasformare un evento sonoro
+      in materiale musicale.
+    </p>
+
+    <div class="soundFeatureVisualGrid">
+      <article class="soundFeatureVisualCard">
+        <div class="featureText">
+          <strong>Altezza</strong>
+          <span>frequenza</span>
+          <p>Permette di distinguere un suono grave da uno acuto: più vibrazioni al secondo producono un suono più acuto.</p>
+        </div>
+        <div class="featureWavePair">
+          <div>
+            <small>grave</small>
+            <svg viewBox="0 0 520 130" aria-label="Onda larga, suono grave">
+              <line x1="20" y1="65" x2="500" y2="65"></line>
+              <path class="travellingWave" data-amplitude="50" data-wavelength="240" data-speed="0.00095" data-center="65" d=""></path>
+            </svg>
+          </div>
+          <div>
+            <small>acuto</small>
+            <svg viewBox="0 0 520 130" aria-label="Onda fitta, suono acuto">
+              <line x1="20" y1="65" x2="500" y2="65"></line>
+              <path class="travellingWave" data-amplitude="45" data-wavelength="100" data-speed="0.0022" data-center="65" d=""></path>
+            </svg>
+          </div>
+        </div>
+      </article>
+
+      <article class="soundFeatureVisualCard">
+        <div class="featureText">
+          <strong>Intensità</strong>
+          <span>ampiezza</span>
+          <p>
+            Indica se un suono è
+            <a class="instrumentLink" href="teoria.html#espressione">piano o forte</a>:
+            più l'onda è ampia, maggiore è l'energia percepita.
+          </p>
+        </div>
+        <div class="featureWavePair">
+          <div>
+            <small>piano</small>
+            <svg viewBox="0 0 520 130" aria-label="Onda poco ampia, suono piano">
+              <line x1="20" y1="65" x2="500" y2="65"></line>
+              <path class="travellingWave" data-amplitude="18" data-wavelength="200" data-speed="0.00135" data-center="65" d=""></path>
+            </svg>
+          </div>
+          <div>
+            <small>forte</small>
+            <svg viewBox="0 0 520 130" aria-label="Onda ampia, suono forte">
+              <line x1="20" y1="65" x2="500" y2="65"></line>
+              <path class="travellingWave" data-amplitude="55" data-wavelength="200" data-speed="0.00135" data-center="65" d=""></path>
+            </svg>
+          </div>
+        </div>
+      </article>
+
+      <article class="soundFeatureVisualCard">
+        <div class="featureText">
+          <strong>Durata</strong>
+          <span>tempo</span>
+          <p>
+            Indica quanto dura un suono o un silenzio. In musica viene rappresentata con
+            <a class="instrumentLink" href="teoria.html#figure">figure e pause</a>.
+          </p>
+        </div>
+        <div class="durationVisual" aria-label="Confronto tra suono breve, lungo e silenzio">
+          <span class="shortSound">suono breve</span>
+          <span class="longSound">suono lungo</span>
+          <span class="restSound">silenzio</span>
+        </div>
+      </article>
+
+      <article class="soundFeatureVisualCard">
+        <div class="featureText">
+          <strong>Timbro</strong>
+          <span>forma dell'onda</span>
+          <p>È il colore del suono: cambia in base alla sorgente e ci fa riconoscere voci e strumenti diversi.</p>
+        </div>
+        <div class="timbreVisual">
+          <div class="timbreInstrument">
+            <small><a class="instrumentLink" href="strumenti.html#violino">Violino</a></small>
+            <svg viewBox="0 0 520 120" aria-label="Onda del violino">
+              <line x1="20" y1="60" x2="500" y2="60"></line>
+              <path class="travellingWave" data-amplitude="32" data-wavelength="160" data-speed="0.0015" data-center="60" d=""></path>
+            </svg>
+          </div>
+          <div class="timbreInstrument">
+            <small><a class="instrumentLink" href="strumenti.html#tromba">Tromba</a></small>
+            <svg viewBox="0 0 520 120" aria-label="Onda della tromba">
+              <line x1="20" y1="60" x2="500" y2="60"></line>
+              <path class="travellingWave secondTimbreWave" data-amplitude="30" data-wavelength="110" data-speed="0.002" data-center="60" data-shape="brassy" d=""></path>
+            </svg>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="udito" class="siteSection learnSection">
+    <h2 class="sectionTitle">L'apparato uditivo</h2>
+    <p class="sectionIntro">
+      Clicca sui punti dell'immagine per scoprire le parti dell'orecchio.
+      Poi avvia il laboratorio per vedere il percorso del suono.
+    </p>
+
+    <div class="earInteractiveLayout">
+      <figure class="earPlainFigure">
+        <img src="img/orecchio-anatomico-pulito.png?v=20260521-plain" alt="Anatomia dell'orecchio umano">
+
+        <button class="earHotspot earOuter active" style="left:14%; top:47%;" data-ear-part="padiglione">1</button>
+        <button class="earHotspot earOuter" style="left:36%; top:52%;" data-ear-part="condotto">2</button>
+        <button class="earHotspot earMiddle" style="left:51%; top:52%;" data-ear-part="timpano">3</button>
+        <button class="earHotspot earMiddle" style="left:58%; top:47%;" data-ear-part="ossicini">4</button>
+        <button class="earHotspot earInner" style="left:69%; top:35%;" data-ear-part="canali">5</button>
+        <button class="earHotspot earInner" style="left:78%; top:57%;" data-ear-part="coclea">6</button>
+        <button class="earHotspot earInner" style="left:89%; top:39%;" data-ear-part="nervo">7</button>
+
+        <span class="soundTravelDot" aria-hidden="true"></span>
+        <span class="soundTrailDot trailOne" aria-hidden="true"></span>
+        <span class="soundTrailDot trailTwo" aria-hidden="true"></span>
+        <span class="soundTrailDot trailThree" aria-hidden="true"></span>
+
+        <figcaption class="earRegionLegend" aria-label="Legenda delle parti dell'orecchio">
+          <span class="outerEar">Orecchio esterno</span>
+          <span class="middleEar">Orecchio medio</span>
+          <span class="innerEar">Orecchio interno</span>
+        </figcaption>
+      </figure>
+
+      <div class="earSidePanel">
+        <aside class="earInfoCard">
+          <span id="earInfoStep" class="earOuter">1</span>
+          <h3 id="earInfoTitle">Padiglione auricolare</h3>
+          <p id="earInfoText">
+            Raccoglie le onde sonore dall'ambiente e le indirizza verso il condotto uditivo esterno.
+          </p>
+        </aside>
+
+        <div class="earLab">
+          <div>
+            <h3>Laboratorio: percorso del suono</h3>
+            <p id="earLabCaption">
+              Premi play per seguire il viaggio del suono: dall'orecchio esterno fino al cervello.
+            </p>
+          </div>
+
+          <div class="earLabControls">
+            <button class="elementsButton" type="button" id="playEarSound">▶ Avvia percorso</button>
+            <button class="elementsButton secondary" type="button" id="resetEarSound">↺ Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="laboratorio" class="siteSection learnSection">
+    <h2 class="sectionTitle">Laboratorio visivo</h2>
+    <p class="sectionIntro">
+      Cambia il tipo di onda e osserva come mutano frequenza, ampiezza e regolarità.
+    </p>
+
+    <div class="waveLab">
+      <div class="labControls" role="group" aria-label="Controlli onda sonora">
+        <button class="labMode active" type="button" data-wave-mode="sound">Suono</button>
+        <button class="labMode" type="button" data-wave-mode="noise">Rumore</button>
+        <button class="labSoundToggle" type="button" id="soundToggle" aria-pressed="false">Ascolta onda</button>
+        <label>
+          Altezza
+          <input id="frequencyRange" type="range" min="2" max="8" value="4">
+        </label>
+        <label>
+          Intensità
+          <input id="amplitudeRange" type="range" min="18" max="58" value="38">
+        </label>
+      </div>
+
+      <div class="labScreen">
+        <svg id="interactiveWave" viewBox="0 0 720 240" aria-label="Onda sonora interattiva">
+          <line x1="28" y1="120" x2="692" y2="120" class="labAxis"></line>
+          <path id="interactiveWavePath" d=""></path>
+        </svg>
+        <p id="waveCaption">Onda regolare: il suono ha un'altezza riconoscibile.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="siteLegalFooter">
+  <p>Music Game Hub tutela la privacy e usa solo strumenti tecnici o statistici necessari al portale.</p>
+  <div class="siteLegalLinks">
+    <a href="legal/privacy.html">Privacy Policy</a>
+    <span>·</span>
+    <a href="legal/cookie.html">Cookie Policy</a>
+    <span>·</span>
+    <a href="legal/termini.html">Termini di servizio</a>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
+
+<script src="js/common.js"></script>
+<script src="js/elementi_musica.js?v=20260523-audio"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

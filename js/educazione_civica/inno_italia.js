@@ -17,6 +17,7 @@ const symbolDetails = {
   bandiera: {
     icon: "🇮🇹",
     image: "../img/inno_italia/bandiera.gif",
+    fit: "cover",
     label: "Simbolo della Repubblica",
     title: "La Bandiera italiana",
     text: "La bandiera italiana si chiama tricolore perché è formata da tre colori verticali: verde, bianco e rosso. È il segno più immediato dell'identità nazionale e rappresenta la Repubblica nelle scuole, negli edifici pubblici, nelle cerimonie e negli eventi ufficiali.",
@@ -113,7 +114,9 @@ function initSymbolCards() {
     modalIcon.hidden = true;
     modalImage.removeAttribute("src");
 
-    modalImage.classList.toggle("containImage", detail.contain);
+    modalImage.classList.remove("containImage");
+    if (detail.contain) modalImage.classList.add("containImage");
+    modalImage.style.objectFit = detail.fit || (detail.contain ? "contain" : "cover");
 
     if (detail.image) {
       modalImage.onload = () => {
