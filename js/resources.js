@@ -348,7 +348,7 @@ const MusicGameHubResources = (() => {
       icon: "🎧",
       type: "Percorso",
       title: "Rispetto, copyright e media",
-      desc: "Lezione su cittadinanza digitale, licenze, diritto d'autore, casi pratici, plagio, pirateria, piattaforme e IA.",
+      desc: "Lezione su copyright, licenze, uso corretto dei media, IA e buone abitudini digitali.",
       tags: ["copyright", "diritto d'autore", "licenze", "plagio", "pirateria", "media", "intelligenza artificiale"],
       url: "educazione_civica/rispetto_copyright_media.html",
       group: "paths"

@@ -285,6 +285,11 @@
   gap: 20px;
 }
 
+.licenseGrid,
+.aiGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .filmCard,
 .rightsGrid article,
 .licenseGrid article,
@@ -297,6 +302,8 @@
 .comparisonGrid article,
 .checklistPanel,
 .sourceRecipe,
+.warningPanel,
+.extraFilmBox,
 .passportPreview,
 .pactOutput {
   border: 1px solid rgba(23, 40, 58, 0.1);
@@ -357,6 +364,8 @@
 .quotePanel p,
 .comparisonGrid li,
 .sourceRecipe p,
+.warningPanel p,
+.extraFilmBox p,
 .pactOutput li {
   color: var(--text-muted);
   line-height: 1.55;
@@ -365,9 +374,69 @@
 .decisionBox,
 .quotePanel,
 .checklistPanel,
-.sourceRecipe {
+.sourceRecipe,
+.warningPanel,
+.extraFilmBox {
   margin-top: 24px;
   padding: 28px;
+}
+
+.usageTable {
+  display: grid;
+  gap: 10px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.usageRow {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.1fr) minmax(130px, 0.5fr) minmax(240px, 1.4fr);
+  gap: 14px;
+  align-items: center;
+  padding: 18px 20px;
+  border: 1px solid rgba(23, 40, 58, 0.1);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 26px rgba(23, 40, 58, 0.05);
+}
+
+.usageHead {
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--media-blue), var(--media-orange));
+  font-weight: 900;
+}
+
+.usageRow strong {
+  color: var(--media-ink);
+}
+
+.warningPanel {
+  border-color: rgba(244, 123, 47, 0.22);
+  border-left: 7px solid var(--media-orange);
+  background: rgba(244, 123, 47, 0.08);
+}
+
+.warningPanel strong,
+.extraFilmBox span {
+  display: inline-flex;
+  margin-bottom: 10px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(244, 123, 47, 0.14);
+  color: var(--media-orange);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.extraFilmBox {
+  max-width: 980px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.extraFilmBox .sectionTitle {
+  margin-bottom: 12px;
 }
 
 .mediaChoiceGrid,
@@ -553,7 +622,8 @@
 
 .passportForm {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
+  align-items: start;
   gap: 14px;
   padding: 26px;
   border: 1px solid rgba(23, 40, 58, 0.1);
@@ -564,24 +634,32 @@
 
 .passportForm label {
   display: grid;
+  grid-template-rows: auto auto;
   gap: 8px;
   color: var(--media-ink);
   font-weight: 900;
+  text-align: left;
 }
 
 .passportForm input {
-  min-height: 46px;
+  height: 52px;
+  min-height: 0;
   width: 100%;
   padding: 10px 12px;
   border: 1.5px solid rgba(49, 107, 159, 0.18);
   border-radius: 12px;
   color: var(--media-ink);
   font: inherit;
+  font-weight: 800;
+  line-height: 1.2;
+  text-overflow: ellipsis;
 }
 
 .passportPreview {
   position: relative;
-  padding: 30px;
+  display: grid;
+  justify-items: center;
+  padding: 34px 42px;
   overflow: hidden;
   border-top: 7px solid var(--media-blue);
 }
@@ -616,6 +694,8 @@
 .passportPreview dl {
   display: grid;
   gap: 12px;
+  width: 100%;
+  max-width: 520px;
 }
 
 .passportPreview dl div {
@@ -640,9 +720,27 @@
 }
 
 #passportCitation {
+  width: 100%;
+  max-width: 520px;
   margin-top: 16px;
   color: var(--text-muted);
   font-weight: 800;
+}
+
+.passportStatus {
+  width: 100%;
+  max-width: 520px;
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(244, 123, 47, 0.1);
+  color: var(--media-ink);
+  font-weight: 900;
+}
+
+.passportStatus.complete {
+  background: rgba(46, 159, 104, 0.12);
+  color: #247a50;
 }
 
 .pactBuilder {
@@ -697,7 +795,7 @@
 
 .mediaQuiz {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
 }
 
@@ -738,6 +836,10 @@
     grid-template-columns: 1fr;
   }
 
+  .usageRow {
+    grid-template-columns: 1fr;
+  }
+
   .mediaHeroText {
     text-align: center;
   }
@@ -772,6 +874,8 @@
   .comparisonGrid article,
   .checklistPanel,
   .sourceRecipe,
+  .warningPanel,
+  .extraFilmBox,
   .simulatorResult,
   .passportPreview,
   .pactOutput {

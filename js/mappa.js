@@ -92,18 +92,16 @@ const clusterContent={
     {label:"Quiz",url:"educazione_civica/musica_ambiente.html#quiz"}
   ],
   copyrightMedia:[
-    {label:"Introduzione",url:"educazione_civica/rispetto_copyright_media.html#introduzione"},
-    {label:"Film",url:"educazione_civica/rispetto_copyright_media.html#film"},
-    {label:"Copyright",url:"educazione_civica/rispetto_copyright_media.html#copyright"},
+    {label:"Perché",url:"educazione_civica/rispetto_copyright_media.html#perche"},
+    {label:"Differenze",url:"educazione_civica/rispetto_copyright_media.html#differenze"},
+    {label:"Posso usarlo?",url:"educazione_civica/rispetto_copyright_media.html#uso"},
     {label:"Licenze",url:"educazione_civica/rispetto_copyright_media.html#licenze"},
-    {label:"Posso usarlo?",url:"educazione_civica/rispetto_copyright_media.html#simulatore"},
-    {label:"Plagio",url:"educazione_civica/rispetto_copyright_media.html#plagio"},
-    {label:"Pirateria",url:"educazione_civica/rispetto_copyright_media.html#pirateria"},
-    {label:"Piattaforme",url:"educazione_civica/rispetto_copyright_media.html#piattaforme"},
-    {label:"Carta contenuto",url:"educazione_civica/rispetto_copyright_media.html#carta"},
     {label:"IA",url:"educazione_civica/rispetto_copyright_media.html#ia"},
+    {label:"Abitudini",url:"educazione_civica/rispetto_copyright_media.html#abitudini"},
+    {label:"Scheda",url:"educazione_civica/rispetto_copyright_media.html#scheda"},
     {label:"Patto",url:"educazione_civica/rispetto_copyright_media.html#patto"},
-    {label:"Quiz",url:"educazione_civica/rispetto_copyright_media.html#quiz"}
+    {label:"Quiz",url:"educazione_civica/rispetto_copyright_media.html#quiz"},
+    {label:"Film",url:"educazione_civica/rispetto_copyright_media.html#film"}
   ]
 };
 

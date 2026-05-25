@@ -128,7 +128,8 @@ function initContentPassport() {
     author: document.getElementById("passportPreviewAuthor"),
     source: document.getElementById("passportPreviewSource"),
     license: document.getElementById("passportPreviewLicense"),
-    citation: document.getElementById("passportCitation")
+    citation: document.getElementById("passportCitation"),
+    status: document.getElementById("passportStatus")
   };
 
   if (!fields.title || !preview.title) return;
@@ -140,12 +141,22 @@ function initContentPassport() {
     const author = valueOf(fields.author, "Autore non indicato");
     const source = valueOf(fields.source, "Fonte non indicata");
     const license = valueOf(fields.license, "Permesso non indicato");
+    const missing = Object.entries(fields)
+      .filter(([, field]) => !field.value.trim())
+      .map(([key]) => key);
 
     preview.title.textContent = title;
     preview.author.textContent = author;
     preview.source.textContent = source;
     preview.license.textContent = license;
     preview.citation.textContent = `Citazione: ${title} · ${author} · ${source} · ${license}`;
+
+    if (preview.status) {
+      preview.status.classList.toggle("complete", missing.length === 0);
+      preview.status.textContent = missing.length === 0
+        ? "Hai le informazioni minime: ora controlla se la licenza permette davvero l'uso che vuoi fare."
+        : "Mancano ancora informazioni: senza fonte e licenza non puoi decidere con sicurezza.";
+    }
   };
 
   Object.values(fields).forEach((field) => {
