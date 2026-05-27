@@ -68,9 +68,28 @@ const clusterContent={
     {label:"Gioco strumenti",url:"giochi/strumenti_game.html"}
   ],
   educazioneCivica:[
+    {label:"Ascolto e rispetto",id:"ascoltoRispetto"},
+    {label:"Canti della Memoria",id:"cantiMemoria"},
     {label:"Inno d'Italia",id:"innoItalia"},
     {label:"Musica e ambiente",id:"musicaAmbiente"},
     {label:"Copyright e media",id:"copyrightMedia"}
+  ],
+  ascoltoRispetto:[
+    {label:"Ascolto",url:"educazione_civica/ascolto_rispetto.html#ascolto"},
+    {label:"Udito",url:"educazione_civica/ascolto_rispetto.html#udito"},
+    {label:"Regole",url:"educazione_civica/ascolto_rispetto.html#regole"},
+    {label:"Classe",url:"educazione_civica/ascolto_rispetto.html#classe"},
+    {label:"Emozioni",url:"educazione_civica/ascolto_rispetto.html#emozioni"},
+    {label:"Patto",url:"educazione_civica/ascolto_rispetto.html#patto"},
+    {label:"Quiz",url:"educazione_civica/ascolto_rispetto.html#quiz"}
+  ],
+  cantiMemoria:[
+    {label:"Ricordare",url:"educazione_civica/canti_memoria.html#ricordare"},
+    {label:"Parole",url:"educazione_civica/canti_memoria.html#parole"},
+    {label:"Memoria",url:"educazione_civica/canti_memoria.html#memoria"},
+    {label:"Ascolti",url:"educazione_civica/canti_memoria.html#ascolti"},
+    {label:"Laboratorio",url:"educazione_civica/canti_memoria.html#laboratorio"},
+    {label:"Quiz",url:"educazione_civica/canti_memoria.html#quiz"}
   ],
   innoItalia:[
     {label:"Timeline",url:"educazione_civica/inno_italia.html#timeline"},

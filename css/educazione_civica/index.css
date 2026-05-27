@@ -133,9 +133,41 @@
 }
 
 .civicPathGrid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  max-width: 1180px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  max-width: 1380px;
   margin: 0 auto;
+}
+
+.civicClassFilters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto 24px;
+}
+
+.civicClassFilters button {
+  min-height: 42px;
+  padding: 10px 16px;
+  border: 1.5px solid rgba(22, 138, 74, 0.24);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--civic-green);
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.civicClassFilters button:hover,
+.civicClassFilters button.active {
+  color: #ffffff;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--civic-green), var(--civic-sky));
+  box-shadow: 0 8px 20px rgba(22, 138, 74, 0.16);
+}
+
+.civicPathCard.is-hidden {
+  display: none;
 }
 
 .civicPathCard {
@@ -160,12 +192,20 @@
   background: linear-gradient(90deg, var(--civic-green), #ffffff, var(--civic-red));
 }
 
+.listeningPath::before {
+  background: linear-gradient(90deg, #316b9f, #d99a24);
+}
+
 .environmentPath::before {
   background: linear-gradient(90deg, var(--civic-green), var(--civic-sky));
 }
 
 .mediaPath::before {
   background: linear-gradient(90deg, #316b9f, #f47b2f);
+}
+
+.memoryPath::before {
+  background: linear-gradient(90deg, #245d8f, #c8942f);
 }
 
 .civicPathCard:hover {
@@ -239,7 +279,6 @@
 
 @media (max-width: 900px) {
   .civicHero,
-  .civicPathGrid,
   .civicMethodGrid {
     grid-template-columns: 1fr;
   }
@@ -254,6 +293,10 @@
 }
 
 @media (max-width: 620px) {
+  .civicPathGrid {
+    grid-template-columns: 1fr;
+  }
+
   .civicPathCard,
   .civicMethodGrid article {
     padding: 24px;

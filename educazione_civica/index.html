@@ -39,9 +39,9 @@
       <span class="civicBadge">Musica, cittadinanza, responsabilità</span>
       <h2>Educazione civica musicale</h2>
       <p>
-        Tre lezioni pronte per collegare la musica ai temi della cittadinanza:
-        identità, simboli, ambiente, ascolto, rispetto degli autori e uso
-        consapevole dei media.
+        Cinque lezioni pronte per collegare la musica ai temi della cittadinanza:
+        ascolto, regole condivise, memoria, identità, ambiente, rispetto degli
+        autori e uso consapevole dei media.
       </p>
     </div>
 
@@ -60,8 +60,26 @@
       con video, ascolti, attività e quiz finale.
     </p>
 
+    <div class="civicClassFilters" aria-label="Filtra percorsi per classe">
+      <button class="active" type="button" data-class-filter="all">Tutte</button>
+      <button type="button" data-class-filter="1">Classe 1</button>
+      <button type="button" data-class-filter="2">Classe 2</button>
+      <button type="button" data-class-filter="3">Classe 3</button>
+    </div>
+
     <div class="civicPathGrid">
-      <a class="civicPathCard anthemPath" href="inno_italia.html">
+      <a class="civicPathCard listeningPath" href="ascolto_rispetto.html" data-classes="1">
+        <span class="pathClass">CLASSE 1</span>
+        <div class="pathIcon">🎵</div>
+        <h3>Ascolto, regole e rispetto</h3>
+        <p class="pathPeriod">I QUADRIMESTRE</p>
+        <p>
+          Un percorso per iniziare l'anno con ascolto consapevole, regole
+          condivise, collaborazione e rispetto dei gusti musicali.
+        </p>
+      </a>
+
+      <a class="civicPathCard anthemPath" href="inno_italia.html" data-classes="1">
         <span class="pathClass">CLASSE 1</span>
         <div class="pathIcon">🇮🇹</div>
         <h3>L'Inno d'Italia</h3>
@@ -72,7 +90,18 @@
         </p>
       </a>
 
-      <a class="civicPathCard environmentPath" href="musica_ambiente.html">
+      <a class="civicPathCard memoryPath" href="canti_memoria.html" data-classes="2 3">
+        <span class="pathClass">CLASSE 2/3</span>
+        <div class="pathIcon">🕯️</div>
+        <h3>I canti della Memoria</h3>
+        <p class="pathPeriod">I QUADRIMESTRE</p>
+        <p>
+          Un percorso per la Giornata della Memoria attraverso ascolti,
+          domande guida, rispetto, responsabilità e riflessione condivisa.
+        </p>
+      </a>
+
+      <a class="civicPathCard environmentPath" href="musica_ambiente.html" data-classes="2">
         <span class="pathClass">CLASSE 2</span>
         <div class="pathIcon">🌍</div>
         <h3>Musica e ambiente</h3>
@@ -83,7 +112,7 @@
         </p>
       </a>
 
-      <a class="civicPathCard mediaPath" href="rispetto_copyright_media.html">
+      <a class="civicPathCard mediaPath" href="rispetto_copyright_media.html" data-classes="3">
         <span class="pathClass">CLASSE 3</span>
         <div class="pathIcon">🎧</div>
         <h3>Rispetto, copyright e media</h3>
@@ -132,6 +161,7 @@
 <button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
 
 <script src="../js/common.js"></script>
+<script src="../js/educazione_civica/index.js"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

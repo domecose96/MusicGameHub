@@ -31,10 +31,39 @@ function initScenarioCards() {
 function initPactBuilder() {
   const buttons = document.querySelectorAll("[data-pact]");
   const list = document.getElementById("pactList");
+  const classInput = document.getElementById("pactClassName");
+  const schoolInput = document.getElementById("pactSchoolName");
+  const heading = document.getElementById("pactHeading");
+  const signatureClass = document.getElementById("pactSignatureClass");
+  const stampSchool = document.getElementById("pactStampSchool");
+  const exportButton = document.getElementById("exportPactPdf");
   if (!buttons.length || !list) return;
 
   const renderPact = () => {
     const selected = [...buttons].filter((button) => button.classList.contains("active"));
+    const className = classInput?.value.trim();
+    const schoolName = schoolInput?.value.trim();
+
+    if (heading) {
+      if (className && schoolName) {
+        heading.textContent = `${className} · ${schoolName}`;
+      } else if (className) {
+        heading.textContent = `Classe ${className}`;
+      } else if (schoolName) {
+        heading.textContent = schoolName;
+      } else {
+        heading.textContent = "Classe e istituto non indicati";
+      }
+    }
+
+    if (signatureClass) {
+      signatureClass.textContent = className ? className : "...";
+    }
+
+    if (stampSchool) {
+      stampSchool.textContent = schoolName ? schoolName.toUpperCase() : "NOME ISTITUTO";
+    }
+
     list.replaceChildren();
 
     if (!selected.length) {
@@ -57,6 +86,20 @@ function initPactBuilder() {
       renderPact();
     });
   });
+
+  [classInput, schoolInput].forEach((input) => {
+    if (input) input.addEventListener("input", renderPact);
+  });
+
+  if (exportButton) {
+    exportButton.addEventListener("click", () => {
+      document.body.classList.add("printPactOnly");
+      window.print();
+      window.setTimeout(() => document.body.classList.remove("printPactOnly"), 400);
+    });
+  }
+
+  renderPact();
 }
 
 function initUseSimulator() {
@@ -167,32 +210,56 @@ function initContentPassport() {
 
 function initMediaQuiz() {
   const quiz = document.getElementById("mediaQuiz");
-  const result = document.getElementById("quizResult");
-  if (!quiz || !result) return;
+  const questions = quiz ? quiz.querySelectorAll(".quizQuestion") : [];
+  const result = document.getElementById("mediaQuizResult");
+  const checkButton = document.getElementById("checkMediaQuiz");
+  const resetButton = document.getElementById("resetMediaQuiz");
+  if (!quiz || !questions.length || !result || !checkButton || !resetButton) return;
 
-  const updateResult = () => {
-    const cards = [...quiz.querySelectorAll(".quizCard")];
-    const answered = cards.filter((card) => card.querySelector(".correct, .wrong"));
-    const correct = cards.filter((card) => card.querySelector(".correct")).length;
-
-    if (!answered.length) {
-      result.textContent = "Rispondi alle domande per vedere il risultato.";
-      return;
-    }
-
-    result.textContent = `${correct}/${cards.length} risposte corrette.`;
-  };
-
-  quiz.querySelectorAll(".quizCard").forEach((card) => {
-    const buttons = card.querySelectorAll("button[data-correct]");
-
-    buttons.forEach((button) => {
+  questions.forEach((question) => {
+    question.querySelectorAll("button").forEach((button) => {
       button.addEventListener("click", () => {
-        buttons.forEach((item) => item.classList.remove("correct", "wrong"));
-        button.classList.add(button.dataset.correct === "true" ? "correct" : "wrong");
-        updateResult();
+        question.querySelectorAll("button").forEach((option) => {
+          option.classList.remove("selected", "correct", "wrong");
+        });
+        button.classList.add("selected");
+        result.textContent = "";
       });
     });
+  });
+
+  checkButton.addEventListener("click", () => {
+    let score = 0;
+
+    questions.forEach((question) => {
+      const answer = question.dataset.answer;
+      const selected = question.querySelector("button.selected");
+
+      question.querySelectorAll("button").forEach((button) => {
+        button.classList.remove("correct", "wrong");
+        if (button.dataset.value === answer) button.classList.add("correct");
+      });
+
+      if (selected?.dataset.value === answer) {
+        score += 1;
+      } else if (selected) {
+        selected.classList.add("wrong");
+      }
+    });
+
+    result.textContent =
+      score === questions.length
+        ? `Perfetto: ${score}/${questions.length}. Hai riconosciuto uso corretto, fonti e permessi.`
+        : `Hai totalizzato ${score}/${questions.length}. Rileggi le card e riprova.`;
+  });
+
+  resetButton.addEventListener("click", () => {
+    questions.forEach((question) => {
+      question.querySelectorAll("button").forEach((button) => {
+        button.classList.remove("selected", "correct", "wrong");
+      });
+    });
+    result.textContent = "";
   });
 }
 

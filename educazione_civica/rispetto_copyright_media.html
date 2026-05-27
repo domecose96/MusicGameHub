@@ -37,8 +37,8 @@
   <button class="navBtn" onclick="MGH.scrollToSection('ia')">🤖 IA</button>
   <button class="navBtn" onclick="MGH.scrollToSection('abitudini')">✅ Abitudini</button>
   <button class="navBtn" onclick="MGH.scrollToSection('scheda')">📝 Scheda</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('quiz')">✅ Quiz</button>
   <button class="navBtn" onclick="MGH.scrollToSection('patto')">🤝 Patto</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('quiz')">✅ Quiz</button>
   <button class="navBtn" onclick="MGH.scrollToSection('film')">🎬 Extra</button>
 </nav>
 
@@ -318,64 +318,119 @@
     </div>
   </section>
 
-  <section id="quiz" class="siteSection learnSection">
-    <h2 class="sectionTitle">Quiz finale</h2>
-    <p class="sectionIntro">Rispondi a casi realistici, non solo a definizioni.</p>
-
-    <div class="mediaQuiz" id="mediaQuiz">
-      <article class="quizCard">
-        <h3>1. Uno studente usa 10 secondi di una canzone in un video scolastico e cita autore e fonte. Cosa deve controllare ancora?</h3>
-        <button type="button" data-correct="false">Solo il nome dell'autore.</button>
-        <button type="button" data-correct="true">La licenza e i permessi di utilizzo.</button>
-        <button type="button" data-correct="false">Quante visualizzazioni farà il video.</button>
-        <button type="button" data-correct="false">Se la canzone è famosa.</button>
-      </article>
-      <article class="quizCard">
-        <h3>2. Trovi una foto su Google Immagini e vuoi metterla in una locandina pubblica. Qual è la scelta migliore?</h3>
-        <button type="button" data-correct="false">Usarla perché è online.</button>
-        <button type="button" data-correct="true">Aprire la fonte e controllare autore, licenza e permessi.</button>
-        <button type="button" data-correct="false">Tagliare una parte della foto.</button>
-        <button type="button" data-correct="false">Scrivere solo "presa da Google".</button>
-      </article>
-      <article class="quizCard">
-        <h3>3. Copi un testo trovato online e lo consegni con il tuo nome. Che problema c'è?</h3>
-        <button type="button" data-correct="true">È plagio.</button>
-        <button type="button" data-correct="false">È sempre Creative Commons.</button>
-        <button type="button" data-correct="false">È pubblico dominio.</button>
-        <button type="button" data-correct="false">È solo una citazione.</button>
-      </article>
-      <article class="quizCard">
-        <h3>4. Generi un'immagine con IA per una presentazione. Quale comportamento è più responsabile?</h3>
-        <button type="button" data-correct="false">Dire che è una foto scattata da te.</button>
-        <button type="button" data-correct="false">Nascondere lo strumento usato.</button>
-        <button type="button" data-correct="true">Dichiarare l'uso dell'IA e controllare le condizioni dello strumento.</button>
-        <button type="button" data-correct="false">Copiarla da un altro sito.</button>
-      </article>
-    </div>
-
-    <p id="quizResult" class="quizResult">Rispondi alle domande per vedere il risultato.</p>
-  </section>
-
   <section id="patto" class="siteSection learnSection">
     <h2 class="sectionTitle">Patto digitale della classe</h2>
-    <p class="sectionIntro">Scegli poche regole chiare da rispettare nei lavori digitali.</p>
+    <p class="sectionIntro">
+      Inserisci classe e istituto, poi scegli le regole che volete rispettare
+      nei lavori digitali.
+    </p>
 
     <div class="pactBuilder">
-      <div class="pactOptions" aria-label="Regole del patto">
-        <button type="button" data-pact="Controlleremo sempre fonte e licenza.">Controllare fonte e licenza</button>
-        <button type="button" data-pact="Citeremo autore, titolo e sito quando usiamo un contenuto.">Citare correttamente</button>
-        <button type="button" data-pact="Useremo materiali liberi o autorizzati quando possibile.">Materiali autorizzati</button>
-        <button type="button" data-pact="Dichiareremo l'uso di strumenti di IA quando è rilevante.">IA trasparente</button>
+      <div class="pactFields" aria-label="Intestazione del patto">
+          <label>
+            Classe
+            <input id="pactClassName" type="text" placeholder="Es. 3B">
+          </label>
+          <label>
+            Istituto
+            <input id="pactSchoolName" type="text" placeholder="Es. I.C. MusicGameHub">
+          </label>
+        <button class="mediaButton pactExportButton" type="button" id="exportPactPdf">Esporta PDF</button>
+      </div>
+
+      <div class="pactControls">
+        <div class="pactOptions" aria-label="Regole del patto">
+          <button type="button" data-pact="Controlleremo sempre fonte e licenza prima di usare un contenuto.">Controllare fonte e licenza</button>
+          <button type="button" data-pact="Citeremo autore, titolo e sito quando usiamo musica, immagini, video o testi.">Citare correttamente</button>
+          <button type="button" data-pact="Useremo materiali liberi, autorizzati o indicati dall'insegnante quando possibile.">Materiali autorizzati</button>
+          <button type="button" data-pact="Ricorderemo che citare l'autore è importante, ma non sempre basta per riutilizzare un contenuto.">Citare non sempre basta</button>
+          <button type="button" data-pact="Non copieremo testi, immagini o idee facendoli passare come nostri.">Evitare il plagio</button>
+          <button type="button" data-pact="Non scaricheremo o condivideremo copie illegali di musica, film, immagini o software.">No pirateria</button>
+          <button type="button" data-pact="Useremo piattaforme e fonti affidabili, preferendo link ufficiali.">Fonti affidabili</button>
+          <button type="button" data-pact="Rispetteremo le condizioni delle licenze Creative Commons e delle piattaforme.">Rispettare le licenze</button>
+          <button type="button" data-pact="Dichiareremo l'uso di strumenti di IA quando è rilevante per il lavoro.">IA trasparente</button>
+          <button type="button" data-pact="Controlleremo immagini, musica e testi generati con IA prima di presentarli come materiali corretti.">Controllare l'IA</button>
+          <button type="button" data-pact="Chiederemo aiuto quando non siamo sicuri di poter usare un contenuto.">Chiedere aiuto</button>
+          <button type="button" data-pact="Rispetteremo il lavoro creativo degli altri come vorremmo fosse rispettato il nostro.">Rispetto creativo</button>
+        </div>
       </div>
 
       <div class="pactOutput">
-        <span class="pactSeal">Checklist</span>
         <h3>Il nostro patto</h3>
+        <p id="pactHeading" class="pactHeading">Classe e istituto non indicati</p>
         <ul id="pactList">
           <li>Seleziona almeno una regola per iniziare.</li>
         </ul>
+        <div class="pactSignatureArea">
+          <div class="fakeStamp">
+            <div class="stampCircle" aria-label="Timbro fac-simile dell'istituto">
+              <svg class="stampSvg" viewBox="0 0 160 160" aria-hidden="true">
+                <defs>
+                  <path id="stampTopPath" d="M 24 80 A 56 56 0 0 1 136 80"></path>
+                  <path id="stampBottomPath" d="M 136 80 A 56 56 0 0 1 24 80"></path>
+                  <path id="stampCivicPath" d="M 52 76 A 28 28 0 0 1 108 76"></path>
+                </defs>
+                <circle class="stampOuterRing" cx="80" cy="80" r="74"></circle>
+                <circle class="stampInnerRing" cx="80" cy="80" r="46"></circle>
+                <text class="stampArcText">
+                  <textPath href="#stampTopPath" startOffset="50%" text-anchor="middle">SCUOLA SECONDARIA DI I GRADO</textPath>
+                </text>
+                <text class="stampArcText">
+                  <textPath id="pactStampSchool" href="#stampBottomPath" startOffset="50%" text-anchor="middle">NOME ISTITUTO</textPath>
+                </text>
+                <text class="stampCivicText">
+                  <textPath href="#stampCivicPath" startOffset="50%" text-anchor="middle">EDUCAZIONE CIVICA</textPath>
+                </text>
+                <polygon class="stampOutlineStar" points="80,55 88,72 107,74 93,87 97,106 80,96 63,106 67,87 53,74 72,72"></polygon>
+              </svg>
+            </div>
+          </div>
+          <div class="fakeSignature">
+            <span>Firma</span>
+            <strong><em>La classe <span id="pactSignatureClass">...</span></em></strong>
+          </div>
+        </div>
       </div>
     </div>
+  </section>
+
+  <section id="quiz" class="siteSection learnSection">
+    <h2 class="sectionTitle">Quiz finale</h2>
+    <p class="sectionIntro">Rispondi a casi realistici e controlla subito il risultato.</p>
+
+    <div class="mediaQuiz" id="mediaQuiz">
+      <article class="quizQuestion" data-answer="permessi">
+        <h3>1. Uno studente usa 10 secondi di una canzone in un video scolastico e cita autore e fonte. Cosa deve controllare ancora?</h3>
+        <button type="button" data-value="autore">Solo il nome dell'autore.</button>
+        <button type="button" data-value="permessi">La licenza e i permessi di utilizzo.</button>
+        <button type="button" data-value="visualizzazioni">Quante visualizzazioni farà il video.</button>
+      </article>
+      <article class="quizQuestion" data-answer="fonte">
+        <h3>2. Trovi una foto su Google Immagini e vuoi metterla in una locandina pubblica. Qual è la scelta migliore?</h3>
+        <button type="button" data-value="online">Usarla perché è online.</button>
+        <button type="button" data-value="fonte">Aprire la fonte e controllare autore, licenza e permessi.</button>
+        <button type="button" data-value="google">Scrivere solo "presa da Google".</button>
+      </article>
+      <article class="quizQuestion" data-answer="plagio">
+        <h3>3. Copi un testo trovato online e lo consegni con il tuo nome. Che problema c'è?</h3>
+        <button type="button" data-value="plagio">È plagio.</button>
+        <button type="button" data-value="commons">È sempre Creative Commons.</button>
+        <button type="button" data-value="citazione">È solo una citazione.</button>
+      </article>
+      <article class="quizQuestion" data-answer="dichiarare">
+        <h3>4. Generi un'immagine con IA per una presentazione. Quale comportamento è più responsabile?</h3>
+        <button type="button" data-value="foto">Dire che è una foto scattata da te.</button>
+        <button type="button" data-value="nascondere">Nascondere lo strumento usato.</button>
+        <button type="button" data-value="dichiarare">Dichiarare l'uso dell'IA e controllare le condizioni dello strumento.</button>
+      </article>
+    </div>
+
+    <div class="quizActions">
+      <button class="mediaButton" type="button" id="checkMediaQuiz">Controlla risposte</button>
+      <button class="mediaButton secondary" type="button" id="resetMediaQuiz">Riprova</button>
+    </div>
+
+    <div id="mediaQuizResult" class="mediaQuizResult" aria-live="polite"></div>
   </section>
 
   <section id="film" class="siteSection learnSection">
@@ -392,6 +447,10 @@
         delle opere creative.
       </p>
     </div>
+  </section>
+
+  <section id="conclusione" class="siteSection mediaRightsConclusion">
+    <h2>Usare i media con rispetto significa riconoscere il valore del lavoro creativo.</h2>
   </section>
 
 </div>

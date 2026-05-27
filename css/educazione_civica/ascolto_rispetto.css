@@ -1,0 +1,1044 @@
+.listeningRespectPage {
+  --listen-blue: #316b9f;
+  --listen-ink: #17283a;
+  --listen-gold: #d99a24;
+  --listen-green: #2e9f68;
+  --listen-orange: #f47b2f;
+  background:
+    radial-gradient(circle at 15% 12%, rgba(49, 107, 159, 0.13), transparent 30%),
+    radial-gradient(circle at 86% 16%, rgba(217, 154, 36, 0.13), transparent 30%),
+    linear-gradient(to bottom, #ffffff, #eef4f8);
+}
+
+.listeningRespectPage .pageTitle {
+  color: var(--listen-ink);
+  text-shadow:
+    0 0 8px rgba(49, 107, 159, 0.16),
+    0 0 14px rgba(217, 154, 36, 0.14);
+}
+
+.listeningRespectPage .appHeader,
+.listeningRespectPage #siteNav {
+  border-bottom-color: rgba(49, 107, 159, 0.16);
+}
+
+.listeningRespectPage #homeBtn.selected,
+.listeningRespectPage .homeButton.selected,
+.listeningRespectPage #scrollTopBtn {
+  color: #ffffff;
+  border-color: var(--listen-blue);
+  background: linear-gradient(135deg, var(--listen-blue), var(--listen-gold));
+  box-shadow: 0 10px 22px rgba(49, 107, 159, 0.24);
+}
+
+.listeningRespectPage .sectionTitle,
+.listeningRespectPage .siteLegalLinks a {
+  color: var(--listen-blue);
+}
+
+.listeningRespectNav .navBtn {
+  border-color: rgba(49, 107, 159, 0.24);
+  color: var(--listen-blue);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.listeningRespectNav .navBtn:hover {
+  color: var(--listen-blue);
+  border-color: rgba(49, 107, 159, 0.52);
+  background: rgba(49, 107, 159, 0.08);
+}
+
+.listeningRespectNav .navBtn.active,
+.listeningRespectPage .selected {
+  color: #ffffff;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--listen-blue), var(--listen-gold));
+  box-shadow: 0 8px 20px rgba(49, 107, 159, 0.2);
+}
+
+.listeningRespectPage button:focus,
+.listeningRespectPage button:focus-visible,
+.roleBubble:focus-visible {
+  outline: 3px solid var(--listen-blue);
+  outline-offset: 3px;
+}
+
+.listeningHero {
+  min-height: min(620px, calc(100vh - var(--header-height) - 90px));
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
+  align-items: center;
+  gap: clamp(24px, 5vw, 62px);
+  padding: 52px 0 44px;
+  border-bottom: none;
+}
+
+.listeningHeroText {
+  text-align: left;
+}
+
+.listeningBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(49, 107, 159, 0.1);
+  color: var(--listen-blue);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.listeningHero h2 {
+  max-width: 820px;
+  margin: 18px 0 12px;
+  color: var(--listen-ink);
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: 0.94;
+}
+
+.listeningHero p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: clamp(1.05rem, 2vw, 1.24rem);
+  line-height: 1.58;
+}
+
+.listeningHeroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.listeningButton {
+  min-height: 46px;
+  width: auto;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--listen-blue), var(--listen-gold));
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 12px 26px rgba(49, 107, 159, 0.18);
+}
+
+.listeningButton:hover {
+  transform: translateY(-2px);
+  color: #ffffff;
+}
+
+.listeningButton.secondary {
+  color: var(--listen-blue);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1.5px solid rgba(49, 107, 159, 0.22);
+}
+
+.listeningHeroPanel {
+  min-height: 410px;
+  display: grid;
+  place-items: center;
+  gap: 16px;
+  padding: 34px;
+  border: 1px solid rgba(23, 40, 58, 0.1);
+  border-radius: 26px;
+  background:
+    linear-gradient(135deg, rgba(49, 107, 159, 0.1), rgba(217, 154, 36, 0.12)),
+    rgba(255, 255, 255, 0.9);
+  box-shadow: 0 22px 60px rgba(23, 40, 58, 0.12);
+  text-align: center;
+}
+
+.listeningHeroPanel strong {
+  color: var(--listen-ink);
+  font-size: 1.28rem;
+}
+
+.listeningScene {
+  position: relative;
+  width: min(330px, 100%);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.96) 0 34%, rgba(49, 107, 159, 0.08) 35% 62%, transparent 63%),
+    conic-gradient(from 20deg, rgba(49, 107, 159, 0.14), rgba(217, 154, 36, 0.16), rgba(46, 159, 104, 0.14), rgba(49, 107, 159, 0.14));
+}
+
+.soundCircle {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 16px 30px rgba(23, 40, 58, 0.12);
+  font-size: 1.8rem;
+  font-weight: 900;
+}
+
+.soundCircle.main {
+  inset: 50%;
+  width: 112px;
+  height: 112px;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--listen-blue), var(--listen-gold));
+  font-size: 3rem;
+}
+
+.soundCircle.one { left: 18px; top: 42px; }
+.soundCircle.two { right: 24px; top: 50px; }
+.soundCircle.three { right: 50px; bottom: 30px; }
+.soundCircle.four { left: 42px; bottom: 38px; }
+
+.listeningGrid,
+.rulesBoard,
+.emotionGrid,
+.listeningQuiz {
+  display: grid;
+  gap: 20px;
+}
+
+.listeningGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.rulesBoard,
+.listeningQuiz {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.emotionGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.listeningGrid article,
+.rulesBoard article,
+.emotionGrid article,
+.roleCard,
+.keyIdea,
+.pactPreview,
+.quizQuestion {
+  border: 1px solid rgba(23, 40, 58, 0.1);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 14px 34px rgba(23, 40, 58, 0.07);
+}
+
+.listeningGrid article,
+.rulesBoard article,
+.emotionGrid article,
+.quizQuestion {
+  padding: 26px;
+}
+
+.listeningGrid span,
+.rulesBoard span,
+.emotionGrid span {
+  display: inline-flex;
+  margin-bottom: 12px;
+  font-size: 2rem;
+}
+
+.listeningGrid h3,
+.rulesBoard h3,
+.emotionGrid h3,
+.roleCard h3,
+.pactPreview h3,
+.quizQuestion h3 {
+  margin: 0 0 10px;
+  color: var(--listen-ink);
+}
+
+.listeningGrid p,
+.rulesBoard p,
+.emotionGrid p,
+.roleCard p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.keyIdea {
+  margin-top: 22px;
+  padding: 24px;
+  border-left: 7px solid var(--listen-gold);
+}
+
+.keyIdea strong {
+  color: var(--listen-blue);
+  text-transform: uppercase;
+}
+
+.keyIdea p {
+  margin: 8px 0 0;
+  color: var(--listen-ink);
+  font-weight: 900;
+}
+
+.hearingPanel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(340px, 1.1fr);
+  align-items: stretch;
+  gap: 22px;
+}
+
+.earCareCard,
+.decibelLadder,
+.safeListeningGrid article {
+  border: 1px solid rgba(23, 40, 58, 0.1);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 14px 34px rgba(23, 40, 58, 0.07);
+}
+
+.earCareCard {
+  display: grid;
+  align-content: center;
+  padding: 28px;
+  border-left: 7px solid var(--listen-blue);
+}
+
+.earCareCard h3 {
+  margin: 0 0 10px;
+  color: var(--listen-ink);
+}
+
+.earCareCard p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.relatedLessonLink {
+  justify-self: center;
+  margin-top: 18px;
+  padding: 10px 15px;
+  border: 1.5px solid rgba(49, 107, 159, 0.22);
+  border-radius: 999px;
+  background: rgba(49, 107, 159, 0.08);
+  color: var(--listen-blue);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.relatedLessonLink:hover {
+  color: #ffffff;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--listen-blue), var(--listen-gold));
+}
+
+.hearingSimulator {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid rgba(49, 107, 159, 0.14);
+  border-radius: 16px;
+  background: rgba(49, 107, 159, 0.06);
+}
+
+.simulatorLegend {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.simulatorLegend span {
+  display: block;
+  padding: 9px 10px;
+  border-radius: 12px;
+  background: #ffffff;
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.simulatorLegend strong {
+  color: var(--listen-blue);
+}
+
+.simulatorRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 12px;
+  align-items: center;
+}
+
+.simulatorRow label,
+.simulatorRow output {
+  color: var(--listen-ink);
+  font-size: 0.92rem;
+  font-weight: 900;
+}
+
+.simulatorRow output {
+  color: var(--listen-blue);
+}
+
+.simulatorRow input {
+  grid-column: 1 / -1;
+  width: 100%;
+  accent-color: var(--listen-blue);
+}
+
+.hearingStatus {
+  padding: 12px;
+  border-radius: 12px;
+  background: #ffffff;
+  color: var(--listen-ink);
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.hearingStatus.warning {
+  color: #8a5a00;
+  background: rgba(217, 154, 36, 0.16);
+}
+
+.hearingStatus.danger {
+  color: #9b3e1c;
+  background: rgba(244, 123, 47, 0.14);
+}
+
+.tonePreviewButton {
+  justify-self: center;
+  min-height: 40px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--listen-blue), var(--listen-gold));
+  color: #ffffff;
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.tonePreviewButton.is-playing {
+  color: var(--listen-blue);
+  border: 1.5px solid rgba(49, 107, 159, 0.22);
+  background: #ffffff;
+}
+
+.tonePreviewButton:hover {
+  transform: translateY(-1px);
+}
+
+.hearingSimulator small {
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.decibelLadder {
+  display: grid;
+  gap: 12px;
+  padding: 26px;
+}
+
+.decibelLadder div {
+  position: relative;
+  min-height: 48px;
+  display: grid;
+  grid-template-columns: 82px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(49, 107, 159, 0.07);
+}
+
+.decibelLadder .decibelIntro {
+  min-height: 0;
+  display: block;
+  padding: 16px 18px;
+  border: 1px solid rgba(49, 107, 159, 0.14);
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.decibelLadder div::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--level);
+  background: linear-gradient(90deg, rgba(49, 107, 159, 0.2), rgba(217, 154, 36, 0.24));
+}
+
+.decibelLadder .decibelIntro::before {
+  display: none;
+}
+
+.decibelLadder strong,
+.decibelLadder span {
+  position: relative;
+  z-index: 1;
+}
+
+.decibelLadder strong {
+  color: var(--listen-ink);
+}
+
+.decibelLadder span {
+  color: var(--text-muted);
+  font-weight: 800;
+}
+
+.decibelLadder .decibelIntro strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--listen-blue);
+}
+
+.decibelLadder .decibelIntro span {
+  display: block;
+  line-height: 1.45;
+}
+
+.decibelInfographic {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(49, 107, 159, 0.12);
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.decibelInfographic img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.safeListeningGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.safeListeningGrid article {
+  padding: 22px;
+  border-top: 6px solid var(--listen-gold);
+}
+
+.safeListeningGrid strong {
+  color: var(--listen-blue);
+  font-size: 1.2rem;
+}
+
+.safeListeningGrid p {
+  margin: 8px 0 0;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.orchestraPanel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.8fr);
+  gap: 24px;
+}
+
+.orchestraStage {
+  min-height: 320px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  padding: 26px;
+  border-radius: 22px;
+  background:
+    linear-gradient(135deg, rgba(49, 107, 159, 0.08), rgba(217, 154, 36, 0.08)),
+    rgba(255, 255, 255, 0.9);
+  box-shadow: inset 0 0 0 1px rgba(23, 40, 58, 0.08);
+}
+
+.roleBubble,
+.pactChoices button,
+.quizQuestion button {
+  border: 1.5px solid rgba(49, 107, 159, 0.18);
+  border-radius: 16px;
+  background: #ffffff;
+  color: var(--listen-blue);
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.roleBubble {
+  min-height: 120px;
+  font-size: 1.2rem;
+}
+
+.roleBubble.active,
+.pactChoices button.active {
+  color: #ffffff;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--listen-blue), var(--listen-gold));
+  box-shadow: 0 12px 26px rgba(49, 107, 159, 0.18);
+}
+
+.roleCard {
+  align-self: stretch;
+  padding: 30px;
+  border-top: 7px solid var(--listen-blue);
+}
+
+.roleCard span,
+.roleCard .pactPreview span {
+  display: inline-flex;
+  margin-bottom: 14px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(49, 107, 159, 0.1);
+  color: var(--listen-blue);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.goodComment {
+  border-top: 6px solid var(--listen-green);
+}
+
+.badComment {
+  border-top: 6px solid var(--listen-orange);
+}
+
+.classPact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.85fr);
+  gap: 24px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.pactFields {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 14px;
+  padding: 22px;
+  border: 1px solid rgba(23, 40, 58, 0.1);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 14px 34px rgba(23, 40, 58, 0.07);
+}
+
+.pactFields label {
+  display: grid;
+  gap: 8px;
+  color: var(--listen-ink);
+  font-weight: 900;
+}
+
+.pactFields input {
+  box-sizing: border-box;
+  min-height: 48px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid rgba(49, 107, 159, 0.18);
+  border-radius: 12px;
+  color: var(--listen-ink);
+  font: inherit;
+  font-weight: 800;
+}
+
+.pactControls {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+}
+
+.pactChoices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.pactChoices button {
+  min-height: 76px;
+  padding: 14px;
+}
+
+.pactPreview {
+  position: relative;
+  min-height: 330px;
+  padding: 34px;
+  overflow: hidden;
+  border: 2px solid rgba(49, 107, 159, 0.2);
+  background:
+    linear-gradient(135deg, rgba(49, 107, 159, 0.08), rgba(217, 154, 36, 0.1)),
+    #ffffff;
+}
+
+.pactPreview::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border: 1px dashed rgba(49, 107, 159, 0.24);
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+.pactHeading {
+  margin: -4px 0 18px;
+  color: var(--listen-blue);
+  font-weight: 900;
+}
+
+.pactPreview ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 20px;
+  color: var(--text-muted);
+  font-weight: 800;
+}
+
+.pactSignatureArea {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.pactSignatureArea > div {
+  min-height: 86px;
+  position: relative;
+  display: grid;
+  align-content: center;
+  gap: 6px;
+  padding: 12px 4px;
+  background: transparent;
+}
+
+.pactSignatureArea span {
+  color: var(--listen-blue);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.pactSignatureArea strong {
+  color: var(--listen-ink);
+  font-size: 1rem;
+}
+
+.pactSignatureArea em {
+  display: inline-block;
+  font-family: "Snell Roundhand", "Brush Script MT", "Segoe Script", cursive;
+  font-size: 2rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1;
+  color: rgba(23, 40, 58, 0.86);
+  transform: rotate(-5deg);
+}
+
+.pactSignatureArea em span {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-transform: none;
+}
+
+.fakeStamp {
+  justify-items: center;
+  background: transparent;
+}
+
+.stampCircle {
+  width: 136px;
+  height: 136px;
+  background: transparent;
+  transform: rotate(-8deg);
+}
+
+.stampSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background: transparent !important;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.stampOuterRing,
+.stampInnerRing {
+  fill: none;
+  stroke: rgba(23, 40, 58, 0.72);
+  stroke-width: 3;
+}
+
+.stampInnerRing {
+  stroke-width: 2;
+  stroke-opacity: 0.72;
+}
+
+.stampArcText {
+  fill: rgba(23, 40, 58, 0.78);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+}
+
+.stampOutlineStar {
+  fill: none;
+  stroke: rgba(23, 40, 58, 0.72);
+  stroke-width: 2.4;
+  stroke-linejoin: round;
+}
+
+.stampCivicText {
+  fill: rgba(23, 40, 58, 0.7);
+  font-size: 5.6px;
+  font-weight: 900;
+  letter-spacing: 0.45px;
+  text-anchor: middle;
+}
+
+.fakeSignature::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 18px;
+  bottom: 24px;
+  border-bottom: 2px solid rgba(23, 40, 58, 0.22);
+}
+
+.pactExportButton {
+  min-width: 150px;
+  align-self: end;
+}
+
+.quizQuestion {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.quizQuestion h3 {
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.quizQuestion button {
+  min-height: 46px;
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.quizQuestion button:hover,
+.quizQuestion button.selected {
+  border-color: rgba(49, 107, 159, 0.42);
+  background: rgba(49, 107, 159, 0.09);
+  color: var(--listen-blue);
+}
+
+.quizQuestion button.correct {
+  color: var(--listen-green);
+  border-color: var(--listen-green);
+  background: rgba(46, 159, 104, 0.14);
+}
+
+.quizQuestion button.wrong {
+  color: var(--listen-orange);
+  border-color: var(--listen-orange);
+  background: rgba(244, 123, 47, 0.12);
+}
+
+.quizActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.listeningQuizResult {
+  min-height: 34px;
+  margin-top: 16px;
+  color: var(--listen-blue);
+  font-weight: 900;
+  text-align: center;
+}
+
+.listeningConclusion {
+  padding: 54px 28px;
+  border-radius: 24px;
+  background:
+    linear-gradient(90deg, rgba(49, 107, 159, 0.14), rgba(255, 255, 255, 0.88), rgba(217, 154, 36, 0.14));
+  box-shadow: var(--panel-shadow);
+}
+
+.listeningConclusion h2 {
+  max-width: 940px;
+  margin: 0 auto;
+  color: var(--listen-ink);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.2;
+}
+
+@media (max-width: 980px) {
+  .listeningHero,
+  .listeningGrid,
+  .rulesBoard,
+  .emotionGrid,
+  .orchestraPanel,
+  .classPact,
+  .hearingPanel,
+  .safeListeningGrid,
+  .listeningQuiz {
+    grid-template-columns: 1fr;
+  }
+
+  .listeningHeroText {
+    text-align: center;
+  }
+
+  .listeningHero p {
+    margin: 0 auto;
+  }
+
+  .listeningHeroActions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 680px) {
+  .orchestraStage,
+  .pactChoices,
+  .pactFields {
+    grid-template-columns: 1fr;
+  }
+
+  .pactExportButton {
+    justify-self: stretch;
+  }
+
+  .listeningHeroPanel,
+  .listeningGrid article,
+  .rulesBoard article,
+  .emotionGrid article,
+  .earCareCard,
+  .decibelLadder,
+  .safeListeningGrid article,
+  .roleCard,
+  .keyIdea,
+  .pactPreview,
+  .quizQuestion {
+    padding: 22px;
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+
+  html,
+  body.printListeningPactOnly {
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff;
+    overflow: visible !important;
+  }
+
+  body.printListeningPactOnly .appHeader,
+  body.printListeningPactOnly #siteNav,
+  body.printListeningPactOnly #contentWrapper > section:not(#patto),
+  body.printListeningPactOnly .pactControls,
+  body.printListeningPactOnly .pactFields,
+  body.printListeningPactOnly .sectionIntro,
+  body.printListeningPactOnly .siteLegalFooter,
+  body.printListeningPactOnly #scrollTopBtn,
+  body.printListeningPactOnly .pactExportButton {
+    display: none !important;
+  }
+
+  body.printListeningPactOnly #contentWrapper {
+    display: block !important;
+    width: auto;
+    max-width: none;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  body.printListeningPactOnly #patto {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  body.printListeningPactOnly #patto .sectionTitle {
+    margin: 0 0 12px;
+    color: #17283a;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  body.printListeningPactOnly .classPact {
+    display: block;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  body.printListeningPactOnly .pactPreview {
+    min-height: 245mm;
+    padding: 30px 34px;
+    border: 2px solid #316b9f;
+    box-shadow: none;
+    break-inside: avoid;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  body.printListeningPactOnly .pactPreview h3 {
+    margin-bottom: 6px;
+    font-size: 1.35rem;
+  }
+
+  body.printListeningPactOnly .pactHeading {
+    margin-bottom: 26px;
+  }
+
+  body.printListeningPactOnly .pactPreview ul {
+    gap: 8px;
+    font-size: 1.08rem;
+    line-height: 1.35;
+  }
+
+  body.printListeningPactOnly .pactSignatureArea {
+    margin-top: 30px;
+  }
+
+  body.printListeningPactOnly .stampCircle {
+    width: 132px;
+    height: 132px;
+  }
+
+  body.printListeningPactOnly .pactSignatureArea > div,
+  body.printListeningPactOnly .stampSvg {
+    background: transparent !important;
+    box-shadow: none;
+  }
+}

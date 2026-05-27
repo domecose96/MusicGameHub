@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ascolto, regole e rispetto | Music Game Hub</title>
+<link rel="icon" type="image/png" href="../img/mgh-logo.png">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/learn.css">
+<link rel="stylesheet" href="../css/educazione_civica/ascolto_rispetto.css">
+</head>
+
+<body class="listeningRespectPage">
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="MGH.goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+
+    <div class="headerBrand">
+      <span class="headerEyebrow">Educazione civica musicale</span>
+      <h1 class="pageTitle">Ascolto, regole e rispetto</h1>
+    </div>
+  </div>
+</header>
+
+<nav id="siteNav" class="theoryNav listeningRespectNav">
+  <button class="navBtn" onclick="MGH.scrollToSection('hero')">🎵 Inizio</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('ascolto')">👂 Ascolto</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('udito')">🔊 Udito</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('regole')">🎯 Regole</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('classe')">🤝 Classe</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('emozioni')">🧠 Emozioni</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('patto')">📜 Patto</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('quiz')">✅ Quiz</button>
+</nav>
+
+<div id="contentWrapper">
+
+  <section id="hero" class="siteSection listeningHero">
+    <div class="listeningHeroText">
+      <span class="listeningBadge">Classe 1 · I quadrimestre</span>
+      <h2>Ascoltare è già partecipare</h2>
+      <p>
+        In musica non si impara solo a cantare o suonare: si impara anche a
+        rispettare il turno, il silenzio, gli strumenti, i compagni e le idee
+        degli altri.
+      </p>
+      <div class="listeningHeroActions">
+        <button class="listeningButton" onclick="MGH.scrollToSection('ascolto')">Inizia</button>
+        <button class="listeningButton secondary" onclick="MGH.scrollToSection('quiz')">Vai al quiz</button>
+      </div>
+    </div>
+
+    <div class="listeningHeroPanel" aria-label="Classe musicale collaborativa">
+      <div class="listeningScene">
+        <div class="soundCircle main">🎵</div>
+        <div class="soundCircle one">👂</div>
+        <div class="soundCircle two">💬</div>
+        <div class="soundCircle three">🤝</div>
+        <div class="soundCircle four">🔇</div>
+      </div>
+      <strong>Silenzio, attenzione, collaborazione</strong>
+    </div>
+  </section>
+
+  <section id="ascolto" class="siteSection learnSection">
+    <h2 class="sectionTitle">Sentire e ascoltare</h2>
+    <p class="sectionIntro">
+      Sentire è percepire un suono. Ascoltare significa prestare attenzione,
+      capire da dove arriva, cosa comunica e come ci fa reagire.
+    </p>
+
+    <div class="listeningGrid">
+      <article>
+        <span>👂</span>
+        <h3>Ascolto con le orecchie</h3>
+        <p>Riconosco suoni, rumori, voci, strumenti, intensità e silenzi.</p>
+      </article>
+      <article>
+        <span>👀</span>
+        <h3>Ascolto con gli occhi</h3>
+        <p>Osservo il direttore, i compagni, i gesti e i segnali della classe.</p>
+      </article>
+      <article>
+        <span>🧠</span>
+        <h3>Ascolto con la mente</h3>
+        <p>Collego ciò che sento a emozioni, immagini, regole e significati.</p>
+      </article>
+    </div>
+
+    <div class="keyIdea">
+      <strong>Idea chiave</strong>
+      <p>Il silenzio non è vuoto: è lo spazio che permette alla musica e alle persone di essere ascoltate.</p>
+    </div>
+  </section>
+
+  <section id="udito" class="siteSection learnSection">
+    <h2 class="sectionTitle">Proteggere l'udito</h2>
+    <p class="sectionIntro">
+      Ascoltare musica è bello, ma volume troppo alto e tempi troppo lunghi
+      possono affaticare l'orecchio. Il rispetto passa anche dalla cura del
+      nostro corpo.
+    </p>
+
+    <div class="hearingPanel">
+      <div class="earCareCard">
+        <h3>Come lavora l'orecchio</h3>
+        <p>
+          L'orecchio raccoglie le onde sonore, le trasforma in vibrazioni e poi
+          in segnali che il cervello interpreta come suoni, parole e musica.
+        </p>
+        <div class="hearingSimulator" aria-label="Simulatore didattico di frequenza e intensità">
+          <div class="simulatorLegend">
+            <span><strong>Hz</strong> frequenza: grave o acuto</span>
+            <span><strong>dB</strong> intensità: piano o forte</span>
+          </div>
+          <div class="simulatorRow">
+            <label for="hearingFrequency">Frequenza</label>
+            <output id="hearingFrequencyValue" for="hearingFrequency">440 Hz</output>
+            <input id="hearingFrequency" type="range" min="10" max="22000" step="10" value="440">
+          </div>
+          <div class="simulatorRow">
+            <label for="hearingDb">Intensità</label>
+            <output id="hearingDbValue" for="hearingDb">55 dB</output>
+            <input id="hearingDb" type="range" min="0" max="110" step="1" value="55">
+          </div>
+          <div class="hearingStatus" id="hearingStatus">
+            Frequenza udibile: suono percepibile in condizioni normali.
+          </div>
+          <button class="tonePreviewButton" type="button" id="toggleHearingTone" aria-pressed="false">Play</button>
+          <small>Il suono di prova è limitato: i dB qui sono una scala didattica, non una misura reale del volume del dispositivo.</small>
+        </div>
+        <a class="relatedLessonLink" href="../elementi_musica.html#udito">
+          Vedi l'apparato uditivo interattivo
+        </a>
+      </div>
+
+      <div class="decibelLadder" aria-label="Scala semplificata dei livelli sonori">
+        <div class="decibelIntro">
+          <strong>Cosa sono i dB?</strong>
+          <span>
+            I decibel indicano quanto è intenso un suono. Più il numero sale,
+            più il suono è forte e può diventare faticoso per l'orecchio.
+          </span>
+        </div>
+        <figure class="decibelInfographic">
+          <img src="../img/infografica_db.webp" alt="Infografica sui livelli del suono in decibel">
+        </figure>
+      </div>
+    </div>
+
+    <div class="safeListeningGrid">
+      <article>
+        <strong>60/60</strong>
+        <p>Con cuffie o auricolari: circa 60% del volume e pause dopo 60 minuti di ascolto.</p>
+      </article>
+      <article>
+        <strong>Pause</strong>
+        <p>Dopo un ascolto intenso, lascia riposare le orecchie in un ambiente più silenzioso.</p>
+      </article>
+      <article>
+        <strong>Segnali</strong>
+        <p>Fischi, orecchie ovattate o bisogno di alzare sempre il volume sono segnali da non ignorare.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="regole" class="siteSection learnSection">
+    <h2 class="sectionTitle">Perché servono regole in musica</h2>
+    <p class="sectionIntro">
+      Le regole non servono a bloccare la creatività. Servono a fare in modo
+      che tutti possano partecipare senza confusione e senza sovrastare gli altri.
+    </p>
+
+    <div class="rulesBoard">
+      <article>
+        <span>✋</span>
+        <h3>Turno</h3>
+        <p>Parlo, canto o suono quando è il mio momento.</p>
+      </article>
+      <article>
+        <span>🔉</span>
+        <h3>Volume</h3>
+        <p>Controllo la voce e gli strumenti per non coprire gli altri.</p>
+      </article>
+      <article>
+        <span>🎒</span>
+        <h3>Cura</h3>
+        <p>Uso materiali e strumenti con attenzione, perché sono di tutti.</p>
+      </article>
+      <article>
+        <span>🛡️</span>
+        <h3>Sicurezza</h3>
+        <p>Mi muovo con calma e rispetto gli spazi della classe.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="classe" class="siteSection learnSection">
+    <h2 class="sectionTitle">La classe come un'orchestra</h2>
+    <p class="sectionIntro">
+      In un'orchestra ogni parte è diversa, ma tutte contribuiscono al risultato.
+      Anche in classe ognuno ha un ruolo: ascoltare, aspettare, aiutare,
+      proporre, correggersi.
+    </p>
+
+    <div class="orchestraPanel">
+      <div class="orchestraStage" aria-label="Ruoli della classe">
+        <button type="button" class="roleBubble active" data-role="ascolta">Ascolta</button>
+        <button type="button" class="roleBubble" data-role="rispetta">Rispetta</button>
+        <button type="button" class="roleBubble" data-role="collabora">Collabora</button>
+        <button type="button" class="roleBubble" data-role="aiuta">Aiuta</button>
+      </div>
+      <article id="roleCard" class="roleCard">
+        <span>Ascolta</span>
+        <h3>Prima capisco, poi intervengo</h3>
+        <p>Ascoltare un compagno significa lasciargli il tempo di finire e provare a capire il suo punto di vista.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="emozioni" class="siteSection learnSection">
+    <h2 class="sectionTitle">Musica, emozioni e rispetto</h2>
+    <p class="sectionIntro">
+      La stessa musica può piacere a qualcuno e non piacere a qualcun altro.
+      La cittadinanza passa anche dal modo in cui esprimiamo opinioni e gusti.
+    </p>
+
+    <div class="emotionGrid">
+      <article class="goodComment">
+        <span>✅</span>
+        <h3>Opinione rispettosa</h3>
+        <p>"A me questo brano comunica calma, anche se non è il mio genere preferito."</p>
+      </article>
+      <article class="badComment">
+        <span>⚠️</span>
+        <h3>Opinione da migliorare</h3>
+        <p>"Questa musica fa schifo e chi la ascolta non capisce niente."</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="patto" class="siteSection learnSection">
+    <h2 class="sectionTitle">Patto di ascolto della classe</h2>
+    <p class="sectionIntro">
+      Inserisci classe e istituto, poi scegli le regole che vuoi inserire nel
+      patto della classe. Il patto non è una punizione: è un accordo per
+      lavorare meglio insieme.
+    </p>
+
+    <div class="classPact">
+      <div class="pactFields" aria-label="Intestazione del patto">
+        <label>
+          Classe
+          <input id="listeningPactClassName" type="text" placeholder="Es. 1A">
+        </label>
+        <label>
+          Istituto
+          <input id="listeningPactSchoolName" type="text" placeholder="Es. I.C. MusicGameHub">
+        </label>
+        <button class="listeningButton pactExportButton" type="button" id="exportListeningPactPdf">Esporta PDF</button>
+      </div>
+
+      <div class="pactControls">
+        <div class="pactChoices" aria-label="Regole del patto di ascolto">
+        <button type="button" data-pact="Ascoltiamo senza interrompere.">Ascolto senza interrompere</button>
+        <button type="button" data-pact="Rispettiamo il turno di parola e di esecuzione.">Rispetto il turno</button>
+        <button type="button" data-pact="Usiamo voce e strumenti con volume adeguato.">Controllo il volume</button>
+        <button type="button" data-pact="Ci correggiamo senza prendere in giro.">Correggo con rispetto</button>
+        <button type="button" data-pact="Ci prendiamo cura degli strumenti e degli spazi comuni.">Curo strumenti e spazi</button>
+        <button type="button" data-pact="Accogliamo gusti musicali diversi dai nostri.">Accolgo gusti diversi</button>
+        <button type="button" data-pact="Chiediamo la parola prima di intervenire.">Chiedo la parola</button>
+        <button type="button" data-pact="Aiutiamo chi è in difficoltà senza giudicare.">Aiuto senza giudicare</button>
+        <button type="button" data-pact="Prepariamo il materiale necessario prima dell'attività.">Materiale pronto</button>
+        <button type="button" data-pact="Manteniamo il silenzio durante gli ascolti guidati.">Silenzio negli ascolti</button>
+        <button type="button" data-pact="Partecipiamo alle attività di gruppo con responsabilità.">Partecipo al gruppo</button>
+        <button type="button" data-pact="Rispettiamo emozioni e opinioni musicali dei compagni.">Rispetto le opinioni</button>
+        </div>
+      </div>
+
+      <div class="pactPreview">
+        <h3>Il nostro patto di ascolto</h3>
+        <p id="listeningPactHeading" class="pactHeading">Classe e istituto non indicati</p>
+        <ul id="listeningPactList">
+          <li>Seleziona almeno una regola per iniziare.</li>
+        </ul>
+        <div class="pactSignatureArea">
+          <div class="fakeStamp">
+            <div class="stampCircle" aria-label="Timbro fac-simile dell'istituto">
+              <svg class="stampSvg" viewBox="0 0 160 160" aria-hidden="true">
+                <defs>
+                  <path id="listeningStampTopPath" d="M 24 80 A 56 56 0 0 1 136 80"></path>
+                  <path id="listeningStampBottomPath" d="M 136 80 A 56 56 0 0 1 24 80"></path>
+                  <path id="listeningStampCivicPath" d="M 52 76 A 28 28 0 0 1 108 76"></path>
+                </defs>
+                <circle class="stampOuterRing" cx="80" cy="80" r="74"></circle>
+                <circle class="stampInnerRing" cx="80" cy="80" r="46"></circle>
+                <text class="stampArcText">
+                  <textPath href="#listeningStampTopPath" startOffset="50%" text-anchor="middle">SCUOLA SECONDARIA DI I GRADO</textPath>
+                </text>
+                <text class="stampArcText">
+                  <textPath id="listeningPactStampSchool" href="#listeningStampBottomPath" startOffset="50%" text-anchor="middle">NOME ISTITUTO</textPath>
+                </text>
+                <text class="stampCivicText">
+                  <textPath href="#listeningStampCivicPath" startOffset="50%" text-anchor="middle">EDUCAZIONE CIVICA</textPath>
+                </text>
+                <polygon class="stampOutlineStar" points="80,55 88,72 107,74 93,87 97,106 80,96 63,106 67,87 53,74 72,72"></polygon>
+              </svg>
+            </div>
+          </div>
+          <div class="fakeSignature">
+            <span>Firma</span>
+            <strong><em>La classe <span id="listeningPactSignatureClass">...</span></em></strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="quiz" class="siteSection learnSection">
+    <h2 class="sectionTitle">Quiz finale</h2>
+    <p class="sectionIntro">Rispondi scegliendo il comportamento più adatto e controlla subito il risultato.</p>
+
+    <div class="listeningQuiz" id="listeningQuiz">
+      <article class="quizQuestion" data-answer="rispetto">
+        <h3>1. Un compagno sta suonando e sbaglia. Qual è la reazione più corretta?</h3>
+        <button type="button" data-value="ridere">Ridacchiare per far capire che ha sbagliato.</button>
+        <button type="button" data-value="rispetto">Aspettare e, se serve, aiutare con rispetto.</button>
+        <button type="button" data-value="coprire">Suonare più forte per coprirlo.</button>
+      </article>
+      <article class="quizQuestion" data-answer="attenzione">
+        <h3>2. Perché il silenzio è importante durante un ascolto?</h3>
+        <button type="button" data-value="attenzione">Permette a tutti di percepire e capire meglio.</button>
+        <button type="button" data-value="insegnante">Serve solo a non far arrabbiare l'insegnante.</button>
+        <button type="button" data-value="meno">Rende la musica meno importante.</button>
+      </article>
+      <article class="quizQuestion" data-answer="spiegare">
+        <h3>3. Se una musica non mi piace, posso dirlo?</h3>
+        <button type="button" data-value="no">No, bisogna sempre dire che piace.</button>
+        <button type="button" data-value="spiegare">Sì, ma spiegando il motivo senza offendere.</button>
+        <button type="button" data-value="insulto">Sì, insultando il genere musicale.</button>
+      </article>
+      <article class="quizQuestion" data-answer="collaborare">
+        <h3>4. In un lavoro musicale di gruppo, qual è un comportamento utile?</h3>
+        <button type="button" data-value="soli">Fare tutto da soli.</button>
+        <button type="button" data-value="altri">Lasciare che decidano sempre gli altri.</button>
+        <button type="button" data-value="collaborare">Ascoltare le proposte e collaborare.</button>
+      </article>
+    </div>
+
+    <div class="quizActions">
+      <button class="listeningButton" type="button" id="checkListeningQuiz">Controlla risposte</button>
+      <button class="listeningButton secondary" type="button" id="resetListeningQuiz">Riprova</button>
+    </div>
+
+    <div id="listeningQuizResult" class="listeningQuizResult" aria-live="polite"></div>
+  </section>
+
+  <section id="conclusione" class="siteSection listeningConclusion">
+    <h2>Ascoltare con rispetto è il primo modo per fare musica insieme.</h2>
+  </section>
+
+</div>
+
+<footer class="siteLegalFooter">
+  <p>Music Game Hub tutela la privacy e usa solo strumenti tecnici o statistici necessari al portale.</p>
+  <div class="siteLegalLinks">
+    <a href="../legal/privacy.html">Privacy Policy</a>
+    <span>·</span>
+    <a href="../legal/cookie.html">Cookie Policy</a>
+    <span>·</span>
+    <a href="../legal/termini.html">Termini di servizio</a>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
+
+<script src="../js/common.js"></script>
+<script src="../js/educazione_civica/ascolto_rispetto.js"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

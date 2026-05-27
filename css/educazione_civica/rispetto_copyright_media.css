@@ -349,7 +349,7 @@
 .checklistPanel h3,
 .sourceRecipe h3,
 .pactOutput h3,
-.quizCard h3 {
+.quizQuestion h3 {
   margin: 0 0 10px;
   color: var(--media-ink);
 }
@@ -450,15 +450,23 @@
 .mediaChoice,
 .pactOptions button,
 .simulatorOption,
-.quizCard button {
-  min-height: 46px;
-  padding: 12px 16px;
+.quizQuestion button {
   border: 1.5px solid rgba(49, 107, 159, 0.18);
-  border-radius: 14px;
+  border-radius: 16px;
   background: #ffffff;
-  color: var(--media-ink);
+  color: var(--media-blue);
+  font: inherit;
   font-weight: 900;
   cursor: pointer;
+}
+
+.mediaChoice,
+.simulatorOption,
+.quizQuestion button {
+  min-height: 46px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  color: var(--media-ink);
 }
 
 .mediaChoice.active,
@@ -549,7 +557,7 @@
 }
 
 .decisionFeedback,
-.quizResult {
+.mediaQuizResult {
   min-height: 30px;
   font-weight: 900;
   text-align: center;
@@ -625,7 +633,7 @@
   grid-template-columns: 1fr;
   align-items: start;
   gap: 14px;
-  padding: 26px;
+  padding: 30px 34px;
   border: 1px solid rgba(23, 40, 58, 0.1);
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.92);
@@ -642,6 +650,7 @@
 }
 
 .passportForm input {
+  box-sizing: border-box;
   height: 52px;
   min-height: 0;
   width: 100%;
@@ -657,9 +666,7 @@
 
 .passportPreview {
   position: relative;
-  display: grid;
-  justify-items: center;
-  padding: 34px 42px;
+  padding: 30px;
   overflow: hidden;
   border-top: 7px solid var(--media-blue);
 }
@@ -694,8 +701,6 @@
 .passportPreview dl {
   display: grid;
   gap: 12px;
-  width: 100%;
-  max-width: 520px;
 }
 
 .passportPreview dl div {
@@ -720,16 +725,12 @@
 }
 
 #passportCitation {
-  width: 100%;
-  max-width: 520px;
   margin-top: 16px;
   color: var(--text-muted);
   font-weight: 800;
 }
 
 .passportStatus {
-  width: 100%;
-  max-width: 520px;
   margin: 14px 0 0;
   padding: 12px 14px;
   border-radius: 14px;
@@ -747,11 +748,58 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 0.8fr);
   gap: 24px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.pactControls {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+}
+
+.pactFields {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 14px;
+  padding: 22px;
+  border: 1px solid rgba(23, 40, 58, 0.1);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 14px 34px rgba(23, 40, 58, 0.07);
+}
+
+.pactFields label {
+  display: grid;
+  gap: 8px;
+  color: var(--media-ink);
+  font-weight: 900;
+}
+
+.pactFields input {
+  box-sizing: border-box;
+  min-height: 48px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid rgba(49, 107, 159, 0.18);
+  border-radius: 12px;
+  color: var(--media-ink);
+  font: inherit;
+  font-weight: 800;
 }
 
 .pactOptions {
+  display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-content: start;
+  gap: 14px;
+}
+
+.pactOptions button {
+  min-height: 76px;
+  padding: 14px;
 }
 
 .pactOutput {
@@ -793,13 +841,146 @@
   padding-left: 20px;
 }
 
-.mediaQuiz {
+.pactHeading {
+  margin: -4px 0 18px;
+  color: var(--media-blue);
+  font-weight: 900;
+}
+
+.pactSignatureArea {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
+  margin-top: 34px;
 }
 
-.quizCard {
+.pactSignatureArea > div {
+  min-height: 86px;
+  position: relative;
+  display: grid;
+  align-content: center;
+  gap: 6px;
+  padding: 12px 4px;
+  background: transparent;
+}
+
+.pactSignatureArea span {
+  color: var(--media-blue);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.pactSignatureArea strong {
+  color: var(--media-ink);
+  font-size: 1rem;
+}
+
+.pactSignatureArea em {
+  display: inline-block;
+  font-family: "Snell Roundhand", "Brush Script MT", "Segoe Script", cursive;
+  font-size: 2rem;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1;
+  color: rgba(23, 40, 58, 0.86);
+  transform: rotate(-5deg);
+}
+
+.pactSignatureArea em span {
+  color: inherit;
+  font: inherit;
+}
+
+.pactSignatureArea small {
+  color: var(--text-muted);
+  font-weight: 800;
+}
+
+.fakeStamp {
+  justify-items: center;
+  background: transparent;
+}
+
+.stampCircle {
+  width: 136px;
+  height: 136px;
+  background: transparent;
+  transform: rotate(-8deg);
+}
+
+.stampSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background: transparent !important;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.stampOuterRing,
+.stampInnerRing {
+  fill: none;
+  stroke: rgba(23, 40, 58, 0.72);
+  stroke-width: 3;
+}
+
+.stampInnerRing {
+  stroke-width: 2;
+  stroke-opacity: 0.72;
+}
+
+.stampArcText {
+  fill: rgba(23, 40, 58, 0.78);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+}
+
+.stampOutlineStar {
+  fill: rgba(23, 40, 58, 0.78);
+  font-weight: 900;
+  text-anchor: middle;
+}
+
+.stampOutlineStar {
+  fill: none;
+  stroke: rgba(23, 40, 58, 0.72);
+  stroke-width: 2.4;
+  stroke-linejoin: round;
+}
+
+.stampCivicText {
+  fill: rgba(23, 40, 58, 0.7);
+  font-size: 5.6px;
+  font-weight: 900;
+  letter-spacing: 0.45px;
+  text-anchor: middle;
+}
+
+.fakeSignature::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 18px;
+  bottom: 24px;
+  border-bottom: 2px solid rgba(23, 40, 58, 0.22);
+}
+
+.pactExportButton {
+  min-width: 150px;
+  align-self: end;
+}
+
+.mediaQuiz {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.quizQuestion {
   display: grid;
   gap: 10px;
   padding: 24px;
@@ -808,16 +989,62 @@
   background: rgba(255, 255, 255, 0.92);
 }
 
-.quizCard button.correct {
-  color: #ffffff;
-  border-color: var(--media-green);
-  background: var(--media-green);
+.quizQuestion h3 {
+  font-size: 1rem;
+  line-height: 1.35;
 }
 
-.quizCard button.wrong {
-  color: #ffffff;
+.quizQuestion button {
+  width: 100%;
+  text-align: left;
+}
+
+.quizQuestion button:hover,
+.quizQuestion button.selected {
+  border-color: rgba(49, 107, 159, 0.42);
+  background: rgba(49, 107, 159, 0.09);
+  color: var(--media-blue);
+}
+
+.quizQuestion button.correct {
+  color: var(--media-green);
+  border-color: var(--media-green);
+  background: rgba(46, 159, 104, 0.14);
+}
+
+.quizQuestion button.wrong {
+  color: var(--media-orange);
   border-color: var(--media-orange);
-  background: var(--media-orange);
+  background: rgba(244, 123, 47, 0.12);
+}
+
+.quizActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.mediaQuizResult {
+  margin-top: 16px;
+  color: var(--media-blue);
+}
+
+.mediaRightsConclusion {
+  padding: 54px 28px;
+  border-radius: 24px;
+  background:
+    linear-gradient(90deg, rgba(49, 107, 159, 0.14), rgba(255, 255, 255, 0.88), rgba(244, 123, 47, 0.12));
+  box-shadow: var(--panel-shadow);
+}
+
+.mediaRightsConclusion h2 {
+  max-width: 940px;
+  margin: 0 auto;
+  color: var(--media-ink);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.2;
 }
 
 @media (max-width: 980px) {
@@ -857,9 +1084,14 @@
   .mediaChoiceGrid,
   .checklistGrid,
   .pactOptions,
+  .pactFields,
   .simulatorChoices,
   .passportForm {
     grid-template-columns: 1fr;
+  }
+
+  .pactExportButton {
+    justify-self: stretch;
   }
 
   .mediaHeroPanel,
@@ -880,5 +1112,110 @@
   .passportPreview,
   .pactOutput {
     padding: 22px;
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+
+  html,
+  body.printPactOnly {
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff;
+    overflow: visible !important;
+  }
+
+  body.printPactOnly .appHeader,
+  body.printPactOnly #siteNav,
+  body.printPactOnly #contentWrapper > section:not(#patto),
+  body.printPactOnly .pactControls,
+  body.printPactOnly .pactFields,
+  body.printPactOnly .sectionIntro,
+  body.printPactOnly .siteLegalFooter,
+  body.printPactOnly #scrollTopBtn,
+  body.printPactOnly .pactExportButton {
+    display: none !important;
+  }
+
+  body.printPactOnly #contentWrapper {
+    display: block !important;
+    width: auto;
+    max-width: none;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  body.printPactOnly #patto {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  body.printPactOnly #patto .sectionTitle {
+    margin: 0 0 12px;
+    color: #17283a;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  body.printPactOnly .pactBuilder {
+    display: block;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  body.printPactOnly .pactOutput {
+    min-height: 245mm;
+    padding: 30px 34px;
+    border: 2px solid #316b9f;
+    box-shadow: none;
+    break-inside: avoid;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  body.printPactOnly .pactSeal {
+    margin-bottom: 8px;
+  }
+
+  body.printPactOnly .pactOutput h3 {
+    margin-bottom: 6px;
+    font-size: 1.35rem;
+  }
+
+  body.printPactOnly .pactHeading {
+    margin-bottom: 40px;
+  }
+
+  body.printPactOnly .pactOutput ul {
+    gap: 8px;
+    font-size: 1.08rem;
+    line-height: 1.35;
+  }
+
+  body.printPactOnly .pactSignatureArea {
+    margin-top: 30px;
+  }
+
+  body.printPactOnly .stampCircle {
+    width: 132px;
+    height: 132px;
+  }
+
+  body.printPactOnly .pactSignatureArea > div,
+  body.printPactOnly .stampSvg {
+    background: transparent !important;
+    box-shadow: none;
   }
 }

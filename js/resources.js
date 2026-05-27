@@ -318,9 +318,29 @@ const MusicGameHubResources = (() => {
       icon: "🌍",
       type: "Percorso",
       title: "Educazione civica",
-      desc: "Indice dei percorsi musicali su cittadinanza, identità, ambiente e media digitali.",
-      tags: ["educazione civica", "cittadinanza", "ambiente", "identità", "copyright", "media"],
+      desc: "Indice dei percorsi musicali su cittadinanza, ascolto, memoria, identità, ambiente e media digitali.",
+      tags: ["educazione civica", "cittadinanza", "ascolto", "memoria", "ambiente", "identità", "copyright", "media"],
       url: "educazione_civica/index.html",
+      group: "paths"
+    },
+    {
+      id: "ascoltoRispetto",
+      icon: "🎵",
+      type: "Percorso",
+      title: "Ascolto, regole e rispetto",
+      desc: "Percorso di cittadinanza musicale su ascolto, cura dell'udito, collaborazione e rispetto in classe.",
+      tags: ["ascolto", "rispetto", "regole", "udito", "decibel", "classe", "collaborazione", "educazione civica"],
+      url: "educazione_civica/ascolto_rispetto.html",
+      group: "paths"
+    },
+    {
+      id: "cantiMemoria",
+      icon: "🕯️",
+      type: "Percorso",
+      title: "I canti della Memoria",
+      desc: "Lezione sulla Giornata della Memoria attraverso ascolti, rispetto, storia e responsabilità.",
+      tags: ["memoria", "shoah", "giornata della memoria", "gam gam", "donna donna", "diritti", "educazione civica"],
+      url: "educazione_civica/canti_memoria.html",
       group: "paths"
     },
     {

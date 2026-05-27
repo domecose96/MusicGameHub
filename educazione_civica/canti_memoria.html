@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I canti della Memoria | Music Game Hub</title>
+<link rel="icon" type="image/png" href="../img/mgh-logo.png">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/learn.css">
+<link rel="stylesheet" href="../css/educazione_civica/canti_memoria.css">
+</head>
+
+<body class="memorySongsPage">
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="MGH.goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+
+    <div class="headerBrand">
+      <span class="headerEyebrow">Educazione civica musicale</span>
+      <h1 class="pageTitle">I canti della Memoria</h1>
+    </div>
+  </div>
+</header>
+
+<nav id="siteNav" class="theoryNav memorySongsNav">
+  <button class="navBtn" onclick="MGH.scrollToSection('hero')">🎵 Inizio</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('ricordare')">🕯️ Ricordare</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('parole')">💬 Parole</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('memoria')">💎 Memoria</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('ascolti')">🤝 Ascolti</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('laboratorio')">🎯 Laboratorio</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('quiz')">✅ Quiz</button>
+</nav>
+
+<div id="contentWrapper">
+
+  <section id="hero" class="siteSection memoryHero">
+    <div class="memoryHeroText">
+      <span class="memoryBadge">Classe 2/3 · I quadrimestre · 27 gennaio</span>
+      <h2>La musica custodisce la memoria</h2>
+      <p>
+        Alcuni canti non servono solo a intrattenere: aiutano a ricordare,
+        a dare voce a chi non c'è più e a trasformare la storia in responsabilità.
+      </p>
+      <div class="memoryHeroActions">
+        <button class="memoryButton" onclick="MGH.scrollToSection('ricordare')">Inizia</button>
+        <button class="memoryButton secondary" onclick="MGH.scrollToSection('ascolti')">Vai agli ascolti</button>
+      </div>
+    </div>
+
+    <div class="memoryHeroPanel" aria-label="Canti, memoria e responsabilità">
+      <div class="memoryDisc">
+        <span>♪</span>
+        <i></i>
+      </div>
+      <strong>Ascoltare per non dimenticare</strong>
+    </div>
+  </section>
+
+  <section id="ricordare" class="siteSection learnSection">
+    <h2 class="sectionTitle">Perché è importante ricordare?</h2>
+    <p class="sectionIntro">
+      La Giornata della Memoria, il 27 gennaio, invita a conoscere la Shoah,
+      a rispettare la dignità di ogni persona e a riconoscere i segnali
+      dell'odio, dell'indifferenza e della discriminazione.
+    </p>
+
+    <div class="memoryQuote">
+      <strong>Idea chiave</strong>
+      <p>Ricordare significa dare valore alla vita, alla libertà e ai diritti di tutti.</p>
+    </div>
+
+    <div class="memoryGrid">
+      <article>
+        <span>🕯️</span>
+        <h3>Memoria</h3>
+        <p>Non è solo sapere una data: è capire cosa è accaduto e perché riguarda ancora il presente.</p>
+      </article>
+      <article>
+        <span>🤝</span>
+        <h3>Responsabilità</h3>
+        <p>Ricordare aiuta a scegliere parole, gesti e comportamenti che difendono la dignità umana.</p>
+      </article>
+      <article>
+        <span>🎵</span>
+        <h3>Musica</h3>
+        <p>Un canto può far emergere emozioni, domande e silenzi che una spiegazione da sola non sempre raggiunge.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="parole" class="siteSection learnSection">
+    <h2 class="sectionTitle">Parole chiave della memoria</h2>
+    <p class="sectionIntro">
+      Prima di ascoltare, fermiamoci su alcune parole che aiutano a capire il
+      senso civico del percorso.
+    </p>
+
+    <div class="keywordGrid">
+      <article>
+        <strong>Memoria</strong>
+        <p>Tenere vivo il ricordo per non lasciare che il passato diventi indifferenza.</p>
+      </article>
+      <article>
+        <strong>Dignità</strong>
+        <p>Riconoscere che ogni persona ha valore e non può essere ridotta a numero, etichetta o pregiudizio.</p>
+      </article>
+      <article>
+        <strong>Libertà</strong>
+        <p>Capire quanto siano preziosi i diritti, la parola, la scelta e la vita democratica.</p>
+      </article>
+      <article>
+        <strong>Indifferenza</strong>
+        <p>Accorgersi che restare passivi davanti all'ingiustizia può permettere al male di crescere.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="memoria" class="siteSection learnSection">
+    <h2 class="sectionTitle">Dalla storia all'ascolto</h2>
+    <p class="sectionIntro">
+      Prima di ascoltare un canto della Memoria, non basta chiedersi se è bello:
+      bisogna domandarsi quale storia porta con sé, chi la canta e quale
+      messaggio consegna alla classe.
+    </p>
+
+    <div class="memorySteps">
+      <article>
+        <strong>1</strong>
+        <h3>Contesto</h3>
+        <p>Quando nasce il brano? A quale vicenda storica o culturale è collegato?</p>
+      </article>
+      <article>
+        <strong>2</strong>
+        <h3>Parole</h3>
+        <p>Quali immagini, emozioni o valori emergono dal testo?</p>
+      </article>
+      <article>
+        <strong>3</strong>
+        <h3>Musica</h3>
+        <p>Melodia, ritmo, intensità e timbro aiutano a comunicare speranza, dolore o resistenza?</p>
+      </article>
+      <article>
+        <strong>4</strong>
+        <h3>Rispetto</h3>
+        <p>Come ascoltiamo un brano legato alla sofferenza di persone reali?</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="ascolti" class="siteSection learnSection">
+    <h2 class="sectionTitle">Due canti per riflettere</h2>
+    <p class="sectionIntro">
+      Gli ascolti proposti non sono semplici esempi musicali: diventano punti
+      di partenza per parlare di memoria, paura, speranza, libertà e diritti.
+    </p>
+
+    <div class="beforeListening">
+      <strong>Prima dell'ascolto</strong>
+      <p>
+        Questi brani si ascoltano con rispetto: non sono canzoni qualsiasi, ma
+        occasioni per riflettere su memoria, dignità e libertà.
+      </p>
+    </div>
+
+    <div class="songCards">
+      <article class="songCard">
+        <span class="songBadge">Salmo 23</span>
+        <h3>Gam Gam</h3>
+        <p>
+          Un canto spesso collegato alla memoria della Shoah. La sua forza sta
+          nel contrasto tra la semplicità melodica e il significato profondo
+          delle parole: attraversare l'oscurità senza perdere la speranza.
+        </p>
+        <div class="songAudioBox">
+          <strong>Audio del brano</strong>
+          <audio controls preload="none">
+            <source src="../audio/memoria/gam_gam.mp3" type="audio/mpeg">
+            Il tuo browser non supporta il player audio.
+          </audio>
+        </div>
+        <button type="button" data-song="gam">Scheda ascolto</button>
+      </article>
+
+      <article class="songCard">
+        <span class="songBadge">Canto di libertà</span>
+        <h3>Donna Donna</h3>
+        <p>
+          Reso celebre anche da Joan Baez, è un brano che permette di riflettere
+          su libertà, destino, fragilità e capacità di scegliere. In classe può
+          aprire un confronto sul valore della persona.
+        </p>
+        <div class="songAudioBox">
+          <strong>Audio del brano</strong>
+          <audio controls preload="none">
+            <source src="../audio/memoria/donna_donna.mp3" type="audio/mpeg">
+            Il tuo browser non supporta il player audio.
+          </audio>
+        </div>
+        <button type="button" data-song="donna">Scheda ascolto</button>
+      </article>
+    </div>
+
+    <div id="songFocus" class="songFocus" aria-live="polite">
+      <strong>Scegli una scheda ascolto</strong>
+      <p>Clicca su un brano per vedere le domande guida da usare durante l'ascolto.</p>
+    </div>
+  </section>
+
+  <section id="laboratorio" class="siteSection learnSection">
+    <h2 class="sectionTitle">Laboratorio: ascoltare con rispetto</h2>
+    <p class="sectionIntro">
+      Dopo l'ascolto, la classe può costruire una breve riflessione condivisa:
+      non una recensione, ma una risposta personale e rispettosa.
+    </p>
+
+    <div class="labPanel">
+      <div>
+        <h3>Domande per il quaderno</h3>
+        <ul>
+          <li>Quale parola useresti per descrivere l'atmosfera del brano?</li>
+          <li>Quale momento musicale ti ha colpito di più?</li>
+          <li>Che cosa insegna questo canto alla nostra classe?</li>
+          <li>Perché memoria e rispetto sono collegati?</li>
+        </ul>
+      </div>
+      <div class="memoryRule">
+        <strong>Regola di ascolto</strong>
+        <p>Quando un brano parla di dolore reale, si ascolta senza ironia, senza distrazioni e senza giudizi superficiali.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="quiz" class="siteSection learnSection">
+    <h2 class="sectionTitle">Quiz finale</h2>
+    <p class="sectionIntro">
+      Verifica se hai compreso il senso civico e musicale del percorso.
+    </p>
+
+    <div id="memoryQuiz" class="memoryQuiz">
+      <article class="quizQuestion" data-answer="responsabilita">
+        <h3>1. Perché ascoltare i canti della Memoria?</h3>
+        <button type="button" data-value="intrattenimento">Solo per conoscere canzoni famose.</button>
+        <button type="button" data-value="responsabilita">Per collegare storia, emozioni e responsabilità.</button>
+        <button type="button" data-value="tecnica">Solo per studiare la tecnica vocale.</button>
+      </article>
+
+      <article class="quizQuestion" data-answer="contesto">
+        <h3>2. Prima di ascoltare un canto storico è importante conoscere...</h3>
+        <button type="button" data-value="classifica">la sua posizione in classifica.</button>
+        <button type="button" data-value="contesto">il contesto e il significato del brano.</button>
+        <button type="button" data-value="volume">solo il volume corretto.</button>
+      </article>
+
+      <article class="quizQuestion" data-answer="rispetto">
+        <h3>3. Qual è un comportamento corretto durante l'ascolto?</h3>
+        <button type="button" data-value="rispetto">Ascoltare con attenzione e rispetto.</button>
+        <button type="button" data-value="ridere">Ridicolizzare parole o lingua del canto.</button>
+        <button type="button" data-value="distrarsi">Usare l'ascolto come pausa senza pensare.</button>
+      </article>
+
+      <article class="quizQuestion" data-answer="memoria">
+        <h3>4. La memoria serve soprattutto a...</h3>
+        <button type="button" data-value="memoria">capire il passato per agire meglio nel presente.</button>
+        <button type="button" data-value="dimenticare">lasciare il passato lontano da noi.</button>
+        <button type="button" data-value="voto">preparare solo una verifica.</button>
+      </article>
+    </div>
+
+    <div class="quizActions">
+      <button class="memoryButton" type="button" id="checkMemoryQuiz">Controlla risposte</button>
+      <button class="memoryButton secondary" type="button" id="resetMemoryQuiz">Riprova</button>
+    </div>
+    <p id="memoryQuizResult" class="memoryQuizResult" aria-live="polite"></p>
+  </section>
+
+  <section class="siteSection memoryConclusion">
+    <h2>
+      La musica ci aiuta a ricordare con il cuore, perché ricordare è un dovere
+      verso il passato e una responsabilità verso il futuro.
+    </h2>
+  </section>
+</div>
+
+<footer class="siteLegalFooter">
+  <p>Music Game Hub tutela la privacy e usa solo strumenti tecnici o statistici necessari al portale.</p>
+  <div class="siteLegalLinks">
+    <a href="../legal/privacy.html">Privacy Policy</a>
+    <span>·</span>
+    <a href="../legal/cookie.html">Cookie Policy</a>
+    <span>·</span>
+    <a href="../legal/termini.html">Termini di servizio</a>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
+
+<script src="../js/common.js"></script>
+<script src="../js/educazione_civica/canti_memoria.js"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
