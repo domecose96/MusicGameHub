@@ -9,6 +9,7 @@ let rankedScore = 0;
 let rankedQuestionIndex = 0;
 let rankedStartTime = 0;
 let rankedQuestionStart = 0;
+let rankedTimerInterval = null;
 
 const noteElement = document.getElementById("note");
 const ledgerGroup = document.getElementById("ledgerLines");
@@ -18,6 +19,8 @@ const feedbackEl = document.getElementById("feedback");
 const warning = document.getElementById("warning");
 const menu = document.getElementById("menu");
 const game = document.getElementById("game");
+const timerBox = document.getElementById("timerBox");
+const timerEl = document.getElementById("timer");
 
 const buttonNames = ["Do","Re","Mi","Fa","Sol","La","Si"];
 
@@ -93,8 +96,9 @@ function startGame(){
   menu.classList.add("hidden");
   game.classList.remove("hidden");
   hideRankedUI();
+  stopRankedTimer();
   hideLeaderboardButton();
-  MGH.updateHeaderModeLabel(difficulty === "easy" ? "Facile" : "Difficile");
+  MGH.updateHeaderModeLabel(getDifficultyLabel());
   newNote();
 }
 
@@ -110,6 +114,7 @@ function startRankedGame(){
   game.classList.remove("hidden");
   hideLeaderboardButton();
   showRankedUI();
+  startRankedTimer();
   MGH.updateHeaderModeLabel("Classificata");
   updateRankedProgressUI({ score: rankedScore, current: rankedQuestionIndex, total: RANKED_DEFAULT_QUESTIONS });
   newNote();
@@ -131,6 +136,7 @@ function goBack(){
 
   resetButtons();
   hideRankedUI();
+  stopRankedTimer();
   showLeaderboardButton();
   MGH.updateHeaderModeLabel("");
 }
@@ -139,21 +145,34 @@ function goBack(){
 /* ==================== NOTE ==================== */
 function getNotes(){
   const positionsEasy = [140,135,130,125,120,115,110,105,100]; // facile
+  const positionsMedium = [150,145,140,135,130,125,120,115,110,105,100,95,90]; // medio
   const positionsHard = [165,160,155,150,145,140,135,130,125,120,115,110,105,100,95,90,85,80]; // difficile
 
   const rankedDifficulty = gameMode === "ranked" ? getRankedDifficultyForNoteGame() : null;
   const activeDifficulty = rankedDifficulty || difficulty;
-  const positions = activeDifficulty === "easy" ? positionsEasy : positionsHard;
+  const positions = activeDifficulty === "easy"
+    ? positionsEasy
+    : activeDifficulty === "medium"
+      ? positionsMedium
+      : positionsHard;
 
   let names = [];
   if(clef === "treble"){
-    names = activeDifficulty === "easy"
-      ? ["Mi","Fa","Sol","La","Si","Do","Re","Mi","Fa"]
-      : ["Sol","La","Si","Do","Re","Mi","Fa","Sol","La","Si","Do","Re","Mi","Fa","Sol","La","Si","Do"];
+    if(activeDifficulty === "easy"){
+      names = ["Mi","Fa","Sol","La","Si","Do","Re","Mi","Fa"];
+    } else if(activeDifficulty === "medium"){
+      names = ["Do","Re","Mi","Fa","Sol","La","Si","Do","Re","Mi","Fa","Sol","La"];
+    } else {
+      names = ["Sol","La","Si","Do","Re","Mi","Fa","Sol","La","Si","Do","Re","Mi","Fa","Sol","La","Si","Do"];
+    }
   } else {
-    names = activeDifficulty === "easy"
-      ? ["Sol","La","Si","Do","Re","Mi","Fa","Sol","La"]
-      : ["Si","Do","Re","Mi","Fa","Sol","La","Si","Do","Re","Mi","Fa","Sol","La","Si","Do","Re","Mi"];
+    if(activeDifficulty === "easy"){
+      names = ["Sol","La","Si","Do","Re","Mi","Fa","Sol","La"];
+    } else if(activeDifficulty === "medium"){
+      names = ["Mi","Fa","Sol","La","Si","Do","Re","Mi","Fa","Sol","La","Si","Do"];
+    } else {
+      names = ["Si","Do","Re","Mi","Fa","Sol","La","Si","Do","Re","Mi","Fa","Sol","La","Si","Do","Re","Mi"];
+    }
   }
 
   return positions.map((y,i)=>({name:names[i], y:y}));
@@ -170,8 +189,16 @@ function newNote(){
 }
 
 function getRankedDifficultyForNoteGame(){
-  if(rankedQuestionIndex < 4) return "easy";
+  if(rankedQuestionIndex < 3) return "easy";
+  if(rankedQuestionIndex < 7) return "medium";
   return "hard";
+}
+
+function getDifficultyLabel(){
+  if(difficulty === "easy") return "Facile";
+  if(difficulty === "medium") return "Medio";
+  if(difficulty === "hard") return "Difficile";
+  return "";
 }
 
 /* ==================== RIGHE AGGIUNTIVE ==================== */
@@ -278,6 +305,7 @@ async function finishRankedGame(){
   game.classList.add("hidden");
   menu.classList.remove("hidden");
   hideRankedUI();
+  stopRankedTimer();
   showLeaderboardButton();
   MGH.updateHeaderModeLabel("");
   warning.innerHTML = `Classificata completata! Punteggio: <strong>${Math.round(rankedScore)}</strong> · Corrette: <strong>${rankedCorrect}/${RANKED_DEFAULT_QUESTIONS}</strong>${saved ? "" : " · salvataggio non riuscito"}`;
@@ -303,4 +331,22 @@ function resetButtons(){
 
 function setFeedback(message){
   if(feedbackEl) feedbackEl.textContent = message;
+}
+
+function startRankedTimer(){
+  stopRankedTimer();
+  if(!timerBox || !timerEl) return;
+  timerBox.classList.remove("hidden");
+  timerEl.textContent = "0";
+  rankedTimerInterval = window.setInterval(() => {
+    timerEl.textContent = String(Math.round((Date.now() - rankedStartTime) / 1000));
+  }, 250);
+}
+
+function stopRankedTimer(){
+  if(rankedTimerInterval){
+    window.clearInterval(rankedTimerInterval);
+    rankedTimerInterval = null;
+  }
+  timerBox?.classList.add("hidden");
 }

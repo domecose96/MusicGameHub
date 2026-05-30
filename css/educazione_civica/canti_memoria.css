@@ -287,20 +287,45 @@
 }
 
 .memoryQuote {
-  margin: 0 0 22px;
-  padding: 24px;
-  border-left: 7px solid var(--memory-gold);
+  max-width: 920px;
+  margin: 0 auto 24px;
+  padding: 18px 24px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 14px;
+  border-color: rgba(200, 148, 47, 0.28);
+  background:
+    linear-gradient(135deg, rgba(200, 148, 47, 0.16), rgba(36, 93, 143, 0.11)),
+    rgba(255, 255, 255, 0.9);
+  text-align: left;
 }
 
 .memoryQuote strong,
 .memoryRule strong {
-  color: var(--memory-blue);
   text-transform: uppercase;
 }
 
+.memoryQuote strong {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: rgba(200, 148, 47, 0.22);
+  color: #795916;
+  font-size: 0.82rem;
+  font-weight: 1000;
+}
+
+.memoryRule strong {
+  color: var(--memory-blue);
+}
+
 .memoryQuote p {
-  margin: 8px 0 0;
+  margin: 0;
   color: var(--memory-ink);
+  font-size: 1.05rem;
   font-weight: 900;
 }
 
@@ -520,5 +545,15 @@
   .labPanel > div,
   .quizQuestion {
     padding: 22px;
+  }
+
+  .memoryQuote {
+    grid-template-columns: 1fr;
+    padding: 22px;
+    text-align: center;
+  }
+
+  .memoryQuote strong {
+    justify-self: center;
   }
 }

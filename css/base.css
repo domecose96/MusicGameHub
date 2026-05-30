@@ -310,6 +310,23 @@ body {
   transition: width 0.25s ease;
 }
 
+#timerBox {
+  position: fixed;
+  top: calc(var(--header-height) + 18px);
+  right: 24px;
+  z-index: 20;
+  padding: 10px 16px;
+  border: 1.5px solid rgba(255, 102, 0, 0.25);
+  border-radius: 14px;
+  background: rgba(255, 102, 0, 0.1);
+  color: var(--accent);
+  font-weight: 800;
+}
+
+#timerBox.hidden {
+  display: none;
+}
+
 .rankedModal.hidden {
   display: none;
 }
@@ -656,6 +673,18 @@ body.guantoPage .menuButton:not(.buttonGroup .menuButton):hover {
 .figureImage {
   max-height: 180px;
   max-width: 100%;
+}
+
+body.gamePage #game > svg,
+body.pentagrammaGamePage #staffGameSVG,
+body.figuresGamePage .gameDisplay {
+  width: min(680px, 76vw);
+  height: 320px;
+  margin: 16px auto;
+}
+
+body.figuresGamePage .figureImage {
+  max-height: 250px;
 }
 
 .noteButton {

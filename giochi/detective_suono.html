@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detective del suono</title>
+<link rel="icon" type="image/png" href="../img/mgh-logo.png">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/giochi/detective_suono.css">
+</head>
+
+<body class="soundDetectivePage">
+
+<button id="rankedLeaderboardBtn"
+        class="rankedLeaderboardButton"
+        onclick="showGenericRankedLeaderboardModal('detective_suono')"
+        aria-label="Classifica">
+  🏆
+</button>
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+
+    <div class="headerBrand">
+      <span class="headerEyebrow">Allenamento musicale</span>
+      <h1 class="pageTitle">Detective del suono</h1>
+      <span id="headerModeLabel" class="headerModeLabel hidden"></span>
+    </div>
+  </div>
+</header>
+
+<div id="contentWrapper">
+  <div id="menu">
+    <h2>Scegli la modalità</h2>
+    <div class="buttonGroup detectiveModeGroup">
+      <button class="menuButton" onclick="setDetectiveMode('easy', this)">Facile</button>
+      <button class="menuButton" onclick="setDetectiveMode('medium', this)">Medio</button>
+      <button class="menuButton" onclick="setDetectiveMode('hard', this)">Difficile</button>
+      <button class="menuButton rankedModeButton" onclick="selectDetectiveRanked(this)">
+        <span class="dailyModeBadge">Ranked</span>
+        Classificata
+      </button>
+    </div>
+    <button class="menuButton startButton" onclick="startDetectiveGame()">Inizia</button>
+    <p id="warning" class="warningText"></p>
+    <p class="gameIntro">
+      Ascolta l'indizio, osserva l'onda e riconosci suono/rumore, altezza,
+      intensità e durata.
+    </p>
+  </div>
+
+  <div id="game" class="hidden">
+    <div id="rankedUI" class="rankedUI hidden">
+      <div class="rankedScoreDisplay">Score: <span id="rankedScore">0</span></div>
+      <div class="rankedProgressWrapper">
+        <div class="rankedProgressLabel">
+          <span>Progressione</span>
+          <span id="rankedQuestionCounter">1/10</span>
+        </div>
+        <div class="rankedProgressBar">
+          <div id="rankedProgressFill" class="rankedProgressFill"></div>
+        </div>
+      </div>
+    </div>
+    <div id="timerBox" class="hidden">⏱ <span id="timer">0</span>s</div>
+
+    <section class="clueCard" aria-label="Indizio sonoro">
+      <div id="detectiveHud" class="detectiveHud hidden">
+        <span id="clueType" class="clueType">Indizio</span>
+        <span id="questionCounter">1/10</span>
+      </div>
+      <h2 id="questionText">Che cosa senti?</h2>
+
+      <div id="waveBox" class="waveBox" aria-hidden="true">
+        <svg id="waveSvg" viewBox="0 0 720 220" role="img" aria-label="Onda sonora">
+          <line x1="35" y1="110" x2="685" y2="110" class="waveAxis"></line>
+          <path id="wavePath" class="wavePath" d=""></path>
+        </svg>
+      </div>
+
+      <button id="playClueButton" class="playClueButton" type="button" onclick="playCurrentClue()">▶ Ascolta indizio</button>
+      <p id="feedback" class="feedbackText"></p>
+    </section>
+
+    <div id="answers" class="detectiveAnswers"></div>
+  </div>
+</div>
+
+<script src="../js/common.js"></script>
+<script src="../js/giochi/ranked.js"></script>
+<script src="../js/giochi/detective_suono.js"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

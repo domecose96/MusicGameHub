@@ -3,6 +3,7 @@ let difficulty = null;
 let gameMode = "training";
 let currentTarget = null;
 let timerInterval = null;
+let rankedClockInterval = null;
 let timeLeft = 5;
 let questionStartTime = null;
 
@@ -122,6 +123,7 @@ function startRankedGame(nickname = "") {
   updateHeaderModeLabel("Classificata");
 
   showRankedUI();
+  startRankedClock();
   updateRankedUI();
 
   newRound();
@@ -131,6 +133,7 @@ function goBack() {
   if (gameMode === "ranked") return;
 
   stopTimer();
+  stopRankedClock();
 
   game.classList.add("hidden");
   menu.classList.remove("hidden");
@@ -161,7 +164,9 @@ function goBack() {
 function newRound() {
   clearBoard();
   setFeedback("");
-  stopTimer();
+  if (gameMode !== "ranked") {
+    stopTimer();
+  }
 
   let pool = [];
 
@@ -180,7 +185,6 @@ function newRound() {
       pool = Object.keys(positions);
     }
 
-    startTimer(5);
     startRankedQuestionTimer();
     updateRankedUI();
   }
@@ -215,7 +219,9 @@ zones.forEach(zone => {
     const id = zone.dataset.id;
     const isCorrect = id === currentTarget;
 
-    stopTimer();
+    if (gameMode !== "ranked") {
+      stopTimer();
+    }
 
     if (isCorrect) {
       showCorrect();
@@ -301,6 +307,7 @@ function updateRankedUI() {
 
 async function showRankedResults() {
   stopTimer();
+  stopRankedClock();
 
   const finalData = await finishRankedMode();
 
@@ -405,6 +412,29 @@ function stopTimer() {
   }
 
   timerBox?.classList.add("hidden");
+}
+
+function startRankedClock() {
+  stopRankedClock();
+  if (!timerBox || !timerEl || !currentRankedSession) return;
+
+  timerBox.classList.remove("hidden");
+  timerEl.textContent = "0";
+
+  rankedClockInterval = setInterval(() => {
+    timerEl.textContent = String(Math.round((Date.now() - currentRankedSession.startTime) / 1000));
+  }, 250);
+}
+
+function stopRankedClock() {
+  if (rankedClockInterval) {
+    clearInterval(rankedClockInterval);
+    rankedClockInterval = null;
+  }
+
+  if (gameMode === "ranked") {
+    timerBox?.classList.add("hidden");
+  }
 }
 
 /* ==================== RESET ==================== */

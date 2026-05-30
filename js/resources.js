@@ -294,6 +294,30 @@ const MusicGameHubResources = (() => {
       tag: "Ritmo"
     },
     {
+      id: "strumentiGame",
+      icon: "🎺",
+      type: "Gioco",
+      title: "Gioco degli strumenti",
+      desc: "Riconosci strumenti, famiglie e timbri musicali.",
+      tags: ["gioco", "strumenti", "famiglie", "timbro", "orchestra"],
+      url: "giochi/strumenti_game.html",
+      group: "games",
+      homeGame: true,
+      tag: "Strumenti"
+    },
+    {
+      id: "detectiveSuono",
+      icon: "〰",
+      type: "Gioco",
+      title: "Detective del suono",
+      desc: "Riconosci suono e rumore, grave e acuto, forte e debole, lungo e corto.",
+      tags: ["gioco", "suono", "rumore", "altezza", "intensità", "durata", "onda sonora"],
+      url: "giochi/detective_suono.html",
+      group: "games",
+      homeGame: true,
+      tag: "Suono"
+    },
+    {
       id: "storiaMusica",
       icon: "🕰️",
       type: "Percorso",
@@ -318,8 +342,8 @@ const MusicGameHubResources = (() => {
       icon: "🌍",
       type: "Percorso",
       title: "Educazione civica",
-      desc: "Indice dei percorsi musicali su cittadinanza, ascolto, memoria, identità, ambiente e media digitali.",
-      tags: ["educazione civica", "cittadinanza", "ascolto", "memoria", "ambiente", "identità", "copyright", "media"],
+      desc: "Indice dei percorsi musicali su cittadinanza, ascolto, emozioni, memoria, identità, ambiente e media digitali.",
+      tags: ["educazione civica", "cittadinanza", "ascolto", "emozioni", "empatia", "memoria", "ambiente", "identità", "copyright", "media"],
       url: "educazione_civica/index.html",
       group: "paths"
     },
@@ -331,6 +355,16 @@ const MusicGameHubResources = (() => {
       desc: "Percorso di cittadinanza musicale su ascolto, cura dell'udito, collaborazione e rispetto in classe.",
       tags: ["ascolto", "rispetto", "regole", "udito", "decibel", "classe", "collaborazione", "educazione civica"],
       url: "educazione_civica/ascolto_rispetto.html",
+      group: "paths"
+    },
+    {
+      id: "colonnaSonoraEmozioni",
+      icon: "🎧",
+      type: "Percorso",
+      title: "La colonna sonora delle emozioni",
+      desc: "Percorso su musica, ascolto emotivo, colori, empatia, inclusione e playlist della classe.",
+      tags: ["emozioni", "empatia", "ascolto emotivo", "colori", "playlist", "inclusione", "classe", "educazione civica"],
+      url: "educazione_civica/colonna_sonora_emozioni.html",
       group: "paths"
     },
     {

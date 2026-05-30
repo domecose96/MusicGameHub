@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La colonna sonora delle emozioni | Music Game Hub</title>
+<link rel="icon" type="image/png" href="../img/mgh-logo.png">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/learn.css">
+<link rel="stylesheet" href="../css/educazione_civica/colonna_sonora_emozioni.css">
+</head>
+
+<body class="emotionSoundtrackPage">
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="MGH.goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+
+    <div class="headerBrand">
+      <span class="headerEyebrow">Educazione civica musicale</span>
+      <h1 class="pageTitle">La colonna sonora delle emozioni</h1>
+    </div>
+  </div>
+</header>
+
+<nav id="siteNav" class="theoryNav emotionNav">
+  <button class="navBtn" onclick="MGH.scrollToSection('hero')">🎵 Inizio</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('introduzione')">💡 Introduzione</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('emozioni')">😊 Emozioni</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('ascolto')">🎧 Ascolto</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('inclusione')">🌈 Inclusione</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('confronto')">💬 Confronto</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('playlist')">🎶 Playlist</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('quiz')">✅ Quiz</button>
+</nav>
+
+<div id="contentWrapper">
+
+  <section id="hero" class="siteSection emotionHero">
+    <div class="emotionHeroText">
+      <span class="emotionBadge">Classe 1 · II quadrimestre</span>
+      <h2>La musica ci aiuta a dare un nome a quello che sentiamo.</h2>
+      <p>
+        Ogni persona vive la musica in modo diverso. Ascoltare le emozioni
+        significa imparare a capire meglio sé stessi e gli altri.
+      </p>
+      <div class="emotionHeroPalette" aria-label="Emozioni del percorso">
+        <span style="--mood:#f6c447">Gioia</span>
+        <span style="--mood:#6bb7ff">Calma</span>
+        <span style="--mood:#243b72">Tristezza</span>
+        <span style="--mood:#ef6a3a">Rabbia</span>
+        <span style="--mood:#6550a8">Paura</span>
+        <span style="--mood:#8bcf7a">Speranza</span>
+      </div>
+      <div class="emotionHeroActions">
+        <button class="emotionButton" onclick="MGH.scrollToSection('introduzione')">▶ Inizia il percorso</button>
+        <button class="emotionButton secondary" onclick="MGH.scrollToSection('quiz')">✅ Vai al quiz</button>
+      </div>
+    </div>
+
+    <div class="emotionHeroVisual" aria-label="Mappa emozionale della musica">
+      <div class="emotionHeroOrbit" aria-hidden="true">
+        <span style="--mood:#f6c447">😊</span>
+        <span style="--mood:#6bb7ff">😌</span>
+        <span style="--mood:#243b72">😢</span>
+        <span style="--mood:#ef6a3a">😠</span>
+        <span style="--mood:#6550a8">😨</span>
+        <span style="--mood:#8bcf7a">🌱</span>
+      </div>
+      <div class="emotionHeroCard">
+        <span>Ascolto emotivo</span>
+        <strong>Musica, emozioni, ascolto</strong>
+        <p>Una stessa musica può raccontare cose diverse a persone diverse.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="introduzione" class="siteSection learnSection">
+    <h2 class="sectionTitle">La musica parla alle emozioni</h2>
+    <p class="sectionIntro">
+      La musica può farci sentire felici, tranquilli, emozionati o nostalgici.
+      Ogni persona reagisce in modo diverso ai suoni e ai brani musicali.
+      Capire queste differenze aiuta a rispettare gli altri, ascoltare con
+      attenzione e creare un ambiente inclusivo.
+    </p>
+
+    <div class="emotionIntroGrid">
+      <article>
+        <span class="introIcon self">🎧</span>
+        <h3>Ascolto me stesso</h3>
+        <p>Riconosco che cosa provo mentre ascolto una musica.</p>
+      </article>
+      <article>
+        <span class="introIcon others">💬</span>
+        <h3>Ascolto gli altri</h3>
+        <p>Accolgo emozioni diverse dalle mie senza giudicare.</p>
+      </article>
+      <article>
+        <span class="introIcon respect">🤝</span>
+        <h3>Costruisco rispetto</h3>
+        <p>Uso parole gentili per parlare di gusti, ricordi e sensazioni.</p>
+      </article>
+    </div>
+
+    <div class="keyIdea emotionKeyIdea">
+      <strong>Idea chiave</strong>
+      <p>Non esiste una sola emozione corretta davanti alla musica.</p>
+    </div>
+  </section>
+
+  <section id="emozioni" class="siteSection learnSection">
+    <h2 class="sectionTitle">Emozioni, colori e musica</h2>
+    <p class="sectionIntro">
+      Gira la ruota o scegli un'emozione: ogni emozione può essere raccontata
+      da un colore, da una descrizione musicale, da un'onda e da un breve suono.
+    </p>
+
+    <div class="emotionWheelLayout">
+      <div class="emotionWheel" aria-label="Ruota delle emozioni">
+        <div class="emotionWheelPointer" aria-hidden="true"></div>
+        <div id="emotionWheelFace" class="emotionWheelRotor">
+          <div class="emotionWheelFace" aria-hidden="true"></div>
+          <button type="button" class="emotionChoice joy active" data-emotion="joy">😊<span>Gioia</span></button>
+          <button type="button" class="emotionChoice calm" data-emotion="calm">😌<span>Calma</span></button>
+          <button type="button" class="emotionChoice sadness" data-emotion="sadness">😢<span>Tristezza</span></button>
+          <button type="button" class="emotionChoice anger" data-emotion="anger">😠<span>Rabbia</span></button>
+          <button type="button" class="emotionChoice fear" data-emotion="fear">😨<span>Paura</span></button>
+          <button type="button" class="emotionChoice hope" data-emotion="hope">🌱<span>Speranza</span></button>
+        </div>
+        <button id="spinEmotionWheel" class="spinEmotionWheel" type="button">Gira</button>
+      </div>
+
+      <article id="emotionDetail" class="emotionDetail joy">
+        <span id="emotionEmoji">😊</span>
+        <h3 id="emotionTitle">Gioia</h3>
+        <p id="emotionText">Ritmo veloce, strumenti brillanti e sensazione di energia.</p>
+        <svg viewBox="0 0 560 150" aria-label="Onda dell'emozione selezionata">
+          <line x1="20" y1="75" x2="540" y2="75"></line>
+          <path id="emotionWavePath" d=""></path>
+        </svg>
+        <button id="emotionSoundButton" class="emotionButton" type="button">Ascolta colore sonoro</button>
+      </article>
+    </div>
+
+    <div class="colorMusicGrid compactColors" aria-label="Riepilogo colori ed emozioni">
+      <article class="colorCard joy">
+        <span>Giallo caldo</span>
+        <h3>Gioia</h3>
+        <p>Ritmo veloce, maggiore, strumenti luminosi.</p>
+      </article>
+      <article class="colorCard calm">
+        <span>Azzurro</span>
+        <h3>Calma</h3>
+        <p>Pianoforte lento, suoni morbidi, volume basso.</p>
+      </article>
+      <article class="colorCard sadness">
+        <span>Blu notte</span>
+        <h3>Tristezza</h3>
+        <p>Melodia lenta, archi o pianoforte, modo minore.</p>
+      </article>
+      <article class="colorCard anger">
+        <span>Rosso/arancio</span>
+        <h3>Rabbia</h3>
+        <p>Batteria intensa, ritmo forte, attacchi decisi.</p>
+      </article>
+      <article class="colorCard fear">
+        <span>Viola scuro</span>
+        <h3>Paura</h3>
+        <p>Suoni sospesi, irregolarità, tensione.</p>
+      </article>
+      <article class="colorCard hope">
+        <span>Verde chiaro</span>
+        <h3>Speranza</h3>
+        <p>Crescendo positivo, armonie luminose, ritmo moderato.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="ascolto-musicale" class="siteSection learnSection">
+    <h2 class="sectionTitle">Che cosa nella musica cambia l'emozione?</h2>
+    <p class="sectionIntro">
+      Non è solo il titolo di un brano a farci provare qualcosa. Anche alcuni
+      elementi musicali possono influenzare le sensazioni che ascoltiamo.
+    </p>
+
+    <div class="musicEmotionGrid">
+      <article>
+        <span>⏱</span>
+        <h3>Velocità e ritmo</h3>
+        <p>Un ritmo veloce può dare energia; un ritmo lento può creare calma o malinconia.</p>
+      </article>
+      <article>
+        <span>🔊</span>
+        <h3>Volume e intensità</h3>
+        <p>Un suono forte può sembrare deciso o agitato; uno piano può sembrare intimo.</p>
+      </article>
+      <article>
+        <span>🎻</span>
+        <h3>Timbro</h3>
+        <p>La stessa melodia cambia colore se la suona un violino, una chitarra o una voce.</p>
+      </article>
+      <article>
+        <span>☀️</span>
+        <h3>Maggiore e minore</h3>
+        <p>Il modo maggiore spesso sembra luminoso; il minore può sembrare più riflessivo.</p>
+      </article>
+    </div>
+
+    <div class="emotionKeyIdea">
+      <strong>Attenzione</strong>
+      <p>Questi elementi aiutano a descrivere la musica, ma non obbligano tutti a provare la stessa emozione.</p>
+    </div>
+  </section>
+
+  <section id="ascolto" class="siteSection learnSection">
+    <h2 class="sectionTitle">Cosa senti nella musica?</h2>
+    <p class="sectionIntro">
+      Usa il player simulato per svolgere un ascolto guidato: scegli emozione,
+      colore e una parola chiave.
+    </p>
+
+    <div class="guidedListeningPanel">
+      <div class="fakePlayer">
+        <div class="albumGlow" id="albumGlow">🎧</div>
+        <div>
+          <span>Ascolto guidato</span>
+          <h3>Brano senza titolo</h3>
+          <p>Play, osserva l'onda e annota ciò che senti.</p>
+        </div>
+        <button id="guidedPlayButton" class="emotionButton" type="button">Play</button>
+      </div>
+      <svg viewBox="0 0 720 170" aria-label="Waveform ascolto guidato">
+        <line x1="24" y1="85" x2="696" y2="85" class="emotionWaveAxis"></line>
+        <path id="guidedWave" class="guidedWave" d=""></path>
+      </svg>
+
+      <div class="listeningForm">
+        <label>Emozione
+          <select id="guidedEmotion">
+            <option>Gioia</option>
+            <option>Calma</option>
+            <option>Tristezza</option>
+            <option>Rabbia</option>
+            <option>Paura</option>
+            <option>Speranza</option>
+          </select>
+        </label>
+        <label>Colore
+          <input id="guidedColor" type="color" value="#6bb7ff">
+        </label>
+        <label>Parola chiave
+          <input id="guidedWord" type="text" placeholder="Es. calma, energia, nostalgia...">
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section id="inclusione" class="siteSection learnSection">
+    <h2 class="sectionTitle">Le emozioni sono diverse per tutti</h2>
+    <p class="sectionIntro">
+      Una stessa canzone può piacere molto a qualcuno e non piacere a qualcun
+      altro. Rispettare le emozioni degli altri significa non giudicare,
+      ascoltare e accogliere punti di vista diversi.
+    </p>
+
+    <div class="empathyGrid">
+      <article class="positive">
+        <span>✅</span>
+        <h3>Risposta rispettosa</h3>
+        <p>Questa musica non è il mio genere, ma capisco perché ti piace.</p>
+      </article>
+      <article class="negative">
+        <span>⚠️</span>
+        <h3>Risposta da evitare</h3>
+        <p>Chi ascolta questa musica ha gusti terribili.</p>
+      </article>
+      <article>
+        <span>🤝</span>
+        <h3>Empatia</h3>
+        <p>Provo a capire l'emozione dell'altro anche se è diversa dalla mia.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="confronto" class="siteSection learnSection">
+    <h2 class="sectionTitle">Lo stesso brano, emozioni diverse</h2>
+    <p class="sectionIntro">
+      Dopo l'ascolto, confronta la tua risposta con quella di un compagno.
+      Lo scopo non è trovare chi ha ragione, ma capire come cambia l'ascolto
+      da persona a persona.
+    </p>
+
+    <div class="comparisonGrid">
+      <article>
+        <span>Io</span>
+        <h3>Ho sentito...</h3>
+        <p>Scrivo un'emozione, un colore e una parola chiave.</p>
+      </article>
+      <article>
+        <span>Tu</span>
+        <h3>Hai sentito...</h3>
+        <p>Ascolto la risposta dell'altro senza correggerla o giudicarla.</p>
+      </article>
+      <article>
+        <span>Noi</span>
+        <h3>Abbiamo capito...</h3>
+        <p>La musica può creare emozioni diverse, tutte degne di rispetto.</p>
+      </article>
+    </div>
+
+    <div class="respectPhrase">
+      <strong>Frase utile</strong>
+      <p>Io ho provato un'emozione diversa dalla tua, ma ascolto e rispetto quello che hai sentito.</p>
+    </div>
+  </section>
+
+  <section id="playlist" class="siteSection learnSection">
+    <h2 class="sectionTitle">La playlist delle emozioni</h2>
+    <p class="sectionIntro">
+      Ogni studente può proporre un brano, collegarlo a un'emozione e spiegare
+      perché lo rappresenta.
+    </p>
+
+    <div class="playlistBuilder">
+      <div class="playlistForm">
+        <label>Titolo del brano
+          <input id="songTitle" type="text" placeholder="Es. brano preferito">
+        </label>
+        <label>Emozione
+          <select id="songEmotion">
+            <option value="joy">Gioia</option>
+            <option value="calm">Calma</option>
+            <option value="sadness">Tristezza</option>
+            <option value="anger">Rabbia</option>
+            <option value="fear">Paura</option>
+            <option value="hope">Speranza</option>
+          </select>
+        </label>
+        <label>Spiegazione
+          <input id="songReason" type="text" placeholder="Perché lo hai scelto?">
+        </label>
+        <button id="addSongCard" class="emotionButton" type="button">Aggiungi card</button>
+      </div>
+
+      <div id="playlistCards" class="playlistCards" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section id="creativa" class="siteSection learnSection">
+    <h2 class="sectionTitle">Disegna la tua emozione musicale</h2>
+    <p class="sectionIntro">
+      Ascolta una musica e rappresenta emozione, colore, forma e parola chiave.
+      Puoi creare un disegno, un mini poster o un collage emotivo.
+    </p>
+
+    <div class="creativePrompt">
+      <span>🎨</span>
+      <p>Domanda guida: se questa musica fosse una forma, quale sarebbe?</p>
+    </div>
+  </section>
+
+  <section id="quiz" class="siteSection learnSection">
+    <h2 class="sectionTitle">Quiz finale</h2>
+    <p class="sectionIntro">Rifletti su emozioni, ascolto ed empatia nella vita di classe.</p>
+
+    <div class="emotionQuizGrid" id="emotionQuiz">
+      <article>
+        <h3>1. Se un compagno prova emozioni diverse dalle tue ascoltando una canzone:</h3>
+        <button data-correct="false">lo correggi</button>
+        <button data-correct="false">lo prendi in giro</button>
+        <button data-correct="true">rispetti il suo punto di vista</button>
+      </article>
+      <article>
+        <h3>2. La musica può aiutare a:</h3>
+        <button data-correct="true">capire le emozioni</button>
+        <button data-correct="false">evitare il dialogo</button>
+        <button data-correct="false">giudicare gli altri</button>
+      </article>
+      <article>
+        <h3>3. L'empatia significa:</h3>
+        <button data-correct="true">ascoltare e comprendere gli altri</button>
+        <button data-correct="false">convincere tutti a pensarla uguale</button>
+        <button data-correct="false">ignorare le emozioni</button>
+      </article>
+      <article>
+        <h3>4. Una classe inclusiva:</h3>
+        <button data-correct="true">accoglie tutti</button>
+        <button data-correct="false">esclude chi è diverso</button>
+        <button data-correct="false">ascolta solo i più bravi</button>
+      </article>
+    </div>
+    <p id="emotionQuizResult" class="quizResult" aria-live="polite"></p>
+
+    <div class="finalQuote">
+      <strong>Ogni emozione ha una voce.</strong>
+      <p>Ascoltare la musica significa anche imparare ad ascoltare le persone.</p>
+    </div>
+  </section>
+</div>
+
+<footer class="siteLegalFooter">
+  <p>Music Game Hub tutela la privacy e usa solo strumenti tecnici o statistici necessari al portale.</p>
+  <div class="siteLegalLinks">
+    <a href="../legal/privacy.html">Privacy Policy</a>
+    <span>·</span>
+    <a href="../legal/cookie.html">Cookie Policy</a>
+    <span>·</span>
+    <a href="../legal/termini.html">Termini di servizio</a>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
+
+<script src="../js/common.js"></script>
+<script src="../js/educazione_civica/colonna_sonora_emozioni.js"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

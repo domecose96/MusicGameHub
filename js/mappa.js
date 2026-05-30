@@ -24,7 +24,8 @@ const clusterContent={
     {label:"Elementi",url:"elementi_musica.html#elementi"},
     {label:"Caratteristiche",url:"elementi_musica.html#caratteristiche"},
     {label:"Udito",url:"elementi_musica.html#udito"},
-    {label:"Laboratorio",url:"elementi_musica.html#laboratorio"}
+    {label:"Laboratorio",url:"elementi_musica.html#laboratorio"},
+    {label:"Detective",id:"detectiveSuono"}
   ],
   teoriaBase:[
     {label:"Pentagramma",id:"pentagramma"},
@@ -69,6 +70,7 @@ const clusterContent={
   ],
   educazioneCivica:[
     {label:"Ascolto e rispetto",id:"ascoltoRispetto"},
+    {label:"Emozioni",id:"colonnaSonoraEmozioni"},
     {label:"Canti della Memoria",id:"cantiMemoria"},
     {label:"Inno d'Italia",id:"innoItalia"},
     {label:"Musica e ambiente",id:"musicaAmbiente"},
@@ -82,6 +84,15 @@ const clusterContent={
     {label:"Emozioni",url:"educazione_civica/ascolto_rispetto.html#emozioni"},
     {label:"Patto",url:"educazione_civica/ascolto_rispetto.html#patto"},
     {label:"Quiz",url:"educazione_civica/ascolto_rispetto.html#quiz"}
+  ],
+  colonnaSonoraEmozioni:[
+    {label:"Introduzione",url:"educazione_civica/colonna_sonora_emozioni.html#introduzione"},
+    {label:"Emozioni",url:"educazione_civica/colonna_sonora_emozioni.html#emozioni"},
+    {label:"Ascolto",url:"educazione_civica/colonna_sonora_emozioni.html#ascolto"},
+    {label:"Inclusione",url:"educazione_civica/colonna_sonora_emozioni.html#inclusione"},
+    {label:"Confronto",url:"educazione_civica/colonna_sonora_emozioni.html#confronto"},
+    {label:"Playlist",url:"educazione_civica/colonna_sonora_emozioni.html#playlist"},
+    {label:"Quiz",url:"educazione_civica/colonna_sonora_emozioni.html#quiz"}
   ],
   cantiMemoria:[
     {label:"Ricordare",url:"educazione_civica/canti_memoria.html#ricordare"},

@@ -12,7 +12,8 @@ const RANKED_GAME_LABELS = {
   ritmo: "Ritmo Challenge",
   guanto: "Guanto di sfida",
   wordle: "Music Wordle",
-  strumenti: "Strumenti musicali"
+  strumenti: "Strumenti musicali",
+  detective_suono: "Detective del suono"
 };
 
 function getRankedGameLabel(gameName) {

@@ -41,6 +41,7 @@
     <h2>Difficoltà</h2>
     <div class="buttonGroup">
       <button id="easyBtn" class="menuButton" onclick="setDifficulty('easy',this)">Facile</button>
+      <button id="mediumBtn" class="menuButton" onclick="setDifficulty('medium',this)">Medio</button>
       <button id="hardBtn" class="menuButton" onclick="setDifficulty('hard',this)">Difficile</button>
       <button class="menuButton rankedModeButton" onclick="selectRankedMode(this)">
         <span class="dailyModeBadge">Ranked</span>
@@ -54,7 +55,7 @@
       <button id="bassBtn" class="symbolButton" onclick="setClef('bass',this)">𝄢</button>
     </div>
 
-    <button class="menuButton" onclick="startGame()">Inizia</button>
+    <button class="menuButton startButton" onclick="startGame()">Inizia</button>
     <p id="warning" class="warningText"></p>
     <p class="gameIntro">Scegli difficoltà e chiave, poi indovina il nome della nota mostrata sul pentagramma.</p>
 
@@ -75,9 +76,10 @@
         </div>
       </div>
     </div>
+    <div id="timerBox" class="hidden">⏱ <span id="timer">0</span>s</div>
 
     <!-- SVG PENTAGRAMMA -->
-    <svg width="450" height="240" style="margin-top:20px;">
+    <svg width="450" height="240" viewBox="0 0 450 240" style="margin-top:20px;">
 
       <!-- CHIAVE -->
       <text id="clefSymbol" x="175" y="140" font-size="80" font-family="serif">𝄞</text>
@@ -98,9 +100,6 @@
     <!-- BOTTONI NOTE -->
     <div id="buttons"></div>
     <div id="feedback" class="feedbackText"></div>
-
-    <!-- PULSANTE INDIETRO -->
-    <button onclick="goBack()" class="menuButton" style="margin-top:15px;">⬅ Indietro</button>
 
   </div>
 </div>

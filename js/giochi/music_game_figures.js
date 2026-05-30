@@ -7,6 +7,7 @@ let rankedScore = 0;
 let rankedQuestionIndex = 0;
 let rankedStartTime = 0;
 let rankedQuestionStart = 0;
+let rankedTimerInterval = null;
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -17,6 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const feedbackEl = document.getElementById("feedback");
   const headerModeLabel = document.getElementById("headerModeLabel");
   const warning = document.getElementById("warning");
+  const timerBox = document.getElementById("timerBox");
+  const timerEl = document.getElementById("timer");
 
   function getModeLabel(){
     if(mode === "note") return "Note";
@@ -59,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
     game.classList.remove("hidden");
     hideLeaderboardButton();
     hideRankedUI();
+    stopRankedTimer();
 
     updateHeaderModeLabel(getModeLabel());
     nextQuestion();
@@ -76,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
     game.classList.remove("hidden");
     hideLeaderboardButton();
     showRankedUI();
+    startRankedTimer();
     updateHeaderModeLabel("Classificata");
     updateRankedProgressUI({ score: rankedScore, current: rankedQuestionIndex, total: RANKED_DEFAULT_QUESTIONS });
     nextQuestion();
@@ -95,6 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateHeaderModeLabel("");
     hideRankedUI();
+    stopRankedTimer();
     showLeaderboardButton();
 
     if(figureImage) figureImage.src = "";
@@ -223,6 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
     game.classList.add("hidden");
     menu.classList.remove("hidden");
     hideRankedUI();
+    stopRankedTimer();
     showLeaderboardButton();
     updateHeaderModeLabel("");
     warning.innerHTML = `Classificata completata! Punteggio: <strong>${Math.round(rankedScore)}</strong> · Corrette: <strong>${rankedCorrect}/${RANKED_DEFAULT_QUESTIONS}</strong>${saved ? "" : " · salvataggio non riuscito"}`;
@@ -270,5 +277,23 @@ document.addEventListener("DOMContentLoaded", () => {
       if(firstBtn) firstBtn.click();
     }
   });
+
+  function startRankedTimer(){
+    stopRankedTimer();
+    if(!timerBox || !timerEl) return;
+    timerBox.classList.remove("hidden");
+    timerEl.textContent = "0";
+    rankedTimerInterval = window.setInterval(() => {
+      timerEl.textContent = String(Math.round((Date.now() - rankedStartTime) / 1000));
+    }, 250);
+  }
+
+  function stopRankedTimer(){
+    if(rankedTimerInterval){
+      window.clearInterval(rankedTimerInterval);
+      rankedTimerInterval = null;
+    }
+    timerBox?.classList.add("hidden");
+  }
 
 });
