@@ -3,12 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Music Game Hub</title>
+<title>Home | Music Game Hub</title>
 
+<link rel="canonical" href="https://domecose96.github.io/MusicGameHub/">
 <link rel="icon" type="image/png" href="img/mgh-logo.png">
 <link rel="stylesheet" href="css/base.css?v=20260506-2">
 <link rel="stylesheet" href="css/home.css?v=20260520-nav">
 <link rel="stylesheet" href="css/home_portal.css?v=20260506-2">
+<script>
+(() => {
+  const canonicalHomePath = "/MusicGameHub/";
+  const normalizedPath = window.location.pathname.replace(/\/index\.html$/, "/");
+  if (normalizedPath !== window.location.pathname) {
+    window.history.replaceState(null, "", normalizedPath + window.location.search + window.location.hash);
+  }
+
+  window.goatcounter = window.goatcounter || {};
+  window.goatcounter.path = () => canonicalHomePath;
+  window.goatcounter.title = () => "Home";
+})();
+</script>
 </head>
 
 <body class="homePage">

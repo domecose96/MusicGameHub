@@ -18,8 +18,8 @@ const MGH = (() => {
       path.includes("/strumenti/") ||
       path.includes("/educazione_civica/") ||
       path.includes("/legal/")
-        ? "../index.html"
-        : "index.html";
+        ? "../"
+        : "./";
 
     setTimeout(() => {
       window.location.href = target;
