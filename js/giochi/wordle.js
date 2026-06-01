@@ -264,6 +264,7 @@ const maxRows = 6;
 const dailyMode = "daily";
 const rankedMode = "ranked";
 const statsStorageKey = "musicWordleStatsV3";
+const statsLegacyStorageKeys = ["musicWordleStatsV2", "musicWordleStats"];
 const dailyStorageKey = "musicWordleDailyV3";
 const dailyCompletionStorageKey = "musicWordleDailyCompletedDateV3";
 const settingsStorageKey = "musicWordleSettings";
@@ -281,12 +282,14 @@ let gameFinished = false;
 let lastResult = null;
 let countdownTimer = null;
 let messageTimer = null;
+let pendingRankedCompletionPayload = null;
 
 const grid = document.getElementById("grid");
 const game = document.getElementById("game");
 const config = document.getElementById("config");
 const messageEl = document.getElementById("message");
 const headerModeLabel = document.getElementById("headerModeLabel");
+const dailyWordNumberBadge = document.getElementById("dailyWordNumberBadge");
 
 // ==================== FUNZIONI UTILI ====================
 function normalizeWord(value){
@@ -388,6 +391,19 @@ function pickDailyWord(){
   secret = dailyWords[index];
   wordLength = secret.length;
   dailyDifficulty = getWordDifficulty(secret);
+}
+
+function getDailyWordNumber(){
+  return (getDaysFromStart() % words.length) + 1;
+}
+
+function updateDailyWordNumberBadge(){
+  if(!dailyWordNumberBadge) return;
+
+  const isDailyGame = activeMode === dailyMode || activeMode === rankedMode;
+  dailyWordNumberBadge.textContent = `Parola #${getDailyWordNumber()}`;
+  dailyWordNumberBadge.title = "Numero della parola del giorno";
+  dailyWordNumberBadge.classList.toggle("hidden", !isDailyGame);
 }
 
 function getDailyState(){
@@ -635,6 +651,8 @@ function closeSettingsModal() {
 function showGame(label){
   config.classList.add("hidden");
   game.classList.remove("hidden");
+  document.getElementById("rankedLeaderboardBtn")?.classList.add("hidden");
+  document.getElementById("gameModeHelpBtn")?.classList.add("hidden");
 
   updateHeaderModeLabel();
 
@@ -654,12 +672,14 @@ function showGame(label){
   if(statsButton){
     statsButton.classList.toggle("hidden", !isDailyGame);
   }
+
+  updateDailyWordNumberBadge();
 }
 
 // ==================== SCELTA PAROLA ====================
 function pickRandomWord(){
   const filtered = getWordsForMode(mode);
-  secret = filtered[Math.floor(Math.random() * filtered.length)];
+  secret = pickRandomNoRepeat(filtered, { namespace: `wordle-${mode}-${wordLength || "any"}` });
   wordLength = secret.length;
 }
 
@@ -906,7 +926,10 @@ function endGame(won, attempts, result){
   }
 
   if(activeMode === rankedMode){
-    saveRankedWordleResult(won, attempts);
+    saveRankedWordleResult(won, attempts).then(payload => {
+      pendingRankedCompletionPayload = payload;
+      showStatsModal(true);
+    });
   }
 
   if(won){
@@ -915,7 +938,7 @@ function endGame(won, attempts, result){
     showMessage("Hai sbagliato! La parola era " + secret);
   }
 
-  if(activeMode === dailyMode || activeMode === rankedMode){
+  if(activeMode === dailyMode){
     setTimeout(() => showStatsModal(true), 700);
   }
 }
@@ -933,30 +956,40 @@ async function saveRankedWordleResult(won, attempts){
     ? Math.max(100, scoreConfig.base - ((attempts - 1) * scoreConfig.penalty) + hardBonus)
     : 0;
 
-  const saved = await saveRankedScore({
+  let saved = null;
+
+  try {
+    saved = await saveRankedScore({
+      gameName: "wordle",
+      mode: settings.hardMode ? "ranked_hard" : "ranked",
+      totalScore: score,
+      correct: won ? 1 : 0,
+      wrong: won ? attempts - 1 : maxRows,
+      totalQuestions: 1,
+      totalTime: attempts,
+      accuracy: won ? 100 : 0,
+      answers: [{
+        date: getTodayKey(),
+        difficulty: dailyDifficulty,
+        wordLength,
+        attempts: won ? attempts : "X",
+        hardMode: settings.hardMode
+      }]
+    });
+  } catch(error) {
+    console.error("Salvataggio ranked Wordle fallito", error);
+  }
+
+  return {
     gameName: "wordle",
-    mode: settings.hardMode ? "ranked_hard" : "ranked",
+    saveResult: saved,
     totalScore: score,
     correct: won ? 1 : 0,
-    wrong: won ? attempts - 1 : maxRows,
     totalQuestions: 1,
-    totalTime: attempts,
     accuracy: won ? 100 : 0,
-    answers: [{
-      date: getTodayKey(),
-      difficulty: dailyDifficulty,
-      wordLength,
-      attempts: won ? attempts : "X",
-      hardMode: settings.hardMode
-    }]
-  });
-
-  showMessage(
-    saved
-      ? `Punteggio ranked: ${score}`
-      : "Punteggio calcolato, ma salvataggio ranked non riuscito.",
-    3200
-  );
+    totalTime: attempts,
+    saved: Boolean(saved)
+  };
 }
 
 function collectResultRows(){
@@ -988,12 +1021,48 @@ function getDefaultStats(){
   };
 }
 
-function getStats(){
-  try{
-    return Object.assign(getDefaultStats(), JSON.parse(localStorage.getItem(statsStorageKey)) || {});
-  } catch(error){
-    return getDefaultStats();
+function getStatsStorageKeys(){
+  const user = typeof getRankedAuthUser === "function" ? getRankedAuthUser() : null;
+  const keys = [];
+
+  if(user?.id){
+    keys.push(`${statsStorageKey}_${user.id}`);
   }
+
+  keys.push(statsStorageKey, ...statsLegacyStorageKeys);
+  return [...new Set(keys)];
+}
+
+function normalizeStats(rawStats){
+  const defaults = getDefaultStats();
+  const stats = Object.assign({}, defaults, rawStats || {});
+  stats.distribution = Object.assign({}, defaults.distribution, rawStats?.distribution || {});
+  stats.games = Number(stats.games) || 0;
+  stats.wins = Number(stats.wins) || 0;
+  stats.currentStreak = Number(stats.currentStreak) || 0;
+  stats.maxStreak = Number(stats.maxStreak) || 0;
+  return stats;
+}
+
+function getStats(){
+  const keys = getStatsStorageKeys();
+
+  for(const key of keys){
+    try{
+      const stored = JSON.parse(localStorage.getItem(key) || "null");
+      const stats = normalizeStats(stored);
+
+      if(stats.games > 0){
+        localStorage.setItem(keys[0], JSON.stringify(stats));
+        localStorage.setItem(statsStorageKey, JSON.stringify(stats));
+        return stats;
+      }
+    } catch(error){
+      // Ignora chiavi vecchie o corrotte e passa alla successiva.
+    }
+  }
+
+  return getDefaultStats();
 }
 
 function saveStats(won, attempts){
@@ -1009,7 +1078,12 @@ function saveStats(won, attempts){
     stats.currentStreak = 0;
   }
 
-  localStorage.setItem(statsStorageKey, JSON.stringify(stats));
+  const serializedStats = JSON.stringify(stats);
+  getStatsStorageKeys().forEach(key => {
+    if(key === statsStorageKey || key.startsWith(`${statsStorageKey}_`)){
+      localStorage.setItem(key, serializedStats);
+    }
+  });
 }
 
 function showStatsModal(fromEndGame = false){
@@ -1038,6 +1112,25 @@ function showStatsModal(fromEndGame = false){
 function closeStatsModal(){
   document.getElementById("statsModal")?.classList.add("hidden");
   stopCountdown();
+
+  if(pendingRankedCompletionPayload){
+    const payload = pendingRankedCompletionPayload;
+    pendingRankedCompletionPayload = null;
+    returnToModeSelectionAfterRankedWordle();
+    setTimeout(() => showRankedCompletionModal(payload), 120);
+  }
+}
+
+function returnToModeSelectionAfterRankedWordle(){
+  game.classList.add("hidden");
+  config.classList.remove("hidden");
+  document.getElementById("gameHelpBtn")?.classList.add("hidden");
+  document.getElementById("gameSettingsBtn")?.classList.add("hidden");
+  document.getElementById("gameStatsBtn")?.classList.add("hidden");
+  dailyWordNumberBadge?.classList.add("hidden");
+  updateDailyAvailabilityBadge();
+  if(typeof showLeaderboardButton === "function") showLeaderboardButton();
+  if(window.MGH?.updateHeaderModeLabel) MGH.updateHeaderModeLabel("");
 }
 
 function renderDistribution(stats){

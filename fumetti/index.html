@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vite a fumetti | Music Game Hub</title>
+<link rel="icon" type="image/png" href="../img/mgh-logo.png">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/learn.css">
+<link rel="stylesheet" href="../css/fumetti/index.css">
+</head>
+
+<body class="comicsIndexPage">
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="MGH.goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+
+    <div class="headerBrand">
+      <span class="headerEyebrow">Collana illustrata</span>
+      <h1 class="pageTitle">Vite a fumetti</h1>
+    </div>
+  </div>
+</header>
+
+<main id="contentWrapper">
+  <section id="collana" class="siteSection librarySection">
+    <div class="libraryRoom" aria-label="Scaffale dei fumetti musicali">
+      <div class="shelfLabel">
+        <span>Collana</span>
+        <strong>Vite a fumetti</strong>
+      </div>
+
+      <div class="catalogFrame">
+        <button class="catalogArrow catalogArrowPrev" type="button" aria-label="Scorri catalogo a sinistra">
+          <span aria-hidden="true">⇧</span>
+        </button>
+
+        <div class="bookShelf" id="bookShelf">
+          <a class="libraryBook mozartBook availableBook" href="mozart.html">
+            <span class="bookNumber">01</span>
+            <div class="bookCover">
+              <img src="../img/fumetti/mozart/mozart.webp" alt="Copertina del fumetto su Mozart">
+            </div>
+            <span class="bookTitle">Wolfgang Amadeus Mozart</span>
+            <span class="bookAction">Sfoglia</span>
+          </a>
+
+          <a class="libraryBook beethovenBook availableBook" href="beethoven.html">
+            <span class="bookNumber">02</span>
+            <div class="bookCover">
+              <img src="../img/fumetti/beethoven/beethoven.webp" alt="Copertina del fumetto su Beethoven">
+            </div>
+            <span class="bookTitle">Ludwig van Beethoven</span>
+            <span class="bookAction">Sfoglia</span>
+          </a>
+
+          <article class="libraryBook futureBook chopinBook">
+            <span class="bookNumber">03</span>
+            <div class="bookCover">
+              <img src="../img/fumetti/chopin/chopin.webp" alt="Copertina provvisoria del fumetto su Chopin">
+            </div>
+            <span class="bookTitle">Fryderyk Chopin</span>
+            <span class="bookAction">In arrivo</span>
+          </article>
+
+          <article class="libraryBook futureBook vivaldiBook">
+            <span class="bookNumber">04</span>
+            <div class="bookCover">
+              <img src="../img/fumetti/vivaldi/vivaldi.svg" alt="Copertina provvisoria del fumetto su Vivaldi">
+            </div>
+            <span class="bookTitle">Antonio Vivaldi</span>
+            <span class="bookAction">In arrivo</span>
+          </article>
+        </div>
+
+        <button class="catalogArrow catalogArrowNext" type="button" aria-label="Scorri catalogo a destra">
+          <span aria-hidden="true">⇧</span>
+        </button>
+      </div>
+
+      <div class="shelfBoard" aria-hidden="true"></div>
+    </div>
+  </section>
+</main>
+
+<button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
+
+<script src="../js/common.js"></script>
+<script src="../js/fumetti/index.js"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

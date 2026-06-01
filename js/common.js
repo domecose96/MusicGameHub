@@ -17,6 +17,7 @@ const MGH = (() => {
       path.includes("/giochi/") ||
       path.includes("/strumenti/") ||
       path.includes("/educazione_civica/") ||
+      path.includes("/fumetti/") ||
       path.includes("/legal/")
         ? "../"
         : "./";

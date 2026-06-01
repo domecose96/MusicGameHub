@@ -68,6 +68,12 @@ const clusterContent={
     {label:"Elettrofoni",url:"strumenti.html#elettrofoni"},
     {label:"Gioco strumenti",url:"giochi/strumenti_game.html"}
   ],
+  fumettiMusicali:[
+    {label:"Collana",url:"fumetti/index.html"},
+    {label:"Mozart",url:"fumetti/mozart.html"},
+    {label:"Beethoven",disabled:true},
+    {label:"Chopin",disabled:true}
+  ],
   educazioneCivica:[
     {label:"Ascolto e rispetto",id:"ascoltoRispetto"},
     {label:"Emozioni",id:"colonnaSonoraEmozioni"},

@@ -122,7 +122,9 @@ async function generateQuestions(){
   try{
     const response = await fetch("../js/giochi/sfida/question.json");
     const allData = await response.json();
-    questions = allData.sort(()=> Math.random()-0.5).slice(0, numQuestions);
+    questions = shuffleNoImmediateRepeat(allData, {
+      key: question => question.q || `${question.type}-${question.name || question.img || question.y}`
+    }).slice(0, numQuestions);
   }catch(err){
     console.error("Errore caricamento domande:", err);
     MGH.setWarning("Errore nel caricamento delle domande. Riprova tra poco.", "#config .warningText");
@@ -270,6 +272,14 @@ function createLedger(y){
 function endChallenge(){
   clearInterval(timerInterval);
 
+  if(isRankedChallenge){
+    const timeTaken = Math.floor((Date.now()-startTime)/1000);
+    const score = Math.max(0, 1000 - errors*50 - timeTaken*5);
+    rankedSavedScore = score;
+    finishRankedChallenge(score, timeTaken);
+    return;
+  }
+
   quizDiv.classList.add("hidden");
   document.getElementById("endScreen").classList.remove("hidden");
   document.getElementById("saveScoreBox").style.display = "none";
@@ -302,10 +312,28 @@ async function finishRankedChallenge(score, timeTaken){
     totalTime: timeTaken
   });
 
-  const scoreText = document.getElementById("scoreText");
-  if(scoreText && !saved){
-    scoreText.innerText += " — salvataggio non riuscito";
-  }
+  quizDiv.classList.add("hidden");
+  document.getElementById("endScreen").classList.add("hidden");
+  document.getElementById("config").classList.remove("hidden");
+  MGH.setWarning("", "#config .warningText");
+  updateHeaderModeLabel("");
+  document.querySelectorAll("#config .selected").forEach(btn=>btn.classList.remove("selected"));
+
+  await showRankedCompletionModal({
+    gameName: "guanto",
+    saveResult: saved,
+    totalScore: score,
+    correct,
+    totalQuestions: numQuestions,
+    totalTime: timeTaken,
+    saved: Boolean(saved)
+  });
+
+  currentIndex = 0;
+  errors = 0;
+  numQuestions = null;
+  isRankedChallenge = false;
+  questions = [];
 }
 
 function goBack(){

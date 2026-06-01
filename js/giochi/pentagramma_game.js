@@ -6,6 +6,7 @@ let timerInterval = null;
 let rankedClockInterval = null;
 let timeLeft = 5;
 let questionStartTime = null;
+let roundLocked = false;
 
 const menu = document.getElementById("menu");
 const game = document.getElementById("game");
@@ -145,6 +146,7 @@ function goBack() {
   gameMode = "training";
   currentTarget = null;
   questionStartTime = null;
+  roundLocked = false;
 
   if (typeof resetRankedMode === "function") {
     resetRankedMode();
@@ -164,6 +166,7 @@ function goBack() {
 function newRound() {
   clearBoard();
   setFeedback("");
+  roundLocked = false;
   if (gameMode !== "ranked") {
     stopTimer();
   }
@@ -178,7 +181,16 @@ function newRound() {
     }
 
     if (rankedDifficulty === "medium") {
-      pool = Object.keys(positions).filter(id => !id.includes("ledger"));
+      pool = [
+        "spaceTop1",
+        "ledgerTop1",
+        "spaceTop2",
+        "ledgerTop2",
+        "spaceBottom1",
+        "ledgerBottom1",
+        "spaceBottom2",
+        "ledgerBottom2"
+      ];
     }
 
     if (rankedDifficulty === "hard") {
@@ -195,7 +207,16 @@ function newRound() {
     }
 
     if (difficulty === "medium") {
-      pool = Object.keys(positions);
+      pool = [
+        "spaceTop1",
+        "ledgerTop1",
+        "spaceTop2",
+        "ledgerTop2",
+        "spaceBottom1",
+        "ledgerBottom1",
+        "spaceBottom2",
+        "ledgerBottom2"
+      ];
     }
 
     if (difficulty === "hard") {
@@ -204,7 +225,7 @@ function newRound() {
     }
   }
 
-  const id = pool[Math.floor(Math.random() * pool.length)];
+  const id = pickRandomNoRepeat(pool, { namespace: "pentagramma-question" });
   currentTarget = id;
   questionStartTime = Date.now();
 
@@ -214,7 +235,8 @@ function newRound() {
 /* ==================== CLICK ==================== */
 zones.forEach(zone => {
   zone.addEventListener("click", () => {
-    if (!currentTarget) return;
+    if (!currentTarget || roundLocked) return;
+    roundLocked = true;
 
     const id = zone.dataset.id;
     const isCorrect = id === currentTarget;
@@ -263,10 +285,12 @@ function hideRankedUI() {
 
 function hideLeaderboardButton() {
   document.getElementById("rankedLeaderboardBtn")?.classList.add("hidden");
+  document.getElementById("gameModeHelpBtn")?.classList.add("hidden");
 }
 
 function showLeaderboardButton() {
   document.getElementById("rankedLeaderboardBtn")?.classList.remove("hidden");
+  document.getElementById("gameModeHelpBtn")?.classList.remove("hidden");
 }
 
 function hideBackButton() {
@@ -325,11 +349,13 @@ async function showRankedResults() {
   showLeaderboardButton();
   showBackButton();
 
-  warning.innerHTML =
-    `Classificata completata! ` +
-    `Punteggio: <strong>${session.totalScore}</strong> · ` +
-    `Corrette: <strong>${session.correct}/${session.maxQuestions}</strong> · ` +
-    `Accuratezza: <strong>${session.accuracy}%</strong>`;
+  warning.textContent = "";
+  await showRankedCompletionModal({
+    gameName: "pentagramma",
+    session,
+    saveResult: finalData.result,
+    saved: finalData.saved
+  });
 
   updateHeaderModeLabel("");
 
@@ -340,6 +366,7 @@ async function showRankedResults() {
   gameMode = "training";
   difficulty = null;
   currentTarget = null;
+  roundLocked = false;
 }
 
 /* ==================== FEEDBACK ==================== */
@@ -392,7 +419,8 @@ function startTimer(duration = 5) {
     if (timeLeft <= 0) {
       stopTimer();
 
-      if (!currentTarget) return;
+      if (!currentTarget || roundLocked) return;
+      roundLocked = true;
 
       showTimeExpired();
 

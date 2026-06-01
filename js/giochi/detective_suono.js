@@ -149,7 +149,7 @@ function nextDetectiveQuestion() {
 }
 
 function createQuestion(config) {
-  const questionKind = randomItem(config.pool);
+  const questionKind = pickRandomNoRepeat(config.pool, { namespace: "detective-question-kind" });
   const clue = createClue(questionKind);
 
   if (questionKind === "type") {
@@ -185,16 +185,16 @@ function createQuestion(config) {
 
 function createClue(questionKind) {
   const type = questionKind === "typeVolume" || questionKind === "type"
-    ? randomItem(["sound", "noise"])
+    ? pickRandomNoRepeat(["sound", "noise"], { namespace: `detective-type-${questionKind}` })
     : questionKind === "full"
-      ? randomItem(["sound", "noise"])
+      ? pickRandomNoRepeat(["sound", "noise"], { namespace: `detective-type-${questionKind}` })
       : "sound";
 
   return {
     type,
-    pitch: randomItem(["low", "high"]),
-    volume: randomItem(["soft", "loud"]),
-    duration: randomItem(["short", "long"])
+    pitch: pickRandomNoRepeat(["low", "high"], { namespace: `detective-pitch-${questionKind}` }),
+    volume: pickRandomNoRepeat(["soft", "loud"], { namespace: `detective-volume-${questionKind}` }),
+    duration: pickRandomNoRepeat(["short", "long"], { namespace: `detective-duration-${questionKind}` })
   };
 }
 
@@ -222,12 +222,12 @@ function buildCombinedQuestion(clue, title, attributes) {
   while (options.size < 4) {
     const candidate = attributes.map((attribute) => {
       const value = attribute === "type"
-        ? randomItem(["sound", "noise"])
+        ? pickRandomNoRepeat(["sound", "noise"], { namespace: `detective-option-${attribute}` })
         : attribute === "pitch"
-          ? randomItem(["low", "high"])
+          ? pickRandomNoRepeat(["low", "high"], { namespace: `detective-option-${attribute}` })
           : attribute === "volume"
-            ? randomItem(["soft", "loud"])
-            : randomItem(["short", "long"]);
+            ? pickRandomNoRepeat(["soft", "loud"], { namespace: `detective-option-${attribute}` })
+            : pickRandomNoRepeat(["short", "long"], { namespace: `detective-option-${attribute}` });
       return labelFor(value, attribute);
     }).join(" + ");
     options.add(candidate);
@@ -333,9 +333,18 @@ async function finishDetectiveGame() {
   showLeaderboardButton();
   stopRankedTimer();
   MGH.updateHeaderModeLabel("");
-  warning.innerHTML =
-    `Partita completata! Punteggio: <strong>${Math.round(score)}</strong> · Corrette: <strong>${correctCount}/${total}</strong>` +
-    (gameMode === "ranked" && !saved ? " · salvataggio non riuscito" : "");
+  warning.textContent = "";
+  if (gameMode === "ranked") {
+    await showRankedCompletionModal({
+      gameName: DETECTIVE_GAME_NAME,
+      saveResult: saved,
+      totalScore: score,
+      correct: correctCount,
+      totalQuestions: TOTAL_QUESTIONS,
+      totalTime,
+      saved: Boolean(saved)
+    });
+  }
 
   document.querySelectorAll(".selected").forEach((button) => button.classList.remove("selected"));
   selectedMode = null;

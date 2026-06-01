@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
     else if(mode === "ranked") pool = figures.concat(pauses);
     else pool = figures.concat(pauses);
 
-    currentFigure = pool[Math.floor(Math.random() * pool.length)];
+    currentFigure = pickRandomNoRepeat(pool, { namespace: `figure-${mode || "misto"}` });
     rankedQuestionStart = Date.now();
 
     figureImage.src = "../img/" + currentFigure + ".webp";
@@ -232,7 +232,16 @@ document.addEventListener("DOMContentLoaded", () => {
     stopRankedTimer();
     showLeaderboardButton();
     updateHeaderModeLabel("");
-    warning.innerHTML = `Classificata completata! Punteggio: <strong>${Math.round(rankedScore)}</strong> · Corrette: <strong>${rankedCorrect}/${RANKED_DEFAULT_QUESTIONS}</strong>${saved ? "" : " · salvataggio non riuscito"}`;
+    warning.textContent = "";
+    await showRankedCompletionModal({
+      gameName: "figure",
+      saveResult: saved,
+      totalScore: rankedScore,
+      correct: rankedCorrect,
+      totalQuestions: RANKED_DEFAULT_QUESTIONS,
+      totalTime,
+      saved: Boolean(saved)
+    });
     document.querySelectorAll(".selected").forEach(btn => btn.classList.remove("selected"));
     mode = null;
   }

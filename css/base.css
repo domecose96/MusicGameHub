@@ -251,6 +251,35 @@ body {
   display: none !important;
 }
 
+.rankedHelpButton {
+  position: fixed;
+  top: calc(var(--header-height) + 18px);
+  left: 24px;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 102, 0, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--accent);
+  font-size: 1.35rem;
+  line-height: 1;
+  font-weight: 900;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.10);
+  cursor: pointer;
+  z-index: 50;
+}
+
+.rankedHelpButton:hover {
+  transform: scale(1.06);
+  background: rgba(255, 102, 0, 0.08);
+  border-color: rgba(255, 102, 0, 0.34);
+  color: var(--accent);
+}
+
 .rankedUI {
   width: 100%;
   min-height: 64px;
@@ -421,6 +450,12 @@ body {
   background: rgba(255,102,0,0.16);
 }
 
+.leaderboardRow.freshRankedRow {
+  border: 2px solid #ff6600;
+  background: linear-gradient(135deg, rgba(255,102,0,0.24), rgba(255,255,255,0.08));
+  box-shadow: 0 0 0 3px rgba(255,102,0,0.12);
+}
+
 .leaderboardRow .rank {
   font-weight: 900;
   color: #ff6600;
@@ -429,6 +464,71 @@ body {
 .leaderboardRow .score {
   text-align: right;
   font-weight: 900;
+}
+
+.rankedResultSummary {
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255,102,0,0.14);
+  border: 1px solid rgba(255,102,0,0.34);
+  color: #fff2e8;
+  text-align: center;
+  font-weight: 900;
+  line-height: 1.55;
+}
+
+.rankedUserSummary {
+  margin: 0 0 14px;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.rankedUserSummary > strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #ff9955;
+  text-align: center;
+}
+
+.rankedUserSummary.muted {
+  color: rgba(255, 255, 255, 0.74);
+  text-align: center;
+}
+
+.rankedUserSummary.muted span {
+  display: block;
+  line-height: 1.4;
+}
+
+.leaderboardRow.compactUserRow {
+  margin-bottom: 0;
+}
+
+.modeHelpList {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.modeHelpItem {
+  display: grid;
+  gap: 4px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modeHelpItem strong {
+  color: #ff9955;
+}
+
+.modeHelpItem span {
+  color: #f4f4f4;
+  line-height: 1.55;
 }
 
 .rankedIntroText {
@@ -462,6 +562,13 @@ body {
   color: var(--text-main);
   background: rgba(255, 255, 255, 0.96);
   box-sizing: border-box;
+}
+
+.rankedNicknameField input[readonly] {
+  cursor: default;
+  color: #6b6b6b;
+  background: rgba(255, 255, 255, 0.72);
+  border-style: dashed;
 }
 
 .rankedPrivacyHint {

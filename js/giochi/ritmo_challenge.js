@@ -107,7 +107,7 @@ function nextRound() {
   const figures = [];
 
   for (let i = 0; i < config.length; i++) {
-    const randomId = config.pool[Math.floor(Math.random() * config.pool.length)];
+    const randomId = pickRandomNoRepeat(config.pool, { namespace: `ritmo-piece-${i}` });
     figures.push(rhythmValues.find(item => item.id === randomId));
   }
 
@@ -147,7 +147,7 @@ function renderAnswers(correctTotal) {
   const offsets = [-2, -1, -0.5, 0.5, 1, 2];
 
   while (options.size < 4) {
-    const offset = offsets[Math.floor(Math.random() * offsets.length)];
+    const offset = pickRandomNoRepeat(offsets, { namespace: "ritmo-answer-offset" });
     const candidate = Number((correctTotal + offset).toFixed(1));
     if (candidate > 0) options.add(candidate);
   }
@@ -235,7 +235,16 @@ async function finishRankedGame() {
   hideRankedUI();
   showLeaderboardButton();
   updateHeaderModeLabel("");
-  warning.innerHTML = `Classificata completata! Punteggio: <strong>${Math.round(rankedScore)}</strong> · Corrette: <strong>${rankedCorrect}/${RANKED_DEFAULT_QUESTIONS}</strong>${saved ? "" : " · salvataggio non riuscito"}`;
+  warning.textContent = "";
+  await showRankedCompletionModal({
+    gameName: "ritmo",
+    saveResult: saved,
+    totalScore: rankedScore,
+    correct: rankedCorrect,
+    totalQuestions: RANKED_DEFAULT_QUESTIONS,
+    totalTime,
+    saved: Boolean(saved)
+  });
   document.querySelectorAll(".selected").forEach(btn => btn.classList.remove("selected"));
   gameMode = "training";
   difficulty = null;

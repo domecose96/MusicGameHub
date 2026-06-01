@@ -682,7 +682,10 @@ function newRound() {
 /* ==================== RECOGNIZE MODE ==================== */
 
 function createRecognizeRound() {
-  const target = STRUMENTI[Math.floor(Math.random() * STRUMENTI.length)];
+  const target = pickRandomNoRepeat(STRUMENTI, {
+    namespace: "strumenti-recognize-target",
+    key: instrument => instrument.id
+  });
   currentQuestion = {
     type: "recognize",
     target: target,
@@ -733,10 +736,13 @@ function generateRecognizeOptions(target, count) {
 
   const available = STRUMENTI.filter(instrument => !usedIds.has(instrument.id));
   while (options.length < count && available.length > 0) {
-    const idx = Math.floor(Math.random() * available.length);
-    options.push(available[idx]);
-    usedIds.add(available[idx].id);
-    available.splice(idx, 1);
+    const picked = pickRandomNoRepeat(available, {
+      namespace: "strumenti-recognize-option",
+      key: instrument => instrument.id
+    });
+    options.push(picked);
+    usedIds.add(picked.id);
+    available.splice(available.findIndex(instrument => instrument.id === picked.id), 1);
   }
 
   // Shuffle
@@ -777,9 +783,12 @@ function createMemoryRound() {
   const available = [...STRUMENTI];
 
   for (let i = 0; i < selectedCount && available.length > 0; i++) {
-    const index = Math.floor(Math.random() * available.length);
-    selectedInstruments.push(available[index]);
-    available.splice(index, 1);
+    const picked = pickRandomNoRepeat(available, {
+      namespace: `strumenti-memory-${i}`,
+      key: instrument => instrument.id
+    });
+    selectedInstruments.push(picked);
+    available.splice(available.findIndex(instrument => instrument.id === picked.id), 1);
   }
 
   memoryPairs = [];
@@ -909,7 +918,10 @@ function handleMemoryGameComplete() {
 /* ==================== LISTEN MODE ==================== */
 
 function createListenRound() {
-  const target = STRUMENTI[Math.floor(Math.random() * STRUMENTI.length)];
+  const target = pickRandomNoRepeat(STRUMENTI, {
+    namespace: "strumenti-listen-target",
+    key: instrument => instrument.id
+  });
   const hasAudio = target.audio && target.audio.trim() !== "";
 
   currentQuestion = {
@@ -969,9 +981,12 @@ function generateListenOptions(target, count) {
   const available = STRUMENTI.filter(s => s.id !== target.id);
 
   while (options.length < count && available.length > 0) {
-    const idx = Math.floor(Math.random() * available.length);
-    options.push(available[idx]);
-    available.splice(idx, 1);
+    const picked = pickRandomNoRepeat(available, {
+      namespace: "strumenti-listen-option",
+      key: instrument => instrument.id
+    });
+    options.push(picked);
+    available.splice(available.findIndex(instrument => instrument.id === picked.id), 1);
   }
 
   // Shuffle
@@ -1065,10 +1080,12 @@ function hideRankedUI() {
 
 function hideLeaderboardButton() {
   document.getElementById("rankedLeaderboardBtn")?.classList.add("hidden");
+  document.getElementById("gameModeHelpBtn")?.classList.add("hidden");
 }
 
 function showLeaderboardButton() {
   document.getElementById("rankedLeaderboardBtn")?.classList.remove("hidden");
+  document.getElementById("gameModeHelpBtn")?.classList.remove("hidden");
 }
 
 function hideBackButton() {
@@ -1123,11 +1140,13 @@ async function showRankedResults() {
   showLeaderboardButton();
   showBackButton();
 
-  warning.innerHTML =
-    `Classificata completata! ` +
-    `Punteggio: <strong>${session.totalScore}</strong> · ` +
-    `Corrette: <strong>${session.correct}/${session.maxQuestions}</strong> · ` +
-    `Accuratezza: <strong>${session.accuracy}%</strong>`;
+  warning.textContent = "";
+  await showRankedCompletionModal({
+    gameName: "strumenti",
+    session,
+    saveResult: finalData.result,
+    saved: finalData.saved
+  });
 
   updateHeaderModeLabel("");
 

@@ -20,7 +20,60 @@ function getRankedGameLabel(gameName) {
   return RANKED_GAME_LABELS[gameName] || gameName || "Gioco";
 }
 
+const RECENT_RANDOM_PICK_KEYS = new Map();
+
+function getNoRepeatKey(item, keyFn) {
+  if (typeof keyFn === "function") return String(keyFn(item));
+  if (item && typeof item === "object") {
+    return String(item.id ?? item.name ?? item.label ?? item.title ?? JSON.stringify(item));
+  }
+  return String(item);
+}
+
+function pickRandomNoRepeat(items, options = {}) {
+  const pool = Array.isArray(items) ? items.filter(item => item !== undefined && item !== null) : [];
+  if (!pool.length) return null;
+
+  const namespace = options.namespace || "default";
+  const keyFn = options.key;
+  const previousKey = RECENT_RANDOM_PICK_KEYS.get(namespace);
+  const available = pool.length > 1
+    ? pool.filter(item => getNoRepeatKey(item, keyFn) !== previousKey)
+    : pool;
+
+  const selected = available[Math.floor(Math.random() * available.length)] || pool[0];
+  RECENT_RANDOM_PICK_KEYS.set(namespace, getNoRepeatKey(selected, keyFn));
+  return selected;
+}
+
+function shuffleNoImmediateRepeat(items, options = {}) {
+  const keyFn = options.key;
+  const shuffled = [...items].sort(() => Math.random() - 0.5);
+
+  for (let i = 1; i < shuffled.length; i++) {
+    if (getNoRepeatKey(shuffled[i], keyFn) !== getNoRepeatKey(shuffled[i - 1], keyFn)) continue;
+
+    const swapIndex = shuffled.findIndex((item, index) =>
+      index > i &&
+      getNoRepeatKey(item, keyFn) !== getNoRepeatKey(shuffled[i - 1], keyFn) &&
+      (index === shuffled.length - 1 || getNoRepeatKey(shuffled[i], keyFn) !== getNoRepeatKey(shuffled[index + 1], keyFn))
+    );
+
+    if (swapIndex > i) {
+      [shuffled[i], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[i]];
+    }
+  }
+
+  return shuffled;
+}
+
 function getOrCreateRankedUserId() {
+  const authUser = getRankedAuthUser();
+  if (authUser?.id) {
+    localStorage.setItem("mgh_userId", authUser.id);
+    return authUser.id;
+  }
+
   let userId = localStorage.getItem("mgh_userId");
 
   if (!userId) {
@@ -39,9 +92,24 @@ function getRankedAuthUser() {
   }
 }
 
+function isRankedUserLoggedIn() {
+  return Boolean(getRankedAuthUser()?.id);
+}
+
+function getOrCreateGuestRankedUsername() {
+  let username = localStorage.getItem("mgh_guest_username");
+
+  if (!username) {
+    username = "Player_" + Math.floor(1000 + Math.random() * 9000);
+    localStorage.setItem("mgh_guest_username", username);
+  }
+
+  return username;
+}
+
 function getRankedUsernameKey() {
   const user = getRankedAuthUser();
-  return user?.id ? `mgh_username_${user.id}` : "mgh_username";
+  return user?.id ? `mgh_username_${user.id}` : "mgh_guest_username";
 }
 
 function getRankedDisplayName() {
@@ -54,6 +122,12 @@ function getRankedDisplayName() {
 }
 
 function getOrCreateRankedUsername() {
+  if (!isRankedUserLoggedIn()) {
+    const guestUsername = getOrCreateGuestRankedUsername();
+    localStorage.setItem("mgh_username", guestUsername);
+    return guestUsername;
+  }
+
   const usernameKey = getRankedUsernameKey();
   let username = localStorage.getItem(usernameKey) || localStorage.getItem("mgh_username");
 
@@ -67,6 +141,10 @@ function getOrCreateRankedUsername() {
 }
 
 function setRankedUsername(username) {
+  if (!isRankedUserLoggedIn()) {
+    return getOrCreateRankedUsername();
+  }
+
   const cleanUsername = String(username || "")
     .trim()
     .replace(/\s+/g, " ")
@@ -102,6 +180,7 @@ function toRankedDbRecord(snapshot) {
 
 function fromRankedDbRecord(row = {}) {
   return {
+    session_id: row.sessionid,
     user_id: row.userid,
     username: row.username,
     game_name: row.gamename,
@@ -369,7 +448,7 @@ class RankedLeaderboard {
 
     const path =
       `${RANKED_TABLE}?gamename=eq.${safeGameName}` +
-      `&select=userid,username,gamename,totalscore,accuracy,totaltime,created_at` +
+      `&select=sessionid,userid,username,gamename,totalscore,accuracy,totaltime,created_at` +
       `&order=totalscore.desc` +
       `&limit=${safeLimit}`;
 
@@ -384,7 +463,7 @@ class RankedLeaderboard {
     const path =
       `${RANKED_TABLE}?gamename=eq.${safeGameName}` +
       `&userid=eq.${safeUserId}` +
-      `&select=userid,username,gamename,totalscore,accuracy,totaltime,created_at` +
+      `&select=sessionid,userid,username,gamename,totalscore,accuracy,totaltime,created_at` +
       `&order=totalscore.desc` +
       `&limit=1`;
 
@@ -397,7 +476,7 @@ class RankedLeaderboard {
     const safeLimit = Number(limit) || 10;
 
     const path =
-      `${RANKED_TABLE}?select=userid,username,gamename,totalscore,accuracy,created_at` +
+      `${RANKED_TABLE}?select=sessionid,userid,username,gamename,totalscore,accuracy,created_at` +
       `&order=totalscore.desc` +
       `&limit=200`;
 
@@ -518,6 +597,10 @@ function formatRankedDate(value) {
 function showRankedIntro({ gameName, title = "Modalità Classificata", text = "", onStart }) {
   const modal = document.createElement("div");
   modal.className = "rankedModal rankedIntroModal";
+  const canEditNickname = isRankedUserLoggedIn();
+  const nicknameHint = canEditNickname
+    ? "Usa un nickname: evita nome e cognome reali."
+    : "Accesso ospite: il nickname viene assegnato automaticamente. Accedi per sceglierlo.";
 
   modal.innerHTML = `
     <div class="modalOverlay"></div>
@@ -527,9 +610,9 @@ function showRankedIntro({ gameName, title = "Modalità Classificata", text = ""
       <p class="rankedIntroText">${text || "Completa la sfida e salva il punteggio nella classifica di Music Game Hub."}</p>
       <label class="rankedNicknameField">
         <span>Nickname in classifica</span>
-        <input id="rankedNicknameInput" type="text" maxlength="20" placeholder="Es. MusicPlayer23" autocomplete="nickname" value="${escapeRankedHTML(getOrCreateRankedUsername())}">
+        <input id="rankedNicknameInput" type="text" maxlength="20" placeholder="Es. MusicPlayer23" autocomplete="nickname" value="${escapeRankedHTML(getOrCreateRankedUsername())}" ${canEditNickname ? "" : "readonly aria-readonly=\"true\""}>
       </label>
-      <p class="rankedPrivacyHint">Usa un nickname: evita nome e cognome reali.</p>
+      <p class="rankedPrivacyHint">${escapeRankedHTML(nicknameHint)}</p>
       <button class="rankedIntroStartBtn" type="button">Inizia</button>
     </div>
   `;
@@ -571,27 +654,82 @@ function hideRankedUI() {
 
 function showLeaderboardButton() {
   document.getElementById("rankedLeaderboardBtn")?.classList.remove("hidden");
+  document.getElementById("gameModeHelpBtn")?.classList.remove("hidden");
 }
 
 function hideLeaderboardButton() {
   document.getElementById("rankedLeaderboardBtn")?.classList.add("hidden");
+  document.getElementById("gameModeHelpBtn")?.classList.add("hidden");
 }
 
-function renderGenericLeaderboardRows(rows, userId) {
+function getInsertedRankedRow(saveResult) {
+  return Array.isArray(saveResult) && saveResult.length ? saveResult[0] : null;
+}
+
+function createRankedCompletionPayload({
+  gameName,
+  session,
+  saveResult,
+  totalScore,
+  correct,
+  totalQuestions,
+  accuracy,
+  totalTime,
+  saved = true
+} = {}) {
+  const inserted = getInsertedRankedRow(saveResult);
+  const sessionId = session?.sessionId || inserted?.sessionid || inserted?.session_id || null;
+  const score = Math.round(Number(session?.totalScore ?? totalScore) || 0);
+  const safeCorrect = Number(session?.correct ?? correct) || 0;
+  const safeTotal = Number(session?.maxQuestions ?? totalQuestions) || RANKED_DEFAULT_QUESTIONS;
+  const safeAccuracy = Number.isFinite(Number(session?.accuracy ?? accuracy))
+    ? Math.round(Number(session?.accuracy ?? accuracy))
+    : Math.round((safeCorrect / Math.max(1, safeTotal)) * 100);
+  const safeTime = Number(session?.totalTime ?? totalTime) || 0;
+
+  return {
+    gameName: gameName || session?.gameName || inserted?.gamename || "unknown_game",
+    saved: Boolean(saved),
+    sessionId,
+    userId: session?.userId || inserted?.userid || getOrCreateRankedUserId(),
+    totalScore: score,
+    correct: safeCorrect,
+    totalQuestions: safeTotal,
+    accuracy: safeAccuracy,
+    totalTime: safeTime,
+    summary:
+      `Classificata completata! Punteggio: ${score} · ` +
+      `Corrette: ${safeCorrect}/${safeTotal} · Accuratezza: ${safeAccuracy}%` +
+      (saved ? "" : " · salvataggio non riuscito")
+  };
+}
+
+function rankedRowMatchesHighlight(row, highlight) {
+  if (!row || !highlight) return false;
+  if (highlight.sessionId && row.session_id === highlight.sessionId) return true;
+
+  return row.user_id === highlight.userId &&
+    Math.round(row.total_score || row.best_score || 0) === Math.round(highlight.totalScore || 0) &&
+    Math.round(row.accuracy || 0) === Math.round(highlight.accuracy || 0);
+}
+
+function renderGenericLeaderboardRows(rows, userId, highlight = null) {
   if (!rows || rows.length === 0) {
     return `<p class="gameIntro">Nessun punteggio disponibile.</p>`;
   }
 
   return rows.map((row, index) => {
     const isUser = row.user_id === userId;
+    const isFresh = rankedRowMatchesHighlight(row, highlight);
+    const rankNumber = row.rank_number || index + 1;
     const scoreDate = row.last_played_at || row.created_at;
     const title = row.last_played_at
       ? `Ultimo aggiornamento: ${formatRankedDate(scoreDate)}`
       : `Partita del: ${formatRankedDate(scoreDate)}`;
 
     return `
-      <div class="leaderboardRow ${isUser ? "userRow" : ""}" title="${escapeRankedHTML(title)}">
-        <span class="rank">#${index + 1}</span>
+      <div class="leaderboardRow ${isUser ? "userRow" : ""} ${isFresh ? "freshRankedRow" : ""}" title="${escapeRankedHTML(title)}">
+        <span class="rank">#${rankNumber}</span>
         <span>${escapeRankedHTML(row.username || "Player")}</span>
         <span class="score">${Math.round(row.total_score || row.best_score || 0)}</span>
       </div>
@@ -599,11 +737,46 @@ function renderGenericLeaderboardRows(rows, userId) {
   }).join("");
 }
 
-async function showGenericRankedLeaderboardModal(gameName) {
-  const userId = localStorage.getItem("mgh_userId");
-  const gameTop = await rankedLeaderboard.getGameLeaderboard(gameName, 10);
+function renderUserBestScore(row) {
+  if (!row) {
+    return `
+      <div class="rankedUserSummary muted">
+        <strong>Il tuo miglior risultato</strong>
+        <span>Non hai ancora punteggi salvati per questo gioco.</span>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="rankedUserSummary">
+      <strong>Il tuo miglior risultato</strong>
+      <div class="leaderboardRow userRow compactUserRow" title="Miglior risultato salvato">
+        <span class="rank">★</span>
+        <span>${escapeRankedHTML(row.username || "Player")}</span>
+        <span class="score">${Math.round(row.total_score || row.best_score || 0)}</span>
+      </div>
+    </div>
+  `;
+}
+
+async function showGenericRankedLeaderboardModal(gameName, options = {}) {
+  const userId = getOrCreateRankedUserId();
+  const highlight = options.highlight || null;
+  const gameRows = await rankedLeaderboard.getGameLeaderboard(gameName, highlight ? 200 : 10);
+  const highlightedIndex = highlight
+    ? gameRows.findIndex(row => rankedRowMatchesHighlight(row, highlight))
+    : -1;
+  const gameTop = gameRows.slice(0, 10).map((row, index) => ({ ...row, rank_number: index + 1 }));
+  if (highlightedIndex >= 10) {
+    gameTop.push({
+      ...gameRows[highlightedIndex],
+      rank_number: highlightedIndex + 1
+    });
+  }
+  const userBest = await rankedLeaderboard.getUserBestScore(gameName, userId);
   const globalTop = await rankedLeaderboard.getGlobalLeaderboard(10);
   const title = getRankedGameLabel(gameName);
+  const summary = options.summary || highlight?.summary || "";
 
   const modal = document.createElement("div");
   modal.className = "rankedModal";
@@ -616,13 +789,238 @@ async function showGenericRankedLeaderboardModal(gameName) {
         <button class="rankedTab active" onclick="switchGenericRankedTab(this, 'game')">${escapeRankedHTML(title)}</button>
         <button class="rankedTab" onclick="switchGenericRankedTab(this, 'global')">Generale</button>
       </div>
-      <div id="rankedGameTab">${renderGenericLeaderboardRows(gameTop, userId)}</div>
-      <div id="rankedGlobalTab" class="hidden">${renderGenericLeaderboardRows(globalTop, userId)}</div>
+      ${summary ? `<div class="rankedResultSummary">${escapeRankedHTML(summary)}</div>` : ""}
+      ${renderUserBestScore(userBest)}
+      <div id="rankedGameTab">${renderGenericLeaderboardRows(gameTop, userId, highlight)}</div>
+      <div id="rankedGlobalTab" class="hidden">${renderGenericLeaderboardRows(globalTop, userId, highlight)}</div>
     </div>
   `;
 
   document.body.appendChild(modal);
 }
+
+async function showRankedCompletionModal(payload) {
+  const completion = createRankedCompletionPayload(payload);
+  await showGenericRankedLeaderboardModal(completion.gameName, {
+    highlight: completion,
+    summary: completion.summary
+  });
+}
+
+function getModeHelpContext() {
+  if (document.body.classList.contains("pentagrammaGamePage")) return "pentagramma";
+  if (document.body.classList.contains("gamePage")) return "note";
+  if (document.body.classList.contains("figuresGamePage")) return "figure";
+  if (document.body.classList.contains("ritmoPage")) return "ritmo";
+  if (document.body.classList.contains("soundDetectivePage")) return "detective_suono";
+  if (document.body.classList.contains("strumentiGamePage")) return "strumenti";
+  if (document.body.classList.contains("guantoPage")) return "guanto";
+  if (document.body.classList.contains("wordlePage")) return "wordle";
+  return "generic";
+}
+
+function getSpecificModeHelpText(label, context) {
+  const lower = String(label || "").toLowerCase();
+
+  if (context === "pentagramma") {
+    if (lower.includes("facile")) {
+      return "Domande solo sulle 5 righe e sui 4 spazi dentro il pentagramma.";
+    }
+    if (lower.includes("medio")) {
+      return "Domande solo fuori dal pentagramma: spazi e tagli addizionali sopra e sotto.";
+    }
+    if (lower.includes("difficile")) {
+      return "Domande su tutte le posizioni, dentro e fuori dal pentagramma, con tempo a disposizione.";
+    }
+    if (lower.includes("classificata")) {
+      return "10 domande con difficoltà crescente: prima pentagramma, poi posizioni esterne, infine anche tagli addizionali. Il punteggio premia risposte corrette e velocità.";
+    }
+  }
+
+  if (context === "note") {
+    if (lower.includes("facile")) {
+      return "Note dentro il pentagramma, senza tagli addizionali: ideale per ripassare le posizioni principali.";
+    }
+    if (lower.includes("medio")) {
+      return "Note dentro e vicino al pentagramma: aumenta l'estensione e richiede più attenzione alla chiave scelta.";
+    }
+    if (lower.includes("difficile")) {
+      return "Note su un'estensione più ampia, con posizioni sopra e sotto il pentagramma.";
+    }
+    if (lower.includes("classificata")) {
+      return "10 note con difficoltà crescente nella chiave scelta. Il punteggio premia risposta corretta e rapidità.";
+    }
+  }
+
+  if (context === "figure") {
+    if (lower.includes("note")) {
+      return "Riconosci solo le figure musicali di durata, come semibreve, minima, semiminima e croma.";
+    }
+    if (lower.includes("pause")) {
+      return "Riconosci solo le pause musicali e collega ogni simbolo al suo nome.";
+    }
+    if (lower.includes("misto")) {
+      return "Alterna figure e pause: serve per distinguere simboli simili e ripassare tutto insieme.";
+    }
+    if (lower.includes("classificata")) {
+      return "10 domande miste su figure e pause. Il punteggio premia precisione e velocità.";
+    }
+  }
+
+  if (context === "ritmo") {
+    if (lower.includes("facile")) {
+      return "Sequenze brevi con figure semplici: calcoli il valore totale in pulsazioni.";
+    }
+    if (lower.includes("medio")) {
+      return "Sequenze più varie: entrano anche crome e pause, quindi il calcolo richiede più attenzione.";
+    }
+    if (lower.includes("difficile")) {
+      return "Sequenze più lunghe e complete, con figure e pause diverse da sommare correttamente.";
+    }
+    if (lower.includes("classificata")) {
+      return "10 sequenze ritmiche con difficoltà crescente. Il punteggio premia calcolo corretto e velocità.";
+    }
+  }
+
+  if (context === "detective_suono") {
+    if (lower.includes("facile")) {
+      return "Domande singole: riconosci una caratteristica alla volta, come suono/rumore, grave/acuto, forte/debole o lungo/corto.";
+    }
+    if (lower.includes("medio")) {
+      return "Domande combinate: devi riconoscere due caratteristiche dello stesso indizio sonoro.";
+    }
+    if (lower.includes("difficile")) {
+      return "Analisi completa: osservi e ascolti l'indizio per riconoscere più caratteristiche insieme.";
+    }
+    if (lower.includes("classificata")) {
+      return "10 indizi sonori con difficoltà crescente. Conta la precisione e il tempo di risposta.";
+    }
+  }
+
+  if (context === "strumenti") {
+    if (lower.includes("riconosci")) {
+      return "Guardi le immagini e scegli lo strumento corretto tra le opzioni.";
+    }
+    if (lower.includes("memory")) {
+      return "Abbini strumenti e famiglie musicali: serve memoria visiva e conoscenza delle famiglie.";
+    }
+    if (lower.includes("ascolta")) {
+      return "Ascolti l'audio dello strumento e scegli il nome corretto.";
+    }
+    if (lower.includes("classificata")) {
+      return "10 domande miste tra riconoscimento visivo, ascolto e famiglie. Il punteggio premia precisione e velocità.";
+    }
+  }
+
+  if (context === "guanto") {
+    if (lower.includes("10")) {
+      return "Sfida breve: 10 domande miste su note, figure e teoria musicale.";
+    }
+    if (lower.includes("20")) {
+      return "Sfida media: 20 domande miste, utile per un allenamento più completo.";
+    }
+    if (lower.includes("30")) {
+      return "Sfida completa: 30 domande per ripassare più argomenti in una sola partita.";
+    }
+    if (lower.includes("classificata")) {
+      return "10 domande miste ufficiali. Il punteggio considera risposte corrette, errori e tempo totale.";
+    }
+  }
+
+  if (context === "wordle") {
+    if (lower.includes("facile")) {
+      return "Parole musicali più brevi e accessibili: ideale per iniziare.";
+    }
+    if (lower.includes("medio")) {
+      return "Parole musicali di difficoltà intermedia, con termini più specifici.";
+    }
+    if (lower.includes("difficile")) {
+      return "Parole musicali più lunghe o tecniche: richiede più vocabolario musicale.";
+    }
+    if (lower.includes("parola") || lower.includes("daily") || lower.includes("giorno")) {
+      return "Parola musicale giornaliera uguale per tutti. Si gioca una volta al giorno e salva il risultato nella classifica.";
+    }
+  }
+
+  return "";
+}
+
+function getModeHelpText(label) {
+  const clean = String(label || "").replace(/\s+/g, " ").trim();
+  const lower = clean.toLowerCase();
+  const specificText = getSpecificModeHelpText(clean, getModeHelpContext());
+
+  if (specificText) return specificText;
+
+  if (lower.includes("classificata") || lower.includes("ranked")) {
+    return "Sfida ufficiale con punteggio salvato in classifica. Conta precisione e, dove previsto, velocità.";
+  }
+  if (lower.includes("facile")) return "Allenamento guidato con domande più semplici.";
+  if (lower.includes("medio")) return "Allenamento intermedio con più varietà.";
+  if (lower.includes("difficile")) return "Allenamento più completo, con richieste più impegnative.";
+  if (lower.includes("10")) return "Sfida breve, utile per un ripasso veloce.";
+  if (lower.includes("20")) return "Sfida media, con più domande e più continuità.";
+  if (lower.includes("30")) return "Sfida completa, pensata per allenarsi più a lungo.";
+  if (lower.includes("daily")) return "Sfida giornaliera disponibile una volta al giorno.";
+  if (lower.includes("note")) return "Allenamento dedicato alle figure di durata.";
+  if (lower.includes("pause")) return "Allenamento dedicato alle pause.";
+  if (lower.includes("misto")) return "Domande miste per ripassare più contenuti insieme.";
+
+  return "Modalità di allenamento libera: puoi esercitarti senza salvare il risultato in classifica.";
+}
+
+function getModeHelpItems() {
+  const buttons = document.querySelectorAll("#menu .buttonGroup .menuButton, #config .buttonGroup .menuButton");
+  const seen = new Set();
+
+  return Array.from(buttons)
+    .map(button => button.textContent.replace(/Ranked/gi, "").replace(/\s+/g, " ").trim())
+    .filter(label => {
+      if (!label || seen.has(label)) return false;
+      seen.add(label);
+      return true;
+    })
+    .map(label => ({ label, text: getModeHelpText(label) }));
+}
+
+function showModeHelpModal() {
+  const items = getModeHelpItems();
+  const modal = document.createElement("div");
+  modal.className = "rankedModal modeHelpModal";
+  modal.innerHTML = `
+    <div class="modalOverlay" onclick="closeGenericRankedLeaderboardModal()"></div>
+    <div class="modalPanel modeHelpPanel">
+      <button class="modalClose" onclick="closeGenericRankedLeaderboardModal()" aria-label="Chiudi">×</button>
+      <h2>Come funzionano le modalità?</h2>
+      <p class="rankedIntroText">Scegli una modalità, poi premi Inizia. Le modalità di allenamento servono per esercitarti; la Classificata salva il risultato nella classifica.</p>
+      <div class="modeHelpList">
+        ${items.map(item => `
+          <article class="modeHelpItem">
+            <strong>${escapeRankedHTML(item.label)}</strong>
+            <span>${escapeRankedHTML(item.text)}</span>
+          </article>
+        `).join("") || `<p class="gameIntro">Nessuna modalità trovata.</p>`}
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
+
+function ensureModeHelpButton() {
+  if (document.getElementById("gameModeHelpBtn")) return;
+  if (!document.querySelector("#menu, #config")) return;
+
+  const button = document.createElement("button");
+  button.id = "gameModeHelpBtn";
+  button.className = "rankedHelpButton";
+  button.type = "button";
+  button.setAttribute("aria-label", "Info modalità");
+  button.textContent = "?";
+  button.addEventListener("click", showModeHelpModal);
+  document.body.appendChild(button);
+}
+
+document.addEventListener("DOMContentLoaded", ensureModeHelpButton);
 
 function switchGenericRankedTab(button, tab) {
   document.querySelectorAll(".rankedTab").forEach(btn => btn.classList.remove("active"));

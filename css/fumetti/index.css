@@ -1,0 +1,385 @@
+.comicsIndexPage {
+  height: 100vh;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(247, 248, 250, .96), rgba(235, 240, 245, .96)),
+    radial-gradient(circle at 12% 20%, rgba(61, 143, 199, .16), transparent 32%),
+    radial-gradient(circle at 88% 12%, rgba(128, 92, 168, .14), transparent 30%);
+}
+
+.comicsIndexPage #contentWrapper {
+  height: calc(100vh - var(--header-height) - 18px);
+  max-width: none;
+  padding: 8px 18px 16px;
+  overflow: hidden;
+}
+
+.librarySection {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  align-items: start;
+  padding: 0;
+  border-bottom: 0;
+}
+
+.libraryRoom {
+  position: relative;
+  box-sizing: border-box;
+  width: min(1280px, calc(100% - 40px));
+  max-height: 100%;
+  margin: 10px auto 0;
+  padding: 18px 68px 46px;
+  border-radius: 30px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .88), rgba(246, 248, 250, .92)),
+    repeating-linear-gradient(90deg, rgba(61, 143, 199, .04) 0 2px, transparent 2px 76px);
+  border: 1px solid rgba(24, 50, 74, .08);
+  box-shadow: 0 24px 56px rgba(24, 50, 74, .12);
+  overflow: hidden;
+}
+
+.libraryRoom::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 255, 255, .9), transparent 22%),
+    radial-gradient(circle at 80% 10%, rgba(255, 255, 255, .75), transparent 18%);
+  pointer-events: none;
+}
+
+.shelfLabel {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  width: fit-content;
+  margin: 0 auto 14px;
+  padding: 8px 22px;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid rgba(61, 143, 199, .14);
+  box-shadow: 0 10px 24px rgba(24, 50, 74, .08);
+}
+
+.shelfLabel span {
+  color: var(--text-muted);
+  font-size: .75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.shelfLabel strong {
+  color: var(--text-main);
+  font-size: 1.2rem;
+}
+
+.catalogFrame {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) 48px;
+  gap: 16px;
+  align-items: center;
+}
+
+.bookShelf {
+  min-width: 0;
+  display: flex;
+  gap: 38px;
+  align-items: end;
+  padding: 8px 12px 28px;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+}
+
+.bookShelf::-webkit-scrollbar {
+  display: none;
+}
+
+.catalogArrow {
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: linear-gradient(135deg, #ff6600, #ff9933);
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(255, 102, 0, .22);
+}
+
+.catalogArrow span {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.catalogArrowPrev span {
+  transform: rotate(-90deg) translateY(-1px);
+}
+
+.catalogArrowNext span {
+  transform: rotate(90deg) translateY(-1px);
+}
+
+button.catalogArrow:hover:not(.correct):not(.wrong):not(.selected),
+button.catalogArrow:focus,
+button.catalogArrow:focus-visible {
+  transform: none;
+  background: linear-gradient(135deg, #ff6600, #ff9933);
+  color: #ffffff;
+  box-shadow: 0 10px 22px rgba(255, 102, 0, .22);
+  outline: 0;
+}
+
+.catalogArrow:disabled {
+  opacity: .26;
+  cursor: default;
+  pointer-events: none;
+}
+
+.shelfBoard {
+  position: absolute;
+  left: 36px;
+  right: 36px;
+  bottom: 40px;
+  height: 26px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #526f8d, #d47a3b, #526f8d);
+  box-shadow: 0 14px 28px rgba(24, 50, 74, .18);
+}
+
+.libraryBook {
+  position: relative;
+  flex: 0 0 clamp(182px, 18vw, 218px);
+  scroll-snap-align: center;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  color: var(--text-main);
+  text-decoration: none;
+  transform-origin: bottom center;
+  transition: transform .22s ease, filter .22s ease;
+}
+
+.libraryBook:hover,
+.libraryBook:focus-visible {
+  transform: translateY(-4px);
+  outline: 0;
+}
+
+.futureBook {
+  filter: saturate(.72);
+}
+
+.bookNumber {
+  position: absolute;
+  top: 12px;
+  left: 10px;
+  z-index: 4;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .92);
+  color: #356fa3;
+  font-weight: 900;
+  box-shadow: 0 8px 18px rgba(24, 50, 74, .12);
+}
+
+.bookCover {
+  position: relative;
+  aspect-ratio: 1023 / 1537;
+  width: min(218px, 100%);
+  box-sizing: border-box;
+  border-radius: 14px 18px 18px 14px;
+  display: grid;
+  align-content: end;
+  gap: 10px;
+  padding: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .5);
+  box-shadow:
+    12px 18px 28px rgba(24, 50, 74, .18),
+    inset 9px 0 0 rgba(255, 255, 255, .18),
+    inset -8px 0 0 rgba(0, 0, 0, .08);
+}
+
+.bookCover img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #ffffff;
+}
+
+.bookCover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, .34), transparent 30%),
+    radial-gradient(circle at 75% 22%, rgba(255, 255, 255, .30), transparent 22%);
+  pointer-events: none;
+}
+
+.libraryBook .bookCover:has(img) {
+  padding: 0;
+}
+
+.mozartBook .bookCover {
+  background: linear-gradient(160deg, #f27730 0%, #d44f38 42%, #2f6798 100%);
+  color: white;
+}
+
+.beethovenBook .bookCover {
+  background: linear-gradient(160deg, #2b3548 0%, #5f6d83 50%, #d6b35d 100%);
+  color: white;
+}
+
+.chopinBook .bookCover {
+  background: linear-gradient(160deg, #263765 0%, #6b5ea8 50%, #d9d5f0 100%);
+  color: white;
+}
+
+.vivaldiBook .bookCover {
+  background: linear-gradient(160deg, #2f7358 0%, #77a65a 48%, #e2b55f 100%);
+  color: white;
+}
+
+.coverEyebrow {
+  position: relative;
+  z-index: 1;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, .22);
+  color: inherit;
+  font-size: .68rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.bookCover strong {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: .92;
+}
+
+.bookCover em {
+  position: relative;
+  z-index: 1;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.22;
+  opacity: .92;
+}
+
+.coverNote {
+  position: absolute;
+  right: 18px;
+  top: 20px;
+  z-index: 1;
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, .20);
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+.bookTitle {
+  min-height: 40px;
+  color: var(--text-main);
+  font-weight: 900;
+  text-align: center;
+}
+
+.bookAction {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: rgba(61, 143, 199, .10);
+  color: #356fa3;
+  font-weight: 900;
+  font-size: .84rem;
+}
+
+.availableBook .bookAction {
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: white;
+  box-shadow: 0 10px 22px rgba(255, 102, 0, .20);
+}
+
+@media (max-width: 1000px) {
+  .comicsIndexPage {
+    overflow: hidden;
+  }
+
+  .libraryRoom {
+    padding-inline: 56px;
+  }
+
+  .catalogFrame {
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    gap: 10px;
+  }
+
+  .shelfBoard {
+    display: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .comicsIndexPage {
+    height: auto;
+    min-height: 100vh;
+    overflow: auto;
+  }
+
+  .comicsIndexPage #contentWrapper {
+    height: auto;
+    min-height: calc(100vh - var(--header-height) - 14px);
+    padding: 8px 10px 18px;
+  }
+
+  .libraryRoom {
+    padding: 18px 12px 30px;
+  }
+
+  .catalogFrame {
+    grid-template-columns: 40px minmax(0, 1fr) 40px;
+  }
+
+  .bookCover {
+    width: min(235px, 74vw);
+  }
+
+  .catalogArrow {
+    width: 40px;
+    height: 40px;
+  }
+}

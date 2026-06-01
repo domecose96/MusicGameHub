@@ -338,6 +338,16 @@ const MusicGameHubResources = (() => {
       group: "paths"
     },
     {
+      id: "fumettiMusicali",
+      icon: "📖",
+      type: "Percorso",
+      title: "Vite a fumetti",
+      desc: "Collana di fumetti verticali sulle vite dei grandi compositori.",
+      tags: ["fumetti", "compositori", "mozart", "storia", "lettura", "biografie"],
+      url: "fumetti/index.html",
+      group: "paths"
+    },
+    {
       id: "educazioneCivica",
       icon: "🌍",
       type: "Percorso",
@@ -453,6 +463,15 @@ const MusicGameHubResources = (() => {
       desc: "Scopri famiglie, caratteristiche e curiosità degli strumenti musicali attraverso percorsi interattivi.",
       tag: "Esplora",
       url: "strumenti.html",
+      homeGroup: "paths"
+    },
+    {
+      id: "homeFumetti",
+      icon: "📖",
+      title: "Vite a fumetti",
+      desc: "Una collana illustrata per sfogliare le storie dei grandi compositori.",
+      tag: "Collana",
+      url: "fumetti/index.html",
       homeGroup: "paths"
     },
     {

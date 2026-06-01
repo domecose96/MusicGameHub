@@ -323,6 +323,30 @@
   display: none;
 }
 
+.dailyWordNumberBadge {
+  position: fixed;
+  right: 26px;
+  bottom: 26px;
+  z-index: 80;
+  min-height: 34px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(255, 102, 0, 0.12), rgba(255, 177, 66, 0.2));
+  border: 2px solid rgba(255, 102, 0, 0.34);
+  color: #cc5200;
+  font-size: 0.82rem;
+  font-weight: 900;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px rgba(255, 102, 0, 0.12);
+}
+
+.dailyWordNumberBadge.hidden {
+  display: none;
+}
+
 .exampleFlip {
   animation: exampleTileFlip 0.58s ease both;
 }
@@ -391,7 +415,7 @@
 }
 
 .wordlePage #keyboard .messageText {
-  margin-top: calc(var(--wordle-key-size) * -0.56);
+  margin-top: 8px;
   min-height: var(--wordle-key-size);
   width: calc(
     (var(--wordle-center-keys) * var(--wordle-key-size)) +
@@ -613,7 +637,7 @@
   }
 
   .wordlePage #keyboard .messageText {
-    margin-top: calc(var(--wordle-key-size) * -0.5);
+    margin-top: 8px;
     min-height: var(--wordle-key-size);
     width: calc(
       (var(--wordle-center-keys) * var(--wordle-key-size)) +
@@ -671,7 +695,18 @@
   }
 
   #gameSideControlsRight {
-    display: none;
+    grid-column: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 8px 0 0;
+    gap: 10px;
+  }
+
+  .dailyWordNumberBadge {
+    right: 14px;
+    bottom: 14px;
   }
 
   /* Su mobile aggiungiamo il pulsante statistiche affianco al ? */

@@ -182,7 +182,11 @@ function newNote(){
   resetButtons();
   setFeedback("");
   const notes = getNotes();
-  currentNote = notes[Math.floor(Math.random()*notes.length)];
+  const activeDifficulty = gameMode === "ranked" ? getRankedDifficultyForNoteGame() : difficulty;
+  currentNote = pickRandomNoRepeat(notes, {
+    namespace: `note-${clef}-${activeDifficulty}`,
+    key: note => `${note.name}-${note.y}`
+  });
   noteElement.setAttribute("cy", currentNote.y);
   drawLedgerLines(currentNote.y);
   rankedQuestionStart = Date.now();
@@ -308,7 +312,16 @@ async function finishRankedGame(){
   stopRankedTimer();
   showLeaderboardButton();
   MGH.updateHeaderModeLabel("");
-  warning.innerHTML = `Classificata completata! Punteggio: <strong>${Math.round(rankedScore)}</strong> · Corrette: <strong>${rankedCorrect}/${RANKED_DEFAULT_QUESTIONS}</strong>${saved ? "" : " · salvataggio non riuscito"}`;
+  warning.textContent = "";
+  await showRankedCompletionModal({
+    gameName: "note",
+    saveResult: saved,
+    totalScore: rankedScore,
+    correct: rankedCorrect,
+    totalQuestions: RANKED_DEFAULT_QUESTIONS,
+    totalTime,
+    saved: Boolean(saved)
+  });
   document.querySelectorAll(".selected").forEach(btn=>btn.classList.remove("selected"));
   gameMode = "training";
   difficulty = null;
