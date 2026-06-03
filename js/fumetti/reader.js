@@ -1,4 +1,8 @@
 const MAX_SCAN_PAGES = 80;
+const AUTH_USER_KEY = "mgh_auth_user";
+const PUBLIC_PREVIEW_SLUG = "mozart";
+const PUBLIC_PREVIEW_PAGES = 3;
+const PUBLIC_LOCKED_PREVIEW_PAGES = PUBLIC_PREVIEW_PAGES + 1;
 
 const readerConfig = {
   slug: document.body.dataset.comicSlug || "",
@@ -33,6 +37,41 @@ const lastPage = document.getElementById("lastPage");
 const fullscreenPage = document.getElementById("fullscreenPage");
 const spreadModeButton = document.getElementById("spreadMode");
 
+function getStoredAuthUser() {
+  try {
+    return JSON.parse(localStorage.getItem(AUTH_USER_KEY) || "null");
+  } catch (_) {
+    return null;
+  }
+}
+
+function isLoggedIn() {
+  return Boolean(getStoredAuthUser()?.id);
+}
+
+function isPublicPreview() {
+  return !isLoggedIn() && readerConfig.slug === PUBLIC_PREVIEW_SLUG;
+}
+
+function isLockedComic() {
+  return !isLoggedIn() && readerConfig.slug !== PUBLIC_PREVIEW_SLUG;
+}
+
+function setReaderControlsDisabled(disabled) {
+  [prevPage, nextPage, firstPage, lastPage, fullscreenPage, spreadModeButton].forEach(button => {
+    if (button) button.disabled = disabled;
+  });
+}
+
+function updateReaderProgress(lastVisibleIndex = 0) {
+  const counterBox = pageCounter?.closest(".readerCounter");
+  const total = comicPages.length || 0;
+  const progress = total ? Math.round((Math.min(lastVisibleIndex, total) / total) * 100) : 0;
+
+  counterBox?.style.setProperty("--reader-progress", `${progress}%`);
+  counterBox?.setAttribute("aria-label", `Avanzamento lettura ${progress}%`);
+}
+
 function padPageNumber(number) {
   return String(number).padStart(2, "0");
 }
@@ -65,7 +104,8 @@ async function discoverPages() {
     pages.push({
       src: coverSrc,
       title: "Copertina",
-      label: "Copertina"
+      label: "Copertina",
+      kind: "cover"
     });
   }
 
@@ -78,7 +118,8 @@ async function discoverPages() {
     pages.push({
       src,
       title: `Pagina ${index}`,
-      label: number
+      label: number,
+      kind: "page"
     });
   }
 
@@ -87,7 +128,8 @@ async function discoverPages() {
     pages.push({
       src: backCoverSrc,
       title: "Retro copertina",
-      label: "Retro"
+      label: "Retro",
+      kind: "back"
     });
   }
 
@@ -96,7 +138,8 @@ async function discoverPages() {
 
 function renderPage() {
   const page = comicPages[currentPage];
-  const showSpread = spreadMode && currentPage > 0 && currentPage < comicPages.length - 1;
+  const nextComicPage = comicPages[currentPage + 1];
+  const showSpread = spreadMode && currentPage > 0 && nextComicPage && nextComicPage.kind !== "back" && !page.locked && !nextComicPage.locked;
   const secondPage = showSpread ? comicPages[currentPage + 1] : null;
 
   if (!page) {
@@ -108,6 +151,7 @@ function renderPage() {
   pageCounter.textContent = secondPage
     ? `${currentPage + 1}-${currentPage + 2} / ${comicPages.length}`
     : `${currentPage + 1} / ${comicPages.length}`;
+  updateReaderProgress(secondPage ? currentPage + 2 : currentPage + 1);
 
   placeholder.hidden = true;
   image.hidden = false;
@@ -115,6 +159,8 @@ function renderPage() {
   image.src = page.src;
 
   pageSpread.classList.toggle("spreadMode", Boolean(secondPage));
+  pageSpread.classList.toggle("lockedPreview", Boolean(page.locked));
+  pageSpread.classList.remove("pageChanging");
   comicStage?.classList.toggle("hasSpread", Boolean(secondPage));
   secondPageFrame.hidden = !secondPage;
   if (secondPage) {
@@ -128,21 +174,45 @@ function renderPage() {
 
 function showPlaceholder(number = "...", title = "Pagina non disponibile", text = "Aggiungi la tavola in formato `.webp`.") {
   image.hidden = true;
+  if (secondPageFrame) secondPageFrame.hidden = true;
+  pageSpread?.classList.remove("spreadMode");
+  comicStage?.classList.remove("hasSpread");
   placeholder.hidden = false;
   placeholderNumber.textContent = number;
   placeholderTitle.textContent = title;
   placeholderText.textContent = text;
+  updateReaderProgress(0);
 }
 
 function goToPage(index) {
   if (!comicPages.length) return;
   currentPage = Math.max(0, Math.min(comicPages.length - 1, index));
-  renderPage();
+  pageSpread.classList.add("pageChanging");
+  window.setTimeout(renderPage, 90);
 }
 
 async function initReader() {
   showPlaceholder("...", "Caricamento", "Sto cercando le pagine del volume.");
-  comicPages = await discoverPages();
+
+  if (isLockedComic()) {
+    comicPages = [];
+    pageTitle.textContent = "Accesso riservato";
+    pageCounter.textContent = "Solo registrati";
+    showPlaceholder("🔒", "Accesso riservato", "Accedi o registrati per leggere questo volume della collana.");
+    setReaderControlsDisabled(true);
+    return;
+  }
+
+  const discoveredPages = await discoverPages();
+  if (isPublicPreview()) {
+    comicPages = discoveredPages.slice(0, PUBLIC_LOCKED_PREVIEW_PAGES).map((page, index) => ({
+      ...page,
+      locked: index >= PUBLIC_PREVIEW_PAGES
+    }));
+  } else {
+    comicPages = discoveredPages;
+  }
+
   currentPage = 0;
   renderPage();
 }
@@ -156,8 +226,7 @@ nextPage.addEventListener("click", () => goToPage(currentPage + (spreadMode && c
 prevPage.addEventListener("click", () => goToPage(currentPage - (spreadMode && currentPage > 1 ? 2 : 1)));
 firstPage.addEventListener("click", () => goToPage(0));
 lastPage.addEventListener("click", () => {
-  const lastIndex = spreadMode && comicPages.length > 2 ? comicPages.length - 2 : comicPages.length - 1;
-  goToPage(lastIndex);
+  goToPage(comicPages.length - 1);
 });
 
 spreadModeButton.addEventListener("click", () => {

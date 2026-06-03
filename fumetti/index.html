@@ -32,8 +32,7 @@
   <section id="collana" class="siteSection librarySection">
     <div class="libraryRoom" aria-label="Scaffale dei fumetti musicali">
       <div class="shelfLabel">
-        <span>Collana</span>
-        <strong>Vite a fumetti</strong>
+        <div id="comicAvailability" class="comicAvailability">Caricamento volumi...</div>
       </div>
 
       <div class="catalogFrame">
@@ -41,43 +40,7 @@
           <span aria-hidden="true">⇧</span>
         </button>
 
-        <div class="bookShelf" id="bookShelf">
-          <a class="libraryBook mozartBook availableBook" href="mozart.html">
-            <span class="bookNumber">01</span>
-            <div class="bookCover">
-              <img src="../img/fumetti/mozart/mozart.webp" alt="Copertina del fumetto su Mozart">
-            </div>
-            <span class="bookTitle">Wolfgang Amadeus Mozart</span>
-            <span class="bookAction">Sfoglia</span>
-          </a>
-
-          <a class="libraryBook beethovenBook availableBook" href="beethoven.html">
-            <span class="bookNumber">02</span>
-            <div class="bookCover">
-              <img src="../img/fumetti/beethoven/beethoven.webp" alt="Copertina del fumetto su Beethoven">
-            </div>
-            <span class="bookTitle">Ludwig van Beethoven</span>
-            <span class="bookAction">Sfoglia</span>
-          </a>
- 
-          <article class="libraryBook futureBook chopinBook">
-            <span class="bookNumber">03</span>
-            <div class="bookCover">
-              <img src="../img/fumetti/chopin/chopin.webp" alt="Copertina provvisoria del fumetto su Chopin">
-            </div>
-            <span class="bookTitle">Fryderyk Chopin</span>
-            <span class="bookAction">In arrivo</span>
-          </article>
-
-          <article class="libraryBook futureBook vivaldiBook">
-            <span class="bookNumber">04</span>
-            <div class="bookCover">
-              <img src="../img/fumetti/vivaldi/vivaldi.svg" alt="Copertina provvisoria del fumetto su Vivaldi">
-            </div>
-            <span class="bookTitle">Antonio Vivaldi</span>
-            <span class="bookAction">In arrivo</span>
-          </article>
-        </div>
+        <div class="bookShelf" id="bookShelf" aria-live="polite"></div>
 
         <button class="catalogArrow catalogArrowNext" type="button" aria-label="Scorri catalogo a destra">
           <span aria-hidden="true">⇧</span>

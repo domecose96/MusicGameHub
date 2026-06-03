@@ -19,6 +19,13 @@ const modeConfig = {
   }
 };
 
+const ATTRIBUTE_VALUES = {
+  type: ["sound", "noise"],
+  pitch: ["low", "high"],
+  volume: ["soft", "loud"],
+  duration: ["short", "long"]
+};
+
 let selectedMode = null;
 let gameMode = "training";
 let currentQuestion = null;
@@ -217,30 +224,27 @@ function buildQuestion(clue, title, attribute, labels) {
 
 function buildCombinedQuestion(clue, title, attributes) {
   const correct = attributes.map((attribute) => labelFor(clue[attribute], attribute)).join(" + ");
-  const options = new Set([correct]);
-
-  while (options.size < 4) {
-    const candidate = attributes.map((attribute) => {
-      const value = attribute === "type"
-        ? pickRandomNoRepeat(["sound", "noise"], { namespace: `detective-option-${attribute}` })
-        : attribute === "pitch"
-          ? pickRandomNoRepeat(["low", "high"], { namespace: `detective-option-${attribute}` })
-          : attribute === "volume"
-            ? pickRandomNoRepeat(["soft", "loud"], { namespace: `detective-option-${attribute}` })
-            : pickRandomNoRepeat(["short", "long"], { namespace: `detective-option-${attribute}` });
-      return labelFor(value, attribute);
-    }).join(" + ");
-    options.add(candidate);
-  }
+  const allOptions = buildOptionCombinations(attributes)
+    .map((values) => attributes.map((attribute, index) => labelFor(values[index], attribute)).join(" + "));
+  const wrongOptions = shuffle(allOptions.filter((label) => label !== correct));
+  const options = shuffle([correct, ...wrongOptions.slice(0, 3)]);
 
   return {
     clue,
     title,
     label: attributes.map(labelForKind).join(" · "),
     correct,
-    options: shuffle([...options]).map((label) => ({ label, correct: label === correct })),
+    options: options.map((label) => ({ label, correct: label === correct })),
     explanation: explain(clue, attributes)
   };
+}
+
+function buildOptionCombinations(attributes, index = 0, current = []) {
+  if (index >= attributes.length) return [current];
+
+  const attribute = attributes[index];
+  const values = ATTRIBUTE_VALUES[attribute] || [];
+  return values.flatMap((value) => buildOptionCombinations(attributes, index + 1, [...current, value]));
 }
 
 function renderQuestion(question) {

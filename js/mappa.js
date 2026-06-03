@@ -1,4 +1,7 @@
 const resources=MusicGameHubResources.byId;
+const MIN_COMIC_READY_PAGES=10;
+const AUTH_USER_KEY="mgh_auth_user";
+const PUBLIC_PREVIEW_SLUG="mozart";
 
 const filterButtons=document.querySelectorAll(".filterBtn[data-filter]");
 const resetButton=document.querySelector(".filterBtn[data-action='reset']");
@@ -16,6 +19,56 @@ const modalLink=document.getElementById("modalLink");
 const rootNode=document.querySelector("[data-root='true']");
 
 let zoom=1;
+
+function getStoredAuthUser(){
+  try{
+    return JSON.parse(localStorage.getItem(AUTH_USER_KEY)||"null");
+  }catch(_){
+    return null;
+  }
+}
+
+function isLoggedIn(){
+  return Boolean(getStoredAuthUser()?.id);
+}
+
+const mapGroups=[
+  {
+    key:"theory",
+    column:".mapColumnTheory",
+    label:"Teoria",
+    unit:"risorse principali",
+    ids:["elementiMusica","teoriaBase","teoriaAvanzata"],
+    featured:{
+      elementiMusica:"★ nuovo",
+      teoriaAvanzata:"★ avanzata"
+    }
+  },
+  {
+    key:"paths",
+    column:".mapColumnPaths",
+    label:"Percorsi",
+    unit:"risorse principali",
+    ids:["storiaMusica","strumentiMusicali","fumettiMusicali","educazioneCivica"],
+    featured:{
+      storiaMusica:"★ timeline",
+      fumettiMusicali:"★ collana",
+      educazioneCivica:"★ indice"
+    }
+  },
+  {
+    key:"games",
+    column:".mapColumnGames",
+    label:"Giochi",
+    unit:"risorse",
+    ids:MusicGameHubResources.playable.map(item=>item.id),
+    featured:{
+      pentagrammaGame:"★ nuovo",
+      detectiveSuono:"★ suono",
+      ritmo:"★ ritmo"
+    }
+  }
+];
 
 const clusterContent={
   elementiMusica:[
@@ -69,10 +122,16 @@ const clusterContent={
     {label:"Gioco strumenti",url:"giochi/strumenti_game.html"}
   ],
   fumettiMusicali:[
-    {label:"Collana",url:"fumetti/index.html"},
-    {label:"Mozart",url:"fumetti/mozart.html"},
-    {label:"Beethoven",disabled:true},
-    {label:"Chopin",disabled:true}
+    {label:"Mozart",url:"fumetti/mozart.html",comicSlug:"mozart"},
+    {label:"Beethoven",url:"fumetti/beethoven.html",comicSlug:"beethoven"},
+    {label:"Chopin",url:"fumetti/chopin.html",comicSlug:"chopin"},
+    {label:"Vivaldi",url:"fumetti/vivaldi.html",comicSlug:"vivaldi"},
+    {label:"Bach",url:"fumetti/bach.html",comicSlug:"bach"},
+    {label:"Verdi",url:"fumetti/verdi.html",comicSlug:"verdi"},
+    {label:"Puccini",url:"fumetti/puccini.html",comicSlug:"puccini"},
+    {label:"Rossini",url:"fumetti/rossini.html",comicSlug:"rossini"},
+    {label:"Paganini",url:"fumetti/paganini.html",comicSlug:"paganini"},
+    {label:"Tchaikovsky",url:"fumetti/tchaikovsky.html",comicSlug:"tchaikovsky"}
   ],
   educazioneCivica:[
     {label:"Ascolto e rispetto",id:"ascoltoRispetto"},
@@ -141,6 +200,117 @@ const clusterContent={
   ]
 };
 
+function assetExists(src){
+  return new Promise(resolve=>{
+    const probe=new Image();
+    probe.onload=()=>resolve(true);
+    probe.onerror=()=>resolve(false);
+    probe.src=src;
+  });
+}
+
+async function isComicReady(slug){
+  for(let index=1;index<=MIN_COMIC_READY_PAGES;index++){
+    const number=String(index).padStart(2,"0");
+    const base=`img/fumetti/${slug}/${number}`;
+    const exists=await assetExists(`${base}.webp`)||await assetExists(`${base}.WEBP`);
+    if(!exists)return false;
+  }
+
+  return true;
+}
+
+async function updateComicClusterAvailability(){
+  const buttons=document.querySelectorAll("#cluster-fumettiMusicali button[data-comic-slug]");
+  const userLoggedIn=isLoggedIn();
+
+  for(const button of buttons){
+    const slug=button.dataset.comicSlug;
+    const ready=await isComicReady(slug);
+    const canOpen=ready&&(userLoggedIn||slug===PUBLIC_PREVIEW_SLUG);
+
+    button.disabled=!canOpen;
+    button.title=!ready
+      ?"Volume in arrivo"
+      :canOpen
+        ?(userLoggedIn?"Apri il volume":"Apri anteprima")
+        :"Accedi per leggere questo volume";
+  }
+}
+
+function getShortDescription(item){
+  if(item.tag)return item.tag;
+  if(item.id==="elementiMusica")return "Onde e udito";
+  if(item.id==="teoriaBase")return "Pentagramma, note e simboli";
+  if(item.id==="teoriaAvanzata")return "Accordi, forme e armonia";
+  if(item.id==="storiaMusica")return "Epoche e autori";
+  if(item.id==="strumentiMusicali")return "Famiglie e gioco";
+  if(item.id==="fumettiMusicali")return "Compositori";
+  if(item.id==="educazioneCivica")return "Indice lezioni";
+  return item.desc;
+}
+
+function createResourceNode(id, group, index){
+  const item=resources[id];
+  if(!item)return null;
+
+  const node=document.createElement("button");
+  const ribbon=group.featured[id];
+  node.className=`node resourceNode${ribbon?" featured":""}`;
+  node.dataset.id=id;
+  node.dataset.type=group.key;
+
+  if(ribbon){
+    const featured=document.createElement("span");
+    featured.className="featuredRibbon";
+    featured.textContent=ribbon;
+    node.appendChild(featured);
+  }
+
+  const badge=document.createElement("span");
+  badge.className=`badge ${group.key}`;
+  badge.textContent=item.type;
+
+  const icon=document.createElement("div");
+  icon.className="resourceIcon";
+  icon.textContent=item.icon;
+
+  const title=document.createElement("h4");
+  title.textContent=item.title;
+
+  const desc=document.createElement("p");
+  desc.textContent=getShortDescription(item);
+
+  node.append(badge,icon,title,desc);
+
+  if(index%2===1)node.dataset.clusterAlign="right";
+  return node;
+}
+
+function renderStructuredMap(){
+  mapGroups.forEach(group=>{
+    const column=document.querySelector(group.column);
+    if(!column)return;
+
+    const category=column.querySelector(".categoryNode");
+    const grid=column.querySelector(".mapResourceGrid");
+    const items=group.ids.map(id=>resources[id]).filter(Boolean);
+
+    if(category){
+      category.dataset.categoryNode=group.key;
+      category.querySelector("p").textContent=`${items.length} ${group.unit}`;
+    }
+
+    if(grid){
+      grid.replaceChildren(
+        ...group.ids
+          .map((id,index)=>createResourceNode(id,group,index))
+          .filter(Boolean)
+      );
+    }
+  });
+}
+
 function getNodes(){
   return document.querySelectorAll(".resourceNode");
 }
@@ -177,7 +347,7 @@ filterButtons.forEach(btn=>{
   });
 });
 
-resetButton.addEventListener("click",()=>{
+resetButton?.addEventListener("click",()=>{
   setFilter("all");
   setZoom(1);
   resetButton.blur();
@@ -209,7 +379,7 @@ function setupClusters(){
         wrapper.appendChild(node);
       }
 
-      wrapper.classList.toggle("clusterFromRight",index%2===1);
+      wrapper.classList.toggle("clusterFromRight",index%2===1||node.dataset.clusterAlign==="right");
       node.classList.add("clusterToggle");
       node.setAttribute("aria-expanded",node.getAttribute("aria-expanded")||"false");
       node.dataset.toggleCluster=node.dataset.id;
@@ -237,6 +407,7 @@ function setupClusters(){
         button.textContent=item.label;
         if(item.id)button.dataset.id=item.id;
         if(item.url)button.dataset.url=item.url;
+        if(item.comicSlug)button.dataset.comicSlug=item.comicSlug;
         if(item.disabled){
           button.disabled=true;
           button.title="Pagina in arrivo";
@@ -247,7 +418,9 @@ function setupClusters(){
   });
 }
 
+renderStructuredMap();
 setupClusters();
+updateComicClusterAvailability();
 
 getNodes().forEach(node=>{
   if(node.dataset.toggleCluster||node.querySelector(".cardHint"))return;

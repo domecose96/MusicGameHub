@@ -853,6 +853,93 @@ function renderFallbackStats(message = "Statistiche in caricamento") {
   }
 }
 
+function normalizeStatsPath(path = "") {
+  return String(path)
+    .replace(/^https?:\/\/[^/]+/i, "")
+    .replace(/[?#].*$/, "")
+    .replace(/^\/?MusicGameHub\/?/i, "")
+    .replace(/^\/+/, "")
+    .replace(/\/index\.html$/i, "/")
+    .replace(/^index\.html$/i, "")
+    .replace(/\/$/, "");
+}
+
+function titleFromSlug(slug = "") {
+  return slug
+    .replace(/\.html$/i, "")
+    .split(/[_-]+/)
+    .filter(Boolean)
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+function getStatsSectionLabel(resource) {
+  if (!resource) return "";
+  const path = normalizeStatsPath(resource.url);
+
+  if (path.startsWith("educazione_civica/")) return "Educazione civica";
+  if (path.startsWith("storia/")) return "Storia";
+  if (resource.group === "theory") return "Teoria";
+  if (resource.group === "games") return "Giochi";
+  if (resource.group === "paths") return "Percorsi";
+
+  return "";
+}
+
+function formatStatsLabel(section, title) {
+  return section ? `${section} > ${title}` : title;
+}
+
+function getStatsDisplayLabel(item) {
+  const path = normalizeStatsPath(item.path || "");
+  const rawLabel = String(item.label || "").trim();
+
+  if (!path || path === "index") return "Home";
+
+  const matchingResource = resourceData?.items?.find(resource => normalizeStatsPath(resource.url) === path);
+  if (matchingResource) {
+    return formatStatsLabel(getStatsSectionLabel(matchingResource), matchingResource.title);
+  }
+
+  const matchingHomeCard = resourceData?.homeCards?.find(resource => normalizeStatsPath(resource.url) === path);
+  if (matchingHomeCard) {
+    return formatStatsLabel(getStatsSectionLabel(matchingHomeCard), matchingHomeCard.title);
+  }
+
+  const comicMatch = path.match(/^fumetti\/([^/]+)\.html$/i);
+  if (comicMatch) return `Vite a fumetti > ${titleFromSlug(comicMatch[1])}`;
+
+  if (path === "fumetti") return "Vite a fumetti";
+  if (path === "mappa.html") return "Mappa delle risorse";
+  if (path.startsWith("educazione_civica/")) return `Educazione civica > ${titleFromSlug(path.split("/").pop())}`;
+  if (path.startsWith("storia/")) return `Storia > ${titleFromSlug(path.split("/").pop())}`;
+  if (path.startsWith("giochi/")) return `Giochi > ${titleFromSlug(path.split("/").pop())}`;
+
+  if (rawLabel && !rawLabel.includes("/") && !rawLabel.includes("MusicGameHub")) return rawLabel;
+
+  return titleFromSlug(path.split("/").pop() || "Pagina");
+}
+
+function getAggregatedTopPages(topPages = []) {
+  const pages = new Map();
+
+  topPages.forEach(item => {
+    const path = item.path || "";
+    const label = item.label || "";
+
+    if (path.includes("insdex") || label.includes("insdex")) return;
+    if (path.includes("404")) return;
+    if (path.includes("error")) return;
+
+    const displayLabel = getStatsDisplayLabel(item);
+    const current = pages.get(displayLabel) || 0;
+    pages.set(displayLabel, current + Number(item.count || 0));
+  });
+
+  return Array.from(pages, ([label, count]) => ({ label, count }))
+    .sort((a, b) => b.count - a.count);
+}
+
 async function loadGoatStats() {
   const totalEl = document.getElementById("gc-total");
   const topEl = document.getElementById("gc-top");
@@ -873,16 +960,7 @@ async function loadGoatStats() {
     if (topEl) {
       topEl.replaceChildren();
 
-      const validPages = (data.topPages || []).filter(item => {
-        const path = item.path || "";
-        const label = item.label || "";
-
-        if (path.includes("insdex") || label.includes("insdex")) return false;
-        if (path.includes("404")) return false;
-        if (path.includes("error")) return false;
-
-        return true;
-      });
+      const validPages = getAggregatedTopPages(data.topPages || []);
 
       if (validPages.length === 0) {
         topEl.replaceChildren(createStatsRow("Nessun dato disponibile"));
