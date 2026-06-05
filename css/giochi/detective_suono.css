@@ -36,29 +36,15 @@
   justify-content: flex-start;
 }
 
-.soundDetectivePage #menu {
-  padding-top: 42px;
+.soundDetectivePage .rankedUI:not(.hidden) ~ .clueCard .waveBox {
+  height: 138px;
 }
 
-.soundDetectivePage #menu h2 {
-  margin: 0 0 18px;
-  color: var(--accent);
-  font-size: clamp(2rem, 4.5vw, 3.2rem);
+.soundDetectivePage .rankedUI:not(.hidden) ~ .clueCard #waveSvg {
+  height: 118px;
 }
 
-.detectiveModeGroup {
-  gap: 20px;
-  align-items: center;
-}
-
-.detectiveModeGroup .menuButton {
-  width: 260px;
-  height: 80px;
-  padding: 10px;
-  font-size: 20px;
-}
-
-.soundDetectivePage .menuButton:not(.buttonGroup .menuButton),
+.soundDetectivePage .menuButton:not(.buttonGroup .menuButton):not(.compactBackButton),
 .playClueButton {
   width: auto;
   min-width: 160px;
@@ -74,7 +60,7 @@
   box-shadow: 0 12px 28px rgba(232, 93, 4, 0.28);
 }
 
-.soundDetectivePage .menuButton:not(.buttonGroup .menuButton):hover,
+.soundDetectivePage .menuButton:not(.buttonGroup .menuButton):not(.compactBackButton):hover,
 .playClueButton:hover {
   transform: translateY(-2px);
   color: #ffffff;
@@ -105,42 +91,12 @@
   box-shadow: 0 12px 26px rgba(255, 102, 0, 0.28);
 }
 
-.soundDetectivePage .startButton {
-  margin-top: 20px;
-}
-
-.soundDetectivePage .rankedModeButton {
-  position: relative;
-}
-
-.soundDetectivePage .dailyModeBadge {
-  display: block;
-  margin-bottom: 2px;
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.gameIntro,
-.warningText {
-  max-width: 760px;
-  margin: 16px auto 0;
-  color: var(--text-muted);
-  line-height: 1.5;
-}
-
-.warningText {
-  min-height: 28px;
-  color: var(--detective-orange);
-  font-weight: 900;
-}
-
 .detectiveHud {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
-  margin: 0 auto 10px;
+  margin: 4px auto 8px;
 }
 
 .detectiveHud.hidden {
@@ -161,24 +117,21 @@
   text-transform: uppercase;
 }
 
-.clueCard {
-  width: min(680px, 100%);
-  min-height: 334px;
-  box-sizing: border-box;
-  padding: 16px 18px;
-  border: 1px solid rgba(255, 102, 0, 0.14);
-  border-radius: 16px;
-  background: var(--surface-solid);
-  box-shadow: var(--panel-shadow);
+.detectiveQuestionBox {
+  margin: 12px 0 10px;
+  color: var(--accent);
+  font-size: 1.35rem;
+  font-weight: 700;
+  min-height: 36px;
 }
 
-.clueCard h2 {
-  margin: 8px 0 12px;
-  color: var(--text-main);
-  font-size: clamp(1.25rem, 2.6vw, 1.8rem);
-  min-height: 42px;
-  display: grid;
-  place-items: center;
+.clueCard {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
 }
 
 .waveBox {
@@ -187,52 +140,44 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 12px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 102, 0, 0.12);
-  border-radius: 16px;
-  background: var(--surface-solid);
-  box-shadow: inset 0 0 0 999px rgba(255, 102, 0, 0.035);
+  margin: 0 auto;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 #waveSvg {
   display: block;
   width: 100%;
   height: 134px;
+  overflow: visible;
+  background: transparent;
+  box-shadow: none;
 }
 
 .waveAxis {
-  stroke: rgba(23, 40, 58, 0.16);
-  stroke-width: 4;
+  stroke: rgba(23, 40, 58, 0.12);
+  stroke-width: 3;
 }
 
 .wavePath {
   fill: none;
   stroke: var(--accent);
-  stroke-width: 8;
+  stroke-width: 7;
   stroke-linecap: round;
   stroke-linejoin: round;
-  filter: drop-shadow(0 8px 12px rgba(255, 102, 0, 0.18));
+  filter: drop-shadow(0 8px 14px rgba(255, 102, 0, 0.18));
 }
 
 .wavePath.noise {
-  stroke: #777777;
+  stroke: var(--accent);
+  filter: drop-shadow(0 8px 14px rgba(255, 102, 0, 0.18));
 }
 
 .playClueButton {
   margin: 0 auto;
-}
-
-.feedbackText {
-  min-height: 32px;
-  margin: 8px 0 0;
-  color: var(--accent);
-  font-size: 1.05rem;
-  font-weight: 700;
-}
-
-.feedbackText.wrong {
-  color: var(--detective-orange);
 }
 
 .detectiveAnswers {
@@ -243,69 +188,48 @@
   margin: 12px auto 0;
 }
 
+.detectiveAnswers[data-option-count="4"] {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  width: min(1080px, 100%);
+}
+
 .answerButton {
   min-height: 64px;
   padding: 12px 18px;
-  border: 3px solid transparent;
-  border-radius: 8px;
-  background: #b3b3b3;
-  color: var(--accent);
-  font-size: 20px;
-  font-weight: 800;
-  cursor: pointer;
-  box-shadow: none;
-  outline: none;
+  margin: 0;
+  white-space: normal;
 }
 
-.answerButton:hover {
-  transform: scale(1.05);
-  background: #ffffff;
-  color: var(--accent);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.answerButton.correct {
-  color: var(--accent) !important;
-  border-color: #66cc66 !important;
-  background: #b3b3b3 !important;
-  box-shadow: none !important;
-}
-
-.answerButton.wrong {
-  color: var(--accent) !important;
-  border-color: #cc3333 !important;
-  background: #b3b3b3 !important;
-  box-shadow: none !important;
-}
-
-.answerButton:focus,
-.answerButton:active {
-  outline: none;
+.detectiveAnswers[data-option-count="4"] .answerButton {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 260px;
+  min-height: 58px;
+  padding: 10px 12px;
+  font-size: clamp(0.78rem, 0.95vw, 0.98rem);
+  line-height: 1.18;
 }
 
 .gameActions {
   margin-top: 10px;
 }
 
-#timerBox {
-  position: fixed;
-  top: calc(var(--header-height) + 18px);
-  right: 24px;
-  z-index: 20;
-  padding: 10px 16px;
-  border: 1.5px solid rgba(255, 102, 0, 0.25);
-  border-radius: 14px;
-  background: rgba(255, 102, 0, 0.1);
-  color: var(--accent);
-  font-weight: 800;
-}
-
 @media (max-width: 680px) {
-  .detectiveAnswers {
+  .detectiveAnswers,
+  .detectiveAnswers[data-option-count="4"] {
+    display: grid;
     grid-template-columns: 1fr;
+  }
+
+  .detectiveQuestionBox {
+    font-size: 1.05rem;
   }
 
   .clueCard {
     padding: 20px;
+    height: auto;
+    min-height: 220px;
   }
 }

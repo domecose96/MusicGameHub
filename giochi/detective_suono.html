@@ -9,9 +9,10 @@
 <link rel="stylesheet" href="../css/giochi/detective_suono.css">
 </head>
 
-<body class="soundDetectivePage">
+<body class="soundDetectivePage rankedUnifiedGamePage">
 
 <button id="rankedLeaderboardBtn"
+        type="button"
         class="rankedLeaderboardButton"
         onclick="showGenericRankedLeaderboardModal('detective_suono')"
         aria-label="Classifica">
@@ -20,7 +21,7 @@
 
 <header class="appHeader">
   <div class="appHeaderInner">
-    <button id="homeBtn" class="homeButton" onclick="goHome()" aria-label="Torna alla home">
+    <button id="homeBtn" class="homeButton" type="button" onclick="goHome()" aria-label="Torna alla home">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 12 L12 3 L21 12"></path>
         <path d="M6 12 V21 H18 V12"></path>
@@ -36,18 +37,18 @@
 </header>
 
 <div id="contentWrapper">
-  <div id="menu">
+  <div id="menu" class="gameModeMenu">
     <h2>Scegli la modalità</h2>
     <div class="buttonGroup detectiveModeGroup">
-      <button class="menuButton" onclick="setDetectiveMode('easy', this)">Facile</button>
-      <button class="menuButton" onclick="setDetectiveMode('medium', this)">Medio</button>
-      <button class="menuButton" onclick="setDetectiveMode('hard', this)">Difficile</button>
-      <button class="menuButton rankedModeButton" onclick="selectDetectiveRanked(this)">
+      <button class="menuButton" type="button" onclick="setDetectiveMode('easy', this)">Facile</button>
+      <button class="menuButton" type="button" onclick="setDetectiveMode('medium', this)">Medio</button>
+      <button class="menuButton" type="button" onclick="setDetectiveMode('hard', this)">Difficile</button>
+      <button class="menuButton rankedModeButton" type="button" onclick="selectDetectiveRanked(this)">
         <span class="dailyModeBadge">Ranked</span>
         Classificata
       </button>
     </div>
-    <button class="menuButton startButton" onclick="startDetectiveGame()">Inizia</button>
+    <button class="menuButton startButton" type="button" onclick="startDetectiveGame()">Inizia</button>
     <p id="warning" class="warningText"></p>
     <p class="gameIntro">
       Ascolta l'indizio, osserva l'onda e riconosci suono/rumore, altezza,
@@ -56,27 +57,22 @@
   </div>
 
   <div id="game" class="hidden">
-    <div id="rankedUI" class="rankedUI hidden">
-      <div class="rankedScoreDisplay">Score: <span id="rankedScore">0</span></div>
-      <div class="rankedProgressWrapper">
-        <div class="rankedProgressLabel">
-          <span>Progressione</span>
-          <span id="rankedQuestionCounter">1/10</span>
-        </div>
-        <div class="rankedProgressBar">
-          <div id="rankedProgressFill" class="rankedProgressFill"></div>
-        </div>
-      </div>
+    <div class="gameTopActions">
+      <button id="backButton" class="menuButton compactBackButton" type="button" onclick="goBack()" aria-label="Torna alla scelta modalità">
+        <span aria-hidden="true">⇧</span>
+      </button>
     </div>
-    <div id="timerBox" class="hidden">⏱ <span id="timer">0</span>s</div>
 
-    <section class="clueCard" aria-label="Indizio sonoro">
-      <div id="detectiveHud" class="detectiveHud hidden">
-        <span id="clueType" class="clueType">Indizio</span>
-        <span id="questionCounter">1/10</span>
-      </div>
-      <h2 id="questionText">Che cosa senti?</h2>
+    <div id="detectiveHud" class="detectiveHud hidden">
+      <span id="clueType" class="clueType">Indizio</span>
+      <span id="questionCounter">1/10</span>
+    </div>
 
+    <div id="questionBox" class="detectiveQuestionBox">
+      <span id="questionText">Che cosa senti?</span>
+    </div>
+
+    <section class="clueCard gameVisualBox" aria-label="Indizio sonoro">
       <div id="waveBox" class="waveBox" aria-hidden="true">
         <svg id="waveSvg" viewBox="0 0 720 220" role="img" aria-label="Onda sonora">
           <line x1="35" y1="110" x2="685" y2="110" class="waveAxis"></line>
@@ -85,15 +81,16 @@
       </div>
 
       <button id="playClueButton" class="playClueButton" type="button" onclick="playCurrentClue()">▶ Ascolta indizio</button>
-      <p id="feedback" class="feedbackText"></p>
     </section>
 
     <div id="answers" class="detectiveAnswers"></div>
+    <p id="feedback" class="feedbackText"></p>
   </div>
 </div>
 
 <script src="../js/common.js"></script>
 <script src="../js/giochi/ranked.js"></script>
+<script src="../js/giochi/game_ui.js"></script>
 <script src="../js/giochi/detective_suono.js"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>

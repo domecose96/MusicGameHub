@@ -933,9 +933,9 @@ function endGame(won, attempts, result){
   }
 
   if(won){
-    showMessage("Hai indovinato!");
+    showMessage(MGH.getAnswerFeedback(true), 0, "correct");
   } else {
-    showMessage("Hai sbagliato! La parola era " + secret);
+    showMessage(MGH.getAnswerFeedback(false, "La parola corretta era " + secret + "."), 0, "wrong");
   }
 
   if(activeMode === dailyMode){
@@ -1251,7 +1251,7 @@ function closeHelpModal(){
 }
 
 // ==================== MESSAGGI ====================
-function showMessage(msg, duration = 0){
+function showMessage(msg, duration = 0, state = "neutral"){
   if(!messageEl) return;
 
   if(messageTimer){
@@ -1259,13 +1259,14 @@ function showMessage(msg, duration = 0){
     messageTimer = null;
   }
 
-  messageEl.textContent = msg;
+  MGH.setGameFeedback(messageEl, msg, state);
   messageEl.classList.toggle("isVisible", Boolean(msg));
 
   if(msg && duration > 0){
     messageTimer = setTimeout(() => {
-      messageEl.textContent = "";
+      MGH.setGameFeedback(messageEl, "");
       messageEl.classList.remove("isVisible");
+      messageEl.classList.remove("feedbackCorrect", "feedbackWrong", "feedbackNeutral");
       messageTimer = null;
     }, duration);
   }

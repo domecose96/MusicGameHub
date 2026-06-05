@@ -7,9 +7,10 @@
 <link rel="stylesheet" href="../css/base.css">
 </head>
 
-<body class="gamePage">
+<body class="gamePage rankedUnifiedGamePage">
 
 <button id="rankedLeaderboardBtn"
+        type="button"
         class="rankedLeaderboardButton"
         onclick="showGenericRankedLeaderboardModal('note')"
         aria-label="Classifica">
@@ -18,7 +19,7 @@
 
 <header class="appHeader">
   <div class="appHeaderInner">
-    <button id="homeBtn" class="homeButton" onclick="goHome()" aria-label="Torna alla home">
+    <button id="homeBtn" class="homeButton" type="button" onclick="goHome()" aria-label="Torna alla home">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M3 12 L12 3 L21 12"></path>
         <path d="M6 12 V21 H18 V12"></path>
@@ -36,26 +37,26 @@
 <div id="contentWrapper">
 
   <!-- ==================== MENU INIZIALE ==================== -->
-  <div id="menu">
+  <div id="menu" class="gameModeMenu">
 
-    <h2>Difficoltà</h2>
+    <h2>Scegli la modalità</h2>
     <div class="buttonGroup">
-      <button id="easyBtn" class="menuButton" onclick="setDifficulty('easy',this)">Facile</button>
-      <button id="mediumBtn" class="menuButton" onclick="setDifficulty('medium',this)">Medio</button>
-      <button id="hardBtn" class="menuButton" onclick="setDifficulty('hard',this)">Difficile</button>
-      <button class="menuButton rankedModeButton" onclick="selectRankedMode(this)">
+      <button id="easyBtn" class="menuButton" type="button" onclick="setDifficulty('easy',this)">Facile</button>
+      <button id="mediumBtn" class="menuButton" type="button" onclick="setDifficulty('medium',this)">Medio</button>
+      <button id="hardBtn" class="menuButton" type="button" onclick="setDifficulty('hard',this)">Difficile</button>
+      <button class="menuButton rankedModeButton" type="button" onclick="selectRankedMode(this)">
         <span class="dailyModeBadge">Ranked</span>
         Classificata
       </button>
     </div>
 
-    <h2>Chiave</h2>
+    <h3 class="modeSubTitle">Chiave</h3>
     <div class="buttonGroup">
-      <button id="trebleBtn" class="symbolButton" onclick="setClef('treble',this)">𝄞</button>
-      <button id="bassBtn" class="symbolButton" onclick="setClef('bass',this)">𝄢</button>
+      <button id="trebleBtn" class="symbolButton" type="button" onclick="setClef('treble',this)">𝄞</button>
+      <button id="bassBtn" class="symbolButton" type="button" onclick="setClef('bass',this)">𝄢</button>
     </div>
 
-    <button class="menuButton startButton" onclick="startGame()">Inizia</button>
+    <button class="menuButton startButton" type="button" onclick="startGame()">Inizia</button>
     <p id="warning" class="warningText"></p>
     <p class="gameIntro">Scegli difficoltà e chiave, poi indovina il nome della nota mostrata sul pentagramma.</p>
 
@@ -64,22 +65,18 @@
   <!-- ==================== SCHERMATA DI GIOCO ==================== -->
   <div id="game" class="hidden">
 
-    <div id="rankedUI" class="rankedUI hidden">
-      <div class="rankedScoreDisplay">Score: <span id="rankedScore">0</span></div>
-      <div class="rankedProgressWrapper">
-        <div class="rankedProgressLabel">
-          <span>Progressione</span>
-          <span id="rankedQuestionCounter">1/10</span>
-        </div>
-        <div class="rankedProgressBar">
-          <div id="rankedProgressFill" class="rankedProgressFill"></div>
-        </div>
-      </div>
+    <div class="gameTopActions">
+      <button id="backButton" class="menuButton compactBackButton" type="button" onclick="goBack()" aria-label="Torna alla scelta modalità">
+        <span aria-hidden="true">⇧</span>
+      </button>
     </div>
-    <div id="timerBox" class="hidden">⏱ <span id="timer">0</span>s</div>
+
+    <div id="questionBox" class="gameQuestionBox">
+      <span id="questionText">Come si chiama questa nota?</span>
+    </div>
 
     <!-- SVG PENTAGRAMMA -->
-    <svg width="450" height="240" viewBox="0 0 450 240" style="margin-top:20px;">
+    <svg class="gameVisualBox" viewBox="0 0 450 240">
 
       <!-- CHIAVE -->
       <text id="clefSymbol" x="175" y="140" font-size="80" font-family="serif">𝄞</text>
@@ -107,6 +104,7 @@
 
 <script src="../js/common.js"></script>
 <script src="../js/giochi/ranked.js"></script>
+<script src="../js/giochi/game_ui.js"></script>
 <script src="../js/giochi/music_game.js"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 

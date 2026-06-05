@@ -31,8 +31,14 @@
 <main id="contentWrapper">
   <section id="collana" class="siteSection librarySection">
     <div class="libraryRoom" aria-label="Scaffale dei fumetti musicali">
-      <div class="shelfLabel">
+      <div class="catalogTopBar">
         <div id="comicAvailability" class="comicAvailability">Caricamento volumi...</div>
+
+        <div class="seriesFilter" role="group" aria-label="Filtra la collana">
+          <button class="seriesFilterBtn selected" type="button" data-series-filter="all">Tutti</button>
+          <button class="seriesFilterBtn" type="button" data-series-filter="prima">Prima serie</button>
+          <button class="seriesFilterBtn" type="button" data-series-filter="seconda">Seconda serie</button>
+        </div>
       </div>
 
       <div class="catalogFrame">
@@ -55,6 +61,7 @@
 <button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
 
 <script src="../js/common.js"></script>
+<script src="../js/fumetti/catalog.js"></script>
 <script src="../js/fumetti/index.js"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>

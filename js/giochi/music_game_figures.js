@@ -10,12 +10,14 @@ let rankedQuestionStart = 0;
 let rankedTimerInterval = null;
 
 document.addEventListener("DOMContentLoaded", () => {
+  MGHGameUI.ensureRankedHUD();
 
   const figureImage = document.getElementById("figureImage");
   const answersDiv = document.getElementById("answers");
   const menu = document.getElementById("menu");
   const game = document.getElementById("game");
   const feedbackEl = document.getElementById("feedback");
+  const questionText = document.getElementById("questionText");
   const headerModeLabel = document.getElementById("headerModeLabel");
   const warning = document.getElementById("warning");
   const timerBox = document.getElementById("timerBox");
@@ -26,10 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if(mode === "pause") return "Pause";
     if(mode === "misto") return "Misto";
     return "";
-  }
-
-  function updateHeaderModeLabel(label = ""){
-    MGH.updateHeaderModeLabel(label);
   }
 
   /* ==================== MENU ==================== */
@@ -58,13 +56,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     warning.textContent = "";
-    menu.classList.add("hidden");
-    game.classList.remove("hidden");
-    hideLeaderboardButton();
-    hideRankedUI();
     stopRankedTimer();
-
-    updateHeaderModeLabel(getModeLabel());
+    MGHGameUI.enterTraining({ menu, game, modeLabel: getModeLabel(), feedbackEl });
     nextQuestion();
   };
 
@@ -74,38 +67,25 @@ document.addEventListener("DOMContentLoaded", () => {
     rankedWrong = 0;
     rankedScore = 0;
     rankedQuestionIndex = 0;
-    rankedStartTime = Date.now();
+    const rankedSession = startRankedMode("figure");
+    rankedStartTime = rankedSession.startTime;
 
-    menu.classList.add("hidden");
-    game.classList.remove("hidden");
-    hideLeaderboardButton();
-    showRankedUI();
     startRankedTimer();
-    updateHeaderModeLabel("Classificata");
-    updateRankedProgressUI({ score: rankedScore, current: rankedQuestionIndex, total: RANKED_DEFAULT_QUESTIONS });
+    MGHGameUI.enterRanked({ menu, game, score: rankedScore, current: rankedQuestionIndex, total: RANKED_DEFAULT_QUESTIONS, feedbackEl });
     nextQuestion();
   }
 
   /* ==================== INDIETRO ==================== */
   window.goBack = function(){
-    game.classList.add("hidden");
-    menu.classList.remove("hidden");
-
     mode = null;
     currentFigure = null;
     rankedQuestionIndex = 0;
 
-    document.querySelectorAll(".selected")
-      .forEach(btn => btn.classList.remove("selected"));
-
-    updateHeaderModeLabel("");
-    hideRankedUI();
     stopRankedTimer();
-    showLeaderboardButton();
 
     if(figureImage) figureImage.src = "";
     if(answersDiv) answersDiv.innerHTML = "";
-    if(feedbackEl) feedbackEl.textContent = "";
+    MGHGameUI.returnToMenu({ menu, game, feedbackEl });
   };
 
   /* ==================== FIGURE ==================== */
@@ -125,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if(!figureImage || !answersDiv) return;
 
     resetButtons();
-    if(feedbackEl) feedbackEl.textContent = "";
+    MGH.setGameFeedback(feedbackEl, "");
 
     answersDiv.innerHTML = "";
 
@@ -134,6 +114,12 @@ document.addEventListener("DOMContentLoaded", () => {
     else if(mode === "pause") pool = pauses;
     else if(mode === "ranked") pool = figures.concat(pauses);
     else pool = figures.concat(pauses);
+
+    if(questionText){
+      if(mode === "note") questionText.textContent = "Che figura musicale riconosci?";
+      else if(mode === "pause") questionText.textContent = "Che pausa musicale riconosci?";
+      else questionText.textContent = "Che simbolo musicale riconosci?";
+    }
 
     currentFigure = pickRandomNoRepeat(pool, { namespace: `figure-${mode || "misto"}` });
     rankedQuestionStart = Date.now();
@@ -145,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
     options.forEach(opt=>{
       const btn = document.createElement("button");
       btn.innerText = prettifyLabel(opt);
-      btn.className = "noteButton";
+      btn.className = "noteButton gameAnswerButton";
 
       btn.onclick = () => checkAnswer(opt, btn);
 
@@ -168,10 +154,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if(isCorrect){
       button.classList.add("correct");
-      if(feedbackEl) feedbackEl.textContent = "Hai indovinato! Nuova figura in arrivo...";
+      MGH.setGameFeedback(feedbackEl, MGH.getAnswerFeedback(true, "Nuova figura in arrivo."), "correct");
     } else {
       button.classList.add("wrong");
-      if(feedbackEl) feedbackEl.textContent = `Hai sbagliato! La risposta giusta era ${prettifyLabel(currentFigure)}.`;
+      MGH.setGameFeedback(feedbackEl, MGH.getAnswerFeedback(false, `La risposta corretta era ${prettifyLabel(currentFigure)}.`), "wrong");
 
       allButtons.forEach(btn=>{
         if(btn.innerText === prettifyLabel(currentFigure)){
@@ -192,16 +178,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function handleRankedAnswer(isCorrect){
-    const elapsed = (Date.now() - rankedQuestionStart) / 1000;
+    const rankedSession = answerRankedQuestion(isCorrect);
+    if(!rankedSession) return;
 
-    if(isCorrect){
-      rankedCorrect++;
-      rankedScore += elapsed <= 2 ? 125 : elapsed <= 5 ? 110 : 100;
-    } else {
-      rankedWrong++;
-    }
-
-    rankedQuestionIndex++;
+    rankedCorrect = rankedSession.correct;
+    rankedWrong = rankedSession.wrong;
+    rankedScore = rankedSession.totalScore;
+    rankedQuestionIndex = rankedSession.currentQuestion;
     updateRankedProgressUI({ score: rankedScore, current: rankedQuestionIndex, total: RANKED_DEFAULT_QUESTIONS });
 
     setTimeout(async () => {
@@ -216,33 +199,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function finishRankedGame(){
-    const totalTime = Math.round((Date.now() - rankedStartTime) / 1000);
-    const saved = await saveRankedScore({
-      gameName: "figure",
-      totalScore: rankedScore,
-      correct: rankedCorrect,
-      wrong: rankedWrong,
-      totalQuestions: RANKED_DEFAULT_QUESTIONS,
-      totalTime
-    });
+    const finalData = await finishRankedMode();
+    const session = finalData?.session;
 
-    game.classList.add("hidden");
-    menu.classList.remove("hidden");
-    hideRankedUI();
     stopRankedTimer();
-    showLeaderboardButton();
-    updateHeaderModeLabel("");
     warning.textContent = "";
+    MGHGameUI.returnToMenu({ menu, game, feedbackEl });
     await showRankedCompletionModal({
       gameName: "figure",
-      saveResult: saved,
-      totalScore: rankedScore,
-      correct: rankedCorrect,
-      totalQuestions: RANKED_DEFAULT_QUESTIONS,
-      totalTime,
-      saved: Boolean(saved)
+      session,
+      saveResult: finalData?.result,
+      saved: Boolean(finalData?.saved)
     });
-    document.querySelectorAll(".selected").forEach(btn => btn.classList.remove("selected"));
     mode = null;
   }
 

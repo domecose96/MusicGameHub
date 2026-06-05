@@ -1,132 +1,70 @@
-const MIN_READY_PAGES = 10;
-const AUTH_USER_KEY = "mgh_auth_user";
-const PUBLIC_PREVIEW_SLUG = "mozart";
-
-const comics = [
-  {
-    volume: "01",
-    slug: "mozart",
-    title: "Wolfgang Amadeus Mozart",
-    shortTitle: "Mozart",
-    cover: "mozart.webp"
-  },
-  {
-    volume: "02",
-    slug: "beethoven",
-    title: "Ludwig van Beethoven",
-    shortTitle: "Beethoven",
-    cover: "beethoven.webp"
-  },
-  {
-    volume: "03",
-    slug: "chopin",
-    title: "Fryderyk Chopin",
-    shortTitle: "Chopin",
-    cover: "chopin.webp"
-  },
-  {
-    volume: "04",
-    slug: "vivaldi",
-    title: "Antonio Vivaldi",
-    shortTitle: "Vivaldi",
-    cover: "vivaldi.webp"
-  },
-  {
-    volume: "05",
-    slug: "bach",
-    title: "Johann Sebastian Bach",
-    shortTitle: "Bach",
-    cover: "bach.webp"
-  },
-  {
-    volume: "06",
-    slug: "verdi",
-    title: "Giuseppe Verdi",
-    shortTitle: "Verdi",
-    cover: "verdi.webp"
-  },
-  {
-    volume: "07",
-    slug: "puccini",
-    title: "Giacomo Puccini",
-    shortTitle: "Puccini",
-    cover: "puccini.webp"
-  },
-  {
-    volume: "08",
-    slug: "rossini",
-    title: "Gioachino Rossini",
-    shortTitle: "Rossini",
-    cover: "rossini.webp"
-  },
-  {
-    volume: "09",
-    slug: "paganini",
-    title: "Niccolo Paganini",
-    shortTitle: "Paganini",
-    cover: "paganini.webp"
-  },
-  {
-    volume: "10",
-    slug: "tchaikovsky",
-    title: "Petr Ilic Tchaikovsky",
-    shortTitle: "Tchaikovsky",
-    cover: "tchaikovsky.webp"
-  }
-];
+const COMIC_ROOT = "../img/fumetti";
+const comics = MGH_COMICS.items;
 
 const shelf = document.getElementById("bookShelf");
 const comicAvailability = document.getElementById("comicAvailability");
+const seriesFilterButtons = document.querySelectorAll(".seriesFilterBtn[data-series-filter]");
 const prevCatalog = document.querySelector(".catalogArrowPrev");
 const nextCatalog = document.querySelector(".catalogArrowNext");
 let catalogPage = 0;
+let activeSeriesFilter = "all";
 
-function getStoredAuthUser() {
-  try {
-    return JSON.parse(localStorage.getItem(AUTH_USER_KEY) || "null");
-  } catch (_) {
-    return null;
-  }
+function getVisibleComics() {
+  if (activeSeriesFilter === "all") return comics;
+  return comics.filter(comic => comic.series === activeSeriesFilter);
 }
 
-function isLoggedIn() {
-  return Boolean(getStoredAuthUser()?.id);
-}
-
-function imageExists(src) {
-  return new Promise(resolve => {
-    const probe = new Image();
-    probe.onload = () => resolve(true);
-    probe.onerror = () => resolve(false);
-    probe.src = src;
+function updateSeriesFilterButtons() {
+  seriesFilterButtons.forEach(button => {
+    button.classList.toggle("selected", button.dataset.seriesFilter === activeSeriesFilter);
   });
 }
 
-async function hasEnoughPages(comic) {
-  for (let index = 1; index <= MIN_READY_PAGES; index++) {
-    const number = String(index).padStart(2, "0");
-    const base = `../img/fumetti/${comic.slug}/${number}`;
-    const exists = await imageExists(`${base}.webp`) || await imageExists(`${base}.WEBP`);
+function updateAvailability(readyCount, totalCount, userLoggedIn) {
+  if (!comicAvailability) return;
 
-    if (!exists) return false;
+  if (activeSeriesFilter === MGH_COMICS.upcomingSeries.key) {
+    comicAvailability.innerHTML = `
+      <span aria-hidden="true">📚</span>
+      <strong>0</strong>
+      <em>volumi disponibili</em>
+      <small>${MGH_COMICS.upcomingSeries.status}</small>
+    `;
+    comicAvailability.style.setProperty("--available-progress", "0%");
+    return;
   }
 
-  return true;
+  comicAvailability.innerHTML = userLoggedIn
+    ? `
+      <span aria-hidden="true">📚</span>
+      <strong>${readyCount}</strong>
+      <em>volumi disponibili</em>
+      <small>/ ${totalCount}</small>
+    `
+    : `
+      <span aria-hidden="true">📚</span>
+      <strong>1</strong>
+      <em>anteprima libera</em>
+      <small>${readyCount} pronti</small>
+    `;
+  comicAvailability.style.setProperty("--available-progress", `${Math.round((readyCount / totalCount) * 100)}%`);
 }
 
-async function resolveBackCover(comic) {
-  const base = `../img/fumetti/${comic.slug}/${comic.slug}_back`;
-  const candidates = [`${base}.webp`, `${base}.WEBP`, `${base}.svg`, `${base}.png`, `${base}.jpg`];
+function renderUpcomingSeriesCard() {
+  const series = MGH_COMICS.upcomingSeries;
+  if (!shelf || !series) return;
 
-  for (const candidate of candidates) {
-    if (await imageExists(candidate)) return candidate;
-  }
-
-  return "";
+  shelf.innerHTML = `
+    <article class="upcomingSeriesCard">
+      <span>${series.title}</span>
+      <strong>${series.status}</strong>
+      <em>${series.detail}</em>
+    </article>
+  `;
 }
 
 function createComicCard(comic, isReady, backCoverSrc, userLoggedIn) {
-  const canOpen = isReady && (userLoggedIn || comic.slug === PUBLIC_PREVIEW_SLUG);
+  const canOpen = MGH_COMICS.canOpen({ ready: isReady, userLoggedIn, slug: comic.slug });
   const isLocked = isReady && !canOpen;
   const tag = canOpen ? "a" : "article";
   const card = document.createElement(tag);
@@ -176,33 +114,29 @@ async function renderShelf() {
   if (!shelf) return;
 
   shelf.innerHTML = "";
-  let readyCount = 0;
-  const userLoggedIn = isLoggedIn();
+  catalogPage = 0;
+  const userLoggedIn = MGH.isLoggedIn();
 
-  for (const comic of comics) {
-    const isReady = await hasEnoughPages(comic);
-    const backCoverSrc = await resolveBackCover(comic);
+  updateSeriesFilterButtons();
+
+  if (activeSeriesFilter === MGH_COMICS.upcomingSeries.key) {
+    renderUpcomingSeriesCard();
+    updateAvailability(0, 1, userLoggedIn);
+    updateCatalogArrows();
+    return;
+  }
+
+  const visibleComics = getVisibleComics();
+  let readyCount = 0;
+
+  for (const comic of visibleComics) {
+    const isReady = await MGH_COMICS.isReady(COMIC_ROOT, comic.slug);
+    const backCoverSrc = await MGH_COMICS.resolveBackCover(COMIC_ROOT, comic);
     if (isReady) readyCount += 1;
     shelf.appendChild(createComicCard(comic, isReady, backCoverSrc, userLoggedIn));
   }
 
-  if (comicAvailability) {
-    comicAvailability.innerHTML = userLoggedIn
-      ? `
-        <span aria-hidden="true">📚</span>
-        <strong>${readyCount}</strong>
-        <em>volumi disponibili</em>
-        <small>/ ${comics.length}</small>
-      `
-      : `
-        <span aria-hidden="true">📚</span>
-        <strong>1</strong>
-        <em>anteprima libera</em>
-        <small>${readyCount} pronti</small>
-      `;
-    comicAvailability.style.setProperty("--available-progress", `${Math.round((readyCount / comics.length) * 100)}%`);
-  }
-
+  updateAvailability(readyCount, visibleComics.length, userLoggedIn);
   updateCatalogArrows();
 }
 
@@ -242,9 +176,17 @@ function updateCatalogArrows() {
     catalogPage = Math.round(shelf.scrollLeft / step);
   }
 
-  prevCatalog.disabled = catalogPage <= 0;
-  nextCatalog.disabled = catalogPage >= getCatalogPageCount() - 1;
+  const canScroll = activeSeriesFilter !== MGH_COMICS.upcomingSeries.key;
+  prevCatalog.disabled = !canScroll || catalogPage <= 0;
+  nextCatalog.disabled = !canScroll || catalogPage >= getCatalogPageCount() - 1;
 }
+
+seriesFilterButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    activeSeriesFilter = button.dataset.seriesFilter;
+    renderShelf();
+  });
+});
 
 prevCatalog?.addEventListener("click", () => {
   goToCatalogPage(catalogPage - 1);

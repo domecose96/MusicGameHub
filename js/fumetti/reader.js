@@ -1,8 +1,4 @@
 const MAX_SCAN_PAGES = 80;
-const AUTH_USER_KEY = "mgh_auth_user";
-const PUBLIC_PREVIEW_SLUG = "mozart";
-const PUBLIC_PREVIEW_PAGES = 3;
-const PUBLIC_LOCKED_PREVIEW_PAGES = PUBLIC_PREVIEW_PAGES + 1;
 
 const readerConfig = {
   slug: document.body.dataset.comicSlug || "",
@@ -37,24 +33,12 @@ const lastPage = document.getElementById("lastPage");
 const fullscreenPage = document.getElementById("fullscreenPage");
 const spreadModeButton = document.getElementById("spreadMode");
 
-function getStoredAuthUser() {
-  try {
-    return JSON.parse(localStorage.getItem(AUTH_USER_KEY) || "null");
-  } catch (_) {
-    return null;
-  }
-}
-
-function isLoggedIn() {
-  return Boolean(getStoredAuthUser()?.id);
-}
-
 function isPublicPreview() {
-  return !isLoggedIn() && readerConfig.slug === PUBLIC_PREVIEW_SLUG;
+  return !MGH.isLoggedIn() && readerConfig.slug === MGH_COMICS.PUBLIC_PREVIEW_SLUG;
 }
 
 function isLockedComic() {
-  return !isLoggedIn() && readerConfig.slug !== PUBLIC_PREVIEW_SLUG;
+  return !MGH.isLoggedIn() && readerConfig.slug !== MGH_COMICS.PUBLIC_PREVIEW_SLUG;
 }
 
 function setReaderControlsDisabled(disabled) {
@@ -72,35 +56,17 @@ function updateReaderProgress(lastVisibleIndex = 0) {
   counterBox?.setAttribute("aria-label", `Avanzamento lettura ${progress}%`);
 }
 
-function padPageNumber(number) {
-  return String(number).padStart(2, "0");
-}
-
-function imageExists(src) {
-  return new Promise(resolve => {
-    const probe = new Image();
-    probe.onload = () => resolve(true);
-    probe.onerror = () => resolve(false);
-    probe.src = src;
-  });
-}
-
 async function resolvePageSource(number) {
-  const base = `${COMIC_DIR}/${number}`;
-  const candidates = [`${base}.webp`, `${base}.WEBP`, `${base}.png`, `${base}.jpg`, `${base}.jpeg`];
-
-  for (const candidate of candidates) {
-    if (await imageExists(candidate)) return candidate;
-  }
-
-  return "";
+  return MGH.resolveFirstExistingImage(
+    MGH_COMICS.PAGE_EXTENSIONS.map(extension => `${COMIC_DIR}/${number}${extension}`)
+  );
 }
 
 async function discoverPages() {
   const pages = [];
   const coverSrc = `${COMIC_DIR}/${readerConfig.cover || `${readerConfig.slug}.webp`}`;
 
-  if (await imageExists(coverSrc)) {
+  if (await MGH.imageExists(coverSrc)) {
     pages.push({
       src: coverSrc,
       title: "Copertina",
@@ -110,7 +76,7 @@ async function discoverPages() {
   }
 
   for (let index = 1; index <= MAX_SCAN_PAGES; index++) {
-    const number = padPageNumber(index);
+    const number = MGH.padNumber(index);
     const src = await resolvePageSource(number);
 
     if (!src) break;
@@ -124,7 +90,7 @@ async function discoverPages() {
   }
 
   const backCoverSrc = `${COMIC_DIR}/${readerConfig.back || `${readerConfig.slug}_back.webp`}`;
-  if (await imageExists(backCoverSrc)) {
+  if (await MGH.imageExists(backCoverSrc)) {
     pages.push({
       src: backCoverSrc,
       title: "Retro copertina",
@@ -205,9 +171,9 @@ async function initReader() {
 
   const discoveredPages = await discoverPages();
   if (isPublicPreview()) {
-    comicPages = discoveredPages.slice(0, PUBLIC_LOCKED_PREVIEW_PAGES).map((page, index) => ({
+    comicPages = discoveredPages.slice(0, MGH_COMICS.PUBLIC_LOCKED_PREVIEW_PAGES).map((page, index) => ({
       ...page,
-      locked: index >= PUBLIC_PREVIEW_PAGES
+      locked: index >= MGH_COMICS.PUBLIC_PREVIEW_PAGES
     }));
   } else {
     comicPages = discoveredPages;

@@ -1,4 +1,51 @@
 const MGH = (() => {
+  const AUTH_USER_KEY = "mgh_auth_user";
+
+  function readStoredJson(key, fallback = null) {
+    try {
+      const value = localStorage.getItem(key);
+      return value ? JSON.parse(value) : fallback;
+    } catch (_) {
+      return fallback;
+    }
+  }
+
+  function writeStoredJson(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  function removeStoredKeys(...keys) {
+    keys.forEach(key => localStorage.removeItem(key));
+  }
+
+  function getStoredAuthUser() {
+    return readStoredJson(AUTH_USER_KEY);
+  }
+
+  function isLoggedIn() {
+    return Boolean(getStoredAuthUser()?.id);
+  }
+
+  function padNumber(number, size = 2) {
+    return String(number).padStart(size, "0");
+  }
+
+  function imageExists(src) {
+    return new Promise(resolve => {
+      const probe = new Image();
+      probe.onload = () => resolve(true);
+      probe.onerror = () => resolve(false);
+      probe.src = src;
+    });
+  }
+
+  async function resolveFirstExistingImage(candidates) {
+    for (const candidate of candidates) {
+      if (await imageExists(candidate)) return candidate;
+    }
+
+    return "";
+  }
 
   function goHome(delay = 150) {
 
@@ -101,7 +148,40 @@ const MGH = (() => {
     warning.classList.toggle("introSpacer", !message);
   }
 
+  function setGameFeedback(target, message = "", state = "neutral") {
+    const feedback = typeof target === "string"
+      ? document.querySelector(target)
+      : target;
+
+    if (!feedback) return;
+
+    feedback.textContent = message;
+    feedback.classList.remove("feedbackCorrect", "feedbackWrong", "feedbackNeutral", "wrong");
+    feedback.classList.add(
+      state === "correct"
+        ? "feedbackCorrect"
+        : state === "wrong"
+          ? "feedbackWrong"
+          : "feedbackNeutral"
+    );
+  }
+
+  function getAnswerFeedback(isCorrect, detail = "") {
+    return isCorrect
+      ? `Corretto!${detail ? ` ${detail}` : ""}`
+      : `Risposta da rivedere.${detail ? ` ${detail}` : ""}`;
+  }
+
   return {
+    AUTH_USER_KEY,
+    readStoredJson,
+    writeStoredJson,
+    removeStoredKeys,
+    getStoredAuthUser,
+    isLoggedIn,
+    padNumber,
+    imageExists,
+    resolveFirstExistingImage,
     goHome,
     goTo,
     scrollToSection,
@@ -109,7 +189,9 @@ const MGH = (() => {
     setActiveNav,
     selectExclusive,
     updateHeaderModeLabel,
-    setWarning
+    setWarning,
+    setGameFeedback,
+    getAnswerFeedback
   };
 })();
 

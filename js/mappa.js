@@ -1,7 +1,5 @@
 const resources=MusicGameHubResources.byId;
-const MIN_COMIC_READY_PAGES=10;
-const AUTH_USER_KEY="mgh_auth_user";
-const PUBLIC_PREVIEW_SLUG="mozart";
+const COMIC_ROOT="img/fumetti";
 
 const filterButtons=document.querySelectorAll(".filterBtn[data-filter]");
 const resetButton=document.querySelector(".filterBtn[data-action='reset']");
@@ -19,18 +17,6 @@ const modalLink=document.getElementById("modalLink");
 const rootNode=document.querySelector("[data-root='true']");
 
 let zoom=1;
-
-function getStoredAuthUser(){
-  try{
-    return JSON.parse(localStorage.getItem(AUTH_USER_KEY)||"null");
-  }catch(_){
-    return null;
-  }
-}
-
-function isLoggedIn(){
-  return Boolean(getStoredAuthUser()?.id);
-}
 
 const mapGroups=[
   {
@@ -121,18 +107,11 @@ const clusterContent={
     {label:"Elettrofoni",url:"strumenti.html#elettrofoni"},
     {label:"Gioco strumenti",url:"giochi/strumenti_game.html"}
   ],
-  fumettiMusicali:[
-    {label:"Mozart",url:"fumetti/mozart.html",comicSlug:"mozart"},
-    {label:"Beethoven",url:"fumetti/beethoven.html",comicSlug:"beethoven"},
-    {label:"Chopin",url:"fumetti/chopin.html",comicSlug:"chopin"},
-    {label:"Vivaldi",url:"fumetti/vivaldi.html",comicSlug:"vivaldi"},
-    {label:"Bach",url:"fumetti/bach.html",comicSlug:"bach"},
-    {label:"Verdi",url:"fumetti/verdi.html",comicSlug:"verdi"},
-    {label:"Puccini",url:"fumetti/puccini.html",comicSlug:"puccini"},
-    {label:"Rossini",url:"fumetti/rossini.html",comicSlug:"rossini"},
-    {label:"Paganini",url:"fumetti/paganini.html",comicSlug:"paganini"},
-    {label:"Tchaikovsky",url:"fumetti/tchaikovsky.html",comicSlug:"tchaikovsky"}
-  ],
+  fumettiMusicali:MGH_COMICS.items.map(comic=>({
+    label:comic.shortTitle,
+    url:`fumetti/${comic.slug}.html`,
+    comicSlug:comic.slug
+  })),
   educazioneCivica:[
     {label:"Ascolto e rispetto",id:"ascoltoRispetto"},
     {label:"Emozioni",id:"colonnaSonoraEmozioni"},
@@ -200,34 +179,14 @@ const clusterContent={
   ]
 };
 
-function assetExists(src){
-  return new Promise(resolve=>{
-    const probe=new Image();
-    probe.onload=()=>resolve(true);
-    probe.onerror=()=>resolve(false);
-    probe.src=src;
-  });
-}
-
-async function isComicReady(slug){
-  for(let index=1;index<=MIN_COMIC_READY_PAGES;index++){
-    const number=String(index).padStart(2,"0");
-    const base=`img/fumetti/${slug}/${number}`;
-    const exists=await assetExists(`${base}.webp`)||await assetExists(`${base}.WEBP`);
-    if(!exists)return false;
-  }
-
-  return true;
-}
-
 async function updateComicClusterAvailability(){
   const buttons=document.querySelectorAll("#cluster-fumettiMusicali button[data-comic-slug]");
-  const userLoggedIn=isLoggedIn();
+  const userLoggedIn=MGH.isLoggedIn();
 
   for(const button of buttons){
     const slug=button.dataset.comicSlug;
-    const ready=await isComicReady(slug);
-    const canOpen=ready&&(userLoggedIn||slug===PUBLIC_PREVIEW_SLUG);
+    const ready=await MGH_COMICS.isReady(COMIC_ROOT, slug);
+    const canOpen=MGH_COMICS.canOpen({ready,userLoggedIn,slug});
 
     button.disabled=!canOpen;
     button.title=!ready

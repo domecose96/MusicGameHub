@@ -26,6 +26,25 @@ const ATTRIBUTE_VALUES = {
   duration: ["short", "long"]
 };
 
+const CLUE_AUDIO = {
+  duration: {
+    short: 0.26,
+    long: 1.9
+  },
+  frequency: {
+    low: 130,
+    high: 1320
+  },
+  noiseFrequency: {
+    low: 170,
+    high: 3100
+  },
+  gain: {
+    soft: 0.018,
+    loud: 0.22
+  }
+};
+
 let selectedMode = null;
 let gameMode = "training";
 let currentQuestion = null;
@@ -37,6 +56,8 @@ let questionStart = 0;
 let rankedStart = 0;
 let answered = false;
 let audioContext = null;
+
+MGHGameUI.ensureRankedHUD();
 
 const menu = document.getElementById("menu");
 const game = document.getElementById("game");
@@ -93,7 +114,8 @@ function startDetectiveGame() {
 function startRankedDetective() {
   selectedMode = null;
   gameMode = "ranked";
-  rankedStart = Date.now();
+  const rankedSession = startRankedMode(DETECTIVE_GAME_NAME);
+  rankedStart = rankedSession.startTime;
   beginGame();
 }
 
@@ -103,25 +125,17 @@ function beginGame() {
   correctCount = 0;
   wrongCount = 0;
   warning.textContent = "";
-  menu.classList.add("hidden");
-  game.classList.remove("hidden");
-  feedback.textContent = "";
-  feedback.classList.remove("wrong");
 
   if (gameMode === "ranked") {
-    hideLeaderboardButton();
-    showRankedUI();
     detectiveHud?.classList.add("hidden");
     startRankedTimer();
-    updateRankedProgressUI({ score, current: questionIndex, total: TOTAL_QUESTIONS });
+    MGHGameUI.enterRanked({ menu, game, score, current: questionIndex, total: TOTAL_QUESTIONS, feedbackEl: feedback });
   } else {
-    hideLeaderboardButton();
-    hideRankedUI();
     detectiveHud?.classList.add("hidden");
     stopRankedTimer();
+    MGHGameUI.enterTraining({ menu, game, modeLabel: getModeLabel(), feedbackEl: feedback });
   }
 
-  MGH.updateHeaderModeLabel(getModeLabel());
   nextDetectiveQuestion();
 }
 
@@ -250,18 +264,18 @@ function buildOptionCombinations(attributes, index = 0, current = []) {
 function renderQuestion(question) {
   clueType.textContent = question.label;
   questionText.textContent = question.title;
-  feedback.textContent = "";
-  feedback.classList.remove("wrong");
+  MGH.setGameFeedback(feedback, "");
   renderWave(question.clue);
   renderAnswers(question.options);
 }
 
 function renderAnswers(options) {
   answersEl.innerHTML = "";
+  answersEl.dataset.optionCount = String(options.length);
 
   options.forEach((option) => {
     const button = document.createElement("button");
-    button.className = "answerButton";
+    button.className = "answerButton gameAnswerButton";
     button.type = "button";
     button.textContent = option.label;
     button.addEventListener("click", () => checkDetectiveAnswer(option, button));
@@ -278,23 +292,36 @@ function checkDetectiveAnswer(option, button) {
     item.style.pointerEvents = "none";
     item.classList.remove("correct", "wrong");
   });
+  button.blur();
 
   if (option.correct) {
     button.classList.add("correct");
-    feedback.textContent = `Indizio corretto! ${currentQuestion.explanation}`;
-    correctCount++;
-    score += getQuestionScore();
+    MGH.setGameFeedback(feedback, MGH.getAnswerFeedback(true, "Nuovo indizio in arrivo."), "correct");
   } else {
     button.classList.add("wrong");
-    feedback.classList.add("wrong");
-    feedback.textContent = `Quasi. Risposta corretta: ${currentQuestion.correct}. ${currentQuestion.explanation}`;
-    wrongCount++;
+    MGH.setGameFeedback(feedback, MGH.getAnswerFeedback(false, `La risposta corretta era ${currentQuestion.correct}. ${currentQuestion.explanation}`), "wrong");
     buttons.forEach((item) => {
       if (item.textContent === currentQuestion.correct) item.classList.add("correct");
     });
   }
 
-  questionIndex++;
+  if (gameMode === "ranked") {
+    const rankedSession = answerRankedQuestion(option.correct);
+    if (rankedSession) {
+      correctCount = rankedSession.correct;
+      wrongCount = rankedSession.wrong;
+      score = rankedSession.totalScore;
+      questionIndex = rankedSession.currentQuestion;
+    }
+  } else {
+    if (option.correct) {
+      correctCount++;
+      score += getQuestionScore();
+    } else {
+      wrongCount++;
+    }
+    questionIndex++;
+  }
 
   if (gameMode === "ranked") {
     updateRankedProgressUI({ score, current: questionIndex, total: TOTAL_QUESTIONS });
@@ -305,52 +332,37 @@ function checkDetectiveAnswer(option, button) {
 
 function getQuestionScore() {
   const elapsed = (Date.now() - questionStart) / 1000;
-  const multiplier = gameMode === "ranked"
-    ? questionIndex < 3 ? 1 : questionIndex < 7 ? 1.5 : 2
-    : selectedMode === "easy" ? 1 : selectedMode === "medium" ? 1.5 : 2;
+  const difficulty = gameMode === "ranked"
+    ? getRankedDifficultyForIndex(questionIndex)
+    : selectedMode;
 
-  let points = 100 * multiplier;
-  if (elapsed <= 3) points += 25 * multiplier;
-  else if (elapsed <= 6) points += 10 * multiplier;
-  return Math.round(points);
+  return getRankedAnswerScore({ isCorrect: true, elapsed, difficulty });
 }
 
 async function finishDetectiveGame() {
-  const total = getTotalQuestions();
   const totalTime = gameMode === "ranked" ? Math.round((Date.now() - rankedStart) / 1000) : 0;
-  let saved = true;
+  let finalData = null;
 
   if (gameMode === "ranked") {
-    saved = await saveRankedScore({
-      gameName: DETECTIVE_GAME_NAME,
-      totalScore: score,
-      correct: correctCount,
-      wrong: wrongCount,
-      totalQuestions: TOTAL_QUESTIONS,
-      totalTime
-    });
+    finalData = await finishRankedMode();
   }
 
-  game.classList.add("hidden");
-  menu.classList.remove("hidden");
-  hideRankedUI();
-  showLeaderboardButton();
   stopRankedTimer();
-  MGH.updateHeaderModeLabel("");
   warning.textContent = "";
+  MGHGameUI.returnToMenu({ menu, game, feedbackEl: feedback });
   if (gameMode === "ranked") {
     await showRankedCompletionModal({
       gameName: DETECTIVE_GAME_NAME,
-      saveResult: saved,
+      session: finalData?.session,
+      saveResult: finalData?.result,
       totalScore: score,
       correct: correctCount,
       totalQuestions: TOTAL_QUESTIONS,
       totalTime,
-      saved: Boolean(saved)
+      saved: Boolean(finalData?.saved)
     });
   }
 
-  document.querySelectorAll(".selected").forEach((button) => button.classList.remove("selected"));
   selectedMode = null;
   gameMode = "training";
 }
@@ -376,19 +388,19 @@ function stopRankedTimer() {
 
 function renderWave(clue) {
   const points = [];
-  const amplitude = clue.volume === "loud" ? 58 : 26;
-  const cycles = clue.pitch === "high" ? 10 : 4;
-  const durationScale = clue.duration === "short" ? 0.58 : 1;
+  const amplitude = clue.volume === "loud" ? 56 : 22;
+  const cycles = clue.pitch === "high" ? 11 : 3.4;
+  const durationScale = clue.duration === "short" ? 0.5 : 1;
   const width = 650 * durationScale;
   const startX = 35;
   const centerY = 110;
-  const steps = 120;
+  const steps = 150;
 
   for (let i = 0; i <= steps; i++) {
     const progress = i / steps;
     const x = startX + width * progress;
     const noiseOffset = clue.type === "noise"
-      ? Math.sin(progress * 90) * amplitude * 0.42 + (Math.random() - 0.5) * amplitude * 0.8
+      ? getNoiseWaveOffset(progress, amplitude)
       : 0;
     const y = centerY + Math.sin(progress * Math.PI * 2 * cycles) * amplitude + noiseOffset;
     points.push(`${i === 0 ? "M" : "L"} ${x.toFixed(1)} ${y.toFixed(1)}`);
@@ -398,20 +410,35 @@ function renderWave(clue) {
   wavePath.classList.toggle("noise", clue.type === "noise");
 }
 
+function getNoiseWaveOffset(progress, amplitude) {
+  return (
+    Math.sin(progress * 76) * amplitude * 0.28 +
+    Math.sin(progress * 143 + 0.7) * amplitude * 0.18 +
+    Math.sin(progress * 227 + 1.4) * amplitude * 0.12
+  );
+}
+
 function playCurrentClue() {
   if (!currentQuestion) return;
 
   audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
   const clue = currentQuestion.clue;
-  const duration = clue.duration === "long" ? 1.15 : 0.38;
-  const gainValue = clue.volume === "loud" ? 0.12 : 0.035;
+  const duration = CLUE_AUDIO.duration[clue.duration];
+  const gainValue = CLUE_AUDIO.gain[clue.volume];
+  const attack = clue.duration === "short" ? 0.01 : 0.035;
+  const release = clue.duration === "short" ? 0.045 : 0.18;
   const now = audioContext.currentTime;
   const gain = audioContext.createGain();
+  const output = audioContext.createGain();
+
+  output.gain.value = 0.9;
+  output.connect(audioContext.destination);
 
   gain.gain.setValueAtTime(0.0001, now);
-  gain.gain.exponentialRampToValueAtTime(gainValue, now + 0.03);
+  gain.gain.exponentialRampToValueAtTime(gainValue, now + attack);
+  gain.gain.setValueAtTime(gainValue, now + Math.max(attack, duration - release));
   gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-  gain.connect(audioContext.destination);
+  gain.connect(output);
 
   if (clue.type === "noise") {
     const bufferSize = Math.max(1, Math.floor(audioContext.sampleRate * duration));
@@ -425,8 +452,8 @@ function playCurrentClue() {
     const source = audioContext.createBufferSource();
     const filter = audioContext.createBiquadFilter();
     filter.type = "bandpass";
-    filter.frequency.value = clue.pitch === "high" ? 1200 : 260;
-    filter.Q.value = 0.8;
+    filter.frequency.value = CLUE_AUDIO.noiseFrequency[clue.pitch];
+    filter.Q.value = clue.pitch === "high" ? 2.1 : 1.2;
     source.buffer = buffer;
     source.connect(filter);
     filter.connect(gain);
@@ -436,11 +463,22 @@ function playCurrentClue() {
   }
 
   const oscillator = audioContext.createOscillator();
-  oscillator.type = "sine";
-  oscillator.frequency.value = clue.pitch === "high" ? 880 : 180;
+  const harmonic = audioContext.createOscillator();
+  const harmonicGain = audioContext.createGain();
+
+  oscillator.type = clue.volume === "loud" ? "triangle" : "sine";
+  oscillator.frequency.value = CLUE_AUDIO.frequency[clue.pitch];
+  harmonic.type = "sine";
+  harmonic.frequency.value = CLUE_AUDIO.frequency[clue.pitch] * 2;
+  harmonicGain.gain.value = clue.volume === "loud" ? 0.18 : 0.035;
+
   oscillator.connect(gain);
+  harmonic.connect(harmonicGain);
+  harmonicGain.connect(gain);
   oscillator.start(now);
+  harmonic.start(now);
   oscillator.stop(now + duration);
+  harmonic.stop(now + duration);
 }
 
 function labelFor(value, attribute) {
@@ -488,16 +526,10 @@ function shuffle(items) {
 }
 
 function goBack() {
-  game.classList.add("hidden");
-  menu.classList.remove("hidden");
-  hideRankedUI();
-  showLeaderboardButton();
   stopRankedTimer();
-  feedback.textContent = "";
   answersEl.innerHTML = "";
   warning.textContent = "";
-  MGH.updateHeaderModeLabel("");
-  document.querySelectorAll(".selected").forEach((button) => button.classList.remove("selected"));
+  MGHGameUI.returnToMenu({ menu, game, feedbackEl: feedback });
   selectedMode = null;
   gameMode = "training";
 }

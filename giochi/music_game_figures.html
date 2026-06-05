@@ -7,9 +7,10 @@
 <link rel="stylesheet" href="../css/base.css">
 </head>
 
-<body class="figuresGamePage">
+<body class="figuresGamePage rankedUnifiedGamePage">
 
 <button id="rankedLeaderboardBtn"
+        type="button"
         class="rankedLeaderboardButton"
         onclick="showGenericRankedLeaderboardModal('figure')"
         aria-label="Classifica">
@@ -18,7 +19,7 @@
 
 <header class="appHeader">
   <div class="appHeaderInner">
-    <button id="homeBtn" class="homeButton" onclick="goHome()" aria-label="Torna alla home">
+    <button id="homeBtn" class="homeButton" type="button" onclick="goHome()" aria-label="Torna alla home">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M3 12 L12 3 L21 12"></path>
         <path d="M6 12 V21 H18 V12"></path>
@@ -36,20 +37,20 @@
 <div id="contentWrapper">
 
   <!-- ==================== MENU INIZIALE ==================== -->
-    <div id="menu">
+    <div id="menu" class="gameModeMenu">
 
     <h2>Scegli la modalità</h2>
     <div class="buttonGroup">
-        <button id="noteBtn" class="menuButton" onclick="setMode('note', this)">Note</button>
-        <button id="pauseBtn" class="menuButton" onclick="setMode('pause', this)">Pause</button>
-        <button id="mistoBtn" class="menuButton" onclick="setMode('misto', this)">Misto</button>
-        <button class="menuButton rankedModeButton" onclick="setMode('ranked', this)">
+        <button id="noteBtn" class="menuButton" type="button" onclick="setMode('note', this)">Note</button>
+        <button id="pauseBtn" class="menuButton" type="button" onclick="setMode('pause', this)">Pause</button>
+        <button id="mistoBtn" class="menuButton" type="button" onclick="setMode('misto', this)">Misto</button>
+        <button class="menuButton rankedModeButton" type="button" onclick="setMode('ranked', this)">
           <span class="dailyModeBadge">Ranked</span>
           Classificata
         </button>
     </div>
 
-  <button class="menuButton startButton" onclick="startGame()">Inizia</button>
+  <button class="menuButton startButton" type="button" onclick="startGame()">Inizia</button>
     <p id="warning" class="warningText"></p>
     <p class="gameIntro">Osserva la figura musicale o la pausa e scegli il nome corretto tra le opzioni.</p>
 
@@ -58,22 +59,18 @@
     <!-- ==================== SCHERMATA DI GIOCO ==================== -->
     <div id="game" class="hidden">
 
-        <div id="rankedUI" class="rankedUI hidden">
-          <div class="rankedScoreDisplay">Score: <span id="rankedScore">0</span></div>
-          <div class="rankedProgressWrapper">
-            <div class="rankedProgressLabel">
-              <span>Progressione</span>
-              <span id="rankedQuestionCounter">1/10</span>
-            </div>
-            <div class="rankedProgressBar">
-              <div id="rankedProgressFill" class="rankedProgressFill"></div>
-            </div>
-          </div>
+        <div class="gameTopActions">
+          <button id="backButton" class="menuButton compactBackButton" type="button" onclick="goBack()" aria-label="Torna alla scelta modalità">
+            <span aria-hidden="true">⇧</span>
+          </button>
         </div>
-        <div id="timerBox" class="hidden">⏱ <span id="timer">0</span>s</div>
+
+        <div id="questionBox" class="gameQuestionBox">
+          <span id="questionText">Che figura musicale riconosci?</span>
+        </div>
 
         <!-- BOX FIGURA (stessa dimensione dello svg note) -->
-        <div class="gameDisplay">
+        <div class="gameDisplay gameVisualBox">
             <img id="figureImage" src="" alt="Figura musicale" class="figureImage">
         </div>
         
@@ -87,6 +84,7 @@
     </div>
 <script src="../js/common.js"></script>
 <script src="../js/giochi/ranked.js"></script>
+<script src="../js/giochi/game_ui.js"></script>
 <script src="../js/giochi/music_game_figures.js"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 

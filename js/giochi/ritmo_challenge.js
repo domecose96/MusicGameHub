@@ -18,12 +18,8 @@ const difficultyConfig = {
 let difficulty = null;
 let gameMode = "training";
 let currentTotal = 0;
-let rankedCorrect = 0;
-let rankedWrong = 0;
-let rankedScore = 0;
-let rankedQuestionIndex = 0;
-let rankedStartTime = 0;
-let rankedQuestionStart = 0;
+let rankedTimerInterval = null;
+let rankedElapsed = 0;
 
 const menu = document.getElementById("menu");
 const game = document.getElementById("game");
@@ -31,7 +27,8 @@ const warning = document.getElementById("warning");
 const sequenceEl = document.getElementById("rhythmSequence");
 const answersEl = document.getElementById("answers");
 const infoEl = document.getElementById("rhythmInfo");
-const headerModeLabel = document.getElementById("headerModeLabel");
+
+MGHGameUI.ensureRankedHUD();
 
 function getDifficultyLabel(){
   if(difficulty === "easy") return "Facile";
@@ -41,13 +38,13 @@ function getDifficultyLabel(){
 }
 
 function updateHeaderModeLabel(label = ""){
-  MGH.updateHeaderModeLabel(label);
+  MGHGameUI.setHeader(label);
 }
 
 function setDifficulty(level, button) {
   difficulty = level;
   gameMode = "training";
-  warning.textContent = "";
+  MGHGameUI.setWarning(warning, "");
 
   MGH.selectExclusive("#menu .menuButton", button);
 }
@@ -55,7 +52,7 @@ function setDifficulty(level, button) {
 function selectRankedMode(button) {
   difficulty = null;
   gameMode = "ranked";
-  warning.textContent = "";
+  MGHGameUI.setWarning(warning, "");
   MGH.selectExclusive("#menu .menuButton", button);
 }
 
@@ -64,45 +61,39 @@ function startGame() {
     showRankedIntro({
       gameName: "ritmo",
       title: "Modalità Classificata",
-      text: "Risolvi 10 sequenze ritmiche. La difficoltà cresce e il punteggio premia velocità e precisione.",
+      text: "Risolvi 10 sequenze di figure. La difficoltà cresce e il punteggio premia velocità e precisione.",
       onStart: startRankedGame
     });
     return;
   }
 
   if (!difficulty) {
-    warning.textContent = "Seleziona una difficoltà prima di iniziare.";
+    MGHGameUI.setWarning(warning, "Seleziona una difficoltà prima di iniziare.");
     return;
   }
 
-  menu.classList.add("hidden");
-  game.classList.remove("hidden");
-  hideLeaderboardButton();
-  hideRankedUI();
-
-  updateHeaderModeLabel(getDifficultyLabel());
+  MGHGameUI.enterTraining({ menu, game, modeLabel: getDifficultyLabel(), feedbackEl: infoEl });
+  stopRankedTimer();
   nextRound();
 }
 
 function startRankedGame() {
-  warning.textContent = "";
-  rankedCorrect = 0;
-  rankedWrong = 0;
-  rankedScore = 0;
-  rankedQuestionIndex = 0;
-  rankedStartTime = Date.now();
-
-  menu.classList.add("hidden");
-  game.classList.remove("hidden");
-  hideLeaderboardButton();
-  showRankedUI();
-  updateHeaderModeLabel("Classificata");
-  updateRankedProgressUI({ score: rankedScore, current: rankedQuestionIndex, total: RANKED_DEFAULT_QUESTIONS });
+  MGHGameUI.setWarning(warning, "");
+  const rankedSession = startRankedMode("ritmo");
+  MGHGameUI.enterRanked({
+    menu,
+    game,
+    score: rankedSession.totalScore,
+    current: rankedSession.currentQuestion,
+    total: rankedSession.maxQuestions,
+    feedbackEl: infoEl
+  });
+  startRankedElapsedTimer();
   nextRound();
 }
 
 function nextRound() {
-  const activeDifficulty = gameMode === "ranked" ? getRankedRhythmDifficulty() : difficulty;
+  const activeDifficulty = gameMode === "ranked" ? getRankedDifficulty() : difficulty;
   const config = difficultyConfig[activeDifficulty];
   const figures = [];
 
@@ -114,14 +105,8 @@ function nextRound() {
   currentTotal = figures.reduce((sum, figure) => sum + figure.beats, 0);
   renderSequence(figures);
   renderAnswers(currentTotal);
-  infoEl.textContent = "";
-  rankedQuestionStart = Date.now();
-}
-
-function getRankedRhythmDifficulty() {
-  if (rankedQuestionIndex < 3) return "easy";
-  if (rankedQuestionIndex < 7) return "medium";
-  return "hard";
+  MGHGameUI.clearFeedback(infoEl);
+  if (gameMode === "ranked") startRankedQuestionTimer();
 }
 
 function renderSequence(figures) {
@@ -156,7 +141,7 @@ function renderAnswers(correctTotal) {
     .sort(() => Math.random() - 0.5)
     .forEach(option => {
       const button = document.createElement("button");
-      button.className = "noteButton";
+      button.className = "noteButton gameAnswerButton";
       button.textContent = formatBeats(option);
       button.onclick = () => checkAnswer(option, button);
       answersEl.appendChild(button);
@@ -175,10 +160,10 @@ function checkAnswer(selected, button) {
 
   if (isCorrect) {
     button.classList.add("correct");
-    infoEl.textContent = "Giusto! Nuova sequenza in arrivo...";
+    MGH.setGameFeedback(infoEl, MGH.getAnswerFeedback(true, "Nuova sequenza in arrivo."), "correct");
   } else {
     button.classList.add("wrong");
-    infoEl.textContent = `Quasi! Il totale corretto era ${formatBeats(currentTotal)}.`;
+    MGH.setGameFeedback(infoEl, MGH.getAnswerFeedback(false, `Il totale corretto era ${formatBeats(currentTotal)}.`), "wrong");
 
     buttons.forEach(btn => {
       if (btn.textContent === formatBeats(currentTotal)) {
@@ -198,20 +183,17 @@ function checkAnswer(selected, button) {
 }
 
 function handleRankedAnswer(isCorrect) {
-  const elapsed = (Date.now() - rankedQuestionStart) / 1000;
+  const rankedSession = answerRankedQuestion(isCorrect);
+  if (!rankedSession) return;
 
-  if (isCorrect) {
-    rankedCorrect++;
-    rankedScore += elapsed <= 3 ? 125 : elapsed <= 7 ? 110 : 100;
-  } else {
-    rankedWrong++;
-  }
-
-  rankedQuestionIndex++;
-  updateRankedProgressUI({ score: rankedScore, current: rankedQuestionIndex, total: RANKED_DEFAULT_QUESTIONS });
+  updateRankedProgressUI({
+    score: rankedSession.totalScore,
+    current: rankedSession.currentQuestion,
+    total: rankedSession.maxQuestions
+  });
 
   setTimeout(async () => {
-    if (rankedQuestionIndex >= RANKED_DEFAULT_QUESTIONS) {
+    if (rankedSession.isComplete()) {
       await finishRankedGame();
     } else {
       nextRound();
@@ -220,32 +202,19 @@ function handleRankedAnswer(isCorrect) {
 }
 
 async function finishRankedGame() {
-  const totalTime = Math.round((Date.now() - rankedStartTime) / 1000);
-  const saved = await saveRankedScore({
-    gameName: "ritmo",
-    totalScore: rankedScore,
-    correct: rankedCorrect,
-    wrong: rankedWrong,
-    totalQuestions: RANKED_DEFAULT_QUESTIONS,
-    totalTime
-  });
+  stopRankedTimer();
+  const finalData = await finishRankedMode();
+  if (!finalData) return;
 
-  game.classList.add("hidden");
-  menu.classList.remove("hidden");
-  hideRankedUI();
-  showLeaderboardButton();
-  updateHeaderModeLabel("");
-  warning.textContent = "";
+  MGHGameUI.returnToMenu({ menu, game, feedbackEl: infoEl });
+  MGHGameUI.setWarning(warning, "");
   await showRankedCompletionModal({
     gameName: "ritmo",
-    saveResult: saved,
-    totalScore: rankedScore,
-    correct: rankedCorrect,
-    totalQuestions: RANKED_DEFAULT_QUESTIONS,
-    totalTime,
-    saved: Boolean(saved)
+    session: finalData.session,
+    saveResult: finalData.result,
+    saved: finalData.saved
   });
-  document.querySelectorAll(".selected").forEach(btn => btn.classList.remove("selected"));
+  resetRankedMode();
   gameMode = "training";
   difficulty = null;
 }
@@ -255,22 +224,39 @@ function formatBeats(value) {
 }
 
 function goBack() {
-  game.classList.add("hidden");
-  menu.classList.remove("hidden");
+  if (gameMode === "ranked") return;
 
-  infoEl.textContent = "";
+  stopRankedTimer();
+  MGHGameUI.returnToMenu({ menu, game, feedbackEl: infoEl });
   answersEl.innerHTML = "";
   sequenceEl.innerHTML = "";
-
-  document.querySelectorAll(".selected").forEach(btn => {
-    btn.classList.remove("selected");
-  });
 
   difficulty = null;
   gameMode = "training";
   currentTotal = 0;
+}
 
-  updateHeaderModeLabel("");
-  hideRankedUI();
-  showLeaderboardButton();
+function startRankedElapsedTimer() {
+  stopRankedTimer();
+  rankedElapsed = 0;
+
+  const timerBox = document.getElementById("timerBox");
+  const timerEl = document.getElementById("timer");
+
+  timerBox?.classList.remove("hidden");
+  if (timerEl) timerEl.textContent = "0";
+
+  rankedTimerInterval = window.setInterval(() => {
+    rankedElapsed++;
+    if (timerEl) timerEl.textContent = rankedElapsed;
+  }, 1000);
+}
+
+function stopRankedTimer() {
+  if (rankedTimerInterval) {
+    window.clearInterval(rankedTimerInterval);
+    rankedTimerInterval = null;
+  }
+
+  document.getElementById("timerBox")?.classList.add("hidden");
 }

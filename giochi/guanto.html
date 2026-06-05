@@ -35,8 +35,8 @@
 <!-- ==================== CONTENITORE PRINCIPALE ==================== -->
 <div id="contentWrapper">
   <!-- ==================== CONFIGURAZIONE MODALITÀ ==================== -->
-  <div id="config">
-    <h2>Seleziona Modalità</h2>
+  <div id="config" class="gameModeMenu">
+    <h2>Scegli la modalità</h2>
     <div class="buttonGroup">
       <button class="menuButton" onclick="selectNum(this,10)">10</button>
       <button class="menuButton" onclick="selectNum(this,20)">20</button>
@@ -72,7 +72,7 @@
     <div id="questionBox" class="questionBox"></div>
 
     <!-- SVG PENTAGRAMMA -->
-    <svg id="quizSVG" width="450" height="240" style="margin-top:20px;">
+    <svg id="quizSVG" class="gameVisualBox" viewBox="0 0 450 240">
       <!-- CHIAVE -->
       <text id="clefSymbol" x="175" y="140" font-size="80" font-family="serif">𝄞</text>
 
@@ -89,7 +89,7 @@
     </svg>
     
     <!-- FIGURA MUSICALE -->
-    <div id="figureContainer" class="gameDisplay hidden">
+    <div id="figureContainer" class="gameDisplay gameVisualBox hidden">
         <img id="figureImage" src="" alt="Figura musicale" class="figureImage">
     </div>
     

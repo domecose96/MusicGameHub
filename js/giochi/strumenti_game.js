@@ -701,7 +701,8 @@ function createRecognizeRound() {
   currentQuestion.options.forEach(instrument => {
     const tile = document.createElement("div");
     tile.className = "instrumentOptionTile";
-    tile.onclick = () => handleRecognizeAnswer(instrument);
+    tile.dataset.instrumentId = instrument.id;
+    tile.onclick = () => handleRecognizeAnswer(instrument, tile);
 
     const img = document.createElement("img");
     img.src = instrument.image;
@@ -754,17 +755,26 @@ function generateRecognizeOptions(target, count) {
   return options;
 }
 
-function handleRecognizeAnswer(selected) {
+function handleRecognizeAnswer(selected, selectedTile) {
   if (!currentQuestion || currentQuestion.type !== "recognize") return;
 
   stopTimer();
 
   const isCorrect = selected.id === currentQuestion.target.id;
+  const tiles = document.querySelectorAll(".instrumentOptionTile");
+  tiles.forEach(tile => {
+    tile.style.pointerEvents = "none";
+    tile.classList.remove("correct", "wrong");
+    if (tile.dataset.instrumentId === currentQuestion.target.id) {
+      tile.classList.add("correct");
+    }
+  });
 
   if (isCorrect) {
-    setFeedback("✔ Corretto!");
+    setFeedback(MGH.getAnswerFeedback(true), "correct");
   } else {
-    setFeedback(`✖ Sbagliato! Era: ${currentQuestion.target.name}`);
+    selectedTile?.classList.add("wrong");
+    setFeedback(MGH.getAnswerFeedback(false, `La risposta corretta era ${currentQuestion.target.name}.`), "wrong");
   }
 
   if (gameMode === "ranked") {
@@ -906,7 +916,7 @@ function checkMemoryMatch() {
 }
 
 function handleMemoryGameComplete() {
-  setFeedback("✔ Hai abbinato tutti! Bravissimo!");
+  setFeedback(MGH.getAnswerFeedback(true, "Hai abbinato tutti gli strumenti."), "correct");
 
   if (gameMode === "ranked") {
     handleRankedAnswer(true);
@@ -967,8 +977,9 @@ function createListenRound() {
   currentQuestion.options.forEach(instrument => {
     const btn = document.createElement("button");
     btn.className = "listenOptionButton";
+    btn.dataset.instrumentId = instrument.id;
     btn.textContent = instrument.name;
-    btn.onclick = () => handleListenAnswer(instrument);
+    btn.onclick = () => handleListenAnswer(instrument, btn);
     buttonGroup.appendChild(btn);
   });
 
@@ -1027,18 +1038,27 @@ function stopAudio() {
   }
 }
 
-function handleListenAnswer(selected) {
+function handleListenAnswer(selected, selectedButton) {
   if (!currentQuestion || currentQuestion.type !== "listen") return;
 
   stopTimer();
   stopAudio();
 
   const isCorrect = selected.id === currentQuestion.target.id;
+  const buttons = document.querySelectorAll(".listenOptionButton");
+  buttons.forEach(button => {
+    button.style.pointerEvents = "none";
+    button.classList.remove("correct", "wrong");
+    if (button.dataset.instrumentId === currentQuestion.target.id) {
+      button.classList.add("correct");
+    }
+  });
 
   if (isCorrect) {
-    setFeedback("✔ Corretto!");
+    setFeedback(MGH.getAnswerFeedback(true), "correct");
   } else {
-    setFeedback(`✖ Sbagliato! Era: ${currentQuestion.target.name}`);
+    selectedButton?.classList.add("wrong");
+    setFeedback(MGH.getAnswerFeedback(false, `La risposta corretta era ${currentQuestion.target.name}.`), "wrong");
   }
 
   if (gameMode === "ranked") {
@@ -1175,7 +1195,7 @@ function startTimer(duration = 5) {
       stopTimer();
       if (!currentQuestion) return;
 
-      setFeedback("⏱ Tempo scaduto!");
+      setFeedback("Tempo scaduto.", "wrong");
 
       if (gameMode === "ranked") {
         handleRankedAnswer(false);
@@ -1196,8 +1216,8 @@ function stopTimer() {
 
 /* ==================== FEEDBACK ==================== */
 
-function setFeedback(msg) {
-  if (feedbackEl) feedbackEl.textContent = msg;
+function setFeedback(msg, state = "neutral") {
+  MGH.setGameFeedback(feedbackEl, msg, state);
 }
 
 function updateHeaderModeLabel(label = "") {

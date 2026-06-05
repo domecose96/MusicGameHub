@@ -11,6 +11,8 @@ let rankedStartTime = 0;
 let rankedQuestionStart = 0;
 let rankedTimerInterval = null;
 
+MGHGameUI.ensureRankedHUD();
+
 const noteElement = document.getElementById("note");
 const ledgerGroup = document.getElementById("ledgerLines");
 const buttonsDiv = document.getElementById("buttons");
@@ -29,6 +31,7 @@ buttonNames.forEach(name=>{
   const btn = document.createElement("button");
   btn.innerText = name;
   btn.classList.add("noteButton");
+  btn.classList.add("gameAnswerButton");
   btn.onclick = () => checkAnswer(name, btn);
   buttonsDiv.appendChild(btn);
 });
@@ -93,12 +96,8 @@ function startGame(){
     return;
   }
   warning.textContent = "";
-  menu.classList.add("hidden");
-  game.classList.remove("hidden");
-  hideRankedUI();
   stopRankedTimer();
-  hideLeaderboardButton();
-  MGH.updateHeaderModeLabel(getDifficultyLabel());
+  MGHGameUI.enterTraining({ menu, game, modeLabel: getDifficultyLabel(), feedbackEl });
   newNote();
 }
 
@@ -108,37 +107,24 @@ function startRankedGame(){
   rankedWrong = 0;
   rankedScore = 0;
   rankedQuestionIndex = 0;
-  rankedStartTime = Date.now();
+  const rankedSession = startRankedMode("note");
+  rankedStartTime = rankedSession.startTime;
 
-  menu.classList.add("hidden");
-  game.classList.remove("hidden");
-  hideLeaderboardButton();
-  showRankedUI();
   startRankedTimer();
-  MGH.updateHeaderModeLabel("Classificata");
-  updateRankedProgressUI({ score: rankedScore, current: rankedQuestionIndex, total: RANKED_DEFAULT_QUESTIONS });
+  MGHGameUI.enterRanked({ menu, game, score: rankedScore, current: rankedQuestionIndex, total: RANKED_DEFAULT_QUESTIONS, feedbackEl });
   newNote();
 }
 
 function goBack(){
-
-  game.classList.add("hidden");
-  menu.classList.remove("hidden");
 
   difficulty = null;
   clef = null;
   gameMode = "training";
   rankedQuestionIndex = 0;
 
-  document.querySelectorAll(".selected").forEach(btn=>{
-    btn.classList.remove("selected");
-  });
-
   resetButtons();
-  hideRankedUI();
   stopRankedTimer();
-  showLeaderboardButton();
-  MGH.updateHeaderModeLabel("");
+  MGHGameUI.returnToMenu({ menu, game, feedbackEl });
 }
 
 
@@ -248,11 +234,11 @@ function checkAnswer(answer, button){
 
   if(isCorrect){
     button.classList.add("correct"); // bordo verde
-    setFeedback("Hai indovinato! Arriva una nuova nota...");
+    setFeedback(MGH.getAnswerFeedback(true, "Nuova nota in arrivo."), "correct");
   } else {
     button.classList.add("wrong");   // bordo rosso
     highlightCorrect();
-    setFeedback(`Hai sbagliato! La risposta giusta era ${currentNote.name}.`);
+    setFeedback(MGH.getAnswerFeedback(false, `La risposta corretta era ${currentNote.name}.`), "wrong");
   }
 
   if(gameMode === "ranked"){
@@ -272,16 +258,13 @@ function checkAnswer(answer, button){
 }
 
 function handleRankedAnswer(isCorrect){
-  const elapsed = (Date.now() - rankedQuestionStart) / 1000;
+  const rankedSession = answerRankedQuestion(isCorrect);
+  if (!rankedSession) return;
 
-  if(isCorrect){
-    rankedCorrect++;
-    rankedScore += elapsed <= 2 ? 125 : elapsed <= 5 ? 110 : 100;
-  } else {
-    rankedWrong++;
-  }
-
-  rankedQuestionIndex++;
+  rankedCorrect = rankedSession.correct;
+  rankedWrong = rankedSession.wrong;
+  rankedScore = rankedSession.totalScore;
+  rankedQuestionIndex = rankedSession.currentQuestion;
   updateRankedProgressUI({ score: rankedScore, current: rankedQuestionIndex, total: RANKED_DEFAULT_QUESTIONS });
 
   setTimeout(async () => {
@@ -296,33 +279,18 @@ function handleRankedAnswer(isCorrect){
 }
 
 async function finishRankedGame(){
-  const totalTime = Math.round((Date.now() - rankedStartTime) / 1000);
-  const saved = await saveRankedScore({
-    gameName: "note",
-    totalScore: rankedScore,
-    correct: rankedCorrect,
-    wrong: rankedWrong,
-    totalQuestions: RANKED_DEFAULT_QUESTIONS,
-    totalTime
-  });
+  const finalData = await finishRankedMode();
+  const session = finalData?.session;
 
-  game.classList.add("hidden");
-  menu.classList.remove("hidden");
-  hideRankedUI();
   stopRankedTimer();
-  showLeaderboardButton();
-  MGH.updateHeaderModeLabel("");
   warning.textContent = "";
+  MGHGameUI.returnToMenu({ menu, game, feedbackEl });
   await showRankedCompletionModal({
     gameName: "note",
-    saveResult: saved,
-    totalScore: rankedScore,
-    correct: rankedCorrect,
-    totalQuestions: RANKED_DEFAULT_QUESTIONS,
-    totalTime,
-    saved: Boolean(saved)
+    session,
+    saveResult: finalData?.result,
+    saved: Boolean(finalData?.saved)
   });
-  document.querySelectorAll(".selected").forEach(btn=>btn.classList.remove("selected"));
   gameMode = "training";
   difficulty = null;
 }
@@ -342,8 +310,8 @@ function resetButtons(){
   });
 }
 
-function setFeedback(message){
-  if(feedbackEl) feedbackEl.textContent = message;
+function setFeedback(message, state = "neutral"){
+  MGH.setGameFeedback(feedbackEl, message, state);
 }
 
 function startRankedTimer(){

@@ -155,7 +155,7 @@ function showQuestion() {
     allNotes.forEach(n => {
       const btn = document.createElement("button");
       btn.innerText = n;
-      btn.className = "noteButton";
+      btn.className = "noteButton gameAnswerButton";
       btn.onclick = () => checkAnswerNote(n, btn, q);
       answersDiv.appendChild(btn);
     });
@@ -172,7 +172,7 @@ function showQuestion() {
     q.options.forEach((opt, i) => {
       const btn = document.createElement("button");
       btn.innerText = opt;
-      btn.className = "noteButton";
+      btn.className = "noteButton gameAnswerButton";
       btn.onclick = () => checkAnswerFigurazione(i, q.correct, btn);
       answersDiv.appendChild(btn);
     });
@@ -186,7 +186,7 @@ function showQuestion() {
     q.options.forEach((opt, i) => {
       const btn = document.createElement("button");
       btn.innerText = opt;
-      btn.className = "noteButton";
+      btn.className = "noteButton gameAnswerButton";
       btn.onclick = () => checkAnswerFigurazione(i, q.correct, btn);
       answersDiv.appendChild(btn);
     });
@@ -201,6 +201,11 @@ function checkAnswerNote(answer,btn,q){
     btn.classList.add("correct");
   } else {
     btn.classList.add("wrong");
+    document.querySelectorAll(".noteButton").forEach(button => {
+      if (button.innerText.trim().toLowerCase() === q.name.trim().toLowerCase()) {
+        button.classList.add("correct");
+      }
+    });
     errors++;
   }
 
@@ -218,6 +223,9 @@ function checkAnswerFigurazione(ansIdx, correctIdx, btn){
     btn.classList.add("correct");
   } else {
     btn.classList.add("wrong");
+    document.querySelectorAll(".noteButton").forEach((button, index) => {
+      if (index === correctIdx) button.classList.add("correct");
+    });
     errors++;
   }
 

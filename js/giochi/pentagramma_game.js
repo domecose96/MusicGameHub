@@ -8,6 +8,8 @@ let timeLeft = 5;
 let questionStartTime = null;
 let roundLocked = false;
 
+MGHGameUI.ensureRankedHUD();
+
 const menu = document.getElementById("menu");
 const game = document.getElementById("game");
 const questionEl = document.getElementById("question");
@@ -50,10 +52,6 @@ function getDifficultyLabel() {
   return "";
 }
 
-function updateHeaderModeLabel(label = "") {
-  MGH.updateHeaderModeLabel(label);
-}
-
 /* ==================== MENU ==================== */
 function selectButton(groupClass, element) {
   MGH.selectExclusive(groupClass, element);
@@ -92,15 +90,8 @@ function startGame() {
 
   warning.textContent = "";
 
-  menu.classList.add("hidden");
-  game.classList.remove("hidden");
-
-  hideLeaderboardButton();
   showBackButton();
-
-  updateHeaderModeLabel(getDifficultyLabel());
-
-  hideRankedUI();
+  MGHGameUI.enterTraining({ menu, game, modeLabel: getDifficultyLabel(), feedbackEl });
   newRound();
 }
 
@@ -115,16 +106,9 @@ function startRankedGame(nickname = "") {
   const rankedSession = startRankedMode("pentagramma");
   rankedSession.setUsername(nickname);
 
-  menu.classList.add("hidden");
-  game.classList.remove("hidden");
-
-  hideLeaderboardButton();
   hideBackButton();
-
-  updateHeaderModeLabel("Classificata");
-
-  showRankedUI();
   startRankedClock();
+  MGHGameUI.enterRanked({ menu, game, feedbackEl });
   updateRankedUI();
 
   newRound();
@@ -136,10 +120,6 @@ function goBack() {
   stopTimer();
   stopRankedClock();
 
-  game.classList.add("hidden");
-  menu.classList.remove("hidden");
-
-  showLeaderboardButton();
   showBackButton();
 
   difficulty = null;
@@ -152,14 +132,8 @@ function goBack() {
     resetRankedMode();
   }
 
-  document.querySelectorAll(".selected").forEach(btn => {
-    btn.classList.remove("selected");
-  });
-
-  updateHeaderModeLabel("");
   clearBoard();
-  setFeedback("");
-  hideRankedUI();
+  MGHGameUI.returnToMenu({ menu, game, feedbackEl });
 }
 
 /* ==================== ROUND ==================== */
@@ -273,26 +247,6 @@ function handleRankedAnswer(isCorrect) {
   }
 }
 
-function showRankedUI() {
-  const rankedUI = document.getElementById("rankedUI");
-  if (rankedUI) rankedUI.classList.remove("hidden");
-}
-
-function hideRankedUI() {
-  const rankedUI = document.getElementById("rankedUI");
-  if (rankedUI) rankedUI.classList.add("hidden");
-}
-
-function hideLeaderboardButton() {
-  document.getElementById("rankedLeaderboardBtn")?.classList.add("hidden");
-  document.getElementById("gameModeHelpBtn")?.classList.add("hidden");
-}
-
-function showLeaderboardButton() {
-  document.getElementById("rankedLeaderboardBtn")?.classList.remove("hidden");
-  document.getElementById("gameModeHelpBtn")?.classList.remove("hidden");
-}
-
 function hideBackButton() {
   document.getElementById("backButton")?.classList.add("hidden");
 }
@@ -304,29 +258,11 @@ function showBackButton() {
 function updateRankedUI() {
   if (!currentRankedSession) return;
 
-  const scoreEl = document.getElementById("rankedScore");
-  const counterEl = document.getElementById("rankedQuestionCounter");
-  const fillEl = document.getElementById("rankedProgressFill");
-
-  if (scoreEl) {
-    scoreEl.textContent = currentRankedSession.totalScore;
-  }
-
-  if (counterEl) {
-    const current = Math.min(
-      currentRankedSession.currentQuestion + 1,
-      currentRankedSession.maxQuestions
-    );
-
-    counterEl.textContent = `${current}/${currentRankedSession.maxQuestions}`;
-  }
-
-  if (fillEl) {
-    const progress =
-      (currentRankedSession.currentQuestion / currentRankedSession.maxQuestions) * 100;
-
-    fillEl.style.width = `${progress}%`;
-  }
+  updateRankedProgressUI({
+    score: currentRankedSession.totalScore,
+    current: currentRankedSession.currentQuestion,
+    total: currentRankedSession.maxQuestions
+  });
 }
 
 async function showRankedResults() {
@@ -342,25 +278,15 @@ async function showRankedResults() {
 
   const session = finalData.session;
 
-  game.classList.add("hidden");
-  menu.classList.remove("hidden");
-  hideRankedUI();
-
-  showLeaderboardButton();
   showBackButton();
 
   warning.textContent = "";
+  MGHGameUI.returnToMenu({ menu, game, feedbackEl });
   await showRankedCompletionModal({
     gameName: "pentagramma",
     session,
     saveResult: finalData.result,
     saved: finalData.saved
-  });
-
-  updateHeaderModeLabel("");
-
-  document.querySelectorAll(".selected").forEach(btn => {
-    btn.classList.remove("selected");
   });
 
   gameMode = "training";
@@ -377,7 +303,7 @@ function showCorrect() {
   answerNote.setAttribute("cy", pos.y);
   answerNote.setAttribute("opacity", 1);
 
-  setFeedback("✔ Corretto!");
+  setFeedback(MGH.getAnswerFeedback(true), "correct");
 }
 
 function showWrong() {
@@ -387,7 +313,7 @@ function showWrong() {
   answerNote.setAttribute("cy", pos.y);
   answerNote.setAttribute("opacity", 1);
 
-  setFeedback("✖ Sbagliato! Era: " + pos.label);
+  setFeedback(MGH.getAnswerFeedback(false, "La risposta corretta era " + pos.label + "."), "wrong");
 }
 
 function showTimeExpired() {
@@ -397,11 +323,11 @@ function showTimeExpired() {
   answerNote.setAttribute("cy", pos.y);
   answerNote.setAttribute("opacity", 1);
 
-  setFeedback("⏱ Tempo scaduto! La risposta corretta era: " + pos.label);
+  setFeedback("Tempo scaduto. La risposta corretta era " + pos.label + ".", "wrong");
 }
 
-function setFeedback(msg) {
-  if (feedbackEl) feedbackEl.textContent = msg;
+function setFeedback(msg, state = "neutral") {
+  MGH.setGameFeedback(feedbackEl, msg, state);
 }
 
 /* ==================== TIMER ==================== */

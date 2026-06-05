@@ -222,6 +222,18 @@ const MusicGameHubResources = (() => {
       excludeFromStats: true
     },
     {
+      id: "detectiveSuono",
+      icon: "〰",
+      type: "Gioco",
+      title: "Detective del suono",
+      desc: "Riconosci suono e rumore, grave e acuto, forte e debole, lungo e corto.",
+      tags: ["gioco", "suono", "rumore", "altezza", "intensità", "durata", "onda sonora"],
+      url: "giochi/detective_suono.html",
+      group: "games",
+      homeGame: true,
+      tag: "Suono"
+    },
+    {
       id: "pentagrammaGame",
       icon: "🎯",
       type: "Gioco",
@@ -258,6 +270,30 @@ const MusicGameHubResources = (() => {
       tag: "Ritmo · Figure"
     },
     {
+      id: "ritmo",
+      icon: "♪",
+      type: "Gioco",
+      title: "Conta le pulsazioni",
+      desc: "Calcola il valore ritmico delle sequenze.",
+      tags: ["ritmo", "calcolo", "valori"],
+      url: "giochi/ritmo_challenge.html",
+      group: "games",
+      homeGame: true,
+      tag: "Ritmo"
+    },
+    {
+      id: "scaleGame",
+      icon: "🎹",
+      type: "Gioco",
+      title: "Ordina la scala",
+      desc: "Costruisci scale maggiori e minori con note, toni e semitoni.",
+      tags: ["gioco", "scale", "tonalità", "toni", "semitoni"],
+      url: "giochi/scale_game.html",
+      group: "games",
+      homeGame: true,
+      tag: "Scale"
+    },
+    {
       id: "wordle",
       icon: "W",
       type: "Gioco",
@@ -282,18 +318,6 @@ const MusicGameHubResources = (() => {
       tag: "Quiz · Sfida"
     },
     {
-      id: "ritmo",
-      icon: "♪",
-      type: "Gioco",
-      title: "Ritmo Challenge",
-      desc: "Calcola il valore ritmico delle sequenze.",
-      tags: ["ritmo", "calcolo", "valori"],
-      url: "giochi/ritmo_challenge.html",
-      group: "games",
-      homeGame: true,
-      tag: "Ritmo"
-    },
-    {
       id: "strumentiGame",
       icon: "🎺",
       type: "Gioco",
@@ -304,18 +328,6 @@ const MusicGameHubResources = (() => {
       group: "games",
       homeGame: true,
       tag: "Strumenti"
-    },
-    {
-      id: "detectiveSuono",
-      icon: "〰",
-      type: "Gioco",
-      title: "Detective del suono",
-      desc: "Riconosci suono e rumore, grave e acuto, forte e debole, lungo e corto.",
-      tags: ["gioco", "suono", "rumore", "altezza", "intensità", "durata", "onda sonora"],
-      url: "giochi/detective_suono.html",
-      group: "games",
-      homeGame: true,
-      tag: "Suono"
     },
     {
       id: "storiaMusica",

@@ -9,7 +9,8 @@ const RANKED_GAME_LABELS = {
   pentagramma: "Pentagramma",
   note: "Note",
   figure: "Figure musicali",
-  ritmo: "Ritmo Challenge",
+  ritmo: "Conta le pulsazioni",
+  scale: "Ordina la scala",
   guanto: "Guanto di sfida",
   wordle: "Music Wordle",
   strumenti: "Strumenti musicali",
@@ -21,6 +22,43 @@ function getRankedGameLabel(gameName) {
 }
 
 const RECENT_RANDOM_PICK_KEYS = new Map();
+
+function getRankedDifficultyForQuestion(questionNumber = 1) {
+  if (questionNumber <= 3) return "easy";
+  if (questionNumber <= 7) return "medium";
+  return "hard";
+}
+
+function getRankedDifficultyForIndex(questionIndex = 0) {
+  return getRankedDifficultyForQuestion(Number(questionIndex) + 1);
+}
+
+function getRankedDifficultyMultiplier(difficulty) {
+  if (difficulty === "easy") return 1;
+  if (difficulty === "medium") return 1.5;
+  if (difficulty === "hard") return 2;
+  return 1;
+}
+
+function getRankedAnswerScoreParts({ isCorrect, elapsed = 0, timeTaken = elapsed, difficulty = "easy" } = {}) {
+  const multiplier = getRankedDifficultyMultiplier(difficulty);
+  const safeTime = Math.max(0, Number(timeTaken) || 0);
+  const baseScore = isCorrect ? 100 * multiplier : 0;
+  let bonusSpeed = 0;
+
+  if (isCorrect && safeTime <= 2) bonusSpeed = 25 * multiplier;
+  else if (isCorrect && safeTime <= 5) bonusSpeed = 10 * multiplier;
+
+  return {
+    baseScore: Math.round(baseScore),
+    bonusSpeed: Math.round(bonusSpeed),
+    totalScore: Math.round(baseScore + bonusSpeed)
+  };
+}
+
+function getRankedAnswerScore(options = {}) {
+  return getRankedAnswerScoreParts(options).totalScore;
+}
 
 function getNoRepeatKey(item, keyFn) {
   if (typeof keyFn === "function") return String(keyFn(item));
@@ -282,9 +320,7 @@ class RankedSession {
   }
 
   getDifficultyForQuestion(questionNumber = this.currentQuestion + 1) {
-    if (questionNumber <= 3) return "easy";
-    if (questionNumber <= 7) return "medium";
-    return "hard";
+    return getRankedDifficultyForQuestion(questionNumber);
   }
 
   getCurrentDifficulty() {
@@ -329,26 +365,11 @@ class RankedSession {
   }
 
   getScoreForAnswer(isCorrect, timeTaken, difficulty) {
-    if (!isCorrect) return 0;
-
-    const multiplier = this.getDifficultyMultiplier(difficulty);
-
-    let score = 100 * multiplier;
-
-    if (timeTaken <= 2) {
-      score += 25 * multiplier;
-    } else if (timeTaken <= 5) {
-      score += 10 * multiplier;
-    }
-
-    return Math.round(score);
+    return getRankedAnswerScore({ isCorrect, timeTaken, difficulty });
   }
 
   getDifficultyMultiplier(difficulty) {
-    if (difficulty === "easy") return 1;
-    if (difficulty === "medium") return 1.5;
-    if (difficulty === "hard") return 2;
-    return 1;
+    return getRankedDifficultyMultiplier(difficulty);
   }
 
   updateMetrics() {
@@ -366,15 +387,13 @@ class RankedSession {
     this.answers.forEach(answer => {
       if (!answer.correct) return;
 
-      const multiplier = this.getDifficultyMultiplier(answer.difficulty);
-
-      baseScore += 100 * multiplier;
-
-      if (answer.timeTaken <= 2) {
-        bonusSpeed += 25 * multiplier;
-      } else if (answer.timeTaken <= 5) {
-        bonusSpeed += 10 * multiplier;
-      }
+      const scoreParts = getRankedAnswerScoreParts({
+        isCorrect: answer.correct,
+        timeTaken: answer.timeTaken,
+        difficulty: answer.difficulty
+      });
+      baseScore += scoreParts.baseScore;
+      bonusSpeed += scoreParts.bonusSpeed;
     });
 
     this.baseScore = Math.round(baseScore);
@@ -478,7 +497,7 @@ class RankedLeaderboard {
     const path =
       `${RANKED_TABLE}?select=sessionid,userid,username,gamename,totalscore,accuracy,created_at` +
       `&order=totalscore.desc` +
-      `&limit=200`;
+      `&limit=1000`;
 
     const scores = (await supabase.select(path) || []).map(fromRankedDbRecord);
 
@@ -493,18 +512,20 @@ class RankedLeaderboard {
           username: score.username,
           best_score: 0,
           total_score: 0,
-          games_played: new Set(),
+          best_scores_by_game: new Map(),
           last_played_at: null
         };
+      }
+
+      const previousBestForGame = users[score.user_id].best_scores_by_game.get(score.game_name) || 0;
+      if (score.total_score > previousBestForGame) {
+        users[score.user_id].best_scores_by_game.set(score.game_name, score.total_score);
       }
 
       users[score.user_id].best_score = Math.max(
         users[score.user_id].best_score,
         score.total_score
       );
-
-      users[score.user_id].total_score += score.total_score;
-      users[score.user_id].games_played.add(score.game_name);
 
       if (score.created_at && (!users[score.user_id].last_played_at ||
         new Date(score.created_at) > new Date(users[score.user_id].last_played_at))) {
@@ -517,11 +538,11 @@ class RankedLeaderboard {
         user_id: user.user_id,
         username: user.username,
         best_score: user.best_score,
-        total_score: user.total_score,
-        games_played: user.games_played.size,
+        total_score: [...user.best_scores_by_game.values()].reduce((sum, score) => sum + score, 0),
+        games_played: user.best_scores_by_game.size,
         last_played_at: user.last_played_at
       }))
-      .sort((a, b) => b.best_score - a.best_score)
+      .sort((a, b) => b.total_score - a.total_score)
       .slice(0, safeLimit);
   }
 }
@@ -812,6 +833,7 @@ function getModeHelpContext() {
   if (document.body.classList.contains("gamePage")) return "note";
   if (document.body.classList.contains("figuresGamePage")) return "figure";
   if (document.body.classList.contains("ritmoPage")) return "ritmo";
+  if (document.body.classList.contains("scaleGamePage")) return "scale";
   if (document.body.classList.contains("soundDetectivePage")) return "detective_suono";
   if (document.body.classList.contains("strumentiGamePage")) return "strumenti";
   if (document.body.classList.contains("guantoPage")) return "guanto";
@@ -869,7 +891,7 @@ function getSpecificModeHelpText(label, context) {
 
   if (context === "ritmo") {
     if (lower.includes("facile")) {
-      return "Sequenze brevi con figure semplici: calcoli il valore totale in pulsazioni.";
+      return "Sequenze brevi con figure semplici: conti il valore totale in pulsazioni.";
     }
     if (lower.includes("medio")) {
       return "Sequenze più varie: entrano anche crome e pause, quindi il calcolo richiede più attenzione.";
@@ -878,7 +900,22 @@ function getSpecificModeHelpText(label, context) {
       return "Sequenze più lunghe e complete, con figure e pause diverse da sommare correttamente.";
     }
     if (lower.includes("classificata")) {
-      return "10 sequenze ritmiche con difficoltà crescente. Il punteggio premia calcolo corretto e velocità.";
+      return "10 sequenze di figure con difficoltà crescente. Il punteggio premia calcolo corretto e velocità.";
+    }
+  }
+
+  if (context === "scale") {
+    if (lower.includes("facile")) {
+      return "Ordina le note di scale maggiori e minori con la formula Toni/Semitoni come riferimento.";
+    }
+    if (lower.includes("medio")) {
+      return "La scala è visibile: devi completare correttamente i passaggi T e S tra le note.";
+    }
+    if (lower.includes("difficile")) {
+      return "Costruisci la scala scegliendo le note in ordine sulla tastiera cromatica.";
+    }
+    if (lower.includes("classificata")) {
+      return "10 scale con difficoltà crescente. Il punteggio premia precisione e velocità.";
     }
   }
 

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ordina la Scala</title>
+<link rel="icon" type="image/png" href="../img/mgh-logo.png">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/giochi/scale_game.css">
+</head>
+
+<body class="scaleGamePage rankedUnifiedGamePage">
+
+<button id="rankedLeaderboardBtn"
+        class="rankedLeaderboardButton"
+        onclick="showGenericRankedLeaderboardModal('scale')"
+        aria-label="Classifica">
+  🏆
+</button>
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+    <div class="headerBrand">
+      <span class="headerEyebrow">Allenamento musicale</span>
+      <h1 class="pageTitle">Ordina la Scala</h1>
+      <span id="headerModeLabel" class="headerModeLabel hidden"></span>
+    </div>
+  </div>
+</header>
+
+<div id="contentWrapper">
+
+  <!-- ── MENU ── -->
+  <div id="menu" class="gameModeMenu">
+    <h2>Scegli la modalità</h2>
+    <div class="buttonGroup scaleModeGroup">
+      <button class="menuButton" onclick="setDifficulty('easy', this)">Facile</button>
+      <button class="menuButton" onclick="setDifficulty('medium', this)">Medio</button>
+      <button class="menuButton" onclick="setDifficulty('hard', this)">Difficile</button>
+      <button class="menuButton dailyModeButton rankedModeButton" onclick="selectMode(this,'ranked')">
+        <span class="dailyModeBadge">Ranked</span>
+        Classificata
+      </button>
+    </div>
+    <button class="menuButton startButton" onclick="startGame()">Inizia</button>
+    <p id="warning" class="warningText"></p>
+    <p class="gameIntro">Costruisci scale maggiori e minori ordinando note, toni e semitoni.</p>
+  </div>
+
+  <!-- ── GAME ── -->
+  <div id="game" class="hidden">
+
+    <div class="gameTopActions">
+      <button id="backButton" class="menuButton compactBackButton" onclick="goBack()" aria-label="Torna alla scelta modalità">
+        <span aria-hidden="true">⇧</span>
+      </button>
+    </div>
+
+    <!-- Domanda -->
+    <div id="questionBox" class="gameQuestionBox">
+      <span id="question">Ordina le note</span>
+    </div>
+
+    <!-- Area di gioco dinamica (rebuilt da JS per ogni modalità) -->
+    <div id="gameArea"></div>
+
+    <!-- Azioni -->
+    <div class="gameActions">
+      <button class="menuButton" onclick="checkAnswer()">✔ Verifica</button>
+    </div>
+
+    <!-- Feedback -->
+    <div id="feedback" class="feedbackText"></div>
+
+  </div>
+
+</div>
+
+<script src="../js/common.js"></script>
+<script src="../js/giochi/ranked.js"></script>
+<script src="../js/giochi/game_ui.js"></script>
+<script src="../js/giochi/scale_game.js"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
