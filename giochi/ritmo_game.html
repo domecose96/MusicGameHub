@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Completa la Battuta</title>
+<link rel="icon" type="image/png" href="../img/mgh-logo.png">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/giochi/ritmo_game.css">
+</head>
+
+<body class="ritmoGamePage">
+
+<button id="rankedLeaderboardBtn"
+        class="rankedLeaderboardButton"
+        onclick="showGenericRankedLeaderboardModal('ritmo')"
+        aria-label="Classifica">
+  🏆
+</button>
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button class="homeButton" onclick="goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+    <div class="headerBrand">
+      <span class="headerEyebrow">Allenamento musicale</span>
+      <h1 class="pageTitle">Completa la Battuta</h1>
+      <span id="headerModeLabel" class="headerModeLabel hidden"></span>
+    </div>
+  </div>
+</header>
+
+<div id="contentWrapper">
+
+  <!-- ── MENU ── -->
+  <div id="menu">
+    <h2>Difficoltà</h2>
+    <div class="buttonGroup ritmoModeGroup">
+      <button class="menuButton" onclick="setDifficulty('easy', this)">Facile</button>
+      <button class="menuButton" onclick="setDifficulty('medium', this)">Medio</button>
+      <button class="menuButton" onclick="setDifficulty('hard', this)">Difficile</button>
+      <button class="menuButton dailyModeButton rankedModeButton" onclick="selectRankedMode(this)">
+        <span class="dailyModeBadge">Ranked</span>
+        Classificata
+      </button>
+    </div>
+
+    <button class="menuButton startButton" onclick="startGame()">Inizia</button>
+    <p id="warning" class="warningText"></p>
+
+    <div class="gameIntroList">
+      <p class="gameIntro"><strong>Facile</strong> — Tempo 4/4 · 1 figura mancante · intera, minima, semiminima, croma (+ le loro pause)</p>
+      <p class="gameIntro"><strong>Medio</strong> — Tempi 4/4, 3/4, 2/4 · 2-3 figure mancanti</p>
+      <p class="gameIntro"><strong>Difficile</strong> — Tempo 6/8 incluso · 4-5 figure mancanti</p>
+    </div>
+  </div>
+
+  <!-- ── GAME ── -->
+  <div id="game" class="hidden">
+
+    <!-- Ranked UI -->
+    <div id="rankedUI" class="hidden">
+      <div id="rankedScoreDisplay">Score: <span id="rankedScore">0</span></div>
+      <div id="rankedProgressWrapper">
+        <div id="rankedProgressLabel">
+          <span>Progressione</span>
+          <span id="rankedQuestionCounter">1/10</span>
+        </div>
+        <div id="rankedProgressBar">
+          <div id="rankedProgressFill"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="timerBox" class="hidden">⏱ <span id="timer">0</span>s</div>
+
+    <!-- Intestazione battuta -->
+    <div class="battutaHeader">
+      <span id="timeSigDisplay" class="timeSig">4/4</span>
+      <span id="beatsLeft" class="beatsLeft"></span>
+    </div>
+
+    <!-- Battuta: figure già presenti + slot mancanti -->
+    <div class="battutaWrap">
+      <!-- Barra sinistra della battuta -->
+      <div class="barLine"></div>
+
+      <!-- Figure già inserite + slot vuoti (generati da JS) -->
+      <div id="battutaSlots" class="battutaSlots"></div>
+
+      <!-- Barra destra della battuta -->
+      <div class="barLine"></div>
+    </div>
+
+    <!-- Pool di figure trascinabili -->
+    <p class="poolLabel">Trascina la figura/le figure mancanti nella battuta:</p>
+    <div id="figurePool" class="figurePool"></div>
+
+    <div id="feedback" class="feedbackText"></div>
+
+    <div class="gameActions">
+      <button class="menuButton" onclick="checkAnswer()">✔ Verifica</button>
+      <button class="menuButton secondaryButton" onclick="resetSlots()">↩ Ricomincia</button>
+      <button id="backButton" class="menuButton" onclick="goBack()">⬅ Indietro</button>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="../js/common.js"></script>
+<script src="../js/giochi/ranked.js"></script>
+<script src="../js/giochi/ritmo_game.js"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

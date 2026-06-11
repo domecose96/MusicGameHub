@@ -562,8 +562,52 @@ const instrumentInfo = {
   }
 };
 
+const instrumentFamiliesShowcase = [
+  {
+    title: "Corde",
+    sectionId: "corde",
+    image: "img/strumenti/famiglie/corde.webp",
+    alt: "Famiglia degli strumenti a corde",
+    desc: "Il suono nasce dalla vibrazione delle corde: pizzicate, strofinate o percosse.",
+    aura: "rgba(255, 145, 77, 0.34)"
+  },
+  {
+    title: "Fiati",
+    sectionId: "fiato",
+    image: "img/strumenti/famiglie/fiati.webp",
+    alt: "Famiglia degli strumenti a fiato",
+    desc: "Il suono prende forma dall'aria: legni, ottoni, ance e imboccature diverse.",
+    aura: "rgba(0, 166, 189, 0.34)"
+  },
+  {
+    title: "Percussioni",
+    sectionId: "percussioni",
+    image: "img/strumenti/famiglie/percussioni.webp",
+    alt: "Famiglia degli strumenti a percussione",
+    desc: "Il suono nasce da colpi, scuotimenti e vibrazioni di membrane o materiali.",
+    aura: "rgba(255, 183, 77, 0.38)"
+  },
+  {
+    title: "Tastiere",
+    sectionId: "tastiera",
+    image: "img/strumenti/famiglie/tastiere.webp",
+    alt: "Famiglia degli strumenti a tastiera",
+    desc: "Un meccanismo a tasti mette in movimento corde, aria o circuiti sonori.",
+    aura: "rgba(112, 126, 255, 0.30)"
+  },
+  {
+    title: "Elettrofoni",
+    sectionId: "elettrofoni",
+    image: "img/strumenti/famiglie/elettrofoni.webp",
+    alt: "Famiglia degli strumenti elettrofoni",
+    desc: "Il suono nasce o viene trasformato grazie a circuiti elettrici ed elettronici.",
+    aura: "rgba(126, 221, 164, 0.34)"
+  }
+];
+
 document.addEventListener("DOMContentLoaded", () => {
   setupBrokenImages();
+  setupFamilyShowcase();
   setupFilters();
   setupSearch();
   highlightHashCard();
@@ -572,6 +616,83 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("scroll", () => MGH.detectActiveSection(), { passive: true });
   }
 });
+
+function setupFamilyShowcase() {
+  const showcase = document.getElementById("instrumentFamilyShowcase");
+  const card = document.getElementById("familyShowcaseCard");
+  const image = document.getElementById("familyShowcaseImage");
+  const title = document.getElementById("familyShowcaseTitle");
+  const desc = document.getElementById("familyShowcaseDesc");
+  const button = document.getElementById("familyShowcaseButton");
+
+  if (!showcase || !card || !image || !title || !desc || !button) return;
+
+  let activeIndex = 0;
+  let timer = null;
+  let isPaused = false;
+
+  const renderFamily = (nextIndex, animate = true) => {
+    const family = instrumentFamiliesShowcase[nextIndex];
+    if (!family) return;
+
+    const updateContent = () => {
+      activeIndex = nextIndex;
+      showcase.dataset.targetSection = family.sectionId;
+      card.style.setProperty("--family-aura", family.aura);
+      image.src = family.image;
+      image.alt = family.alt;
+      title.textContent = family.title;
+      desc.textContent = family.desc;
+      card.classList.remove("isChanging");
+      card.classList.remove("isReady");
+      requestAnimationFrame(() => card.classList.add("isReady"));
+    };
+
+    if (!animate) {
+      updateContent();
+      return;
+    }
+
+    card.classList.add("isChanging");
+    setTimeout(updateContent, 240);
+  };
+
+  const nextFamily = () => {
+    if (isPaused) return;
+    renderFamily((activeIndex + 1) % instrumentFamiliesShowcase.length);
+  };
+
+  const startTimer = () => {
+    clearInterval(timer);
+    timer = setInterval(nextFamily, 3500);
+  };
+
+  const pause = () => {
+    isPaused = true;
+  };
+
+  const resume = () => {
+    isPaused = false;
+  };
+
+  const scrollToActiveFamily = () => {
+    const family = instrumentFamiliesShowcase[activeIndex];
+    if (!family) return;
+    MGH.scrollToSection(family.sectionId);
+  };
+
+  showcase.addEventListener("mouseenter", pause);
+  showcase.addEventListener("mouseleave", resume);
+  showcase.addEventListener("focusin", pause);
+  showcase.addEventListener("focusout", resume);
+  button.addEventListener("click", (event) => {
+    event.stopPropagation();
+    scrollToActiveFamily();
+  });
+
+  renderFamily(0, false);
+  startTimer();
+}
 
 function setupBrokenImages() {
   document.querySelectorAll(".instrumentFlip img, .instrumentImage img").forEach((img) => {

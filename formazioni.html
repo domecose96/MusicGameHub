@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formazioni Musicali | Music Game Hub</title>
+
+  <link rel="icon" type="image/png" href="img/mgh-logo.png">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/formazioni.css">
+</head>
+
+<body class="formazioniPage">
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="MGH.goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+
+    <div class="headerBrand">
+      <span class="headerEyebrow">Scopri le formazioni</span>
+      <h1 class="pageTitle">Formazioni Musicali</h1>
+    </div>
+  </div>
+</header>
+
+<nav id="siteNav" class="formazioniNav">
+  <button class="navBtn" onclick="showFormazione('solista', this); return false;" data-formazione="solista">Solista</button>
+  <button class="navBtn" onclick="showFormazione('duo', this); return false;" data-formazione="duo">Duo</button>
+  <button class="navBtn" onclick="showFormazione('trio', this); return false;" data-formazione="trio">Trio</button>
+  <button class="navBtn" onclick="showFormazione('quartetto', this); return false;" data-formazione="quartetto">Quartetto</button>
+  <button class="navBtn" onclick="showFormazione('quintetto', this); return false;" data-formazione="quintetto">Quintetto</button>
+  <button class="navBtn" onclick="showFormazione('ensemble', this); return false;" data-formazione="ensemble">Ensemble</button>
+  <button class="navBtn" onclick="showFormazione('orchestra-barocca', this); return false;" data-formazione="orchestra-barocca">Barocca</button>
+  <button class="navBtn" onclick="showFormazione('orchestra-camera', this); return false;" data-formazione="orchestra-camera">Camera</button>
+  <button class="navBtn" onclick="showFormazione('orchestra-romantica', this); return false;" data-formazione="orchestra-romantica">Romantica</button>
+  <button class="navBtn" onclick="showFormazione('banda', this); return false;" data-formazione="banda">Banda</button>
+  <button class="navBtn" onclick="showFormazione('fanfara', this); return false;" data-formazione="fanfara">Fanfara</button>
+  <button class="navBtn" onclick="showFormazione('jazz-band', this); return false;" data-formazione="jazz-band">Jazz Band</button>
+  <button class="navBtn" onclick="showFormazione('rock-band', this); return false;" data-formazione="rock-band">Rock Band</button>
+</nav>
+
+<div id="contentWrapper">
+
+  <!-- ==================== INTRO ==================== -->
+  <section id="intro" class="siteSection formazioniIntro">
+    <div class="introText">
+      <span class="formazione-badge">Atlante delle formazioni</span>
+      <h2>Scopri come cambiano i gruppi musicali</h2>
+      <p>
+        Dal solista che si esibisce da solo all'orchestra con decine di musicisti. Ogni formazione ha una storia,
+        una composizione di strumenti e uno scopo didattico diverso. Seleziona una formazione dalla barra sopra
+        per scoprire come è nata, quali strumenti la compongono e in quali contesti musicali si usa.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== FORMAZIONE ATTIVA ==================== -->
+  <section id="formazioneSection" class="siteSection formazioneContainer">
+    
+    <div class="formazioneImageWrapper">
+
+      <img
+        src="img/formazioni/stage.webp"
+        alt=""
+        class="stageImage"
+        aria-hidden="true"
+      >
+
+      <img
+        id="formazioneImage"
+        src="img/formazioni/solista.webp"
+        alt="Solista sul palco"
+        class="formazioneImage overlayImage"
+      >
+
+    </div>
+
+    <div class="formazioneDescCard">
+      <h2 id="formazioneName" class="formazione-title">Solista</h2>
+      
+      <div class="formazione-detail">
+        <div class="detail-item">
+          <span class="detail-label">Musicisti:</span>
+          <span id="detailMusicians" class="detail-value">1 persona</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Strumenti tipici:</span>
+          <span id="detailInstruments" class="detail-value">Pianoforte, violino, flauto, voce...</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Contesto:</span>
+          <span id="detailContext" class="detail-value">Concerti da camera, recital</span>
+        </div>
+      </div>
+
+      <div class="formazione-description">
+        <p id="detailDescription">
+          Il solista è un musicista che si esibisce da solo, senza accompagnamento. Può suonare uno strumento
+          o cantare, e il suo talento e la sua interpretazione sono il fulcro dello spettacolo. È una delle
+          formazioni più antiche e nobili della musica classica.
+        </p>
+      </div>
+
+      <div class="formazione-curiosita">
+        <p><strong>💡 Curiosità didattica:</strong></p>
+        <p id="detailCuriosita">
+          Molti solisti famosi, come Niccolò Paganini, erano virtuosi del loro strumento e stupivano il pubblico
+          con esibizioni incredibili. Oggi, i solisti continuano ad essere protagonisti dei concerti più importanti.
+        </p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ==================== SEZIONE COSTRUISCI TU ==================== -->
+  <section id="costruisciSection" class="siteSection costruisciSection">
+    <div class="costruisciCard">
+      <h3>🎼 Costruisci tu la formazione</h3>
+      <p>Prossimamente potrai aggiungere strumenti sul palco e scoprire quale formazione hai creato.</p>
+      <button class="costruisciBtn" disabled>Disponibile prossimamente</button>
+      <a href="costruisci-formazione.html" class="costruisciLink">Vai alla pagina interattiva</a>
+    </div>
+  </section>
+
+</div>
+
+<!-- SCROLL TOP BUTTON -->
+<button id="scrollTopBtn" class="scrollTopBtn" title="Torna in alto">↑</button>
+
+<script src="js/common.js"></script>
+<script src="js/formazioni.js"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,321 @@
+/* ==================== RITMO GAME ==================== */
+
+/* ── Header battuta ── */
+.battutaHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin: 12px auto 6px;
+}
+
+.timeSig {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--accent);
+  font-family: var(--font-sans);
+  line-height: 1;
+  min-width: 52px;
+  text-align: center;
+}
+
+.beatsLeft {
+  font-size: .92rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: rgba(0,0,0,.05);
+  border-radius: 10px;
+  padding: 5px 12px;
+  transition: color .2s, background .2s;
+}
+
+.beatsLeft.complete {
+  color: #1a7a3a;
+  background: rgba(60,190,100,.12);
+}
+
+/* ── Battuta ── */
+.battutaWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 10px auto 14px;
+  max-width: 700px;
+  overflow-x: auto;
+  padding: 4px 2px;
+}
+
+.barLine {
+  width: 3px;
+  height: 90px;
+  background: currentColor;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.battutaSlots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  padding: 10px 8px;
+  min-height: 110px;
+  background: var(--surface-solid);
+  border-radius: 14px;
+  box-shadow: var(--panel-shadow);
+}
+
+/* ── Cella figura (base) ── */
+.figCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 72px;
+  min-height: 90px;
+  border-radius: 12px;
+  padding: 8px 4px 6px;
+  transition: background .15s, border-color .15s, transform .13s;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.figImg {
+  width: 36px;
+  height: 56px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.figCellLabel {
+  font-size: .68rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--text-muted);
+  line-height: 1.2;
+  pointer-events: none;
+}
+
+/* Figura già data (grigia, non draggabile) */
+.givenCell {
+  background: rgba(0,0,0,.04);
+  border: 2px solid rgba(0,0,0,.08);
+  cursor: default;
+}
+.givenCell .figCellLabel { color: var(--text-muted); }
+
+/* Slot vuoto */
+.slotCell {
+  border: 2px dashed rgba(255,102,0,.30);
+  background: rgba(255,102,0,.04);
+  cursor: pointer;
+  position: relative;
+}
+.slotCell.empty::after {
+  content: "?";
+  position: absolute;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: rgba(255,102,0,.25);
+  pointer-events: none;
+}
+.slotCell:hover { background: rgba(255,102,0,.09); border-color: rgba(255,102,0,.50); }
+.slotCell.drag-over {
+  background: rgba(255,102,0,.16);
+  border-color: rgba(255,102,0,.65);
+  transform: scale(1.06);
+}
+.slotCell.correct {
+  background: rgba(60,190,100,.16);
+  border-color: rgba(60,190,100,.60);
+}
+.slotCell.correct .figCellLabel { color: #1a7a3a; }
+.slotCell.wrong {
+  background: rgba(204,51,51,.13);
+  border-color: rgba(204,51,51,.55);
+}
+.slotCell.wrong .figCellLabel { color: #b52020; }
+
+/* ── Pool figure trascinabili ── */
+.poolLabel {
+  text-align: center;
+  font-size: .88rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin: 4px 0 8px;
+}
+
+.figurePool {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 10px 12px;
+  background: var(--surface-solid);
+  border-radius: 14px;
+  box-shadow: var(--panel-shadow);
+  transition: background .15s;
+}
+.figurePool.pool-over { background: rgba(255,102,0,.06); }
+
+.poolCell {
+  border: 2px solid rgba(0,0,0,.10);
+  background: var(--surface-solid);
+  cursor: grab;
+  box-shadow: 0 3px 10px rgba(0,0,0,.08);
+}
+.poolCell:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 8px 18px rgba(0,0,0,.13);
+  border-color: rgba(255,102,0,.35);
+}
+.poolCell:active { cursor: grabbing; }
+.poolCell.dragging { opacity: .35; transform: scale(.94); }
+
+/* ── Feedback ── */
+.feedbackText {
+  min-height: 26px;
+  margin-top: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--accent);
+}
+
+/* ── Azioni ── */
+.gameActions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.secondaryButton {
+  background: var(--surface-solid) !important;
+  color: var(--text-muted) !important;
+  border-color: rgba(0,0,0,.12) !important;
+}
+
+.gameIntroList { margin-top: 10px; }
+.gameIntroList .gameIntro { margin: 4px 0; }
+
+/* ── Timer ── */
+#timerBox {
+  position: fixed;
+  top: calc(var(--header-height, 64px) + 18px);
+  right: 24px;
+  background: rgba(255,102,0,.10);
+  color: var(--accent);
+  border: 1.5px solid rgba(255,102,0,.25);
+  border-radius: 14px;
+  padding: 10px 16px;
+  font-weight: 800;
+  z-index: 20;
+}
+
+/* ── Ranked ── */
+#rankedUI { width:100%; min-height:64px; margin:14px auto 18px; display:flex; justify-content:center; align-items:center; }
+#rankedUI.hidden { display:none; }
+#rankedScoreDisplay {
+  position:fixed; top:calc(var(--header-height,64px)+18px); left:24px;
+  background:rgba(255,102,0,.10); color:var(--accent);
+  border:1.5px solid rgba(255,102,0,.25); border-radius:14px;
+  padding:12px 20px; font-size:1.08rem; font-weight:900; min-width:130px; text-align:center; z-index:20;
+}
+#rankedProgressWrapper { width:min(420px,72vw); margin:0 auto; position:relative; top:-18px; }
+#rankedProgressLabel { display:flex; justify-content:space-between; margin-bottom:6px; font-size:.85rem; font-weight:800; color:var(--text-muted); }
+#rankedProgressBar { width:100%; height:10px; overflow:hidden; border-radius:999px; background:rgba(255,102,0,.12); }
+#rankedProgressFill { width:0%; height:100%; border-radius:inherit; background:linear-gradient(90deg,var(--accent),var(--accent-soft)); transition:width .25s ease; }
+
+.rankedLeaderboardButton {
+  position:fixed; top:calc(var(--header-height,64px)+18px); right:24px;
+  width:48px; height:48px; padding:0; border-radius:50%; border:none;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg,var(--accent),var(--accent-soft));
+  color:white; font-size:1.45rem; font-weight:900;
+  box-shadow:0 12px 28px rgba(255,102,0,.24); cursor:pointer; z-index:50;
+  transition:transform .18s, box-shadow .18s;
+}
+.rankedLeaderboardButton:hover  { transform:scale(1.06); box-shadow:0 16px 34px rgba(255,102,0,.30); }
+.rankedLeaderboardButton:active { transform:scale(.96); }
+.rankedLeaderboardButton.hidden { display:none !important; }
+
+.ritmoModeGroup { align-items:center; overflow:visible !important; padding:0; }
+.ritmoModeGroup .menuButton { overflow:visible; }
+.ritmoModeGroup .dailyModeButton {
+  position:relative; background:linear-gradient(180deg,#fff8ed,#fff0dc);
+  border-color:rgba(232,93,4,.36); color:#8f3a00;
+}
+.ritmoModeGroup .dailyModeButton:hover:not(.selected) {
+  background:linear-gradient(180deg,#fff1dc,#ffe4bf);
+  border-color:rgba(232,93,4,.52); color:var(--action-orange,#ff6600);
+  box-shadow:0 12px 26px rgba(232,93,4,.18);
+}
+.ritmoModeGroup .dailyModeButton.selected {
+  background:linear-gradient(135deg,var(--action-orange,#ff6600),var(--action-orange-soft,#ff8533));
+  color:#fff; box-shadow:0 12px 28px rgba(232,93,4,.32);
+}
+.ritmoModeGroup .dailyModeBadge {
+  position:absolute; top:-11px; right:14px;
+  padding:3px 8px; border-radius:999px;
+  background:var(--action-orange,#ff6600); color:#fff;
+  font-size:.62rem; font-weight:900;
+  box-shadow:0 6px 14px rgba(232,93,4,.24);
+}
+.ritmoModeGroup .dailyModeButton.selected .dailyModeBadge { background:#fff; color:var(--action-orange,#ff6600); }
+
+.rankedModeButton {
+  background:linear-gradient(180deg,#fff8ed,#fff0dc) !important;
+  border-color:rgba(232,93,4,.36) !important; color:#8f3a00 !important;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+}
+.rankedModeButton:hover:not(.selected) {
+  background:linear-gradient(180deg,#fff1dc,#ffe4bf) !important;
+  border-color:rgba(232,93,4,.52) !important; color:#ff6600 !important;
+}
+.rankedModeButton.selected {
+  background:linear-gradient(135deg,#ff6600,#ff8533) !important;
+  color:#fff !important; box-shadow:0 10px 24px rgba(232,93,4,.24);
+}
+.dailyModeBadge {
+  font-size:.72rem; font-weight:800; padding:4px 8px; border-radius:999px;
+  background:rgba(255,102,0,.16); color:#ff6600; text-transform:uppercase; letter-spacing:.04em;
+}
+
+/* ── Pulsante aggiungi slot ── */
+.addSlotBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  min-height: 90px;
+  border-radius: 12px;
+  border: 2px dashed rgba(255,102,0,.30);
+  background: transparent;
+  color: rgba(255,102,0,.45);
+  font-size: 1.8rem;
+  font-weight: 300;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background .15s, border-color .15s, color .15s, transform .12s;
+}
+.addSlotBtn:hover {
+  background: rgba(255,102,0,.08);
+  border-color: rgba(255,102,0,.55);
+  color: var(--accent);
+  transform: scale(1.06);
+}
+.addSlotBtn:active { transform: scale(.96); }
+
+/* ── Responsive ── */
+@media (max-width: 560px) {
+  .figCell  { width:60px; min-height:80px; }
+  .figImg   { width:30px; height:46px; }
+  .timeSig  { font-size:1.6rem; }
+  .barLine  { height:76px; }
+}

@@ -286,12 +286,12 @@ const MusicGameHubResources = (() => {
       icon: "🎹",
       type: "Gioco",
       title: "Ordina la scala",
-      desc: "Costruisci scale maggiori e minori con note, toni e semitoni.",
-      tags: ["gioco", "scale", "tonalità", "toni", "semitoni"],
+      desc: "Costruisci scale maggiori e minori. Con Pro alleni tutte le maggiori, minori naturali, armoniche e melodiche.",
+      tags: ["gioco", "scale", "tonalità", "toni", "semitoni", "modalità pro"],
       url: "giochi/scale_game.html",
       group: "games",
       homeGame: true,
-      tag: "Scale"
+      tag: "Scale · Pro"
     },
     {
       id: "wordle",
@@ -357,6 +357,16 @@ const MusicGameHubResources = (() => {
       desc: "Collana di fumetti verticali sulle vite dei grandi compositori.",
       tags: ["fumetti", "compositori", "mozart", "storia", "lettura", "biografie"],
       url: "fumetti/index.html",
+      group: "paths"
+    },
+    {
+      id: "classiDocente",
+      icon: "🏫",
+      type: "Percorso",
+      title: "Classi e alunni",
+      desc: "Area docente per creare classi, invitare alunni, leggere progressi ed esportare gli elenchi.",
+      tags: ["classi", "alunni", "docente", "registro", "scuola", "invito", "dashboard", "csv"],
+      url: "classi.html",
       group: "paths"
     },
     {
@@ -484,6 +494,15 @@ const MusicGameHubResources = (() => {
       desc: "Una collana illustrata per sfogliare le storie dei grandi compositori.",
       tag: "Collana",
       url: "fumetti/index.html",
+      homeGroup: "paths"
+    },
+    {
+      id: "homeClasses",
+      icon: "🏫",
+      title: "Classi e alunni",
+      desc: "Crea classi, condividi link invito e controlla attività, studenti, leaderboard e soggetti.",
+      tag: "Docente",
+      url: "classi.html",
       homeGroup: "paths"
     },
     {

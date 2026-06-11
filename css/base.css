@@ -375,6 +375,7 @@ body {
 .rankedUnifiedGamePage .rankedUI:not(.hidden) ~ .gameVisualBox,
 .rankedUnifiedGamePage .rankedUI:not(.hidden) ~ .gameDisplay.gameVisualBox,
 .rankedUnifiedGamePage .rankedUI:not(.hidden) ~ .clueCard.gameVisualBox,
+.rankedUnifiedGamePage .rankedUI:not(.hidden) ~ #gameArea .gameVisualBox,
 .rankedUnifiedGamePage .rankedUI:not(.hidden) ~ .gameVisualStage .gameVisualBox {
   height: 280px;
   margin-top: 8px;

@@ -5,7 +5,7 @@
                etichette T/S colorate appaiono dopo verifica
   ─ MEDIO    : scala mostrata, trascina T/S nei gap tra le note
   ─ DIFFICILE: tastiera cromatica reale (tasti bianchi/neri sfalsati),
-               seleziona le note nell'ordine corretto
+               clicca le note nell'ordine corretto
   ─ RANKED   : easy→medium→hard con difficoltà crescente
 */
 
@@ -15,7 +15,6 @@ let gameMode            = "training";
 let currentScale        = null;
 let roundLocked         = false;
 let timerInterval       = null;
-let rankedClockInterval = null;
 
 const menu       = document.getElementById("menu");
 const game       = document.getElementById("game");
@@ -25,6 +24,7 @@ MGHGameUI.ensureRankedHUD();
 const timerBox   = document.getElementById("timerBox");
 const timerEl    = document.getElementById("timer");
 const warning    = document.getElementById("warning");
+const SCALE_PRO_STORAGE_KEY = "mgh_scale_pro_mode";
 
 /* ==================== DATI SCALE ==================== */
 
@@ -38,6 +38,169 @@ function chromFrom(tonic, sharp) {
   rot.push(rot[0]);
   return rot; // 13 elementi: tonica…ottava
 }
+
+function isPianoBlackNote(note) {
+  return /[♯♭]/.test(normalizeAccidentals(note));
+}
+
+function getKeyboardNotesForScale(scale) {
+  const chrom = chromFrom(scale.tonic, scale.sharp);
+  const base = scale.sharp
+    ? ["Do","Do♯","Re","Re♯","Mi","Fa","Fa♯","Sol","Sol♯","La","La♯","Si"]
+    : ["Do","Re♭","Re","Mi♭","Mi","Fa","Sol♭","Sol","La♭","La","Si♭","Si"];
+  const tonicIndex = base.indexOf(scale.tonic);
+  const keyboardNotes = [...chrom];
+
+  if (isPianoBlackNote(keyboardNotes[0])) {
+    keyboardNotes.unshift(base[(tonicIndex - 1 + base.length) % base.length]);
+  }
+
+  if (isPianoBlackNote(keyboardNotes[keyboardNotes.length - 1])) {
+    keyboardNotes.push(base[(tonicIndex + 1) % base.length]);
+  }
+
+  return keyboardNotes;
+}
+
+function getKeyboardKeysForScale(scale) {
+  const scaleLabelBySemitone = new Map();
+  scale.notes.forEach(note => {
+    const semitone = getNoteSemitone(note);
+    if (semitone !== null && !scaleLabelBySemitone.has(semitone)) {
+      scaleLabelBySemitone.set(semitone, note);
+    }
+  });
+
+  return getKeyboardNotesForScale(scale).map(pianoNote => {
+    const semitone = getNoteSemitone(pianoNote);
+    return {
+      pianoNote,
+      answerNote: scaleLabelBySemitone.get(semitone) || pianoNote,
+      label: pianoNote
+    };
+  });
+}
+
+const NOTE_BASE_SEMITONES = {
+  Do: 0,
+  Re: 2,
+  Mi: 4,
+  Fa: 5,
+  Sol: 7,
+  La: 9,
+  Si: 11
+};
+
+function normalizeAccidentals(note) {
+  return String(note || "")
+    .replace(/#/g, "♯")
+    .replace(/b/g, "♭")
+    .trim();
+}
+
+function getNoteSemitone(note) {
+  const clean = normalizeAccidentals(note);
+  const base = Object.keys(NOTE_BASE_SEMITONES).find(name => clean.startsWith(name));
+  if (!base) return null;
+
+  const accidentals = clean.slice(base.length);
+  const alteration = Array.from(accidentals).reduce((sum, char) => {
+    if (char === "♯") return sum + 1;
+    if (char === "♭") return sum - 1;
+    return sum;
+  }, 0);
+
+  return (NOTE_BASE_SEMITONES[base] + alteration + 120) % 12;
+}
+
+function getIntervalSemitones(fromNote, toNote) {
+  const from = getNoteSemitone(fromNote);
+  const to = getNoteSemitone(toNote);
+  if (from === null || to === null) return null;
+  return (to - from + 12) % 12;
+}
+
+function formatToneValue(semitones) {
+  if (semitones === null) return "?";
+  if (semitones === 0) return "0";
+  if (semitones === 1) return "S";
+  if (semitones === 2) return "T";
+  return `${semitones / 2}T`;
+}
+
+function getToneLabelClass(semitones) {
+  if (semitones === 1) return "ts-s";
+  if (semitones === 2) return "ts-t";
+  return "ts-wide";
+}
+
+const SCALE_LETTERS = ["Do", "Re", "Mi", "Fa", "Sol", "La", "Si"];
+const MAJOR_TONICS = ["Do", "Sol", "Re", "La", "Mi", "Si", "Fa♯", "Re♭", "La♭", "Mi♭", "Si♭", "Fa"];
+const MINOR_TONICS = ["La", "Mi", "Si", "Fa♯", "Do♯", "La♭", "Mi♭", "Si♭", "Fa", "Do", "Sol", "Re"];
+const SCALE_PATTERNS = [
+  { type: "maggiore", tonics: MAJOR_TONICS, intervals: [0, 2, 4, 5, 7, 9, 11, 12] },
+  { type: "minore naturale", tonics: MINOR_TONICS, intervals: [0, 2, 3, 5, 7, 8, 10, 12] },
+  { type: "minore armonica", tonics: MINOR_TONICS, intervals: [0, 2, 3, 5, 7, 8, 11, 12] },
+  { type: "minore melodica", tonics: MINOR_TONICS, intervals: [0, 2, 3, 5, 7, 9, 11, 12] }
+];
+
+function getNoteBaseName(note) {
+  const clean = normalizeAccidentals(note);
+  return SCALE_LETTERS.find(name => clean.startsWith(name)) || "";
+}
+
+function getAccidentalText(alteration) {
+  if (alteration > 0) return "♯".repeat(alteration);
+  if (alteration < 0) return "♭".repeat(Math.abs(alteration));
+  return "";
+}
+
+function normalizeAlteration(alteration) {
+  let safeAlteration = alteration;
+  while (safeAlteration > 6) safeAlteration -= 12;
+  while (safeAlteration < -6) safeAlteration += 12;
+  return safeAlteration;
+}
+
+function spellScaleDegree(letter, targetSemitone) {
+  const naturalSemitone = NOTE_BASE_SEMITONES[letter];
+  const alteration = normalizeAlteration(targetSemitone - naturalSemitone);
+  return `${letter}${getAccidentalText(alteration)}`;
+}
+
+function buildScaleNotes(tonic, intervals) {
+  const tonicBase = getNoteBaseName(tonic);
+  const tonicLetterIndex = SCALE_LETTERS.indexOf(tonicBase);
+  const tonicSemitone = getNoteSemitone(tonic);
+
+  return intervals.map((interval, index) => {
+    const letter = SCALE_LETTERS[(tonicLetterIndex + index) % SCALE_LETTERS.length];
+    const targetSemitone = (tonicSemitone + interval) % 12;
+    return spellScaleDegree(letter, targetSemitone);
+  });
+}
+
+function buildScaleIntervals(intervals) {
+  return intervals.slice(0, -1).map((interval, index) =>
+    formatToneValue(intervals[index + 1] - interval)
+  );
+}
+
+function createGeneratedScale(tonic, type, intervals) {
+  return {
+    name: `${tonic} ${type}`,
+    tonic,
+    type,
+    diff: "pro",
+    notes: buildScaleNotes(tonic, intervals),
+    ts: buildScaleIntervals(intervals),
+    sharp: !tonic.includes("♭")
+  };
+}
+
+const PRO_SCALES = SCALE_PATTERNS.flatMap(pattern =>
+  pattern.tonics.map(tonic => createGeneratedScale(tonic, pattern.type, pattern.intervals))
+);
 
 const SCALES = [
   /* ── FACILE: maggiori ── */
@@ -68,6 +231,12 @@ const SCALES = [
     ts:["T","S","T","T","S","T","T"], sharp:true },
   { name:"Mi minore",    tonic:"Mi",  type:"minore", diff:"easy",
     notes:["Mi","Fa♯","Sol","La","Si","Do","Re","Mi"],
+    ts:["T","S","T","T","S","T","T"], sharp:true },
+  { name:"Si minore",    tonic:"Si",  type:"minore", diff:"easy",
+    notes:["Si","Do♯","Re","Mi","Fa♯","Sol","La","Si"],
+    ts:["T","S","T","T","S","T","T"], sharp:true },
+  { name:"Fa♯ minore",   tonic:"Fa♯", type:"minore", diff:"easy",
+    notes:["Fa♯","Sol♯","La","Si","Do♯","Re","Mi","Fa♯"],
     ts:["T","S","T","T","S","T","T"], sharp:true },
   { name:"Re minore",    tonic:"Re",  type:"minore", diff:"easy",
     notes:["Re","Mi","Fa","Sol","La","Si♭","Do","Re"],
@@ -115,8 +284,11 @@ const SCALES = [
 let lastScaleName = { easy: null, medium: null, hard: null };
 
 function getPool(poolKey) {
-  if (poolKey === "easy")   return SCALES.filter(s => s.diff === "easy");
-  if (poolKey === "medium") return SCALES.filter(s => s.diff !== "hard");
+  if (isScaleProModeEnabled()) return PRO_SCALES;
+
+  if (poolKey === "easy" || poolKey === "medium" || poolKey === "hard") {
+    return SCALES.filter(s => s.diff === "easy");
+  }
   return SCALES;
 }
 
@@ -151,6 +323,46 @@ function selectMode(el, mode) {
   if (mode === "ranked") { gameMode = "ranked"; difficulty = null; MGH.selectExclusive(".menuButton", el); }
 }
 
+/* ==================== PRO VISUALE SCALE ==================== */
+
+function isScaleProModeEnabled() {
+  return localStorage.getItem(SCALE_PRO_STORAGE_KEY) === "1";
+}
+
+function applyScaleProMode(isEnabled = isScaleProModeEnabled()) {
+  document.body.classList.toggle("scaleProMode", Boolean(isEnabled));
+  const button = document.getElementById("scaleProToggleBtn");
+  if (!button) return;
+  button.classList.toggle("active", Boolean(isEnabled));
+  button.setAttribute("aria-pressed", String(Boolean(isEnabled)));
+}
+
+function toggleScaleProMode() {
+  const nextState = !isScaleProModeEnabled();
+  localStorage.setItem(SCALE_PRO_STORAGE_KEY, nextState ? "1" : "0");
+  applyScaleProMode(nextState);
+}
+
+function ensureScaleProToggleButton() {
+  if (document.getElementById("scaleProToggleBtn")) {
+    applyScaleProMode();
+    return;
+  }
+
+  const button = document.createElement("button");
+  button.id = "scaleProToggleBtn";
+  button.className = "scaleProToggleButton";
+  button.type = "button";
+  button.textContent = "Pro";
+  button.setAttribute("aria-label", "Attiva modalità Pro");
+  button.setAttribute("aria-pressed", "false");
+  button.addEventListener("click", toggleScaleProMode);
+  document.body.appendChild(button);
+  applyScaleProMode();
+}
+
+document.addEventListener("DOMContentLoaded", ensureScaleProToggleButton);
+
 /* ==================== START / BACK ==================== */
 
 function startGame() {
@@ -170,11 +382,20 @@ function startGame() {
 function startRankedGame(nickname = "") {
   warning.textContent = "";
   if (typeof startRankedMode !== "function") { warning.textContent = "Errore: ranked.js non caricato."; return; }
-  const session = startRankedMode("scale"); session.setUsername(nickname);
-  menu.classList.add("hidden"); game.classList.remove("hidden");
-  hideLeaderboardButton(); hideBackButton();
-  MGH.updateHeaderModeLabel("Classificata");
-  showRankedUI(); startRankedClock(); updateRankedUI(); newRound();
+  const session = startRankedMode("scale");
+  session.setUsername(nickname);
+  MGHGameUI.enterRanked({
+    menu,
+    game,
+    score: session.totalScore,
+    current: session.currentQuestion,
+    total: session.maxQuestions,
+    feedbackEl
+  });
+  hideBackButton();
+  startRankedClock();
+  updateRankedUI();
+  newRound();
 }
 
 function goBack() {
@@ -217,8 +438,7 @@ const slotMap = {}; // slotIndex → note
 
 function buildEasyRound() {
   const s = currentScale;
-  const isMaj = s.type === "maggiore";
-  const formula = isMaj ? "T – T – S – T – T – T – S" : "T – S – T – T – S – T – T";
+  const formula = s.ts.join(" – ");
   questionEl.textContent = `Ordina le note: scala di ${s.name}`;
 
   const ga = document.getElementById("gameArea");
@@ -470,24 +690,40 @@ function checkEasyAnswer() {
   if (filled < 8) { setFeedback(`Completa tutti gli 8 slot (${filled}/8).`); return; }
   roundLocked = true;
   let allOk = true;
+  let correctItems = 0;
   for (let i = 0; i < 8; i++) {
     const sl = document.querySelector(`.easySlot[data-index="${i}"]`);
     const placedNote = slotMap[i]?.note;
-    if (placedNote === exp[i]) sl?.classList.add("correct");
-    else { sl?.classList.add("wrong"); allOk = false; }
+    if (placedNote === exp[i]) {
+      sl?.classList.add("correct");
+      correctItems++;
+    } else {
+      sl?.classList.add("wrong");
+      allOk = false;
+    }
   }
   /* Mostra etichette T/S */
   const tsRow = document.getElementById("easyTsRow");
   if (tsRow) {
     tsRow.classList.remove("hidden");
-    currentScale.ts.forEach((v, i) => {
+    for (let i = 0; i < 7; i++) {
+      const fromNote = slotMap[i]?.note;
+      const toNote = slotMap[i + 1]?.note;
+      const semitones = getIntervalSemitones(fromNote, toNote);
+      const value = formatToneValue(semitones);
       const g = document.getElementById(`tsGap${i}`);
-      if (g) { g.textContent = v; g.className = `easyTsGap ts-label ts-${v === "S" ? "s" : "t"}`; }
-    });
+      if (g) {
+        g.textContent = value;
+        g.className = `easyTsGap ts-label ${getToneLabelClass(semitones)}`;
+      }
+    }
   }
   if (allOk) setFeedback(MGH.getAnswerFeedback(true), "correct");
   else       setFeedback(MGH.getAnswerFeedback(false, "Ordine corretto: " + exp.join(" – ") + "."), "wrong");
-  if (gameMode === "ranked") { handleRankedAnswer(allOk); return; }
+  if (gameMode === "ranked") {
+    handleRankedAnswer(allOk, { correctItems, totalItems: exp.length });
+    return;
+  }
   setTimeout(() => { Object.keys(slotMap).forEach(k => delete slotMap[k]); newRound(); }, 2200);
 }
 
@@ -500,23 +736,28 @@ function resetEasyRound() {
    Scala visibile con note fisse. Trascina T o S nei 7 gap.
 ================================================================ */
 
-const gapMap = {}; // gapIndex → label
+const gapMap = {}; // gapIndex → { label, chipIdx }
 
 function buildMediumRound() {
   const s = currentScale;
-  questionEl.textContent = `Trascina T o S nei gap: scala di ${s.name}`;
+  questionEl.textContent = `Trascina gli intervalli nei gap: scala di ${s.name}`;
   const ga = document.getElementById("gameArea");
-  ga.innerHTML = `<div class="medium-scale-display" id="medDisplay"></div>
-                  <div class="medium-ts-pool" id="medPool"></div>`;
+  ga.innerHTML = `
+    <section class="mediumVisualStage gameVisualBox" aria-label="Completa toni e semitoni">
+      <div class="medium-notes-row" id="medNotesRow"></div>
+      <div class="medium-gaps-row" id="medGapsRow"></div>
+      <div class="medium-ts-pool" id="medPool"></div>
+    </section>`;
 
-  const display = document.getElementById("medDisplay");
+  const notesRow = document.getElementById("medNotesRow");
+  const gapsRow = document.getElementById("medGapsRow");
   s.notes.forEach((note, i) => {
     const nd = document.createElement("div"); nd.className = "mediumNote"; nd.textContent = note;
-    display.appendChild(nd);
+    notesRow.appendChild(nd);
     if (i < s.notes.length - 1) {
       const g = document.createElement("div");
       g.className = "mediumGap"; g.dataset.index = i; g.textContent = "?";
-      setupMediumGap(g, i); display.appendChild(g);
+      setupMediumGap(g, i); gapsRow.appendChild(g);
     }
   });
 
@@ -527,9 +768,14 @@ function buildMediumRound() {
     const c = document.createElement("div");
     c.className = "tsChip"; c.textContent = lbl; c.dataset.label = lbl; c.dataset.idx = idx;
     c.draggable = true;
+    c.addEventListener("click", () => {
+      if (roundLocked || c.classList.contains("used")) return;
+      placeInFirstEmptyGap(lbl, idx);
+    });
     c.addEventListener("dragstart", e => {
       if (roundLocked) { e.preventDefault(); return; }
       e.dataTransfer.setData("tsLabel", lbl); e.dataTransfer.setData("tsIdx", String(idx));
+      e.dataTransfer.setData("fromGap", "");
       setTimeout(() => c.classList.add("dragging"), 0);
     });
     c.addEventListener("dragend", () => c.classList.remove("dragging"));
@@ -539,9 +785,32 @@ function buildMediumRound() {
     }, { passive: false });
     pool.appendChild(c);
   });
+
+  pool.addEventListener("dragover", e => { e.preventDefault(); pool.classList.add("drag-over"); });
+  pool.addEventListener("dragleave", () => pool.classList.remove("drag-over"));
+  pool.addEventListener("drop", e => {
+    e.preventDefault();
+    pool.classList.remove("drag-over");
+    if (roundLocked) return;
+    const fromGap = e.dataTransfer.getData("fromGap");
+    if (fromGap !== "") returnGapToPool(parseInt(fromGap));
+  });
 }
 
 function setupMediumGap(gap, i) {
+  gap.draggable = false;
+  gap.addEventListener("dragstart", e => {
+    if (roundLocked || !gapMap[i]) {
+      e.preventDefault();
+      return;
+    }
+
+    e.dataTransfer.setData("tsLabel", gapMap[i].label);
+    e.dataTransfer.setData("tsIdx", gapMap[i].chipIdx !== null ? String(gapMap[i].chipIdx) : "");
+    e.dataTransfer.setData("fromGap", String(i));
+    setTimeout(() => gap.classList.add("dragging"), 0);
+  });
+  gap.addEventListener("dragend", () => gap.classList.remove("dragging"));
   gap.addEventListener("dragover",  e => { e.preventDefault(); gap.classList.add("drag-over"); });
   gap.addEventListener("dragleave", () => gap.classList.remove("drag-over"));
   gap.addEventListener("drop", e => {
@@ -549,27 +818,73 @@ function setupMediumGap(gap, i) {
     if (roundLocked) return;
     const lbl = e.dataTransfer.getData("tsLabel");
     const idx = e.dataTransfer.getData("tsIdx");
-    placeInGap(lbl, i, idx !== "" ? parseInt(idx) : null);
+    const fromGap = e.dataTransfer.getData("fromGap");
+    placeInGap(
+      lbl,
+      i,
+      idx !== "" ? parseInt(idx) : null,
+      fromGap !== "" ? parseInt(fromGap) : null
+    );
   });
   gap.addEventListener("click", () => { if (!roundLocked && gapMap[i]) returnGapToPool(i); });
 }
 
-function placeInGap(lbl, gi, chipIdx) {
+function placeInGap(lbl, gi, chipIdx, fromGapIdx = null) {
+  if (!lbl) return;
+  if (fromGapIdx === gi) return;
+
+  const movingData = fromGapIdx !== null && fromGapIdx !== undefined ? gapMap[fromGapIdx] : null;
+  const sourceChipIdx = chipIdx !== null && chipIdx !== undefined
+    ? chipIdx
+    : movingData?.chipIdx ?? null;
+
   if (gapMap[gi]) returnGapToPool(gi);
-  gapMap[gi] = lbl;
+  if (fromGapIdx !== null && fromGapIdx !== undefined) {
+    clearGap(fromGapIdx);
+  }
+  gapMap[gi] = { label: lbl, chipIdx: sourceChipIdx };
   const g = document.querySelector(`.mediumGap[data-index="${gi}"]`);
-  if (g) { g.textContent = lbl; g.classList.add("filled"); }
-  if (chipIdx !== null) {
-    const c = document.querySelector(`.tsChip[data-idx="${chipIdx}"]`);
+  if (g) {
+    g.textContent = lbl;
+    g.draggable = true;
+    g.classList.add("filled");
+    g.setAttribute("title", "Clicca o trascina per togliere");
+  }
+  if (sourceChipIdx !== null) {
+    const c = document.querySelector(`.tsChip[data-idx="${sourceChipIdx}"]`);
     if (c) c.classList.add("used");
   }
 }
 
-function returnGapToPool(gi) {
-  const lbl = gapMap[gi]; delete gapMap[gi];
+function placeInFirstEmptyGap(lbl, chipIdx) {
+  const firstEmptyIndex = Array.from({ length: 7 }, (_, index) => index)
+    .find(index => !gapMap[index]);
+
+  if (firstEmptyIndex === undefined) {
+    setFeedback("Tutti i gap sono pieni: clicca su un quadrato per liberarlo.");
+    return;
+  }
+
+  placeInGap(lbl, firstEmptyIndex, chipIdx);
+}
+
+function clearGap(gi) {
+  delete gapMap[gi];
   const g = document.querySelector(`.mediumGap[data-index="${gi}"]`);
-  if (g) { g.textContent = "?"; g.classList.remove("filled","correct","wrong"); }
-  const c = [...document.querySelectorAll(".tsChip.used")].find(x => x.dataset.label === lbl);
+  if (g) {
+    g.textContent = "?";
+    g.draggable = false;
+    g.removeAttribute("title");
+    g.classList.remove("filled","correct","wrong","dragging");
+  }
+}
+
+function returnGapToPool(gi) {
+  const data = gapMap[gi];
+  clearGap(gi);
+  const c = data?.chipIdx !== null && data?.chipIdx !== undefined
+    ? document.querySelector(`.tsChip.used[data-idx="${data.chipIdx}"]`)
+    : [...document.querySelectorAll(".tsChip.used")].find(x => x.dataset.label === data?.label);
   if (c) c.classList.remove("used");
 }
 
@@ -615,14 +930,23 @@ function checkMediumAnswer() {
   if (filled < 7) { setFeedback(`Completa tutti i 7 gap (${filled}/7).`); return; }
   roundLocked = true;
   let allOk = true;
+  let correctItems = 0;
   for (let i = 0; i < 7; i++) {
     const g = document.querySelector(`.mediumGap[data-index="${i}"]`);
-    if (gapMap[i] === currentScale.ts[i]) g?.classList.add("correct");
-    else { g?.classList.add("wrong"); allOk = false; }
+    if (gapMap[i]?.label === currentScale.ts[i]) {
+      g?.classList.add("correct");
+      correctItems++;
+    } else {
+      g?.classList.add("wrong");
+      allOk = false;
+    }
   }
   if (allOk) setFeedback(MGH.getAnswerFeedback(true), "correct");
   else setFeedback(MGH.getAnswerFeedback(false, "La sequenza corretta era " + currentScale.ts.join(" – ") + "."), "wrong");
-  if (gameMode === "ranked") { handleRankedAnswer(allOk); return; }
+  if (gameMode === "ranked") {
+    handleRankedAnswer(allOk, { correctItems, totalItems: currentScale.ts.length });
+    return;
+  }
   setTimeout(() => { Object.keys(gapMap).forEach(k => delete gapMap[k]); newRound(); }, 2200);
 }
 
@@ -638,36 +962,35 @@ function resetMediumRound() {
 
 const hardSelected = [];
 
-/* Struttura semitoni: quale indice (0-12) è tasto nero */
-const IS_BLACK = [false,true,false,true,false,false,true,false,true,false,true,false,false];
-
 function buildHardRound() {
   const s = currentScale;
-  const chrom = chromFrom(s.tonic, s.sharp);
+  const keyboardKeys = getKeyboardKeysForScale(s);
   questionEl.textContent = `Costruisci la scala di ${s.name} sulla tastiera`;
 
   const ga = document.getElementById("gameArea");
   ga.innerHTML = `
-    <div class="hard-selected-row" id="hardSelRow">
-      <span class="hard-sel-hint" id="hardSelHint">Seleziona ${s.notes.length} note dalla tastiera</span>
-    </div>
-    <div class="piano-wrap">
-      <div class="piano" id="piano"></div>
-    </div>`;
+    <section class="hardVisualStage gameVisualBox" aria-label="Costruzione della scala sulla tastiera">
+      <div class="hard-selected-row" id="hardSelRow">
+        <span class="hard-sel-hint" id="hardSelHint">Seleziona ${s.notes.length} note dalla tastiera</span>
+      </div>
+      <div class="piano-wrap">
+        <div class="piano" id="piano"></div>
+      </div>
+    </section>`;
 
   hardSelected.length = 0;
-  buildPiano(document.getElementById("piano"), chrom);
+  buildPiano(document.getElementById("piano"), keyboardKeys);
 }
 
-function buildPiano(container, chrom) {
+function buildPiano(container, keyboardKeys) {
   const WW = 40, WH = 128, BW = 26, BH = 80;
 
   /* Indici dei tasti bianchi (in ordine) */
-  const whiteIndices = chrom
+  const whiteIndices = keyboardKeys
     .map((_, i) => i)
-    .filter(i => !IS_BLACK[i]);
+    .filter(i => !isPianoBlackNote(keyboardKeys[i].pianoNote));
 
-  /* Larghezza totale = numero tasti bianchi × WW */
+  /* Larghezza totale = numero tasti bianchi × WW. */
   container.style.position = "relative";
   container.style.height   = WH + "px";
   container.style.width    = (whiteIndices.length * WW) + "px";
@@ -677,51 +1000,54 @@ function buildPiano(container, chrom) {
   whiteIndices.forEach((si, wi) => { whitePosMap[si] = wi * WW; });
 
   /* 1. Disegna tasti BIANCHI (z-index basso) */
-  whiteIndices.forEach((si, wi) => {
-    const note = chrom[si];
+  whiteIndices.forEach(si => {
+    const keyData = keyboardKeys[si];
     const key  = document.createElement("div");
     key.className = "hardKey white-key";
-    key.dataset.note = note; key.dataset.si = si;
+    key.dataset.note = keyData.answerNote; key.dataset.si = si; key.dataset.keyId = String(si);
     Object.assign(key.style, {
-      position: "absolute", left: (wi * WW) + "px", top: "0",
+      position: "absolute", left: whitePosMap[si] + "px", top: "0",
       width: WW + "px", height: WH + "px", zIndex: "1"
     });
-    key.innerHTML = `<span class="key-label">${note}</span>`;
-    key.addEventListener("click", () => onHardKeyClick(note, key));
+    key.innerHTML = `<span class="key-label">${keyData.label}</span>`;
+    key.addEventListener("click", () => onHardKeyClick(keyData.label, keyData.answerNote, key));
     container.appendChild(key);
   });
 
   /* 2. Disegna tasti NERI sopra (z-index alto), posizionati tra i bianchi */
-  chrom.forEach((note, si) => {
-    if (!IS_BLACK[si]) return;
-    /* Trova il bianco precedente e il successivo */
+  keyboardKeys.forEach((keyData, si) => {
+    if (!isPianoBlackNote(keyData.pianoNote)) return;
+    /* Posiziona ogni nero tra due bianchi, come una tastiera reale. */
     const prevWhi = whiteIndices.filter(w => w < si).slice(-1)[0];
-    const wi      = whiteIndices.indexOf(prevWhi);
+    const previousWhiteCount = prevWhi === undefined ? 0 : whiteIndices.indexOf(prevWhi) + 1;
     /* Centro del tasto nero = bordo destro del bianco precedente - BW/2 */
-    const leftX   = (wi + 1) * WW - BW / 2;
+    const leftX   = previousWhiteCount * WW - BW / 2;
     const key     = document.createElement("div");
     key.className = "hardKey black-key";
-    key.dataset.note = note; key.dataset.si = si;
+    key.dataset.note = keyData.answerNote; key.dataset.si = si; key.dataset.keyId = String(si);
     Object.assign(key.style, {
       position: "absolute", left: leftX + "px", top: "0",
       width: BW + "px", height: BH + "px", zIndex: "2"
     });
-    key.innerHTML = `<span class="key-label">${note}</span>`;
-    key.addEventListener("click", () => onHardKeyClick(note, key));
+    key.innerHTML = `<span class="key-label">${keyData.label}</span>`;
+    key.addEventListener("click", () => onHardKeyClick(keyData.label, keyData.answerNote, key));
     container.appendChild(key);
   });
 }
 
-function onHardKeyClick(note, keyEl) {
+function onHardKeyClick(label, note, keyEl) {
   if (roundLocked) return;
   const maxNotes = currentScale.notes.length;
-  const idx = hardSelected.indexOf(note);
+  const keyId = keyEl.dataset.keyId || keyEl.dataset.si;
+  const idx = hardSelected.findIndex(item => item.keyId === keyId);
   if (idx !== -1) {
-    hardSelected.splice(idx, 1); keyEl.classList.remove("selected");
+    hardSelected.splice(idx, 1);
+    keyEl.classList.remove("selected");
     renderHardSelected(); return;
   }
   if (hardSelected.length >= maxNotes) { setFeedback(`Puoi selezionare al massimo ${maxNotes} note.`); return; }
-  hardSelected.push(note); keyEl.classList.add("selected");
+  hardSelected.push({ note, label, keyId });
+  keyEl.classList.add("selected");
   renderHardSelected(); setFeedback("");
 }
 
@@ -732,17 +1058,27 @@ function renderHardSelected() {
   row.querySelectorAll(".hardChip").forEach(c => c.remove());
   if (!hardSelected.length) { if (hint) hint.style.display = ""; return; }
   if (hint) hint.style.display = "none";
-  hardSelected.forEach(note => {
-    const c = document.createElement("div"); c.className = "noteChip hardChip"; c.textContent = note;
+  hardSelected.forEach((item, index) => {
+    const c = document.createElement("div");
+    c.className = "noteChip hardChip";
+    c.textContent = item.label;
+    c.draggable = false;
+    c.dataset.selectedIndex = String(index);
     c.addEventListener("click", () => {
       if (roundLocked) return;
-      const i = hardSelected.indexOf(note);
-      if (i !== -1) hardSelected.splice(i, 1);
-      document.querySelector(`.hardKey[data-note="${CSS.escape(note)}"]`)?.classList.remove("selected");
-      renderHardSelected();
+      removeHardSelectedAt(index);
     });
     row.appendChild(c);
   });
+}
+
+function removeHardSelectedAt(index) {
+  const selected = hardSelected[index];
+  if (!selected) return;
+
+  hardSelected.splice(index, 1);
+  document.querySelector(`.hardKey[data-key-id="${CSS.escape(selected.keyId)}"]`)?.classList.remove("selected");
+  renderHardSelected();
 }
 
 function checkHardAnswer() {
@@ -751,21 +1087,21 @@ function checkHardAnswer() {
     setFeedback(`Seleziona ${exp.length} note (hai: ${hardSelected.length}).`); return;
   }
   roundLocked = true;
-  const allOk = arraysEqual(hardSelected, exp);
-  hardSelected.forEach((note, i) => {
-    const key = document.querySelector(`.hardKey[data-note="${CSS.escape(note)}"]`);
-    if (key) key.classList.add(note === exp[i] ? "key-correct" : "key-wrong");
+  const selectedNotes = hardSelected.map(item => item.note);
+  const allOk = arraysEqual(selectedNotes, exp);
+  let correctItems = 0;
+  hardSelected.forEach((item, i) => {
+    const chip = document.querySelector(`.hardChip[data-selected-index="${i}"]`);
+    const isItemCorrect = item.note === exp[i];
+    if (isItemCorrect) correctItems++;
+    if (chip) chip.classList.add(isItemCorrect ? "correct" : "wrong");
   });
-  if (!allOk) {
-    exp.forEach(note => {
-      const key = document.querySelector(`.hardKey[data-note="${CSS.escape(note)}"]`);
-      if (key && !key.classList.contains("key-correct") && !key.classList.contains("key-wrong"))
-        key.classList.add("key-missed");
-    });
-  }
   if (allOk) setFeedback(MGH.getAnswerFeedback(true), "correct");
   else       setFeedback(MGH.getAnswerFeedback(false, "La scala corretta era " + exp.join(" – ") + "."), "wrong");
-  if (gameMode === "ranked") { handleRankedAnswer(allOk); return; }
+  if (gameMode === "ranked") {
+    handleRankedAnswer(allOk, { correctItems, totalItems: exp.length });
+    return;
+  }
   setTimeout(newRound, 2400);
 }
 
@@ -795,8 +1131,19 @@ function resetRound() {
 
 /* ==================== RANKED ==================== */
 
-function handleRankedAnswer(isCorrect) {
-  const session = answerRankedQuestion(isCorrect);
+function handleRankedAnswer(isCorrect, partialCredit = null) {
+  const answer = partialCredit
+    ? {
+        isCorrect,
+        partialCredit,
+        details: {
+          scale: currentScale?.name || "",
+          correctItems: partialCredit.correctItems,
+          totalItems: partialCredit.totalItems
+        }
+      }
+    : isCorrect;
+  const session = answerRankedQuestion(answer);
   updateRankedUI();
   if (session && session.isComplete()) {
     setTimeout(showRankedResults, 2400);
@@ -815,28 +1162,23 @@ function hideRankedUI()  { document.getElementById("rankedUI")?.classList.add("h
 function hideLeaderboardButton() {
   document.getElementById("rankedLeaderboardBtn")?.classList.add("hidden");
   document.getElementById("gameModeHelpBtn")?.classList.add("hidden");
+  document.getElementById("scaleProToggleBtn")?.classList.add("hidden");
 }
 function showLeaderboardButton() {
   document.getElementById("rankedLeaderboardBtn")?.classList.remove("hidden");
   document.getElementById("gameModeHelpBtn")?.classList.remove("hidden");
+  document.getElementById("scaleProToggleBtn")?.classList.remove("hidden");
 }
 function hideBackButton() { document.getElementById("backButton")?.classList.add("hidden"); }
 function showBackButton() { document.getElementById("backButton")?.classList.remove("hidden"); }
 
 function updateRankedUI() {
   if (!currentRankedSession) return;
-  const scoreEl   = document.getElementById("rankedScore");
-  const counterEl = document.getElementById("rankedQuestionCounter");
-  const fillEl    = document.getElementById("rankedProgressFill");
-  if (scoreEl)   scoreEl.textContent = currentRankedSession.totalScore;
-  if (counterEl) {
-    const cur = Math.min(currentRankedSession.currentQuestion + 1, currentRankedSession.maxQuestions);
-    counterEl.textContent = `${cur}/${currentRankedSession.maxQuestions}`;
-  }
-  if (fillEl) {
-    const pct = (currentRankedSession.currentQuestion / currentRankedSession.maxQuestions) * 100;
-    fillEl.style.width = `${pct}%`;
-  }
+  updateRankedProgressUI({
+    score: currentRankedSession.totalScore,
+    current: currentRankedSession.currentQuestion,
+    total: currentRankedSession.maxQuestions
+  });
 }
 
 async function showRankedResults() {
@@ -876,17 +1218,11 @@ function stopTimer() {
 }
 
 function startRankedClock() {
-  stopRankedClock();
-  if (!timerBox || !timerEl || !currentRankedSession) return;
-  timerBox.classList.remove("hidden"); timerEl.textContent = "0";
-  rankedClockInterval = setInterval(() => {
-    timerEl.textContent = String(Math.round((Date.now() - currentRankedSession.startTime) / 1000));
-  }, 250);
+  startRankedElapsedTimer(currentRankedSession?.startTime);
 }
 
 function stopRankedClock() {
-  if (rankedClockInterval) { clearInterval(rankedClockInterval); rankedClockInterval = null; }
-  if (gameMode === "ranked") timerBox?.classList.add("hidden");
+  stopRankedElapsedTimer();
 }
 
 /* ==================== UTILS ==================== */

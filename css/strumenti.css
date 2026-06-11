@@ -21,19 +21,16 @@
 
 .instrumentHeroSection {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(240px, 0.65fr);
-  gap: 28px;
+  grid-template-columns: minmax(0, 1.12fr) minmax(320px, 0.88fr);
+  gap: clamp(28px, 5vw, 66px);
   align-items: center;
-  padding-top: 56px;
+  padding: 62px 0 42px;
 }
 
 .instrumentHeroText {
   text-align: left;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(0, 166, 189, 0.16);
-  border-radius: 26px;
-  padding: clamp(24px, 4vw, 38px);
-  box-shadow: var(--panel-shadow);
+  padding: 0;
+  margin-top: 18px;
 }
 
 .instrumentBadge {
@@ -119,55 +116,178 @@
   font-family: inherit;
 }
 
-.instrumentHeroVisual {
-  min-height: 290px;
+.instrumentFamilyShowcase {
   position: relative;
+  width: min(100%, 420px);
+  aspect-ratio: 1;
   display: grid;
   place-items: center;
+  margin: clamp(34px, 4vw, 56px) auto 0;
+  border-radius: 34px;
+  cursor: default;
+  outline: none;
+  isolation: isolate;
 }
 
-.bigSoundOrb {
-  width: 210px;
-  height: 210px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background:
-    radial-gradient(circle at 35% 30%, #ffffff, rgba(255,255,255,0.2) 25%, transparent 27%),
-    linear-gradient(135deg, #00a6bd, #ffb84d);
-  color: white;
-  font-size: 5.5rem;
-  font-weight: 900;
-  box-shadow: 0 30px 70px rgba(0, 166, 189, 0.28);
-  animation: pulseOrb 4s ease-in-out infinite;
-}
-
-.miniOrb {
+.instrumentFamilyShowcase::before {
+  content: "";
   position: absolute;
-  width: 62px;
-  height: 62px;
-  border-radius: 22px;
+  inset: 3%;
+  z-index: -2;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(0, 166, 189, 0.18), transparent 58%),
+    radial-gradient(circle at 65% 30%, rgba(255, 184, 77, 0.18), transparent 46%);
+  filter: blur(18px);
+}
+
+.instrumentFamilyShowcase:focus-visible {
+  outline: 3px solid rgba(0, 166, 189, 0.62);
+  outline-offset: 8px;
+}
+
+.familyShowcaseCard {
+  position: relative;
+  width: 92%;
+  height: 92%;
+  min-height: 0;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  justify-items: center;
+  overflow: visible;
+  padding: 18px 20px 20px;
+  border-radius: 32px;
+  background: transparent;
+  box-shadow: none;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.instrumentFamilyShowcase:hover .familyShowcaseCard {
+  transform: none;
+  box-shadow: none;
+}
+
+.familyShowcaseAura {
+  position: absolute;
+  left: 50%;
+  top: 34%;
+  width: 58%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--family-aura, rgba(0, 166, 189, 0.24));
+  filter: blur(26px);
+  opacity: 0.86;
+  transform: translate(-50%, -50%);
+  transition: background 0.45s ease, opacity 0.45s ease;
+  will-change: background, opacity;
+}
+
+.familyShowcaseImageWrap {
+  position: relative;
+  z-index: 2;
+  width: 66%;
+  aspect-ratio: 1;
   display: grid;
   place-items: center;
-  background: white;
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
-  font-size: 1.9rem;
-  animation: floatIcon 4s ease-in-out infinite;
+  margin-top: 34px;
 }
 
-.m1 { top: 14%; left: 10%; animation-delay: 0s; }
-.m2 { top: 8%; right: 8%; animation-delay: .6s; }
-.m3 { bottom: 12%; left: 12%; animation-delay: 1.2s; }
-.m4 { bottom: 14%; right: 10%; animation-delay: 1.8s; }
-
-@keyframes pulseOrb {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.04); }
+.familyShowcaseImageWrap img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 24px rgba(6, 55, 68, 0.18));
+  transform: scale(1);
+  opacity: 1;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  will-change: opacity, transform;
 }
 
-@keyframes floatIcon {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-12px) rotate(3deg); }
+.familyShowcaseCard.isChanging .familyShowcaseImageWrap img {
+  opacity: 0;
+  transform: scale(0.94);
+}
+
+.familyShowcaseCard.isReady .familyShowcaseImageWrap img {
+  animation: familyImageBreath 3.5s ease-in-out;
+}
+
+.familyShowcaseContent {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  background: transparent;
+  box-shadow: none;
+  text-align: center;
+}
+
+.familyShowcaseContent h3 {
+  margin: 0;
+  color: #063744;
+  font-size: clamp(1.55rem, 3.4vw, 2.3rem);
+  line-height: 1;
+}
+
+.familyShowcaseContent p {
+  min-height: 58px;
+  margin: 10px auto 16px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.familyShowcaseButton {
+  min-height: 42px;
+  border: 0;
+  border-radius: 999px;
+  padding: 0 18px;
+  background: linear-gradient(135deg, #00a6bd, #28d2c7);
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(0, 166, 189, 0.22);
+}
+
+.familyShowcaseButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(0, 166, 189, 0.28);
+}
+
+.instrumentFamilyShowcase:hover .familyShowcaseImageWrap img {
+  animation-play-state: paused;
+}
+
+@keyframes familyImageBreath {
+  0% {
+    transform: scale(0.96);
+    opacity: 0;
+  }
+
+  16%,
+  88% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .familyShowcaseCard.isReady .familyShowcaseImageWrap img {
+    animation: none;
+  }
 }
 
 /* ==================== MAPPA FAMIGLIE ==================== */
@@ -184,11 +304,11 @@
   min-height: 170px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   gap: 8px;
   padding: 22px;
-  text-align: left;
+  text-align: center;
   color: var(--text-main);
   background: rgba(255,255,255,0.86);
   border: 1px solid rgba(0,166,189,0.16);
@@ -197,8 +317,20 @@
   cursor: pointer;
 }
 
-.familyOverviewCard span {
-  font-size: 2.5rem;
+.familyOverviewImage {
+  width: 92px;
+  height: 92px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 4px;
+}
+
+.familyOverviewImage img {
+  width: 90%;
+  height: 90%;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 14px rgba(6, 55, 68, 0.16));
 }
 
 .familyOverviewCard strong {
@@ -853,21 +985,9 @@
     text-align: left;
   }
 
-  .instrumentHeroVisual {
-    min-height: 210px;
-  }
-
-  .bigSoundOrb {
-    width: 160px;
-    height: 160px;
-    font-size: 4rem;
-  }
-
-  .miniOrb {
-    width: 48px;
-    height: 48px;
-    font-size: 1.45rem;
-    border-radius: 16px;
+  .instrumentFamilyShowcase {
+    width: min(100%, 380px);
+    margin-top: 24px;
   }
 
   .mouthpieceGrid {

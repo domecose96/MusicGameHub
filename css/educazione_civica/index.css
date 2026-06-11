@@ -102,28 +102,236 @@
   line-height: 1.55;
 }
 
-.civicHeroPanel {
-  min-height: 310px;
+.civicOrbitSystem {
+  position: relative;
+  width: min(100%, 400px);
+  aspect-ratio: 1;
+  margin: 0 auto;
+  border-radius: 50%;
+  isolation: isolate;
+  filter: drop-shadow(0 24px 50px rgba(18, 50, 74, 0.12));
+}
+
+.civicOrbitSystem::before {
+  content: "";
+  position: absolute;
+  inset: 8%;
+  z-index: -1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(13, 111, 159, 0.16), transparent 58%),
+    radial-gradient(circle, rgba(22, 138, 74, 0.12), transparent 66%);
+  filter: blur(18px);
+}
+
+.civicOrbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border: 1.5px dashed rgba(13, 111, 159, 0.28);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow:
+    0 0 24px rgba(13, 111, 159, 0.12),
+    inset 0 0 24px rgba(13, 111, 159, 0.08);
+  pointer-events: none;
+}
+
+.civicOrbitInner {
+  width: 58%;
+  height: 58%;
+}
+
+.civicOrbitOuter {
+  width: 86%;
+  height: 86%;
+  border-color: rgba(22, 138, 74, 0.22);
+}
+
+.civicCore,
+.civicOrbitItem {
+  position: absolute;
   display: grid;
   place-items: center;
-  gap: 12px;
-  padding: 34px;
-  border: 1px solid rgba(18, 50, 74, 0.1);
-  border-radius: 24px;
-  background:
-    linear-gradient(135deg, rgba(22, 138, 74, 0.1), rgba(13, 111, 159, 0.1)),
-    rgba(255, 255, 255, 0.86);
-  box-shadow: 0 22px 60px rgba(18, 50, 74, 0.1);
-  text-align: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow:
+    0 18px 38px rgba(18, 50, 74, 0.16),
+    0 0 28px rgba(13, 111, 159, 0.16);
 }
 
-.civicHeroPanel span {
-  font-size: clamp(2.4rem, 6vw, 4rem);
+.civicCore {
+  left: 50%;
+  top: 50%;
+  width: 30%;
+  height: 30%;
+  padding: 3.5%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
 }
 
-.civicHeroPanel strong {
-  color: var(--civic-blue);
-  font-size: 1.35rem;
+.civicCore img,
+.civicOrbitItem img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  border-radius: inherit;
+}
+
+.civicCore img {
+  transform: translate(-2%, -1%);
+}
+
+.civicOrbitTrack {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 50%;
+  will-change: transform;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.civicOrbitTrackInner {
+  animation-name: civicOrbitClockwise;
+  animation-duration: 40s;
+}
+
+.civicOrbitTrackOuter {
+  animation-name: civicOrbitCounterClockwise;
+  animation-duration: 60s;
+}
+
+.civicOrbitTrackInner .civicOrbitItem img {
+  animation: civicIconCounterClockwise 40s linear infinite;
+  will-change: transform;
+}
+
+.civicOrbitTrackOuter .civicOrbitItem img {
+  animation: civicIconClockwise 60s linear infinite;
+  will-change: transform;
+}
+
+.civicOrbitItem {
+  left: 50%;
+  top: 50%;
+  width: 17%;
+  height: 17%;
+  padding: 2.1%;
+  transform-origin: 50% 50%;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  will-change: transform;
+}
+
+.civicOrbitTrackInner .civicOrbitItem {
+  margin: -8.5% 0 0 -8.5%;
+}
+
+.civicOrbitTrackOuter .civicOrbitItem {
+  width: 15%;
+  height: 15%;
+  margin: -7.5% 0 0 -7.5%;
+}
+
+.civicOrbitTrackInner .civicOrbitItem1 {
+  transform: rotate(0deg) translateX(170%) rotate(0deg);
+}
+
+.civicOrbitTrackInner .civicOrbitItem2 {
+  transform: rotate(120deg) translateX(170%) rotate(-120deg);
+}
+
+.civicOrbitTrackInner .civicOrbitItem3 {
+  transform: rotate(240deg) translateX(170%) rotate(-240deg);
+}
+
+.civicOrbitTrackOuter .civicOrbitItem1 {
+  transform: rotate(0deg) translateX(287%) rotate(0deg);
+}
+
+.civicOrbitTrackOuter .civicOrbitItem2 {
+  transform: rotate(120deg) translateX(287%) rotate(-120deg);
+}
+
+.civicOrbitTrackOuter .civicOrbitItem3 {
+  transform: rotate(240deg) translateX(287%) rotate(-240deg);
+}
+
+.civicOrbitSystem:hover .civicOrbitTrackInner {
+  animation-duration: 70s;
+}
+
+.civicOrbitSystem:hover .civicOrbitTrackOuter {
+  animation-duration: 95s;
+}
+
+.civicOrbitSystem:hover .civicOrbitTrackInner .civicOrbitItem img {
+  animation-duration: 70s;
+}
+
+.civicOrbitSystem:hover .civicOrbitTrackOuter .civicOrbitItem img {
+  animation-duration: 95s;
+}
+
+.civicOrbitSystem:hover .civicOrbitItem {
+  box-shadow:
+    0 22px 42px rgba(18, 50, 74, 0.18),
+    0 0 34px rgba(13, 111, 159, 0.22);
+}
+
+.civicOrbitSystem:hover .civicOrbitTrackInner .civicOrbitItem1 {
+  transform: rotate(0deg) translateX(170%) rotate(0deg) scale(1.08);
+}
+
+.civicOrbitSystem:hover .civicOrbitTrackInner .civicOrbitItem2 {
+  transform: rotate(120deg) translateX(170%) rotate(-120deg) scale(1.08);
+}
+
+.civicOrbitSystem:hover .civicOrbitTrackInner .civicOrbitItem3 {
+  transform: rotate(240deg) translateX(170%) rotate(-240deg) scale(1.08);
+}
+
+.civicOrbitSystem:hover .civicOrbitTrackOuter .civicOrbitItem1 {
+  transform: rotate(0deg) translateX(287%) rotate(0deg) scale(1.08);
+}
+
+.civicOrbitSystem:hover .civicOrbitTrackOuter .civicOrbitItem2 {
+  transform: rotate(120deg) translateX(287%) rotate(-120deg) scale(1.08);
+}
+
+.civicOrbitSystem:hover .civicOrbitTrackOuter .civicOrbitItem3 {
+  transform: rotate(240deg) translateX(287%) rotate(-240deg) scale(1.08);
+}
+
+@keyframes civicOrbitClockwise {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes civicOrbitCounterClockwise {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes civicIconClockwise {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes civicIconCounterClockwise {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .civicOrbitTrack,
+  .civicOrbitItem img {
+    animation: none;
+  }
 }
 
 .civicPathGrid,

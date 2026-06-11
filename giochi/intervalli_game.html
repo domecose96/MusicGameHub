@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gioco degli Intervalli</title>
+<link rel="icon" type="image/png" href="../img/mgh-logo.png">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/giochi/intervalli_game.css">
+</head>
+
+<body class="intervalliGamePage">
+
+<button id="rankedLeaderboardBtn"
+        class="rankedLeaderboardButton"
+        onclick="showGenericRankedLeaderboardModal('intervalli')"
+        aria-label="Classifica">
+  🏆
+</button>
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+    <div class="headerBrand">
+      <span class="headerEyebrow">Allenamento musicale</span>
+      <h1 class="pageTitle">Gioco degli Intervalli</h1>
+      <span id="headerModeLabel" class="headerModeLabel hidden"></span>
+    </div>
+  </div>
+</header>
+
+<div id="contentWrapper">
+
+  <!-- ── MENU ── -->
+  <div id="menu">
+
+    <h2>Difficoltà</h2>
+    <div class="buttonGroup intervalliModeGroup">
+      <button class="menuButton" onclick="setDifficulty('easy', this)">Facile</button>
+      <button class="menuButton" onclick="setDifficulty('medium', this)">Medio</button>
+      <button class="menuButton" onclick="setDifficulty('hard', this)">Difficile</button>
+      <button class="menuButton dailyModeButton rankedModeButton" onclick="selectRankedMode(this)">
+        <span class="dailyModeBadge">Ranked</span>
+        Classificata
+      </button>
+    </div>
+
+    <button class="menuButton startButton" onclick="startGame()">Inizia</button>
+    <p id="warning" class="warningText"></p>
+    <p class="gameIntro">
+      Guarda le due note sul pentagramma e scegli il nome dell'intervallo corretto.<br>
+      <strong>Facile</strong>: 2ª–5ª · <strong>Medio</strong>: 2ª–8ª · <strong>Difficile</strong>: intervalli con qualità (maggiore, minore, giusta…)
+    </p>
+
+  </div>
+
+  <!-- ── GAME ── -->
+  <div id="game" class="hidden">
+
+    <!-- Ranked UI -->
+    <div id="rankedUI" class="hidden">
+      <div id="rankedScoreDisplay">Score: <span id="rankedScore">0</span></div>
+      <div id="rankedProgressWrapper">
+        <div id="rankedProgressLabel">
+          <span>Progressione</span>
+          <span id="rankedQuestionCounter">1/10</span>
+        </div>
+        <div id="rankedProgressBar">
+          <div id="rankedProgressFill"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="timerBox" class="hidden">⏱ <span id="timer">0</span>s</div>
+
+    <!-- Pentagramma SVG -->
+    <svg id="staffSVG" viewBox="0 0 460 220" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- Chiave di violino -->
+      <text id="clefSymbol" x="18" y="143" font-size="92" font-family="serif"
+            fill="currentColor">𝄞</text>
+
+      <!-- 5 righe del pentagramma -->
+      <line x1="18" y1="100" x2="440" y2="100" class="staffLine"/>
+      <line x1="18" y1="110" x2="440" y2="110" class="staffLine"/>
+      <line x1="18" y1="120" x2="440" y2="120" class="staffLine"/>
+      <line x1="18" y1="130" x2="440" y2="130" class="staffLine"/>
+      <line x1="18" y1="140" x2="440" y2="140" class="staffLine"/>
+
+      <!-- Tagli addizionali (mostrati via JS) -->
+      <g id="ledgerLines"></g>
+
+      <!-- Nota 1 (sinistra) -->
+      <ellipse id="note1" cx="180" cy="120" rx="11" ry="7.5"
+               fill="currentColor" transform="rotate(-15,180,120)"/>
+
+      <!-- Nota 2 (destra) -->
+      <ellipse id="note2" cx="300" cy="120" rx="11" ry="7.5"
+               fill="currentColor" transform="rotate(-15,300,120)"/>
+
+      <!-- Gambi (mostrati via JS) -->
+      <line id="stem1" x1="191" y1="120" x2="191" y2="80"
+            stroke="currentColor" stroke-width="1.5"/>
+      <line id="stem2" x1="311" y1="120" x2="311" y2="80"
+            stroke="currentColor" stroke-width="1.5"/>
+
+      <!-- Etichette note (mostrate dopo risposta in facile/medio) -->
+      <text id="noteLabel1" x="180" y="175" text-anchor="middle"
+            class="noteLabel hidden" font-size="13">Do</text>
+      <text id="noteLabel2" x="300" y="175" text-anchor="middle"
+            class="noteLabel hidden" font-size="13">Re</text>
+
+    </svg>
+
+    <!-- Bottoni risposta -->
+    <div id="answerButtons" class="answerButtons"></div>
+
+    <div id="feedback" class="feedbackText"></div>
+
+    <div class="gameActions">
+      <button id="backButton" class="menuButton" onclick="goBack()">⬅ Indietro</button>
+    </div>
+
+  </div>
+
+</div>
+
+<script src="../js/common.js"></script>
+<script src="../js/giochi/ranked.js"></script>
+<script src="../js/giochi/intervalli_game.js"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

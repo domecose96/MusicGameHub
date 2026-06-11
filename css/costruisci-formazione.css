@@ -1,0 +1,524 @@
+/* ==================== COSTRUISCI FORMAZIONE - DRAG & DROP ==================== */
+
+.costruisciFormPage {
+  background:
+    radial-gradient(circle at top left, rgba(0, 166, 189, 0.13), transparent 30%),
+    radial-gradient(circle at top right, rgba(255, 102, 0, 0.12), transparent 32%),
+    repeating-linear-gradient(0deg, rgba(0, 166, 189, 0.025) 0px, transparent 1px, transparent 3px),
+    linear-gradient(to bottom, #f7fcfb, #fff8ef);
+}
+
+.costruisciFormPage .pageTitle {
+  color: #00a6bd;
+  text-shadow: 0 0 6px rgba(0, 188, 212, 0.25), 0 0 12px rgba(40, 210, 199, 0.22);
+}
+
+/* ==================== CAROUSEL SECTION ==================== */
+
+.carouselSection {
+  max-width: 1000px;
+  margin: 28px auto;
+  padding: 0 18px;
+}
+
+.carouselContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #fff9f3, #fffaf5);
+  border: 2px solid rgba(0, 166, 189, 0.18);
+  border-radius: 20px;
+  padding: 18px 12px;
+  box-shadow: var(--panel-shadow);
+}
+
+.carouselArrow {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 166, 189, 0.22);
+  background: rgba(255, 255, 255, 0.80);
+  color: #00a6bd;
+  font-size: 1.8rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carouselArrow:hover {
+  background: rgba(0, 166, 189, 0.12);
+  border-color: rgba(0, 166, 189, 0.45);
+  transform: scale(1.08);
+  box-shadow: 0 6px 16px rgba(0, 166, 189, 0.14);
+}
+
+.carouselArrow:active {
+  transform: scale(0.95);
+}
+
+.carouselArrow:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.carouselArrow:disabled:hover {
+  background: rgba(255, 255, 255, 0.80);
+  border-color: rgba(0, 166, 189, 0.22);
+  transform: scale(1);
+}
+
+.carouselWrapper {
+  flex: 1;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.instrumentsCarousel {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 8px 0;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.instrumentsCarousel::-webkit-scrollbar {
+  height: 4px;
+}
+
+.instrumentsCarousel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.instrumentsCarousel::-webkit-scrollbar-thumb {
+  background: rgba(0, 166, 189, 0.28);
+  border-radius: 2px;
+}
+
+.carouselItem {
+  flex-shrink: 0;
+  width: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(0, 166, 189, 0.16);
+  background: #ffffff;
+  cursor: grab;
+  transition: all 0.18s ease;
+  scroll-snap-align: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+  draggable: true;
+}
+
+.carouselItem:hover {
+  background: rgba(0, 166, 189, 0.08);
+  border-color: rgba(0, 166, 189, 0.45);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 166, 189, 0.14);
+}
+
+.carouselItem:active {
+  cursor: grabbing;
+}
+
+.carouselItemImage {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+}
+
+.carouselItemLabel {
+  font-size: 0.73rem;
+  font-weight: 700;
+  text-align: center;
+  color: #075465;
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+/* ==================== STAGE SECTION ==================== */
+
+.stageSectionContainer {
+  max-width: 1000px;
+  margin: 28px auto;
+  padding: 0 18px;
+}
+
+.stageCard {
+  background: linear-gradient(135deg, #fff9f3, #fffaf5);
+  border: 2px solid rgba(0, 166, 189, 0.18);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: var(--panel-shadow);
+}
+
+/* ── Stage Wrapper ── */
+
+.stageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/6;
+  min-height: 450px;
+  max-height: 450px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #f0f0f0;
+  margin-bottom: 24px;
+  border: 2px dashed rgba(0, 166, 189, 0.20);
+  cursor: copy;
+  transition: all 0.22s ease;
+}
+
+.stageWrapper.drag-over {
+  background: rgba(0, 166, 189, 0.12);
+  border-color: rgba(0, 166, 189, 0.55);
+  box-shadow: 0 0 24px rgba(0, 166, 189, 0.20);
+}
+
+.stageImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.instrumentsOnStage {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 8px;
+  padding: 20px;
+  align-items: flex-end;
+  justify-items: center;
+  z-index: 2;
+}
+
+.instrumentOnStage {
+  position: relative;
+  width: 60px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stageInstrumentImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+.removeBtn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(220, 53, 53, 0.90);
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.removeBtn:hover {
+  background: rgba(220, 53, 53, 1);
+  transform: scale(1.12);
+  box-shadow: 0 6px 16px rgba(220, 53, 53, 0.30);
+}
+
+.removeBtn:active {
+  transform: scale(0.95);
+}
+
+/* ── Formazione Result ── */
+
+.formazioneResult {
+  text-align: center;
+  padding: 18px;
+  background: rgba(0, 166, 189, 0.06);
+  border-radius: 14px;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#resultName {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #063744;
+  min-height: 32px;
+}
+
+.resultDesc {
+  margin: 8px 0 0;
+  font-size: 0.92rem;
+  color: #075465;
+  line-height: 1.5;
+}
+
+/* ==================== ACTIONS ==================== */
+
+.actionsSection {
+  max-width: 1000px;
+  margin: 28px auto 48px;
+  padding: 0 18px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.actionBtn {
+  padding: 12px 24px;
+  border-radius: 16px;
+  border: none;
+  font-size: 0.92rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.resetBtn {
+  background: rgba(0, 166, 189, 0.10);
+  border: 1.5px solid rgba(0, 166, 189, 0.25);
+  color: #00798a;
+}
+
+.resetBtn:hover {
+  background: rgba(0, 166, 189, 0.18);
+  border-color: rgba(0, 166, 189, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 166, 189, 0.14);
+}
+
+.backBtn {
+  background: linear-gradient(135deg, #00a6bd, #28d2c7);
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 166, 189, 0.24);
+}
+
+.backBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 166, 189, 0.32);
+}
+
+/* ==================== SCROLL TOP BUTTON ==================== */
+
+.scrollTopBtn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00a6bd, #28d2c7);
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(0, 166, 189, 0.28);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+  z-index: 50;
+}
+
+.scrollTopBtn.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.scrollTopBtn:hover {
+  transform: scale(1.08);
+}
+
+.scrollTopBtn:active {
+  transform: scale(0.94);
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 768px) {
+  .carouselContainer {
+    padding: 14px 10px;
+  }
+
+  .carouselArrow {
+    width: 40px;
+    height: 40px;
+    font-size: 1.6rem;
+  }
+
+  .carouselItem {
+    width: 80px;
+    gap: 6px;
+    padding: 10px;
+  }
+
+  .carouselItemImage {
+    width: 45px;
+    height: 45px;
+  }
+
+  .carouselItemLabel {
+    font-size: 0.7rem;
+  }
+
+  .stageWrapper {
+    aspect-ratio: 16/6;
+    min-height: 280px;
+    max-height: 280px;
+    margin-bottom: 18px;
+  }
+
+  .instrumentsOnStage {
+    padding: 12px;
+  }
+
+  .instrumentOnStage {
+    width: 50px;
+    height: 80px;
+  }
+
+  .formazioneResult {
+    padding: 14px;
+    min-height: 70px;
+  }
+
+  #resultName {
+    font-size: 1.3rem;
+  }
+
+  .resultDesc {
+    font-size: 0.88rem;
+  }
+
+  .stageCard {
+    padding: 18px;
+  }
+
+  .scrollTopBtn {
+    width: 44px;
+    height: 44px;
+    bottom: 18px;
+    right: 18px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .carouselContainer {
+    padding: 12px 8px;
+    gap: 10px;
+  }
+
+  .carouselArrow {
+    width: 36px;
+    height: 36px;
+    font-size: 1.4rem;
+  }
+
+  .carouselItem {
+    width: 75px;
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .carouselItemImage {
+    width: 40px;
+    height: 40px;
+  }
+
+  .stageWrapper {
+    aspect-ratio: 16/6;
+    min-height: 240px;
+    max-height: 240px;
+    margin-bottom: 16px;
+  }
+
+  .instrumentOnStage {
+    width: 42px;
+    height: 70px;
+  }
+
+  .removeBtn {
+    width: 24px;
+    height: 24px;
+    font-size: 1rem;
+    top: -6px;
+    right: -6px;
+  }
+
+  .stageCard {
+    padding: 14px;
+  }
+
+  #resultName {
+    font-size: 1.2rem;
+  }
+
+  .formazioneResult {
+    padding: 12px;
+    min-height: 60px;
+  }
+
+  .actionsSection {
+    margin: 20px auto 40px;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .actionBtn {
+    width: 100%;
+    padding: 12px 16px;
+  }
+
+  .scrollTopBtn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}

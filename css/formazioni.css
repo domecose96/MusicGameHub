@@ -1,0 +1,485 @@
+/* ==================== FORMAZIONI MUSICALI ==================== */
+
+.formazioniPage {
+  background:
+    radial-gradient(circle at top left, rgba(0, 166, 189, 0.13), transparent 30%),
+    radial-gradient(circle at top right, rgba(255, 102, 0, 0.12), transparent 32%),
+    repeating-linear-gradient(0deg, rgba(0, 166, 189, 0.025) 0px, transparent 1px, transparent 3px),
+    linear-gradient(to bottom, #f7fcfb, #fff8ef);
+}
+
+.formazioniPage .pageTitle {
+  color: #00a6bd;
+  text-shadow: 0 0 6px rgba(0, 188, 212, 0.25), 0 0 12px rgba(40, 210, 199, 0.22);
+}
+
+/* ==================== NAVBAR FORMAZIONI ==================== */
+
+#siteNav.formazioniNav {
+  display: flex;
+  gap: 8px;
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.75);
+  border-bottom: 1px solid rgba(0, 166, 189, 0.16);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  position: sticky;
+  top: 112px;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+}
+
+#siteNav.formazioniNav::-webkit-scrollbar {
+  height: 6px;
+}
+
+#siteNav.formazioniNav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#siteNav.formazioniNav::-webkit-scrollbar-thumb {
+  background: rgba(0, 166, 189, 0.28);
+  border-radius: 3px;
+}
+
+#siteNav.formazioniNav .navBtn {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 20px;
+  border: 1.5px solid rgba(0, 166, 189, 0.22);
+  background: #ffffff;
+  color: #075465;
+  font-size: 0.92rem;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  flex-shrink: 0;
+}
+
+#siteNav.formazioniNav .navBtn:hover {
+  background: rgba(0, 166, 189, 0.08);
+  border-color: rgba(0, 166, 189, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 166, 189, 0.14);
+}
+
+#siteNav.formazioniNav .navBtn.active {
+  background: linear-gradient(135deg, #00a6bd, #28d2c7);
+  color: #ffffff;
+  border-color: #00a6bd;
+  box-shadow: 0 10px 28px rgba(0, 166, 189, 0.28);
+}
+
+/* ==================== INTRO SECTION ==================== */
+
+.formazioniIntro {
+  padding-top: 42px;
+  padding-bottom: 48px;
+}
+
+.introText {
+  text-align: left;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(0, 166, 189, 0.16);
+  border-radius: 26px;
+  padding: clamp(24px, 4vw, 38px);
+  box-shadow: var(--panel-shadow);
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.formazione-badge {
+  display: inline-flex;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(0, 166, 189, 0.1);
+  border: 1px solid rgba(0, 166, 189, 0.25);
+  color: #00798a;
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.introText h2 {
+  margin: 8px 0 14px;
+  color: #063744;
+  font-size: clamp(1.8rem, 5vw, 3.2rem);
+  line-height: 1.1;
+  font-weight: 900;
+}
+
+.introText p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.68;
+  font-size: 1rem;
+}
+
+/* ==================== FORMAZIONE CONTAINER ==================== */
+
+.formazioneContainer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
+  gap: 24px;
+  max-width: 1100px;
+  margin: 28px auto;
+  padding: 0 18px;
+  align-items: start;
+}
+
+/* ── Immagine ── */
+
+.formazioneImageCard {
+  background: rgba(255, 255, 255, 0.70);
+  border: 1.5px solid rgba(0, 166, 189, 0.16);
+  border-radius: 22px;
+  padding: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08), 0 0 40px rgba(0, 166, 189, 0.10);
+  overflow: hidden;
+}
+
+.formazioneImageWrapper {
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #fff9f3, #fff0e6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formazioneImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* ── Descrizione ── */
+
+.formazioneDescCard {
+  background: linear-gradient(135deg, #fff9f3, #fffaf5);
+  border: 2px solid rgba(0, 166, 189, 0.18);
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: var(--panel-shadow);
+}
+
+.formazione-title {
+  margin: 0 0 18px;
+  color: #073642;
+  font-size: 1.85rem;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+/* ── Detail Items ── */
+
+.formazione-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.60);
+  border-left: 4px solid #00a6bd;
+  border-radius: 10px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detail-label {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #00798a;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.detail-value {
+  font-size: 1rem;
+  color: #333333;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* ── Description ── */
+
+.formazione-description {
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px dashed rgba(0, 166, 189, 0.18);
+}
+
+.formazione-description p {
+  margin: 0;
+  color: #333333;
+  line-height: 1.68;
+  font-size: 0.98rem;
+  text-align: justify;
+}
+
+/* ── Curiosita ── */
+
+.formazione-curiosita {
+  background: rgba(0, 166, 189, 0.08);
+  border: 1px solid rgba(0, 166, 189, 0.20);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-top: 16px;
+}
+
+.formazione-curiosita p {
+  margin: 0;
+  color: #075465;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.formazione-curiosita p:first-child {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.formazione-curiosita p:last-child {
+  margin: 0;
+}
+
+/* ==================== COSTRUISCI SECTION ==================== */
+
+.costruisciSection {
+  max-width: 1100px;
+  margin: 48px auto;
+  padding: 0 18px 48px;
+}
+
+.costruisciCard {
+  background: linear-gradient(135deg, #fff9f3, #fffaf5);
+  border: 2px solid rgba(0, 166, 189, 0.18);
+  border-radius: 24px;
+  padding: clamp(28px, 5vw, 42px);
+  text-align: center;
+  box-shadow: 0 16px 42px rgba(0, 166, 189, 0.12);
+}
+
+.costruisciCard h3 {
+  margin: 0 0 12px;
+  color: #063744;
+  font-size: 1.6rem;
+  font-weight: 900;
+}
+
+.costruisciCard p {
+  margin: 0 0 18px;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.costruisciBtn {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 18px;
+  border: 2px solid rgba(0, 166, 189, 0.30);
+  background: rgba(0, 166, 189, 0.08);
+  color: #00798a;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: not-allowed;
+  transition: all 0.22s ease;
+  opacity: 0.65;
+  margin-bottom: 12px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.costruisciBtn:disabled {
+  opacity: 0.65;
+}
+
+.costruisciLink {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #00a6bd, #28d2c7);
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 800;
+  transition: all 0.22s ease;
+  box-shadow: 0 8px 20px rgba(0, 166, 189, 0.24);
+}
+
+.costruisciLink:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 166, 189, 0.32);
+}
+
+/* ==================== SCROLL TOP BUTTON ==================== */
+
+.scrollTopBtn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00a6bd, #28d2c7);
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(0, 166, 189, 0.28);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+  z-index: 50;
+}
+
+.scrollTopBtn.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.scrollTopBtn:hover {
+  transform: scale(1.08);
+}
+
+.scrollTopBtn:active {
+  transform: scale(0.94);
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 768px) {
+  .formazioneContainer {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  #siteNav.formazioniNav {
+    top: 112px;
+    padding: 10px 12px;
+  }
+
+  #siteNav.formazioniNav .navBtn {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+
+  .formazione-title {
+    font-size: 1.5rem;
+  }
+
+  .formazioneDescCard {
+    padding: 20px;
+  }
+
+  .formazioneImageWrapper {
+    aspect-ratio: 16/10;
+  }
+
+  .introText {
+    padding: 20px;
+  }
+
+  .introText h2 {
+    font-size: 1.6rem;
+  }
+
+  .scrollTopBtn {
+    width: 44px;
+    height: 44px;
+    bottom: 18px;
+    right: 18px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #siteNav.formazioniNav {
+    gap: 6px;
+    padding: 8px 10px;
+  }
+
+  #siteNav.formazioniNav .navBtn {
+    padding: 7px 10px;
+    font-size: 0.78rem;
+  }
+
+  .formazione-title {
+    font-size: 1.3rem;
+  }
+
+  .formazioneDescCard {
+    padding: 16px;
+  }
+
+  .formazione-detail {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .detail-label {
+    font-size: 0.8rem;
+  }
+
+  .detail-value {
+    font-size: 0.92rem;
+  }
+
+  .formazioneImageCard {
+    padding: 8px;
+  }
+
+  .introText h2 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+
+  .scrollTopBtn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}
+
+.formazioneImageWrapper{
+  position: relative;
+}
+
+.stageImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  transform: translateY(15%) scale(1.30);
+}
+
+.overlayImage{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  pointer-events:none;
+  transition:
+    opacity .3s ease,
+    transform .3s ease;
+}

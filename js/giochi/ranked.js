@@ -331,7 +331,7 @@ class RankedSession {
     return this.currentQuestion + 1;
   }
 
-  recordAnswer(isCorrect, timeTaken) {
+  recordAnswer(isCorrect, timeTaken, options = {}) {
     if (this.isComplete()) return;
 
     const questionNumber = this.currentQuestion + 1;
@@ -348,12 +348,18 @@ class RankedSession {
       this.wrong++;
     }
 
+    const scoreParts = this.getScorePartsForAnswer(correct, safeTimeTaken, difficulty, options);
+    const answerDetails = options.details && typeof options.details === "object" ? options.details : null;
+
     this.answers.push({
       questionNumber,
       correct,
       timeTaken: safeTimeTaken,
       difficulty,
-      score: this.getScoreForAnswer(correct, safeTimeTaken, difficulty),
+      score: scoreParts.totalScore,
+      baseScore: scoreParts.baseScore,
+      bonusSpeed: scoreParts.bonusSpeed,
+      ...(answerDetails ? { details: answerDetails } : {}),
       timestamp: new Date().toISOString()
     });
 
@@ -366,6 +372,31 @@ class RankedSession {
 
   getScoreForAnswer(isCorrect, timeTaken, difficulty) {
     return getRankedAnswerScore({ isCorrect, timeTaken, difficulty });
+  }
+
+  getScorePartsForAnswer(isCorrect, timeTaken, difficulty, options = {}) {
+    const partialCredit = options.partialCredit;
+
+    if (partialCredit && typeof partialCredit === "object") {
+      const totalItems = Math.max(1, Number(partialCredit.totalItems) || 1);
+      const correctItems = Math.max(0, Math.min(totalItems, Number(partialCredit.correctItems) || 0));
+      const multiplier = getRankedDifficultyMultiplier(difficulty);
+      const perfect = correctItems === totalItems && Boolean(isCorrect);
+      const baseScore = (100 * multiplier * correctItems) / totalItems;
+      const speedParts = getRankedAnswerScoreParts({
+        isCorrect: perfect,
+        timeTaken,
+        difficulty
+      });
+
+      return {
+        baseScore: Math.round(baseScore),
+        bonusSpeed: perfect ? speedParts.bonusSpeed : 0,
+        totalScore: Math.round(baseScore + (perfect ? speedParts.bonusSpeed : 0))
+      };
+    }
+
+    return getRankedAnswerScoreParts({ isCorrect, timeTaken, difficulty });
   }
 
   getDifficultyMultiplier(difficulty) {
@@ -385,6 +416,12 @@ class RankedSession {
     let bonusSpeed = 0;
 
     this.answers.forEach(answer => {
+      if (typeof answer.baseScore === "number" || typeof answer.bonusSpeed === "number") {
+        baseScore += Number(answer.baseScore) || 0;
+        bonusSpeed += Number(answer.bonusSpeed) || 0;
+        return;
+      }
+
       if (!answer.correct) return;
 
       const scoreParts = getRankedAnswerScoreParts({
@@ -906,16 +943,16 @@ function getSpecificModeHelpText(label, context) {
 
   if (context === "scale") {
     if (lower.includes("facile")) {
-      return "Ordina le note di scale maggiori e minori con la formula Toni/Semitoni come riferimento.";
+      return "Ordina le note della scala con la formula come aiuto.";
     }
     if (lower.includes("medio")) {
-      return "La scala è visibile: devi completare correttamente i passaggi T e S tra le note.";
+      return "Completa gli intervalli tra le note: T, S e in Pro anche 1.5T.";
     }
     if (lower.includes("difficile")) {
-      return "Costruisci la scala scegliendo le note in ordine sulla tastiera cromatica.";
+      return "Costruisci la scala scegliendo le note sulla tastiera.";
     }
     if (lower.includes("classificata")) {
-      return "10 scale con difficoltà crescente. Il punteggio premia precisione e velocità.";
+      return "10 scale a punti: precisione, velocità e penalità sugli errori parziali.";
     }
   }
 
@@ -1010,7 +1047,7 @@ function getModeHelpItems() {
   const buttons = document.querySelectorAll("#menu .buttonGroup .menuButton, #config .buttonGroup .menuButton");
   const seen = new Set();
 
-  return Array.from(buttons)
+  const items = Array.from(buttons)
     .map(button => button.textContent.replace(/Ranked/gi, "").replace(/\s+/g, " ").trim())
     .filter(label => {
       if (!label || seen.has(label)) return false;
@@ -1018,10 +1055,23 @@ function getModeHelpItems() {
       return true;
     })
     .map(label => ({ label, text: getModeHelpText(label) }));
+
+  if (getModeHelpContext() === "scale") {
+    items.push({
+      label: "Pro",
+      text: "Sblocca tutte le maggiori, minori naturali, armoniche e melodiche."
+    });
+  }
+
+  return items;
 }
 
 function showModeHelpModal() {
   const items = getModeHelpItems();
+  const context = getModeHelpContext();
+  const introText = context === "scale"
+    ? "Scegli una modalità. Con Pro attivo il gioco usa un repertorio avanzato di scale."
+    : "Scegli una modalità, poi premi Inizia. Le modalità di allenamento servono per esercitarti; la Classificata salva il risultato nella classifica.";
   const modal = document.createElement("div");
   modal.className = "rankedModal modeHelpModal";
   modal.innerHTML = `
@@ -1029,7 +1079,7 @@ function showModeHelpModal() {
     <div class="modalPanel modeHelpPanel">
       <button class="modalClose" onclick="closeGenericRankedLeaderboardModal()" aria-label="Chiudi">×</button>
       <h2>Come funzionano le modalità?</h2>
-      <p class="rankedIntroText">Scegli una modalità, poi premi Inizia. Le modalità di allenamento servono per esercitarti; la Classificata salva il risultato nella classifica.</p>
+      <p class="rankedIntroText">${escapeRankedHTML(introText)}</p>
       <div class="modeHelpList">
         ${items.map(item => `
           <article class="modeHelpItem">
@@ -1074,6 +1124,7 @@ function closeGenericRankedLeaderboardModal() {
 
 let currentRankedSession = null;
 let rankedQuestionStartTime = null;
+let rankedElapsedTimerInterval = null;
 
 // ==================== FUNZIONI DA CHIAMARE DAL TUO GIOCO ====================
 
@@ -1094,17 +1145,45 @@ function startRankedQuestionTimer() {
   rankedQuestionStartTime = Date.now();
 }
 
-function answerRankedQuestion(isCorrect) {
+function startRankedElapsedTimer(startTime = null) {
+  stopRankedElapsedTimer();
+
+  const timerBox = document.getElementById("timerBox");
+  const timerEl = document.getElementById("timer");
+  const sessionStart = Number(startTime) || currentRankedSession?.startTime || Date.now();
+
+  if (!timerBox || !timerEl) return;
+
+  timerBox.classList.remove("hidden");
+  timerEl.textContent = "0";
+
+  rankedElapsedTimerInterval = window.setInterval(() => {
+    timerEl.textContent = String(Math.round((Date.now() - sessionStart) / 1000));
+  }, 250);
+}
+
+function stopRankedElapsedTimer() {
+  if (rankedElapsedTimerInterval) {
+    window.clearInterval(rankedElapsedTimerInterval);
+    rankedElapsedTimerInterval = null;
+  }
+
+  document.getElementById("timerBox")?.classList.add("hidden");
+}
+
+function answerRankedQuestion(answer) {
   if (!currentRankedSession) {
     console.error("Nessuna sessione ranked attiva");
     return null;
   }
 
+  const answerOptions = answer && typeof answer === "object" ? answer : {};
+  const isCorrect = answer && typeof answer === "object" ? Boolean(answer.isCorrect) : Boolean(answer);
   const timeTaken = rankedQuestionStartTime
     ? (Date.now() - rankedQuestionStartTime) / 1000
     : 0;
 
-  currentRankedSession.recordAnswer(isCorrect, timeTaken);
+  currentRankedSession.recordAnswer(isCorrect, timeTaken, answerOptions);
 
   rankedQuestionStartTime = Date.now();
 

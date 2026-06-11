@@ -71,12 +71,18 @@
       </div>
     </div>
 
-    <div class="instrumentHeroVisual" aria-hidden="true">
-      <div class="bigSoundOrb">♪</div>
-      <span class="miniOrb m1">🥁</span>
-      <span class="miniOrb m2">🎺</span>
-      <span class="miniOrb m3">🎻</span>
-      <span class="miniOrb m4">🎹</span>
+    <div class="instrumentFamilyShowcase" id="instrumentFamilyShowcase" aria-label="Scopri la famiglia degli strumenti selezionata">
+      <article class="familyShowcaseCard" id="familyShowcaseCard">
+        <div class="familyShowcaseAura" id="familyShowcaseAura" aria-hidden="true"></div>
+        <div class="familyShowcaseImageWrap">
+          <img id="familyShowcaseImage" src="img/strumenti/famiglie/corde.webp" alt="Famiglia degli strumenti a corde">
+        </div>
+        <div class="familyShowcaseContent">
+          <h3 id="familyShowcaseTitle">Corde</h3>
+          <p id="familyShowcaseDesc">Il suono nasce dalla vibrazione delle corde: pizzicate, strofinate o percosse.</p>
+          <button id="familyShowcaseButton" class="familyShowcaseButton" type="button">Scopri la famiglia</button>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -89,31 +95,41 @@
 
     <div class="familyOverviewGrid">
       <button class="familyOverviewCard" onclick="MGH.scrollToSection('percussioni')">
-        <span>🥁</span>
+        <span class="familyOverviewImage">
+          <img src="img/strumenti/famiglie/percussioni.webp" alt="" loading="lazy">
+        </span>
         <strong>Percussioni</strong>
         <small>Idiofoni e membranofoni</small>
       </button>
 
       <button class="familyOverviewCard" onclick="MGH.scrollToSection('fiato')">
-        <span>🎺</span>
+        <span class="familyOverviewImage">
+          <img src="img/strumenti/famiglie/fiati.webp" alt="" loading="lazy">
+        </span>
         <strong>Strumenti a fiato</strong>
         <small>Legni e ottoni</small>
       </button>
 
       <button class="familyOverviewCard" onclick="MGH.scrollToSection('corde')">
-        <span>🎻</span>
+        <span class="familyOverviewImage">
+          <img src="img/strumenti/famiglie/corde.webp" alt="" loading="lazy">
+        </span>
         <strong>Strumenti a corde</strong>
         <small>Strofinate e pizzicate</small>
       </button>
 
       <button class="familyOverviewCard" onclick="MGH.scrollToSection('tastiera')">
-        <span>🎹</span>
+        <span class="familyOverviewImage">
+          <img src="img/strumenti/famiglie/tastiere.webp" alt="" loading="lazy">
+        </span>
         <strong>Strumenti a tastiera</strong>
         <small>Corde pizzicate, percosse o aria</small>
       </button>
 
       <button class="familyOverviewCard" onclick="MGH.scrollToSection('elettrofoni')">
-        <span>⚡</span>
+        <span class="familyOverviewImage">
+          <img src="img/strumenti/famiglie/elettrofoni.webp" alt="" loading="lazy">
+        </span>
         <strong>Elettrofoni</strong>
         <small>Suono elettrico o elettronico</small>
       </button>

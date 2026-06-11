@@ -35,10 +35,11 @@ const mapGroups=[
     column:".mapColumnPaths",
     label:"Percorsi",
     unit:"risorse principali",
-    ids:["storiaMusica","strumentiMusicali","fumettiMusicali","educazioneCivica"],
+    ids:["storiaMusica","strumentiMusicali","fumettiMusicali","classiDocente","educazioneCivica"],
     featured:{
       storiaMusica:"★ timeline",
       fumettiMusicali:"★ collana",
+      classiDocente:"★ docente",
       educazioneCivica:"★ indice"
     }
   },
@@ -51,7 +52,8 @@ const mapGroups=[
     featured:{
       pentagrammaGame:"★ nuovo",
       detectiveSuono:"★ suono",
-      ritmo:"★ ritmo"
+      ritmo:"★ ritmo",
+      scaleGame:"★ Pro"
     }
   }
 ];
@@ -112,6 +114,13 @@ const clusterContent={
     url:`fumetti/${comic.slug}.html`,
     comicSlug:comic.slug
   })),
+  classiDocente:[
+    {label:"Crea classe",url:"classi.html"},
+    {label:"Link invito",url:"classi.html"},
+    {label:"Alunni",url:"classi.html"},
+    {label:"Dashboard",url:"classi.html"},
+    {label:"Esporta CSV",url:"classi.html"}
+  ],
   educazioneCivica:[
     {label:"Ascolto e rispetto",id:"ascoltoRispetto"},
     {label:"Emozioni",id:"colonnaSonoraEmozioni"},
@@ -205,6 +214,7 @@ function getShortDescription(item){
   if(item.id==="storiaMusica")return "Epoche e autori";
   if(item.id==="strumentiMusicali")return "Famiglie e gioco";
   if(item.id==="fumettiMusicali")return "Compositori";
+  if(item.id==="classiDocente")return "Area docente";
   if(item.id==="educazioneCivica")return "Indice lezioni";
   return item.desc;
 }
