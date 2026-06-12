@@ -910,6 +910,7 @@
   <div class="learnCTA instrumentsCTA">
     <button class="menuButton" onclick="openInstrumentQuiz()">❓ Vai al Quiz</button>
     <button class="menuButton startButton gameLaunchButton" onclick="MGH.goTo('giochi/strumenti_game.html')">🎮 Gioco degli strumenti</button>
+    <button class="menuButton" onclick="MGH.goTo('formazioni.html')">🎼 Formazioni musicali</button>
   </div>
 
 </div>
@@ -923,21 +924,19 @@
     </div>
 
     <div class="modalBody instrumentModalBody">
-      <div class="modalInstrumentImage" id="instrumentModalImage">
-        <span>🎵</span>
+      <div class="instrumentModalTop">
+        <div class="modalInstrumentImage" id="instrumentModalImage">
+          <span>🎵</span>
+        </div>
+
+        <div id="instrumentModalMeta" class="instrumentMeta"></div>
       </div>
 
       <p id="instrumentModalText"></p>
 
-      <div id="instrumentModalMeta" class="instrumentMeta"></div>
-
       <div class="audioSlot">
         <label id="audioLabel">🎧 Audio dello strumento</label>
         <audio id="instrumentAudio" controls preload="none"></audio>
-        <small>
-          Predisposizione: inserisci il file in
-          <code>audio/strumenti/NOME_STRUMENTO.mp3</code>.
-        </small>
       </div>
     </div>
   </div>

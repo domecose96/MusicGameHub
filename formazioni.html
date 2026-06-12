@@ -7,10 +7,12 @@
 
   <link rel="icon" type="image/png" href="img/mgh-logo.png">
   <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/learn.css">
+  <link rel="stylesheet" href="css/strumenti.css">
   <link rel="stylesheet" href="css/formazioni.css">
 </head>
 
-<body class="formazioniPage">
+<body class="instrumentPage formazioniPage">
 
 <header class="appHeader">
   <div class="appHeaderInner">
@@ -29,7 +31,7 @@
   </div>
 </header>
 
-<nav id="siteNav" class="formazioniNav">
+<nav id="siteNav" class="instrumentNav tealNav formazioniNav">
   <button class="navBtn" onclick="showFormazione('solista', this); return false;" data-formazione="solista">Solista</button>
   <button class="navBtn" onclick="showFormazione('duo', this); return false;" data-formazione="duo">Duo</button>
   <button class="navBtn" onclick="showFormazione('trio', this); return false;" data-formazione="trio">Trio</button>
@@ -48,7 +50,7 @@
 <div id="contentWrapper">
 
   <!-- ==================== INTRO ==================== -->
-  <section id="intro" class="siteSection formazioniIntro">
+  <section id="panoramica" class="siteSection learnSection formazioniIntro">
     <div class="introText">
       <span class="formazione-badge">Atlante delle formazioni</span>
       <h2>Scopri come cambiano i gruppi musicali</h2>
@@ -57,11 +59,43 @@
         una composizione di strumenti e uno scopo didattico diverso. Seleziona una formazione dalla barra sopra
         per scoprire come è nata, quali strumenti la compongono e in quali contesti musicali si usa.
       </p>
+
+      <div class="formazioniHeroActions" aria-label="Azioni rapide">
+        <button class="formazioniHeroButton" onclick="MGH.scrollToSection('formazioneSection')">Esplora le formazioni</button>
+        <button class="formazioniHeroButton secondary" onclick="MGH.scrollToSection('costruisciSection')">Costruisci la tua</button>
+      </div>
+    </div>
+
+    <div class="formazioniHeroVisual formazioniConstellation" aria-hidden="true">
+      <div class="formazioniHeroAura"></div>
+      <span class="constellationRing ringOne"></span>
+      <span class="constellationRing ringTwo"></span>
+
+      <span class="constellationLine lineOne"></span>
+      <span class="constellationLine lineTwo"></span>
+      <span class="constellationLine lineThree"></span>
+      <span class="constellationLine lineFour"></span>
+      <span class="constellationLine lineFive"></span>
+      <span class="constellationLine lineSix"></span>
+
+      <span class="constellationDot dotSolo noteDot" style="--x: 50%; --y: 50%;">♪</span>
+      <span class="constellationDot dotDuoA noteDot" style="--x: 36%; --y: 35%;">♩</span>
+      <span class="constellationDot dotDuoB noteDot" style="--x: 64%; --y: 35%;">♫</span>
+      <span class="constellationDot dotQuartetA noteDot" style="--x: 30%; --y: 57%;">♪</span>
+      <span class="constellationDot dotQuartetB noteDot" style="--x: 42%; --y: 66%;">♬</span>
+      <span class="constellationDot dotQuartetC noteDot" style="--x: 58%; --y: 66%;">♩</span>
+      <span class="constellationDot dotQuartetD noteDot" style="--x: 70%; --y: 57%;">♫</span>
+      <span class="constellationDot smallDot noteDot" style="--x: 20%; --y: 77%;">♪</span>
+      <span class="constellationDot smallDot noteDot" style="--x: 32%; --y: 84%;">♩</span>
+      <span class="constellationDot smallDot noteDot" style="--x: 45%; --y: 88%;">♫</span>
+      <span class="constellationDot smallDot noteDot" style="--x: 55%; --y: 88%;">♬</span>
+      <span class="constellationDot smallDot noteDot" style="--x: 68%; --y: 84%;">♪</span>
+      <span class="constellationDot smallDot noteDot" style="--x: 80%; --y: 77%;">♩</span>
     </div>
   </section>
 
   <!-- ==================== FORMAZIONE ATTIVA ==================== -->
-  <section id="formazioneSection" class="siteSection formazioneContainer">
+  <section id="formazioneSection" class="siteSection learnSection formazioneContainer">
     
     <div class="formazioneImageWrapper">
 
@@ -119,19 +153,19 @@
   </section>
 
   <!-- ==================== SEZIONE COSTRUISCI TU ==================== -->
-  <section id="costruisciSection" class="siteSection costruisciSection">
+  <section id="costruisciSection" class="siteSection learnSection costruisciSection">
     <div class="costruisciCard">
-      <h3>🎼 Costruisci tu la formazione</h3>
-      <p>Prossimamente potrai aggiungere strumenti sul palco e scoprire quale formazione hai creato.</p>
-      <button class="costruisciBtn" disabled>Disponibile prossimamente</button>
-      <a href="costruisci-formazione.html" class="costruisciLink">Vai alla pagina interattiva</a>
+      <span class="costruisciBadge">Laboratorio interattivo</span>
+      <h3>Costruisci tu la formazione</h3>
+      <p>Scegli gli strumenti, sistemali sul palco e osserva quale gruppo musicale prende forma: solista, duo, quartetto, ensemble o band.</p>
+      <a href="costruisci-formazione.html" class="costruisciLink">Apri il laboratorio</a>
     </div>
   </section>
 
 </div>
 
 <!-- SCROLL TOP BUTTON -->
-<button id="scrollTopBtn" class="scrollTopBtn" title="Torna in alto">↑</button>
+<button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
 
 <script src="js/common.js"></script>
 <script src="js/formazioni.js"></script>

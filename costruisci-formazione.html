@@ -7,10 +7,12 @@
 
   <link rel="icon" type="image/png" href="img/mgh-logo.png">
   <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/learn.css">
+  <link rel="stylesheet" href="css/strumenti.css">
   <link rel="stylesheet" href="css/costruisci-formazione.css">
 </head>
 
-<body class="costruisciFormPage">
+<body class="instrumentPage costruisciFormPage">
 
 <header class="appHeader">
   <div class="appHeaderInner">
@@ -29,52 +31,95 @@
   </div>
 </header>
 
+<nav id="siteNav" class="instrumentNav tealNav costruisciNav">
+  <button class="navBtn" onclick="MGH.scrollToSection('introSection')">Panoramica</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('laboratorioSection')">Laboratorio</button>
+</nav>
+
 <div id="contentWrapper">
 
-  <!-- ==================== STRUMENTI CAROUSEL ==================== -->
-  <section id="carouselSection" class="carouselSection">
-    <div class="carouselContainer">
-      <button class="carouselArrow carouselArrowLeft" id="arrowLeft" onclick="scrollCarousel(-1)">‹</button>
-      
-      <div class="carouselWrapper" id="carouselWrapper">
-        <div class="instrumentsCarousel" id="instrumentsCarousel">
-          <!-- Generato da JS -->
-        </div>
+  <!-- ==================== INTRO ==================== -->
+  <section id="introSection" class="siteSection learnSection costruisciIntroSection">
+    <div class="costruisciIntroText">
+      <span class="costruisciBadge">Laboratorio interattivo</span>
+      <h2>Metti gli strumenti sul palco</h2>
+      <p>
+        Scegli gli strumenti dal catalogo, aggiungili al palco e osserva come cambia la formazione:
+        da solista a duo, da quartetto a ensemble, fino alle band moderne.
+      </p>
+      <div class="costruisciIntroActions">
+        <button class="formazioniHeroButton" onclick="MGH.scrollToSection('laboratorioSection')">Scegli gli strumenti</button>
+        <button class="formazioniHeroButton secondary" onclick="MGH.goTo('formazioni.html')">Torna alla guida</button>
       </div>
+    </div>
 
-      <button class="carouselArrow carouselArrowRight" id="arrowRight" onclick="scrollCarousel(1)">›</button>
+    <div class="costruisciIntroVisual" aria-hidden="true">
+      <span class="stageMiniDot dotA"></span>
+      <span class="stageMiniDot dotB"></span>
+      <span class="stageMiniDot dotC"></span>
+      <span class="stageMiniDot dotD"></span>
+      <span class="stageMiniDot dotE"></span>
+      <span class="stageMiniLine lineA"></span>
+      <span class="stageMiniLine lineB"></span>
+      <span class="stageMiniLine lineC"></span>
     </div>
   </section>
 
-  <!-- ==================== STAGE E AREA DROP ==================== -->
-  <section id="stageSection" class="stageSectionContainer">
-    <div class="stageCard">
-      
-      <div class="stageWrapper" id="stageDropZone">
-        <img src="img/formazioni/stage.webp" alt="Palco" class="stageImage">
-        <div class="instrumentsOnStage" id="instrumentsOnStage">
-          <!-- Strumenti trascinati appaiono qui -->
+  <!-- ==================== LABORATORIO ==================== -->
+  <section id="laboratorioSection" class="siteSection learnSection carouselSection laboratorioSection">
+    <div class="sectionHeading compact">
+      <span class="costruisciBadge">Laboratorio</span>
+      <h2 class="sectionTitle">Scegli gli strumenti e componi il palco</h2>
+      <p class="sectionIntro">Clicca uno strumento o trascinalo direttamente sul palco.</p>
+    </div>
+
+    <div class="laboratorioWorkspace">
+      <aside class="instrumentPalette" aria-label="Strumenti disponibili">
+        <div class="paletteHeader">
+          <strong>Strumenti</strong>
+          <span>Clicca o trascina</span>
         </div>
-      </div>
+        <div class="carouselContainer">
+          <button class="carouselArrow carouselArrowUp" id="arrowLeft" onclick="scrollCarousel(-1)" aria-label="Scorri strumenti verso l'alto">⌃</button>
 
-      <div class="formazioneResult">
-        <h3 id="resultName">Scegli gli strumenti</h3>
-        <p id="resultDescription" class="resultDesc"></p>
-      </div>
+          <div class="carouselWrapper" id="carouselWrapper">
+            <div class="instrumentsCarousel" id="instrumentsCarousel">
+              <!-- Generato da JS -->
+            </div>
+          </div>
 
+          <button class="carouselArrow carouselArrowDown" id="arrowRight" onclick="scrollCarousel(1)" aria-label="Scorri strumenti verso il basso">⌄</button>
+        </div>
+      </aside>
+
+      <div class="stageCard">
+
+        <div class="stageWrapper" id="stageDropZone">
+          <img src="img/formazioni/stage-laboratorio.webp" alt="Palco" class="stageImage">
+          <div class="instrumentsOnStage" id="instrumentsOnStage">
+            <!-- Strumenti trascinati appaiono qui -->
+          </div>
+        </div>
+
+        <div class="formazioneResult">
+          <h3 id="resultName">Scegli gli strumenti</h3>
+          <p id="resultDescription" class="resultDesc"></p>
+        </div>
+
+      </div>
     </div>
   </section>
 
   <!-- ==================== AZIONI ==================== -->
-  <section id="actionsSection" class="actionsSection">
-    <button class="actionBtn resetBtn" onclick="resetStage()">🔄 Ricomincia</button>
-    <a href="formazioni.html" class="actionBtn backBtn">← Torna alle Formazioni</a>
+  <section id="actionsSection" class="siteSection learnSection actionsSection">
+    <button class="actionBtn resetBtn" onclick="resetStage()">Ricomincia</button>
+    <a href="formazioni.html" class="actionBtn backBtn">Torna alle formazioni</a>
   </section>
 
 </div>
 
 <!-- SCROLL TOP BUTTON -->
-<button id="scrollTopBtn" class="scrollTopBtn" title="Torna in alto">↑</button>
+<button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
 
 <script src="js/common.js"></script>
 <script src="js/costruisci-formazione.js"></script>

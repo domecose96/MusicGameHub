@@ -14,15 +14,12 @@ let difficulty          = null;
 let gameMode            = "training";
 let currentScale        = null;
 let roundLocked         = false;
-let timerInterval       = null;
 
 const menu       = document.getElementById("menu");
 const game       = document.getElementById("game");
 const questionEl = document.getElementById("question");
 const feedbackEl = document.getElementById("feedback");
 MGHGameUI.ensureRankedHUD();
-const timerBox   = document.getElementById("timerBox");
-const timerEl    = document.getElementById("timer");
 const warning    = document.getElementById("warning");
 const SCALE_PRO_STORAGE_KEY = "mgh_scale_pro_mode";
 
@@ -400,7 +397,7 @@ function startRankedGame(nickname = "") {
 
 function goBack() {
   if (gameMode === "ranked") return;
-  stopTimer(); stopRankedClock();
+  stopRankedClock();
   game.classList.add("hidden"); menu.classList.remove("hidden");
   showLeaderboardButton(); showBackButton();
   difficulty = null; gameMode = "training"; currentScale = null; roundLocked = false;
@@ -412,7 +409,7 @@ function goBack() {
 /* ==================== ROUND DISPATCHER ==================== */
 
 function newRound() {
-  roundLocked = false; setFeedback(""); stopTimer(); clearGameArea();
+  roundLocked = false; setFeedback(""); clearGameArea();
   let poolKey;
   if (gameMode === "ranked") {
     poolKey = getRankedDifficulty();
@@ -1182,7 +1179,7 @@ function updateRankedUI() {
 }
 
 async function showRankedResults() {
-  stopTimer(); stopRankedClock();
+  stopRankedClock();
   const finalData = await finishRankedMode();
   if (!finalData || !finalData.session) { setFeedback("Errore nel salvataggio."); return; }
   const session = finalData.session;
@@ -1193,28 +1190,6 @@ async function showRankedResults() {
   MGH.updateHeaderModeLabel("");
   document.querySelectorAll(".selected").forEach(b => b.classList.remove("selected"));
   gameMode = "training"; difficulty = null; currentScale = null; roundLocked = false;
-}
-
-/* ==================== TIMER ==================== */
-
-function startTimer(duration) {
-  stopTimer(); let t = duration;
-  timerEl.textContent = t; timerBox.classList.remove("hidden");
-  timerInterval = setInterval(() => {
-    t--; timerEl.textContent = t;
-    if (t <= 0) {
-      stopTimer(); if (!currentScale || roundLocked) return;
-      roundLocked = true;
-      setFeedback("Tempo scaduto. Scala corretta: " + currentScale.notes.join(" – ") + ".", "wrong");
-      if (gameMode === "ranked") handleRankedAnswer(false);
-      else setTimeout(newRound, 2200);
-    }
-  }, 1000);
-}
-
-function stopTimer() {
-  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
-  timerBox?.classList.add("hidden");
 }
 
 function startRankedClock() {

@@ -14,136 +14,159 @@ const INSTRUMENTS_LIST = [
   { id: 'tromba', name: 'Tromba', category: 'ottoni' },
   { id: 'trombone', name: 'Trombone', category: 'ottoni' },
   { id: 'corno', name: 'Corno', category: 'ottoni' },
-  { id: 'tuba', name: 'Tuba', category: 'ottoni' },
-  { id: 'percussioni', name: 'Percussioni', category: 'percussioni' },
-  { id: 'voce', name: 'Voce', category: 'voce' },
+  { id: 'bassotuba', name: 'Bassotuba', category: 'ottoni' },
+  { id: 'tamburo', name: 'Tamburo', category: 'percussioni' },
+  { id: 'timpani', name: 'Timpani', category: 'percussioni' },
   { id: 'chitarra', name: 'Chitarra', category: 'corde' },
-  { id: 'basso-elettrico', name: 'Basso Elettrico', category: 'corde' },
+  { id: 'chitarra-elettrica', name: 'Chitarra elettrica', category: 'elettrofoni', image: 'chitarra_elettrica.webp' },
+  { id: 'basso-elettrico', name: 'Basso elettrico', category: 'elettrofoni', image: 'basso_elettrico.webp' },
   { id: 'batteria', name: 'Batteria', category: 'percussioni' },
 ];
 
+const ARCHI_ORCHESTRALI = ['violino', 'viola', 'violoncello', 'contrabbasso'];
+const FIATI_E_OTTONI = ['flauto', 'oboe', 'clarinetto', 'fagotto', 'sassofono', 'tromba', 'trombone', 'corno', 'bassotuba'];
+const PERCUSSIONI = ['tamburo', 'timpani', 'batteria'];
+
 const FORMAZIONI_RULES = [
-  // ── FORMAZIONI SPECIFICHE ──
+  // Formazioni specifiche: prima delle regole generiche.
   {
     name: 'Quartetto d\'archi',
     check: (instr) => {
-      const violini = instr.filter(i => i.id === 'violino').length;
-      const viole = instr.filter(i => i.id === 'viola').length;
-      const violoncelli = instr.filter(i => i.id === 'violoncello').length;
-      return violini === 2 && viole === 1 && violoncelli === 1 && instr.length === 4;
+      return countId(instr, 'violino') === 2 &&
+             countId(instr, 'viola') === 1 &&
+             countId(instr, 'violoncello') === 1 &&
+             instr.length === 4;
     },
-    description: 'La formazione più prestigiosa della musica da camera.'
-  },
-  {
-    name: 'Rock Band',
-    check: (instr) => {
-      // Deve avere: (Chitarra O Basso Elettrico) E Batteria - minimo 3 con questi
-      const hasGuitar = instr.some(i => i.id === 'chitarra');
-      const hasBassElettrico = instr.some(i => i.id === 'basso-elettrico');
-      const hasDrums = instr.some(i => i.id === 'batteria');
-      const validStringInstr = instr.filter(i => ['chitarra', 'basso-elettrico', 'voce'].includes(i.id));
-      
-      return (hasGuitar || hasBassElettrico) && hasDrums && instr.length >= 3 && instr.length <= 6;
-    },
-    description: 'Chitarra/basso elettrico + batteria. La vera formazione rock.'
-  },
-  {
-    name: 'Jazz Band',
-    check: (instr) => {
-      // Deve avere: almeno 1 fiato (sax/tromba/trombone) E ritmo (batteria/pianoforte) - minimo 4
-      const hasWinds = instr.some(i => ['sassofono', 'tromba', 'trombone'].includes(i.id));
-      const hasRhythm = instr.some(i => ['batteria', 'pianoforte', 'contrabbasso'].includes(i.id));
-      const hasRealJazzCombo = instr.some(i => ['sassofono', 'tromba', 'trombone'].includes(i.id)) &&
-                               instr.some(i => ['batteria', 'pianoforte'].includes(i.id));
-      
-      return hasRealJazzCombo && instr.length >= 4 && instr.length <= 8;
-    },
-    description: 'Fiati + ritmo. La formazione dove l\'improvvisazione è fondamentale.'
-  },
-  
-  // ── FORMAZIONI GENERICHE (verifica dopo le specifiche) ──
-  {
-    name: 'Solista',
-    check: (instr) => instr.length === 1,
-    description: 'Un musicista che si esibisce da solo.'
-  },
-  {
-    name: 'Duo',
-    check: (instr) => instr.length === 2,
-    description: 'Due musicisti che suonano insieme in armonia.'
-  },
-  {
-    name: 'Trio',
-    check: (instr) => instr.length === 3,
-    description: 'Tre musicisti che creano un dialogo musicale.'
+    description: 'Due violini, viola e violoncello: una formazione centrale nella musica da camera.',
+    note: 'È una combinazione precisa: ogni strumento ha un ruolo diverso nel dialogo musicale.'
   },
   {
     name: 'Quintetto di fiati',
     check: (instr) => {
-      // Esattamente: Flauto + Oboe + Clarinetto + Corno + Fagotto (uno per tipo)
-      const count = (id) => instr.filter(i => i.id === id).length;
-      
-      return count('flauto') === 1 &&
-             count('oboe') === 1 &&
-             count('clarinetto') === 1 &&
-             count('corno') === 1 &&
-             count('fagotto') === 1 &&
+      return countId(instr, 'flauto') === 1 &&
+             countId(instr, 'oboe') === 1 &&
+             countId(instr, 'clarinetto') === 1 &&
+             countId(instr, 'corno') === 1 &&
+             countId(instr, 'fagotto') === 1 &&
              instr.length === 5;
     },
-    description: 'La formazione classica di fiati: Flauto, Oboe, Clarinetto, Corno e Fagotto.'
+    description: 'Flauto, oboe, clarinetto, corno e fagotto: un organico tradizionale del quintetto di fiati.',
+    note: 'Qui conta la varietà dei timbri: ogni strumento porta un colore sonoro diverso.'
   },
   {
     name: 'Quintetto d\'ottoni',
     check: (instr) => {
-      // Esattamente: 2 Trombe + 1 Trombone + 1 Tuba + 1 Corno
-      const count = (id) => instr.filter(i => i.id === id).length;
-      
-      return count('tromba') === 2 &&
-             count('trombone') === 1 &&
-             count('tuba') === 1 &&
-             count('corno') === 1 &&
+      return countId(instr, 'tromba') === 2 &&
+             countId(instr, 'trombone') === 1 &&
+             countId(instr, 'bassotuba') === 1 &&
+             countId(instr, 'corno') === 1 &&
              instr.length === 5;
     },
-    description: '2 Trombe + 1 Trombone + 1 Tuba + 1 Corno. La formazione classica di ottoni.'
+    description: '2 trombe, trombone, bassotuba e corno: una combinazione tipica del quintetto di ottoni.',
+    note: 'Il risultato è compatto e brillante, con strumenti della stessa area timbrica.'
   },
   {
-    name: 'String Ensemble',
+    name: 'Rock Band',
     check: (instr) => {
-      // Solo archi: Violino, Viola, Violoncello, Contrabbasso
-      const archi = ['violino', 'viola', 'violoncello', 'contrabbasso'];
-      const allArchi = instr.every(i => archi.includes(i.id));
-      return allArchi && instr.length >= 6 && instr.length <= 12;
+      const hasGuitar = instr.some(i => ['chitarra', 'chitarra-elettrica'].includes(i.id));
+      return hasGuitar &&
+             countId(instr, 'basso-elettrico') >= 1 &&
+             countId(instr, 'batteria') >= 1 &&
+             instr.length >= 3 &&
+             instr.length <= 6;
     },
-    description: 'Un ensemble di soli archi con diverse combinazioni.'
+    description: 'Chitarra, basso elettrico e batteria: la base più riconoscibile di una rock band.',
+    note: 'La chitarra dà il profilo armonico, basso e batteria costruiscono la sezione ritmica.'
   },
   {
-    name: 'Wind Ensemble',
+    name: 'Jazz Band',
     check: (instr) => {
-      // Solo fiati e ottoni: tutti gli strumenti a fiato
-      const fiati = ['flauto', 'oboe', 'clarinetto', 'fagotto', 'sassofono', 'tromba', 'trombone', 'corno'];
-      const allFiati = instr.every(i => fiati.includes(i.id));
-      return allFiati && instr.length >= 6 && instr.length <= 12;
+      const hasSoloWind = instr.some(i => ['sassofono', 'tromba', 'trombone', 'clarinetto'].includes(i.id));
+      const hasRhythm = instr.some(i => ['batteria', 'pianoforte', 'contrabbasso', 'basso-elettrico'].includes(i.id));
+      return hasSoloWind && hasRhythm && instr.length >= 4 && instr.length <= 8;
     },
-    description: 'Un ensemble di fiati e ottoni per suoni brillanti e potenti.'
+    description: 'Fiati solistici e sezione ritmica: una combinazione adatta al dialogo e all\'improvvisazione jazz.',
+    note: 'Funziona bene quando un timbro melodico dialoga con strumenti di accompagnamento.'
+  },
+
+  // Regole per famiglia: riconoscono gruppi coerenti anche se non sono organici esatti.
+  {
+    name: 'Sezione strumentale',
+    check: (instr) => instr.length >= 4 && getUniqueIds(instr).length === 1,
+    description: 'Hai creato una sezione con più strumenti dello stesso tipo.',
+    note: 'È utile per rinforzare un timbro, ma non è ancora una formazione completa e varia.'
+  },
+  {
+    name: 'Ensemble d\'archi',
+    check: (instr) => hasOnlyIds(instr, ARCHI_ORCHESTRALI) && instr.length >= 4 && instr.length <= 12,
+    description: 'Un gruppo di soli archi con più parti distribuite tra strumenti gravi e acuti.',
+    note: 'È più convincente quando alterna strumenti acuti, medi e gravi.'
+  },
+  {
+    name: 'Ensemble di fiati',
+    check: (instr) => hasOnlyIds(instr, FIATI_E_OTTONI) && instr.length >= 4 && instr.length <= 12,
+    description: 'Un gruppo di fiati e ottoni, con timbri chiari, brillanti e molto riconoscibili.',
+    note: 'Può avvicinarsi a una piccola banda se aumentano varietà e numero degli strumenti.'
+  },
+  {
+    name: 'Gruppo di percussioni',
+    check: (instr) => hasOnlyIds(instr, PERCUSSIONI) && instr.length >= 2,
+    description: 'Una formazione centrata sul ritmo, sugli accenti e sui diversi modi di produrre il suono.',
+    note: 'Funziona come laboratorio ritmico; per diventare ensemble misto servono anche strumenti melodici.'
+  },
+
+  // Regole per numero: usate quando non c'e una formazione piu specifica.
+  {
+    name: 'Solista',
+    check: (instr) => instr.length === 1,
+    description: 'Un musicista che si esibisce da solo.',
+    note: 'Tutta l\'attenzione ricade sul timbro e sull\'espressività dello strumento scelto.'
+  },
+  {
+    name: 'Duo',
+    check: (instr) => instr.length === 2,
+    description: 'Due musicisti: ideale per ascoltare dialogo, accompagnamento e risposta.',
+    note: 'Nel duo è importante che i due strumenti abbiano ruoli distinguibili.'
+  },
+  {
+    name: 'Trio',
+    check: (instr) => instr.length === 3,
+    description: 'Tre musicisti: una piccola formazione con più possibilità di contrasto e intreccio.',
+    note: 'Il trio permette già una distribuzione tra melodia, accompagnamento e sostegno ritmico.'
+  },
+  {
+    name: 'Quartetto',
+    check: (instr) => instr.length === 4,
+    description: 'Quattro musicisti: una formazione equilibrata, adatta a dialoghi musicali più ricchi.',
+    note: 'Non è un quartetto storico preciso, ma può funzionare come quartetto libero.'
+  },
+  {
+    name: 'Quintetto',
+    check: (instr) => instr.length === 5,
+    description: 'Cinque musicisti: una formazione abbastanza ampia per alternare timbri e ruoli.',
+    note: 'Se gli strumenti appartengono alla stessa famiglia può diventare un quintetto più caratterizzato.'
   },
   {
     name: 'Ensemble',
     check: (instr) => instr.length >= 6 && instr.length <= 12,
-    description: 'Un gruppo flessibile di musicisti variato.'
+    description: 'Un gruppo flessibile di musicisti con strumenti diversi e colori sonori misti.',
+    note: 'È una formazione libera: osserva se c\'è equilibrio tra timbri acuti, gravi e ritmici.'
   },
   {
     name: 'Orchestra',
-    check: (instr) => instr.length > 12,
-    description: 'Una grande formazione orchestrale.'
+    check: (instr) => instr.length > 12 && getUniqueIds(instr).length >= 4 && getFamilyCount(instr) >= 3,
+    description: 'Una grande formazione con molte parti: archi, fiati, ottoni, percussioni o strumenti misti.',
+    note: 'Per sembrare davvero orchestrale servono famiglie diverse e una distribuzione ampia dei ruoli.'
   },
 ];
 
 let selectedInstruments = [];
+const STAGE_CENTER_X = 52;
 
 document.addEventListener('DOMContentLoaded', () => {
   renderCarousel();
-  setupScrollButton();
   setupDragZone();
+  document.getElementById('instrumentsCarousel')?.addEventListener('scroll', updateArrowStates, { passive: true });
 });
 
 /* ==================== CAROUSEL ==================== */
@@ -156,10 +179,13 @@ function renderCarousel() {
     const item = document.createElement('div');
     item.className = 'carouselItem';
     item.draggable = true;
+    item.tabIndex = 0;
+    item.role = 'button';
+    item.setAttribute('aria-label', `Aggiungi ${instr.name} al palco`);
     item.dataset.instrumentId = instr.id;
     
     const img = document.createElement('img');
-    img.src = `img/strumenti/${instr.id}.webp`;
+    img.src = getInstrumentImageSrc(instr);
     img.alt = instr.name;
     img.className = 'carouselItemImage';
     
@@ -174,6 +200,14 @@ function renderCarousel() {
       e.dataTransfer.effectAllowed = 'copy';
       e.dataTransfer.setData('instrumentId', instr.id);
     });
+
+    item.addEventListener('click', () => addInstrumentToStage(instr.id));
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        addInstrumentToStage(instr.id);
+      }
+    });
     
     carousel.appendChild(item);
   });
@@ -181,11 +215,25 @@ function renderCarousel() {
   updateArrowStates();
 }
 
+function getInstrumentImageSrc(instr) {
+  return `img/strumenti/${instr.image || `${instr.id}.webp`}`;
+}
+
 function scrollCarousel(direction) {
   const carousel = document.getElementById('instrumentsCarousel');
-  const itemWidth = 90 + 12; // width + gap
-  carousel.scrollBy({ left: direction * itemWidth * 3, behavior: 'smooth' });
-  
+  if (!carousel) return;
+
+  const isVertical = getComputedStyle(carousel).flexDirection === 'column';
+  const step = isVertical
+    ? Math.max(160, Math.round(carousel.clientHeight * 0.72))
+    : Math.max(220, Math.round(carousel.clientWidth * 0.82));
+
+  carousel.scrollBy({
+    top: isVertical ? direction * step : 0,
+    left: isVertical ? 0 : direction * step,
+    behavior: 'smooth'
+  });
+
   setTimeout(updateArrowStates, 300);
 }
 
@@ -193,16 +241,18 @@ function updateArrowStates() {
   const carousel = document.getElementById('instrumentsCarousel');
   const arrowLeft = document.getElementById('arrowLeft');
   const arrowRight = document.getElementById('arrowRight');
-  
+  if (!carousel || !arrowLeft || !arrowRight) return;
+
+  const isVertical = getComputedStyle(carousel).flexDirection === 'column';
+  if (isVertical) {
+    arrowLeft.disabled = carousel.scrollTop <= 0;
+    arrowRight.disabled = carousel.scrollTop >= carousel.scrollHeight - carousel.clientHeight - 10;
+    return;
+  }
+
   arrowLeft.disabled = carousel.scrollLeft <= 0;
   arrowRight.disabled = carousel.scrollLeft >= carousel.scrollWidth - carousel.clientWidth - 10;
 }
-
-// Update arrow states on scroll
-document.addEventListener('DOMContentLoaded', () => {
-  const carousel = document.getElementById('instrumentsCarousel');
-  carousel.addEventListener('scroll', updateArrowStates);
-});
 
 /* ==================== STAGE DROP ZONE ==================== */
 
@@ -235,32 +285,87 @@ function addInstrumentToStage(instrumentId) {
   selectedInstruments.push({ ...instr, uid: Math.random() });
   renderStage();
   checkFormazione();
+  markInstrumentAdded(instrumentId);
 }
 
 function renderStage() {
   const container = document.getElementById('instrumentsOnStage');
+  const stage = document.getElementById('stageDropZone');
   container.innerHTML = '';
-  
-  selectedInstruments.forEach((instr) => {
+  stage?.classList.toggle('has-instruments', selectedInstruments.length > 0);
+
+  selectedInstruments.forEach((instr, index) => {
+    const position = getStagePosition(index, selectedInstruments.length);
     const el = document.createElement('div');
     el.className = 'instrumentOnStage';
     el.dataset.uid = instr.uid;
-    
+    el.style.setProperty('--x', `${position.x}%`);
+    el.style.setProperty('--y', `${position.y}%`);
+    el.style.setProperty('--scale', position.scale);
+    el.style.setProperty('--delay', `${Math.min(index, 12) * 35}ms`);
+    el.style.zIndex = String(Math.round(position.y));
+
+    const pad = document.createElement('span');
+    pad.className = 'instrumentStagePad';
+
     const img = document.createElement('img');
-    img.src = `img/strumenti/${instr.id}.webp`;
+    img.src = getInstrumentImageSrc(instr);
     img.alt = instr.name;
     img.className = 'stageInstrumentImage';
+
+    const label = document.createElement('span');
+    label.className = 'stageInstrumentLabel';
+    label.textContent = instr.name;
     
     const removeBtn = document.createElement('button');
     removeBtn.className = 'removeBtn';
     removeBtn.innerHTML = '✕';
     removeBtn.onclick = () => removeInstrument(instr.uid);
     removeBtn.title = `Rimuovi ${instr.name}`;
-    
+
+    el.appendChild(pad);
     el.appendChild(img);
+    el.appendChild(label);
     el.appendChild(removeBtn);
     container.appendChild(el);
   });
+}
+
+function getStagePosition(index, total) {
+  const rowPlans = total <= 5
+    ? [{ count: total, y: 73, scale: 0.98, span: Math.min(54, 18 + total * 8), curve: 3 }]
+    : total <= 11
+      ? [
+          { count: Math.ceil(total * 0.45), y: 63, scale: 0.78, span: 40, curve: 2 },
+          { count: total - Math.ceil(total * 0.45), y: 75, scale: 0.98, span: 56, curve: 4 },
+        ]
+      : [
+          { count: Math.ceil(total * 0.28), y: 56, scale: 0.68, span: 34, curve: 1.5 },
+          { count: Math.ceil(total * 0.34), y: 68, scale: 0.82, span: 48, curve: 3 },
+          { count: total - Math.ceil(total * 0.28) - Math.ceil(total * 0.34), y: 77, scale: 0.98, span: 66, curve: 4.5 },
+        ];
+
+  let offset = 0;
+  for (const row of rowPlans) {
+    if (index < offset + row.count) {
+      const rowIndex = index - offset;
+      const x = getRowX(rowIndex, row.count, row.span);
+      const centerDistance = Math.abs(x - STAGE_CENTER_X) / Math.max(1, row.span / 2);
+      const y = row.y + row.curve * (1 - Math.min(centerDistance, 1));
+      return { x, y, scale: row.scale };
+    }
+    offset += row.count;
+  }
+
+  return { x: STAGE_CENTER_X, y: 74, scale: 1 };
+}
+
+function getRowX(index, count, rowSpan) {
+  if (count <= 1) return STAGE_CENTER_X;
+
+  const span = rowSpan || Math.min(68, 18 + count * 7.5);
+  const start = STAGE_CENTER_X - span / 2;
+  return start + (span / (count - 1)) * index;
 }
 
 function removeInstrument(uid) {
@@ -274,48 +379,85 @@ function resetStage() {
   renderStage();
   document.getElementById('resultName').textContent = 'Scegli gli strumenti';
   document.getElementById('resultDescription').textContent = '';
+  document.querySelectorAll('.carouselItem.is-added').forEach(item => {
+    item.classList.remove('is-added');
+  });
+}
+
+function markInstrumentAdded(instrumentId) {
+  const item = document.querySelector(`.carouselItem[data-instrument-id="${instrumentId}"]`);
+  if (!item) return;
+
+  item.classList.add('is-added');
+  window.setTimeout(() => item.classList.remove('is-added'), 650);
 }
 
 /* ==================== RICONOSCIMENTO FORMAZIONE ==================== */
 
+function countId(instruments, id) {
+  return instruments.filter(instr => instr.id === id).length;
+}
+
+function hasOnlyIds(instruments, allowedIds) {
+  return instruments.length > 0 && instruments.every(instr => allowedIds.includes(instr.id));
+}
+
+function getUniqueIds(instruments) {
+  return [...new Set(instruments.map(instr => instr.id))];
+}
+
+function getFamilyCount(instruments) {
+  return new Set(instruments.map(instr => instr.category)).size;
+}
+
+function formatInstrumentSummary(instruments) {
+  const counts = new Map();
+  instruments.forEach((instr) => {
+    const current = counts.get(instr.name) || 0;
+    counts.set(instr.name, current + 1);
+  });
+
+  return [...counts.entries()]
+    .map(([name, count]) => count === 1 ? name : `${name} x${count}`)
+    .join(', ');
+}
+
+function getFreeCombinationNote(instruments) {
+  if (getUniqueIds(instruments).length === 1) {
+    return 'Hai usato molti strumenti uguali: il risultato rinforza un solo timbro, ma manca varietà di ruoli.';
+  }
+
+  if (getFamilyCount(instruments) === 1) {
+    return 'Gli strumenti appartengono alla stessa famiglia: il colore sonoro è coerente, ma può risultare poco contrastato.';
+  }
+
+  return 'La combinazione è interessante, ma non corrisponde ancora a una formazione riconoscibile tra quelle principali.';
+}
+
+function buildFormationMessage(formation, instruments) {
+  return `${formation.description} Composizione: ${formatInstrumentSummary(instruments)}. Osservazione: ${formation.note}`;
+}
+
+function updateFormationOutput(name, message) {
+  document.getElementById('resultName').textContent = name;
+  document.getElementById('resultDescription').textContent = message;
+}
+
 function checkFormazione() {
   if (selectedInstruments.length === 0) {
-    document.getElementById('resultName').textContent = 'Scegli gli strumenti';
-    document.getElementById('resultDescription').textContent = '';
+    updateFormationOutput('Scegli gli strumenti', '');
     return;
   }
   
   for (const formazione of FORMAZIONI_RULES) {
     if (formazione.check(selectedInstruments)) {
-      document.getElementById('resultName').textContent = '✨ ' + formazione.name;
-      document.getElementById('resultDescription').textContent = formazione.description;
+      updateFormationOutput(formazione.name, buildFormationMessage(formazione, selectedInstruments));
       return;
     }
   }
   
-  const instrNames = selectedInstruments.map(i => i.name).join(', ');
-  document.getElementById('resultName').textContent = '🎵 Combinazione libera';
-  document.getElementById('resultDescription').textContent = 
-    `Interessante! Hai creato: ${instrNames}. Questa combinazione non corrisponde a una formazione musicale tradizionale tra quelle studiate.`;
-}
-
-/* ==================== SCROLL TOP ==================== */
-
-function setupScrollButton() {
-  const scrollBtn = document.getElementById('scrollTopBtn');
-  if (!scrollBtn) return;
-
-  const toggleScrollButton = () => {
-    if (window.scrollY > 350) {
-      scrollBtn.classList.add('show');
-    } else {
-      scrollBtn.classList.remove('show');
-    }
-  };
-
-  window.addEventListener('scroll', toggleScrollButton, { passive: true });
-  scrollBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-  toggleScrollButton();
+  updateFormationOutput(
+    'Combinazione libera',
+    `Composizione: ${formatInstrumentSummary(selectedInstruments)}. Osservazione: ${getFreeCombinationNote(selectedInstruments)}`
+  );
 }

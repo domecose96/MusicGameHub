@@ -350,6 +350,26 @@ const MusicGameHubResources = (() => {
       group: "paths"
     },
     {
+      id: "formazioniMusicali",
+      icon: "🎼",
+      type: "Percorso",
+      title: "Formazioni musicali",
+      desc: "Solista, duo, ensemble, orchestre e band: scopri come cambia l'organico strumentale.",
+      tags: ["strumenti", "formazioni", "ensemble", "orchestra", "band", "solista", "duo", "trio"],
+      url: "formazioni.html",
+      group: "paths"
+    },
+    {
+      id: "costruisciFormazione",
+      icon: "🎛️",
+      type: "Laboratorio",
+      title: "Costruisci la formazione",
+      desc: "Scegli gli strumenti, componi il palco e osserva quale formazione hai creato.",
+      tags: ["strumenti", "formazioni", "laboratorio", "orchestra", "ensemble", "palco"],
+      url: "costruisci-formazione.html",
+      group: "paths"
+    },
+    {
       id: "fumettiMusicali",
       icon: "📖",
       type: "Percorso",
@@ -486,6 +506,20 @@ const MusicGameHubResources = (() => {
       tag: "Esplora",
       url: "strumenti.html",
       homeGroup: "paths"
+    },
+    {
+      id: "homeFormazioni",
+      icon: "🎼",
+      title: "Formazioni musicali",
+      desc: "Dopo aver scoperto gli strumenti, esplora come si organizzano in solisti, ensemble, orchestre e band.",
+      tag: "Strumenti",
+      url: "formazioni.html",
+      homeGroup: "paths",
+      feature: {
+        icon: "🎛️",
+        title: "Laboratorio",
+        text: "costruisci la tua formazione"
+      }
     },
     {
       id: "homeFumetti",

@@ -768,6 +768,19 @@ function createCardElement(item, options = {}) {
 
   card.append(icon, title, desc);
 
+  if (item.feature) {
+    const feature = document.createElement("span");
+    feature.className = "hubCardFeature";
+    feature.innerHTML = `
+      <span class="hubCardFeatureIcon" aria-hidden="true">${item.feature.icon}</span>
+      <span>
+        <strong>${item.feature.title}</strong>
+        <small>${item.feature.text}</small>
+      </span>
+    `;
+    card.appendChild(feature);
+  }
+
   const badge = document.createElement("span");
   badge.className = isDisabled ? "hubBadge" : "hubTag";
   badge.textContent = isDisabled ? "In arrivo" : item.tag;

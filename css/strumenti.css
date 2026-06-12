@@ -33,17 +33,33 @@
   margin-top: 18px;
 }
 
-.instrumentBadge {
+.instrumentBadge,
+.formazione-badge,
+.costruisciBadge {
   display: inline-flex;
-  padding: 8px 14px;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 14px;
   border-radius: 999px;
   background: rgba(0, 166, 189, 0.1);
   border: 1px solid rgba(0, 166, 189, 0.25);
   color: #00798a;
-  font-size: 0.82rem;
+  font-size: 0.76rem;
   font-weight: 900;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
+}
+
+.instrumentBadge {
+  min-height: 34px;
+  padding-inline: 14px;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+}
+
+.formazione-badge,
+.costruisciBadge {
+  margin-bottom: 12px;
 }
 
 .instrumentHeroText h2 {
@@ -66,6 +82,52 @@
   flex-wrap: wrap;
   gap: 10px;
   margin: 24px 0 18px;
+}
+
+.instrumentNav.tealNav .navBtn:hover,
+.instrumentNav.tealNav .navBtn.active {
+  background: linear-gradient(135deg, #00a6bd, #28d2c7);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.formazioniHeroButton {
+  min-height: 46px;
+  width: auto;
+  padding: 0 22px;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  background: linear-gradient(135deg, #00a6bd, #28d2c7);
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(0, 166, 189, 0.22);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+}
+
+.formazioniHeroButton.secondary {
+  background: rgba(255, 255, 255, 0.84);
+  border-color: rgba(0, 166, 189, 0.25);
+  color: #075465;
+  box-shadow: 0 10px 24px rgba(6, 55, 68, 0.08);
+}
+
+.formazioniHeroButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(0, 166, 189, 0.28);
+}
+
+.formazioniHeroButton.secondary:hover {
+  background: rgba(0, 166, 189, 0.08);
+  color: #00a6bd;
+}
+
+@media (max-width: 560px) {
+  .formazioniHeroButton {
+    width: 100%;
+  }
 }
 
 .filterBtn {
@@ -220,6 +282,7 @@
   position: relative;
   z-index: 2;
   width: 100%;
+  margin-top: 18px;
   padding: 0;
   box-sizing: border-box;
   background: transparent;
@@ -228,7 +291,7 @@
 }
 
 .familyShowcaseContent h3 {
-  margin: 0;
+  margin: 0 0 8px;
   color: #063744;
   font-size: clamp(1.55rem, 3.4vw, 2.3rem);
   line-height: 1;
@@ -732,6 +795,13 @@
   box-shadow: 0 25px 60px rgba(0,0,0,0.24);
 }
 
+.instrumentModalContent {
+  width: min(1080px, calc(100vw - 44px));
+  max-width: 1080px;
+  max-height: none;
+  overflow: visible;
+}
+
 .modalHeader {
   background: linear-gradient(135deg, #00a6bd, #28d2c7);
   color: white;
@@ -774,15 +844,22 @@
 
 .instrumentModalBody {
   display: grid;
+  gap: 16px;
+}
+
+.instrumentModalTop {
+  display: grid;
+  grid-template-columns: minmax(280px, 430px) minmax(260px, 1fr);
   gap: 18px;
+  align-items: stretch;
 }
 
 /* POPUP IMMAGINE CON FLIP */
 
 .modalInstrumentImage {
-  width: min(420px, 100%);
-  height: 310px;
-  margin: 0 auto 22px;
+  width: 100%;
+  height: 300px;
+  margin: 0;
   border-radius: 26px;
   overflow: hidden;
   background:
@@ -831,18 +908,40 @@
 
 .instrumentMeta {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+  align-content: stretch;
 }
 
 .instrumentMeta span {
-  padding: 11px 12px;
-  border-radius: 13px;
-  background: rgba(0,166,189,0.08);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  padding: 10px 12px;
+  border: 1px solid rgba(0, 166, 189, 0.14);
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(0, 166, 189, 0.055));
   color: #075465;
-  font-weight: 800;
-  font-size: 0.88rem;
   text-align: left;
+  box-shadow: 0 8px 18px rgba(6, 55, 68, 0.055);
+}
+
+.instrumentMeta small {
+  color: rgba(7, 84, 101, 0.62);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.instrumentMeta strong {
+  color: #063744;
+  font-size: 0.92rem;
+  font-weight: 900;
+  line-height: 1.25;
 }
 
 /* ==================== AUDIO ==================== */
@@ -864,18 +963,6 @@
 
 .audioSlot audio {
   width: 100%;
-}
-
-.audioSlot small {
-  display: block;
-  margin-top: 8px;
-  color: var(--text-muted);
-  line-height: 1.45;
-}
-
-.audioSlot code {
-  color: #075465;
-  font-weight: 800;
 }
 
 /* ==================== QUIZ ==================== */
@@ -990,6 +1077,18 @@
     margin-top: 24px;
   }
 
+  .instrumentModalContent {
+    width: min(760px, calc(100vw - 32px));
+  }
+
+  .instrumentModalTop {
+    grid-template-columns: 1fr;
+  }
+
+  .instrumentMeta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .mouthpieceGrid {
     grid-template-columns: 1fr;
   }
@@ -1054,7 +1153,7 @@
   }
 
   .modalInstrumentImage {
-    width: min(320px, 100%);
+    width: 100%;
     height: 240px;
   }
 }
@@ -1062,6 +1161,24 @@
 @media (max-width: 420px) {
   .instrumentGallery {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-height: 760px) and (min-width: 901px) {
+  .modalHeader {
+    padding: 18px 22px;
+  }
+
+  .modalBody {
+    padding: 18px 22px;
+  }
+
+  .modalInstrumentImage {
+    height: 250px;
+  }
+
+  #instrumentModalText {
+    line-height: 1.55;
   }
 }
 

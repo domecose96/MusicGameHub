@@ -35,9 +35,10 @@ const mapGroups=[
     column:".mapColumnPaths",
     label:"Percorsi",
     unit:"risorse principali",
-    ids:["storiaMusica","strumentiMusicali","fumettiMusicali","classiDocente","educazioneCivica"],
+    ids:["storiaMusica","strumentiMusicali","formazioniMusicali","fumettiMusicali","classiDocente","educazioneCivica"],
     featured:{
       storiaMusica:"★ timeline",
+      formazioniMusicali:"★ laboratorio",
       fumettiMusicali:"★ collana",
       classiDocente:"★ docente",
       educazioneCivica:"★ indice"
@@ -108,6 +109,11 @@ const clusterContent={
     {label:"Tastiera",url:"strumenti.html#tastiera"},
     {label:"Elettrofoni",url:"strumenti.html#elettrofoni"},
     {label:"Gioco strumenti",url:"giochi/strumenti_game.html"}
+  ],
+  formazioniMusicali:[
+    {label:"Panoramica",url:"formazioni.html#panoramica"},
+    {label:"Esplora",url:"formazioni.html#formazioneSection"},
+    {label:"Laboratorio",id:"costruisciFormazione"}
   ],
   fumettiMusicali:MGH_COMICS.items.map(comic=>({
     label:comic.shortTitle,
@@ -213,6 +219,7 @@ function getShortDescription(item){
   if(item.id==="teoriaAvanzata")return "Accordi, forme e armonia";
   if(item.id==="storiaMusica")return "Epoche e autori";
   if(item.id==="strumentiMusicali")return "Famiglie e gioco";
+  if(item.id==="formazioniMusicali")return "Ensemble e lab";
   if(item.id==="fumettiMusicali")return "Compositori";
   if(item.id==="classiDocente")return "Area docente";
   if(item.id==="educazioneCivica")return "Indice lezioni";

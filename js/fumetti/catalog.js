@@ -1,5 +1,6 @@
 const MGH_COMICS = (() => {
-  const MIN_READY_PAGES = 10;
+  const REQUIRED_INTERIOR_PAGES = 30;
+  const REQUIRED_TOTAL_IMAGES = REQUIRED_INTERIOR_PAGES + 2;
   const PUBLIC_PREVIEW_SLUG = "mozart";
   const PUBLIC_PREVIEW_PAGES = 3;
   const PUBLIC_LOCKED_PREVIEW_PAGES = PUBLIC_PREVIEW_PAGES + 1;
@@ -101,18 +102,32 @@ const MGH_COMICS = (() => {
     return PAGE_EXTENSIONS.map(extension => `${base}${extension}`);
   }
 
+  function coverCandidates(rootPath, comic) {
+    const configuredCover = comic.cover
+      ? [`${rootPath}/${comic.slug}/${comic.cover}`]
+      : [];
+    const base = `${rootPath}/${comic.slug}/${comic.slug}`;
+    return [...configuredCover, ...COVER_EXTENSIONS.map(extension => `${base}${extension}`)];
+  }
+
   function backCoverCandidates(rootPath, comic) {
     const base = `${rootPath}/${comic.slug}/${comic.slug}_back`;
     return COVER_EXTENSIONS.map(extension => `${base}${extension}`);
   }
 
   async function isReady(rootPath, slug) {
-    for (let index = 1; index <= MIN_READY_PAGES; index++) {
+    const comic = items.find(item => item.slug === slug);
+    if (!comic) return false;
+
+    const coverExists = await MGH.resolveFirstExistingImage(coverCandidates(rootPath, comic));
+    if (!coverExists) return false;
+
+    for (let index = 1; index <= REQUIRED_INTERIOR_PAGES; index++) {
       const exists = await MGH.resolveFirstExistingImage(pageCandidates(rootPath, slug, index));
       if (!exists) return false;
     }
 
-    return true;
+    return Boolean(await MGH.resolveFirstExistingImage(backCoverCandidates(rootPath, comic)));
   }
 
   async function resolveBackCover(rootPath, comic) {
@@ -124,7 +139,8 @@ const MGH_COMICS = (() => {
   }
 
   return {
-    MIN_READY_PAGES,
+    REQUIRED_INTERIOR_PAGES,
+    REQUIRED_TOTAL_IMAGES,
     PUBLIC_PREVIEW_SLUG,
     PUBLIC_PREVIEW_PAGES,
     PUBLIC_LOCKED_PREVIEW_PAGES,
@@ -132,6 +148,7 @@ const MGH_COMICS = (() => {
     COVER_EXTENSIONS,
     upcomingSeries,
     items,
+    coverCandidates,
     pageCandidates,
     backCoverCandidates,
     isReady,
