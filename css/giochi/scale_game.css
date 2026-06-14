@@ -9,14 +9,6 @@
   text-align: center;
 }
 
-.gameActions {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
-
 #gameArea {
   width: 100%;
 }
@@ -407,117 +399,6 @@
 /* Mode group */
 .scaleModeGroup { align-items:center; overflow:visible !important; padding:0; }
 .scaleModeGroup .menuButton { overflow:visible; }
-.scaleModeGroup .dailyModeButton { position:relative; background:linear-gradient(180deg,#fff8ed,#fff0dc); border-color:rgba(232,93,4,.36); color:#8f3a00; }
-.scaleModeGroup .dailyModeButton:hover:not(.selected) { background:linear-gradient(180deg,#fff1dc,#ffe4bf); border-color:rgba(232,93,4,.52); color:var(--action-orange); box-shadow:0 12px 26px rgba(232,93,4,.18); }
-.scaleModeGroup .dailyModeButton.selected             { background:linear-gradient(135deg,var(--action-orange),var(--action-orange-soft)); color:#fff; box-shadow:0 12px 28px rgba(232,93,4,.32); }
-
-.scaleProToggleButton {
-  position: fixed;
-  top: calc(var(--header-height) + 18px);
-  left: 82px;
-  z-index: 50;
-  width: 58px;
-  height: 48px;
-  padding: 0;
-  border: 1.5px solid rgba(255, 102, 0, 0.22);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--accent);
-  font-size: .92rem;
-  font-weight: 900;
-  line-height: 1;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.10);
-  cursor: pointer;
-  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
-}
-
-.scaleProToggleButton:hover {
-  transform: scale(1.05);
-  background: rgba(255, 102, 0, 0.08);
-  border-color: rgba(255, 102, 0, 0.34);
-}
-
-.scaleProToggleButton.active {
-  background: linear-gradient(135deg, #ff3d00, #ff9f1c);
-  border-color: rgba(255, 174, 0, .8);
-  color: #fff;
-  box-shadow:
-    0 0 14px rgba(255, 88, 0, .55),
-    0 12px 28px rgba(179, 42, 0, .24);
-}
-
-.scaleProToggleButton.hidden {
-  display: none !important;
-}
-
-body.scaleGamePage.scaleProMode .scaleModeGroup .menuButton {
-  position: relative;
-  isolation: isolate;
-  background: rgba(255, 255, 255, 0.86) !important;
-  border-color: rgba(255, 102, 0, 0.22) !important;
-  color: var(--text-main) !important;
-  text-shadow: none;
-  box-shadow:
-    0 0 0 1px rgba(255, 180, 80, .24),
-    0 0 18px rgba(255, 84, 0, .28),
-    0 0 38px rgba(255, 136, 0, .16),
-    0 10px 26px rgba(0, 0, 0, .07) !important;
-  overflow: visible !important;
-}
-
-body.scaleGamePage.scaleProMode .scaleModeGroup .menuButton::after {
-  content: "";
-  position: absolute;
-  inset: -14px -18px;
-  border-radius: inherit;
-  background:
-    radial-gradient(circle at 24% 0%, rgba(255, 222, 89, .72), transparent 26%),
-    radial-gradient(circle at 76% 100%, rgba(255, 78, 0, .48), transparent 30%),
-    linear-gradient(90deg, rgba(255, 61, 0, .58), rgba(255, 184, 36, .5), rgba(255, 61, 0, .58));
-  filter: blur(12px);
-  z-index: -1;
-  animation: scaleProFlamePulse 2.4s ease-in-out infinite;
-}
-
-body.scaleGamePage.scaleProMode .scaleModeGroup .menuButton:hover:not(.selected) {
-  transform: translateY(-3px);
-  background: rgba(255, 102, 0, 0.08) !important;
-  border-color: rgba(255, 102, 0, 0.34) !important;
-  color: var(--accent) !important;
-  box-shadow:
-    0 0 0 1px rgba(255, 190, 90, .32),
-    0 0 24px rgba(255, 84, 0, .42),
-    0 0 52px rgba(255, 183, 36, .24),
-    0 12px 26px rgba(255, 102, 0, .16) !important;
-}
-
-body.scaleGamePage.scaleProMode .scaleModeGroup .menuButton.selected {
-  background: linear-gradient(135deg, var(--accent), var(--accent-soft)) !important;
-  color: #ffffff !important;
-  border-color: transparent !important;
-  box-shadow:
-    0 0 0 1px rgba(255, 220, 120, .34),
-    0 0 26px rgba(255, 84, 0, .52),
-    0 0 58px rgba(255, 193, 69, .30),
-    0 12px 26px rgba(255, 102, 0, .28) !important;
-}
-
-body.scaleGamePage.scaleProMode .scaleModeGroup .dailyModeBadge {
-  background: #1f0700;
-  color: #ffd36a;
-  box-shadow: 0 0 12px rgba(255, 124, 0, .55);
-}
-
-@keyframes scaleProFlamePulse {
-  0%, 100% { opacity: .56; transform: scale(.98); }
-  50% { opacity: .88; transform: scale(1.04); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  body.scaleGamePage.scaleProMode .scaleModeGroup .menuButton::after {
-    animation: none;
-  }
-}
 
 /* ==================== RESPONSIVE ==================== */
 

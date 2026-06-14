@@ -290,6 +290,21 @@ body {
   box-shadow: 0 14px 34px rgba(255,102,0,.18);
 }
 
+.resourceNode.featured[data-type="theory"] {
+  border-color: rgba(61,143,199,.52);
+  box-shadow: 0 14px 34px rgba(61,143,199,.16);
+}
+
+.resourceNode.featured[data-type="paths"] {
+  border-color: rgba(125,103,200,.52);
+  box-shadow: 0 14px 34px rgba(125,103,200,.16);
+}
+
+.resourceNode.featured[data-type="games"] {
+  border-color: rgba(47,149,98,.52);
+  box-shadow: 0 14px 34px rgba(47,149,98,.16);
+}
+
 .badge {
   grid-area: badge;
   display: inline-flex;
@@ -319,6 +334,20 @@ body {
   color: var(--violet);
 }
 
+.badge.soon {
+  background: rgba(255,102,0,.12);
+  color: var(--accent);
+}
+
+.resourceNode.comingSoon {
+  opacity: .76;
+  cursor: default;
+}
+
+.resourceNode.comingSoon:hover {
+  transform: none;
+}
+
 .featuredRibbon {
   position: absolute;
   left: 10px;
@@ -330,6 +359,51 @@ body {
   font-size: .64rem;
   font-weight: 900;
   box-shadow: 0 6px 16px rgba(255,102,0,.28);
+}
+
+.resourceDailyBadge {
+  position: absolute;
+  right: 10px;
+  top: -13px;
+  background: linear-gradient(135deg, #ff7a1a, #ffb347);
+  color: white;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: .64rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  box-shadow: 0 8px 22px rgba(255,102,0,.34);
+  animation: mapDailyPulse 1.8s ease-in-out infinite;
+}
+
+.resourceNode.daily {
+  border-color: rgba(47,149,98,.52);
+  box-shadow: 0 14px 34px rgba(47,149,98,.16);
+}
+
+.resourceNode[data-type="theory"] .featuredRibbon {
+  background: var(--blue);
+  box-shadow: 0 6px 16px rgba(61,143,199,.28);
+}
+
+.resourceNode[data-type="paths"] .featuredRibbon {
+  background: var(--violet);
+  box-shadow: 0 6px 16px rgba(125,103,200,.28);
+}
+
+.resourceNode[data-type="games"] .featuredRibbon,
+.resourceNode[data-type="games"] .resourceDailyBadge {
+  background: var(--green);
+  box-shadow: 0 6px 16px rgba(47,149,98,.28);
+}
+
+@keyframes mapDailyPulse {
+  0%, 100% {
+    opacity: .86;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 .resourceIcon {
@@ -665,6 +739,12 @@ body {
 
 .structuredMap .featuredRibbon {
   left: 50%;
+  transform: translateX(-50%);
+}
+
+.structuredMap .resourceDailyBadge {
+  left: 50%;
+  right: auto;
   transform: translateX(-50%);
 }
 

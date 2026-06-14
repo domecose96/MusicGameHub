@@ -346,6 +346,49 @@ function updateHeaderModeLabel(){
   MGH.updateHeaderModeLabel(getModeLabel());
 }
 
+function setWordleGameControlsVisible(visible){
+  const isDailyGame = activeMode === dailyMode || activeMode === rankedMode;
+  const isRankedGame = activeMode === rankedMode;
+  const canGoBack = visible && ["easy", "medium", "hard"].includes(activeMode);
+  const useTopControls = canGoBack || (visible && isRankedGame);
+  const useSideControls = visible && !useTopControls;
+
+  document.getElementById("wordleBackBtn")?.classList.toggle("hidden", !canGoBack);
+  document.getElementById("wordleTopHelpBtn")?.classList.toggle("hidden", !useTopControls);
+  document.getElementById("wordleTopSettingsBtn")?.classList.toggle("hidden", !useTopControls);
+  document.getElementById("wordleTopStatsBtn")?.classList.toggle("hidden", !(visible && isRankedGame));
+  document.getElementById("gameHelpBtn")?.classList.toggle("hidden", !useSideControls);
+  document.getElementById("gameSettingsBtn")?.classList.toggle("hidden", !useSideControls);
+  document.getElementById("gameStatsBtn")?.classList.toggle("hidden", !useSideControls || !isDailyGame);
+
+  if(visible){
+    updateDailyWordNumberBadge();
+  } else {
+    dailyWordNumberBadge?.classList.add("hidden");
+  }
+}
+
+function goBack(){
+  mode = null;
+  activeMode = null;
+  roundLocked = false;
+  gameFinished = false;
+  currentGuess = "";
+  currentRow = 0;
+  closeHelpModal();
+  closeSettingsModal();
+  closeStatsModal();
+  stopCountdown();
+  if(typeof stopRankedElapsedTimer === "function") stopRankedElapsedTimer();
+  MGHGameUI.returnToMenu({
+    menu: config,
+    game,
+    feedbackEl: messageEl
+  });
+  setWordleGameControlsVisible(false);
+  updateDailyAvailabilityBadge();
+}
+
 // ==================== MODALITÀ ====================
 function selectMode(button, selectedMode){
   mode = selectedMode;
@@ -571,11 +614,13 @@ function startRankedRound(){
       showMessage("Hai già giocato la parola del giorno. Torna domani per una nuova sfida.", 2800);
       roundLocked = true;
       gameFinished = true;
+      if(typeof stopRankedElapsedTimer === "function") stopRankedElapsedTimer();
       setTimeout(() => showStatsModal(false), 450);
     } else {
       showMessage("Partita del giorno ripristinata.", 1800);
       roundLocked = false;
       gameFinished = false;
+      if(typeof startRankedElapsedTimer === "function") startRankedElapsedTimer();
     }
 
     return;
@@ -585,10 +630,12 @@ function startRankedRound(){
     showMessage("Hai già giocato la parola del giorno. Torna domani per una nuova sfida.", 2800);
     roundLocked = true;
     gameFinished = true;
+    if(typeof stopRankedElapsedTimer === "function") stopRankedElapsedTimer();
     return;
   }
 
   showMessage(`Wordle classificato: parola ${getDifficultyName()}, più punti se è più difficile.`, 2600);
+  if(typeof startRankedElapsedTimer === "function") startRankedElapsedTimer();
 }
 
 // ==================== IMPOSTAZIONI ====================
@@ -649,31 +696,13 @@ function closeSettingsModal() {
 }
 
 function showGame(label){
-  config.classList.add("hidden");
-  game.classList.remove("hidden");
-  document.getElementById("rankedLeaderboardBtn")?.classList.add("hidden");
-  document.getElementById("gameModeHelpBtn")?.classList.add("hidden");
-
-  updateHeaderModeLabel();
-
-  const isDailyGame = activeMode === dailyMode || activeMode === rankedMode;
-
-  const helpButton = document.getElementById("gameHelpBtn");
-  if(helpButton){
-    helpButton.classList.remove("hidden");
-  }
-
-  const settingsButton = document.getElementById("gameSettingsBtn");
-  if(settingsButton){
-    settingsButton.classList.remove("hidden");
-  }
-
-  const statsButton = document.getElementById("gameStatsBtn");
-  if(statsButton){
-    statsButton.classList.toggle("hidden", !isDailyGame);
-  }
-
-  updateDailyWordNumberBadge();
+  MGHGameUI.enterTraining({
+    menu: config,
+    game,
+    modeLabel: label || getModeLabel(),
+    feedbackEl: messageEl
+  });
+  setWordleGameControlsVisible(true);
 }
 
 // ==================== SCELTA PAROLA ====================
@@ -910,6 +939,9 @@ function finishTurn(guess, result){
 function endGame(won, attempts, result){
   gameFinished = true;
   roundLocked = true;
+  if(activeMode === rankedMode && typeof stopRankedElapsedTimer === "function"){
+    stopRankedElapsedTimer();
+  }
 
   lastResult = {
     won,
@@ -1122,15 +1154,13 @@ function closeStatsModal(){
 }
 
 function returnToModeSelectionAfterRankedWordle(){
-  game.classList.add("hidden");
-  config.classList.remove("hidden");
-  document.getElementById("gameHelpBtn")?.classList.add("hidden");
-  document.getElementById("gameSettingsBtn")?.classList.add("hidden");
-  document.getElementById("gameStatsBtn")?.classList.add("hidden");
-  dailyWordNumberBadge?.classList.add("hidden");
+  MGHGameUI.returnToMenu({
+    menu: config,
+    game,
+    feedbackEl: messageEl
+  });
+  setWordleGameControlsVisible(false);
   updateDailyAvailabilityBadge();
-  if(typeof showLeaderboardButton === "function") showLeaderboardButton();
-  if(window.MGH?.updateHeaderModeLabel) MGH.updateHeaderModeLabel("");
 }
 
 function renderDistribution(stats){

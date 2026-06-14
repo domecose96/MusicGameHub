@@ -736,51 +736,47 @@ body.storyPage{
   --accent-soft-rgb: 216, 180, 254;
 }
 
-/* ==================== FIX COLORI TIMELINE E MAPPA ==================== */
+/* ==================== FIX COLORI TIMELINE ==================== */
 
-.storyPage .timelineSVG rect,
-.storyPage .summaryMap rect{
-  fill: rgba(194,24,255,0.08) !important;
+.storyPage .timelineSVG rect{
+  fill: rgba(var(--accent-rgb),0.08) !important;
 }
 
-.storyPage .timelineSVG line,
-.storyPage .summaryMap line{
+.storyPage .timelineSVG line{
   stroke: var(--accent) !important;
 }
 
-.storyPage .timelineSVG circle,
-.storyPage .summaryMap circle{
+.storyPage .timelineSVG circle{
   fill: var(--accent) !important;
 }
 
-.storyPage .timelineSVG text,
-.storyPage .summaryMap text{
+.storyPage .timelineSVG text{
   fill: var(--text-main);
 }
 
 .storyPage .timelineSVG text[fill="#ff6600"],
-.storyPage .summaryMap text[fill="#ff6600"]{
+.storyPage .timelineSVG text[fill="#9b5cff"]{
   fill: var(--accent) !important;
 }
 
 .storyPage .timelineSVG stop:first-child{
-  stop-color: rgba(194,24,255,0.10) !important;
+  stop-color: rgba(var(--accent-rgb),0.10) !important;
 }
 
 .storyPage .timelineSVG stop:nth-child(2){
-  stop-color: rgba(194,24,255,0.22) !important;
+  stop-color: rgba(var(--accent-rgb),0.22) !important;
 }
 
 .storyPage .timelineSVG stop:last-child{
-  stop-color: rgba(194,24,255,0.10) !important;
+  stop-color: rgba(var(--accent-rgb),0.10) !important;
 }
 
 .storyPage .summaryMap{
-  border-color: rgba(194,24,255,0.14) !important;
+  border-color: rgba(var(--accent-rgb),0.14);
 }
 
 .storyPage .timelineSVG{
-  border-color: rgba(194,24,255,0.14) !important;
+  border-color: rgba(var(--accent-rgb),0.14) !important;
 }
 
 /* ==================== SCROLL TOP STORIA ==================== */

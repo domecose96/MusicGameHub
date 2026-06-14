@@ -738,9 +738,9 @@ function closeHomePanel() {
 
 // ==================== RISORSE HOME ====================
 function createCardElement(item, options = {}) {
-  const isDisabled = Boolean(options.disabled);
+  const isDisabled = Boolean(options.disabled || item.disabled || item.comingSoon);
   const card = document.createElement(isDisabled ? "article" : "a");
-  card.className = ["hubCard", options.className, isDisabled ? "disabled" : ""]
+  card.className = ["hubCard", options.className, isDisabled ? "disabled" : "", item.comingSoon ? "comingSoon" : "", item.daily ? "daily" : ""]
     .filter(Boolean)
     .join(" ");
 
@@ -814,7 +814,7 @@ function renderHomeResources() {
 
   if (gamesGrid) {
     gamesGrid.replaceChildren(
-      ...resourceData.playable.map(item => createCardElement(item, { className: "gameHubCard" }))
+      ...(resourceData.homeGames || resourceData.playable).map(item => createCardElement(item, { className: "gameHubCard" }))
     );
   }
 }

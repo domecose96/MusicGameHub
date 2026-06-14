@@ -140,12 +140,11 @@
   margin: 8px auto 0;
 }
 
-/* ==================== FIX 1: bottoni modalitÃ  non tagliati ==================== */
-/* overflow: visible evita che scale(1.03) al hover venga clippato */
+/* ==================== MODALITÀ WORDLE ==================== */
 .wordleModeGroup {
   align-items: center;
   overflow: visible !important;
-  padding: 8px 4px;  /* respiro per l'animazione hover */
+  padding: 8px 4px;
 }
 
 .wordleModeGroup .menuButton {
@@ -223,11 +222,8 @@
   }
 }
 
-/* ==================== FIX 2: etichetta modalitÃ  DENTRO l'header ==================== */
-/* Rimuove il position:absolute che la spingeva fuori dal flusso dell'header */
+/* ==================== ETICHETTA MODALITÀ ==================== */
 .wordlePage .headerBrand {
-  /* Altezza fissa: include eyebrow + titolo + etichetta modalitÃ  */
-  /* CosÃ¬ l'header non si muove mai indipendentemente dal contenuto */
   height: 72px;
   justify-content: center;
 }
@@ -252,7 +248,7 @@
   visibility: hidden;
 }
 
-/* ==================== FIX 3: layout ? | griglia | Statistiche ==================== */
+/* ==================== LAYOUT GIOCO ==================== */
 #gameBoardArea {
   width: min(720px, 96vw);
   margin: 0 auto 8px;
@@ -262,7 +258,6 @@
   justify-content: center;
 }
 
-/* Colonna sinistra: punto interrogativo, allineato a destra (vicino alla griglia) */
 #gameSideControls {
   grid-column: 1;
   display: flex;
@@ -274,13 +269,11 @@
   padding-right: 10px;
 }
 
-/* Colonna centrale: griglia */
 #gameBoardArea #grid {
   grid-column: 2;
   margin-top: 0;
 }
 
-/* Colonna destra: Statistiche, allineato a sinistra (vicino alla griglia) */
 #gameSideControlsRight {
   grid-column: 3;
   display: flex;
@@ -310,6 +303,63 @@
 
 .circleMiniButton.hidden {
   display: none;
+}
+
+.wordlePage #wordleBackBtn.hidden,
+.wordlePage #wordleTopHelpBtn.hidden,
+.wordlePage #wordleTopSettingsBtn.hidden,
+.wordlePage #wordleTopStatsBtn.hidden {
+  display: none !important;
+}
+
+.wordlePage .gameTopActions {
+  gap: 10px;
+}
+
+.wordlePage .gameTopActions .circleMiniButton {
+  width: 48px;
+  height: 48px;
+  border: 1.5px solid rgba(255, 102, 0, 0.22);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--accent);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.10);
+  font-size: 1.35rem;
+}
+
+.wordlePage .gameTopActions .circleMiniButton:hover {
+  background: rgba(255, 102, 0, 0.08);
+  border-color: rgba(255, 102, 0, 0.34);
+  color: var(--accent);
+  transform: scale(1.06);
+}
+
+.wordleStatsBars {
+  width: 23px;
+  height: 23px;
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3px;
+  transform: translateY(-2px);
+}
+
+.wordleStatsBars span {
+  width: 5px;
+  display: block;
+  border-radius: 3px 3px 2px 2px;
+  background: currentColor;
+}
+
+.wordleStatsBars span:nth-child(1) {
+  height: 13px;
+}
+
+.wordleStatsBars span:nth-child(2) {
+  height: 21px;
+}
+
+.wordleStatsBars span:nth-child(3) {
+  height: 17px;
 }
 
 #gameSideControlsRight .miniButton {
@@ -672,7 +722,6 @@
     text-align: center;
   }
 
-  /* Su mobile: ? e Statistiche in una riga sopra la griglia */
   #gameBoardArea {
     grid-template-columns: 1fr;
     width: 100%;
@@ -689,7 +738,6 @@
     gap: 12px;
   }
 
-  /* Su mobile rimostra il pulsante stats nella riga superiore */
   #gameSideControls::after {
     content: none;
   }
@@ -708,9 +756,6 @@
     right: 14px;
     bottom: 14px;
   }
-
-  /* Su mobile aggiungiamo il pulsante statistiche affianco al ? */
-  /* Lo gestiamo via JS nel showGame() */
 
   #gameBoardArea #grid {
     grid-column: 1;

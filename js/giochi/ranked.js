@@ -10,11 +10,14 @@ const RANKED_GAME_LABELS = {
   note: "Note",
   figure: "Figure musicali",
   ritmo: "Conta le pulsazioni",
+  ritmo_battuta: "Completa la battuta",
+  batti_tempo: "Batti il Tempo",
   scale: "Ordina la scala",
   guanto: "Guanto di sfida",
   wordle: "Music Wordle",
   strumenti: "Strumenti musicali",
-  detective_suono: "Detective del suono"
+  detective_suono: "Detective del suono",
+  intervalli: "Intervalli"
 };
 
 function getRankedGameLabel(gameName) {
@@ -870,7 +873,10 @@ function getModeHelpContext() {
   if (document.body.classList.contains("gamePage")) return "note";
   if (document.body.classList.contains("figuresGamePage")) return "figure";
   if (document.body.classList.contains("ritmoPage")) return "ritmo";
+  if (document.body.classList.contains("ritmoGamePage")) return "ritmo_battuta";
+  if (document.body.classList.contains("battiTempoPage")) return "batti_tempo";
   if (document.body.classList.contains("scaleGamePage")) return "scale";
+  if (document.body.classList.contains("intervalliGamePage")) return "intervalli";
   if (document.body.classList.contains("soundDetectivePage")) return "detective_suono";
   if (document.body.classList.contains("strumentiGamePage")) return "strumenti";
   if (document.body.classList.contains("guantoPage")) return "guanto";
@@ -941,6 +947,42 @@ function getSpecificModeHelpText(label, context) {
     }
   }
 
+  if (context === "ritmo_battuta") {
+    if (lower.includes("facile")) {
+      return "4/4 con pochi slot mancanti: completi la battuta con valori semplici.";
+    }
+    if (lower.includes("medio")) {
+      return "2/4, 3/4 e 4/4: aumentano gli slot e le combinazioni possibili.";
+    }
+    if (lower.includes("difficile")) {
+      return "Include anche 6/8 e più figure mancanti.";
+    }
+    if (lower.includes("classificata")) {
+      return "10 battute a difficoltà crescente. Il punteggio premia completamento corretto e velocità.";
+    }
+  }
+
+  if (context === "batti_tempo") {
+    if (lower.includes("livello 1")) {
+      return "Livello 1: battuta in 4/4 con sole semiminime, ideale per stabilizzare la pulsazione.";
+    }
+    if (lower.includes("livello 2")) {
+      return "Livello 2: entrano pause di semiminima. Il silenzio va contato, ma non cliccato.";
+    }
+    if (lower.includes("livello 3")) {
+      return "Livello 3: entrano le minime, quindi alcuni suoni durano due pulsazioni.";
+    }
+    if (lower.includes("livello 4")) {
+      return "Livello 4: entrano le crome, con due click nello spazio di un tempo.";
+    }
+    if (lower.includes("livello 5")) {
+      return "Livello 5: pattern misti con note, pause, minime e crome.";
+    }
+    if (lower.includes("classificata")) {
+      return "10 battute in 4/4 con difficoltà crescente. Il punteggio premia precisione e serie corrette.";
+    }
+  }
+
   if (context === "scale") {
     if (lower.includes("facile")) {
       return "Ordina le note della scala con la formula come aiuto.";
@@ -953,6 +995,21 @@ function getSpecificModeHelpText(label, context) {
     }
     if (lower.includes("classificata")) {
       return "10 scale a punti: precisione, velocità e penalità sugli errori parziali.";
+    }
+  }
+
+  if (context === "intervalli") {
+    if (lower.includes("facile")) {
+      return "2ª-5ª: riconosci numero e qualità.";
+    }
+    if (lower.includes("medio")) {
+      return "2ª-8ª: più estensione, sempre con qualità.";
+    }
+    if (lower.includes("difficile")) {
+      return "Qualità complete: maggiore, minore, giusta, eccedente, diminuita.";
+    }
+    if (lower.includes("classificata")) {
+      return "10 domande progressive con punteggio.";
     }
   }
 
@@ -1063,6 +1120,13 @@ function getModeHelpItems() {
     });
   }
 
+  if (getModeHelpContext() === "intervalli") {
+    items.push({
+      label: "Pro",
+      text: "Aggiunge intervalli alterati con ♯ e ♭."
+    });
+  }
+
   return items;
 }
 
@@ -1071,6 +1135,12 @@ function showModeHelpModal() {
   const context = getModeHelpContext();
   const introText = context === "scale"
     ? "Scegli una modalità. Con Pro attivo il gioco usa un repertorio avanzato di scale."
+    : context === "intervalli"
+      ? "Osserva due note e riconosci numero e qualità dell'intervallo."
+      : context === "ritmo_battuta"
+        ? "Completa la battuta scegliendo figure o pause del valore giusto."
+        : context === "batti_tempo"
+          ? "Premi Inizia: 4 colpi di metronomo, ascolto della battuta, poi esecuzione con il pulsante grande."
     : "Scegli una modalità, poi premi Inizia. Le modalità di allenamento servono per esercitarti; la Classificata salva il risultato nella classifica.";
   const modal = document.createElement("div");
   modal.className = "rankedModal modeHelpModal";

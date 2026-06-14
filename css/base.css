@@ -280,6 +280,114 @@ body {
   color: var(--accent);
 }
 
+.scaleProToggleButton {
+  position: fixed;
+  top: calc(var(--header-height) + 18px);
+  left: 82px;
+  z-index: 50;
+  width: 58px;
+  height: 48px;
+  padding: 0;
+  border: 1.5px solid rgba(255, 102, 0, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--accent);
+  font-size: .92rem;
+  font-weight: 900;
+  line-height: 1;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.10);
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+}
+
+.scaleProToggleButton:hover {
+  transform: scale(1.05);
+  background: rgba(255, 102, 0, 0.08);
+  border-color: rgba(255, 102, 0, 0.34);
+}
+
+.scaleProToggleButton.active {
+  background: linear-gradient(135deg, #ff3d00, #ff9f1c);
+  border-color: rgba(255, 174, 0, .8);
+  color: #fff;
+  box-shadow:
+    0 0 14px rgba(255, 88, 0, .55),
+    0 12px 28px rgba(179, 42, 0, .24);
+}
+
+.scaleProToggleButton.hidden {
+  display: none !important;
+}
+
+body.proModeActive .proModeGroup .menuButton {
+  position: relative;
+  isolation: isolate;
+  background: rgba(255, 255, 255, 0.86) !important;
+  border-color: rgba(255, 102, 0, 0.22) !important;
+  color: var(--text-main) !important;
+  text-shadow: none;
+  box-shadow:
+    0 0 0 1px rgba(255, 180, 80, .24),
+    0 0 18px rgba(255, 84, 0, .28),
+    0 0 38px rgba(255, 136, 0, .16),
+    0 10px 26px rgba(0, 0, 0, .07) !important;
+  overflow: visible !important;
+}
+
+body.proModeActive .proModeGroup .menuButton::after {
+  content: "";
+  position: absolute;
+  inset: -14px -18px;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 24% 0%, rgba(255, 222, 89, .72), transparent 26%),
+    radial-gradient(circle at 76% 100%, rgba(255, 78, 0, .48), transparent 30%),
+    linear-gradient(90deg, rgba(255, 61, 0, .58), rgba(255, 184, 36, .5), rgba(255, 61, 0, .58));
+  filter: blur(12px);
+  z-index: -1;
+  animation: proModeFlamePulse 2.4s ease-in-out infinite;
+}
+
+body.proModeActive .proModeGroup .menuButton:hover:not(.selected) {
+  transform: translateY(-3px);
+  background: rgba(255, 102, 0, 0.08) !important;
+  border-color: rgba(255, 102, 0, 0.34) !important;
+  color: var(--accent) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 190, 90, .32),
+    0 0 24px rgba(255, 84, 0, .42),
+    0 0 52px rgba(255, 183, 36, .24),
+    0 12px 26px rgba(255, 102, 0, .16) !important;
+}
+
+body.proModeActive .proModeGroup .menuButton.selected {
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft)) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 220, 120, .34),
+    0 0 26px rgba(255, 84, 0, .52),
+    0 0 58px rgba(255, 193, 69, .30),
+    0 12px 26px rgba(255, 102, 0, .28) !important;
+}
+
+body.proModeActive .proModeGroup .dailyModeBadge {
+  background: #1f0700;
+  color: #ffd36a;
+  box-shadow: 0 0 12px rgba(255, 124, 0, .55);
+}
+
+@keyframes proModeFlamePulse {
+  0%, 100% { opacity: .56; transform: scale(.98); }
+  50% { opacity: .88; transform: scale(1.04); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.proModeActive .proModeGroup .menuButton::after {
+    animation: none;
+  }
+}
+
 .rankedUI {
   width: 100%;
   min-height: 64px;
@@ -951,7 +1059,10 @@ body.wordlePage .menuButton:not(.buttonGroup .menuButton),
 body.gamePage .menuButton:not(.buttonGroup .menuButton),
 body.figuresGamePage .menuButton:not(.buttonGroup .menuButton),
 body.ritmoPage .menuButton:not(.buttonGroup .menuButton),
+body.ritmoGamePage .menuButton:not(.buttonGroup .menuButton),
+body.battiTempoPage .menuButton:not(.buttonGroup .menuButton),
 body.scaleGamePage .menuButton:not(.buttonGroup .menuButton),
+body.intervalliGamePage .menuButton:not(.buttonGroup .menuButton),
 body.pentagrammaGamePage .menuButton:not(.buttonGroup .menuButton),
 body.guantoPage .menuButton:not(.buttonGroup .menuButton) {
   background: linear-gradient(135deg, var(--action-orange), var(--action-orange-soft));
@@ -964,7 +1075,10 @@ body.wordlePage .menuButton:not(.buttonGroup .menuButton):hover,
 body.gamePage .menuButton:not(.buttonGroup .menuButton):hover,
 body.figuresGamePage .menuButton:not(.buttonGroup .menuButton):hover,
 body.ritmoPage .menuButton:not(.buttonGroup .menuButton):hover,
+body.ritmoGamePage .menuButton:not(.buttonGroup .menuButton):hover,
+body.battiTempoPage .menuButton:not(.buttonGroup .menuButton):hover,
 body.scaleGamePage .menuButton:not(.buttonGroup .menuButton):hover,
+body.intervalliGamePage .menuButton:not(.buttonGroup .menuButton):hover,
 body.pentagrammaGamePage .menuButton:not(.buttonGroup .menuButton):hover,
 body.guantoPage .menuButton:not(.buttonGroup .menuButton):hover {
   background: linear-gradient(135deg, #d94f00, var(--action-orange));
@@ -1174,6 +1288,14 @@ body.figuresGamePage .figureImage {
   text-align: center;
 }
 
+.gameActions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
 .feedbackText.feedbackCorrect,
 .messageText.feedbackCorrect {
   color: #1a7a3a;
@@ -1291,13 +1413,136 @@ body.figuresGamePage .figureImage {
   text-align: center;
 }
 
+.learnGameBox {
+  --game-box-color: var(--action-orange);
+  --game-box-border: rgba(255, 102, 0, 0.16);
+  --game-box-bg: linear-gradient(135deg, rgba(255, 102, 0, 0.08), rgba(255, 255, 255, 0.94));
+  --game-box-badge-bg: rgba(255, 102, 0, 0.14);
+  text-align: center;
+  margin: 28px auto 8px;
+  max-width: 760px;
+  padding: 18px 20px;
+  border: 1px solid var(--game-box-border);
+  border-radius: 18px;
+  background: var(--game-box-bg);
+  box-shadow: var(--panel-shadow);
+}
+
+.learnGameBox p {
+  margin: 0 0 14px;
+  color: var(--text-main);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.learnGameActions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.learnGameBox .gameLaunchButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.learnGameBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: var(--game-box-badge-bg);
+  color: var(--game-box-color);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.learnGameBadgeRotator {
+  position: relative;
+  min-width: 64px;
+  min-height: 24px;
+  overflow: hidden;
+}
+
+.learnGameBadgeRotator > span {
+  position: absolute;
+  inset: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(80%);
+  animation: learnGameBadgeRanked 5s ease-in-out infinite;
+}
+
+.learnGameBadgeRotator > span:nth-child(2) {
+  animation-name: learnGameBadgePro;
+}
+
+@keyframes learnGameBadgeRanked {
+  0%, 6% {
+    opacity: 0;
+    transform: translateY(80%);
+  }
+  12%, 44% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50%, 100% {
+    opacity: 0;
+    transform: translateY(-80%);
+  }
+}
+
+@keyframes learnGameBadgePro {
+  0%, 50% {
+    opacity: 0;
+    transform: translateY(80%);
+  }
+  56%, 88% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  94%, 100% {
+    opacity: 0;
+    transform: translateY(-80%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .learnGameBadgeRotator > span {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .learnGameBadgeRotator > span:nth-child(2) {
+    display: none;
+  }
+}
+
+body.instrumentPage .learnGameBox {
+  --game-box-color: var(--action-orange);
+  --game-box-border: rgba(0, 166, 189, 0.18);
+  --game-box-bg: linear-gradient(135deg, rgba(0, 166, 189, 0.09), rgba(255, 255, 255, 0.94));
+  --game-box-badge-bg: rgba(0, 166, 189, 0.14);
+}
+
 /* ==================== GAME PAGES NO SCROLL ==================== */
 
 body.wordlePage,
 body.gamePage,
 body.figuresGamePage,
 body.ritmoPage,
+body.ritmoGamePage,
+body.battiTempoPage,
 body.scaleGamePage,
+body.intervalliGamePage,
 body.pentagrammaGamePage,
 body.guantoPage {
   height: 100vh;
@@ -1308,7 +1553,10 @@ body.wordlePage #contentWrapper,
 body.gamePage #contentWrapper,
 body.figuresGamePage #contentWrapper,
 body.ritmoPage #contentWrapper,
+body.ritmoGamePage #contentWrapper,
+body.battiTempoPage #contentWrapper,
 body.scaleGamePage #contentWrapper,
+body.intervalliGamePage #contentWrapper,
 body.pentagrammaGamePage #contentWrapper,
 body.guantoPage #contentWrapper {
   height: calc(100vh - var(--header-height));
@@ -1321,7 +1569,10 @@ body.wordlePage main,
 body.gamePage main,
 body.figuresGamePage main,
 body.ritmoPage main,
+body.ritmoGamePage main,
+body.battiTempoPage main,
 body.scaleGamePage main,
+body.intervalliGamePage main,
 body.pentagrammaGamePage main,
 body.guantoPage main {
   overflow: hidden;

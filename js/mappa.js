@@ -49,12 +49,13 @@ const mapGroups=[
     column:".mapColumnGames",
     label:"Giochi",
     unit:"risorse",
-    ids:MusicGameHubResources.playable.map(item=>item.id),
+    ids:(MusicGameHubResources.homeGames||MusicGameHubResources.playable).map(item=>item.id),
     featured:{
       pentagrammaGame:"★ nuovo",
       detectiveSuono:"★ suono",
       ritmo:"★ ritmo",
-      scaleGame:"★ Pro"
+      scaleGame:"★ Pro",
+      guanto:"In arrivo"
     }
   }
 ];
@@ -94,7 +95,7 @@ const clusterContent={
   storiaMusica:[
     {label:"Antichità",url:"storia/storia_antichita.html"},
     {label:"Medioevo",url:"storia/storia_medioevo.html"},
-    {label:"Rinascimento",disabled:true},
+    {label:"Rinascimento",url:"storia/storia_rinascimento.html"},
     {label:"Barocco",disabled:true},
     {label:"Classicismo",disabled:true},
     {label:"Romanticismo",disabled:true},
@@ -232,9 +233,14 @@ function createResourceNode(id, group, index){
 
   const node=document.createElement("button");
   const ribbon=group.featured[id];
-  node.className=`node resourceNode${ribbon?" featured":""}`;
+  node.className=`node resourceNode${ribbon?" featured":""}${item.comingSoon?" comingSoon":""}${item.daily?" daily":""}`;
   node.dataset.id=id;
   node.dataset.type=group.key;
+  if(item.comingSoon){
+    node.disabled=true;
+    node.title="Gioco in arrivo";
+    node.setAttribute("aria-disabled","true");
+  }
 
   if(ribbon){
     const featured=document.createElement("span");
@@ -243,9 +249,16 @@ function createResourceNode(id, group, index){
     node.appendChild(featured);
   }
 
+  if(item.daily){
+    const daily=document.createElement("span");
+    daily.className="resourceDailyBadge";
+    daily.textContent="Daily";
+    node.appendChild(daily);
+  }
+
   const badge=document.createElement("span");
-  badge.className=`badge ${group.key}`;
-  badge.textContent=item.type;
+  badge.className=`badge ${item.comingSoon?"soon":group.key}`;
+  badge.textContent=item.comingSoon?"In arrivo":item.type;
 
   const icon=document.createElement("div");
   icon.className="resourceIcon";
@@ -403,7 +416,7 @@ getNodes().forEach(node=>{
 
   const hint=document.createElement("span");
   hint.className="cardHint directHint";
-  hint.textContent=node.dataset.type==="games"?"Apri gioco":"Apri pagina";
+  hint.textContent=node.classList.contains("comingSoon")?"In arrivo":node.dataset.type==="games"?"Apri gioco":"Apri pagina";
   node.appendChild(hint);
 });
 
@@ -466,6 +479,7 @@ document.querySelectorAll(".clusterLinks button").forEach(link=>{
 
 function goToResource(id){
   const item=resources[id];
+  if(item?.comingSoon)return;
   if(item?.url)MGH.goTo(item.url);
 }
 

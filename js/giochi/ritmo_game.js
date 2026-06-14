@@ -68,6 +68,7 @@ const POOL_IDS = {
 
 /* Numero di slot iniziali */
 const INITIAL_SLOTS = { easy:[1], medium:[2,3], hard:[4,5] };
+const MAX_SEQUENCE_CELLS = { easy:5, medium:6, hard:6 };
 
 /* ── Globals ── */
 let difficulty   = null;
@@ -86,12 +87,15 @@ const menu       = document.getElementById("menu");
 const game       = document.getElementById("game");
 const feedbackEl = document.getElementById("feedback");
 const warning    = document.getElementById("warning");
+
+if (typeof MGHGameUI !== "undefined") MGHGameUI.ensureRankedHUD(game);
+
 const timerBox   = document.getElementById("timerBox");
 const timerEl    = document.getElementById("timer");
 const slotsDiv   = document.getElementById("battutaSlots");
 const poolDiv    = document.getElementById("figurePool");
 const timeSigEl  = document.getElementById("timeSigDisplay");
-const beatsLeftEl= document.getElementById("beatsLeft");
+const questionTextEl = document.getElementById("questionText");
 
 /* ==================== MENU ==================== */
 
@@ -117,7 +121,7 @@ function getDiffLabel() {
 function startGame() {
   if (gameMode === "ranked") {
     showRankedIntro({
-      gameName: "ritmo",
+      gameName: "ritmo_battuta",
       title: "Modalità Classificata",
       text: "Completa 10 battute. La difficoltà cresce e il punteggio premia la velocità.",
       onStart: startRankedGame
@@ -126,11 +130,8 @@ function startGame() {
   }
   if (!difficulty) { warning.textContent = "Seleziona una difficoltà"; return; }
   warning.textContent = "";
-  menu.classList.add("hidden");
-  game.classList.remove("hidden");
-  hideLeaderboardButton(); showBackButton();
-  MGH.updateHeaderModeLabel(getDiffLabel());
-  hideRankedUI();
+  MGHGameUI.enterTraining({ menu, game, modeLabel: getDiffLabel(), feedbackEl });
+  showBackButton();
   newRound();
 }
 
@@ -140,27 +141,29 @@ function startRankedGame(nickname = "") {
     warning.textContent = "Errore: ranked.js non caricato."; return;
   }
   rankedStartTime = Date.now();
-  const session = startRankedMode("ritmo");
+  const session = startRankedMode("ritmo_battuta");
   session.setUsername(nickname);
-  menu.classList.add("hidden");
-  game.classList.remove("hidden");
-  hideLeaderboardButton(); hideBackButton();
-  MGH.updateHeaderModeLabel("Classificata");
-  showRankedUI(); startRankedClock(); updateRankedUI();
+  MGHGameUI.enterRanked({
+    menu,
+    game,
+    score: session.totalScore,
+    current: session.currentQuestion,
+    total: session.maxQuestions,
+    feedbackEl
+  });
+  hideBackButton();
+  startRankedClock();
+  updateRankedUI();
   newRound();
 }
 
 function goBack() {
   if (gameMode === "ranked") return;
   stopRankedClock();
-  game.classList.add("hidden");
-  menu.classList.remove("hidden");
   difficulty = null; gameMode = "training"; roundLocked = false;
   if (typeof resetRankedMode === "function") resetRankedMode();
-  document.querySelectorAll(".selected").forEach(b => b.classList.remove("selected"));
-  MGH.updateHeaderModeLabel("");
-  setFeedback(""); hideRankedUI();
-  showLeaderboardButton(); showBackButton();
+  MGHGameUI.returnToMenu({ menu, game, feedbackEl });
+  showBackButton();
 }
 
 /* ==================== GENERAZIONE ROUND ==================== */
@@ -188,14 +191,15 @@ function newRound() {
   missingFigures = missing;
 
   timeSigEl.textContent = currentTimeSig.sig;
+  if (questionTextEl) questionTextEl.textContent = `Completa la battuta in ${currentTimeSig.sig}`;
   renderBattuta();
   renderPool(diff);
-  updateBeatsLeft();
 }
 
 function generateBattuta(timeSig, diff, nMissing) {
   const totalUnits = timeSig.beats;
   const is68 = timeSig.unit === "68";
+  const maxCells = MAX_SEQUENCE_CELLS[diff] || 7;
 
   const usable = FIGURES.filter(f => POOL_IDS[diff].includes(f.id));
 
@@ -203,11 +207,11 @@ function generateBattuta(timeSig, diff, nMissing) {
   let attempts = 0;
   while (attempts < 400) {
     sequence = buildSequence(usable, totalUnits, is68);
-    if (sequence && sequence.length > nMissing) break;
+    if (sequence && sequence.length > nMissing && sequence.length <= maxCells) break;
     attempts++;
   }
 
-  if (!sequence || sequence.length <= nMissing) {
+  if (!sequence || sequence.length <= nMissing || sequence.length > maxCells) {
     sequence = fallbackSequence(totalUnits, is68);
   }
 
@@ -268,28 +272,24 @@ function renderBattuta() {
     slotsDiv.appendChild(makeSlot(i));
   }
 
-  /* Pulsante + */
-  const addBtn = document.createElement("button");
-  addBtn.className = "addSlotBtn";
-  addBtn.title = "Aggiungi uno slot";
-  addBtn.textContent = "+";
-  addBtn.addEventListener("click", () => {
-    if (roundLocked) return;
-    const newIdx = slotContents.length;
-    slotContents.push(null);
-    nSlots++;
-    const newSlot = makeSlot(newIdx);
-    slotsDiv.insertBefore(newSlot, addBtn);
-    updateBeatsLeft();
-  });
-  slotsDiv.appendChild(addBtn);
 }
 
 function makeSlot(i) {
   const slot = document.createElement("div");
   slot.className = "figCell slotCell empty";
   slot.dataset.slot = i;
+  slot.draggable = false;
 
+  slot.addEventListener("dragstart", e => {
+    if (roundLocked || slotContents[i] === null) {
+      e.preventDefault();
+      return;
+    }
+    e.dataTransfer.setData("figId", slotContents[i]);
+    e.dataTransfer.setData("fromSlot", String(i));
+    setTimeout(() => slot.classList.add("dragging"), 0);
+  });
+  slot.addEventListener("dragend", () => slot.classList.remove("dragging"));
   slot.addEventListener("dragover",  e => { e.preventDefault(); slot.classList.add("drag-over"); });
   slot.addEventListener("dragleave", () => slot.classList.remove("drag-over"));
   slot.addEventListener("drop", e => {
@@ -319,6 +319,8 @@ function renderSlot(i) {
   if (figId) {
     const fig = FIGURES.find(f => f.id === figId);
     slot.classList.remove("empty", "correct", "wrong");
+    slot.draggable = true;
+    slot.setAttribute("title", "Clicca o trascina per togliere la figura");
     const img = document.createElement("img");
     img.src = IMG[figId]; img.alt = fig.label; img.className = "figImg";
     slot.appendChild(img);
@@ -328,8 +330,9 @@ function renderSlot(i) {
   } else {
     slot.classList.add("empty");
     slot.classList.remove("correct", "wrong");
+    slot.draggable = false;
+    slot.removeAttribute("title");
   }
-  updateBeatsLeft();
 }
 
 /* ==================== POOL ==================== */
@@ -358,6 +361,10 @@ function renderPool(diff) {
     lbl.className = "figCellLabel"; lbl.textContent = fig.label;
     el.appendChild(lbl);
 
+    el.addEventListener("click", () => {
+      if (roundLocked) return;
+      placeInFirstEmptySlot(figId);
+    });
     el.addEventListener("dragstart", e => {
       if (roundLocked) { e.preventDefault(); return; }
       e.dataTransfer.setData("figId",    figId);
@@ -384,6 +391,15 @@ function renderPool(diff) {
 }
 
 /* ==================== DRAG & DROP ==================== */
+
+function placeInFirstEmptySlot(figId) {
+  const firstEmptyIndex = slotContents.findIndex(value => value === null);
+  if (firstEmptyIndex === -1) {
+    setFeedback("Tutti gli slot sono pieni: clicca su uno slot per liberarlo.");
+    return;
+  }
+  placeInSlot(figId, firstEmptyIndex, null);
+}
 
 function placeInSlot(figId, slotIdx, fromSlotIdx) {
   if (slotContents[slotIdx] !== null) {
@@ -454,35 +470,6 @@ function cleanT() {
   tEl=null; tClone=null; tFrom=null; tFigId=null;
 }
 
-/* ==================== BEATS COUNTER ==================== */
-
-function updateBeatsLeft() {
-  if (!currentTimeSig) return;
-  const is68 = currentTimeSig.unit === "68";
-
-  let slotUnits = 0;
-  slotContents.forEach(figId => {
-    if (!figId) return;
-    const fig = FIGURES.find(f => f.id === figId);
-    slotUnits += is68 ? fig.val68 : fig.val;
-  });
-
-  let givenUnits = 0;
-  givenFigures.forEach(f => { givenUnits += is68 ? f.val68 : f.val; });
-
-  const total = currentTimeSig.beats;
-  const used  = givenUnits + slotUnits;
-  const rem   = Math.round((total - used) * 100) / 100;
-
-  if (rem <= 0) {
-    beatsLeftEl.textContent = "Battuta completa!";
-    beatsLeftEl.className   = "beatsLeft complete";
-  } else {
-    beatsLeftEl.textContent = `Mancano ${rem} ${is68 ? "cromi" : rem === 1 ? "tempo" : "tempi"}`;
-    beatsLeftEl.className   = "beatsLeft";
-  }
-}
-
 /* ==================== VERIFICA ==================== */
 
 function checkAnswer() {
@@ -525,13 +512,6 @@ function checkAnswer() {
   setTimeout(newRound, 2000);
 }
 
-function resetSlots() {
-  if (roundLocked) return;
-  renderBattuta();
-  setFeedback("");
-  updateBeatsLeft();
-}
-
 function setFeedback(msg) {
   if (feedbackEl) feedbackEl.textContent = msg;
 }
@@ -548,8 +528,6 @@ function handleRankedAnswer(isCorrect) {
   }
 }
 
-function showRankedUI()  { document.getElementById("rankedUI")?.classList.remove("hidden"); }
-function hideRankedUI()  { document.getElementById("rankedUI")?.classList.add("hidden"); }
 function hideLeaderboardButton() {
   document.getElementById("rankedLeaderboardBtn")?.classList.add("hidden");
   document.getElementById("gameModeHelpBtn")?.classList.add("hidden");
@@ -563,18 +541,11 @@ function showBackButton() { document.getElementById("backButton")?.classList.rem
 
 function updateRankedUI() {
   if (typeof currentRankedSession === "undefined" || !currentRankedSession) return;
-  const scoreEl   = document.getElementById("rankedScore");
-  const counterEl = document.getElementById("rankedQuestionCounter");
-  const fillEl    = document.getElementById("rankedProgressFill");
-  if (scoreEl)   scoreEl.textContent = currentRankedSession.totalScore;
-  if (counterEl) {
-    const cur = Math.min(currentRankedSession.currentQuestion+1, currentRankedSession.maxQuestions);
-    counterEl.textContent = `${cur}/${currentRankedSession.maxQuestions}`;
-  }
-  if (fillEl) {
-    const pct = (currentRankedSession.currentQuestion / currentRankedSession.maxQuestions)*100;
-    fillEl.style.width = `${pct}%`;
-  }
+  updateRankedProgressUI({
+    score: currentRankedSession.totalScore,
+    current: currentRankedSession.currentQuestion,
+    total: currentRankedSession.maxQuestions
+  });
 }
 
 async function showRankedResults() {
@@ -582,14 +553,12 @@ async function showRankedResults() {
   const finalData = await finishRankedMode();
   if (!finalData || !finalData.session) { setFeedback("Errore nel salvataggio."); return; }
   const session = finalData.session;
-  game.classList.add("hidden"); menu.classList.remove("hidden");
-  hideRankedUI(); showLeaderboardButton(); showBackButton();
+  MGHGameUI.returnToMenu({ menu, game, feedbackEl });
+  showBackButton();
   warning.textContent = "";
   await showRankedCompletionModal({
-    gameName:"ritmo", session, saveResult:finalData.result, saved:finalData.saved
+    gameName:"ritmo_battuta", session, saveResult:finalData.result, saved:finalData.saved
   });
-  MGH.updateHeaderModeLabel("");
-  document.querySelectorAll(".selected").forEach(b => b.classList.remove("selected"));
   gameMode="training"; difficulty=null; roundLocked=false;
 }
 

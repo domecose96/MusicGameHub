@@ -7,7 +7,7 @@
 <link rel="icon" type="image/png" href="img/mgh-logo.png">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/learn.css">
-<link rel="stylesheet" href="css/elementi_musica.css?v=20260523-audio">
+<link rel="stylesheet" href="css/elementi_musica.css?v=20260614-wave-lab">
 </head>
 
 <body class="elementsPage">
@@ -362,7 +362,7 @@
   <section id="laboratorio" class="siteSection learnSection">
     <h2 class="sectionTitle">Laboratorio visivo</h2>
     <p class="sectionIntro">
-      Cambia il tipo di onda e osserva come mutano frequenza, ampiezza e regolarità.
+      Cambia il tipo di onda e osserva come mutano altezza e intensità.
     </p>
 
     <div class="waveLab">
@@ -389,8 +389,13 @@
       </div>
     </div>
 
-    <div class="learnCTA">
-      <button class="menuButton gameLaunchButton" onclick="MGH.goTo('giochi/detective_suono.html')">🎮 Gioca a Detective del suono</button>
+    <div class="learnGameBox">
+      <p>Ascolta e osserva gli indizi sonori per riconoscere altezza, intensità, durata e timbro.</p>
+      <button class="menuButton gameLaunchButton" onclick="MGH.goTo('giochi/detective_suono.html')">
+        <span aria-hidden="true">🎮</span>
+        <span>Detective del suono</span>
+        <span class="learnGameBadge">Ranked</span>
+      </button>
     </div>
   </section>
 
@@ -410,7 +415,7 @@
 <button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
 
 <script src="js/common.js"></script>
-<script src="js/elementi_musica.js?v=20260523-audio"></script>
+<script src="js/elementi_musica.js?v=20260614-wave-lab"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

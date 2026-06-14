@@ -1,10 +1,10 @@
 /* ==================== INTERVALLI GAME — intervalli_game.js ==================== */
 /*
   MODALITÀ:
-  ─ FACILE   : riconosci l'intervallo per numero (2ª, 3ª, 4ª, 5ª)
+  ─ FACILE   : riconosci numero e qualità dell'intervallo (2ª minore, 3ª maggiore...)
                le due note sono mostrate sul pentagramma in chiave di Sol
                dopo la risposta appaiono i nomi delle note
-  ─ MEDIO    : intervalli da 2ª a 8ª (unisono incluso)
+  ─ MEDIO    : intervalli da 2ª a 8ª con qualità
   ─ DIFFICILE: intervalli con qualità — maggiore, minore, giusta, eccedente, diminuita
   ─ RANKED   : easy→medium→hard con difficoltà crescente (usa getRankedDifficulty)
 */
@@ -16,14 +16,16 @@ let currentInterval = null;
 let roundLocked  = false;
 let rankedTimerInterval = null;
 let rankedStartTime = 0;
+const INTERVALS_PRO_STORAGE_KEY = "mgh_intervalli_pro";
 
 const menu        = document.getElementById("menu");
 const game        = document.getElementById("game");
+if (typeof MGHGameUI !== "undefined") MGHGameUI.ensureRankedHUD(game);
 const feedbackEl  = document.getElementById("feedback");
 const warning     = document.getElementById("warning");
 const timerBox    = document.getElementById("timerBox");
 const timerEl     = document.getElementById("timer");
-const answerBtns  = document.getElementById("answerButtons");
+const answerBtns  = document.getElementById("buttons");
 const note1El     = document.getElementById("note1");
 const note2El     = document.getElementById("note2");
 const stem1El     = document.getElementById("stem1");
@@ -31,6 +33,8 @@ const stem2El     = document.getElementById("stem2");
 const ledgerGroup = document.getElementById("ledgerLines");
 const label1El    = document.getElementById("noteLabel1");
 const label2El    = document.getElementById("noteLabel2");
+const accidental1El = document.getElementById("accidental1");
+const accidental2El = document.getElementById("accidental2");
 
 /* ==================== DATI INTERVALLI ==================== */
 
@@ -59,13 +63,35 @@ const NOTE_Y = {
   "Fa5":100, "Sol5":95
 };
 
-/* Label breve senza ottava */
-function noteName(n) { return n.replace(/\d/,""); }
+function parseNoteToken(note) {
+  const match = String(note || "").match(/^(Do|Re|Mi|Fa|Sol|La|Si)(bb|##|[#b♯♭]?)(\d)$/);
+  if (!match) return { key: note, accidental: "", label: note };
+
+  const accidental = match[2]
+    .replace("bb", "♭♭")
+    .replace("##", "♯♯")
+    .replace("#", "♯")
+    .replace("b", "♭");
+
+  return {
+    key: `${match[1]}${match[3]}`,
+    accidental,
+    label: `${match[1]}${accidental}`
+  };
+}
+
+function noteY(note) {
+  return NOTE_Y[parseNoteToken(note).key];
+}
+
+function noteName(note) {
+  return parseNoteToken(note).label;
+}
 
 /*
   Lista completa intervalli.
-  Per facile: solo 2ª–5ª, qualità non mostrata (solo numero).
-  Per medio:  2ª–8ª, qualità non mostrata.
+  Per facile: solo 2ª–5ª, con qualità.
+  Per medio:  2ª–8ª, con qualità.
   Per hard:   tutto con qualità.
 */
 const INTERVALS = [
@@ -96,7 +122,7 @@ const INTERVALS = [
     note1:"Re4", note2:"Sol4" },
   { name:"4ª",  short:"4ª",  number:4, quality:null, semitones:5,  diff:"easy",
     note1:"Mi4", note2:"La4" },
-  { name:"4ª",  short:"4ª",  number:4, quality:null, semitones:5,  diff:"easy",
+  { name:"4ª",  short:"4ª",  number:4, quality:null, semitones:6,  diff:"easy",
     note1:"Fa4", note2:"Si4" },
   { name:"5ª",  short:"5ª",  number:5, quality:null, semitones:7,  diff:"easy",
     note1:"Do4", note2:"Sol4" },
@@ -122,7 +148,7 @@ const INTERVALS = [
     note1:"Re4", note2:"Do5" },
   { name:"7ª",  short:"7ª",  number:7, quality:null, semitones:10, diff:"medium",
     note1:"Mi4", note2:"Re5" },
-  { name:"7ª",  short:"7ª",  number:7, quality:null, semitones:11, diff:"medium",
+  { name:"7ª",  short:"7ª",  number:7, quality:null, semitones:10, diff:"medium",
     note1:"Sol4", note2:"Fa5" },
   { name:"8ª",  short:"8ª",  number:8, quality:null, semitones:12, diff:"medium",
     note1:"Do4", note2:"Do5" },
@@ -174,60 +200,132 @@ const INTERVALS = [
     note1:"Do4", note2:"Do5" },
 ];
 
+const PRO_INTERVALS = [
+  { name:"2ª diminuita",  short:"2ª dim.", number:2, quality:"diminuita", semitones:0,  diff:"hard",
+    note1:"Do4", note2:"Rebb4" },
+  { name:"2ª eccedente", short:"2ª ecc.", number:2, quality:"eccedente", semitones:3,  diff:"hard",
+    note1:"Do4", note2:"Re#4" },
+  { name:"3ª diminuita", short:"3ª dim.", number:3, quality:"diminuita", semitones:2,  diff:"hard",
+    note1:"Re4", note2:"Fab4" },
+  { name:"3ª eccedente", short:"3ª ecc.", number:3, quality:"eccedente", semitones:5,  diff:"hard",
+    note1:"Do4", note2:"Mi#4" },
+  { name:"4ª diminuita", short:"4ª dim.", number:4, quality:"diminuita", semitones:4,  diff:"hard",
+    note1:"Do4", note2:"Fab4" },
+  { name:"5ª eccedente", short:"5ª ecc.", number:5, quality:"eccedente", semitones:8,  diff:"hard",
+    note1:"Do4", note2:"Sol#4" },
+  { name:"6ª diminuita", short:"6ª dim.", number:6, quality:"diminuita", semitones:7,  diff:"hard",
+    note1:"Mi4", note2:"Dob5" },
+  { name:"6ª eccedente", short:"6ª ecc.", number:6, quality:"eccedente", semitones:10, diff:"hard",
+    note1:"Do4", note2:"La#4" },
+  { name:"7ª diminuita", short:"7ª dim.", number:7, quality:"diminuita", semitones:9,  diff:"hard",
+    note1:"Re4", note2:"Dob5" },
+  { name:"7ª eccedente", short:"7ª ecc.", number:7, quality:"eccedente", semitones:12, diff:"hard",
+    note1:"Do4", note2:"Si#4" },
+  { name:"8ª diminuita", short:"8ª dim.", number:8, quality:"diminuita", semitones:11, diff:"hard",
+    note1:"Do4", note2:"Dob5" },
+  { name:"8ª eccedente", short:"8ª ecc.", number:8, quality:"eccedente", semitones:13, diff:"hard",
+    note1:"Do4", note2:"Do#5" }
+];
+
 /* Pool no-repeat */
 let lastIntervalName = { easy: null, medium: null, hard: null };
 
 function getPool(poolKey) {
   if (poolKey === "easy")   return INTERVALS.filter(i => i.diff === "easy");
   if (poolKey === "medium") return INTERVALS.filter(i => i.diff !== "hard");
-  return INTERVALS;
+  return isIntervalsProModeEnabled() ? INTERVALS.concat(PRO_INTERVALS) : INTERVALS;
 }
 
 function pickInterval(poolKey) {
   const arr  = getPool(poolKey);
   const prev = lastIntervalName[poolKey] || "";
-  const avail = arr.length > 1 ? arr.filter(i => i.name + i.note1 !== prev) : arr;
+  const avail = arr.length > 1 ? arr.filter(i => getIntervalName(i) + i.note1 !== prev) : arr;
   const chosen = avail[Math.floor(Math.random() * avail.length)];
-  lastIntervalName[poolKey] = chosen.name + chosen.note1;
+  lastIntervalName[poolKey] = getIntervalName(chosen) + chosen.note1;
   return chosen;
 }
 
 /* ==================== OPZIONI RISPOSTA ==================== */
 
 /*
-  Per facile e medio: bottoni con numero intervallo (2ª, 3ª, … 5ª/8ª)
-  Per difficile: bottoni con nome completo qualità (3ª magg., 4ª giusta, ecc.)
+  I bottoni chiedono sempre numero e qualità dell'intervallo.
+  4ª, 5ª e 8ª usano qualità giusta/eccedente/diminuita, non maggiore/minore.
   I distrattori sono scelti tra intervalli plausibili della stessa pool.
 */
 
-function getAnswerOptions(interval, poolKey) {
-  if (poolKey === "easy") {
-    return ["2ª","3ª","4ª","5ª"];
-  }
-  if (poolKey === "medium") {
-    return ["2ª","3ª","4ª","5ª","6ª","7ª","8ª"];
-  }
-  // Hard: costruiamo un set di distrattori plausibili
-  const allShorts = [...new Set(INTERVALS.map(i => i.short))];
-  // Assicuriamo che la risposta corretta ci sia
-  const correct = interval.short;
-  let pool = allShorts.filter(s => s !== correct);
-  // Scegliamo 5 distrattori random
-  pool = pool.sort(() => Math.random() - 0.5).slice(0, 5);
-  pool.push(correct);
-  return pool.sort(() => Math.random() - 0.5);
+const INTERVAL_QUALITY_BY_SEMITONES = {
+  1: { 0: "giusta", 1: "eccedente" },
+  2: { 0: "diminuita", 1: "minore", 2: "maggiore", 3: "eccedente" },
+  3: { 2: "diminuita", 3: "minore", 4: "maggiore", 5: "eccedente" },
+  4: { 4: "diminuita", 5: "giusta", 6: "eccedente" },
+  5: { 6: "diminuita", 7: "giusta", 8: "eccedente" },
+  6: { 7: "diminuita", 8: "minore", 9: "maggiore", 10: "eccedente" },
+  7: { 9: "diminuita", 10: "minore", 11: "maggiore", 12: "eccedente" },
+  8: { 11: "diminuita", 12: "giusta", 13: "eccedente" }
+};
+
+function getIntervalQuality(interval) {
+  return interval.quality || INTERVAL_QUALITY_BY_SEMITONES[interval.number]?.[interval.semitones] || "";
 }
 
-function getCorrectAnswer(interval, poolKey) {
-  if (poolKey === "hard") return interval.short;
-  return interval.number + "ª";
+function getIntervalName(interval) {
+  const quality = getIntervalQuality(interval);
+  return quality ? `${interval.number}ª ${quality}` : interval.name;
+}
+
+function getIntervalShort(interval) {
+  return getIntervalName(interval)
+    .replace("maggiore", "magg.")
+    .replace("minore", "min.")
+    .replace("diminuita", "dim.")
+    .replace("eccedente", "ecc.");
+}
+
+function getAnswerOptions(interval, poolKey) {
+  const correct = getIntervalShort(interval);
+  const pool = getPool(poolKey);
+  const optionCount = poolKey === "hard" ? 6 : 4;
+  const sameNumber = getQualityDistractorsForNumber(interval.number)
+    .filter(option => option !== correct);
+  const nearbySameQuality = pool
+    .filter(item => item.number !== interval.number && getIntervalQuality(item) === getIntervalQuality(interval))
+    .map(getIntervalShort);
+  const nearbyNumbers = pool
+    .filter(item => Math.abs(item.number - interval.number) <= 1 && item.number !== interval.number)
+    .map(getIntervalShort);
+  const otherOptions = pool.map(getIntervalShort).filter(option => option !== correct);
+  const candidates = uniqueOptions([...sameNumber, ...nearbySameQuality, ...nearbyNumbers, ...otherOptions]);
+
+  return shuffleOptions([
+    correct,
+    ...shuffleOptions(candidates).slice(0, optionCount - 1)
+  ]);
+}
+
+function uniqueOptions(options) {
+  return [...new Set(options.filter(Boolean))];
+}
+
+function shuffleOptions(options) {
+  return [...options].sort(() => Math.random() - 0.5);
+}
+
+function getQualityDistractorsForNumber(number) {
+  if ([4, 5, 8].includes(number)) {
+    return [`${number}ª dim.`, `${number}ª giusta`, `${number}ª ecc.`];
+  }
+  return [`${number}ª dim.`, `${number}ª min.`, `${number}ª magg.`, `${number}ª ecc.`];
+}
+
+function getCorrectAnswer(interval) {
+  return getIntervalShort(interval);
 }
 
 /* ==================== RENDER SVG ==================== */
 
 function renderStaff(interval) {
-  const y1 = NOTE_Y[interval.note1];
-  const y2 = NOTE_Y[interval.note2];
+  const y1 = noteY(interval.note1);
+  const y2 = noteY(interval.note2);
 
   // Posiziona note
   note1El.setAttribute("cy", y1);
@@ -236,26 +334,43 @@ function renderStaff(interval) {
   note2El.setAttribute("transform", `rotate(-15,300,${y2})`);
 
   // Gambi: se nota sotto la riga 3 (y>120) → gambo su; sopra → gambo giù
-  setStem(stem1El, 180, 191, y1);
-  setStem(stem2El, 300, 311, y2);
+  setStem(stem1El, 180, y1);
+  setStem(stem2El, 300, y2);
 
   // Tagli addizionali
   drawLedgerLines(y1, y2);
+  renderAccidental(accidental1El, interval.note1, 158, y1);
+  renderAccidental(accidental2El, interval.note2, 278, y2);
 
   // Nascondi etichette
   label1El.classList.add("hidden");
   label2El.classList.add("hidden");
 }
 
-function setStem(stemEl, cx, sx, y) {
+function renderAccidental(accidentalEl, note, x, y) {
+  const parsed = parseNoteToken(note);
+  if (!accidentalEl || !parsed.accidental) {
+    accidentalEl?.classList.add("hidden");
+    return;
+  }
+
+  accidentalEl.textContent = parsed.accidental;
+  accidentalEl.setAttribute("x", x);
+  accidentalEl.setAttribute("y", y + 8);
+  accidentalEl.classList.remove("hidden");
+}
+
+function setStem(stemEl, cx, y) {
   if (y >= 120) {
     // gambo verso l'alto
+    const sx = cx + 9;
     stemEl.setAttribute("x1", sx); stemEl.setAttribute("x2", sx);
-    stemEl.setAttribute("y1", y - 7); stemEl.setAttribute("y2", y - 42);
+    stemEl.setAttribute("y1", y); stemEl.setAttribute("y2", y - 42);
   } else {
     // gambo verso il basso
-    stemEl.setAttribute("x1", cx - 11); stemEl.setAttribute("x2", cx - 11);
-    stemEl.setAttribute("y1", y + 7);   stemEl.setAttribute("y2", y + 42);
+    const sx = cx - 9;
+    stemEl.setAttribute("x1", sx); stemEl.setAttribute("x2", sx);
+    stemEl.setAttribute("y1", y);   stemEl.setAttribute("y2", y + 42);
   }
 }
 
@@ -285,8 +400,8 @@ function makeLedger(cx, y) {
 function showNoteLabels() {
   label1El.textContent = noteName(currentInterval.note1);
   label2El.textContent = noteName(currentInterval.note2);
-  label1El.setAttribute("y", Math.max(NOTE_Y[currentInterval.note1] + 22, 165));
-  label2El.setAttribute("y", Math.max(NOTE_Y[currentInterval.note2] + 22, 165));
+  label1El.setAttribute("y", Math.max(noteY(currentInterval.note1) + 22, 165));
+  label2El.setAttribute("y", Math.max(noteY(currentInterval.note2) + 22, 165));
   label1El.classList.remove("hidden");
   label2El.classList.remove("hidden");
 }
@@ -297,7 +412,7 @@ function buildAnswerButtons(options, correctAnswer) {
   answerBtns.innerHTML = "";
   options.forEach(opt => {
     const btn = document.createElement("button");
-    btn.className = "intervalBtn";
+    btn.className = "noteButton gameAnswerButton intervalBtn";
     btn.textContent = opt;
     btn.addEventListener("click", () => checkAnswer(opt, btn, correctAnswer));
     answerBtns.appendChild(btn);
@@ -325,6 +440,47 @@ function getDifficultyLabel() {
   return "";
 }
 
+/* ==================== PRO INTERVALLI ==================== */
+
+function isIntervalsProModeEnabled() {
+  return localStorage.getItem(INTERVALS_PRO_STORAGE_KEY) === "1";
+}
+
+function applyIntervalsProMode(isEnabled = isIntervalsProModeEnabled()) {
+  document.body.classList.toggle("intervalsProMode", Boolean(isEnabled));
+  document.body.classList.toggle("proModeActive", Boolean(isEnabled));
+  const button = document.getElementById("intervalsProToggleBtn");
+  if (!button) return;
+  button.classList.toggle("active", Boolean(isEnabled));
+  button.setAttribute("aria-pressed", String(Boolean(isEnabled)));
+}
+
+function toggleIntervalsProMode() {
+  const nextState = !isIntervalsProModeEnabled();
+  localStorage.setItem(INTERVALS_PRO_STORAGE_KEY, nextState ? "1" : "0");
+  applyIntervalsProMode(nextState);
+}
+
+function ensureIntervalsProToggleButton() {
+  if (document.getElementById("intervalsProToggleBtn")) {
+    applyIntervalsProMode();
+    return;
+  }
+
+  const button = document.createElement("button");
+  button.id = "intervalsProToggleBtn";
+  button.className = "scaleProToggleButton";
+  button.type = "button";
+  button.textContent = "Pro";
+  button.setAttribute("aria-label", "Attiva intervalli alterati Pro");
+  button.setAttribute("aria-pressed", "false");
+  button.addEventListener("click", toggleIntervalsProMode);
+  document.body.appendChild(button);
+  applyIntervalsProMode();
+}
+
+document.addEventListener("DOMContentLoaded", ensureIntervalsProToggleButton);
+
 /* ==================== START / BACK ==================== */
 
 function startGame() {
@@ -339,11 +495,8 @@ function startGame() {
   }
   if (!difficulty) { warning.textContent = "Seleziona una difficoltà"; return; }
   warning.textContent = "";
-  menu.classList.add("hidden");
-  game.classList.remove("hidden");
-  hideLeaderboardButton();
-  hideRankedUI();
-  MGH.updateHeaderModeLabel(getDifficultyLabel());
+  MGHGameUI.enterTraining({ menu, game, modeLabel: getDifficultyLabel(), feedbackEl });
+  showBackButton();
   newRound();
 }
 
@@ -355,11 +508,15 @@ function startRankedGame(nickname = "") {
   rankedStartTime = Date.now();
   const session = startRankedMode("intervalli");
   session.setUsername(nickname);
-  menu.classList.add("hidden");
-  game.classList.remove("hidden");
-  hideLeaderboardButton(); hideBackButton();
-  MGH.updateHeaderModeLabel("Classificata");
-  showRankedUI();
+  MGHGameUI.enterRanked({
+    menu,
+    game,
+    score: session.totalScore,
+    current: session.currentQuestion,
+    total: session.maxQuestions,
+    feedbackEl
+  });
+  hideBackButton();
   startRankedClock();
   updateRankedUI();
   newRound();
@@ -368,14 +525,10 @@ function startRankedGame(nickname = "") {
 function goBack() {
   if (gameMode === "ranked") return;
   stopRankedClock();
-  game.classList.add("hidden");
-  menu.classList.remove("hidden");
   difficulty = null; gameMode = "training"; currentInterval = null; roundLocked = false;
   if (typeof resetRankedMode === "function") resetRankedMode();
-  document.querySelectorAll(".selected").forEach(b => b.classList.remove("selected"));
-  MGH.updateHeaderModeLabel("");
-  setFeedback(""); hideRankedUI();
-  showLeaderboardButton(); showBackButton();
+  MGHGameUI.returnToMenu({ menu, game, feedbackEl });
+  showBackButton();
 }
 
 /* ==================== ROUND ==================== */
@@ -399,7 +552,7 @@ function newRound() {
   renderStaff(currentInterval);
 
   const options       = getAnswerOptions(currentInterval, poolKey);
-  const correctAnswer = getCorrectAnswer(currentInterval, poolKey);
+  const correctAnswer = getCorrectAnswer(currentInterval);
   buildAnswerButtons(options, correctAnswer);
 }
 
@@ -412,7 +565,7 @@ function checkAnswer(answer, btn, correctAnswer) {
   const isCorrect = answer === correctAnswer;
 
   // Colora bottoni
-  document.querySelectorAll(".intervalBtn").forEach(b => {
+  document.querySelectorAll("#buttons button").forEach(b => {
     b.disabled = true;
     if (b.textContent === correctAnswer) b.classList.add("correct");
   });
@@ -428,7 +581,7 @@ function checkAnswer(answer, btn, correctAnswer) {
   if (isCorrect) {
     setFeedback(MGH.getAnswerFeedback(true, ""), "correct");
   } else {
-    setFeedback(MGH.getAnswerFeedback(false, `Era: ${currentInterval.name} (${noteName(currentInterval.note1)} – ${noteName(currentInterval.note2)})`), "wrong");
+    setFeedback(MGH.getAnswerFeedback(false, `Era: ${getIntervalName(currentInterval)} (${noteName(currentInterval.note1)} – ${noteName(currentInterval.note2)})`), "wrong");
   }
 
   if (gameMode === "ranked") {
@@ -458,15 +611,15 @@ function handleRankedAnswer(isCorrect) {
   }
 }
 
-function showRankedUI()  { document.getElementById("rankedUI")?.classList.remove("hidden"); }
-function hideRankedUI()  { document.getElementById("rankedUI")?.classList.add("hidden"); }
 function hideLeaderboardButton() {
   document.getElementById("rankedLeaderboardBtn")?.classList.add("hidden");
   document.getElementById("gameModeHelpBtn")?.classList.add("hidden");
+  document.getElementById("intervalsProToggleBtn")?.classList.add("hidden");
 }
 function showLeaderboardButton() {
   document.getElementById("rankedLeaderboardBtn")?.classList.remove("hidden");
   document.getElementById("gameModeHelpBtn")?.classList.remove("hidden");
+  document.getElementById("intervalsProToggleBtn")?.classList.remove("hidden");
 }
 function hideBackButton() { document.getElementById("backButton")?.classList.add("hidden"); }
 function showBackButton() { document.getElementById("backButton")?.classList.remove("hidden"); }
@@ -474,17 +627,12 @@ function showBackButton() { document.getElementById("backButton")?.classList.rem
 function updateRankedUI() {
   if (typeof currentRankedSession === "undefined" || !currentRankedSession) return;
   const scoreEl   = document.getElementById("rankedScore");
-  const counterEl = document.getElementById("rankedQuestionCounter");
-  const fillEl    = document.getElementById("rankedProgressFill");
-  if (scoreEl)   scoreEl.textContent = currentRankedSession.totalScore;
-  if (counterEl) {
-    const cur = Math.min(currentRankedSession.currentQuestion + 1, currentRankedSession.maxQuestions);
-    counterEl.textContent = `${cur}/${currentRankedSession.maxQuestions}`;
-  }
-  if (fillEl) {
-    const pct = (currentRankedSession.currentQuestion / currentRankedSession.maxQuestions) * 100;
-    fillEl.style.width = `${pct}%`;
-  }
+  if (scoreEl) scoreEl.textContent = currentRankedSession.totalScore;
+  updateRankedProgressUI({
+    score: currentRankedSession.totalScore,
+    current: currentRankedSession.currentQuestion,
+    total: currentRankedSession.maxQuestions
+  });
 }
 
 async function showRankedResults() {
@@ -492,16 +640,13 @@ async function showRankedResults() {
   const finalData = await finishRankedMode();
   if (!finalData || !finalData.session) { setFeedback("Errore nel salvataggio."); return; }
   const session = finalData.session;
-  game.classList.add("hidden");
-  menu.classList.remove("hidden");
-  hideRankedUI(); showLeaderboardButton(); showBackButton();
+  MGHGameUI.returnToMenu({ menu, game, feedbackEl });
+  showBackButton();
   warning.textContent = "";
   await showRankedCompletionModal({
     gameName: "intervalli", session,
     saveResult: finalData.result, saved: finalData.saved
   });
-  MGH.updateHeaderModeLabel("");
-  document.querySelectorAll(".selected").forEach(b => b.classList.remove("selected"));
   gameMode = "training"; difficulty = null; currentInterval = null; roundLocked = false;
 }
 

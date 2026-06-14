@@ -9,11 +9,11 @@
 <link rel="stylesheet" href="../css/giochi/ritmo_game.css">
 </head>
 
-<body class="ritmoGamePage">
+<body class="ritmoGamePage rankedUnifiedGamePage">
 
 <button id="rankedLeaderboardBtn"
         class="rankedLeaderboardButton"
-        onclick="showGenericRankedLeaderboardModal('ritmo')"
+        onclick="showGenericRankedLeaderboardModal('ritmo_battuta')"
         aria-label="Classifica">
   🏆
 </button>
@@ -38,8 +38,8 @@
 <div id="contentWrapper">
 
   <!-- ── MENU ── -->
-  <div id="menu">
-    <h2>Difficoltà</h2>
+  <div id="menu" class="gameModeMenu">
+    <h2>Scegli la modalità</h2>
     <div class="buttonGroup ritmoModeGroup">
       <button class="menuButton" onclick="setDifficulty('easy', this)">Facile</button>
       <button class="menuButton" onclick="setDifficulty('medium', this)">Medio</button>
@@ -52,62 +52,50 @@
 
     <button class="menuButton startButton" onclick="startGame()">Inizia</button>
     <p id="warning" class="warningText"></p>
-
-    <div class="gameIntroList">
-      <p class="gameIntro"><strong>Facile</strong> — Tempo 4/4 · 1 figura mancante · intera, minima, semiminima, croma (+ le loro pause)</p>
-      <p class="gameIntro"><strong>Medio</strong> — Tempi 4/4, 3/4, 2/4 · 2-3 figure mancanti</p>
-      <p class="gameIntro"><strong>Difficile</strong> — Tempo 6/8 incluso · 4-5 figure mancanti</p>
-    </div>
+    <p class="gameIntro">Completa la battuta scegliendo figure e pause del valore giusto.</p>
   </div>
 
   <!-- ── GAME ── -->
   <div id="game" class="hidden">
 
-    <!-- Ranked UI -->
-    <div id="rankedUI" class="hidden">
-      <div id="rankedScoreDisplay">Score: <span id="rankedScore">0</span></div>
-      <div id="rankedProgressWrapper">
-        <div id="rankedProgressLabel">
-          <span>Progressione</span>
-          <span id="rankedQuestionCounter">1/10</span>
-        </div>
-        <div id="rankedProgressBar">
-          <div id="rankedProgressFill"></div>
-        </div>
+    <div class="gameTopActions">
+      <button id="backButton" class="menuButton compactBackButton" onclick="goBack()" aria-label="Torna alla scelta modalità">
+        <span aria-hidden="true">⇧</span>
+      </button>
+    </div>
+
+    <div id="questionBox" class="gameQuestionBox">
+      <span id="questionText">Completa la battuta</span>
+    </div>
+
+    <section class="ritmoVisualStage gameVisualBox" aria-label="Completa la battuta">
+      <!-- Intestazione battuta -->
+      <div class="battutaHeader">
+        <span id="timeSigDisplay" class="timeSig">4/4</span>
       </div>
-    </div>
 
-    <div id="timerBox" class="hidden">⏱ <span id="timer">0</span>s</div>
+      <!-- Battuta: figure già presenti + slot mancanti -->
+      <div class="battutaWrap">
+        <!-- Barra sinistra della battuta -->
+        <div class="barLine"></div>
 
-    <!-- Intestazione battuta -->
-    <div class="battutaHeader">
-      <span id="timeSigDisplay" class="timeSig">4/4</span>
-      <span id="beatsLeft" class="beatsLeft"></span>
-    </div>
+        <!-- Figure già inserite + slot vuoti (generati da JS) -->
+        <div id="battutaSlots" class="battutaSlots"></div>
 
-    <!-- Battuta: figure già presenti + slot mancanti -->
-    <div class="battutaWrap">
-      <!-- Barra sinistra della battuta -->
-      <div class="barLine"></div>
+        <!-- Barra destra della battuta -->
+        <div class="barLine"></div>
+      </div>
 
-      <!-- Figure già inserite + slot vuoti (generati da JS) -->
-      <div id="battutaSlots" class="battutaSlots"></div>
-
-      <!-- Barra destra della battuta -->
-      <div class="barLine"></div>
-    </div>
-
-    <!-- Pool di figure trascinabili -->
-    <p class="poolLabel">Trascina la figura/le figure mancanti nella battuta:</p>
-    <div id="figurePool" class="figurePool"></div>
-
-    <div id="feedback" class="feedbackText"></div>
+      <!-- Pool di figure trascinabili -->
+      <p class="poolLabel">Trascina la figura/le figure mancanti nella battuta:</p>
+      <div id="figurePool" class="figurePool"></div>
+    </section>
 
     <div class="gameActions">
       <button class="menuButton" onclick="checkAnswer()">✔ Verifica</button>
-      <button class="menuButton secondaryButton" onclick="resetSlots()">↩ Ricomincia</button>
-      <button id="backButton" class="menuButton" onclick="goBack()">⬅ Indietro</button>
     </div>
+
+    <div id="feedback" class="feedbackText"></div>
 
   </div>
 
@@ -115,6 +103,7 @@
 
 <script src="../js/common.js"></script>
 <script src="../js/giochi/ranked.js"></script>
+<script src="../js/giochi/game_ui.js"></script>
 <script src="../js/giochi/ritmo_game.js"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>

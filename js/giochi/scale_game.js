@@ -328,6 +328,7 @@ function isScaleProModeEnabled() {
 
 function applyScaleProMode(isEnabled = isScaleProModeEnabled()) {
   document.body.classList.toggle("scaleProMode", Boolean(isEnabled));
+  document.body.classList.toggle("proModeActive", Boolean(isEnabled));
   const button = document.getElementById("scaleProToggleBtn");
   if (!button) return;
   button.classList.toggle("active", Boolean(isEnabled));
@@ -1154,8 +1155,6 @@ function handleRankedAnswer(isCorrect, partialCredit = null) {
   }
 }
 
-function showRankedUI()  { document.getElementById("rankedUI")?.classList.remove("hidden"); }
-function hideRankedUI()  { document.getElementById("rankedUI")?.classList.add("hidden"); }
 function hideLeaderboardButton() {
   document.getElementById("rankedLeaderboardBtn")?.classList.add("hidden");
   document.getElementById("gameModeHelpBtn")?.classList.add("hidden");

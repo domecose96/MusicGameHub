@@ -211,46 +211,6 @@
   margin-top: 0;
 }
 
-.scaleProPracticeBox {
-  text-align: center;
-  margin: 24px auto 8px;
-  max-width: 760px;
-}
-
-.scaleProPracticeBox p {
-  margin: 0 auto 14px;
-  color: var(--text-main);
-  font-size: 1rem;
-  line-height: 1.55;
-  white-space: nowrap;
-}
-
-.scalePracticeButton {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  width: auto;
-  min-width: 260px;
-}
-
-.scalePracticeBadge {
-  padding: 4px 8px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
-  color: #ffffff;
-  font-size: .68rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: .04em;
-}
-
-@media (max-width: 900px) {
-  .scaleProPracticeBox p {
-    white-space: normal;
-  }
-}
-
 /* ==================== RITMO ==================== */
 
 .rhythmBox {

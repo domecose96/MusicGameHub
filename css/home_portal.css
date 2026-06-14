@@ -151,6 +151,19 @@
   box-shadow: 0 8px 18px rgba(255,102,0,0.22);
 }
 
+@keyframes dailyPulse {
+  0%, 100% {
+    opacity: .86;
+    transform: translateX(0);
+    box-shadow: 0 10px 24px rgba(255,102,0,.22);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-2px);
+    box-shadow: 0 12px 30px rgba(255,102,0,.42);
+  }
+}
+
 .hubCard.disabled {
   opacity: .68;
   cursor: default;
@@ -378,6 +391,17 @@
   font-size: .74rem;
   font-weight: 900;
   box-shadow: 0 8px 18px rgba(255,102,0,.22);
+}
+
+.gameHubCard.daily {
+  border-color: rgba(255,122,26,.42);
+}
+
+.gameHubCard.daily::after {
+  content: "Daily";
+  background: linear-gradient(135deg, #ff7a1a, #ffb347);
+  box-shadow: 0 10px 24px rgba(255,102,0,.3);
+  animation: dailyPulse 1.8s ease-in-out infinite;
 }
 
 /* =========================

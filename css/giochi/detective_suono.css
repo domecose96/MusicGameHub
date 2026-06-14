@@ -212,10 +212,6 @@
   line-height: 1.18;
 }
 
-.gameActions {
-  margin-top: 10px;
-}
-
 @media (max-width: 680px) {
   .detectiveAnswers,
   .detectiveAnswers[data-option-count="4"] {

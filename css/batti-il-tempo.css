@@ -1,0 +1,380 @@
+/* ==================== BATTI IL TEMPO ==================== */
+
+.battiTempoStage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: min(760px, 76vw);
+  height: auto;
+  min-height: 380px;
+  padding: 18px 20px;
+}
+
+.tempoIconButton {
+  position: absolute;
+  top: 14px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid rgba(0, 166, 189, .28);
+  border-radius: 50%;
+  background: #ffffff;
+  color: #08798a;
+  box-shadow: 0 10px 22px rgba(0,0,0,.10);
+  cursor: pointer;
+  font-size: 1.25rem;
+  font-weight: 900;
+  line-height: 1;
+  padding: 0;
+  text-align: center;
+  transition: transform .14s ease, background .14s ease, color .14s ease, box-shadow .14s ease;
+}
+
+.tempoIconButton span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+  text-align: center;
+}
+
+.tempoPlayButton span {
+  transform: translateX(1px);
+}
+
+.tempoPlayButton.isPlaying span {
+  transform: translateX(0);
+}
+
+.tempoPlayButton {
+  right: 16px;
+}
+
+.tempoRetryButton {
+  left: 16px;
+}
+
+.tempoRetryButton span {
+  transform: translateY(-1px);
+}
+
+.tempoIconButton:hover {
+  color: #ffffff;
+  background: #08798a;
+  transform: translateY(-1px);
+}
+
+.tempoPlayButton.isPlaying {
+  color: #ffffff;
+  background: var(--action-orange);
+  border-color: rgba(232, 93, 4, .45);
+}
+
+body.battiTempoPage.rankedUnifiedGamePage .rankedUI:not(.hidden) ~ .battiTempoStage.gameVisualBox {
+  display: flex;
+  height: auto;
+  min-height: 430px;
+  margin-top: 6px;
+  margin-bottom: 8px;
+}
+
+body.battiTempoPage .gameTopActions .levelProgressBadge {
+  display: none;
+}
+
+body.battiTempoPage.rankedUnifiedGamePage .rankedUI:not(.hidden) ~ .battiTempoStage .levelScorePill,
+body.battiTempoPage.rankedUnifiedGamePage .rankedUI:not(.hidden) ~ .battiTempoStage .progressScorePill {
+  display: none;
+}
+
+.scoreToolbar {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.levelProgressBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 54px;
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(0, 166, 189, .10);
+  color: #08798a;
+  font-size: .95rem;
+  font-weight: 900;
+  box-shadow: inset 0 0 0 1px rgba(0, 166, 189, .18);
+}
+
+.scorePill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: rgba(0, 166, 189, .10);
+  color: #08798a;
+  font-size: .82rem;
+  font-weight: 900;
+}
+
+.notationWrap {
+  position: relative;
+  width: min(700px, 100%);
+  isolation: isolate;
+}
+
+.rhythmSvg {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  background: transparent;
+  box-shadow: none;
+  color: #000000;
+  opacity: 1;
+  filter: none;
+  mix-blend-mode: normal;
+}
+
+body.battiTempoPage .rhythmSvg,
+body.battiTempoPage .rhythmSvg * {
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
+.countdownOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: transparent;
+  color: var(--action-orange);
+  font-size: clamp(3rem, 10vw, 5.8rem);
+  font-weight: 1000;
+  line-height: 1;
+  pointer-events: none;
+  text-shadow:
+    0 3px 0 #ffffff,
+    0 -3px 0 #ffffff,
+    3px 0 0 #ffffff,
+    -3px 0 0 #ffffff,
+    0 12px 28px rgba(232, 93, 4, .22);
+}
+
+.tapButton {
+  width: min(280px, 86vw);
+  height: 82px;
+  border: 2px solid rgba(232, 93, 4, .45);
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--action-orange), var(--action-orange-soft));
+  color: #fff;
+  box-shadow: 0 16px 34px rgba(232, 93, 4, .30);
+  cursor: pointer;
+  font-size: 1.6rem;
+  font-weight: 1000;
+  line-height: 1;
+  transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+}
+
+.tapButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgba(232, 93, 4, .36);
+}
+
+.tapButton:disabled {
+  opacity: .58;
+  cursor: default;
+}
+
+.tapButton.tapPulse {
+  transform: scale(.96);
+  box-shadow: 0 8px 18px rgba(232, 93, 4, .24);
+}
+
+.battiTempoModeGroup {
+  align-items: center;
+  overflow: visible !important;
+  padding: 0;
+}
+
+.battiTempoModeGroup .menuButton {
+  overflow: visible;
+}
+
+.svgRhythmLine {
+  stroke: #000000 !important;
+  stroke-width: 2.2;
+  opacity: 1;
+}
+
+.svgBarLine {
+  stroke: #000000 !important;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  opacity: 1;
+}
+
+.svgMiddleBarLine {
+  opacity: 1;
+}
+
+.svgFinalBarLine {
+  stroke-width: 5.6;
+}
+
+.svgNoteHead {
+  stroke: #000000 !important;
+  opacity: 1;
+}
+
+.svgStem,
+.svgFlag,
+.svgBeam {
+  stroke: #000000 !important;
+  stroke-width: 2.55;
+  stroke-linecap: round;
+  fill: none;
+  opacity: 1;
+}
+
+.svgStemTrim {
+  fill: #ffffff !important;
+  stroke: none !important;
+  opacity: 1;
+}
+
+.svgBeam {
+  fill: #000000 !important;
+  stroke: none !important;
+}
+
+.svgSingleEighthNote {
+  fill: #000000 !important;
+  stroke: none !important;
+  opacity: 1;
+}
+
+.svgSingleEighthNoteHead {
+  fill: #000000 !important;
+  stroke: none !important;
+  opacity: 1;
+}
+
+.svgSingleEighthNoteStem {
+  fill: #000000 !important;
+  stroke: none !important;
+  opacity: 1;
+}
+
+.svgDoubleEighthNoteHead {
+  fill: #000000 !important;
+  stroke: none !important;
+  opacity: 1;
+}
+
+.svgQuarterNote {
+  fill: #000000 !important;
+  stroke: none !important;
+  opacity: 1;
+}
+
+.svgHalfNote {
+  fill: #000000 !important;
+  stroke: none !important;
+  opacity: 1;
+}
+
+.svgHalfNoteHole {
+  fill: #ffffff !important;
+  stroke: none !important;
+}
+
+.svgWholeNote {
+  fill: #000000 !important;
+  stroke: none !important;
+  opacity: 1;
+}
+
+.svgWholeNoteHole {
+  fill: #ffffff !important;
+  stroke: none !important;
+}
+
+.svgRest {
+  fill: #000000 !important;
+  stroke: #000000 !important;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  opacity: 1;
+}
+
+.svgQuarterRest {
+  fill: #000000 !important;
+  stroke: none !important;
+}
+
+.svgFeedbackPerfect,
+.svgFeedbackGood {
+  fill: #25a85a;
+  stroke: #25a85a;
+}
+
+.svgFeedbackError {
+  fill: #d93434;
+  stroke: #d93434;
+}
+
+.svgFeedbackText {
+  fill: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+@media (max-width: 620px) {
+  .battiTempoStage {
+    width: min(760px, 96vw);
+    min-height: 360px;
+    padding: 14px 8px;
+    gap: 10px;
+  }
+
+  .tapButton {
+    height: 82px;
+    font-size: 1.35rem;
+  }
+
+  .tempoIconButton {
+    top: 10px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .tempoPlayButton {
+    right: 10px;
+  }
+
+  .tempoRetryButton {
+    left: 10px;
+  }
+}

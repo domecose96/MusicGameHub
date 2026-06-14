@@ -53,14 +53,6 @@
   fill: #000;
 }
 
-.gameActions {
-  display: flex;
-  justify-content: center;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-top: 15px;
-}
-
 @media (max-width: 768px) {
   #staffGameSVG {
     height: auto;
@@ -82,24 +74,4 @@
 
 .pentagrammaModeGroup .menuButton {
   overflow: visible;
-}
-
-.pentagrammaModeGroup .dailyModeButton {
-  position: relative;
-  background: linear-gradient(180deg, #fff8ed, #fff0dc);
-  border-color: rgba(232, 93, 4, 0.36);
-  color: #8f3a00;
-}
-
-.pentagrammaModeGroup .dailyModeButton:hover:not(.selected) {
-  background: linear-gradient(180deg, #fff1dc, #ffe4bf);
-  border-color: rgba(232, 93, 4, 0.52);
-  color: var(--action-orange);
-  box-shadow: 0 12px 26px rgba(232, 93, 4, 0.18);
-}
-
-.pentagrammaModeGroup .dailyModeButton.selected {
-  background: linear-gradient(135deg, var(--action-orange), var(--action-orange-soft));
-  color: #ffffff;
-  box-shadow: 0 12px 28px rgba(232, 93, 4, 0.32);
 }

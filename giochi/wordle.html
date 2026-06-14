@@ -20,7 +20,7 @@
 
 <header class="appHeader">
   <div class="appHeaderInner">
-    <button id="homeBtn" class="homeButton" onclick="goHome()" aria-label="Torna alla home">
+    <button id="homeBtn" class="homeButton" onclick="MGH.goHome()" aria-label="Torna alla home">
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M3 12 L12 3 L21 12"></path>
         <path d="M6 12 V21 H18 V12"></path>
@@ -29,7 +29,6 @@
     <div class="headerBrand">
       <span class="headerEyebrow">Allenamento musicale</span>
       <h1 class="pageTitle">Music Wordle</h1>
-      <!-- FIX 2: headerModeLabel è ora inline nel flusso normale, non absolute -->
       <span id="headerModeLabel" class="headerModeLabel hidden"></span>
     </div>
   </div>
@@ -39,7 +38,6 @@
 <div id="contentWrapper">
 
   <!-- ==================== SELEZIONE MODALITÀ ==================== -->
-  <!-- FIX 1: aggiunto padding al buttonGroup per evitare il taglio hover -->
   <div id="config" class="gameModeMenu">
     <h2>Scegli la modalità</h2>
     <div class="buttonGroup wordleModeGroup">
@@ -60,21 +58,34 @@
 
   <!-- ==================== GIOCO ==================== -->
   <div id="game" class="hidden">
-    <!-- FIX 3: layout a 3 colonne — ? | griglia | Statistiche -->
+    <div class="gameTopActions">
+      <button id="wordleBackBtn" class="menuButton compactBackButton hidden" type="button" onclick="goBack()" aria-label="Torna alla scelta modalità">
+        <span aria-hidden="true">⇧</span>
+      </button>
+      <button id="wordleTopHelpBtn" class="circleMiniButton hidden" type="button" onclick="showHelpModal()" aria-label="Come giocare">?</button>
+      <button id="wordleTopSettingsBtn" class="circleMiniButton hidden" type="button" onclick="showSettingsModal()" aria-label="Impostazioni">⚙</button>
+      <button id="wordleTopStatsBtn" class="circleMiniButton hidden" type="button" onclick="showStatsModal(false)" aria-label="Statistiche" title="Statistiche">
+        <span class="wordleStatsBars" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+    </div>
+    <div id="timerBox" class="hidden">⏱ <span id="timer">0</span>s</div>
+
     <div id="gameBoardArea">
 
-      <!-- COLONNA SINISTRA: punto interrogativo -->
       <div id="gameSideControls">
         <button id="gameHelpBtn" class="circleMiniButton hidden" onclick="showHelpModal()" aria-label="Come giocare">?</button>
+        <button id="gameSettingsBtn" class="circleMiniButton hidden" onclick="showSettingsModal()" aria-label="Impostazioni">⚙</button>
+        <button id="gameStatsBtn" class="miniButton hidden" onclick="showStatsModal(false)" aria-label="Statistiche">Statistiche</button>
       </div>
 
       <!-- COLONNA CENTRALE: griglia -->
       <div id="grid"></div>
 
-      <!-- COLONNA DESTRA: statistiche + impostazioni -->
       <div id="gameSideControlsRight">
-        <button id="gameSettingsBtn" class="circleMiniButton hidden" onclick="showSettingsModal()" aria-label="Impostazioni">⚙</button>
-        <button id="gameStatsBtn" class="miniButton hidden" onclick="showStatsModal(false)">Statistiche</button>
         <span id="dailyWordNumberBadge" class="dailyWordNumberBadge hidden" aria-live="polite"></span>
       </div>
 
@@ -207,6 +218,7 @@
 
 <script src="../js/common.js"></script>
 <script src="../js/giochi/ranked.js"></script>
+<script src="../js/giochi/game_ui.js"></script>
 <script src="../js/giochi/wordle.js"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 

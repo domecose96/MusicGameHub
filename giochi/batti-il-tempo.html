@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Batti il Tempo</title>
+<link rel="icon" type="image/png" href="../img/mgh-logo.png">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/batti-il-tempo.css?v=20260614-clean29">
+</head>
+
+<body class="battiTempoPage rankedUnifiedGamePage">
+
+<button id="rankedLeaderboardBtn"
+        class="rankedLeaderboardButton"
+        onclick="showGenericRankedLeaderboardModal('batti_tempo')"
+        aria-label="Classifica">
+  🏆
+</button>
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button class="homeButton" onclick="goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+    <div class="headerBrand">
+      <span class="headerEyebrow">Allenamento musicale</span>
+      <h1 class="pageTitle">Batti il Tempo</h1>
+      <span id="headerModeLabel" class="headerModeLabel hidden"></span>
+    </div>
+  </div>
+</header>
+
+<div id="contentWrapper">
+
+  <div id="menu" class="gameModeMenu">
+    <h2>Scegli difficoltà</h2>
+    <div class="buttonGroup battiTempoModeGroup">
+      <button class="menuButton" onclick="setLevel(1, this)">Facile</button>
+      <button class="menuButton" onclick="setLevel(2, this)">Medio</button>
+      <button class="menuButton" onclick="setLevel(3, this)">Difficile</button>
+      <button class="menuButton dailyModeButton rankedModeButton" onclick="selectRankedMode(this)">
+        <span class="dailyModeBadge">Ranked</span>
+        Classificata
+      </button>
+    </div>
+
+    <button class="menuButton startButton" onclick="startGame()">Inizia</button>
+    <p id="warning" class="warningText"></p>
+  </div>
+
+  <div id="game" class="hidden">
+
+    <div class="gameTopActions">
+      <button id="backButton" class="menuButton compactBackButton" onclick="changeLevel()" aria-label="Cambia difficoltà">
+        <span aria-hidden="true">⇧</span>
+      </button>
+      <span id="levelProgressBadge" class="levelProgressBadge hidden">1/10</span>
+    </div>
+
+    <div id="questionBox" class="gameQuestionBox">
+      <span id="questionText">Premi Play, ascolta e poi batti il tempo</span>
+    </div>
+
+    <section class="battiTempoStage gameVisualBox" aria-label="Batti il Tempo">
+      <button id="retryButton" class="tempoIconButton tempoRetryButton" type="button" onclick="retryRhythm()" aria-label="Riprova">
+        <span aria-hidden="true">↻</span>
+      </button>
+
+      <button id="beginButton" class="tempoIconButton tempoPlayButton" type="button" onclick="togglePlay()" aria-label="Avvia">
+        <span id="playIcon" aria-hidden="true">▶</span>
+      </button>
+
+      <div class="scoreToolbar">
+        <span id="levelLabel" class="scorePill levelScorePill">Facile</span>
+        <span id="bpmLabel" class="scorePill">80 BPM</span>
+        <span id="scoreLabel" class="scorePill progressScorePill">1/10</span>
+      </div>
+
+      <div class="notationWrap">
+        <svg id="rhythmSvg" class="rhythmSvg" viewBox="0 0 760 230" role="img" aria-label="Due battute ritmiche in quattro quarti"></svg>
+        <div id="countdownOverlay" class="countdownOverlay hidden" aria-live="polite"></div>
+      </div>
+
+      <button id="tapButton" class="tapButton" type="button" onclick="handleTap()" aria-label="Batti il tempo">
+        Clicca qui per iniziare
+      </button>
+    </section>
+
+    <div id="feedback" class="feedbackText"></div>
+
+  </div>
+</div>
+
+<script src="../js/common.js"></script>
+<script src="../js/giochi/ranked.js"></script>
+<script src="../js/giochi/game_ui.js"></script>
+<script src="../js/batti-il-tempo.js?v=20260614-clean65"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

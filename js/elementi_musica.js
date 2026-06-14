@@ -163,7 +163,7 @@ function initInteractiveWave() {
       startX,
       centerY,
       amplitude,
-      wavelength: Math.max(56, 260 / frequency),
+      wavelength: Math.max(42, 360 / frequency),
       phase: time * 0.002,
       step: 4
     });

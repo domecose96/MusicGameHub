@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Storia: Il Rinascimento | Music Game Hub</title>
+<link rel="icon" type="image/png" href="../img/mgh-logo.png">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/learn.css">
+<link rel="stylesheet" href="../css/storia/storia.css">
+</head>
+
+<body class="storyPage">
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="MGH.goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+    <div class="headerBrand">
+      <span class="headerEyebrow">Storia della musica</span>
+      <h1 class="pageTitle">Il Rinascimento</h1>
+    </div>
+  </div>
+</header>
+
+<nav id="siteNav" class="theoryNav">
+  <button class="navBtn" onclick="MGH.scrollToSection('timeline')">📅 Timeline</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('scuole')">🎵 Scuole musicali</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('funzioni')">🎭 Forme e generi</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('protagonisti')">👑 Protagonisti</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('strumenti')">🎵 Strumenti</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('riassunto')">📊 Mappa riassuntiva</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('video-rinascimento')">🎬 Video</button>
+  <button class="navBtn" onclick="openQuizModal()">❓ Quiz</button>
+</nav>
+
+<div id="contentWrapper">
+
+  <!-- TIMELINE -->
+  <section id="timeline" class="siteSection learnSection">
+    <h2 class="sectionTitle">Il Rinascimento in breve</h2>
+    <p class="sectionIntro">
+      Il Rinascimento è il movimento culturale che si sviluppò nel XV e XVI secolo e che riscoprì il pensiero filosofico e l'arte classica. In ambito musicale crescono l'importanza della musica profana, della polifonia vocale e della musica strumentale.
+    </p>
+
+    <div class="timelineContainer">
+      <svg class="timelineSVG" viewBox="0 0 980 230">
+        <defs>
+          <linearGradient id="rinascimentoTimelineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#9b5cff;stop-opacity:0.10" />
+            <stop offset="50%" style="stop-color:#9b5cff;stop-opacity:0.22" />
+            <stop offset="100%" style="stop-color:#9b5cff;stop-opacity:0.10" />
+          </linearGradient>
+        </defs>
+        <rect x="50" y="54" width="880" height="86" fill="url(#rinascimentoTimelineGrad)" rx="14"/>
+        <line x1="70" y1="100" x2="910" y2="100" stroke="#9b5cff" stroke-width="4" opacity="0.65"/>
+
+        <circle cx="130" cy="100" r="11" fill="#9b5cff"/>
+        <text x="130" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">1400</text>
+        <text x="130" y="168" text-anchor="middle" font-size="11" fill="#9b5cff" font-weight="bold">Inizio Rinascimento</text>
+        <text x="130" y="184" text-anchor="middle" font-size="10" fill="#666">Firenze</text>
+
+        <circle cx="320" cy="100" r="11" fill="#9b5cff"/>
+        <text x="320" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">1480</text>
+        <text x="320" y="168" text-anchor="middle" font-size="11" fill="#9b5cff" font-weight="bold">Scuola franco-fiamminga</text>
+        <text x="320" y="184" text-anchor="middle" font-size="10" fill="#666">In Italia</text>
+
+        <circle cx="510" cy="100" r="11" fill="#9b5cff"/>
+        <text x="510" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">1545</text>
+        <text x="510" y="168" text-anchor="middle" font-size="11" fill="#9b5cff" font-weight="bold">Concilio di Trento</text>
+        <text x="510" y="184" text-anchor="middle" font-size="10" fill="#666">Riforma musica sacra</text>
+
+        <circle cx="700" cy="100" r="11" fill="#9b5cff"/>
+        <text x="700" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">1600</text>
+        <text x="700" y="168" text-anchor="middle" font-size="11" fill="#9b5cff" font-weight="bold">Fine Rinascimento</text>
+        <text x="700" y="184" text-anchor="middle" font-size="10" fill="#666">Nascita Barocco</text>
+
+        <circle cx="870" cy="100" r="11" fill="#9b5cff"/>
+        <text x="870" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">1612</text>
+        <text x="870" y="168" text-anchor="middle" font-size="11" fill="#9b5cff" font-weight="bold">Gabrieli muore</text>
+        <text x="870" y="184" text-anchor="middle" font-size="10" fill="#666">Fine era veneziana</text>
+      </svg>
+    </div>
+
+    <div class="periodGrid">
+      <div class="periodCard eraCard">
+        <div class="eraIcon">🇫🇷</div>
+        <h3>Francia e Fiandre</h3>
+        <p>Origine della Scuola franco-fiamminga. Compositori come Josquin Desprez e Orlando di Lasso diffondono le loro tecniche in Italia.</p>
+      </div>
+
+      <div class="periodCard eraCard">
+        <div class="eraIcon">🇮🇹</div>
+        <h3>Firenze</h3>
+        <p>Culla del Rinascimento presso la corte di Lorenzo de' Medici. Centro di mecenatismo musicale e innovazione.</p>
+      </div>
+
+      <div class="periodCard eraCard">
+        <div class="eraIcon">🏛️</div>
+        <h3>Roma</h3>
+        <p>Sede della Scuola romana e della polifonia sacra. Giovanni Pierluigi da Palestrina crea la sua musica qui.</p>
+      </div>
+
+      <div class="periodCard eraCard">
+        <div class="eraIcon">🌊</div>
+        <h3>Venezia</h3>
+        <p>Centro della Scuola veneziana. Giovanni Gabrieli sviluppa lo stile concertato con voci e strumenti.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCUOLE MUSICALI -->
+  <section id="scuole" class="siteSection learnSection">
+    <h2 class="sectionTitle">Le scuole musicali del Rinascimento</h2>
+    <p class="sectionIntro">Durante il Rinascimento si sviluppano tre grandi scuole musicali, ognuna con caratteristiche e compositori distinti.</p>
+
+    <div class="storyGrid">
+      <div class="storyCard mediaCard">
+        <div class="mediaThumb">
+          <div class="mediaIcon">🇫🇷</div>
+        </div>
+        <h3>Scuola franco-fiamminga</h3>
+        <p class="cardSubtitle">Dalla Francia alle corti italiane</p>
+        <p>Nella ricca area costituita dalla Francia settentrionale, la Borgogna e le Fiandre, si sviluppò la Scuola franco-fiamminga. Compositori come <strong>Josquin Desprez</strong>, <strong>Jacob Arcadelt</strong> e <strong>Orlando di Lasso</strong> portano le loro tecniche polifoniche avanzate nelle corti rinascimentali italiane.</p>
+        <div class="cardHighlight">
+          <strong>Idea chiave:</strong> questa scuola introduce in Italia le più sofisticate tecniche compositive europee.
+        </div>
+      </div>
+
+      <div class="storyCard mediaCard">
+        <div class="mediaThumb">
+          <div class="mediaIcon">🏛️</div>
+        </div>
+        <h3>Scuola romana</h3>
+        <p class="cardSubtitle">La polifonia al servizio della Chiesa</p>
+        <p>La città di Roma è sede della Scuola romana. La musica sacra segue le regole imposte dal Concilio di Trento (1545-1583), che mirava a rendere il testo comprensibile ai fedeli. <strong>Giovanni Pierluigi da Palestrina</strong> è il massimo rappresentante di questa scuola.</p>
+        <div class="cardHighlight">
+          <strong>Idea chiave:</strong> Palestrina coniuga la complessità polifonica con la chiarezza del testo religioso.
+        </div>
+      </div>
+
+      <div class="storyCard mediaCard">
+        <div class="mediaThumb">
+          <div class="mediaIcon">🌊</div>
+        </div>
+        <h3>Scuola veneziana</h3>
+        <p class="cardSubtitle">Stile concertato e innovazione</p>
+        <p>La Scuola veneziana continua a usare la polifonia e gli strumenti nella musica sacra. <strong>Giovanni Gabrieli</strong> sviluppò il <strong>stile concertato</strong>, mescolando voci e strumenti in una dimensione sonora ricca e innovativa che anticipa il Barocco.</p>
+        <div class="cardHighlight">
+          <strong>Idea chiave:</strong> Gabrieli fa diventare gli strumenti protagonisti insieme alle voci.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORME E GENERI CON AUDIO -->
+  <section id="funzioni" class="siteSection learnSection">
+    <h2 class="sectionTitle">Forme e generi del Rinascimento</h2>
+    <p class="sectionIntro">Durante il Rinascimento nacquero nuove forme musicali rappresentative sia della musica sacra che della musica profana, caratterizzate da grande complessità e bellezza formale.</p>
+
+    <div class="storyGrid">
+      <div class="storyCard mediaCard">
+        <div class="mediaThumb">
+          <div class="mediaIcon">🎼</div>
+        </div>
+        <h3>Il Madrigale</h3>
+        <p class="cardSubtitle">La principale composizione profana del tardo Rinascimento</p>
+        <p>Il madrigale ha una <strong>forma aperta</strong>, priva di riprese e ritornelli. È basato sulla <strong>polifonia omorritmica</strong>, dove le voci non procedono contemporaneamente con lo stesso ritmo. Scritto su testi di importanti scrittori.</p>
+        <div class="cardAudio">
+          <label>🎵 Ascolta un madrigale</label>
+          <audio controls style="width: 100%; margin-top: 8px;">
+            <source src="../audio/storia_rinascimento/madrigale.mp3" type="audio/mpeg">
+            Il tuo browser non supporta l'audio.
+          </audio>
+        </div>
+      </div>
+
+      <div class="storyCard mediaCard">
+        <div class="mediaThumb">
+          <div class="mediaIcon">🎭</div>
+        </div>
+        <h3>La Villanella</h3>
+        <p class="cardSubtitle">Musica profana popolare e giocosa</p>
+        <p>La villanella è un genere di composizione vocale polifonica molto diffusa nell'Italia del Rinascimento. Composta da strofe alternate a un <strong>ritornello fisso</strong>, è una forma semplice, popolare e spesso di carattere comico.</p>
+        <div class="cardAudio">
+          <label>🎵 Ascolta "Matona mia cara" di Orlando di Lasso</label>
+          <audio controls style="width: 100%; margin-top: 8px;">
+            <source src="../audio/storia_rinascimento/villlanella.mp3" type="audio/mpeg">
+            Il tuo browser non supporta l'audio.
+          </audio>
+        </div>
+      </div>
+
+      <div class="storyCard mediaCard">
+        <div class="mediaThumb">
+          <div class="mediaIcon">⛪</div>
+        </div>
+        <h3>Polifonia vocale sacra</h3>
+        <p class="cardSubtitle">Messa, Mottetto e Cappella concertata</p>
+        <p>La musica sacra del Rinascimento è caratterizzata dalla <strong>polifonia vocale</strong> e dalla <strong>cappella concertata</strong>, dove il coro è accompagnato da strumenti. Forme importanti sono la Messa e il Mottetto.</p>
+        <div class="cardAudio">
+          <label>🎵 Ascolta "Missa Papae Marcelli" di Palestrina</label>
+          <audio controls style="width: 100%; margin-top: 8px;">
+            <source src="../audio/storia_rinascimento/missa.mp3" type="audio/mpeg">
+            Il tuo browser non supporta l'audio.
+          </audio>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROTAGONISTI -->
+  <section id="protagonisti" class="siteSection learnSection">
+    <h2 class="sectionTitle">Protagonisti del Rinascimento</h2>
+    <p class="sectionIntro">Grandi musicisti, teorici e innovatori che hanno plasmato la musica rinascimentale.</p>
+
+    <div class="protagonistGrid">
+      <div class="protagonistCard historicalCard">
+        <div class="cardDate">1450-1521</div>
+        <div class="protagonistIcon">🎼</div>
+        <h3>Josquin Desprez</h3>
+        <p class="role">Compositore franco-fiammingo</p>
+        <p>Maestro della polifonia franco-fiamminga, porta tecniche compositive raffinate nelle corti italiane. La sua musica unisce imitazione tra le voci, chiarezza del testo ed equilibrio formale.</p>
+      </div>
+
+      <div class="protagonistCard historicalCard">
+        <div class="cardDate">1525-1594</div>
+        <div class="protagonistIcon">🏛️</div>
+        <h3>Giovanni Pierluigi da Palestrina</h3>
+        <p class="role">Compositore della Scuola romana</p>
+        <p>Autore della celebre "Missa Papae Marcelli". Rappresenta l'apice della polifonia vocale, equilibrio tra forma e testo.</p>
+      </div>
+
+      <div class="protagonistCard historicalCard">
+        <div class="cardDate">1555-1612</div>
+        <div class="protagonistIcon">🌊</div>
+        <h3>Giovanni Gabrieli</h3>
+        <p class="role">Maestro della Scuola veneziana</p>
+        <p>Sviluppatore dello stile concertato. Mescola voci e strumenti in modo innovativo, anticipando il Barocco con i suoi mottetti grandiosi.</p>
+      </div>
+
+      <div class="protagonistCard historicalCard">
+        <div class="cardDate">1532-1594</div>
+        <div class="protagonistIcon">🎵</div>
+        <h3>Orlando di Lasso</h3>
+        <p class="role">Compositore universale</p>
+        <p>Attivo in molti generi musicali, compose una grande quantità di opere tra villanelle, madrigali, motetti e canzoni. La sua produzione mostra grande varietà espressiva.</p>
+      </div>
+
+      <div class="protagonistCard historicalCard">
+        <div class="cardDate">1454-1521</div>
+        <div class="protagonistIcon">🎹</div>
+        <h3>Jacob Arcadelt</h3>
+        <p class="role">Compositore franco-fiammingo</p>
+        <p>Specialista del madrigale e della canzone. Crea forme musicali eleganti e raffinate che definiscono lo stile rinascimentale.</p>
+      </div>
+
+      <div class="protagonistCard historicalCard">
+        <div class="cardDate">1516-1565</div>
+        <div class="protagonistIcon">🎸</div>
+        <h3>Cipriano de Rore</h3>
+        <p class="role">Compositore innovatore</p>
+        <p>Maestro del madrigale espressivo. Porta grande sensibilità poetica nella musica, creando opere di straordinaria bellezza emotiva.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STRUMENTI -->
+  <section id="strumenti" class="siteSection learnSection">
+    <h2 class="sectionTitle">Strumenti del Rinascimento</h2>
+    <p class="sectionIntro">Durante il Rinascimento la musica strumentale cresce enormemente di importanza.</p>
+
+    <div class="instrumentGrid">
+      <div class="instrumentCard">
+        <h3>🎸 Strumenti a Corda</h3>
+        <ul>
+          <li><strong>Liuto</strong> - Strumento a corde pizzicate, fondamentale della musica da camera</li>
+          <li><strong>Lira da braccio</strong> - Corde strofinate da archetto, elegante e nobile</li>
+          <li><strong>Clavicembalo</strong> - Tastiera con corde pizzicate da piume d'oca</li>
+          <li><strong>Arpa</strong> - Corde pizzicate, usata nelle corti e negli ensemble</li>
+        </ul>
+      </div>
+
+      <div class="instrumentCard">
+        <h3>🎺 Strumenti a Fiato</h3>
+        <ul>
+          <li><strong>Cornetto</strong> - Forma ricurva, dal timbo dolce, simile alla voce umana</li>
+          <li><strong>Trombone</strong> - Fiato profondo, molto utilizzato nella polifonia sacra</li>
+          <li><strong>Flauto</strong> - Legno, suono dolce, usato nella musica danzante</li>
+          <li><strong>Oboe</strong> - Antenato dell'oboe moderno, dal timbro penetrante</li>
+        </ul>
+      </div>
+
+      <div class="instrumentCard">
+        <h3>🥁 Strumenti a Percussione</h3>
+        <ul>
+          <li><strong>Timpani</strong> - Percussione a membrana, usati negli ensemble</li>
+          <li><strong>Cimbali</strong> - Due piatti di metallo, dal suono brillante</li>
+          <li><strong>Tamburi</strong> - Percussione a due teste per ritmo e ballo</li>
+          <li><strong>Campanelli</strong> - Percussione intonata per effetti speciali</li>
+        </ul>
+      </div>
+
+      <div class="instrumentCard">
+        <h3>⛪ Organo</h3>
+        <ul>
+          <li><strong>Organo da chiesa</strong> - Grande, fisso, per la liturgia</li>
+          <li><strong>Organo positivo</strong> - Piccolo, portatile, per musica profana</li>
+          <li><strong>Organo portativo</strong> - Ancora più piccolo, usato nei banchetti</li>
+          <li><strong>Regaletto</strong> - Organo piccolissimo con suono acuto e penetrante</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAPPA RIASSUNTIVA GRANDE -->
+  <section id="riassunto" class="siteSection learnSection">
+    <h2 class="sectionTitle">Mappa Riassuntiva</h2>
+    <p class="sectionIntro">Uno schema visivo dei concetti chiave del Rinascimento musicale.</p>
+
+    <svg class="summaryMap" viewBox="0 0 1000 650">
+      <defs>
+        <linearGradient id="mapGradPurpleRin" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#9b5cff;stop-opacity:0.15" />
+          <stop offset="100%" style="stop-color:#cc99ff;stop-opacity:0.05" />
+        </linearGradient>
+        <linearGradient id="mapGradTealRin" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#00a6bd;stop-opacity:0.14" />
+          <stop offset="100%" style="stop-color:#7dd3fc;stop-opacity:0.05" />
+        </linearGradient>
+        <linearGradient id="mapGradOrangeRin" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#ff6600;stop-opacity:0.13" />
+          <stop offset="100%" style="stop-color:#ffbf69;stop-opacity:0.05" />
+        </linearGradient>
+        <linearGradient id="mapGradGreenRin" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#2f9e44;stop-opacity:0.13" />
+          <stop offset="100%" style="stop-color:#86efac;stop-opacity:0.05" />
+        </linearGradient>
+        <linearGradient id="mapGradRoseRin" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#c2185b;stop-opacity:0.13" />
+          <stop offset="100%" style="stop-color:#f9a8d4;stop-opacity:0.05" />
+        </linearGradient>
+      </defs>
+
+      <!-- TITOLO -->
+      <rect x="200" y="10" width="600" height="50" fill="#9b5cff" rx="10"/>
+      <text x="500" y="40" text-anchor="middle" font-size="18" fill="#fff" font-weight="bold">IL RINASCIMENTO MUSICALE (1400-1600)</text>
+
+      <!-- RIGA 1: Periode e caratteristiche -->
+      <rect x="30" y="80" width="440" height="140" fill="url(#mapGradTealRin)" stroke="#00a6bd" stroke-width="2" rx="12"/>
+      <text x="250" y="110" text-anchor="middle" font-size="14" fill="#00a6bd" font-weight="bold">CARATTERISTICHE</text>
+      <rect x="50" y="130" width="400" height="80" fill="#fff" stroke="#00a6bd" stroke-width="1" rx="8"/>
+      <text x="60" y="155" font-size="11" fill="#333">• Periodo: XV-XVI secolo (1400-1600)</text>
+      <text x="60" y="175" font-size="11" fill="#333">• Equilibrio tra forma e contenuto</text>
+      <text x="60" y="195" font-size="11" fill="#333">• Crescente importanza musica strumentale e profana</text>
+
+      <!-- RIGA 1 DESTRA: Scuole -->
+      <rect x="530" y="80" width="440" height="140" fill="url(#mapGradPurpleRin)" stroke="#9b5cff" stroke-width="2" rx="12"/>
+      <text x="750" y="110" text-anchor="middle" font-size="14" fill="#9b5cff" font-weight="bold">LE TRE SCUOLE</text>
+      <rect x="550" y="130" width="400" height="80" fill="#fff" stroke="#9b5cff" stroke-width="1" rx="8"/>
+      <text x="560" y="155" font-size="11" fill="#333">• Franco-fiamminga: Desprez, Lasso, Arcadelt</text>
+      <text x="560" y="175" font-size="11" fill="#333">• Romana: Palestrina (polifonia sacra)</text>
+      <text x="560" y="195" font-size="11" fill="#333">• Veneziana: Gabrieli (stile concertato)</text>
+
+      <!-- RIGA 2: Forme -->
+      <rect x="30" y="240" width="940" height="130" fill="url(#mapGradOrangeRin)" stroke="#ff6600" stroke-width="2" rx="12"/>
+      <text x="500" y="270" text-anchor="middle" font-size="14" fill="#ff6600" font-weight="bold">FORME E GENERI</text>
+      
+      <rect x="70" y="295" width="260" height="60" fill="#fff" stroke="#ff9933" stroke-width="1" rx="6"/>
+      <text x="200" y="315" text-anchor="middle" font-size="11" font-weight="bold" fill="#333">MUSICA PROFANA</text>
+      <text x="200" y="335" text-anchor="middle" font-size="9" fill="#666">Madrigale, Villanella, Danze</text>
+      <text x="200" y="345" text-anchor="middle" font-size="9" fill="#666">Canzoni, Musica da ballo</text>
+
+      <rect x="370" y="295" width="260" height="60" fill="#fff" stroke="#ff9933" stroke-width="1" rx="6"/>
+      <text x="500" y="315" text-anchor="middle" font-size="11" font-weight="bold" fill="#333">MUSICA SACRA</text>
+      <text x="500" y="335" text-anchor="middle" font-size="9" fill="#666">Messa polifonica, Mottetto</text>
+      <text x="500" y="345" text-anchor="middle" font-size="9" fill="#666">Cappella concertata, Magnificat</text>
+
+      <rect x="670" y="295" width="260" height="60" fill="#fff" stroke="#ff9933" stroke-width="1" rx="6"/>
+      <text x="800" y="315" text-anchor="middle" font-size="11" font-weight="bold" fill="#333">STRUMENTI IMPORTANTI</text>
+      <text x="800" y="335" text-anchor="middle" font-size="9" fill="#666">Liuto, Clavicembalo, Lira da braccio</text>
+      <text x="800" y="345" text-anchor="middle" font-size="9" fill="#666">Cornetto, Trombone, Flauto</text>
+
+      <!-- RIGA 3: Centri e Compositori -->
+      <rect x="30" y="390" width="940" height="120" fill="url(#mapGradGreenRin)" stroke="#2f9e44" stroke-width="2" rx="12"/>
+      <text x="500" y="415" text-anchor="middle" font-size="14" fill="#2f9e44" font-weight="bold">CENTRI PRINCIPALI E COMPOSITORI</text>
+
+      <rect x="70" y="435" width="190" height="60" fill="#fff" stroke="#ff6600" stroke-width="1" rx="6"/>
+      <text x="165" y="455" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Francia/Fiandre</text>
+      <text x="165" y="473" text-anchor="middle" font-size="9" fill="#666">Desprez, Lasso</text>
+      <text x="165" y="487" text-anchor="middle" font-size="9" fill="#666">Arcadelt</text>
+
+      <rect x="295" y="435" width="190" height="60" fill="#fff" stroke="#ff9933" stroke-width="1" rx="6"/>
+      <text x="390" y="455" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Firenze</text>
+      <text x="390" y="473" text-anchor="middle" font-size="9" fill="#666">Lorenzo de' Medici</text>
+      <text x="390" y="487" text-anchor="middle" font-size="9" fill="#666">Mecenatismo musicale</text>
+
+      <rect x="520" y="435" width="190" height="60" fill="#fff" stroke="#c2185b" stroke-width="1" rx="6"/>
+      <text x="615" y="455" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Roma</text>
+      <text x="615" y="473" text-anchor="middle" font-size="9" fill="#666">Palestrina</text>
+      <text x="615" y="487" text-anchor="middle" font-size="9" fill="#666">Polifonia sacra</text>
+
+      <rect x="745" y="435" width="190" height="60" fill="#fff" stroke="#2196f3" stroke-width="1" rx="6"/>
+      <text x="840" y="455" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Venezia</text>
+      <text x="840" y="473" text-anchor="middle" font-size="9" fill="#666">Gabrieli</text>
+      <text x="840" y="487" text-anchor="middle" font-size="9" fill="#666">Stile concertato</text>
+
+      <!-- RIGA 4: Evento Chiave -->
+      <rect x="30" y="530" width="940" height="100" fill="url(#mapGradRoseRin)" stroke="#c2185b" stroke-width="2" rx="12"/>
+      <text x="500" y="555" text-anchor="middle" font-size="14" fill="#c2185b" font-weight="bold">EVENTO CHIAVE: CONCILIO DI TRENTO (1545-1583)</text>
+      <text x="500" y="585" text-anchor="middle" font-size="11" fill="#333">Stabilisce regole per la musica sacra affinché il testo sia comprensibile ai fedeli.</text>
+      <text x="500" y="605" text-anchor="middle" font-size="11" fill="#333">Guida compositori come Palestrina verso equilibrio tra complessità polifonica e chiarezza del testo.</text>
+    </svg>
+  </section>
+
+  <!-- VIDEO APPROFONDIMENTO -->
+  <section id="video-rinascimento" class="siteSection learnSection">
+    <h2 class="sectionTitle">Video di approfondimento</h2>
+    <p class="sectionIntro">Guarda questo video per approfondire la musica del Rinascimento.</p>
+
+    <div class="videoCard">
+      <h3>🎬 La musica nel Rinascimento</h3>
+      <p class="cardSubtitle">Approfondimento sulla storia della musica rinascimentale</p>
+
+      <div class="videoWrapper">
+        <iframe
+          src="https://www.youtube.com/embed/ijMM-wxoBV4"
+          title="La musica nel Rinascimento"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <div class="learnCTA storyLearnCTA">
+    <button class="menuButton" onclick="openQuizModal()">
+      ❓ Vai al Quiz
+    </button>
+  </div>
+
+</div>
+
+<!-- QUIZ MODAL -->
+<div id="quizModal" class="modal" style="display: none;">
+  <div class="modalContent">
+    <div class="modalHeader">
+      <h2>Quiz: Il Rinascimento</h2>
+      <button class="closeBtn" onclick="closeQuizModal()">&times;</button>
+    </div>
+
+    <div class="modalBody">
+      <p class="quizIntro">Metti alla prova le tue conoscenze sulla musica rinascimentale.</p>
+
+      <div class="quizContainer">
+
+        <div class="quizQuestion">
+          <h4>1. A quale scuola musicale appartiene Giovanni Pierluigi da Palestrina?</h4>
+          <div class="quizOptions">
+            <label><input type="radio" name="q1" value="a"><span class="optionText">A) Scuola franco-fiamminga</span></label>
+            <label><input type="radio" name="q1" value="b"><span class="optionText">B) Scuola romana</span></label>
+            <label><input type="radio" name="q1" value="c"><span class="optionText">C) Scuola veneziana</span></label>
+          </div>
+          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: B - Palestrina è il massimo rappresentante della Scuola romana.</p>
+        </div>
+
+        <div class="quizQuestion">
+          <h4>2. Che cosa si intende per "Scuola franco-fiamminga"?</h4>
+          <div class="quizOptions">
+            <label><input type="radio" name="q2" value="a"><span class="optionText">A) Una scuola per insegnare musica in Francia</span></label>
+            <label><input type="radio" name="q2" value="b"><span class="optionText">B) Un insieme di compositori e tecniche della Francia settentrionale e Fiandre</span></label>
+            <label><input type="radio" name="q2" value="c"><span class="optionText">C) Una danza popolare del Rinascimento</span></label>
+          </div>
+          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: B</p>
+        </div>
+
+        <div class="quizQuestion">
+          <h4>3. Quali sono le caratteristiche principali del madrigale?</h4>
+          <div class="quizOptions">
+            <label><input type="radio" name="q3" value="a"><span class="optionText">A) Una forma strofica con ritornello fisso</span></label>
+            <label><input type="radio" name="q3" value="b"><span class="optionText">B) Una forma aperta, priva di riprese e ritornelli</span></label>
+            <label><input type="radio" name="q3" value="c"><span class="optionText">C) Una forma esclusivamente strumentale</span></label>
+          </div>
+          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: B</p>
+        </div>
+
+        <div class="quizQuestion">
+          <h4>4. Qual era l'importanza del Concilio di Trento per la musica?</h4>
+          <div class="quizOptions">
+            <label><input type="radio" name="q4" value="a"><span class="optionText">A) Ha promosso la musica strumentale nelle chiese</span></label>
+            <label><input type="radio" name="q4" value="b"><span class="optionText">B) Ha stabilito regole affinché il testo fosse comprensibile ai fedeli</span></label>
+            <label><input type="radio" name="q4" value="c"><span class="optionText">C) Ha vietato la polifonia nelle celebrazioni religiose</span></label>
+          </div>
+          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: B</p>
+        </div>
+
+        <div class="quizQuestion">
+          <h4>5. Chi sviluppò lo stile concertato nella Scuola veneziana?</h4>
+          <div class="quizOptions">
+            <label><input type="radio" name="q5" value="a"><span class="optionText">A) Giovanni Pierluigi da Palestrina</span></label>
+            <label><input type="radio" name="q5" value="b"><span class="optionText">B) Giovanni Gabrieli</span></label>
+            <label><input type="radio" name="q5" value="c"><span class="optionText">C) Orlando di Lasso</span></label>
+          </div>
+          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: B</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modalFooter">
+      <button class="menuButton" onclick="resetQuiz()">🔄 Ricomincia</button>
+      <button class="menuButton" style="background: linear-gradient(135deg, #9b5cff, #c218ff); color: white;" onclick="checkQuiz()">✅ Correggi Quiz</button>
+      <button class="menuButton" onclick="closeQuizModal()">Chiudi</button>
+    </div>
+
+    <div id="quizResult" class="quizResult" style="display:none; margin-top: 20px;"></div>
+  </div>
+</div>
+
+<button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
+
+<footer class="siteLegalFooter">
+  <p>Music Game Hub tutela la privacy e usa solo strumenti tecnici o statistici necessari al portale.</p>
+  <div class="siteLegalLinks">
+    <a href="../legal/privacy.html">Privacy Policy</a>
+    <span>·</span>
+    <a href="../legal/cookie.html">Cookie Policy</a>
+    <span>·</span>
+    <a href="../legal/termini.html">Termini di servizio</a>
+  </div>
+</footer>
+
+<script src="../js/common.js"></script>
+<script src="../js/storia/storia.js"></script>
+</body>
+</html>

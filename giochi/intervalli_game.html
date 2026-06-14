@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="../css/giochi/intervalli_game.css">
 </head>
 
-<body class="intervalliGamePage">
+<body class="intervalliGamePage rankedUnifiedGamePage">
 
 <button id="rankedLeaderboardBtn"
         class="rankedLeaderboardButton"
@@ -38,10 +38,10 @@
 <div id="contentWrapper">
 
   <!-- ── MENU ── -->
-  <div id="menu">
+  <div id="menu" class="gameModeMenu">
 
-    <h2>Difficoltà</h2>
-    <div class="buttonGroup intervalliModeGroup">
+    <h2>Scegli la modalità</h2>
+    <div class="buttonGroup intervalliModeGroup proModeGroup">
       <button class="menuButton" onclick="setDifficulty('easy', this)">Facile</button>
       <button class="menuButton" onclick="setDifficulty('medium', this)">Medio</button>
       <button class="menuButton" onclick="setDifficulty('hard', this)">Difficile</button>
@@ -53,34 +53,25 @@
 
     <button class="menuButton startButton" onclick="startGame()">Inizia</button>
     <p id="warning" class="warningText"></p>
-    <p class="gameIntro">
-      Guarda le due note sul pentagramma e scegli il nome dell'intervallo corretto.<br>
-      <strong>Facile</strong>: 2ª–5ª · <strong>Medio</strong>: 2ª–8ª · <strong>Difficile</strong>: intervalli con qualità (maggiore, minore, giusta…)
-    </p>
+    <p class="gameIntro">Guarda le due note sul pentagramma e scegli il nome dell'intervallo corretto.</p>
 
   </div>
 
   <!-- ── GAME ── -->
   <div id="game" class="hidden">
 
-    <!-- Ranked UI -->
-    <div id="rankedUI" class="hidden">
-      <div id="rankedScoreDisplay">Score: <span id="rankedScore">0</span></div>
-      <div id="rankedProgressWrapper">
-        <div id="rankedProgressLabel">
-          <span>Progressione</span>
-          <span id="rankedQuestionCounter">1/10</span>
-        </div>
-        <div id="rankedProgressBar">
-          <div id="rankedProgressFill"></div>
-        </div>
-      </div>
+    <div class="gameTopActions">
+      <button id="backButton" class="menuButton compactBackButton" onclick="goBack()" aria-label="Torna alla scelta modalità">
+        <span aria-hidden="true">⇧</span>
+      </button>
     </div>
 
-    <div id="timerBox" class="hidden">⏱ <span id="timer">0</span>s</div>
+    <div id="questionBox" class="gameQuestionBox">
+      <span id="questionText">Che intervallo vedi?</span>
+    </div>
 
     <!-- Pentagramma SVG -->
-    <svg id="staffSVG" viewBox="0 0 460 220" xmlns="http://www.w3.org/2000/svg">
+    <svg id="staffSVG" class="gameVisualBox" viewBox="0 0 460 220" xmlns="http://www.w3.org/2000/svg">
 
       <!-- Chiave di violino -->
       <text id="clefSymbol" x="18" y="143" font-size="92" font-family="serif"
@@ -97,17 +88,21 @@
       <g id="ledgerLines"></g>
 
       <!-- Nota 1 (sinistra) -->
+      <text id="accidental1" x="158" y="124" text-anchor="middle"
+            class="accidentalLabel hidden" font-size="24">♯</text>
       <ellipse id="note1" cx="180" cy="120" rx="11" ry="7.5"
                fill="currentColor" transform="rotate(-15,180,120)"/>
 
       <!-- Nota 2 (destra) -->
+      <text id="accidental2" x="278" y="124" text-anchor="middle"
+            class="accidentalLabel hidden" font-size="24">♯</text>
       <ellipse id="note2" cx="300" cy="120" rx="11" ry="7.5"
                fill="currentColor" transform="rotate(-15,300,120)"/>
 
       <!-- Gambi (mostrati via JS) -->
-      <line id="stem1" x1="191" y1="120" x2="191" y2="80"
+      <line id="stem1" x1="189" y1="120" x2="189" y2="78"
             stroke="currentColor" stroke-width="1.5"/>
-      <line id="stem2" x1="311" y1="120" x2="311" y2="80"
+      <line id="stem2" x1="309" y1="120" x2="309" y2="78"
             stroke="currentColor" stroke-width="1.5"/>
 
       <!-- Etichette note (mostrate dopo risposta in facile/medio) -->
@@ -119,13 +114,9 @@
     </svg>
 
     <!-- Bottoni risposta -->
-    <div id="answerButtons" class="answerButtons"></div>
+    <div id="buttons"></div>
 
     <div id="feedback" class="feedbackText"></div>
-
-    <div class="gameActions">
-      <button id="backButton" class="menuButton" onclick="goBack()">⬅ Indietro</button>
-    </div>
 
   </div>
 
@@ -133,6 +124,7 @@
 
 <script src="../js/common.js"></script>
 <script src="../js/giochi/ranked.js"></script>
+<script src="../js/giochi/game_ui.js"></script>
 <script src="../js/giochi/intervalli_game.js"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>

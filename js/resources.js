@@ -294,6 +294,42 @@ const MusicGameHubResources = (() => {
       tag: "Scale · Pro"
     },
     {
+      id: "intervalliGame",
+      icon: "↔",
+      type: "Gioco",
+      title: "Gioco degli intervalli",
+      desc: "Allenati a riconoscere e costruire intervalli musicali.",
+      tags: ["gioco", "intervalli", "distanze", "teoria avanzata"],
+      url: "giochi/intervalli_game.html",
+      group: "games",
+      homeGame: true,
+      tag: "Intervalli"
+    },
+    {
+      id: "ritmoBattuta",
+      icon: "▦",
+      type: "Gioco",
+      title: "Completa la battuta",
+      desc: "Inserisci le figure mancanti e completa correttamente il tempo musicale.",
+      tags: ["gioco", "ritmo", "battuta", "tempi", "figure"],
+      url: "giochi/ritmo_game.html",
+      group: "games",
+      homeGame: true,
+      tag: "Ritmo · Battute"
+    },
+    {
+      id: "battiTempo",
+      icon: "♫",
+      type: "Gioco",
+      title: "Batti il Tempo",
+      desc: "Leggi una battuta ritmica in 4/4 e riproducila cliccando a tempo.",
+      tags: ["gioco", "ritmo", "tap", "ascolto", "tempi", "notazione"],
+      url: "giochi/batti-il-tempo.html",
+      group: "games",
+      homeGame: true,
+      tag: "Ritmo · Tap"
+    },
+    {
       id: "wordle",
       icon: "W",
       type: "Gioco",
@@ -303,6 +339,7 @@ const MusicGameHubResources = (() => {
       url: "giochi/wordle.html",
       group: "games",
       homeGame: true,
+      daily: true,
       tag: "Vocabolario"
     },
     {
@@ -310,12 +347,13 @@ const MusicGameHubResources = (() => {
       icon: "🏆",
       type: "Gioco",
       title: "Guanto di Sfida",
-      desc: "Quiz misto su note, figure e teoria con classifica.",
-      tags: ["quiz", "sfida", "classifica"],
+      desc: "Sfida mista in rifinitura: sarà disponibile dopo il nuovo controllo del gioco.",
+      tags: ["quiz", "sfida", "classifica", "in arrivo"],
       url: "giochi/guanto.html",
       group: "games",
       homeGame: true,
-      tag: "Quiz · Sfida"
+      comingSoon: true,
+      tag: "In arrivo"
     },
     {
       id: "strumentiGame",
@@ -600,13 +638,22 @@ const MusicGameHubResources = (() => {
       title: "Ascolto guidato",
       desc: "Scopri e analizza brani musicali con percorsi guidati."
     }
-  ];
+  ].concat(items
+    .filter(item => item.comingSoon)
+    .map(item => ({
+      id: item.id,
+      icon: item.icon,
+      title: item.title,
+      desc: item.desc
+    }))
+  );
 
   const byId = Object.fromEntries(items.map(item => [item.id, item]));
-  const playable = items.filter(item => item.homeGame);
+  const homeGames = items.filter(item => item.homeGame);
+  const playable = homeGames.filter(item => !item.comingSoon);
   const theoryTopics = items.filter(item => item.type === "Teoria" && !item.excludeFromStats);
 
-  return { items, byId, homeCards, homeEntrypoints, upcoming, playable, theoryTopics };
+  return { items, byId, homeCards, homeEntrypoints, upcoming, homeGames, playable, theoryTopics };
 })();
 
 window.MusicGameHubResources = MusicGameHubResources;
