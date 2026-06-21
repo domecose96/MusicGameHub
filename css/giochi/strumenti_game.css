@@ -52,9 +52,9 @@
 
 .strumentiModeGroup .menuButton {
   width: 260px;
-  height: 80px;
-  padding: 10px;
-  font-size: 20px;
+  min-height: 76px;
+  padding: 12px 18px;
+  font-size: 19px;
 }
 
 .gameTypeButton {
@@ -86,20 +86,21 @@
   box-shadow: 0 12px 26px rgba(232, 93, 4, 0.28) !important;
 }
 
-.gameTypeIcon {
-  font-size: 2rem;
-  display: block;
-}
-
 /* ==================== GAME AREA ==================== */
 
 .gameAreaStrumenti {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 14px;
-  margin: 10px 0;
-  min-height: 0;
+  width: min(820px, 82vw);
+  height: auto;
+  min-height: 430px;
+  padding: 22px;
+  margin: 10px auto 0;
+  overflow: visible;
+  background: #ffffff;
 }
 
 /* ==================== RECOGNIZE MODE: INSTRUMENT TILES ==================== */
@@ -109,7 +110,7 @@
   grid-template-columns: repeat(3, minmax(170px, 1fr));
   gap: 16px;
   width: 100%;
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto;
 }
 
@@ -163,17 +164,17 @@
 
 .memoryCardGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
   width: 100%;
-  max-width: 500px;
+  max-width: 820px;
   margin: 0 auto;
   perspective: 1000px;
 }
 
 .memoryCard {
   width: 100%;
-  min-height: 140px;
+  min-height: 138px;
   position: relative;
   cursor: pointer;
   background: rgba(255, 102, 0, 0.1);
@@ -211,11 +212,29 @@
 
 .memoryCardInner {
   width: 100%;
-  height: 100%;
+  height: 88px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 3rem;
+  padding: 8px 8px 28px;
+  box-sizing: border-box;
+}
+
+.memoryInstrumentImage {
+  display: block;
+  width: 100%;
+  height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.10));
+}
+
+.memoryFamilyImage {
+  display: block;
+  width: 100%;
+  height: 76px;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.10));
 }
 
 .memoryCardLabel {
@@ -223,7 +242,8 @@
   bottom: 8px;
   left: 0;
   right: 0;
-  font-size: 0.7rem;
+  padding: 0 6px;
+  font-size: 0.72rem;
   font-weight: 800;
   color: var(--text-muted);
   text-align: center;
@@ -235,20 +255,13 @@
   opacity: 1;
 }
 
-.memoryStats {
-  margin-top: 16px;
-  text-align: center;
-  color: var(--text-muted);
-  font-weight: 700;
-  font-size: 0.95rem;
-}
-
 /* ==================== LISTEN MODE: AUDIO + OPTIONS ==================== */
 
 .listenModeContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 20px;
   width: 100%;
   max-width: 600px;
@@ -276,6 +289,7 @@
 }
 
 .audioButton {
+  position: relative;
   background: linear-gradient(135deg, var(--accent), var(--accent-soft));
   color: white;
   border: none;
@@ -302,13 +316,58 @@
   transform: scale(0.96);
 }
 
+.audioButton:focus,
+.audioButton:focus-visible {
+  outline: none;
+  box-shadow: 0 8px 20px rgba(255, 102, 0, 0.25);
+}
+
 .audioButton.playing {
-  animation: pulse-audio 1.2s ease-in-out infinite;
+  background: linear-gradient(135deg, #08798a, #00a6bd);
+  box-shadow: 0 0 0 0 rgba(0, 166, 189, .44), 0 10px 24px rgba(0, 166, 189, .24);
+  animation: pulse-audio 1.05s ease-in-out infinite;
+}
+
+.audioButton.playing::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, .20);
+}
+
+.audioPlayIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  font-size: .82rem;
+  line-height: 1;
+  transform: translateX(1px);
+}
+
+.audioPauseIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  width: 14px;
+  height: 14px;
+}
+
+.audioPauseIcon span {
+  display: block;
+  width: 4px;
+  height: 13px;
+  border-radius: 2px;
+  background: currentColor;
 }
 
 @keyframes pulse-audio {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 102, 0, 0.7); }
-  50% { box-shadow: 0 0 0 12px rgba(255, 102, 0, 0.1); }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
 }
 
 .audioNotAvailable {
@@ -351,17 +410,34 @@
   transform: translateX(4px);
 }
 
+.listenOptionButton:disabled {
+  opacity: .48;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.listenOptionButton:disabled:hover {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(255, 102, 0, 0.18);
+  color: var(--text-main);
+}
+
+.listenOptionButton:focus,
+.listenOptionButton:focus-visible {
+  outline: none;
+}
+
 .listenOptionButton.correct {
-  background: rgba(102, 204, 102, 0.18);
+  background: rgba(255, 255, 255, 0.88);
   border-color: #66cc66;
-  color: #2d7a2d;
+  color: var(--text-main);
   box-shadow: 0 0 10px #66cc66;
 }
 
 .listenOptionButton.wrong {
-  background: rgba(255, 102, 102, 0.18);
-  border-color: #ff6666;
-  color: #cc3333;
+  background: rgba(255, 255, 255, 0.88);
+  border-color: #cc3333;
+  color: var(--text-main);
   box-shadow: 0 0 10px #cc3333;
 }
 
@@ -406,6 +482,12 @@
     max-width: 100%;
   }
 
+  .gameAreaStrumenti {
+    width: min(820px, 94vw);
+    min-height: 400px;
+    padding: 16px 12px;
+  }
+
   .instrumentOptionTile {
     min-height: 150px;
     padding: 10px;
@@ -421,15 +503,28 @@
   }
 
   .memoryCardGrid {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
     max-width: 100%;
   }
 
   .memoryCard {
-    min-height: 120px;
+    min-height: 122px;
     border-radius: 12px;
     font-size: 2rem;
+  }
+
+  .memoryCardInner {
+    height: 76px;
+    font-size: 2.4rem;
+  }
+
+  .memoryInstrumentImage {
+    height: 68px;
+  }
+
+  .memoryFamilyImage {
+    height: 64px;
   }
 
   #questionBox {
@@ -463,12 +558,38 @@
     height: 90px;
   }
 
-  .memoryCardGrid {
-    grid-template-columns: repeat(3, 1fr);
+  .gameAreaStrumenti {
+    width: min(820px, 96vw);
+    min-height: 360px;
+    padding: 14px 8px;
   }
 
-  .gameTypeIcon {
-    font-size: 1.5rem;
+  .memoryCardGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .memoryCard {
+    min-height: 96px;
+  }
+
+  .memoryCardInner {
+    height: 58px;
+    font-size: 2rem;
+    padding-bottom: 24px;
+  }
+
+  .memoryInstrumentImage {
+    height: 50px;
+  }
+
+  .memoryFamilyImage {
+    height: 48px;
+  }
+
+  .memoryCardLabel {
+    bottom: 6px;
+    font-size: 0.62rem;
   }
 
   .buttonGroup .menuButton {

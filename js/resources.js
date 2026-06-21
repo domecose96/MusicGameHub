@@ -569,15 +569,6 @@ const MusicGameHubResources = (() => {
       homeGroup: "paths"
     },
     {
-      id: "homeClasses",
-      icon: "🏫",
-      title: "Classi e alunni",
-      desc: "Crea classi, condividi link invito e controlla attività, studenti, leaderboard e soggetti.",
-      tag: "Docente",
-      url: "classi.html",
-      homeGroup: "paths"
-    },
-    {
       id: "homeCivic",
       icon: "🌍",
       title: "Musica ed educazione civica",

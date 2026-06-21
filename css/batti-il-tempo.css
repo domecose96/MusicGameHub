@@ -13,6 +13,34 @@
   padding: 18px 20px;
 }
 
+.battiTempoPage .gameTopActions {
+  gap: 10px;
+}
+
+.battiTempoSettingsButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1.5px solid rgba(255, 102, 0, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--action-orange);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.10);
+  cursor: pointer;
+  font-size: 1.35rem;
+  font-weight: 900;
+  line-height: 1;
+  transition: transform .14s ease, background .14s ease, border-color .14s ease;
+}
+
+.battiTempoSettingsButton:hover {
+  background: rgba(255, 102, 0, 0.08);
+  border-color: rgba(255, 102, 0, 0.34);
+  transform: scale(1.06);
+}
+
 .tempoIconButton {
   position: absolute;
   top: 14px;
@@ -179,6 +207,11 @@ body.battiTempoPage .rhythmSvg * {
     0 12px 28px rgba(232, 93, 4, .22);
 }
 
+.countdownOverlay.goCue {
+  color: var(--action-orange);
+  font-size: clamp(3.2rem, 10vw, 6.1rem);
+}
+
 .tapButton {
   width: min(280px, 86vw);
   height: 82px;
@@ -217,6 +250,130 @@ body.battiTempoPage .rhythmSvg * {
 
 .battiTempoModeGroup .menuButton {
   overflow: visible;
+}
+
+.battiTempoModal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.battiTempoModal.hidden {
+  display: none;
+}
+
+.battiTempoModalOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.58);
+  backdrop-filter: blur(2px);
+}
+
+.battiTempoModalPanel {
+  position: relative;
+  width: min(520px, 94vw);
+  max-height: 88vh;
+  overflow: auto;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  background: #171717;
+  color: #f4f4f4;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.45);
+  padding: 30px 34px 34px;
+}
+
+.battiTempoModalClose {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  border: 0;
+  background: transparent;
+  color: #888;
+  cursor: pointer;
+  font-size: 34px;
+  line-height: 1;
+}
+
+.battiTempoModalPanel h2 {
+  margin: 0 0 18px;
+  color: #f4f4f4;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.battiTempoSettingRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 0;
+}
+
+.battiTempoSettingInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.battiTempoSettingLabel {
+  color: #f4f4f4;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.battiTempoSettingDesc {
+  color: #aaa;
+  font-size: .78rem;
+  line-height: 1.4;
+}
+
+.battiTempoToggle {
+  position: relative;
+  flex: 0 0 auto;
+  width: 58px;
+  height: 32px;
+}
+
+.battiTempoToggle input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.battiTempoToggleSlider {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: #3a3a3a;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.10);
+  cursor: pointer;
+  transition: background .16s ease, box-shadow .16s ease;
+}
+
+.battiTempoToggleSlider::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0,0,0,.20);
+  transition: transform .16s ease;
+}
+
+.battiTempoToggle input:checked + .battiTempoToggleSlider {
+  background: #66aa5a;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+}
+
+.battiTempoToggle input:checked + .battiTempoToggleSlider::before {
+  transform: translateX(26px);
 }
 
 .svgRhythmLine {

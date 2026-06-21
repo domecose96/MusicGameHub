@@ -30,6 +30,39 @@ const MGH = (() => {
     return String(number).padStart(size, "0");
   }
 
+  function getRelativeAssetPath(assetPath) {
+    const normalizedPath = window.location.pathname.endsWith("/")
+      ? `${window.location.pathname}index.html`
+      : window.location.pathname;
+    const segments = normalizedPath.split("/").filter(Boolean);
+    const currentFile = segments[segments.length - 1] || "";
+    const folders = currentFile.includes(".")
+      ? segments.slice(0, -1)
+      : segments;
+    const projectIndex = folders.lastIndexOf("MusicGameHub");
+    const pageFolders = projectIndex >= 0
+      ? folders.slice(projectIndex + 1)
+      : folders;
+
+    return `${"../".repeat(pageFolders.length)}${assetPath}`;
+  }
+
+  function setSiteFavicon() {
+    const faviconHref = getRelativeAssetPath("img/mgh-logo.png");
+    const icons = Array.from(document.querySelectorAll('link[rel~="icon"]'));
+    const icon = icons[0] || document.createElement("link");
+
+    icon.rel = "icon";
+    icon.type = "image/png";
+    icon.href = faviconHref;
+
+    if (!icon.parentNode) {
+      document.head.appendChild(icon);
+    }
+
+    icons.slice(1).forEach(extraIcon => extraIcon.remove());
+  }
+
   function imageExists(src) {
     return new Promise(resolve => {
       const probe = new Image();
@@ -169,7 +202,7 @@ const MGH = (() => {
   function getAnswerFeedback(isCorrect, detail = "") {
     return isCorrect
       ? `Corretto!${detail ? ` ${detail}` : ""}`
-      : `Risposta da rivedere.${detail ? ` ${detail}` : ""}`;
+      : `Sbagliato.${detail ? ` ${detail}` : ""}`;
   }
 
   return {
@@ -180,6 +213,8 @@ const MGH = (() => {
     getStoredAuthUser,
     isLoggedIn,
     padNumber,
+    getRelativeAssetPath,
+    setSiteFavicon,
     imageExists,
     resolveFirstExistingImage,
     goHome,
@@ -194,6 +229,8 @@ const MGH = (() => {
     getAnswerFeedback
   };
 })();
+
+MGH.setSiteFavicon();
 
 window.MGH = MGH;
 window.goHome = MGH.goHome;

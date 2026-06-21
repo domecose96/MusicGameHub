@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invito classe | Music Game Hub</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/classi.css">
+</head>
+
+<body class="classesPage invitePage">
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="MGH.goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+    <div class="headerBrand">
+      <span class="headerEyebrow">Invito classe</span>
+      <h1 class="pageTitle">Entra nella classe</h1>
+    </div>
+  </div>
+</header>
+
+<div id="contentWrapper">
+  <main class="classesWorkspace inviteWorkspace">
+    <section class="classDetailPanel inviteJoinPanel">
+      <span class="detailEyebrow">Music Game Hub</span>
+      <h2 id="inviteClassTitle">Caricamento invito...</h2>
+      <p id="inviteClassText">Controllo il codice della classe. Per entrare crea il tuo profilo studente.</p>
+
+      <form id="inviteJoinForm" class="studentForm inviteJoinForm hidden">
+        <label>
+          <span>Nome</span>
+          <input id="inviteFirstName" name="firstName" type="text" maxlength="40" required>
+        </label>
+        <label>
+          <span>Cognome</span>
+          <input id="inviteLastName" name="lastName" type="text" maxlength="40" required>
+        </label>
+        <label>
+          <span>User univoco</span>
+          <input id="inviteUsername" name="username" type="text" maxlength="32" autocomplete="username" placeholder="es. mario.rossi2a" required>
+        </label>
+        <label>
+          <span>Password</span>
+          <input id="invitePassword" name="password" type="password" minlength="8" maxlength="40" autocomplete="new-password" required>
+        </label>
+        <button class="menuButton classPrimaryButton" type="submit">Entra</button>
+      </form>
+
+      <p id="inviteStatus" class="classesStatus" aria-live="polite"></p>
+    </section>
+  </main>
+</div>
+
+<footer class="siteLegalFooter">
+  <p>Il link invito collega l'alunno alla classe del docente tramite Supabase.</p>
+</footer>
+
+<script src="js/common.js?v=20260620-favicon"></script>
+<script src="js/classi_invito.js"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

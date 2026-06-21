@@ -453,6 +453,90 @@ const STRUMENTI = [
   }
 ];
 
+const AUDIO_EXTENSIONS = ["mp3", "ogg", "wav", "m4a"];
+const KNOWN_AUDIO_INSTRUMENT_IDS = new Set([
+  "batteria",
+  "castagnette",
+  "gong",
+  "piatti",
+  "tamburo",
+  "timpani",
+  "triangolo",
+  "vibrafono",
+  "xilofono"
+]);
+
+let listenInstrumentPool = [];
+
+function getInstrumentAssetSlug(id) {
+  return String(id || "").replace(/-/g, "_");
+}
+
+function getInstrumentImagePath(instrument) {
+  return `../img/strumenti/${getInstrumentAssetSlug(instrument.id)}.webp`;
+}
+
+function getInstrumentAudioPath(instrument, extension = "mp3") {
+  return `../audio/strumenti/${getInstrumentAssetSlug(instrument.id)}.${extension}`;
+}
+
+function getFamilyImagePath(family) {
+  const familySlug = {
+    Corde: "corde",
+    Fiato: "fiati",
+    Percussioni: "percussioni",
+    Tastiere: "tastiere",
+    Elettrofoni: "elettrofoni"
+  }[family];
+  return familySlug ? `../img/strumenti/famiglie/${familySlug}.webp` : "";
+}
+
+function normalizeInstrumentCatalog() {
+  STRUMENTI.forEach(instrument => {
+    instrument.image = getInstrumentImagePath(instrument);
+    instrument.audio = KNOWN_AUDIO_INSTRUMENT_IDS.has(instrument.id)
+      ? getInstrumentAudioPath(instrument)
+      : null;
+  });
+  listenInstrumentPool = STRUMENTI.filter(instrument => instrument.audio);
+}
+
+async function detectInstrumentAudioCatalog() {
+  if (typeof fetch !== "function") return;
+
+  const detected = [];
+  await Promise.all(STRUMENTI.map(async instrument => {
+    for (const extension of AUDIO_EXTENSIONS) {
+      const audioPath = getInstrumentAudioPath(instrument, extension);
+      try {
+        const response = await fetch(audioPath, { method: "HEAD", cache: "no-store" });
+        if (response.ok || (response.status >= 200 && response.status < 400)) {
+          instrument.audio = audioPath;
+          detected.push(instrument);
+          return;
+        }
+        if (response.status === 405) {
+          const fallbackResponse = await fetch(audioPath, { cache: "no-store" });
+          if (fallbackResponse.ok) {
+            instrument.audio = audioPath;
+            detected.push(instrument);
+            return;
+          }
+        }
+      } catch {
+        return;
+      }
+    }
+  }));
+
+  if (detected.length) {
+    listenInstrumentPool = detected.sort((a, b) => a.name.localeCompare(b.name, "it"));
+  }
+}
+
+normalizeInstrumentCatalog();
+const instrumentCatalogReady = detectInstrumentAudioCatalog();
+
 const RECOGNIZE_SIMILAR_OPTIONS = {
   gong: ["tam-tam", "piatti"],
   "tam-tam": ["gong", "piatti"],
@@ -512,15 +596,30 @@ const RECOGNIZE_SIMILAR_OPTIONS = {
   campionatore: ["sintetizzatore", "organo-hammond"]
 };
 
+const STRUMENTI_RANKED_SPEED_BONUS = {
+  recognize: [
+    { maxTime: 2.2, bonus: 25 },
+    { maxTime: 4.5, bonus: 10 }
+  ],
+  listen: [
+    { maxTime: 6, bonus: 25 },
+    { maxTime: 9, bonus: 10 }
+  ],
+  memory: [
+    { maxTime: 18, bonus: 25 },
+    { maxTime: 30, bonus: 10 }
+  ]
+};
+
 /* ==================== VARIABILI GLOBALI ==================== */
 
 let gameMode = "training";
 let selectedGameMode = null;
 let currentQuestion = null;
-let timerInterval = null;
-let timeLeft = 5;
 let questionStartTime = null;
 let currentAudio = null;
+let currentAudioButton = null;
+let listenAudioPlayed = false;
 
 const menu = document.getElementById("menu");
 const game = document.getElementById("game");
@@ -531,18 +630,23 @@ const timerBox = document.getElementById("timerBox");
 const timerEl = document.getElementById("timer");
 const warning = document.getElementById("warning");
 
+if (typeof MGHGameUI !== "undefined") MGHGameUI.ensureRankedHUD(game);
+
 // Memory mode state
 let memoryCards = [];
 let memoryPairs = [];
 let flippedCards = [];
 let matchedCount = 0;
 let selectedInstruments = [];
+let memoryRoundType = "family";
+let nextMemoryRoundType = "sameFamily";
 
 /* ==================== GAME MODE SELECTION ==================== */
 
 function selectGameMode(mode, el) {
   selectedGameMode = mode;
-  MGH.selectExclusive(".gameTypeButton", el);
+  gameMode = "training";
+  MGH.selectExclusive(".menuButton", el);
   warning.textContent = "";
 }
 
@@ -556,7 +660,9 @@ function selectMode(el, mode) {
 
 /* ==================== START GAME ==================== */
 
-function startGame() {
+async function startGame() {
+  await instrumentCatalogReady;
+
   if (gameMode === "ranked") {
     showRankedIntro({
       gameName: "strumenti",
@@ -574,19 +680,18 @@ function startGame() {
 
   warning.textContent = "";
 
-  menu.classList.add("hidden");
-  game.classList.remove("hidden");
-
-  hideLeaderboardButton();
+  MGHGameUI.enterTraining({
+    menu,
+    game,
+    modeLabel: getGameModeLabel(selectedGameMode),
+    feedbackEl
+  });
   showBackButton();
-
-  updateHeaderModeLabel(getGameModeLabel(selectedGameMode));
-
-  hideRankedUI();
   newRound();
 }
 
-function startRankedGame(nickname = "") {
+async function startRankedGame(nickname = "") {
+  await instrumentCatalogReady;
   warning.textContent = "";
 
   if (typeof startRankedMode !== "function") {
@@ -597,16 +702,19 @@ function startRankedGame(nickname = "") {
   const rankedSession = startRankedMode("strumenti");
   rankedSession.setUsername(nickname);
 
-  menu.classList.add("hidden");
-  game.classList.remove("hidden");
-
-  hideLeaderboardButton();
-  hideBackButton();
-
-  updateHeaderModeLabel("Classificata");
-
-  showRankedUI();
+  MGHGameUI.enterRanked({
+    menu,
+    game,
+    score: rankedSession.totalScore,
+    current: rankedSession.currentQuestion,
+    total: rankedSession.maxQuestions,
+    feedbackEl
+  });
   updateRankedUI();
+  hideBackButton();
+  if (typeof startRankedElapsedTimer === "function") {
+    startRankedElapsedTimer(rankedSession.startTime);
+  }
 
   newRound();
 }
@@ -625,13 +733,12 @@ function getGameModeLabel(mode) {
 function goBack() {
   if (gameMode === "ranked") return;
 
-  stopTimer();
+  if (typeof stopRankedElapsedTimer === "function") {
+    stopRankedElapsedTimer();
+  }
   stopAudio();
 
-  game.classList.add("hidden");
-  menu.classList.remove("hidden");
-
-  showLeaderboardButton();
+  MGHGameUI.returnToMenu({ menu, game, feedbackEl });
   showBackButton();
 
   selectedGameMode = null;
@@ -647,23 +754,18 @@ function goBack() {
     btn.classList.remove("selected");
   });
 
-  updateHeaderModeLabel("");
   gameArea.innerHTML = "";
-  setFeedback("");
-  hideRankedUI();
 }
 
 /* ==================== NEW ROUND ==================== */
 
 function newRound() {
-  stopTimer();
   stopAudio();
   setFeedback("");
 
   const currentMode = gameMode === "ranked" ? getRankedGameMode() : selectedGameMode;
 
   if (gameMode === "ranked") {
-    startTimer(5);
     startRankedQuestionTimer();
     updateRankedUI();
   }
@@ -719,8 +821,13 @@ function createRecognizeRound() {
 }
 
 function generateRecognizeOptions(target, count) {
+  return generateCoherentInstrumentOptions(target, count, STRUMENTI, "strumenti-recognize-option");
+}
+
+function generateCoherentInstrumentOptions(target, count, pool = STRUMENTI, namespace = "strumenti-option") {
   const options = [target];
   const usedIds = new Set([target.id]);
+  const poolById = new Map(pool.map(instrument => [instrument.id, instrument]));
   const addOption = instrument => {
     if (!instrument || usedIds.has(instrument.id) || options.length >= count) return;
     options.push(instrument);
@@ -728,37 +835,57 @@ function generateRecognizeOptions(target, count) {
   };
 
   (RECOGNIZE_SIMILAR_OPTIONS[target.id] || [])
-    .map(id => STRUMENTI.find(instrument => instrument.id === id))
+    .map(id => poolById.get(id))
     .forEach(addOption);
 
-  STRUMENTI
-    .filter(instrument => instrument.family === target.family || instrument.mouthpiece === target.mouthpiece)
-    .forEach(addOption);
+  addOptionFromPool(
+    pool.filter(instrument => instrument.mouthpiece && instrument.mouthpiece === target.mouthpiece && !usedIds.has(instrument.id)),
+    `${namespace}-mouthpiece`,
+    addOption
+  );
 
-  const available = STRUMENTI.filter(instrument => !usedIds.has(instrument.id));
+  addOptionFromPool(
+    pool.filter(instrument => instrument.family === target.family && !usedIds.has(instrument.id)),
+    `${namespace}-family`,
+    addOption
+  );
+
+  const available = pool.filter(instrument => !usedIds.has(instrument.id));
   while (options.length < count && available.length > 0) {
     const picked = pickRandomNoRepeat(available, {
-      namespace: "strumenti-recognize-option",
+      namespace: `${namespace}-fallback`,
       key: instrument => instrument.id
     });
-    options.push(picked);
-    usedIds.add(picked.id);
+    addOption(picked);
     available.splice(available.findIndex(instrument => instrument.id === picked.id), 1);
   }
 
-  // Shuffle
+  return shuffleOptions(options);
+}
+
+function addOptionFromPool(candidates, namespace, addOption) {
+  const available = [...candidates];
+  while (available.length > 0) {
+    const picked = pickRandomNoRepeat(available, {
+      namespace,
+      key: instrument => instrument.id
+    });
+    if (!picked) return;
+    addOption(picked);
+    available.splice(available.findIndex(instrument => instrument.id === picked.id), 1);
+  }
+}
+
+function shuffleOptions(options) {
   for (let i = options.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [options[i], options[j]] = [options[j], options[i]];
   }
-
   return options;
 }
 
 function handleRecognizeAnswer(selected, selectedTile) {
   if (!currentQuestion || currentQuestion.type !== "recognize") return;
-
-  stopTimer();
 
   const isCorrect = selected.id === currentQuestion.target.id;
   const tiles = document.querySelectorAll(".instrumentOptionTile");
@@ -770,12 +897,10 @@ function handleRecognizeAnswer(selected, selectedTile) {
     }
   });
 
-  if (isCorrect) {
-    setFeedback(MGH.getAnswerFeedback(true), "correct");
-  } else {
+  if (!isCorrect) {
     selectedTile?.classList.add("wrong");
-    setFeedback(MGH.getAnswerFeedback(false, `La risposta corretta era ${currentQuestion.target.name}.`), "wrong");
   }
+  showInstrumentAnswerFeedback(isCorrect, currentQuestion.target.name);
 
   if (gameMode === "ranked") {
     handleRankedAnswer(isCorrect);
@@ -787,39 +912,17 @@ function handleRecognizeAnswer(selected, selectedTile) {
 /* ==================== MEMORY MODE ==================== */
 
 function createMemoryRound() {
-  // Generate memory pairs
-  const selectedCount = 6;
+  memoryRoundType = nextMemoryRoundType;
+  nextMemoryRoundType = memoryRoundType === "sameFamily" ? "family" : "sameFamily";
+  currentQuestion = {
+    type: "memory",
+    memoryRoundType
+  };
   selectedInstruments = [];
-  const available = [...STRUMENTI];
+  memoryPairs = memoryRoundType === "sameFamily"
+    ? createSameFamilyMemoryPairs()
+    : createFamilyMemoryPairs();
 
-  for (let i = 0; i < selectedCount && available.length > 0; i++) {
-    const picked = pickRandomNoRepeat(available, {
-      namespace: `strumenti-memory-${i}`,
-      key: instrument => instrument.id
-    });
-    selectedInstruments.push(picked);
-    available.splice(available.findIndex(instrument => instrument.id === picked.id), 1);
-  }
-
-  memoryPairs = [];
-  selectedInstruments.forEach(instr => {
-    // Pair: instrument + family/imboccatura
-    memoryPairs.push({
-      id: instr.id + "_instr",
-      type: "instrument",
-      instrument: instr,
-      icon: "🎺"
-    });
-    memoryPairs.push({
-      id: instr.id + "_attr",
-      type: "attribute",
-      instrument: instr,
-      attribute: instr.family,
-      icon: "🏷️"
-    });
-  });
-
-  // Shuffle
   memoryPairs.sort(() => Math.random() - 0.5);
 
   memoryCards = memoryPairs.map(p => ({
@@ -831,9 +934,92 @@ function createMemoryRound() {
   flippedCards = [];
   matchedCount = 0;
 
-  questionEl.textContent = "Abbina gli strumenti alle loro famiglie!";
+  questionEl.textContent = memoryRoundType === "sameFamily"
+    ? "Abbina due strumenti della stessa famiglia!"
+    : "Abbina gli strumenti alle loro famiglie!";
 
   renderMemoryGrid();
+}
+
+function createFamilyMemoryPairs() {
+  selectedInstruments = pickMemoryInstrumentsByFamily();
+  const pairs = [];
+  selectedInstruments.forEach(instr => {
+    pairs.push({
+      id: instr.id + "_instr",
+      type: "instrument",
+      instrument: instr,
+      matchKey: instr.family
+    });
+    pairs.push({
+      id: instr.id + "_attr",
+      type: "attribute",
+      instrument: instr,
+      attribute: instr.family,
+      matchKey: instr.family
+    });
+  });
+  return pairs;
+}
+
+function createSameFamilyMemoryPairs() {
+  const pairs = [];
+  const grouped = getInstrumentsGroupedByFamily();
+  const families = [...grouped.keys()].sort(() => Math.random() - 0.5);
+
+  families.forEach(family => {
+    const instruments = grouped.get(family) || [];
+    if (instruments.length < 2) return;
+    const first = pickRandomNoRepeat(instruments, {
+      namespace: `strumenti-memory-same-family-${family}-first`,
+      key: instrument => instrument.id
+    });
+    if (!first) return;
+    const second = pickRandomNoRepeat(
+      instruments.filter(instrument => instrument.id !== first.id),
+      {
+        namespace: `strumenti-memory-same-family-${family}-second`,
+        key: instrument => instrument.id
+      }
+    );
+    if (!first || !second) return;
+    selectedInstruments.push(first);
+    pairs.push({
+      id: first.id + "_same_a",
+      type: "instrument",
+      instrument: first,
+      matchKey: family
+    });
+    pairs.push({
+      id: second.id + "_same_b",
+      type: "instrument",
+      instrument: second,
+      matchKey: family
+    });
+  });
+
+  return pairs;
+}
+
+function pickMemoryInstrumentsByFamily() {
+  const grouped = getInstrumentsGroupedByFamily();
+
+  return [...grouped.entries()]
+    .sort(() => Math.random() - 0.5)
+    .map(([family, instruments]) => pickRandomNoRepeat(instruments, {
+      namespace: `strumenti-memory-family-${family}`,
+      key: instrument => instrument.id
+    }))
+    .filter(Boolean);
+}
+
+function getInstrumentsGroupedByFamily() {
+  return STRUMENTI.reduce((groups, instrument) => {
+    if (!instrument.family) return groups;
+    if (!groups.has(instrument.family)) groups.set(instrument.family, []);
+    groups.get(instrument.family).push(instrument);
+    return groups;
+  }, new Map());
 }
 
 function renderMemoryGrid() {
@@ -852,9 +1038,17 @@ function renderMemoryGrid() {
 
     if (card.flipped || card.matched) {
       if (card.type === "instrument") {
-        inner.textContent = "🎺";
+        const img = document.createElement("img");
+        img.src = card.instrument.image;
+        img.alt = card.instrument.name;
+        img.className = "memoryInstrumentImage";
+        inner.appendChild(img);
       } else {
-        inner.textContent = "🏷️";
+        const img = document.createElement("img");
+        img.src = getFamilyImagePath(card.attribute);
+        img.alt = card.attribute;
+        img.className = "memoryFamilyImage";
+        inner.appendChild(img);
       }
 
       const label = document.createElement("div");
@@ -870,11 +1064,6 @@ function renderMemoryGrid() {
   });
 
   gameArea.appendChild(grid);
-
-  const stats = document.createElement("div");
-  stats.className = "memoryStats";
-  stats.textContent = `Abbinate: ${matchedCount}/${selectedInstruments.length}`;
-  gameArea.appendChild(stats);
 }
 
 function flipMemoryCard(idx) {
@@ -896,7 +1085,7 @@ function checkMemoryMatch() {
   const card1 = memoryCards[idx1];
   const card2 = memoryCards[idx2];
 
-  const match = card1.instrument.id === card2.instrument.id;
+  const match = card1.matchKey && card1.matchKey === card2.matchKey;
 
   if (match) {
     card1.matched = true;
@@ -916,7 +1105,7 @@ function checkMemoryMatch() {
 }
 
 function handleMemoryGameComplete() {
-  setFeedback(MGH.getAnswerFeedback(true, "Hai abbinato tutti gli strumenti."), "correct");
+  showInstrumentAnswerFeedback(true, "", "Hai abbinato tutti gli strumenti.");
 
   if (gameMode === "ranked") {
     handleRankedAnswer(true);
@@ -928,17 +1117,19 @@ function handleMemoryGameComplete() {
 /* ==================== LISTEN MODE ==================== */
 
 function createListenRound() {
-  const target = pickRandomNoRepeat(STRUMENTI, {
+  listenAudioPlayed = false;
+  const listenPool = getListenInstrumentPool();
+  const target = pickRandomNoRepeat(listenPool, {
     namespace: "strumenti-listen-target",
     key: instrument => instrument.id
   });
-  const hasAudio = target.audio && target.audio.trim() !== "";
+  const hasAudio = Boolean(target?.audio);
 
   currentQuestion = {
     type: "listen",
     target: target,
     hasAudio: hasAudio,
-    options: generateListenOptions(target, 3)
+    options: generateListenOptions(target, 3, listenPool)
   };
 
   questionEl.textContent = hasAudio ? "Quale strumento senti?" : `Ascoltare non disponibile. Quale è ${target.name}?`;
@@ -967,7 +1158,7 @@ function createListenRound() {
   } else {
     const notAvail = document.createElement("div");
     notAvail.className = "audioNotAvailable";
-    notAvail.textContent = "Audio non disponibile. Scegli in base al nome.";
+    notAvail.textContent = "Nessun audio disponibile in audio/strumenti.";
     container.appendChild(notAvail);
   }
 
@@ -978,6 +1169,7 @@ function createListenRound() {
     const btn = document.createElement("button");
     btn.className = "listenOptionButton";
     btn.dataset.instrumentId = instrument.id;
+    btn.disabled = hasAudio;
     btn.textContent = instrument.name;
     btn.onclick = () => handleListenAnswer(instrument, btn);
     buttonGroup.appendChild(btn);
@@ -987,26 +1179,12 @@ function createListenRound() {
   gameArea.appendChild(container);
 }
 
-function generateListenOptions(target, count) {
-  const options = [target];
-  const available = STRUMENTI.filter(s => s.id !== target.id);
+function getListenInstrumentPool() {
+  return listenInstrumentPool.length ? listenInstrumentPool : STRUMENTI.filter(instrument => instrument.audio);
+}
 
-  while (options.length < count && available.length > 0) {
-    const picked = pickRandomNoRepeat(available, {
-      namespace: "strumenti-listen-option",
-      key: instrument => instrument.id
-    });
-    options.push(picked);
-    available.splice(available.findIndex(instrument => instrument.id === picked.id), 1);
-  }
-
-  // Shuffle
-  for (let i = options.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [options[i], options[j]] = [options[j], options[i]];
-  }
-
-  return options;
+function generateListenOptions(target, count, pool = STRUMENTI) {
+  return generateCoherentInstrumentOptions(target, count, pool, "strumenti-listen-option");
 }
 
 function playAudio(audioPath, buttonEl) {
@@ -1014,39 +1192,67 @@ function playAudio(audioPath, buttonEl) {
 
   stopAudio();
 
+  currentAudioButton = buttonEl;
   currentAudio = new Audio(audioPath);
   currentAudio.onplay = () => {
-    buttonEl.classList.add("playing");
+    listenAudioPlayed = true;
+    setAudioButtonPlaying(buttonEl, true);
+    setListenAnswerButtonsEnabled(true);
   };
   currentAudio.onended = () => {
-    buttonEl.classList.remove("playing");
+    setAudioButtonPlaying(buttonEl, false);
+    currentAudio = null;
+    currentAudioButton = null;
   };
   currentAudio.onerror = () => {
-    buttonEl.classList.remove("playing");
+    setAudioButtonPlaying(buttonEl, false);
+    currentAudio = null;
+    currentAudioButton = null;
   };
 
   currentAudio.play().catch(() => {
-    buttonEl.classList.remove("playing");
+    setAudioButtonPlaying(buttonEl, false);
+    currentAudio = null;
+    currentAudioButton = null;
   });
 }
 
 function stopAudio() {
+  if (currentAudioButton) setAudioButtonPlaying(currentAudioButton, false);
   if (currentAudio) {
     currentAudio.pause();
     currentAudio.currentTime = 0;
     currentAudio = null;
   }
+  currentAudioButton = null;
+}
+
+function setAudioButtonPlaying(buttonEl, isPlaying) {
+  if (!buttonEl) return;
+  buttonEl.classList.toggle("playing", isPlaying);
+  buttonEl.setAttribute("aria-pressed", isPlaying ? "true" : "false");
+  buttonEl.blur();
+  buttonEl.innerHTML = isPlaying
+    ? '<span class="audioPauseIcon" aria-hidden="true"><span></span><span></span></span><span>In ascolto...</span>'
+    : '<span class="audioPlayIcon" aria-hidden="true">▶</span><span>Riproduci Audio</span>';
+}
+
+function setListenAnswerButtonsEnabled(enabled) {
+  document.querySelectorAll(".listenOptionButton").forEach(button => {
+    button.disabled = !enabled;
+  });
 }
 
 function handleListenAnswer(selected, selectedButton) {
   if (!currentQuestion || currentQuestion.type !== "listen") return;
+  if (currentQuestion.hasAudio && !listenAudioPlayed) return;
 
-  stopTimer();
   stopAudio();
 
   const isCorrect = selected.id === currentQuestion.target.id;
   const buttons = document.querySelectorAll(".listenOptionButton");
   buttons.forEach(button => {
+    button.blur();
     button.style.pointerEvents = "none";
     button.classList.remove("correct", "wrong");
     if (button.dataset.instrumentId === currentQuestion.target.id) {
@@ -1054,12 +1260,10 @@ function handleListenAnswer(selected, selectedButton) {
     }
   });
 
-  if (isCorrect) {
-    setFeedback(MGH.getAnswerFeedback(true), "correct");
-  } else {
+  if (!isCorrect) {
     selectedButton?.classList.add("wrong");
-    setFeedback(MGH.getAnswerFeedback(false, `La risposta corretta era ${currentQuestion.target.name}.`), "wrong");
   }
+  showInstrumentAnswerFeedback(isCorrect, currentQuestion.target.name);
 
   if (gameMode === "ranked") {
     handleRankedAnswer(isCorrect);
@@ -1078,7 +1282,7 @@ function getRankedGameMode() {
 }
 
 function handleRankedAnswer(isCorrect) {
-  const session = answerRankedQuestion(isCorrect);
+  const session = answerRankedQuestion(getInstrumentRankedAnswer(isCorrect));
   updateRankedUI();
 
   if (session && session.isComplete()) {
@@ -1088,24 +1292,19 @@ function handleRankedAnswer(isCorrect) {
   }
 }
 
-function showRankedUI() {
-  const rankedUI = document.getElementById("rankedUI");
-  if (rankedUI) rankedUI.classList.remove("hidden");
-}
-
-function hideRankedUI() {
-  const rankedUI = document.getElementById("rankedUI");
-  if (rankedUI) rankedUI.classList.add("hidden");
-}
-
-function hideLeaderboardButton() {
-  document.getElementById("rankedLeaderboardBtn")?.classList.add("hidden");
-  document.getElementById("gameModeHelpBtn")?.classList.add("hidden");
-}
-
-function showLeaderboardButton() {
-  document.getElementById("rankedLeaderboardBtn")?.classList.remove("hidden");
-  document.getElementById("gameModeHelpBtn")?.classList.remove("hidden");
+function getInstrumentRankedAnswer(isCorrect) {
+  const questionType = currentQuestion?.type || getRankedGameMode();
+  return {
+    isCorrect,
+    difficultyOverride: "neutral",
+    speedBonusThresholds: STRUMENTI_RANKED_SPEED_BONUS[questionType],
+    applyDifficultyMultiplierToSpeed: false,
+    details: {
+      questionType,
+      target: currentQuestion?.target?.name || "",
+      speedProfile: questionType
+    }
+  };
 }
 
 function hideBackButton() {
@@ -1118,30 +1317,17 @@ function showBackButton() {
 
 function updateRankedUI() {
   if (!currentRankedSession) return;
-
-  const scoreEl = document.getElementById("rankedScore");
-  const counterEl = document.getElementById("rankedQuestionCounter");
-  const fillEl = document.getElementById("rankedProgressFill");
-
-  if (scoreEl) scoreEl.textContent = currentRankedSession.totalScore;
-
-  if (counterEl) {
-    const current = Math.min(
-      currentRankedSession.currentQuestion + 1,
-      currentRankedSession.maxQuestions
-    );
-    counterEl.textContent = `${current}/${currentRankedSession.maxQuestions}`;
-  }
-
-  if (fillEl) {
-    const progress =
-      (currentRankedSession.currentQuestion / currentRankedSession.maxQuestions) * 100;
-    fillEl.style.width = `${progress}%`;
-  }
+  updateRankedProgressUI({
+    score: currentRankedSession.totalScore,
+    current: currentRankedSession.currentQuestion,
+    total: currentRankedSession.maxQuestions
+  });
 }
 
 async function showRankedResults() {
-  stopTimer();
+  if (typeof stopRankedElapsedTimer === "function") {
+    stopRankedElapsedTimer();
+  }
   stopAudio();
 
   const finalData = await finishRankedMode();
@@ -1153,11 +1339,7 @@ async function showRankedResults() {
 
   const session = finalData.session;
 
-  game.classList.add("hidden");
-  menu.classList.remove("hidden");
-  hideRankedUI();
-
-  showLeaderboardButton();
+  MGHGameUI.returnToMenu({ menu, game, feedbackEl });
   showBackButton();
 
   warning.textContent = "";
@@ -1168,8 +1350,6 @@ async function showRankedResults() {
     saved: finalData.saved
   });
 
-  updateHeaderModeLabel("");
-
   document.querySelectorAll(".selected").forEach(btn => {
     btn.classList.remove("selected");
   });
@@ -1179,47 +1359,17 @@ async function showRankedResults() {
   currentQuestion = null;
 }
 
-/* ==================== TIMER ==================== */
-
-function startTimer(duration = 5) {
-  stopTimer();
-  timeLeft = duration;
-  timerEl.textContent = timeLeft;
-  timerBox.classList.remove("hidden");
-
-  timerInterval = setInterval(() => {
-    timeLeft--;
-    timerEl.textContent = timeLeft;
-
-    if (timeLeft <= 0) {
-      stopTimer();
-      if (!currentQuestion) return;
-
-      setFeedback("Tempo scaduto.", "wrong");
-
-      if (gameMode === "ranked") {
-        handleRankedAnswer(false);
-      } else {
-        setTimeout(newRound, 1200);
-      }
-    }
-  }, 1000);
-}
-
-function stopTimer() {
-  if (timerInterval) {
-    clearInterval(timerInterval);
-    timerInterval = null;
-  }
-  timerBox?.classList.add("hidden");
-}
-
 /* ==================== FEEDBACK ==================== */
+
+function showInstrumentAnswerFeedback(isCorrect, correctName = "", successMessage = "") {
+  if (isCorrect) {
+    setFeedback(MGH.getAnswerFeedback(true, successMessage), "correct");
+    return;
+  }
+  const detail = correctName ? `La risposta corretta era ${correctName}.` : "";
+  setFeedback(MGH.getAnswerFeedback(false, detail), "wrong");
+}
 
 function setFeedback(msg, state = "neutral") {
   MGH.setGameFeedback(feedbackEl, msg, state);
-}
-
-function updateHeaderModeLabel(label = "") {
-  MGH.updateHeaderModeLabel(label);
 }

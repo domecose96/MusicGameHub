@@ -4,10 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Teoria Avanzata | Music Game Hub</title>
-<link rel="icon" type="image/png" href="img/mgh-logo.png">
 <link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/learn.css">
-<link rel="stylesheet" href="css/advanced.css">
+<link rel="stylesheet" href="css/learn.css?v=20260621-theory-content-system">
+<link rel="stylesheet" href="css/advanced.css?v=20260621-advanced-content-system">
 </head>
 
 <body>
@@ -41,6 +40,49 @@
 </nav>
 
 <div id="contentWrapper">
+
+  <section id="advancedHero" class="siteSection theoryHero advancedTheoryHero">
+    <div class="theoryHeroCopy">
+      <span class="theoryHeroBadge">Teoria avanzata</span>
+      <h2>Costruisci il motore della musica</h2>
+      <p>
+        Intervalli, accordi, cadenze, modulazioni e forme musicali:
+        qui le regole diventano meccanismi da capire e usare.
+      </p>
+
+      <div class="theoryHeroActions" aria-label="Accessi rapidi alla teoria avanzata">
+        <button type="button" class="theoryHeroButton" onclick="MGH.scrollToSection('intervalli')">Intervalli</button>
+        <button type="button" class="theoryHeroButton secondary" onclick="MGH.scrollToSection('accordi')">Accordi</button>
+        <button type="button" class="theoryHeroButton secondary" onclick="MGH.scrollToSection('minori')">Scale minori</button>
+        <button type="button" class="theoryHeroButton secondary" onclick="MGH.scrollToSection('circolo')">Circolo</button>
+        <details class="theoryHeroMore">
+          <summary>Altri argomenti</summary>
+          <div class="theoryHeroMoreMenu">
+            <button type="button" onclick="goToAdvancedSection('rivolti')">Rivolti</button>
+            <button type="button" onclick="goToAdvancedSection('cadenze')">Cadenze</button>
+            <button type="button" onclick="goToAdvancedSection('modulazioni')">Modulazioni</button>
+            <button type="button" onclick="goToAdvancedSection('ritmica')">Ritmica avanzata</button>
+            <button type="button" onclick="goToAdvancedSection('abbellimenti')">Abbellimenti</button>
+            <button type="button" onclick="goToAdvancedSection('forma')">Forma musicale</button>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="theoryHeroMedia advancedHeroMedia" aria-hidden="true">
+      <div class="advancedGearStage">
+        <div class="advancedGear gearTopLeft">
+          <img src="img/teoria-avanzata-ingranaggio-alto-sinistra.webp" alt="">
+        </div>
+        <div class="advancedGear gearCenter">
+          <img src="img/teoria-avanzata-ingranaggio-centrale.webp" alt="">
+        </div>
+        <div class="advancedGear gearBottomRight">
+          <img src="img/teoria-avanzata-ingranaggio-basso-destra.webp" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ==================== INTERVALLI ==================== -->
   <section id="intervalli" class="siteSection learnSection">
@@ -483,7 +525,7 @@
       </aside>
 
       <div class="circleMainCard">
-        <svg class="circleSVG circleOfFifthsClean" viewBox="0 0 1000 880" role="img" aria-label="Circolo delle quinte completo con tonalità maggiori e minori relative">
+        <svg class="circleSVG circleOfFifthsClean" viewBox="0 40 1000 800" role="img" aria-label="Circolo delle quinte completo con tonalità maggiori e minori relative">
 <defs>
   <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="7" stdDeviation="6" flood-color="rgba(0,0,0,0.15)"/></filter>
   <radialGradient id="outerGlow" cx="50%" cy="45%" r="62%"><stop offset="0%" stop-color="#fffaf5"/><stop offset="100%" stop-color="#fff2e6"/></radialGradient>
@@ -493,9 +535,9 @@
 </defs>
 <text x="500" y="58" text-anchor="middle" class="cofTitle">CIRCOLO DELLE QUINTE</text>
 <path d="M 720 140 A 355 355 0 0 1 720 770" class="cofArrowOrange"/>
-<path d="M 280 770 A 355 355 0 0 1 280 140" class="cofArrowBlue"/>
+<path d="M 280 140 A 355 355 0 0 0 280 770" class="cofArrowBlue"/>
 <path id="diesisTextPath" d="M 820 190 C 980 330, 980 580, 820 720" fill="none"/>
-<path id="bemolliTextPath" d="M 180 720 C 20 580, 20 330, 180 190" fill="none"/>
+<path id="bemolliTextPath" d="M 160 190 C 0 330, 0 580, 160 720" fill="none"/>
 
 <text class="cofArrowLabelOrange">
   <textPath href="#diesisTextPath" startOffset="50%" text-anchor="middle">
@@ -507,7 +549,6 @@
   <textPath href="#bemolliTextPath" startOffset="50%" text-anchor="middle">
     SENSO ANTIORARIO · BEMOLLI
   </textPath>
-</text>
 </text>
 <circle cx="500" cy="455" r="260" fill="url(#outerGlow)" stroke="#ffd2bd" stroke-width="2"/>
 <circle cx="500" cy="455" r="145" fill="url(#innerGlow)" stroke="#d6b8ff" stroke-width="2"/>
@@ -702,7 +743,7 @@
       Le cadenze sono elementi fondamentali della forma musicale e della grammatica armonica.
     </p>
 
-    <div class="advancedGrid">
+    <div class="advancedGrid cadencesGrid">
       <div class="advancedCard">
         <h3>Cadenza Perfetta</h3>
         <p><strong>V → I</strong> (Dominante → Tonica)</p>
@@ -817,7 +858,7 @@
       tensione e varietà ritmica.
     </p>
 
-    <div class="advancedGrid">
+    <div class="advancedGrid rhythmAdvancedGrid">
 
       <!-- SINCOPE -->
       <div class="advancedCard">
@@ -1042,7 +1083,7 @@
       Le forme sono come le "architetture" della musica.
     </p>
 
-    <div class="advancedGrid">
+    <div class="advancedGrid formAdvancedGrid">
       <div class="advancedCard formCard">
         <h3>Forma Binaria (AB)</h3>
         <p><strong>Due sezioni</strong> diverse, ciascuna solitamente ripetuta</p>
@@ -1168,7 +1209,13 @@
   ⇧
 </button>
 
-<script src="js/common.js"></script>
+<script src="js/common.js?v=20260620-favicon"></script>
+<script>
+function goToAdvancedSection(sectionId) {
+  document.querySelector("#advancedHero .theoryHeroMore")?.removeAttribute("open");
+  MGH.scrollToSection(sectionId);
+}
+</script>
 <script src="js/advanced.js"></script>
 </body>
 </html>

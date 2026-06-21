@@ -6,10 +6,9 @@
 <title>Home | Music Game Hub</title>
 
 <link rel="canonical" href="https://domecose96.github.io/MusicGameHub/">
-<link rel="icon" type="image/png" href="img/mgh-logo.png">
 <link rel="stylesheet" href="css/base.css?v=20260506-2">
 <link rel="stylesheet" href="css/home.css?v=20260520-nav">
-<link rel="stylesheet" href="css/home_portal.css?v=20260506-2">
+<link rel="stylesheet" href="css/home_portal.css?v=20260620-entry-copy">
 <script>
 (() => {
   const canonicalHomePath = "/MusicGameHub/";
@@ -76,20 +75,58 @@
   <div id="contentWrapper">
 
     <section id="portal" class="siteSection hubSection">
-      <h2 class="sectionTitle">Scegli da dove iniziare</h2>
+      <div class="portalIntroLayout">
+        <div class="portalIntroText">
+          <span class="portalKicker">Scegli una sezione</span>
+          <h2 class="sectionTitle">Inizia il tuo percorso musicale</h2>
+          <p class="sectionSubtitle">
+            Scegli una sezione, cerca un argomento o allenati con un gioco:
+            tutto parte da qui.
+          </p>
+        </div>
 
-      <p class="sectionSubtitle">
-        La musica è arte, linguaggio, memoria e gioco. Esplora teoria, storia,
-        ascolto e attività interattive per imparare passo dopo passo.
-      </p>
+        <div class="portalQuickGrid" aria-label="Accessi rapidi">
+          <button class="portalQuickCard theory" type="button" onclick="scrollToSection('theoryHome')">
+            <span>Studia</span>
+            <strong>Teoria</strong>
+            <small>Note, ritmo, scale, intervalli, suono.</small>
+          </button>
+          <button class="portalQuickCard paths" type="button" onclick="scrollToSection('pathsHome')">
+            <span>Esplora</span>
+            <strong>Percorsi</strong>
+            <small>Storia, strumenti, cittadinanza, fumetti.</small>
+          </button>
+          <button class="portalQuickCard games" type="button" onclick="scrollToSection('games')">
+            <span>Allenati</span>
+            <strong>Giochi</strong>
+            <small>Allenamento, classificata e sfide.</small>
+          </button>
+        </div>
+      </div>
 
       <section class="portalSearchSection">
-        <div class="portalSearchWrap">
-          <input id="portalSearch" class="portalSearchInput" type="search"
-                 placeholder="Cerca una risorsa... es. note, ritmo, scale" autocomplete="off">
+        <div class="portalSearchPanel">
+          <div class="portalSearchHeader">
+            <div>
+              <h3>Cerca nel portale</h3>
+              <p>Trova subito lezioni, giochi e percorsi.</p>
+            </div>
+            <button class="portalMapBtn" type="button" onclick="goTo('mappa.html')">Mappa completa</button>
+          </div>
 
-          <button class="portalSearchBtn" type="button" onclick="searchPortal()">Cerca</button>
-          <button class="portalMapBtn" type="button" onclick="goTo('mappa.html')">🗺️ Mappa →</button>
+          <div class="portalSearchWrap">
+            <input id="portalSearch" class="portalSearchInput" type="search"
+                   placeholder="Note, ritmo, scale, strumenti..." autocomplete="off">
+            <button class="portalSearchBtn" type="button" onclick="searchPortal()">Cerca</button>
+            <div id="portalSearchDropdown" class="portalSearchDropdown hidden" role="listbox" aria-label="Suggerimenti ricerca"></div>
+          </div>
+
+          <div class="portalSearchHints" aria-label="Ricerche rapide">
+            <button type="button" data-search-term="note">Note</button>
+            <button type="button" data-search-term="ritmo">Ritmo</button>
+            <button type="button" data-search-term="strumenti">Strumenti</button>
+            <button type="button" data-search-term="giochi">Giochi</button>
+          </div>
         </div>
 
         <p id="noSearchResults" class="noSearchResults hidden">
@@ -98,15 +135,17 @@
 
         <div class="portalStatsPanel">
           <div class="portalStats">
-            <div class="portalStat"><strong>6</strong><span>Giochi</span></div>
-            <div class="portalStat"><strong>9</strong><span>Argomenti</span></div>
-            <div class="portalStat coming"><strong>3</strong><span>In arrivo</span></div>
-            <div class="portalStat views"><strong id="gc-total">—</strong><span>Pageview totali</span></div>
+            <div class="portalStat"><span>Giochi</span><strong>11</strong></div>
+            <div class="portalStat"><span>Argomenti</span><strong>10</strong></div>
+            <div class="portalStat coming"><span>In arrivo</span><strong>2</strong></div>
+            <div class="portalStat views"><span>Pageview totali</span><strong id="gc-total">—</strong></div>
           </div>
 
           <div class="popularBox">
-            <h3>Pagine più visitate</h3>
-            <div id="gc-top" class="gcTopList">
+            <h3>
+              <a class="popularTitleLink" href="classifiche-risorse.html">Pagine più visitate</a>
+            </h3>
+            <div id="gc-top" class="gcTopList loading">
               <div class="gcTopItem"><span class="gcTopLabel">Statistiche in caricamento</span><span class="gcTopCount">—</span></div>
             </div>
           </div>
@@ -217,8 +256,15 @@
           <input type="text" name="source" placeholder="Es. un collega, Google, social..." autocomplete="off">
         </label>
 
-        <button class="accessButton" type="submit">Invia messaggio →</button>
-        <p class="privacyNote">I tuoi dati sono usati solo per rispondere e non vengono condivisi con terzi.</p>
+        <button class="accessButton sendMessageButton" type="submit">
+          Invia messaggio
+          <img src="img/icons/aereo-di-carta.png" alt="" aria-hidden="true">
+        </button>
+        <p class="privacyNote">
+          I tuoi dati sono usati solo per rispondere e non vengono condivisi con terzi.
+          <a href="legal/privacy.html" target="_blank">Privacy</a> ·
+          <a href="legal/termini.html" target="_blank">Termini</a>
+        </p>
         <p id="contactMessage" class="accessMessage" aria-live="polite"></p>
       </form>
     </div>
@@ -238,8 +284,8 @@
       </div>
 
       <section class="accessPane active" data-access-pane="login">
-        <form class="homePanelForm" onsubmit="handleAccessSubmit(event, 'login')">
-          <label>Email <input type="email" name="email" placeholder="nome@email.it" autocomplete="email" required></label>
+        <form class="homePanelForm" onsubmit="handleAccessSubmit(event, 'login')" novalidate>
+          <label>Email o user <input type="text" name="email" placeholder="email o user studente" autocomplete="username" required></label>
           <label>Password <input type="password" name="password" placeholder="••••••••" autocomplete="current-password" required></label>
           <button class="accessButton" type="submit">Accedi</button>
         </form>
@@ -248,7 +294,7 @@
           <span class="googleLogo" aria-hidden="true">
             <span class="g-blue">G</span>
           </span>
-          Login with Google
+          Accedi con Google
         </button>
         <div class="accessLinks">
           <button type="button" onclick="handlePasswordReset()">Ripristina password</button>
@@ -294,6 +340,14 @@
         </div>
       </section>
 
+      <section class="accessPane" data-access-pane="google-age">
+        <form class="homePanelForm" onsubmit="handleGoogleAgeSubmit(event)">
+          <label>Età <input type="number" name="age" min="14" max="99" inputmode="numeric" required></label>
+          <p class="passwordHint">Serve per abilitare automaticamente l'area classi agli account maggiorenni.</p>
+          <button class="accessButton" type="submit">Completa profilo</button>
+        </form>
+      </section>
+
       <p id="accessMessage" class="accessMessage" aria-live="polite"></p>
       <button class="accessLogoutButton" id="accessLogoutButton" type="button" onclick="signOut()" hidden>Esci dall'account</button>
     </div>
@@ -328,10 +382,18 @@
           <strong id="accountProvider">Account attivo</strong>
         </div>
         <div>
+          <span>Ruolo</span>
+          <strong id="accountRole">Account personale</strong>
+        </div>
+        <div>
           <span>Classifiche</span>
           <strong>Collegate al tuo account</strong>
         </div>
       </div>
+
+      <button class="accountClassesButton" id="accountClassesButton" type="button" onclick="goTo('classi.html')" hidden>
+        Gestisci classi
+      </button>
 
       <p id="accountMessage" class="accessMessage" aria-live="polite"></p>
       <button class="accessLogoutButton" type="button" onclick="signOut()">Esci dall'account</button>
@@ -361,9 +423,9 @@
 <button id="scrollTopBtn" aria-label="Torna in alto">
   ⇧
 </button>
-<script src="js/common.js?v=20260506-2"></script>
-<script src="js/resources.js?v=20260520-home-sections"></script>
-<script src="js/home_portal.js?v=20260520-home-sections"></script>
+<script src="js/common.js?v=20260620-favicon"></script>
+<script src="js/resources.js?v=20260621-account-classes"></script>
+<script src="js/home_portal.js?v=20260621-account-classes"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

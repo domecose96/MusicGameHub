@@ -163,6 +163,221 @@
 
 .siteSection:last-child { border-bottom: none; }
 
+.theoryHero {
+  min-height: 430px;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(300px, 0.82fr);
+  gap: clamp(26px, 5vw, 64px);
+  align-items: center;
+  padding: 62px 0 50px;
+  border-bottom: 1px solid rgba(255, 102, 0, 0.14);
+}
+
+.theoryHeroCopy {
+  max-width: 680px;
+  text-align: left;
+}
+
+.theoryHeroBadge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  margin-bottom: 14px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 102, 0, .24);
+  border-radius: 999px;
+  background: rgba(255, 102, 0, .10);
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.theoryHero h2 {
+  max-width: 620px;
+  margin: 0;
+  color: var(--text-main);
+  font-size: clamp(2.15rem, 5vw, 4.25rem);
+  line-height: 1.02;
+}
+
+.theoryHero p {
+  max-width: 660px;
+  margin: 18px 0 0;
+  color: var(--text-muted);
+  font-size: 1.06rem;
+  line-height: 1.62;
+}
+
+.theoryHeroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.theoryHeroButton {
+  min-height: 46px;
+  width: auto;
+  padding: 0 22px;
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(255, 102, 0, .22);
+  transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+}
+
+.theoryHeroButton.secondary {
+  border-color: rgba(255, 102, 0, .24);
+  background: rgba(255, 255, 255, .86);
+  color: var(--accent);
+  box-shadow: 0 10px 24px rgba(92, 55, 24, .08);
+}
+
+.theoryHeroButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(255, 102, 0, .28);
+}
+
+.theoryHeroButton.secondary:hover {
+  background: rgba(255, 102, 0, .08);
+  color: var(--accent);
+}
+
+.theoryHeroMore {
+  position: relative;
+}
+
+.theoryHeroMore summary {
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 20px;
+  border: 1.5px solid rgba(0, 166, 189, .24);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .88);
+  color: #08798a;
+  font-size: 0.92rem;
+  font-weight: 900;
+  cursor: pointer;
+  list-style: none;
+  box-shadow: 0 10px 24px rgba(0, 92, 160, .08);
+}
+
+.theoryHeroMore summary::-webkit-details-marker {
+  display: none;
+}
+
+.theoryHeroMore summary::after {
+  content: "▾";
+  font-size: .82rem;
+  transform: translateY(1px);
+}
+
+.theoryHeroMore[open] summary {
+  background: rgba(0, 166, 189, .10);
+  border-color: rgba(0, 166, 189, .34);
+}
+
+.theoryHeroMoreMenu {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 10px);
+  z-index: 20;
+  width: min(260px, 82vw);
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, .98);
+  border: 1px solid rgba(0, 166, 189, .16);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, .13);
+}
+
+.theoryHeroMoreMenu button {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--text-main);
+  font: inherit;
+  font-size: .86rem;
+  font-weight: 850;
+  text-align: left;
+  cursor: pointer;
+}
+
+.theoryHeroMoreMenu button:hover {
+  background: rgba(0, 166, 189, .08);
+  color: #08798a;
+}
+
+.theoryHeroMedia {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 430px;
+}
+
+.theoryHeroImageSlot {
+  position: relative;
+  width: min(430px, 100%);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+}
+
+.theoryHeroImageSlot::before {
+  content: "";
+  position: absolute;
+  inset: 8% 5% 12%;
+  z-index: -2;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 38% 32%, rgba(0, 194, 255, 0.28), transparent 42%),
+    radial-gradient(circle at 68% 62%, rgba(153, 73, 255, 0.24), transparent 46%),
+    radial-gradient(circle at 50% 80%, rgba(255, 102, 0, 0.14), transparent 45%);
+  filter: blur(22px);
+  opacity: 0.95;
+}
+
+.theoryHeroImageSlot::after {
+  content: "";
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 6%;
+  z-index: -1;
+  height: 42px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 66, 150, 0.18), transparent 70%);
+  filter: blur(10px);
+}
+
+.theoryHeroImageSlot img {
+  width: min(390px, 94%);
+  height: auto;
+  display: block;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 18px 24px rgba(0, 92, 160, 0.20))
+    drop-shadow(0 4px 10px rgba(125, 61, 255, 0.14));
+}
+
 .sectionTitle {
   font-size: clamp(1.6rem, 3.5vw, 2.4rem);
   color: var(--accent);
@@ -1096,6 +1311,40 @@ body.instrumentPage .learnCTA .gameLaunchButton:hover {
 
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 900px) {
+  .theoryHero {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    gap: 26px;
+  }
+
+  .theoryHeroCopy {
+    max-width: 760px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .theoryHero h2,
+  .theoryHero p {
+    margin-inline: auto;
+  }
+
+  .theoryHeroActions {
+    justify-content: center;
+  }
+
+  .theoryHeroMoreMenu {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .theoryHeroMedia {
+    min-height: 280px;
+  }
+
+  .theoryHeroImageSlot {
+    width: min(320px, 76vw);
+  }
+
   .valueScale {
     grid-template-columns: 1fr;
     max-width: 420px;
@@ -1118,6 +1367,9 @@ body.instrumentPage .learnCTA .gameLaunchButton:hover {
   .gamesGrid { grid-template-columns: 1fr 1fr; }
   .repeatWide { grid-column: span 1; }
   .siteSection { padding: 40px 0 28px; }
+  .theoryHero {
+    padding-top: 42px;
+  }
   .pianoKeys { transform: scale(0.85); transform-origin: top center; }
   .tonalityRow { gap: 6px; }
 
@@ -1129,6 +1381,27 @@ body.instrumentPage .learnCTA .gameLaunchButton:hover {
 @media (max-width: 480px) {
   .gamesGrid { grid-template-columns: 1fr; }
   .timeSignatureGrid { grid-template-columns: 1fr; }
+  .theoryHeroActions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .theoryHeroButton {
+    min-width: 0;
+    padding: 0 14px;
+  }
+
+  .theoryHeroMore {
+    grid-column: 1 / -1;
+  }
+
+  .theoryHeroMore summary {
+    width: 100%;
+  }
+
+  .theoryHeroMedia {
+    min-height: 230px;
+  }
 }
 
 /* ==================== CHIAVI ESPANSE ==================== */
@@ -1212,6 +1485,75 @@ body.instrumentPage .learnCTA .gameLaunchButton:hover {
   border-radius: 20px;
   white-space: nowrap;
   flex-shrink: 0;
+}
+
+/* ==================== SHARED THEORY CONTENT SYSTEM ==================== */
+.gameCard,
+.clefCard,
+.noteInteractive,
+.figureItem,
+.symbolCard,
+.repeatCard {
+  border: 1px solid rgba(255, 102, 0, 0.13);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--panel-shadow);
+}
+
+.gameCard,
+.clefCard,
+.noteInteractive {
+  padding: 26px 24px;
+}
+
+.figureItem,
+.symbolCard,
+.repeatCard {
+  padding: 20px 16px 18px;
+}
+
+.gameCard,
+.figureItem,
+.symbolCard,
+.repeatCard {
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.gameCard:hover,
+.figureItem:hover,
+.symbolCard:hover,
+.repeatCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 102, 0, 0.22);
+  box-shadow: 0 18px 38px rgba(255, 102, 0, 0.13);
+}
+
+.didacticBox {
+  border: 1px solid rgba(255, 102, 0, 0.16);
+  border-left: 5px solid var(--accent);
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(255, 102, 0, 0.075), rgba(255, 255, 255, 0.88));
+  box-shadow: 0 14px 34px rgba(92, 55, 24, 0.07);
+  padding: 22px 24px;
+}
+
+.didacticBox h4 {
+  font-size: 1.02rem;
+}
+
+@media (max-width: 768px) {
+  .gameCard,
+  .clefCard,
+  .noteInteractive,
+  .didacticBox {
+    padding: 18px;
+  }
+
+  .figureItem,
+  .symbolCard,
+  .repeatCard {
+    padding: 16px 14px;
+  }
 }
 
 .clefSymbolBig.do {

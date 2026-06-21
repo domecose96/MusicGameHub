@@ -15,6 +15,7 @@ const INPUT_ARM_MS = 180;
 const PERFECT_MS = 55;
 const GOOD_MS = 105;
 const ERROR_MS = 155;
+const SETTINGS_STORAGE_KEY = "mgh_batti_tempo_settings";
 
 const LEVEL_NAMES = {
   1: "Facile",
@@ -42,8 +43,7 @@ let audioContext = null;
 let timers = [];
 let scheduledAudioNodes = [];
 let retryWithoutPlayback = false;
-let rankedTimerInterval = null;
-let rankedStartTime = 0;
+let battiTempoSettings = loadBattiTempoSettings();
 
 const menu = document.getElementById("menu");
 const game = document.getElementById("game");
@@ -60,9 +60,6 @@ const tapButton = document.getElementById("tapButton");
 const countdownOverlay = document.getElementById("countdownOverlay");
 
 if (typeof MGHGameUI !== "undefined") MGHGameUI.ensureRankedHUD(game);
-
-const timerBox = document.getElementById("timerBox");
-const timerEl = document.getElementById("timer");
 
 function setLevel(level, el) {
   selectedLevel = level;
@@ -105,7 +102,6 @@ function startRankedGame(nickname = "") {
     warning.textContent = "Errore: ranked.js non caricato.";
     return;
   }
-  rankedStartTime = Date.now();
   const session = startRankedMode("batti_tempo");
   session.setUsername(nickname);
   MGHGameUI.enterRanked({
@@ -117,7 +113,6 @@ function startRankedGame(nickname = "") {
     feedbackEl
   });
   hideBackButton();
-  startRankedClock();
   updateRankedUI();
   currentLevel = getRankedLevel();
   resetLevelSequence();
@@ -290,7 +285,7 @@ function beginPerformance() {
   if (phase === "countdown" || phase === "listen" || phase === "perform") return;
   clearAllTimers();
   ensureAudioContext();
-  const skipPlayback = retryWithoutPlayback;
+  const skipPlayback = retryWithoutPlayback || !battiTempoSettings.computerPlayback;
   retryWithoutPlayback = false;
   taps = [];
   events.forEach(event => {
@@ -308,9 +303,12 @@ function beginPerformance() {
   const startDelay = 120;
   const perfZero = performance.now() + startDelay;
   const listenStart = perfZero + MEASURE_BEATS * BEAT_DURATION;
+  const prepStart = skipPlayback
+    ? perfZero
+    : listenStart + TOTAL_BEATS * BEAT_DURATION;
   const performStart = skipPlayback
     ? listenStart
-    : listenStart + TOTAL_BEATS * BEAT_DURATION;
+    : prepStart + MEASURE_BEATS * BEAT_DURATION;
   const endTime = performStart + TOTAL_BEATS * BEAT_DURATION;
   const audioZero = audioContext.currentTime + startDelay / 1000;
 
@@ -319,25 +317,37 @@ function beginPerformance() {
     scheduleAtTime(listenStart, () => {
       phase = "listen";
       questionTextEl.textContent = "Ascolta le due battute";
+      setTapLabel("Preparati...");
     });
     scheduleMetronomeAudio(audioZero, MEASURE_BEATS, TOTAL_BEATS);
     schedulePatternAudio(audioZero, MEASURE_BEATS);
+    scheduleAtTime(prepStart, () => {
+      phase = "countdown";
+      questionTextEl.textContent = "Quattro colpi e parti tu";
+      setTapLabel("Preparati...");
+    });
+    scheduleCountIn(prepStart, audioZero + beatDurationSeconds() * (MEASURE_BEATS + TOTAL_BEATS));
   }
 
   scheduleAtTime(performStart - INPUT_ARM_MS, () => {
     phase = "perform";
     drawNotation();
-    questionTextEl.textContent = skipPlayback ? "Ora parti tu" : "Ora batti lo stesso ritmo";
+    questionTextEl.textContent = "Preparati: il prossimo colpo è tuo";
     setControls({ begin: true, tap: false });
-    setTapLabel("Tocca qui o premi Spazio");
+    setTapLabel("Preparati...");
     performanceStart = performStart;
   });
-  scheduleMetronomeAudio(audioZero, MEASURE_BEATS + (skipPlayback ? 0 : TOTAL_BEATS), TOTAL_BEATS);
+  scheduleAtTime(performStart, () => {
+    questionTextEl.textContent = skipPlayback ? "Ora parti tu" : "Ora batti lo stesso ritmo";
+    setTapLabel("Tocca qui o premi Spazio");
+    showOverlayCue("VAI!", "goCue", 430);
+  });
+  scheduleMetronomeAudio(audioZero, MEASURE_BEATS + (skipPlayback ? 0 : TOTAL_BEATS + MEASURE_BEATS), TOTAL_BEATS);
   scheduleAtTime(endTime + 120, finishPerformance);
 }
 
 function scheduleCountIn(perfZero, audioZero) {
-  countdownOverlay.classList.remove("hidden");
+  showOverlayCue("", "countCue");
   for (let beat = 0; beat < 4; beat++) {
     scheduleAtTime(perfZero + beat * BEAT_DURATION, () => {
       countdownOverlay.textContent = String(4 - beat);
@@ -345,9 +355,19 @@ function scheduleCountIn(perfZero, audioZero) {
     scheduleWoodblockAt(audioZero + beatDurationSeconds() * beat, SOUND_METRONOME.frequency, SOUND_METRONOME.volume);
   }
   scheduleAtTime(perfZero + MEASURE_BEATS * BEAT_DURATION, () => {
-    countdownOverlay.classList.add("hidden");
-    countdownOverlay.textContent = "";
+    hideOverlayCue();
   });
+}
+
+function showOverlayCue(text, variant = "", duration = null) {
+  countdownOverlay.className = ["countdownOverlay", variant].filter(Boolean).join(" ");
+  countdownOverlay.textContent = text;
+  if (duration) scheduleAt(duration, hideOverlayCue);
+}
+
+function hideOverlayCue() {
+  countdownOverlay.className = "countdownOverlay hidden";
+  countdownOverlay.textContent = "";
 }
 
 function handleTap() {
@@ -411,7 +431,7 @@ function finishPerformance() {
   drawNotation();
 
   if (gameMode === "ranked") {
-    handleRankedAnswer(result.success);
+    handleRankedAnswer(result);
     return;
   }
 
@@ -446,16 +466,18 @@ function calculateScore() {
   const noteEvents = events.filter(event => !event.rest);
   const wrongClicks = taps.filter(tap => tap.kind === "extra").length;
   const correctNotes = noteEvents.filter(event => event.result === "perfect" || event.result === "good").length;
+  const perfectNotes = noteEvents.filter(event => event.result === "perfect").length;
+  const goodNotes = noteEvents.filter(event => event.result === "good").length;
   const success = wrongClicks === 0 && correctNotes === noteEvents.length;
-  return { total, bestStreak, wrongClicks, correctNotes, noteCount: noteEvents.length, success };
+  return { total, bestStreak, wrongClicks, correctNotes, perfectNotes, goodNotes, noteCount: noteEvents.length, success };
 }
 
 function updateFeedback(result) {
   const errors = result.noteCount - result.correctNotes + result.wrongClicks;
   if (result.success) {
-    setFeedback(`✔ Ottimo controllo del tempo! Punteggio ${result.total}, serie ${result.bestStreak}.`);
+    setFeedback(MGH.getAnswerFeedback(true, `Punteggio ${result.total}, serie ${result.bestStreak}.`), "correct");
   } else {
-    setFeedback(`✖ Errori: ${errors}. Punteggio ${result.total}. Conta i 4 tempi: il ritmo riparte finché non è perfetto.`);
+    setFeedback(MGH.getAnswerFeedback(false, `Errori: ${errors}. Punteggio ${result.total}. Conta i 4 tempi: il ritmo riparte finché non è perfetto.`), "wrong");
   }
 }
 
@@ -480,7 +502,7 @@ function advanceLevelRound() {
   if (gameMode === "ranked") return;
   if (levelRoundIndex >= LEVEL_ROUNDS - 1) {
     questionTextEl.textContent = "Difficoltà completata!";
-    setFeedback("✔ Hai completato i 10 ritmi della difficoltà.");
+    setFeedback(MGH.getAnswerFeedback(true, "Hai completato i 10 ritmi della difficoltà."), "correct");
     return;
   }
   levelRoundIndex += 1;
@@ -493,11 +515,13 @@ function drawNotation() {
   drawClef();
   drawTimeSignature();
   drawBarLines();
+  const eighthBeamPairs = getEighthBeamPairs();
+  const beamedEighthIds = getBeamedEighthIds(eighthBeamPairs);
   events.forEach(event => {
     if (event.rest) drawRest(event);
-    else drawNote(event);
+    else drawNote(event, beamedEighthIds);
   });
-  drawEighthBeams();
+  drawEighthBeams(eighthBeamPairs);
   updateFeedback();
 }
 
@@ -533,12 +557,12 @@ function drawBarLines() {
   addSvg("line", { x1: 690, y1: 82, x2: 690, y2: 122, class: "svgBarLine svgFinalBarLine", stroke: "#000000", "stroke-width": 5.6, opacity: 1 });
 }
 
-function drawNote(event) {
+function drawNote(event, beamedEighthIds = new Set()) {
   const x = getNoteXForEvent(event);
   const y = 102;
   const isHalf = event.duration === 2;
   const isWhole = event.duration === 4;
-  if (event.duration === 0.5 && isDrawnInEighthBeam(event)) return;
+  if (event.duration === 0.5 && beamedEighthIds.has(event.id)) return;
   if (event.duration === 0.5) {
     drawSingleEighthNote(x);
     return;
@@ -650,14 +674,26 @@ function drawQuarterRest(x) {
   });
 }
 
-function drawEighthBeams() {
+function getEighthBeamPairs() {
+  const pairs = [];
   for (let index = 0; index < events.length - 1; index++) {
     const first = events[index];
     const second = events[index + 1];
     if (!canBeamEighths(first, second)) continue;
-    drawEighthBeam(first, second);
+    pairs.push([first, second]);
     index += 1;
   }
+  return pairs;
+}
+
+function getBeamedEighthIds(pairs) {
+  return new Set(pairs.flatMap(pair => pair.map(event => event.id)));
+}
+
+function drawEighthBeams(pairs = getEighthBeamPairs()) {
+  pairs.forEach(([first, second]) => {
+    drawEighthBeam(first, second);
+  });
 }
 
 function drawEighthBeam(first, second) {
@@ -701,16 +737,6 @@ function drawSingleEighthNote(x) {
     transform: `translate(${x - 21} 99) scale(0.024 -0.024)`,
     opacity: 1
   });
-}
-
-function isDrawnInEighthBeam(event) {
-  if (event.rest || event.duration !== 0.5) return false;
-  const previous = events[event.id - 1];
-  const next = events[event.id + 1];
-  const previousPairStart = events[event.id - 2];
-  if (canBeamEighths(previous, event) && !canBeamEighths(previousPairStart, previous)) return true;
-  if (canBeamEighths(event, next) && !canBeamEighths(previous, event)) return true;
-  return false;
 }
 
 function canBeamEighths(first, second) {
@@ -876,8 +902,8 @@ function flashTapButton() {
   tapButton.classList.add("tapPulse");
 }
 
-function setFeedback(message) {
-  if (typeof MGH !== "undefined" && typeof MGH.setGameFeedback === "function") MGH.setGameFeedback(feedbackEl, message);
+function setFeedback(message, state = "neutral") {
+  if (typeof MGH !== "undefined" && typeof MGH.setGameFeedback === "function") MGH.setGameFeedback(feedbackEl, message, state);
   else if (feedbackEl) feedbackEl.textContent = message;
 }
 
@@ -918,8 +944,31 @@ function updateRankedUI() {
   });
 }
 
-function handleRankedAnswer(isCorrect) {
-  const session = answerRankedQuestion(isCorrect);
+function handleRankedAnswer(result) {
+  const isResult = result && typeof result === "object";
+  const isCorrect = isResult ? result.success : Boolean(result);
+  const precisionBonus = isResult ? getRankedPrecisionBonus(result) : 0;
+  const answer = isResult
+    ? {
+        isCorrect,
+        speedBonusThresholds: [],
+        precisionBonus,
+        partialCredit: {
+          correctItems: result.correctNotes,
+          totalItems: result.noteCount
+        },
+        details: {
+          correctNotes: result.correctNotes,
+          perfectNotes: result.perfectNotes,
+          goodNotes: result.goodNotes,
+          noteCount: result.noteCount,
+          wrongClicks: result.wrongClicks,
+          rhythmScore: result.total,
+          precisionBonus
+        }
+      }
+    : isCorrect;
+  const session = answerRankedQuestion(answer);
   updateRankedUI();
   if (session && session.isComplete()) {
     setTimeout(showRankedResults, 1700);
@@ -932,8 +981,15 @@ function handleRankedAnswer(isCorrect) {
   }
 }
 
+function getRankedPrecisionBonus(result) {
+  if (!result || !result.noteCount || result.wrongClicks > 0) return 0;
+  if (result.perfectNotes === result.noteCount) return 30;
+  if (result.success) return 20;
+  if (result.correctNotes / result.noteCount >= 0.85) return 10;
+  return 0;
+}
+
 async function showRankedResults() {
-  stopRankedClock();
   const finalData = await finishRankedMode();
   if (!finalData || !finalData.session) {
     setFeedback("Errore nel salvataggio.");
@@ -954,22 +1010,41 @@ async function showRankedResults() {
   phase = "idle";
 }
 
-function startRankedClock() {
-  stopRankedClock();
-  if (!timerBox || !timerEl) return;
-  timerBox.classList.remove("hidden");
-  timerEl.textContent = "0";
-  rankedTimerInterval = setInterval(() => {
-    timerEl.textContent = String(Math.round((Date.now() - rankedStartTime) / 1000));
-  }, 250);
+function loadBattiTempoSettings() {
+  try {
+    return Object.assign(
+      { computerPlayback: true },
+      JSON.parse(localStorage.getItem(SETTINGS_STORAGE_KEY)) || {}
+    );
+  } catch {
+    return { computerPlayback: true };
+  }
 }
 
-function stopRankedClock() {
-  if (rankedTimerInterval) {
-    clearInterval(rankedTimerInterval);
-    rankedTimerInterval = null;
-  }
-  timerBox?.classList.add("hidden");
+function saveBattiTempoSettings(settings) {
+  localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
+}
+
+function syncBattiTempoSettingsInputs() {
+  const playbackInput = document.getElementById("settingComputerPlayback");
+  if (playbackInput) playbackInput.checked = battiTempoSettings.computerPlayback;
+}
+
+function applyBattiTempoSettings() {
+  battiTempoSettings = {
+    computerPlayback: document.getElementById("settingComputerPlayback")?.checked !== false
+  };
+  saveBattiTempoSettings(battiTempoSettings);
+}
+
+function showBattiTempoSettingsModal() {
+  battiTempoSettings = loadBattiTempoSettings();
+  syncBattiTempoSettingsInputs();
+  document.getElementById("battiTempoSettingsModal")?.classList.remove("hidden");
+}
+
+function closeBattiTempoSettingsModal() {
+  document.getElementById("battiTempoSettingsModal")?.classList.add("hidden");
 }
 
 document.addEventListener("keydown", event => {

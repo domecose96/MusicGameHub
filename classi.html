@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classi | Music Game Hub</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/classi.css">
+</head>
+
+<body class="classesPage">
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="MGH.goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+    <div class="headerBrand">
+      <span class="headerEyebrow">Area docente</span>
+      <h1 class="pageTitle">Classi e alunni</h1>
+    </div>
+  </div>
+</header>
+
+<div id="contentWrapper">
+  <main class="classesWorkspace">
+    <section class="classesToolbar" aria-label="Gestione classi">
+      <form id="classForm" class="classCreateForm">
+        <label>
+          <span>Nome classe</span>
+          <input id="className" name="className" type="text" placeholder="Es. 2A" maxlength="40" required>
+        </label>
+        <label>
+          <span>Anno</span>
+          <input id="classYear" name="classYear" type="text" placeholder="2026/2027" maxlength="20">
+        </label>
+        <button class="menuButton classPrimaryButton" type="submit">Crea classe</button>
+      </form>
+      <p id="classesStatus" class="classesStatus" aria-live="polite"></p>
+    </section>
+
+    <section class="classesLayout">
+      <aside class="classListPanel" aria-label="Elenco classi">
+        <div class="panelHeaderRow">
+          <h2>Le tue classi</h2>
+          <span id="classCountBadge" class="countBadge">0</span>
+        </div>
+        <div id="classList" class="classList"></div>
+      </aside>
+
+      <section class="classDetailPanel" aria-label="Dettaglio classe">
+        <div id="emptyClassState" class="emptyClassState">
+          <h2>Prepara la tua prima classe</h2>
+          <p>Crea una classe, condividi il link invito e segui gli alunni tramite Supabase.</p>
+        </div>
+
+        <div id="classDetail" class="classDetail hidden">
+          <div class="detailHeader">
+            <div>
+              <span class="detailEyebrow">Classe selezionata</span>
+              <h2 id="selectedClassTitle">Classe</h2>
+              <p id="selectedClassMeta">0 alunni</p>
+            </div>
+            <div class="detailActions">
+              <button type="button" class="iconTextButton" onclick="openInviteModal()">Invita</button>
+              <button type="button" class="iconTextButton" onclick="exportSelectedClass()">Esporta CSV</button>
+              <button type="button" class="iconTextButton danger" onclick="deleteSelectedClass()">Elimina</button>
+            </div>
+          </div>
+
+          <form id="studentForm" class="studentForm">
+            <label>
+              <span>Nome</span>
+              <input id="studentFirstName" name="firstName" type="text" maxlength="40" required>
+            </label>
+            <label>
+              <span>Cognome</span>
+              <input id="studentLastName" name="lastName" type="text" maxlength="40" required>
+            </label>
+            <label>
+              <span>User univoco</span>
+              <input id="studentUsername" name="username" type="text" maxlength="32" autocomplete="off" placeholder="es. mario.rossi.2a.26" required>
+            </label>
+            <label>
+              <span>Password temporanea</span>
+              <input id="studentPassword" name="temporaryPassword" type="text" minlength="8" maxlength="40" autocomplete="off" required>
+            </label>
+            <button class="menuButton classPrimaryButton" type="submit">Aggiungi</button>
+          </form>
+
+          <div class="studentsHeader">
+            <h3>Alunni</h3>
+            <span id="studentCountBadge" class="countBadge">0</span>
+          </div>
+          <div id="studentList" class="studentList"></div>
+
+          <section class="classAnalytics" aria-label="Statistiche classe">
+            <div class="analyticsHeader">
+              <div>
+                <span class="detailEyebrow">Dashboard classe</span>
+                <h3>Progressi e attività</h3>
+              </div>
+              <select id="analyticsRange" class="analyticsSelect" aria-label="Intervallo statistiche">
+                <option value="week">Questa settimana</option>
+                <option value="month">Questo mese</option>
+                <option value="all">Tutto il periodo</option>
+              </select>
+            </div>
+
+            <div class="analyticsGrid">
+              <article class="analyticsCard activityCard">
+                <div class="analyticsCardHeader">
+                  <h4>Attività</h4>
+                  <span class="countBadge" id="activeStudentsBadge">0</span>
+                </div>
+                <p>Studenti attivi ed esercizi nuovi completati.</p>
+                <div class="activityBars">
+                  <div>
+                    <span>Studenti attivi</span>
+                    <strong id="activeStudentsValue">0</strong>
+                    <i id="activeStudentsBar"></i>
+                  </div>
+                  <div>
+                    <span>Esercizi completati</span>
+                    <strong id="completedExercisesValue">0</strong>
+                    <i id="completedExercisesBar"></i>
+                  </div>
+                </div>
+              </article>
+
+              <article class="analyticsCard leaderboardCard">
+                <div class="analyticsCardHeader">
+                  <h4>Leaderboard</h4>
+                  <span class="countBadge">Top 10</span>
+                </div>
+                <div id="classLeaderboard" class="classLeaderboard"></div>
+              </article>
+            </div>
+
+            <article class="analyticsCard studentsProgressCard">
+              <div class="analyticsCardHeader">
+                <h4>Studenti</h4>
+                <span class="tableHint">Clicca le intestazioni per ordinare</span>
+              </div>
+              <div class="classTableWrap">
+                <table class="classProgressTable">
+                  <thead>
+                    <tr>
+                      <th><button type="button" data-sort-students="name">Studente</button></th>
+                      <th><button type="button" data-sort-students="active">Attivo</button></th>
+                      <th><button type="button" data-sort-students="completed">Esercizi</button></th>
+                      <th><button type="button" data-sort-students="score">Miglior punteggio</button></th>
+                    </tr>
+                  </thead>
+                  <tbody id="studentsProgressBody"></tbody>
+                </table>
+              </div>
+            </article>
+
+            <article class="analyticsCard subjectsProgressCard">
+              <div class="analyticsCardHeader">
+                <h4>Soggetti</h4>
+                <div class="subjectsFilters">
+                  <select id="subjectFilter" class="analyticsSelect" aria-label="Materia">
+                    <option value="all">Tutte le materie</option>
+                    <option value="suono">Suono</option>
+                    <option value="pentagramma">Pentagramma</option>
+                    <option value="note">Note</option>
+                    <option value="ritmo">Ritmo</option>
+                    <option value="scale">Scale</option>
+                  </select>
+                  <select id="studentFilter" class="analyticsSelect" aria-label="Studente">
+                    <option value="all">Tutti gli studenti</option>
+                  </select>
+                </div>
+              </div>
+              <div id="subjectsProgress" class="subjectsProgress"></div>
+            </article>
+          </section>
+        </div>
+      </section>
+    </section>
+  </main>
+</div>
+
+<div id="inviteOverlay" class="classInviteOverlay" aria-hidden="true">
+  <article class="classInviteModal" role="dialog" aria-modal="true" aria-labelledby="inviteTitle">
+    <button type="button" class="classInviteClose" onclick="closeInviteModal()" aria-label="Chiudi">×</button>
+    <div class="inviteTabs" aria-hidden="true">
+      <span class="active">Link invito</span>
+      <span>Account</span>
+    </div>
+    <h2 id="inviteTitle">Invita alunni</h2>
+    <p id="inviteText">Condividi questo link con la classe.</p>
+    <div class="inviteLinkRow">
+      <input id="inviteLinkInput" type="text" readonly>
+      <button type="button" class="inviteCopyButton" onclick="copyInviteLink()" aria-label="Copia link">⧉</button>
+    </div>
+    <p id="inviteCopyStatus" class="inviteCopyStatus" aria-live="polite"></p>
+    <button type="button" class="menuButton classPrimaryButton inviteDoneButton" onclick="closeInviteModal()">Fatto</button>
+  </article>
+</div>
+
+<footer class="siteLegalFooter">
+  <p>Area docente collegata a Supabase: classi, inviti e alunni sono pensati per essere sincronizzati su server.</p>
+  <div class="siteLegalLinks">
+    <a href="legal/privacy.html">Privacy Policy</a>
+    <span>·</span>
+    <a href="legal/termini.html">Termini di servizio</a>
+  </div>
+</footer>
+
+<script src="js/common.js?v=20260620-favicon"></script>
+<script src="js/classi.js"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

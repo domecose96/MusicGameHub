@@ -500,20 +500,20 @@ function checkAnswer() {
   });
 
   if (allOk) {
-    setFeedback("✔ Perfetto! La battuta è completa!");
+    setFeedback(MGH.getAnswerFeedback(true, "La battuta è completa."), "correct");
   } else {
     const needed = Math.round(expectedUnits * 100) / 100;
     const got    = Math.round(insertedUnits * 100) / 100;
     const unit   = is68 ? "cromi" : "tempi";
-    setFeedback(`✖ Non corretto. Servivano ${needed} ${unit}, hai inserito ${got}.`);
+    setFeedback(MGH.getAnswerFeedback(false, `Servivano ${needed} ${unit}, hai inserito ${got}.`), "wrong");
   }
 
   if (gameMode === "ranked") { handleRankedAnswer(allOk); return; }
   setTimeout(newRound, 2000);
 }
 
-function setFeedback(msg) {
-  if (feedbackEl) feedbackEl.textContent = msg;
+function setFeedback(msg, state = "neutral") {
+  MGH.setGameFeedback(feedbackEl, msg, state);
 }
 
 /* ==================== RANKED ==================== */

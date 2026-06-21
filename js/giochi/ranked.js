@@ -43,14 +43,31 @@ function getRankedDifficultyMultiplier(difficulty) {
   return 1;
 }
 
-function getRankedAnswerScoreParts({ isCorrect, elapsed = 0, timeTaken = elapsed, difficulty = "easy" } = {}) {
+function getRankedAnswerScoreParts({
+  isCorrect,
+  elapsed = 0,
+  timeTaken = elapsed,
+  difficulty = "easy",
+  speedBonusThresholds = null,
+  applyDifficultyMultiplierToSpeed = true
+} = {}) {
   const multiplier = getRankedDifficultyMultiplier(difficulty);
   const safeTime = Math.max(0, Number(timeTaken) || 0);
   const baseScore = isCorrect ? 100 * multiplier : 0;
   let bonusSpeed = 0;
 
-  if (isCorrect && safeTime <= 2) bonusSpeed = 25 * multiplier;
-  else if (isCorrect && safeTime <= 5) bonusSpeed = 10 * multiplier;
+  if (isCorrect && Array.isArray(speedBonusThresholds)) {
+    const speedMultiplier = applyDifficultyMultiplierToSpeed ? multiplier : 1;
+    const matchedThreshold = speedBonusThresholds
+      .filter(threshold => Number.isFinite(Number(threshold.maxTime)))
+      .sort((a, b) => Number(a.maxTime) - Number(b.maxTime))
+      .find(threshold => safeTime <= Number(threshold.maxTime));
+    bonusSpeed = matchedThreshold ? (Number(matchedThreshold.bonus) || 0) * speedMultiplier : 0;
+  } else if (isCorrect && safeTime <= 2) {
+    bonusSpeed = 25 * multiplier;
+  } else if (isCorrect && safeTime <= 5) {
+    bonusSpeed = 10 * multiplier;
+  }
 
   return {
     baseScore: Math.round(baseScore),
@@ -153,13 +170,19 @@ function getRankedUsernameKey() {
   return user?.id ? `mgh_username_${user.id}` : "mgh_guest_username";
 }
 
+function getRankedUsernameCustomKey() {
+  const user = getRankedAuthUser();
+  return user?.id ? `mgh_username_custom_${user.id}` : "mgh_guest_username_custom";
+}
+
 function getRankedDisplayName() {
   const user = getRankedAuthUser();
   const metadata = user?.user_metadata || user?.raw_user_meta_data || {};
   const fullName = metadata.full_name || metadata.name;
   const firstName = metadata.first_name || metadata.given_name;
+  const username = metadata.username;
   const emailName = user?.email ? user.email.split("@")[0] : "";
-  return (firstName || fullName || emailName || "").trim();
+  return (username || firstName || fullName || emailName || "").trim();
 }
 
 function getOrCreateRankedUsername() {
@@ -170,7 +193,17 @@ function getOrCreateRankedUsername() {
   }
 
   const usernameKey = getRankedUsernameKey();
-  let username = localStorage.getItem(usernameKey) || localStorage.getItem("mgh_username");
+  const user = getRankedAuthUser();
+  const metadata = user?.user_metadata || user?.raw_user_meta_data || {};
+  const customNickname = localStorage.getItem(getRankedUsernameCustomKey()) === "true";
+  if (metadata.role === "student" && metadata.username && !customNickname) {
+    const username = String(metadata.username).slice(0, 20);
+    localStorage.setItem(usernameKey, username);
+    localStorage.setItem("mgh_username", username);
+    return username;
+  }
+
+  let username = localStorage.getItem(usernameKey);
 
   if (!username) {
     username = getRankedDisplayName().slice(0, 20) || "Player_" + Math.floor(Math.random() * 10000);
@@ -195,6 +228,7 @@ function setRankedUsername(username) {
 
   localStorage.setItem(getRankedUsernameKey(), cleanUsername);
   localStorage.setItem("mgh_username", cleanUsername);
+  localStorage.setItem(getRankedUsernameCustomKey(), "true");
   return cleanUsername;
 }
 
@@ -338,7 +372,7 @@ class RankedSession {
     if (this.isComplete()) return;
 
     const questionNumber = this.currentQuestion + 1;
-    const difficulty = this.getDifficultyForQuestion(questionNumber);
+    const difficulty = options.difficultyOverride || this.getDifficultyForQuestion(questionNumber);
 
     const safeTimeTaken = Number(timeTaken) || 0;
     const correct = Boolean(isCorrect);
@@ -352,6 +386,7 @@ class RankedSession {
     }
 
     const scoreParts = this.getScorePartsForAnswer(correct, safeTimeTaken, difficulty, options);
+    const precisionBonus = Number(options.precisionBonus) || 0;
     const answerDetails = options.details && typeof options.details === "object" ? options.details : null;
 
     this.answers.push({
@@ -359,9 +394,10 @@ class RankedSession {
       correct,
       timeTaken: safeTimeTaken,
       difficulty,
-      score: scoreParts.totalScore,
+      score: scoreParts.totalScore + precisionBonus,
       baseScore: scoreParts.baseScore,
       bonusSpeed: scoreParts.bonusSpeed,
+      precisionBonus,
       ...(answerDetails ? { details: answerDetails } : {}),
       timestamp: new Date().toISOString()
     });
@@ -389,7 +425,9 @@ class RankedSession {
       const speedParts = getRankedAnswerScoreParts({
         isCorrect: perfect,
         timeTaken,
-        difficulty
+        difficulty,
+        speedBonusThresholds: options.speedBonusThresholds,
+        applyDifficultyMultiplierToSpeed: options.applyDifficultyMultiplierToSpeed
       });
 
       return {
@@ -399,7 +437,13 @@ class RankedSession {
       };
     }
 
-    return getRankedAnswerScoreParts({ isCorrect, timeTaken, difficulty });
+    return getRankedAnswerScoreParts({
+      isCorrect,
+      timeTaken,
+      difficulty,
+      speedBonusThresholds: options.speedBonusThresholds,
+      applyDifficultyMultiplierToSpeed: options.applyDifficultyMultiplierToSpeed
+    });
   }
 
   getDifficultyMultiplier(difficulty) {
@@ -419,9 +463,14 @@ class RankedSession {
     let bonusSpeed = 0;
 
     this.answers.forEach(answer => {
-      if (typeof answer.baseScore === "number" || typeof answer.bonusSpeed === "number") {
+      if (
+        typeof answer.baseScore === "number" ||
+        typeof answer.bonusSpeed === "number" ||
+        typeof answer.precisionBonus === "number"
+      ) {
         baseScore += Number(answer.baseScore) || 0;
         bonusSpeed += Number(answer.bonusSpeed) || 0;
+        bonusSpeed += Number(answer.precisionBonus) || 0;
         return;
       }
 

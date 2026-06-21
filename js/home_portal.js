@@ -19,10 +19,13 @@ const INTRO_SEEN_KEY = "musicGameHubIntroSeen";
 const WEB3FORMS_ACCESS_KEY = "b72ee878-1ec1-47e2-adfa-2cc026b69a63";
 const SUPABASE_URL = "https://scyvwnzrykwejflbbmjx.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_Zk2mItmcS4M2XIw2nDJk5w_z2ZqZtpg";
+const STUDENT_ACCOUNT_API_URL = "https://musicgamehub-stats-api.vercel.app/api/student-account";
+const STUDENT_EMAIL_DOMAIN = "mgh-student.local";
 const AUTH_USER_KEY = "mgh_auth_user";
 const AUTH_TOKEN_KEY = "mgh_auth_token";
 const AUTH_REFRESH_KEY = "mgh_auth_refresh_token";
 const PASSWORD_RECOVERY_TOKEN_KEY = "mgh_password_recovery_token";
+const GOOGLE_PROFILE_TOKEN_KEY = "mgh_google_profile_token";
 
 let currentX = X_START;
 let melodyIndex = 0;
@@ -255,6 +258,119 @@ function goTo(page) {
 }
 
 // ==================== RICERCA PORTALE ====================
+function getPortalSearchItems() {
+  if (!resourceData) return [];
+
+  const source = [
+    ...(resourceData.homeCards || []),
+    ...(resourceData.homeGames || resourceData.playable || []),
+    ...(resourceData.homeEntrypoints || [])
+  ];
+  const seen = new Set();
+
+  return source
+    .filter(item => item && (item.url || item.target) && !item.comingSoon)
+    .filter(item => {
+      const key = item.url || item.target || item.id;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .map(item => ({
+      ...item,
+      searchText: [
+        item.title,
+        item.desc,
+        item.tag,
+        item.type,
+        ...(item.tags || [])
+      ].filter(Boolean).join(" ").toLowerCase()
+    }));
+}
+
+function getPortalSearchResults(query) {
+  return getPortalSearchItems()
+    .filter(item => item.searchText.includes(query))
+    .slice(0, 5);
+}
+
+function openSearchResult(item) {
+  if (!item) return;
+  const input = document.getElementById("portalSearch");
+  if (input) input.value = "";
+  hideSearchDropdown();
+  searchPortal();
+
+  if (item.target) {
+    scrollToSection(item.target);
+    return;
+  }
+
+  if (item.url) goTo(item.url);
+}
+
+function hideSearchDropdown() {
+  const dropdown = document.getElementById("portalSearchDropdown");
+  if (!dropdown) return;
+  dropdown.classList.add("hidden");
+  dropdown.replaceChildren();
+}
+
+function renderSearchDropdown(query, results) {
+  const dropdown = document.getElementById("portalSearchDropdown");
+  if (!dropdown) return;
+
+  dropdown.replaceChildren();
+
+  if (query.length < 2) {
+    dropdown.classList.add("hidden");
+    return;
+  }
+
+  dropdown.classList.remove("hidden");
+
+  if (!results.length) {
+    const empty = document.createElement("div");
+    empty.className = "portalSearchEmpty";
+    empty.textContent = `Nessun risultato per "${query}".`;
+    dropdown.appendChild(empty);
+    return;
+  }
+
+  const header = document.createElement("div");
+  header.className = "portalSearchDropdownHeader";
+  header.textContent = `${results.length} risultati trovati`;
+  dropdown.appendChild(header);
+
+  results.forEach(item => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "portalSearchSuggestion";
+    button.setAttribute("role", "option");
+    button.addEventListener("click", () => openSearchResult(item));
+
+    const icon = document.createElement("span");
+    icon.className = "portalSearchSuggestionIcon";
+    icon.textContent = item.icon || "♪";
+
+    const text = document.createElement("span");
+    text.className = "portalSearchSuggestionText";
+
+    const title = document.createElement("strong");
+    title.textContent = item.title;
+
+    const desc = document.createElement("small");
+    desc.textContent = item.desc || item.tag || "";
+
+    const tag = document.createElement("em");
+    tag.textContent = item.tag || item.type || "Risorsa";
+
+    text.append(title, desc);
+    button.append(icon, text, tag);
+    dropdown.appendChild(button);
+  });
+}
+
 function searchPortal() {
   const input = document.getElementById("portalSearch");
   const noResults = document.getElementById("noSearchResults");
@@ -263,18 +379,22 @@ function searchPortal() {
   if (!input || cards.length === 0) return;
 
   const query = input.value.trim().toLowerCase();
+  const canSearch = query.length >= 2;
+  const results = canSearch ? getPortalSearchResults(query) : [];
   let visibleCount = 0;
 
   cards.forEach(card => {
     const text = card.textContent.toLowerCase();
-    const match = query === "" || text.includes(query);
+    const match = !canSearch || text.includes(query);
     card.classList.toggle("searchHidden", !match);
     if (match) visibleCount++;
   });
 
   if (noResults) {
-    noResults.classList.toggle("hidden", query === "" || visibleCount > 0);
+    noResults.classList.add("hidden");
   }
+
+  renderSearchDropdown(input.value.trim(), results);
 }
 
 function switchAccessTab(tabName) {
@@ -282,7 +402,7 @@ function switchAccessTab(tabName) {
     tab.classList.toggle("active", tab.dataset.accessTab === tabName);
   });
 
-  document.querySelector(".accessTabs")?.classList.toggle("hidden", tabName === "reset");
+  document.querySelector(".accessTabs")?.classList.toggle("hidden", ["reset", "google-age"].includes(tabName));
 
   document.querySelectorAll(".accessPane").forEach(pane => {
     pane.classList.toggle("active", pane.dataset.accessPane === tabName);
@@ -294,6 +414,14 @@ function switchAccessTab(tabName) {
 
 function showPasswordResetPane(messageText = "") {
   switchAccessTab("reset");
+  openHomePanel("access");
+
+  const message = document.getElementById("accessMessage");
+  if (message) message.textContent = messageText;
+}
+
+function showGoogleAgePane(messageText = "") {
+  switchAccessTab("google-age");
   openHomePanel("access");
 
   const message = document.getElementById("accessMessage");
@@ -343,11 +471,33 @@ function handlePasswordReset() {
   const email = document.querySelector('[data-access-pane="login"] input[name="email"]')?.value.trim();
 
   if (!email) {
-    if (message) message.textContent = "Inserisci prima la tua email, poi richiedi il ripristino password.";
+    if (message) message.textContent = "Inserisci prima la tua email. Gli account studenti ricevono la password temporanea dal docente.";
+    return;
+  }
+
+  if (!email.includes("@")) {
+    if (message) message.textContent = "Per gli account studenti il reset lo fa il docente dalla pagina Classi.";
     return;
   }
 
   requestPasswordReset(email, message);
+}
+
+function cleanStudentUsername(value) {
+  return String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "")
+    .replace(/[^a-z0-9._-]/g, "")
+    .slice(0, 32);
+}
+
+function getLoginEmail(loginValue = "") {
+  const cleanLogin = String(loginValue || "").trim();
+  if (cleanLogin.includes("@")) return cleanLogin;
+
+  const username = cleanStudentUsername(cleanLogin);
+  return username ? `${username}@${STUDENT_EMAIL_DOMAIN}` : cleanLogin;
 }
 
 function getPasswordValidationMessage(password) {
@@ -401,7 +551,10 @@ async function supabaseAuthUpdatePassword(accessToken, password) {
       "apikey": SUPABASE_ANON_KEY,
       "Authorization": `Bearer ${accessToken}`
     },
-    body: JSON.stringify({ password })
+    body: JSON.stringify({
+      password,
+      data: { must_change_password: false }
+    })
   });
 
   const data = await response.json().catch(() => ({}));
@@ -411,6 +564,42 @@ async function supabaseAuthUpdatePassword(accessToken, password) {
   }
 
   return data;
+}
+
+async function supabaseAuthUpdateMetadata(accessToken, metadata = {}) {
+  const response = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "apikey": SUPABASE_ANON_KEY,
+      "Authorization": `Bearer ${accessToken}`
+    },
+    body: JSON.stringify({ data: metadata })
+  });
+
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(data.msg || data.message || "Profilo non aggiornato.");
+  }
+
+  return data;
+}
+
+async function markStudentPasswordChanged(accessToken) {
+  const response = await fetch(STUDENT_ACCOUNT_API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${accessToken}`
+    },
+    body: JSON.stringify({ action: "markPasswordChanged" })
+  });
+
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}));
+    throw new Error(data?.message || "Password aggiornata, ma profilo studente non sincronizzato.");
+  }
 }
 
 function getStoredAuthUser() {
@@ -425,17 +614,55 @@ function getAuthDisplayName(user) {
   const metadata = user?.user_metadata || user?.raw_user_meta_data || {};
   const fullName = metadata.full_name || metadata.name;
   const firstName = metadata.first_name || metadata.given_name;
+  const username = metadata.username;
   const emailName = user?.email ? user.email.split("@")[0] : "";
-  return (firstName || fullName || emailName || "utente").trim();
+  return (username || firstName || fullName || emailName || "utente").trim();
+}
+
+function getAccountRoleLabel(role) {
+  if (role === "teacher") return "Docente";
+  if (role === "student") return "Studente";
+  return "Account personale";
+}
+
+function getRoleFromAge(age) {
+  return Number(age) >= 18 ? "teacher" : "learner";
+}
+
+function isGoogleAuthUser(user) {
+  const appMetadata = user?.app_metadata || {};
+  const providers = Array.isArray(appMetadata.providers) ? appMetadata.providers : [];
+  return appMetadata.provider === "google" || providers.includes("google");
+}
+
+function getProfileAge(user) {
+  const metadata = user?.user_metadata || user?.raw_user_meta_data || {};
+  const age = Number(metadata.age || 0);
+  return Number.isFinite(age) ? age : 0;
 }
 
 function getUserNicknameKey(user) {
   return user?.id ? `mgh_username_${user.id}` : "mgh_username";
 }
 
+function getUserNicknameCustomKey(user) {
+  return user?.id ? `mgh_username_custom_${user.id}` : "mgh_username_custom";
+}
+
 function getStoredNickname(user) {
+  const metadata = user?.user_metadata || user?.raw_user_meta_data || {};
+  const customNickname = user?.id ? localStorage.getItem(getUserNicknameCustomKey(user)) === "true" : false;
+
+  if (user?.id && metadata.role === "student" && metadata.username && !customNickname) {
+    return String(metadata.username).slice(0, 20);
+  }
+
   const userNickname = localStorage.getItem(getUserNicknameKey(user));
   if (userNickname) return userNickname;
+
+  if (user?.id) {
+    return getAuthDisplayName(user).slice(0, 20);
+  }
 
   const legacyNickname = localStorage.getItem("mgh_username");
   if (legacyNickname) return legacyNickname;
@@ -443,7 +670,7 @@ function getStoredNickname(user) {
   return getAuthDisplayName(user).slice(0, 20);
 }
 
-function storeNicknameForUser(user, nickname) {
+function storeNicknameForUser(user, nickname, custom = false) {
   const cleanNickname = String(nickname || "")
     .trim()
     .replace(/\s+/g, " ")
@@ -453,6 +680,9 @@ function storeNicknameForUser(user, nickname) {
 
   localStorage.setItem(getUserNicknameKey(user), cleanNickname);
   localStorage.setItem("mgh_username", cleanNickname);
+  if (custom && user?.id) {
+    localStorage.setItem(getUserNicknameCustomKey(user), "true");
+  }
   return cleanNickname;
 }
 
@@ -506,12 +736,16 @@ function populateAccountPanel() {
   const avatarEl = document.getElementById("accountAvatar");
   const nicknameInput = document.getElementById("accountNickname");
   const providerEl = document.getElementById("accountProvider");
+  const roleEl = document.getElementById("accountRole");
+  const classesButton = document.getElementById("accountClassesButton");
 
   if (nameEl) nameEl.textContent = displayName;
   if (emailEl) emailEl.textContent = user.email || "Email non disponibile";
   if (avatarEl) avatarEl.textContent = initial;
   if (nicknameInput) nicknameInput.value = nickname;
   if (providerEl) providerEl.textContent = metadata.provider === "google" ? "Google" : "Email e password";
+  if (roleEl) roleEl.textContent = getAccountRoleLabel(metadata.role);
+  if (classesButton) classesButton.hidden = metadata.role !== "teacher";
 }
 
 function openAccountPanel() {
@@ -542,7 +776,7 @@ function saveAccountSettings(event) {
   }
 
   const user = getStoredAuthUser();
-  storeNicknameForUser(user, cleanNickname);
+  storeNicknameForUser(user, cleanNickname, true);
   if (message) message.textContent = "Impostazioni salvate.";
 }
 
@@ -569,7 +803,25 @@ async function handleAuthRedirect() {
   }
 
   try {
-    const user = await supabaseAuthGetUser(accessToken);
+    let user = await supabaseAuthGetUser(accessToken);
+    const metadata = user?.user_metadata || user?.raw_user_meta_data || {};
+    const googleAge = getProfileAge(user);
+
+    if (isGoogleAuthUser(user) && !googleAge) {
+      sessionStorage.setItem(GOOGLE_PROFILE_TOKEN_KEY, accessToken);
+      storeAuthSession(user, accessToken, refreshToken);
+      window.history.replaceState(null, document.title, window.location.pathname + window.location.search);
+      showGoogleAgePane("Completa il profilo Google inserendo la tua età.");
+      return;
+    }
+
+    if (isGoogleAuthUser(user) && googleAge && !metadata.role) {
+      user = await supabaseAuthUpdateMetadata(accessToken, {
+        age: googleAge,
+        role: getRoleFromAge(googleAge)
+      });
+    }
+
     storeAuthSession(user, accessToken, refreshToken);
     window.history.replaceState(null, document.title, window.location.pathname + window.location.search);
 
@@ -587,12 +839,23 @@ async function signInWithEmail(email, password, message) {
   if (message) message.textContent = "Accesso in corso...";
 
   try {
-    const data = await supabaseAuthRequest("token?grant_type=password", { email, password });
+    const loginEmail = getLoginEmail(email);
+    const data = await supabaseAuthRequest("token?grant_type=password", {
+      email: loginEmail,
+      password
+    });
     storeAuthSession(data.user || {}, data.access_token, data.refresh_token);
+    const metadata = data.user?.user_metadata || data.user?.raw_user_meta_data || {};
+    if (metadata.must_change_password) {
+      sessionStorage.setItem(PASSWORD_RECOVERY_TOKEN_KEY, data.access_token);
+      showPasswordResetPane("Password temporanea: scegli una nuova password per continuare.");
+      return;
+    }
+
     if (message) message.textContent = "Accesso effettuato.";
     closeHomePanel();
   } catch (error) {
-    if (message) message.textContent = "Accesso non riuscito: controlla email e password.";
+    if (message) message.textContent = "Accesso non riuscito: controlla user/email e password.";
   }
 }
 
@@ -601,6 +864,7 @@ async function signUpWithEmail(form, message) {
 
   const email = form.elements.email?.value.trim();
   const password = form.elements.password?.value || "";
+  const age = Number(form.elements.age?.value || 0);
 
   try {
     await supabaseAuthRequest("signup", {
@@ -609,7 +873,8 @@ async function signUpWithEmail(form, message) {
       data: {
         first_name: form.elements.firstName?.value.trim() || "",
         last_name: form.elements.lastName?.value.trim() || "",
-        age: Number(form.elements.age?.value || 0)
+        age,
+        role: age >= 18 ? "teacher" : "learner"
       }
     });
 
@@ -618,6 +883,45 @@ async function signUpWithEmail(form, message) {
     }
   } catch (error) {
     if (message) message.textContent = `Registrazione non riuscita: ${error.message}`;
+  }
+}
+
+async function handleGoogleAgeSubmit(event) {
+  event.preventDefault();
+
+  const form = event.currentTarget;
+  const message = document.getElementById("accessMessage");
+  const age = Number(form.elements.age?.value || 0);
+  const profileToken = sessionStorage.getItem(GOOGLE_PROFILE_TOKEN_KEY) || localStorage.getItem(AUTH_TOKEN_KEY);
+
+  if (age < 14) {
+    if (message) {
+      message.textContent = "Per usare l'area personale devi avere almeno 14 anni o chiedere supporto a un genitore, tutore o docente.";
+    }
+    return;
+  }
+
+  if (!profileToken) {
+    if (message) message.textContent = "Sessione Google scaduta: accedi di nuovo con Google.";
+    switchAccessTab("login");
+    return;
+  }
+
+  if (message) message.textContent = "Aggiornamento profilo...";
+
+  try {
+    const user = await supabaseAuthUpdateMetadata(profileToken, {
+      age,
+      role: getRoleFromAge(age)
+    });
+
+    sessionStorage.removeItem(GOOGLE_PROFILE_TOKEN_KEY);
+    storeAuthSession(user, profileToken, localStorage.getItem(AUTH_REFRESH_KEY) || "");
+    form.reset();
+    if (message) message.textContent = "Profilo completato.";
+    closeHomePanel();
+  } catch (error) {
+    if (message) message.textContent = `Profilo non aggiornato: ${error.message}`;
   }
 }
 
@@ -665,6 +969,7 @@ async function handlePasswordUpdate(event) {
 
   try {
     const user = await supabaseAuthUpdatePassword(recoveryToken, password);
+    await markStudentPasswordChanged(recoveryToken).catch(() => {});
     sessionStorage.removeItem(PASSWORD_RECOVERY_TOKEN_KEY);
     storeAuthSession(user, recoveryToken, localStorage.getItem(AUTH_REFRESH_KEY) || "");
     form.reset();
@@ -768,6 +1073,11 @@ function createCardElement(item, options = {}) {
 
   card.append(icon, title, desc);
 
+  const badge = document.createElement("span");
+  badge.className = isDisabled ? "hubBadge" : "hubTag";
+  badge.textContent = isDisabled ? "In arrivo" : item.tag;
+  card.appendChild(badge);
+
   if (item.feature) {
     const feature = document.createElement("span");
     feature.className = "hubCardFeature";
@@ -780,11 +1090,6 @@ function createCardElement(item, options = {}) {
     `;
     card.appendChild(feature);
   }
-
-  const badge = document.createElement("span");
-  badge.className = isDisabled ? "hubBadge" : "hubTag";
-  badge.textContent = isDisabled ? "In arrivo" : item.tag;
-  card.appendChild(badge);
 
   return card;
 }
@@ -845,7 +1150,21 @@ function createStatsRow(label, count = "—") {
 
   const labelEl = document.createElement("span");
   labelEl.className = "gcTopLabel";
-  labelEl.textContent = label;
+  const labelParts = String(label || "").split(" > ");
+
+  if (labelParts.length > 1) {
+    const sectionEl = document.createElement("span");
+    sectionEl.className = "gcTopSection";
+    sectionEl.textContent = labelParts.shift();
+
+    const titleEl = document.createElement("span");
+    titleEl.className = "gcTopTitle";
+    titleEl.textContent = labelParts.join(" > ");
+
+    labelEl.append(sectionEl, titleEl);
+  } else {
+    labelEl.textContent = label;
+  }
 
   const countEl = document.createElement("span");
   countEl.className = "gcTopCount";
@@ -862,6 +1181,7 @@ function renderFallbackStats(message = "Statistiche in caricamento") {
   if (total) total.textContent = "—";
 
   if (top) {
+    top.classList.add("loading");
     top.replaceChildren(createStatsRow(message));
   }
 }
@@ -971,6 +1291,7 @@ async function loadGoatStats() {
     }
 
     if (topEl) {
+      topEl.classList.remove("loading");
       topEl.replaceChildren();
 
       const validPages = getAggregatedTopPages(data.topPages || []);
@@ -1001,6 +1322,7 @@ window.handleAccessSubmit = handleAccessSubmit;
 window.handleGoogleAccess = handleGoogleAccess;
 window.handlePasswordReset = handlePasswordReset;
 window.handlePasswordUpdate = handlePasswordUpdate;
+window.handleGoogleAgeSubmit = handleGoogleAgeSubmit;
 window.openAccountPanel = openAccountPanel;
 window.saveAccountSettings = saveAccountSettings;
 window.signOut = signOut;
@@ -1023,9 +1345,17 @@ document.addEventListener("DOMContentLoaded", () => {
       if (e.key === "Enter") {
         e.preventDefault();
         searchPortal();
+      } else if (e.key === "Escape") {
+        hideSearchDropdown();
+        input.blur();
       }
     });
   }
+
+  document.addEventListener("click", event => {
+    if (event.target.closest(".portalSearchPanel")) return;
+    hideSearchDropdown();
+  });
 
   if (searchBtn) {
     searchBtn.addEventListener("click", e => {
@@ -1034,6 +1364,15 @@ document.addEventListener("DOMContentLoaded", () => {
       searchBtn.blur();
     });
   }
+
+  document.querySelectorAll("[data-search-term]").forEach(button => {
+    button.addEventListener("click", () => {
+      if (!input) return;
+      input.value = button.dataset.searchTerm || "";
+      searchPortal();
+      input.focus();
+    });
+  });
 
   document.getElementById("homePanelOverlay")?.addEventListener("click", event => {
     if (event.target.id === "homePanelOverlay") closeHomePanel();

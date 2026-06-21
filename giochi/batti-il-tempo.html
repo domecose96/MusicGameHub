@@ -4,9 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Batti il Tempo</title>
-<link rel="icon" type="image/png" href="../img/mgh-logo.png">
 <link rel="stylesheet" href="../css/base.css">
-<link rel="stylesheet" href="../css/batti-il-tempo.css?v=20260614-clean29">
+<link rel="stylesheet" href="../css/batti-il-tempo.css?v=20260620-clean35">
 </head>
 
 <body class="battiTempoPage rankedUnifiedGamePage">
@@ -59,6 +58,7 @@
       <button id="backButton" class="menuButton compactBackButton" onclick="changeLevel()" aria-label="Cambia difficoltà">
         <span aria-hidden="true">⇧</span>
       </button>
+      <button id="battiTempoSettingsBtn" class="circleMiniButton battiTempoSettingsButton" type="button" onclick="showBattiTempoSettingsModal()" aria-label="Impostazioni">⚙</button>
       <span id="levelProgressBadge" class="levelProgressBadge hidden">1/10</span>
     </div>
 
@@ -96,10 +96,29 @@
   </div>
 </div>
 
-<script src="../js/common.js"></script>
+<div id="battiTempoSettingsModal" class="battiTempoModal hidden" role="dialog" aria-modal="true" aria-labelledby="battiTempoSettingsTitle">
+  <div class="battiTempoModalOverlay" onclick="closeBattiTempoSettingsModal()"></div>
+  <div class="battiTempoModalPanel battiTempoSettingsPanel">
+    <button class="battiTempoModalClose" type="button" onclick="closeBattiTempoSettingsModal()" aria-label="Chiudi">×</button>
+    <h2 id="battiTempoSettingsTitle">IMPOSTAZIONI</h2>
+
+    <div class="battiTempoSettingRow">
+      <div class="battiTempoSettingInfo">
+        <span class="battiTempoSettingLabel">Esecuzione del PC</span>
+        <span class="battiTempoSettingDesc">Prima ascolti il ritmo, poi hai 4 colpi per prepararti.</span>
+      </div>
+      <label class="battiTempoToggle">
+        <input type="checkbox" id="settingComputerPlayback" onchange="applyBattiTempoSettings()">
+        <span class="battiTempoToggleSlider"></span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<script src="../js/common.js?v=20260620-favicon"></script>
 <script src="../js/giochi/ranked.js"></script>
 <script src="../js/giochi/game_ui.js"></script>
-<script src="../js/batti-il-tempo.js?v=20260614-clean65"></script>
+<script src="../js/batti-il-tempo.js?v=20260620-clean71"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

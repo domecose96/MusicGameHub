@@ -43,13 +43,11 @@
   min-height: 520px;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 0.92fr);
-  gap: 32px;
+  gap: clamp(28px, 5vw, 66px);
   align-items: center;
-  padding: 72px 0 52px;
+  padding: 62px 0 42px;
 }
 
-.heroCopy,
-.heroWave,
 .elementCard,
 .listeningGrid article,
 .conceptMap,
@@ -64,18 +62,26 @@
 }
 
 .heroCopy {
-  padding: 34px;
-  border-radius: 20px;
-  border-color: rgba(255, 102, 0, 0.16);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  text-align: left;
 }
 
 .lessonBadge {
   display: inline-flex;
-  margin-bottom: 12px;
+  align-items: center;
+  min-height: 34px;
+  margin-bottom: 14px;
+  padding: 0 14px;
+  border: 1px solid rgba(0, 166, 189, .25);
+  border-radius: 999px;
+  background: rgba(0, 166, 189, .10);
   color: var(--accent);
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 900;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -107,18 +113,36 @@
 }
 
 .elementsButton {
-  min-height: 44px;
-  padding: 11px 18px;
-  border: 0;
-  border-radius: 14px;
+  min-height: 46px;
+  width: auto;
+  padding: 0 22px;
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.92rem;
   font-weight: 900;
   cursor: pointer;
+  box-shadow: 0 14px 30px rgba(255, 102, 0, .22);
+  transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
 }
 
 .elementsButton.secondary {
-  border: 1px solid var(--theory-border);
-  background: var(--theory-soft);
-  color: var(--accent);
+  border-color: rgba(0, 166, 189, .25);
+  background: rgba(255, 255, 255, .84);
+  color: #075465;
+  box-shadow: 0 10px 24px rgba(6, 55, 68, .08);
+}
+
+.elementsButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(255, 102, 0, .28);
+}
+
+.elementsButton.secondary:hover {
+  background: rgba(0, 166, 189, .08);
+  color: var(--sound-blue);
 }
 
 .heroWave {
@@ -126,10 +150,10 @@
   display: grid;
   place-items: center;
   overflow: hidden;
-  border-radius: 22px;
+  border-radius: 0;
   background:
-    radial-gradient(circle at 26% 28%, rgba(35, 135, 107, 0.18), transparent 36%),
-    linear-gradient(135deg, rgba(255, 102, 0, 0.12), rgba(255, 255, 255, 0.94));
+    radial-gradient(circle at 48% 48%, rgba(47, 131, 183, 0.18), transparent 42%),
+    radial-gradient(circle at 62% 52%, rgba(255, 102, 0, 0.12), transparent 48%);
 }
 
 .heroWave svg {
@@ -608,36 +632,54 @@
 }
 
 .labMode {
-  min-height: 42px;
-  padding: 10px 14px;
-  border: 1px solid var(--theory-border);
-  border-radius: 12px;
-  background: #ffffff;
-  color: var(--sound-ink);
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1.5px solid rgba(0, 166, 189, .25);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .84);
+  color: #075465;
+  font: inherit;
+  font-size: 0.9rem;
   font-weight: 900;
   cursor: pointer;
+  box-shadow: 0 8px 20px rgba(6, 55, 68, .06);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
 }
 
 .labMode.active {
-  background: var(--accent);
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--sound-blue), #28d2c7);
   color: #ffffff;
+  box-shadow: 0 12px 26px rgba(0, 166, 189, .22);
+}
+
+.labMode:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(0, 166, 189, .16);
 }
 
 .labSoundToggle {
-  min-height: 42px;
-  padding: 10px 14px;
-  border: 1px solid rgba(255, 102, 0, 0.28);
-  border-radius: 12px;
-  background: rgba(255, 102, 0, 0.08);
-  color: var(--accent);
+  min-height: 46px;
+  padding: 0 20px;
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.9rem;
   font-weight: 900;
   cursor: pointer;
+  box-shadow: 0 14px 30px rgba(255, 102, 0, .22);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
 }
 
 .labSoundToggle.active {
-  background: var(--accent);
-  color: #ffffff;
-  box-shadow: 0 10px 22px rgba(255, 102, 0, 0.2);
+  background: linear-gradient(135deg, #d34b4b, var(--accent));
+}
+
+.labSoundToggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(255, 102, 0, .28);
 }
 
 .labControls label {
@@ -710,6 +752,15 @@
 }
 
 @media (max-width: 900px) {
+  .elementsHero {
+    grid-template-columns: 1fr;
+    padding: 42px 0 32px;
+  }
+
+  .heroWave {
+    height: 260px;
+  }
+
   .waveLab {
     grid-template-columns: 1fr;
   }
@@ -1128,5 +1179,88 @@
 @media (max-width: 760px) {
   .earSidePanel {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ==================== SHARED THEORY CONTENT SYSTEM ==================== */
+.elementCard,
+.listeningGrid article,
+.conceptMap,
+.detailGrid article,
+.soundFeaturePanel article,
+.soundFeatureVisualCard,
+.featureWavePair div,
+.durationVisual,
+.timbreVisual,
+.waveCard,
+.soundNoiseGrid article,
+.waveLab,
+.earJourney article,
+.sectionClosingNote {
+  border: 1px solid rgba(255, 102, 0, 0.13);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--panel-shadow);
+}
+
+.elementCard,
+.listeningGrid article,
+.detailGrid article,
+.soundFeaturePanel article,
+.soundFeatureVisualCard,
+.waveCard,
+.soundNoiseGrid article,
+.earJourney article {
+  padding: 24px;
+}
+
+.elementCard,
+.listeningGrid article,
+.detailGrid article,
+.soundFeaturePanel article,
+.waveCard,
+.soundNoiseGrid article,
+.earJourney article {
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.elementCard:hover,
+.listeningGrid article:hover,
+.detailGrid article:hover,
+.soundFeaturePanel article:hover,
+.waveCard:hover,
+.soundNoiseGrid article:hover,
+.earJourney article:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 102, 0, 0.22);
+  box-shadow: 0 18px 38px rgba(255, 102, 0, 0.13);
+}
+
+.conceptMap,
+.waveLab,
+.sectionClosingNote {
+  padding: 22px 24px;
+}
+
+.elementCard.rhythm { border-top: 5px solid var(--sound-blue); }
+.elementCard.melody { border-top: 5px solid var(--sound-green); }
+.elementCard.harmony { border-top: 5px solid var(--sound-violet); }
+.elementCard.timbre { border-top: 5px solid var(--accent); }
+.elementCard.dynamics { border-top: 5px solid var(--sound-red); }
+.elementCard.form { border-top: 5px solid #4d7891; }
+
+@media (max-width: 760px) {
+  .elementCard,
+  .listeningGrid article,
+  .detailGrid article,
+  .soundFeaturePanel article,
+  .soundFeatureVisualCard,
+  .waveCard,
+  .soundNoiseGrid article,
+  .earJourney article,
+  .conceptMap,
+  .waveLab,
+  .sectionClosingNote {
+    padding: 18px;
   }
 }

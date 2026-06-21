@@ -4,12 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Strumenti Musicali Game</title>
-<link rel="icon" type="image/png" href="../img/mgh-logo.png">
 <link rel="stylesheet" href="../css/base.css">
-<link rel="stylesheet" href="../css/giochi/strumenti_game.css">
+<link rel="stylesheet" href="../css/giochi/strumenti_game.css?v=20260620-central12">
 </head>
 
-<body class="strumentiGamePage">
+<body class="strumentiGamePage rankedUnifiedGamePage">
 
 <button id="rankedLeaderboardBtn"
         class="rankedLeaderboardButton"
@@ -43,15 +42,12 @@
 
     <div class="buttonGroup strumentiModeGroup">
       <button class="menuButton gameTypeButton" onclick="selectGameMode('recognize', this)">
-        <span class="gameTypeIcon">🎺</span>
         Riconosci lo Strumento
       </button>
       <button class="menuButton gameTypeButton" onclick="selectGameMode('memory', this)">
-        <span class="gameTypeIcon">🎴</span>
         Memory Strumenti
       </button>
       <button class="menuButton gameTypeButton" onclick="selectGameMode('listen', this)">
-        <span class="gameTypeIcon">🔊</span>
         Ascolta e Riconosci
       </button>
       <button class="menuButton rankedModeButton" onclick="selectMode(this, 'ranked')">
@@ -72,17 +68,17 @@
   <div id="game" class="hidden">
 
     <!-- RANKED UI -->
-    <div id="rankedUI" class="hidden">
-      <div id="rankedScoreDisplay">
+    <div id="rankedUI" class="rankedUI hidden">
+      <div id="rankedScoreDisplay" class="rankedScoreDisplay">
         Score: <span id="rankedScore">0</span>
       </div>
-      <div id="rankedProgressWrapper">
-        <div id="rankedProgressLabel">
+      <div id="rankedProgressWrapper" class="rankedProgressWrapper">
+        <div id="rankedProgressLabel" class="rankedProgressLabel">
           <span>Progressione</span>
           <span id="rankedQuestionCounter">1/10</span>
         </div>
-        <div id="rankedProgressBar">
-          <div id="rankedProgressFill"></div>
+        <div id="rankedProgressBar" class="rankedProgressBar">
+          <div id="rankedProgressFill" class="rankedProgressFill"></div>
         </div>
       </div>
     </div>
@@ -92,13 +88,19 @@
       ⏱ <span id="timer">5</span>s
     </div>
 
+    <div class="gameTopActions">
+      <button id="backButton" class="menuButton compactBackButton" onclick="goBack()" aria-label="Torna alle modalità">
+        <span aria-hidden="true">⇧</span>
+      </button>
+    </div>
+
     <!-- DOMANDA/TITOLO -->
     <div id="questionBox" class="questionBoxStrumenti">
       <span id="question"></span>
     </div>
 
     <!-- AREA GIOCO DINAMICA -->
-    <div id="gameArea" class="gameAreaStrumenti">
+    <div id="gameArea" class="gameAreaStrumenti gameVisualBox">
       <!-- Riempito dinamicamente da JS -->
     </div>
 
@@ -109,9 +111,10 @@
 
 </div>
 
-<script src="../js/common.js"></script>
+<script src="../js/common.js?v=20260620-favicon"></script>
 <script src="../js/giochi/ranked.js"></script>
-<script src="../js/giochi/strumenti_game.js"></script>
+<script src="../js/giochi/game_ui.js"></script>
+<script src="../js/giochi/strumenti_game.js?v=20260620-central13"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

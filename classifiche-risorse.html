@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classifica risorse | Music Game Hub</title>
+<link rel="stylesheet" href="css/base.css?v=20260506-2">
+<link rel="stylesheet" href="css/classifiche-risorse.css?v=20260620-2">
+<script>
+(() => {
+  window.goatcounter = window.goatcounter || {};
+  window.goatcounter.path = () => "/MusicGameHub/classifiche-risorse.html";
+  window.goatcounter.title = () => "Classifica risorse";
+})();
+</script>
+</head>
+<body class="statsRankingPage">
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+
+    <div class="headerBrand">
+      <span class="headerEyebrow">Statistiche del portale</span>
+      <h1 class="pageTitle">Classifica risorse</h1>
+    </div>
+  </div>
+</header>
+
+<main id="contentWrapper" class="statsRankingShell">
+  <section class="statsHero">
+    <div>
+      <span class="statsKicker">Pageview totali</span>
+      <h2>Pagine più visitate</h2>
+      <p>La classifica raccoglie le risorse più aperte del portale, ordinate per visite complessive.</p>
+    </div>
+
+    <div class="statsHeroTotal">
+      <span>Totale portale</span>
+      <strong id="statsTotal">—</strong>
+    </div>
+  </section>
+
+  <section class="statsRankingPanel" aria-labelledby="rankingTitle">
+    <div class="rankingHeader">
+      <div>
+        <h2 id="rankingTitle">Classifica completa</h2>
+        <p id="rankingSummary">Statistiche in caricamento.</p>
+      </div>
+
+      <button class="rankingRefreshBtn" type="button" id="refreshStatsBtn">Aggiorna</button>
+    </div>
+
+    <div class="rankingList" id="rankingList" aria-live="polite">
+      <div class="rankingState">Caricamento statistiche...</div>
+    </div>
+  </section>
+</main>
+
+<footer class="siteLegalFooter">
+  <p>Music Game Hub tutela la privacy e usa solo strumenti tecnici o statistici necessari al portale.</p>
+  <div class="siteLegalLinks">
+    <a href="legal/privacy.html">Privacy Policy</a>
+    <span>·</span>
+    <a href="legal/cookie.html">Cookie Policy</a>
+    <span>·</span>
+    <a href="legal/termini.html">Termini di servizio</a>
+  </div>
+</footer>
+
+<script src="js/common.js?v=20260620-favicon"></script>
+<script src="js/resources.js"></script>
+<script src="js/classifiche-risorse.js?v=20260620-3"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

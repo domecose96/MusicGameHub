@@ -1,0 +1,621 @@
+/* ==================== CLASSI ==================== */
+
+.classesWorkspace {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.classesToolbar,
+.classListPanel,
+.classDetailPanel {
+  background: rgba(255, 255, 255, .92);
+  border: 1px solid rgba(255, 102, 0, .12);
+  border-radius: 12px;
+  box-shadow: var(--panel-shadow);
+}
+
+.classesToolbar {
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+.classCreateForm,
+.studentForm {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(150px, .6fr) auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.studentForm {
+  grid-template-columns: repeat(4, minmax(120px, 1fr)) auto;
+  margin: 18px 0 20px;
+}
+
+.classCreateForm label,
+.studentForm label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+  font-size: .82rem;
+  font-weight: 900;
+  color: var(--text-muted);
+}
+
+.classCreateForm input,
+.studentForm input {
+  width: 100%;
+  min-height: 44px;
+  box-sizing: border-box;
+  border: 1.5px solid rgba(255, 102, 0, .18);
+  border-radius: 10px;
+  padding: 0 12px;
+  background: #fff;
+  color: var(--text-main);
+  font-family: inherit;
+  font-weight: 800;
+}
+
+.classCreateForm input:focus,
+.studentForm input:focus {
+  border-color: rgba(255, 102, 0, .58);
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(255, 102, 0, .12);
+}
+
+.classPrimaryButton {
+  width: auto !important;
+  min-width: 142px;
+  height: 44px !important;
+  padding: 0 18px !important;
+  border-radius: 10px !important;
+  font-size: .95rem !important;
+}
+
+.classesStatus {
+  min-height: 20px;
+  margin: 10px 0 0;
+  color: var(--text-muted);
+  font-weight: 800;
+  text-align: left;
+}
+
+.classesLayout {
+  display: grid;
+  grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.classListPanel,
+.classDetailPanel {
+  min-height: 520px;
+  padding: 18px;
+}
+
+.panelHeaderRow,
+.studentsHeader,
+.detailHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.panelHeaderRow h2,
+.detailHeader h2,
+.studentsHeader h3,
+.emptyClassState h2 {
+  margin: 0;
+  color: var(--accent);
+}
+
+.countBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgba(255, 102, 0, .10);
+  color: var(--accent);
+  font-size: .82rem;
+  font-weight: 900;
+}
+
+.classList,
+.studentList {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.classListItem,
+.studentRow {
+  border: 1px solid rgba(0, 0, 0, .07);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.classListItem {
+  width: 100%;
+  padding: 12px;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--text-main);
+}
+
+.classListItem:hover,
+.classListItem.active {
+  border-color: rgba(255, 102, 0, .38);
+  box-shadow: 0 10px 22px rgba(255, 102, 0, .12);
+}
+
+.classListItem strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--text-main);
+}
+
+.classListItem span {
+  display: block;
+  margin-top: 4px;
+  color: var(--text-muted);
+  font-size: .82rem;
+  font-weight: 800;
+}
+
+.emptyClassState {
+  display: grid;
+  place-items: center;
+  min-height: 480px;
+  color: var(--text-muted);
+}
+
+.emptyClassState p {
+  max-width: 420px;
+  margin: 10px auto 0;
+  line-height: 1.5;
+}
+
+.detailHeader {
+  align-items: flex-start;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 102, 0, .12);
+  text-align: left;
+}
+
+.detailEyebrow {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--text-muted);
+  font-size: .78rem;
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+#selectedClassMeta {
+  margin: 6px 0 0;
+  color: var(--text-muted);
+  font-weight: 800;
+}
+
+.detailActions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.iconTextButton {
+  min-height: 38px;
+  border: 1.5px solid rgba(255, 102, 0, .22);
+  border-radius: 999px;
+  padding: 0 13px;
+  background: rgba(255, 255, 255, .92);
+  color: var(--accent);
+  font-family: inherit;
+  font-size: .82rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.iconTextButton:hover {
+  background: rgba(255, 102, 0, .08);
+}
+
+.iconTextButton.danger {
+  border-color: rgba(204, 51, 51, .28);
+  color: #b52020;
+}
+
+.studentRow {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  text-align: left;
+}
+
+.studentActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.studentName {
+  font-weight: 900;
+  color: var(--text-main);
+}
+
+.studentMeta {
+  color: var(--text-muted);
+  font-size: .84rem;
+  font-weight: 800;
+}
+
+.studentEmpty {
+  padding: 28px 16px;
+  border: 1px dashed rgba(255, 102, 0, .24);
+  border-radius: 12px;
+  color: var(--text-muted);
+  font-weight: 800;
+}
+
+.studentEmpty.compact {
+  margin: 0;
+  padding: 18px 14px;
+  font-size: .86rem;
+}
+
+.classInviteOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, .44);
+}
+
+.classInviteOverlay.show {
+  display: flex;
+}
+
+.classInviteModal {
+  width: min(560px, 100%);
+  position: relative;
+  padding: 24px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 28px 70px rgba(0, 0, 0, .24);
+  text-align: left;
+}
+
+.classInviteClose {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 1.7rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.inviteTabs {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin: -4px 0 22px;
+  color: var(--text-muted);
+  font-weight: 900;
+}
+
+.inviteTabs span {
+  padding-bottom: 7px;
+  border-bottom: 3px solid transparent;
+}
+
+.inviteTabs .active {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.classInviteModal h2 {
+  margin: 0 0 8px;
+  color: var(--text-main);
+}
+
+.classInviteModal p {
+  margin: 0 0 18px;
+  color: var(--text-muted);
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.inviteLinkRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 48px;
+  gap: 10px;
+}
+
+.inviteLinkRow input {
+  min-height: 48px;
+  border: 1.5px solid rgba(0, 0, 0, .14);
+  border-radius: 10px;
+  padding: 0 12px;
+  color: var(--text-main);
+  font-family: inherit;
+  font-weight: 800;
+}
+
+.inviteCopyButton {
+  border: 0;
+  border-radius: 10px;
+  background: #cfcfcf;
+  color: #fff;
+  font-size: 1.35rem;
+  cursor: pointer;
+}
+
+.inviteCopyStatus {
+  min-height: 22px;
+  margin: 10px 0 18px !important;
+  color: var(--accent) !important;
+}
+
+.inviteDoneButton {
+  display: block !important;
+  margin-left: auto !important;
+}
+
+.classAnalytics {
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 102, 0, .12);
+  text-align: left;
+}
+
+.inviteWorkspace {
+  width: min(780px, 100%);
+}
+
+.inviteJoinPanel {
+  min-height: 0;
+  padding: clamp(22px, 4vw, 34px);
+  text-align: left;
+}
+
+.inviteJoinPanel h2 {
+  margin: 4px 0 8px;
+  color: var(--accent);
+}
+
+.inviteJoinPanel > p {
+  margin: 0 0 18px;
+  color: var(--text-muted);
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.inviteJoinForm {
+  grid-template-columns: repeat(3, minmax(120px, 1fr)) auto;
+  margin: 20px 0 0;
+}
+
+.analyticsHeader,
+.analyticsCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.analyticsHeader h3,
+.analyticsCard h4 {
+  margin: 0;
+  color: var(--accent);
+}
+
+.analyticsSelect {
+  min-height: 38px;
+  border: 1.5px solid rgba(255, 102, 0, .18);
+  border-radius: 999px;
+  padding: 0 12px;
+  background: #fff;
+  color: var(--text-main);
+  font-family: inherit;
+  font-weight: 900;
+}
+
+.analyticsGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, .8fr);
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.analyticsCard {
+  margin-top: 14px;
+  padding: 16px;
+  border: 1px solid rgba(0, 0, 0, .07);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .82);
+}
+
+.analyticsCard p {
+  margin: 8px 0 14px;
+  color: var(--text-muted);
+  font-size: .9rem;
+  font-weight: 800;
+}
+
+.activityBars {
+  display: grid;
+  gap: 14px;
+}
+
+.activityBars div {
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) 48px;
+  gap: 10px;
+  align-items: center;
+}
+
+.activityBars span {
+  color: var(--text-muted);
+  font-size: .84rem;
+  font-weight: 900;
+}
+
+.activityBars strong {
+  text-align: right;
+  color: var(--accent);
+}
+
+.activityBars i {
+  grid-column: 1 / -1;
+  width: 0;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+  box-shadow: 0 8px 18px rgba(255, 102, 0, .18);
+}
+
+.classLeaderboard {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.leaderboardRow,
+.subjectProgressRow {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(255, 102, 0, .06);
+  font-weight: 900;
+}
+
+.leaderboardRow em,
+.subjectProgressRow em {
+  color: var(--accent);
+  font-style: normal;
+}
+
+.tableHint {
+  color: var(--text-muted);
+  font-size: .78rem;
+  font-weight: 900;
+}
+
+.classTableWrap {
+  margin-top: 12px;
+  overflow-x: auto;
+}
+
+.classProgressTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+}
+
+.classProgressTable th,
+.classProgressTable td {
+  padding: 11px 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, .07);
+  text-align: left;
+  font-size: .88rem;
+}
+
+.classProgressTable th button {
+  border: 0;
+  background: transparent;
+  color: var(--text-main);
+  font-family: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.classProgressTable td {
+  color: var(--text-muted);
+  font-weight: 800;
+}
+
+.subjectsFilters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.subjectsProgress {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.subjectProgressRow {
+  grid-template-columns: minmax(120px, 1fr) auto auto;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 900px) {
+  .classesLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .classCreateForm,
+  .studentForm,
+  .inviteJoinForm {
+    grid-template-columns: 1fr;
+  }
+
+  .studentRow {
+    grid-template-columns: 1fr;
+  }
+
+  .studentActions {
+    justify-content: flex-start;
+  }
+
+  .analyticsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .detailHeader {
+    flex-direction: column;
+  }
+
+  .detailActions {
+    justify-content: flex-start;
+  }
+
+  .analyticsHeader,
+  .analyticsCardHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .subjectsFilters {
+    justify-content: flex-start;
+  }
+}

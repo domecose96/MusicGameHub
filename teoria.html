@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Teoria musicale | Music Game Hub</title>
 <link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/learn.css">
+<link rel="stylesheet" href="css/learn.css?v=20260621-theory-content-system">
 </head>
 
-<body>
+<body class="theoryPage">
 
 <header class="appHeader">
   <div class="appHeaderInner">
@@ -38,6 +38,39 @@
 </nav>
 
 <div id="contentWrapper">
+<section id="teoriaHero" class="siteSection theoryHero">
+  <div class="theoryHeroCopy">
+    <span class="theoryHeroBadge">Teoria musicale</span>
+    <h2>Inizia il tuo percorso musicale</h2>
+    <p>
+      Scegli una sezione, cerca un argomento o allenati con un gioco:
+      tutto parte dalle basi della scrittura musicale.
+    </p>
+
+    <div class="theoryHeroActions" aria-label="Accessi rapidi alla teoria">
+      <button type="button" class="theoryHeroButton" onclick="scrollToSection('pentagramma')">Pentagramma</button>
+      <button type="button" class="theoryHeroButton secondary" onclick="scrollToSection('note')">Note</button>
+      <button type="button" class="theoryHeroButton secondary" onclick="scrollToSection('tempi')">Ritmo</button>
+      <button type="button" class="theoryHeroButton secondary" onclick="scrollToSection('scale')">Scale</button>
+      <details class="theoryHeroMore">
+        <summary>Altri argomenti</summary>
+        <div class="theoryHeroMoreMenu">
+          <button type="button" onclick="goToTheorySection('chiavi')">Chiavi musicali</button>
+          <button type="button" onclick="goToTheorySection('figure')">Figure musicali</button>
+          <button type="button" onclick="goToTheorySection('simboli')">Simboli e alterazioni</button>
+          <button type="button" onclick="goToTheorySection('espressione')">Espressione</button>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="theoryHeroMedia" aria-hidden="true">
+    <div class="theoryHeroImageSlot">
+      <img src="img/teoria-musicale-hero.webp" alt="">
+    </div>
+  </div>
+</section>
+
 <section id="pentagramma" class="siteSection learnSection">
       <h2 class="sectionTitle">Il pentagramma</h2>
 
@@ -976,7 +1009,13 @@
   ⇧
 </button>
 
-<script src="js/common.js"></script>
+<script src="js/common.js?v=20260620-favicon"></script>
+<script>
+function goToTheorySection(sectionId) {
+  document.querySelector(".theoryHeroMore")?.removeAttribute("open");
+  scrollToSection(sectionId);
+}
+</script>
 <script src="js/teoria.js"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
