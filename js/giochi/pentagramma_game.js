@@ -208,6 +208,15 @@ function newRound() {
 
 /* ==================== CLICK ==================== */
 zones.forEach(zone => {
+  zone.setAttribute("role", "button");
+  zone.setAttribute("tabindex", "0");
+  zone.setAttribute("aria-label", positions[zone.dataset.id]?.label || "Posizione sul pentagramma");
+  zone.addEventListener("keydown", event => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    zone.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+  });
+
   zone.addEventListener("click", () => {
     if (!currentTarget || roundLocked) return;
     roundLocked = true;

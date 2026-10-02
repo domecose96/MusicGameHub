@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="../css/base.css">
 <link rel="stylesheet" href="../css/learn.css">
 <link rel="stylesheet" href="../css/educazione_civica/musica_ambiente.css">
+<link rel="stylesheet" href="../css/educazione_civica/civica-ui.css">
 </head>
 
 <body class="environmentPage">
@@ -28,7 +29,7 @@
 </header>
 
 <nav id="siteNav" class="theoryNav environmentNav">
-  <button class="navBtn" onclick="MGH.scrollToSection('hero')">🌍 Inizio</button>
+  <button class="navBtn active" onclick="MGH.scrollToSection('hero')">🌍 Inizio</button>
   <button class="navBtn" onclick="MGH.scrollToSection('introduzione')">🌱 Introduzione</button>
   <button class="navBtn" onclick="MGH.scrollToSection('suoni')">🎧 Suoni</button>
   <button class="navBtn" onclick="MGH.scrollToSection('ascolto')">🎼 Ascolti</button>
@@ -38,7 +39,7 @@
   <button class="navBtn" onclick="MGH.scrollToSection('laboratorio')">🛠️ Laboratorio</button>
   <button class="navBtn" onclick="MGH.scrollToSection('attivita')">👥 Gruppo</button>
   <button class="navBtn" onclick="MGH.scrollToSection('riflessione')">💬 Riflessione</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('quiz')">❓ Quiz</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('quiz')">✅ Quiz</button>
 </nav>
 
 <div id="contentWrapper">
@@ -53,26 +54,27 @@
         per riflettere sul rispetto dell'ambiente.
       </p>
       <div class="environmentHeroActions">
-        <button class="environmentButton" onclick="MGH.scrollToSection('suoni')">Esplora i suoni</button>
+        <button class="environmentButton secondary" onclick="MGH.scrollToSection('introduzione')">Inizia</button>
+        <button class="environmentButton secondary" onclick="MGH.scrollToSection('suoni')">Suoni</button>
         <button class="environmentButton secondary" onclick="MGH.scrollToSection('quiz')">Vai al quiz</button>
+        <details class="theoryHeroMore">
+          <summary>Altri argomenti</summary>
+          <div class="theoryHeroMoreMenu">
+            <button onclick="MGH.scrollToSection('ascolto')">Ascolti</button>
+            <button onclick="MGH.scrollToSection('canzoni')">Canzoni</button>
+            <button onclick="MGH.scrollToSection('descrittiva')">Musica descrittiva</button>
+            <button onclick="MGH.scrollToSection('sostenibilita')">Sostenibilità</button>
+            <button onclick="MGH.scrollToSection('laboratorio')">Laboratorio</button>
+            <button onclick="MGH.scrollToSection('attivita')">Gruppo</button>
+            <button onclick="MGH.scrollToSection('riflessione')">Riflessione</button>
+          </div>
+        </details>
       </div>
     </div>
 
-    <div class="natureScene" aria-label="Paesaggio naturale con mare, cielo e onde sonore">
-      <div class="sceneSky"></div>
-      <div class="sceneSun"></div>
-      <div class="sceneMountains">
-        <span></span>
-        <span></span>
-      </div>
-      <div class="sceneForest">
-        <span></span><span></span><span></span><span></span><span></span>
-      </div>
-      <div class="sceneWater">
-        <span></span><span></span><span></span>
-      </div>
-      <div class="soundWaves">
-        <span></span><span></span><span></span>
+    <div class="theoryHeroMedia civicHeroMedia environmentHeroMedia" aria-hidden="true">
+      <div class="theoryHeroImageSlot civicHeroImageSlot environmentHeroImageSlot">
+        <img src="../img/educazione_civica/hero/musica-ambiente-hero.png" alt="">
       </div>
     </div>
   </section>
@@ -357,7 +359,7 @@
     <h2 class="sectionTitle">Quiz finale</h2>
     <p class="sectionIntro">Rispondi alle domande e controlla subito il risultato.</p>
 
-    <div class="environmentQuiz">
+    <div class="environmentQuiz civicQuiz" id="environmentQuiz">
       <article class="quizQuestion" data-answer="pioggia">
         <h3>Quale suono appartiene alla natura?</h3>
         <button type="button" data-value="clacson">Clacson</button>
@@ -392,6 +394,14 @@
     <h2>Ascoltare la natura significa imparare a rispettarla.</h2>
   </section>
 
+  <nav class="learnCTA civicReturnCTA" aria-label="Torna al portale di educazione civica">
+    <a class="learningNextCard" href="index.html">
+      <span>Portale civico</span>
+      <strong>Educazione civica musicale</strong>
+      <p>Torna all'indice con tutti i percorsi, le attività e i temi di cittadinanza.</p>
+    </a>
+  </nav>
+
 </div>
 
 <div id="listeningModal" class="listeningModal" aria-hidden="true">
@@ -421,6 +431,7 @@
 <button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
 
 <script src="../js/common.js?v=20260620-favicon"></script>
+<script src="../js/educazione_civica/civica_quiz.js"></script>
 <script src="../js/educazione_civica/musica_ambiente.js"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>

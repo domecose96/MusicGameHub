@@ -311,23 +311,28 @@ function openSearchResult(item) {
 
 function hideSearchDropdown() {
   const dropdown = document.getElementById("portalSearchDropdown");
+  const panel = document.querySelector(".portalSearchPanel");
   if (!dropdown) return;
   dropdown.classList.add("hidden");
   dropdown.replaceChildren();
+  panel?.classList.remove("searchDropdownOpen");
 }
 
 function renderSearchDropdown(query, results) {
   const dropdown = document.getElementById("portalSearchDropdown");
+  const panel = document.querySelector(".portalSearchPanel");
   if (!dropdown) return;
 
   dropdown.replaceChildren();
 
   if (query.length < 2) {
     dropdown.classList.add("hidden");
+    panel?.classList.remove("searchDropdownOpen");
     return;
   }
 
   dropdown.classList.remove("hidden");
+  panel?.classList.add("searchDropdownOpen");
 
   if (!results.length) {
     const empty = document.createElement("div");

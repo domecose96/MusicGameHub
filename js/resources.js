@@ -306,6 +306,18 @@ const MusicGameHubResources = (() => {
       tag: "Intervalli"
     },
     {
+      id: "accordiGame",
+      icon: "♬",
+      type: "Gioco",
+      title: "Costruisci l'Accordo",
+      desc: "Scegli tre note sulla tastiera e costruisci triadi maggiori, minori e rivolti.",
+      tags: ["gioco", "accordi", "armonia", "triadi", "rivolti", "tastiera", "ascolto"],
+      url: "giochi/accordi_game.html",
+      group: "games",
+      homeGame: true,
+      tag: "Accordi · Armonia"
+    },
+    {
       id: "ritmoBattuta",
       icon: "▦",
       type: "Gioco",
@@ -368,6 +380,40 @@ const MusicGameHubResources = (() => {
       tag: "Strumenti"
     },
     {
+      id: "sinfoniaOca",
+      icon: "🪿",
+      type: "Gioco",
+      title: "La sinfonia dell'oca",
+      desc: "Gioco dell'oca sugli strumenti: dado, pedine, sfide visive, audio e famiglie musicali.",
+      tags: ["gioco", "strumenti", "oca", "dado", "famiglie", "audio", "immagini"],
+      url: "giochi/sinfonia_oca.html",
+      group: "games",
+      homeGame: true,
+      tag: "Strumenti · Tavolo"
+    },
+    {
+      id: "dadiMozart",
+      icon: "⚄",
+      type: "Laboratorio interattivo",
+      title: "I dadi di Mozart",
+      desc: "Lancia due dadi, scegli le tessere e crea una composizione da leggere e ascoltare.",
+      tags: ["laboratorio", "mozart", "dadi", "composizione", "spartito", "audio", "forma", "classicismo"],
+      url: "dadi_mozart.html",
+      group: "paths",
+      tag: "Composizione · Mozart"
+    },
+    {
+      id: "creaMusigramma",
+      icon: "🎼",
+      type: "Laboratorio interattivo",
+      title: "Crea il Musigramma",
+      desc: "Costruisci una mappa visiva della musica con simboli, colori, pulsazioni e audio sincronizzato.",
+      tags: ["laboratorio", "musigramma", "ascolto", "forma", "colori", "simboli", "audio", "ritmo"],
+      url: "musigramma.html",
+      group: "paths",
+      tag: "Ascolto · Forma"
+    },
+    {
       id: "storiaMusica",
       icon: "🕰️",
       type: "Percorso",
@@ -395,6 +441,16 @@ const MusicGameHubResources = (() => {
       desc: "Solista, duo, ensemble, orchestre e band: scopri come cambia l'organico strumentale.",
       tags: ["strumenti", "formazioni", "ensemble", "orchestra", "band", "solista", "duo", "trio"],
       url: "formazioni.html",
+      group: "paths"
+    },
+    {
+      id: "laboratoriMusicali",
+      icon: "🎛️",
+      type: "Percorso",
+      title: "Laboratori musicali",
+      desc: "Esperienze interattive per osservare, comporre e trasformare la musica.",
+      tags: ["laboratori", "composizione", "ascolto", "suono", "mozart", "musigramma", "formazioni"],
+      url: "laboratori.html",
       group: "paths"
     },
     {
@@ -560,6 +616,16 @@ const MusicGameHubResources = (() => {
       }
     },
     {
+      id: "homeLaboratori",
+      icon: "🎛️",
+      title: "Laboratori musicali",
+      desc: "Componi, ascolta e osserva la musica attraverso esperienze interattive senza punteggio.",
+      tags: ["laboratori", "mozart", "dadi", "composizione", "suono", "musigramma", "formazioni"],
+      tag: "Esplora e crea",
+      url: "laboratori.html",
+      homeGroup: "paths"
+    },
+    {
       id: "homeFumetti",
       icon: "📖",
       title: "Vite a fumetti",
@@ -600,7 +666,7 @@ const MusicGameHubResources = (() => {
       id: "entryPaths",
       icon: "🧭",
       title: "Percorsi",
-      desc: "Lezioni tematiche per storia, strumenti ed educazione civica.",
+      desc: "Lezioni tematiche e laboratori per storia, strumenti ed educazione civica.",
       tag: "Esplora",
       target: "pathsHome"
     },

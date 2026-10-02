@@ -6,6 +6,7 @@
 <title>Teoria musicale | Music Game Hub</title>
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/learn.css?v=20260621-theory-content-system">
+<link rel="stylesheet" href="css/learning-ui.css?v=20260622-shared-learning-ui">
 </head>
 
 <body class="theoryPage">
@@ -26,7 +27,6 @@
 </header>
 
 <nav id="siteNav" class="theoryNav">
-  <button class="navBtn" onclick="MGH.goTo('elementi_musica.html')">〰 Suono</button>
   <button class="navBtn" onclick="scrollToSection('pentagramma')">🎼 Pentagramma</button>
   <button class="navBtn" onclick="scrollToSection('chiavi')">🎼 Chiavi</button>
   <button class="navBtn" onclick="scrollToSection('note')">🎵 Note</button>
@@ -48,7 +48,7 @@
     </p>
 
     <div class="theoryHeroActions" aria-label="Accessi rapidi alla teoria">
-      <button type="button" class="theoryHeroButton" onclick="scrollToSection('pentagramma')">Pentagramma</button>
+      <button type="button" class="theoryHeroButton secondary" onclick="scrollToSection('pentagramma')">Pentagramma</button>
       <button type="button" class="theoryHeroButton secondary" onclick="scrollToSection('note')">Note</button>
       <button type="button" class="theoryHeroButton secondary" onclick="scrollToSection('tempi')">Ritmo</button>
       <button type="button" class="theoryHeroButton secondary" onclick="scrollToSection('scale')">Scale</button>
@@ -84,10 +84,10 @@
         Il taglio può attraversare la nota (detto <strong>in testa</strong>) oppure trovarsi vicino alla nota (detto <strong>in gola</strong>).
       </p>
 
-      <div class="clefGrid clefGridSingle">
-        <div class="clefCard">
+      <div class="clefGrid clefGridSingle pentagramStructureGrid">
+        <div class="clefCard theoryDiagramCard pentagramStructureCard">
 
-          <h3 class="cardTopTitle">Struttura del pentagramma</h3>
+          <span class="cardTopTitle">Struttura del pentagramma</span>
 
           <svg class="clefStaffSVG" viewBox="0 -20 420 180">
             <!-- Taglio addizionale sopra -->
@@ -137,12 +137,14 @@
             </text>
           </svg>
 
-          <h3>Pentagramma <span class="clefPosition">5 righe e 4 spazi</span></h3>
-          <p>
-            Le righe e gli spazi si contano sempre <strong>dal basso verso l’alto</strong>.
-            Per sapere il nome esatto delle note serve una <strong>chiave musicale</strong>,
-            che viene scritta all’inizio del pentagramma.
-          </p>
+          <div class="pentagramCardText">
+            <h3>Pentagramma <span class="clefPosition">5 righe e 4 spazi</span></h3>
+            <p>
+              Le righe e gli spazi si contano sempre <strong>dal basso verso l’alto</strong>.
+              Per sapere il nome esatto delle note serve una <strong>chiave musicale</strong>,
+              che viene scritta all’inizio del pentagramma.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -237,76 +239,76 @@
       <div class="clefGrid clefGridFour">
 
         <div class="clefCard">
-          <svg class="clefStaffSVG" viewBox="0 -5 300 130">
-            <line x1="50" y1="20" x2="210" y2="20" stroke="#ddd" stroke-width="1.5"/>
-            <line x1="50" y1="40" x2="210" y2="40" stroke="#ddd" stroke-width="1.5"/>
-            <line x1="50" y1="60" x2="210" y2="60" stroke="#ddd" stroke-width="1.5"/>
-            <line x1="50" y1="80" x2="210" y2="80" stroke="#ddd" stroke-width="1.5"/>
-            <line x1="50" y1="100" x2="210" y2="100" stroke="#ff6600" stroke-width="2.5"/>
+          <svg class="clefStaffSVG" viewBox="0 -5 400 130">
+            <line x1="50" y1="20" x2="330" y2="20" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="50" y1="40" x2="330" y2="40" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="50" y1="60" x2="330" y2="60" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="50" y1="80" x2="330" y2="80" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="50" y1="100" x2="330" y2="100" stroke="#ff6600" stroke-width="2.5"/>
             <!-- Do sulla 1ª riga: il centro del simbolo su y=100 -->
-            <text x="50" y="136" font-size="110" font-family="serif" fill="#ff6600" letter-spacing="-3">𝄡</text>
-            <text x="216" y="24"  font-size="9" fill="#aaa" font-family="sans-serif">Re5</text>
-            <text x="216" y="44"  font-size="9" fill="#aaa" font-family="sans-serif">Si4</text>
-            <text x="216" y="64"  font-size="9" fill="#aaa" font-family="sans-serif">Sol4</text>
-            <text x="216" y="84"  font-size="9" fill="#aaa" font-family="sans-serif">Mi4</text>
-            <text x="216" y="104" font-size="9" fill="#ff6600" font-weight="bold" font-family="sans-serif">Do4 ←</text>
+            <text x="52" y="136" font-size="110" font-family="serif" fill="#ff6600" letter-spacing="-3">𝄡</text>
+            <text x="336" y="24"  font-size="10" fill="#aaa" font-family="sans-serif">Re5</text>
+            <text x="336" y="44"  font-size="10" fill="#aaa" font-family="sans-serif">Si4</text>
+            <text x="336" y="64"  font-size="10" fill="#aaa" font-family="sans-serif">Sol4</text>
+            <text x="336" y="84"  font-size="10" fill="#aaa" font-family="sans-serif">Mi4</text>
+            <text x="336" y="104" font-size="10" fill="#ff6600" font-weight="bold" font-family="sans-serif">Do4 ←</text>
           </svg>
           <h3>Soprano <span class="clefPosition">Do sulla 1ª riga</span></h3>
           <p>Il Do4 è sulla <strong>1ª riga</strong>. Usata storicamente per la voce di soprano. Oggi rara.</p>
         </div>
 
         <div class="clefCard">
-          <svg class="clefStaffSVG" viewBox="0 -5 300 130">
-            <line x1="50" y1="20" x2="210" y2="20" stroke="#ddd" stroke-width="1.5"/>
-            <line x1="50" y1="40" x2="210" y2="40" stroke="#ddd" stroke-width="1.5"/>
-            <line x1="50" y1="60" x2="210" y2="60" stroke="#ddd" stroke-width="1.5"/>
-            <line x1="50" y1="80" x2="210" y2="80" stroke="#ff6600" stroke-width="2.5"/>
-            <line x1="50" y1="100" x2="210" y2="100" stroke="#ddd" stroke-width="1.5"/>
+          <svg class="clefStaffSVG" viewBox="0 -5 400 130">
+            <line x1="50" y1="20" x2="330" y2="20" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="50" y1="40" x2="330" y2="40" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="50" y1="60" x2="330" y2="60" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="50" y1="80" x2="330" y2="80" stroke="#ff6600" stroke-width="2.5"/>
+            <line x1="50" y1="100" x2="330" y2="100" stroke="#ddd" stroke-width="1.5"/>
             <!-- Do sulla 2ª riga: centro su y=80 -->
-            <text x="50" y="116" font-size="110" font-family="serif" fill="#ff6600" letter-spacing="-3">𝄡</text>
-            <text x="216" y="24"  font-size="9" fill="#aaa" font-family="sans-serif">Si4</text>
-            <text x="216" y="44"  font-size="9" fill="#aaa" font-family="sans-serif">Sol4</text>
-            <text x="216" y="64"  font-size="9" fill="#aaa" font-family="sans-serif">Mi4</text>
-            <text x="216" y="84"  font-size="9" fill="#ff6600" font-weight="bold" font-family="sans-serif">Do4 ←</text>
-            <text x="216" y="104" font-size="9" fill="#aaa" font-family="sans-serif">La3</text>
+            <text x="52" y="116" font-size="110" font-family="serif" fill="#ff6600" letter-spacing="-3">𝄡</text>
+            <text x="336" y="24"  font-size="10" fill="#aaa" font-family="sans-serif">Si4</text>
+            <text x="336" y="44"  font-size="10" fill="#aaa" font-family="sans-serif">Sol4</text>
+            <text x="336" y="64"  font-size="10" fill="#aaa" font-family="sans-serif">Mi4</text>
+            <text x="336" y="84"  font-size="10" fill="#ff6600" font-weight="bold" font-family="sans-serif">Do4 ←</text>
+            <text x="336" y="104" font-size="10" fill="#aaa" font-family="sans-serif">La3</text>
           </svg>
           <h3>Mezzosoprano <span class="clefPosition">Do sulla 2ª riga</span></h3>
           <p>Il Do4 è sulla <strong>2ª riga</strong>. Usata per la voce di mezzosoprano. Oggi quasi in disuso.</p>
         </div>
 
         <div class="clefCard">
-          <svg class="clefStaffSVG" viewBox="0 -5 300 130">
-            <line x1="50" y1="20" x2="210" y2="20" stroke="#ddd" stroke-width="1.5"/>
-            <line x1="50" y1="40" x2="210" y2="40" stroke="#ddd" stroke-width="1.5"/>
-            <line x1="50" y1="60" x2="210" y2="60" stroke="#ff6600" stroke-width="2.5"/>
-            <line x1="50" y1="80" x2="210" y2="80" stroke="#ddd" stroke-width="1.5"/>
-            <line x1="50" y1="100" x2="210" y2="100" stroke="#ddd" stroke-width="1.5"/>
+          <svg class="clefStaffSVG" viewBox="0 -5 400 130">
+            <line x1="50" y1="20" x2="330" y2="20" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="50" y1="40" x2="330" y2="40" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="50" y1="60" x2="330" y2="60" stroke="#ff6600" stroke-width="2.5"/>
+            <line x1="50" y1="80" x2="330" y2="80" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="50" y1="100" x2="330" y2="100" stroke="#ddd" stroke-width="1.5"/>
             <!-- Do sulla 3ª riga: centro su y=60 -->
-            <text x="50" y="96" font-size="110" font-family="serif" fill="#ff6600" letter-spacing="-3">𝄡</text>
-            <text x="216" y="24"  font-size="9" fill="#aaa" font-family="sans-serif">Sol4</text>
-            <text x="216" y="44"  font-size="9" fill="#aaa" font-family="sans-serif">Mi4</text>
-            <text x="216" y="64"  font-size="9" fill="#ff6600" font-weight="bold" font-family="sans-serif">Do4 ←</text>
-            <text x="216" y="84"  font-size="9" fill="#aaa" font-family="sans-serif">La3</text>
-            <text x="216" y="104" font-size="9" fill="#aaa" font-family="sans-serif">Fa3</text>
+            <text x="52" y="96" font-size="110" font-family="serif" fill="#ff6600" letter-spacing="-3">𝄡</text>
+            <text x="336" y="24"  font-size="10" fill="#aaa" font-family="sans-serif">Sol4</text>
+            <text x="336" y="44"  font-size="10" fill="#aaa" font-family="sans-serif">Mi4</text>
+            <text x="336" y="64"  font-size="10" fill="#ff6600" font-weight="bold" font-family="sans-serif">Do4 ←</text>
+            <text x="336" y="84"  font-size="10" fill="#aaa" font-family="sans-serif">La3</text>
+            <text x="336" y="104" font-size="10" fill="#aaa" font-family="sans-serif">Fa3</text>
           </svg>
           <h3>Contralto <span class="clefPosition">Do sulla 3ª riga</span></h3>
           <p>Il Do4 è sulla <strong>3ª riga</strong>. Usata per la voce di contralto e, ancora oggi, come chiave principale della viola.</p>
         </div>
 
         <div class="clefCard">
-          <svg class="clefStaffSVG" viewBox="0 -5 300 130">
-            <line x1="50" y1="20" x2="210" y2="20" stroke="#ddd" stroke-width="1.5"/>
-            <line x1="50" y1="40" x2="210" y2="40" stroke="#ff6600" stroke-width="2.5"/>
-            <line x1="50" y1="60" x2="210" y2="60" stroke="#ddd" stroke-width="1.5"/>
-            <line x1="50" y1="80" x2="210" y2="80" stroke="#ddd" stroke-width="1.5"/>
-            <line x1="50" y1="100" x2="210" y2="100" stroke="#ddd" stroke-width="1.5"/>
+          <svg class="clefStaffSVG" viewBox="0 -5 400 130">
+            <line x1="50" y1="20" x2="330" y2="20" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="50" y1="40" x2="330" y2="40" stroke="#ff6600" stroke-width="2.5"/>
+            <line x1="50" y1="60" x2="330" y2="60" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="50" y1="80" x2="330" y2="80" stroke="#ddd" stroke-width="1.5"/>
+            <line x1="50" y1="100" x2="330" y2="100" stroke="#ddd" stroke-width="1.5"/>
             <!-- Do sulla 4ª riga: centro su y=40 -->
-            <text x="50" y="76" font-size="110" font-family="serif" fill="#ff6600" letter-spacing="-3">𝄡</text>
-            <text x="216" y="24"  font-size="9" fill="#aaa" font-family="sans-serif">Mi4</text>
-            <text x="216" y="44"  font-size="9" fill="#ff6600" font-weight="bold" font-family="sans-serif">Do4 ←</text>
-            <text x="216" y="64"  font-size="9" fill="#aaa" font-family="sans-serif">La3</text>
-            <text x="216" y="84"  font-size="9" fill="#aaa" font-family="sans-serif">Fa3</text>
-            <text x="216" y="104" font-size="9" fill="#aaa" font-family="sans-serif">Re3</text>
+            <text x="52" y="76" font-size="110" font-family="serif" fill="#ff6600" letter-spacing="-3">𝄡</text>
+            <text x="336" y="24"  font-size="10" fill="#aaa" font-family="sans-serif">Mi4</text>
+            <text x="336" y="44"  font-size="10" fill="#ff6600" font-weight="bold" font-family="sans-serif">Do4 ←</text>
+            <text x="336" y="64"  font-size="10" fill="#aaa" font-family="sans-serif">La3</text>
+            <text x="336" y="84"  font-size="10" fill="#aaa" font-family="sans-serif">Fa3</text>
+            <text x="336" y="104" font-size="10" fill="#aaa" font-family="sans-serif">Re3</text>
           </svg>
           <h3>Tenore <span class="clefPosition">Do sulla 4ª riga</span></h3>
           <p>Il Do4 è sulla <strong>4ª riga</strong>. Ancora in uso per violoncello, fagotto e trombone nelle note acute.</p>
@@ -330,23 +332,23 @@
         <h3>Pentagramma interattivo — chiave di violino</h3>
         <p class="sectionIntro" style="font-size:0.95rem;">Clicca su una posizione per scoprire la nota</p>
         <div class="interactiveStaff">
-          <svg id="clickStaff" viewBox="0 0 600 210" style="width:100%;max-width:580px;display:block;margin:0 auto;cursor:pointer;">
-            <line x1="60" y1="55"  x2="545" y2="55"  stroke="#ccc" stroke-width="1.5"/>
-            <line x1="60" y1="80"  x2="545" y2="80"  stroke="#ccc" stroke-width="1.5"/>
-            <line x1="60" y1="105" x2="545" y2="105" stroke="#ccc" stroke-width="1.5"/>
-            <line x1="60" y1="130" x2="545" y2="130" stroke="#ccc" stroke-width="1.5"/>
-            <line x1="60" y1="155" x2="545" y2="155" stroke="#ccc" stroke-width="1.5"/>
+          <svg id="clickStaff" viewBox="0 0 760 210" style="width:100%;max-width:760px;display:block;margin:0 auto;cursor:pointer;">
+            <line x1="60" y1="55"  x2="725" y2="55"  stroke="#ccc" stroke-width="1.5"/>
+            <line x1="60" y1="80"  x2="725" y2="80"  stroke="#ccc" stroke-width="1.5"/>
+            <line x1="60" y1="105" x2="725" y2="105" stroke="#ccc" stroke-width="1.5"/>
+            <line x1="60" y1="130" x2="725" y2="130" stroke="#ccc" stroke-width="1.5"/>
+            <line x1="60" y1="155" x2="725" y2="155" stroke="#ccc" stroke-width="1.5"/>
             <text x="58" y="175" font-size="220" font-family="serif" fill="#ff6600">𝄞</text>
             <!-- Hit areas per posizioni note -->
-            <rect x="165" y="145" width="50" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Mi" data-y="155" data-desc="1ª riga"/>
-            <rect x="225" y="131" width="50" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Fa" data-y="142" data-desc="1º spazio"/>
-            <rect x="285" y="119" width="50" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Sol" data-y="130" data-desc="2ª riga"/>
-            <rect x="345" y="106" width="50" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="La" data-y="117" data-desc="2º spazio"/>
-            <rect x="405" y="94"  width="50" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Si" data-y="105" data-desc="3ª riga"/>
-            <rect x="165" y="81"  width="50" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Do" data-y="92"  data-desc="3º spazio"/>
-            <rect x="225" y="69"  width="50" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Re" data-y="80"  data-desc="4ª riga"/>
-            <rect x="285" y="56"  width="50" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Mi" data-y="67"  data-desc="4º spazio"/>
-            <rect x="345" y="44"  width="50" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Fa" data-y="55"  data-desc="5ª riga"/>
+            <rect x="162" y="145" width="44" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Mi" data-y="155" data-desc="1ª riga"/>
+            <rect x="224" y="131" width="44" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Fa" data-y="142" data-desc="1º spazio"/>
+            <rect x="286" y="119" width="44" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Sol" data-y="130" data-desc="2ª riga"/>
+            <rect x="348" y="106" width="44" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="La" data-y="117" data-desc="2º spazio"/>
+            <rect x="410" y="94"  width="44" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Si" data-y="105" data-desc="3ª riga"/>
+            <rect x="472" y="81"  width="44" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Do" data-y="92"  data-desc="3º spazio"/>
+            <rect x="534" y="69"  width="44" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Re" data-y="80"  data-desc="4ª riga"/>
+            <rect x="596" y="56"  width="44" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Mi" data-y="67"  data-desc="4º spazio"/>
+            <rect x="658" y="44"  width="44" height="22" fill="rgba(255,102,0,0.06)" rx="4" class="noteHit" data-nota="Fa" data-y="55"  data-desc="5ª riga"/>
             <!-- Nota animata -->
             <ellipse id="hintNote" cx="-100" cy="-100" rx="12" ry="8" fill="#ff6600" opacity="0"/>
             <text id="hintLabel" x="-100" y="-100" text-anchor="middle" font-size="15" font-weight="bold" fill="#ff6600" font-family="'Roboto Slab',serif" opacity="0"></text>
@@ -375,25 +377,26 @@
       <h2 class="sectionTitle">Le figure musicali e i valori ritmici</h2>
       <p class="sectionIntro">Ogni figura musicale rappresenta una <strong>durata sonora</strong>. Le figure si dividono in note (suoni) e pause (silenzi).</p>
 
+      <h3 class="subSectionTitle">Figure musicali</h3>
       <div class="figureGrid">
         <div class="figureItem"><img src="img/semibreve.webp" alt="Semibreve" class="figureImg"><h4>Semibreve</h4><div class="figureValue">4 tempi</div><p>Testa vuota, senza gambo.</p></div>
         <div class="figureItem"><img src="img/minima.webp" alt="Minima" class="figureImg"><h4>Minima</h4><div class="figureValue">2 tempi</div><p>Testa vuota con gambo.</p></div>
         <div class="figureItem"><img src="img/semiminima.webp" alt="Semiminima" class="figureImg"><h4>Semiminima</h4><div class="figureValue">1 tempo</div><p>Testa piena con gambo.</p></div>
-        <div class="figureItem"><img src="img/croma.webp" alt="Croma" class="figureImg"><h4>Croma</h4><div class="figureValue">½ tempo</div><p>Gambo con una bandierina.</p></div>
-        <div class="figureItem"><img src="img/semicroma.webp" alt="Semicroma" class="figureImg"><h4>Semicroma</h4><div class="figureValue">¼ tempo</div><p>Due bandierine.</p></div>
-        <div class="figureItem"><img src="img/biscroma.webp" alt="Biscroma" class="figureImg"><h4>Biscroma</h4><div class="figureValue">⅛ tempo</div><p>Tre bandierine.</p></div>
-        <div class="figureItem"><img src="img/semibiscroma.webp" alt="Semibiscroma" class="figureImg"><h4>Semibiscroma</h4><div class="figureValue">1/16</div><p>Quattro bandierine.</p></div>
+        <div class="figureItem"><img src="img/croma.webp" alt="Croma" class="figureImg"><h4>Croma</h4><div class="figureValue">1⁄2 tempo</div><p>Gambo con una bandierina.</p></div>
+        <div class="figureItem"><img src="img/semicroma.webp" alt="Semicroma" class="figureImg"><h4>Semicroma</h4><div class="figureValue">1⁄4 tempo</div><p>Due bandierine.</p></div>
+        <div class="figureItem"><img src="img/biscroma.webp" alt="Biscroma" class="figureImg"><h4>Biscroma</h4><div class="figureValue">1⁄8 tempo</div><p>Tre bandierine.</p></div>
+        <div class="figureItem"><img src="img/semibiscroma.webp" alt="Semibiscroma" class="figureImg"><h4>Semibiscroma</h4><div class="figureValue">1⁄16 tempo</div><p>Quattro bandierine.</p></div>
       </div>
 
-      <h3 style="margin-top:36px;text-align:center;color:var(--text-muted);font-size:1.1rem;font-weight:600;">Le pause corrispondenti</h3>
+      <h3 class="subSectionTitle">Pause corrispondenti</h3>
       <div class="figureGrid">
-        <div class="figureItem"><img src="img/pausa_semibreve.webp" alt="Pausa semibreve" class="figureImg"><h4>P. semibreve</h4><div class="figureValue">4 tempi</div></div>
-        <div class="figureItem"><img src="img/pausa_minima.webp" alt="Pausa minima" class="figureImg"><h4>P. minima</h4><div class="figureValue">2 tempi</div></div>
-        <div class="figureItem"><img src="img/pausa_semiminima.webp" alt="Pausa semiminima" class="figureImg"><h4>P. semiminima</h4><div class="figureValue">1 tempo</div></div>
-        <div class="figureItem"><img src="img/pausa_croma.webp" alt="Pausa croma" class="figureImg"><h4>P. croma</h4><div class="figureValue">½ tempo</div></div>
-        <div class="figureItem"><img src="img/pausa_semicroma.webp" alt="Pausa semicroma" class="figureImg"><h4>P. semicroma</h4><div class="figureValue">¼ tempo</div></div>
-        <div class="figureItem"><img src="img/pausa_biscroma.webp" alt="Pausa biscroma" class="figureImg"><h4>P. biscroma</h4><div class="figureValue">⅛ tempo</div></div>
-        <div class="figureItem"><img src="img/pausa_semibiscroma.webp" alt="Pausa semibiscroma" class="figureImg"><h4>P. semibiscroma</h4><div class="figureValue">1/16</div></div>
+        <div class="figureItem"><img src="img/pausa_semibreve.webp" alt="Pausa semibreve" class="figureImg"><h4>P. semibreve</h4><div class="figureValue">4 tempi</div><p>Rettangolo appeso sotto la 4ª riga.</p></div>
+        <div class="figureItem"><img src="img/pausa_minima.webp" alt="Pausa minima" class="figureImg"><h4>P. minima</h4><div class="figureValue">2 tempi</div><p>Rettangolo appoggiato sopra la 3ª riga.</p></div>
+        <div class="figureItem"><img src="img/pausa_semiminima.webp" alt="Pausa semiminima" class="figureImg"><h4>P. semiminima</h4><div class="figureValue">1 tempo</div><p>Segno spezzato verticale, come una piccola saetta.</p></div>
+        <div class="figureItem"><img src="img/pausa_croma.webp" alt="Pausa croma" class="figureImg"><h4>P. croma</h4><div class="figureValue">1⁄2 tempo</div><p>Segno curvo con una sola codetta.</p></div>
+        <div class="figureItem"><img src="img/pausa_semicroma.webp" alt="Pausa semicroma" class="figureImg"><h4>P. semicroma</h4><div class="figureValue">1⁄4 tempo</div><p>Segno curvo con due codette.</p></div>
+        <div class="figureItem"><img src="img/pausa_biscroma.webp" alt="Pausa biscroma" class="figureImg"><h4>P. biscroma</h4><div class="figureValue">1⁄8 tempo</div><p>Segno curvo con tre codette.</p></div>
+        <div class="figureItem"><img src="img/pausa_semibiscroma.webp" alt="Pausa semibiscroma" class="figureImg"><h4>P. semibiscroma</h4><div class="figureValue">1⁄16 tempo</div><p>Segno curvo con quattro codette.</p></div>
       </div>
 
       <div class="didacticBox">
@@ -614,25 +617,38 @@
     </div>
 
       <div class="tonalityGrid">
-        <h3>Tonalità maggiori</h3>
-        <div class="tonalityRow">
-          <div class="tonalityCard">Do M<span>0</span></div>
+        <h3 class="subSectionTitle">Tonalità maggiori</h3>
+        <div class="tonalityGroup tonalityNeutral">
+          <h4>Senza alterazioni</h4>
+          <div class="tonalityRow neutral">
+            <div class="tonalityCard">Do M<span>0</span></div>
+          </div>
+        </div>
 
-          <div class="tonalityCard">Sol M<span>1#</span></div>
-          <div class="tonalityCard">Re M<span>2#</span></div>
-          <div class="tonalityCard">La M<span>3#</span></div>
-          <div class="tonalityCard">Mi M<span>4#</span></div>
-          <div class="tonalityCard">Si M<span>5#</span></div>
-          <div class="tonalityCard">Fa# M<span>6#</span></div>
-          <div class="tonalityCard">Do# M<span>7#</span></div>
+        <div class="tonalityGroup">
+          <h4>Con i diesis</h4>
+          <div class="tonalityRow">
+            <div class="tonalityCard">Sol M<span>1#</span></div>
+            <div class="tonalityCard">Re M<span>2#</span></div>
+            <div class="tonalityCard">La M<span>3#</span></div>
+            <div class="tonalityCard">Mi M<span>4#</span></div>
+            <div class="tonalityCard">Si M<span>5#</span></div>
+            <div class="tonalityCard">Fa# M<span>6#</span></div>
+            <div class="tonalityCard">Do# M<span>7#</span></div>
+          </div>
+        </div>
 
-          <div class="tonalityCard">Fa M<span>1♭</span></div>
-          <div class="tonalityCard">Si♭ M<span>2♭</span></div>
-          <div class="tonalityCard">Mi♭ M<span>3♭</span></div>
-          <div class="tonalityCard">La♭ M<span>4♭</span></div>
-          <div class="tonalityCard">Re♭ M<span>5♭</span></div>
-          <div class="tonalityCard">Sol♭ M<span>6♭</span></div>
-          <div class="tonalityCard">Do♭ M<span>7♭</span></div>
+        <div class="tonalityGroup">
+          <h4>Con i bemolli</h4>
+          <div class="tonalityRow">
+            <div class="tonalityCard">Fa M<span>1♭</span></div>
+            <div class="tonalityCard">Si♭ M<span>2♭</span></div>
+            <div class="tonalityCard">Mi♭ M<span>3♭</span></div>
+            <div class="tonalityCard">La♭ M<span>4♭</span></div>
+            <div class="tonalityCard">Re♭ M<span>5♭</span></div>
+            <div class="tonalityCard">Sol♭ M<span>6♭</span></div>
+            <div class="tonalityCard">Do♭ M<span>7♭</span></div>
+          </div>
         </div>
       </div>
       <div class="didacticBox">
@@ -689,7 +705,7 @@
 
       <div class="clefGrid clefGridSingle symbolStaffWrap">
         <div class="clefCard">
-          <h3 class="cardTopTitle">La stessa posizione, suono diverso</h3>
+          <span class="cardTopTitle">La stessa posizione, suono diverso</span>
           <svg class="clefStaffSVG" viewBox="0 -8 430 150">
             <line x1="52" y1="30" x2="380" y2="30" stroke="#ddd" stroke-width="1.5"/>
             <line x1="52" y1="50" x2="380" y2="50" stroke="#ddd" stroke-width="1.5"/>
@@ -740,7 +756,7 @@
 
       <div class="clefGrid clefGridSingle symbolStaffWrap">
         <div class="clefCard">
-          <h3 class="cardTopTitle">Esempio: Sol maggiore</h3>
+          <span class="cardTopTitle">Esempio: Sol maggiore</span>
           <svg class="clefStaffSVG" viewBox="0 -8 430 150">
             <line x1="52" y1="30" x2="380" y2="30" stroke="#ddd" stroke-width="1.5"/>
             <line x1="52" y1="50" x2="380" y2="50" stroke="#ddd" stroke-width="1.5"/>
@@ -991,6 +1007,19 @@
       </div>
 
     </section>
+
+    <nav class="learnCTA theoryPageCTA" aria-label="Continua il percorso di teoria">
+      <a class="learningNextCard" href="elementi_musica.html">
+        <span>Prima della scrittura</span>
+        <strong>Suono ed elementi</strong>
+        <p>Collega le basi musicali ad ascolto, onde, timbro, durata e intensità.</p>
+      </a>
+      <a class="learningNextCard" href="teoria_avanzata.html">
+        <span>Dopo le basi</span>
+        <strong>Teoria avanzata</strong>
+        <p>Passa a intervalli, accordi, tonalità, modulazioni e forme musicali.</p>
+      </a>
+    </nav>
 
 </div>
 

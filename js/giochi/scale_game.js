@@ -23,6 +23,18 @@ MGHGameUI.ensureRankedHUD();
 const warning    = document.getElementById("warning");
 const SCALE_PRO_STORAGE_KEY = "mgh_scale_pro_mode";
 
+function bindKeyboardAction(element, handler, label) {
+  element.setAttribute("role", "button");
+  element.tabIndex = 0;
+  if (label) element.setAttribute("aria-label", label);
+  element.addEventListener("click", handler);
+  element.addEventListener("keydown", event => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    handler();
+  });
+}
+
 /* ==================== DATI SCALE ==================== */
 
 function chromFrom(tonic, sharp) {
@@ -524,7 +536,9 @@ function makeSlot(i) {
     const fromSlot  = e.dataTransfer.getData("fromSlot");
     placeInSlot(uid, note, i, fromSlot !== "" ? parseInt(fromSlot) : null);
   });
-  sl.addEventListener("click", () => { if (!roundLocked && slotMap[i]) returnFromSlot(i); });
+  bindKeyboardAction(sl, () => { if (!roundLocked && slotMap[i]) returnFromSlot(i); }, "Slot della scala vuoto");
+  sl.tabIndex = -1;
+  sl.setAttribute("aria-disabled", "true");
   /* Touch: drag dallo slot */
   sl.addEventListener("pointerdown", e => {
     if (roundLocked || e.pointerType === "mouse" || !slotMap[i]) return;
@@ -540,10 +554,10 @@ function makeNoteChip(note, uid) {
   const c = document.createElement("div");
   c.className = "noteChip"; c.textContent = note;
   c.dataset.uid = uid; c.dataset.note = note; c.draggable = true;
-  c.addEventListener("click", () => {
+  bindKeyboardAction(c, () => {
     if (roundLocked || c.classList.contains("used")) return;
     placeInFirstEmptySlot(uid, note);
-  });
+  }, `Aggiungi ${note} alla scala`);
   c.addEventListener("dragstart", e => {
     if (roundLocked) { e.preventDefault(); return; }
     e.dataTransfer.setData("chipUid",  String(uid));
@@ -603,6 +617,9 @@ function setSlotFilled(i, note) {
     sl.draggable = true;
     sl.classList.add("filled");
     sl.setAttribute("title", "Clicca o trascina per togliere la nota");
+    sl.tabIndex = 0;
+    sl.setAttribute("aria-disabled", "false");
+    sl.setAttribute("aria-label", `Rimuovi ${note} dalla scala`);
   }
 }
 
@@ -612,18 +629,29 @@ function setSlotEmpty(i) {
     sl.textContent = "";
     sl.draggable = false;
     sl.removeAttribute("title");
+    sl.tabIndex = -1;
+    sl.setAttribute("aria-disabled", "true");
+    sl.setAttribute("aria-label", "Slot della scala vuoto");
     sl.classList.remove("filled","correct","wrong","dragging");
   }
 }
 
 function hideChipInSource(uid) {
   const c = document.querySelector(`#easySource .noteChip[data-uid="${uid}"]`);
-  if (c) c.classList.add("used");
+  if (c) {
+    c.classList.add("used");
+    c.tabIndex = -1;
+    c.setAttribute("aria-disabled", "true");
+  }
 }
 
 function restoreChipInSource(uid, note) {
   const c = document.querySelector(`#easySource .noteChip[data-uid="${uid}"]`);
-  if (c) { c.classList.remove("used"); }
+  if (c) {
+    c.classList.remove("used");
+    c.tabIndex = 0;
+    c.setAttribute("aria-disabled", "false");
+  }
   else {
     /* chip non trovata (rara): ricreala */
     document.getElementById("easySource")?.appendChild(makeNoteChip(note, uid));
@@ -766,10 +794,10 @@ function buildMediumRound() {
     const c = document.createElement("div");
     c.className = "tsChip"; c.textContent = lbl; c.dataset.label = lbl; c.dataset.idx = idx;
     c.draggable = true;
-    c.addEventListener("click", () => {
+    bindKeyboardAction(c, () => {
       if (roundLocked || c.classList.contains("used")) return;
       placeInFirstEmptyGap(lbl, idx);
-    });
+    }, `Aggiungi ${lbl === "T" ? "tono" : "semitono"} alla scala`);
     c.addEventListener("dragstart", e => {
       if (roundLocked) { e.preventDefault(); return; }
       e.dataTransfer.setData("tsLabel", lbl); e.dataTransfer.setData("tsIdx", String(idx));
@@ -824,7 +852,9 @@ function setupMediumGap(gap, i) {
       fromGap !== "" ? parseInt(fromGap) : null
     );
   });
-  gap.addEventListener("click", () => { if (!roundLocked && gapMap[i]) returnGapToPool(i); });
+  bindKeyboardAction(gap, () => { if (!roundLocked && gapMap[i]) returnGapToPool(i); }, "Intervallo vuoto");
+  gap.tabIndex = -1;
+  gap.setAttribute("aria-disabled", "true");
 }
 
 function placeInGap(lbl, gi, chipIdx, fromGapIdx = null) {
@@ -847,10 +877,17 @@ function placeInGap(lbl, gi, chipIdx, fromGapIdx = null) {
     g.draggable = true;
     g.classList.add("filled");
     g.setAttribute("title", "Clicca o trascina per togliere");
+    g.tabIndex = 0;
+    g.setAttribute("aria-disabled", "false");
+    g.setAttribute("aria-label", `Rimuovi ${lbl === "T" ? "tono" : "semitono"} dalla scala`);
   }
   if (sourceChipIdx !== null) {
     const c = document.querySelector(`.tsChip[data-idx="${sourceChipIdx}"]`);
-    if (c) c.classList.add("used");
+    if (c) {
+      c.classList.add("used");
+      c.tabIndex = -1;
+      c.setAttribute("aria-disabled", "true");
+    }
   }
 }
 
@@ -873,6 +910,9 @@ function clearGap(gi) {
     g.textContent = "?";
     g.draggable = false;
     g.removeAttribute("title");
+    g.tabIndex = -1;
+    g.setAttribute("aria-disabled", "true");
+    g.setAttribute("aria-label", "Intervallo vuoto");
     g.classList.remove("filled","correct","wrong","dragging");
   }
 }
@@ -883,7 +923,11 @@ function returnGapToPool(gi) {
   const c = data?.chipIdx !== null && data?.chipIdx !== undefined
     ? document.querySelector(`.tsChip.used[data-idx="${data.chipIdx}"]`)
     : [...document.querySelectorAll(".tsChip.used")].find(x => x.dataset.label === data?.label);
-  if (c) c.classList.remove("used");
+  if (c) {
+    c.classList.remove("used");
+    c.tabIndex = 0;
+    c.setAttribute("aria-disabled", "false");
+  }
 }
 
 /* Touch T/S chips */
@@ -1008,7 +1052,8 @@ function buildPiano(container, keyboardKeys) {
       width: WW + "px", height: WH + "px", zIndex: "1"
     });
     key.innerHTML = `<span class="key-label">${keyData.label}</span>`;
-    key.addEventListener("click", () => onHardKeyClick(keyData.label, keyData.answerNote, key));
+    key.setAttribute("aria-pressed", "false");
+    bindKeyboardAction(key, () => onHardKeyClick(keyData.label, keyData.answerNote, key), `Nota ${keyData.label}`);
     container.appendChild(key);
   });
 
@@ -1028,7 +1073,8 @@ function buildPiano(container, keyboardKeys) {
       width: BW + "px", height: BH + "px", zIndex: "2"
     });
     key.innerHTML = `<span class="key-label">${keyData.label}</span>`;
-    key.addEventListener("click", () => onHardKeyClick(keyData.label, keyData.answerNote, key));
+    key.setAttribute("aria-pressed", "false");
+    bindKeyboardAction(key, () => onHardKeyClick(keyData.label, keyData.answerNote, key), `Nota ${keyData.label}`);
     container.appendChild(key);
   });
 }
@@ -1041,11 +1087,13 @@ function onHardKeyClick(label, note, keyEl) {
   if (idx !== -1) {
     hardSelected.splice(idx, 1);
     keyEl.classList.remove("selected");
+    keyEl.setAttribute("aria-pressed", "false");
     renderHardSelected(); return;
   }
   if (hardSelected.length >= maxNotes) { setFeedback(`Puoi selezionare al massimo ${maxNotes} note.`); return; }
   hardSelected.push({ note, label, keyId });
   keyEl.classList.add("selected");
+  keyEl.setAttribute("aria-pressed", "true");
   renderHardSelected(); setFeedback("");
 }
 
@@ -1062,10 +1110,10 @@ function renderHardSelected() {
     c.textContent = item.label;
     c.draggable = false;
     c.dataset.selectedIndex = String(index);
-    c.addEventListener("click", () => {
+    bindKeyboardAction(c, () => {
       if (roundLocked) return;
       removeHardSelectedAt(index);
-    });
+    }, `Rimuovi ${item.label} dalla sequenza`);
     row.appendChild(c);
   });
 }
@@ -1075,7 +1123,9 @@ function removeHardSelectedAt(index) {
   if (!selected) return;
 
   hardSelected.splice(index, 1);
-  document.querySelector(`.hardKey[data-key-id="${CSS.escape(selected.keyId)}"]`)?.classList.remove("selected");
+  const selectedKey = document.querySelector(`.hardKey[data-key-id="${CSS.escape(selected.keyId)}"]`);
+  selectedKey?.classList.remove("selected");
+  selectedKey?.setAttribute("aria-pressed", "false");
   renderHardSelected();
 }
 

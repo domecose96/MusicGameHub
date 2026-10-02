@@ -1,0 +1,264 @@
+.laboratoriPage {
+  --lab-ink: #26383d;
+  --lab-teal: #087f8c;
+  --lab-green: #39754b;
+  --lab-gold: #a96b00;
+  overflow-x: hidden;
+}
+
+.laboratoriPage .pageTitle {
+  font-size: clamp(1.9rem, 3.8vw, 3.15rem);
+  line-height: 1.04;
+}
+
+.laboratoriContent {
+  max-width: 1320px !important;
+  padding-top: 28px !important;
+  gap: 28px;
+}
+
+.laboratoriIntro {
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(22px, 3vw, 38px);
+  border-top: 1px solid rgba(8, 127, 140, 0.18);
+  border-bottom: 1px solid rgba(8, 127, 140, 0.18);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+  background: rgba(255, 255, 255, 0.58);
+  text-align: left;
+}
+
+.laboratoriKicker,
+.laboratorioTag {
+  color: var(--lab-teal);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.laboratoriIntro h2 {
+  max-width: 760px;
+  margin: 6px 0 10px;
+  color: var(--lab-ink);
+  font-size: clamp(1.6rem, 3vw, 2.45rem);
+  line-height: 1.12;
+}
+
+.laboratoriIntro p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.laboratoriCount {
+  width: 112px;
+  min-height: 96px;
+  border-left: 3px solid var(--lab-teal);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--lab-teal);
+}
+
+.laboratoriCount strong {
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.laboratoriCount span {
+  margin-top: 5px;
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.laboratoriGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.laboratorioCard {
+  min-width: 0;
+  min-height: 224px;
+  box-sizing: border-box;
+  padding: 20px;
+  border: 1px solid rgba(38, 56, 61, 0.14);
+  border-top: 4px solid var(--lab-teal);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  box-shadow: var(--panel-shadow);
+  color: inherit;
+  text-align: left;
+  text-decoration: none;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.laboratorioMusigramma {
+  border-top-color: var(--lab-gold);
+}
+
+.laboratorioOnde {
+  border-top-color: var(--lab-green);
+}
+
+.laboratorioFormazione {
+  border-top-color: #7866a9;
+}
+
+.laboratorioCard:hover {
+  transform: translateY(-3px);
+  border-right-color: rgba(38, 56, 61, 0.28);
+  border-bottom-color: rgba(38, 56, 61, 0.28);
+  border-left-color: rgba(38, 56, 61, 0.28);
+  box-shadow: 0 16px 34px rgba(25, 47, 52, 0.12);
+}
+
+.laboratorioCard:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.laboratorioHeader {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  align-items: center;
+  gap: 15px;
+}
+
+.laboratorioIcon {
+  width: 72px;
+  height: 72px;
+  border-radius: 7px;
+  display: grid;
+  place-items: center;
+  background: #e7f4f4;
+  color: var(--lab-teal);
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.laboratorioMusigramma .laboratorioIcon {
+  background: #fff5df;
+  color: var(--lab-gold);
+}
+
+.laboratorioOnde .laboratorioIcon {
+  background: #eaf5ec;
+  color: var(--lab-green);
+}
+
+.laboratorioFormazione .laboratorioIcon {
+  background: #efecf8;
+  color: #7866a9;
+}
+
+.laboratorioBody {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.laboratorioMusigramma .laboratorioTag {
+  color: var(--lab-gold);
+}
+
+.laboratorioOnde .laboratorioTag {
+  color: var(--lab-green);
+}
+
+.laboratorioFormazione .laboratorioTag {
+  color: #7866a9;
+}
+
+.laboratorioHeader h2 {
+  margin: 6px 0 0;
+  color: var(--lab-ink);
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.laboratorioBody p {
+  margin: 17px 0 16px;
+  color: var(--text-muted);
+  font-size: 0.93rem;
+  line-height: 1.55;
+}
+
+.laboratorioAction {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--lab-teal);
+  font-size: 0.88rem;
+  font-weight: 900;
+}
+
+.laboratorioMusigramma .laboratorioAction {
+  color: var(--lab-gold);
+}
+
+.laboratorioOnde .laboratorioAction {
+  color: var(--lab-green);
+}
+
+.laboratorioFormazione .laboratorioAction {
+  color: #7866a9;
+}
+
+@media (max-width: 1180px) {
+  .laboratoriGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .laboratoriPage {
+    --header-height: 104px;
+  }
+
+  .laboratoriPage .pageTitle {
+    font-size: clamp(1.45rem, 7vw, 2rem);
+  }
+
+  .laboratoriContent {
+    padding-inline: 12px !important;
+  }
+
+  .laboratoriIntro {
+    grid-template-columns: 1fr;
+  }
+
+  .laboratoriCount {
+    width: 100%;
+    min-height: 70px;
+    border-left: 0;
+    border-top: 3px solid var(--lab-teal);
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .laboratoriCount span {
+    margin-top: 0;
+  }
+
+  .laboratorioCard {
+    min-height: 0;
+  }
+
+  .laboratoriGrid {
+    grid-template-columns: 1fr;
+  }
+}

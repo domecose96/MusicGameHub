@@ -17,7 +17,8 @@ const RANKED_GAME_LABELS = {
   wordle: "Music Wordle",
   strumenti: "Strumenti musicali",
   detective_suono: "Detective del suono",
-  intervalli: "Intervalli"
+  intervalli: "Intervalli",
+  accordi: "Costruisci l'accordo"
 };
 
 function getRankedGameLabel(gameName) {

@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="../css/base.css">
 <link rel="stylesheet" href="../css/learn.css">
 <link rel="stylesheet" href="../css/educazione_civica/inno_italia.css?v=20260520-flag-fit">
+<link rel="stylesheet" href="../css/educazione_civica/civica-ui.css">
 </head>
 
 <body class="anthemPage">
@@ -28,7 +29,7 @@
 </header>
 
 <nav id="siteNav" class="theoryNav anthemNav">
-  <button class="navBtn" onclick="MGH.scrollToSection('hero')">🇮🇹 Inizio</button>
+  <button class="navBtn active" onclick="MGH.scrollToSection('hero')">🇮🇹 Inizio</button>
   <button class="navBtn" onclick="MGH.scrollToSection('timeline')">📅 Timeline</button>
   <button class="navBtn" onclick="MGH.scrollToSection('video')">🎥 Video</button>
   <button class="navBtn" onclick="MGH.scrollToSection('simboli')">🛡️ Simboli</button>
@@ -36,7 +37,7 @@
   <button class="navBtn" onclick="MGH.scrollToSection('significato')">💬 Testo</button>
   <button class="navBtn" onclick="MGH.scrollToSection('civica')">📘 Civica</button>
   <button class="navBtn" onclick="MGH.scrollToSection('canta')">🎤 Canta</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('quiz')">❓ Quiz</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('quiz')">✅ Quiz</button>
 </nav>
 
 <div id="contentWrapper">
@@ -52,22 +53,25 @@
         <strong>Michele Novaro</strong>.
       </p>
       <div class="anthemHeroActions">
-        <button class="anthemButton" onclick="MGH.scrollToSection('video')">Guarda il video</button>
+        <button class="anthemButton secondary" onclick="MGH.scrollToSection('timeline')">Inizia</button>
+        <button class="anthemButton secondary" onclick="MGH.scrollToSection('video')">Video</button>
         <button class="anthemButton secondary" onclick="MGH.scrollToSection('quiz')">Vai al quiz</button>
+        <details class="theoryHeroMore">
+          <summary>Altri argomenti</summary>
+          <div class="theoryHeroMoreMenu">
+            <button onclick="MGH.scrollToSection('simboli')">Simboli</button>
+            <button onclick="MGH.scrollToSection('autori')">Autori</button>
+            <button onclick="MGH.scrollToSection('significato')">Testo</button>
+            <button onclick="MGH.scrollToSection('civica')">Civica</button>
+            <button onclick="MGH.scrollToSection('canta')">Canta</button>
+          </div>
+        </details>
       </div>
     </div>
 
-    <div class="tricolorScene" aria-label="Bandiera italiana stilizzata">
-      <div class="flagRibbon">
-        <span class="green"></span>
-        <span class="white"></span>
-        <span class="red"></span>
-      </div>
-      <div class="flagCard">
-        <span class="flagIcon">🇮🇹</span>
-        <strong>Unità</strong>
-        <span>Rispetto</span>
-        <span>Collaborazione</span>
+    <div class="theoryHeroMedia civicHeroMedia anthemHeroMedia" aria-hidden="true">
+      <div class="theoryHeroImageSlot civicHeroImageSlot">
+        <img src="../img/educazione_civica/hero/inno-italia-hero.png" alt="">
       </div>
     </div>
   </section>
@@ -504,7 +508,7 @@
     <h2 class="sectionTitle">Quiz finale</h2>
     <p class="sectionIntro">Rispondi alle domande e controlla subito il risultato.</p>
 
-    <div class="anthemQuiz">
+    <div class="anthemQuiz civicQuiz" id="anthemQuiz">
       <article class="quizQuestion" data-answer="mameli">
         <h3>Chi scrisse il testo?</h3>
         <button type="button" data-value="verdi">Verdi</button>
@@ -539,6 +543,14 @@
     <h2>L'Inno d'Italia ci ricorda l'importanza dell'unità, del rispetto e della collaborazione.</h2>
   </section>
 
+  <nav class="learnCTA civicReturnCTA" aria-label="Torna al portale di educazione civica">
+    <a class="learningNextCard" href="index.html">
+      <span>Portale civico</span>
+      <strong>Educazione civica musicale</strong>
+      <p>Torna all'indice con tutti i percorsi, le attività e i temi di cittadinanza.</p>
+    </a>
+  </nav>
+
 </div>
 
 <div id="symbolModal" class="symbolModal" aria-hidden="true">
@@ -570,6 +582,7 @@
 <button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
 
 <script src="../js/common.js?v=20260620-favicon"></script>
+<script src="../js/educazione_civica/civica_quiz.js"></script>
 <script src="../js/educazione_civica/inno_italia.js?v=20260520-flag-fit"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>

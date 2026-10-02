@@ -138,28 +138,7 @@
 }
 
 .advancedCard {
-  background: var(--surface-solid);
-  border: 1px solid rgba(255, 102, 0, 0.12);
-  border-radius: 18px;
   padding: 28px 24px;
-  box-shadow: var(--panel-shadow);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.advancedCard::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at top right, rgba(255, 102, 0, 0.08), transparent 40%);
-  pointer-events: none;
-}
-
-.advancedCard:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
-  border-color: rgba(255, 102, 0, 0.2);
 }
 
 .advancedCard h3 {
@@ -231,10 +210,8 @@
   max-width: 100%;
   margin: 16px 0;
   border-collapse: collapse;
-  background: var(--surface-solid);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 .intervalTable thead,
@@ -285,13 +262,155 @@
 /* ==================== FORME MUSICALI ==================== */
 
 .formCard {
+  display: grid;
+  align-content: start;
+  justify-items: center;
   text-align: center;
 }
 
-.formCard svg {
-  margin: 12px 0;
-  background: transparent;
-  box-shadow: none;
+.formVisual {
+  width: 100%;
+  min-height: 140px;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.formPattern {
+  width: 100%;
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.formPattern.compact {
+  gap: 6px;
+}
+
+.formPattern.stacked {
+  flex-wrap: wrap;
+  max-width: 220px;
+}
+
+.formPattern.sonataPattern {
+  flex-wrap: wrap;
+  max-width: 360px;
+  gap: 6px;
+}
+
+.formBlock {
+  min-width: 58px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(24, 35, 44, 0.72);
+  border-radius: 4px;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 900;
+  line-height: 1;
+  box-shadow: 0 5px 0 rgba(24, 35, 44, 0.08);
+}
+
+.formPattern.compact .formBlock {
+  min-width: 48px;
+}
+
+.formPattern.sonataPattern .formBlock {
+  min-width: 48px;
+}
+
+.formBlock.wide {
+  min-width: 76px;
+}
+
+.formA { background: #ff8b54; }
+.formB { background: #a989ef; }
+.formC { background: #91d394; }
+.formD {
+  background: #ffdb68;
+  color: #333;
+}
+
+.formBlock.ghost {
+  color: #333;
+  background: rgba(255, 139, 84, 0.62);
+  border-style: dashed;
+}
+
+.formBlock.ghost.lighter {
+  background: rgba(255, 139, 84, 0.42);
+}
+
+.formBlock.ghost.lightest {
+  background: rgba(255, 139, 84, 0.28);
+}
+
+.formDivider {
+  width: 3px;
+  height: 42px;
+  border-radius: 99px;
+  background: rgba(24, 35, 44, 0.78);
+}
+
+.formCaption {
+  color: var(--text-main);
+  font-size: 0.86rem;
+  font-weight: 850;
+  letter-spacing: 0.03em;
+}
+
+.formListeningBox {
+  display: grid;
+  gap: 18px;
+}
+
+.formListeningGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.formListeningCard {
+  min-height: 132px;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 8px;
+  padding: 18px 16px;
+  text-align: center;
+}
+
+.formListeningCard span {
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.formListeningCard strong {
+  color: var(--text-main);
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+.formListeningCard p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+.formListeningAudio {
+  width: 100%;
+  max-width: 260px;
+  margin-top: 4px;
 }
 
 /* ==================== CIRCOLO DELLE QUINTE ==================== */
@@ -314,9 +433,6 @@
 /* ==================== SCALE E TONALITÀ ==================== */
 
 .scaleBox {
-  background: var(--surface);
-  border: 1px solid rgba(255, 102, 0, 0.12);
-  border-radius: 12px;
   padding: 16px;
   margin: 12px 0;
   position: relative;
@@ -339,12 +455,19 @@
   margin-top: 0;
 }
 
+#minori .advancedCard h3 {
+  white-space: nowrap;
+}
+
+#minori .advancedCard > p:first-of-type {
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
 /* ==================== RITMO ==================== */
 
 .rhythmBox {
   background: linear-gradient(135deg, rgba(255, 102, 0, 0.06), rgba(255, 153, 51, 0.02));
-  border: 1px solid rgba(255, 102, 0, 0.12);
-  border-radius: 8px;
   padding: 16px;
   margin: 12px 0;
   position: relative;
@@ -381,6 +504,10 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .formListeningGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .advancedCard {
     padding: 16px;
   }
@@ -395,6 +522,10 @@
   .cadencesGrid,
   .rhythmAdvancedGrid,
   .formAdvancedGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formListeningGrid {
     grid-template-columns: 1fr;
   }
 
@@ -554,10 +685,7 @@
 }
 
 .circleSideBox {
-  background: rgba(255, 255, 255, 0.94);
-  border-radius: 18px;
   padding: 24px 20px;
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.08);
   text-align: center;
   line-height: 1.42;
 }
@@ -624,12 +752,8 @@
 }
 
 .circleLegendItem {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(255, 102, 0, 0.12);
-  border-radius: 14px;
   padding: 14px 16px;
   color: var(--text-main);
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.05);
 }
 
 .circleLegendItem small {
@@ -1071,11 +1195,7 @@
 }
 
 .circleLegendItem {
-  background: rgba(255,255,255,0.95);
-  border-radius: 18px;
   padding: 18px;
-  border: 1px solid rgba(255,102,0,0.1);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
 }
 
 /* RESPONSIVE */
@@ -1133,47 +1253,52 @@
   display: block;
 }
 
-/* ==================== SHARED THEORY CONTENT SYSTEM ==================== */
-.advancedCard,
-.rhythmImage {
-  border: 1px solid rgba(255, 102, 0, 0.13);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: var(--panel-shadow);
-}
-
-.advancedCard {
-  padding: 26px 24px;
-}
-
-.advancedCard {
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-}
-
-.advancedCard:hover {
-  transform: translateY(-3px);
-  border-color: rgba(255, 102, 0, 0.22);
-  box-shadow: 0 18px 38px rgba(255, 102, 0, 0.13);
-}
-
-.advancedCard::before {
-  background: radial-gradient(circle at top right, rgba(255, 102, 0, 0.065), transparent 42%);
-}
-
 .advancedBox {
-  max-width: 860px;
-  border: 1px solid rgba(255, 102, 0, 0.16);
+  margin: 28px auto;
+  border-top: 0;
   border-left: 5px solid var(--accent);
-  border-radius: 18px;
-  background: linear-gradient(135deg, rgba(255, 102, 0, 0.075), rgba(255, 255, 255, 0.88));
-  box-shadow: 0 14px 34px rgba(92, 55, 24, 0.07);
-  padding: 22px 24px;
+}
+
+.intervalTable,
+.rhythmTable {
+  border-radius: 14px;
+}
+
+#accordi .advancedGrid,
+#modulazioni .advancedGrid,
+#abbellimenti .advancedGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.rhythmImage {
+  background:
+    radial-gradient(circle at 15% 10%, rgba(255, 102, 0, 0.08), transparent 34%),
+    rgba(255, 255, 255, 0.96);
+}
+
+@media (max-width: 1100px) {
+  #accordi .advancedGrid,
+  #modulazioni .advancedGrid,
+  #abbellimenti .advancedGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 768px) {
-  .advancedCard,
-  .circleLegendItem,
-  .advancedBox {
-    padding: 18px;
+  #minori .advancedCard > p:first-of-type {
+    white-space: normal;
   }
+
+  #accordi .advancedGrid,
+  #modulazioni .advancedGrid,
+  #abbellimenti .advancedGrid {
+    grid-template-columns: 1fr;
+  }
+}
+/* Collegamento al laboratorio di composizione dalla sezione Forma. */
+.formLabCTA {
+  width: min(100%, 520px);
+  grid-template-columns: minmax(0, 1fr);
+  margin-top: 26px;
+  margin-bottom: 28px;
 }

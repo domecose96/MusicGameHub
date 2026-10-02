@@ -23,39 +23,15 @@
   color: #356fa2;
 }
 
-.emotionNav .navBtn {
-  border-color: rgba(53, 111, 162, 0.22);
-  color: #356fa2;
-  background: rgba(255, 255, 255, 0.82);
-}
-
-.emotionNav .navBtn:hover {
-  color: #356fa2;
-  border-color: rgba(53, 111, 162, 0.46);
-  background: rgba(107, 183, 255, 0.1);
-}
-
-.emotionNav .navBtn.active,
-.emotionSoundtrackPage #homeBtn.selected,
-.emotionSoundtrackPage .homeButton.selected,
-.emotionSoundtrackPage #scrollTopBtn {
-  color: #ffffff;
-  border-color: transparent;
-  background: linear-gradient(135deg, #356fa2, var(--anger));
-  box-shadow: 0 10px 24px rgba(53, 111, 162, 0.24);
-}
-
 .emotionHero {
   min-height: min(560px, calc(100vh - var(--header-height) - 90px));
   display: grid;
-  grid-template-columns: minmax(0, 1.18fr) minmax(300px, 0.82fr);
+  grid-template-columns: minmax(0, 1.32fr) minmax(280px, 0.68fr);
   align-items: center;
   gap: clamp(22px, 4vw, 48px);
   padding: 44px 0 38px;
   border-bottom: none;
-  background:
-    radial-gradient(circle at 12% 18%, rgba(246, 196, 71, 0.18), transparent 26%),
-    radial-gradient(circle at 92% 18%, rgba(101, 80, 168, 0.1), transparent 30%);
+  background: transparent;
 }
 
 .emotionHeroText {
@@ -76,10 +52,10 @@
 }
 
 .emotionHero h2 {
-  max-width: 760px;
+  max-width: 820px;
   margin: 18px 0 14px;
   color: var(--emotion-ink);
-  font-size: clamp(2.5rem, 5.2vw, 4.75rem);
+  font-size: clamp(2.5rem, 5vw, 4.55rem);
   line-height: 1.02;
 }
 
@@ -108,59 +84,36 @@
 }
 
 .emotionHeroPalette {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(6, max-content);
+  gap: 10px 18px;
   max-width: 660px;
-  margin-top: 20px;
+  margin-top: 22px;
 }
 
 .emotionHeroPalette span {
-  display: inline-flex;
+  display: grid;
+  grid-template-columns: 18px auto;
   align-items: center;
-  gap: 7px;
-  min-height: 34px;
-  padding: 7px 12px;
-  border: 1px solid color-mix(in srgb, var(--mood) 40%, transparent);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--mood) 14%, #ffffff);
-  color: var(--emotion-ink);
-  font-size: 0.8rem;
+  gap: 9px;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--emotion-muted);
+  font-size: 0.86rem;
   font-weight: 900;
+  line-height: 1;
 }
 
 .emotionHeroPalette span::before {
   content: "";
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
   background: var(--mood);
-  box-shadow: 0 0 14px color-mix(in srgb, var(--mood) 56%, transparent);
-}
-
-.emotionButton {
-  min-height: 46px;
-  width: auto;
-  padding: 12px 22px;
-  border: none;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #356fa2, var(--anger));
-  color: #ffffff;
-  font-size: 0.95rem;
-  font-weight: 900;
-  cursor: pointer;
-  box-shadow: 0 12px 26px rgba(53, 111, 162, 0.18);
-}
-
-.emotionButton:hover {
-  transform: translateY(-2px);
-  color: #ffffff;
-}
-
-.emotionButton.secondary {
-  color: #356fa2;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1.5px solid rgba(53, 111, 162, 0.22);
+  box-shadow: 0 8px 16px color-mix(in srgb, var(--mood) 34%, transparent);
 }
 
 .emotionHeroVisual {
@@ -233,6 +186,40 @@
 
 .emotionHeroVisual .floatingNote {
   display: none;
+}
+
+.emotionSoundtrackPage .emotionHeroImageSlot::before {
+  inset: -7% -8% 2%;
+  border-radius: 34% 66% 48% 52% / 48% 38% 62% 52%;
+  background:
+    radial-gradient(circle at 25% 28%, rgba(246, 196, 71, 0.42), transparent 34%),
+    radial-gradient(circle at 70% 22%, rgba(107, 183, 255, 0.36), transparent 32%),
+    radial-gradient(circle at 80% 56%, rgba(101, 80, 168, 0.34), transparent 34%),
+    radial-gradient(circle at 34% 72%, rgba(239, 106, 58, 0.28), transparent 34%),
+    radial-gradient(circle at 58% 78%, rgba(139, 207, 122, 0.3), transparent 38%),
+    radial-gradient(circle at 46% 52%, rgba(36, 59, 114, 0.2), transparent 46%);
+  filter: blur(30px) saturate(1.16);
+  opacity: 0.96;
+}
+
+.emotionSoundtrackPage .emotionHeroImageSlot::after {
+  display: block;
+  left: 9%;
+  right: 9%;
+  bottom: 2%;
+  height: 54px;
+  background:
+    radial-gradient(ellipse at center, rgba(36, 59, 114, 0.2), transparent 70%),
+    radial-gradient(ellipse at 35% 50%, rgba(246, 196, 71, 0.16), transparent 62%),
+    radial-gradient(ellipse at 70% 50%, rgba(101, 80, 168, 0.14), transparent 62%);
+  filter: blur(13px);
+}
+
+.emotionSoundtrackPage .emotionHeroImageSlot img {
+  filter:
+    drop-shadow(0 26px 38px rgba(101, 80, 168, 0.22))
+    drop-shadow(0 12px 18px rgba(246, 196, 71, 0.18))
+    drop-shadow(0 4px 12px rgba(107, 183, 255, 0.16));
 }
 
 .emotionHeroCard {
@@ -320,16 +307,27 @@
 }
 
 .emotionIntroGrid,
+.emotionLearningGoals,
 .colorMusicGrid,
+.emotionMethodGrid,
+.guidedSteps,
 .empathyGrid,
+.emotionLanguageGrid,
 .musicEmotionGrid,
 .comparisonGrid,
-.emotionQuizGrid {
+.playlistRules,
+.creativeGrid {
   display: grid;
   gap: 18px;
 }
 
-.emotionIntroGrid {
+.emotionIntroGrid,
+.emotionLearningGoals,
+.emotionMethodGrid,
+.guidedSteps,
+.emotionLanguageGrid,
+.playlistRules,
+.creativeGrid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   max-width: 1280px;
   margin: 34px auto 0;
@@ -341,7 +339,7 @@
 
 .compactColors {
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  max-width: 1280px;
+  max-width: 1180px;
   margin: 28px auto 0;
 }
 
@@ -357,20 +355,31 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.emotionQuizGrid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+.comparisonFollowUp {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: 18px;
+  max-width: 1040px;
+  margin: 24px auto 0;
 }
 
 .emotionIntroGrid article,
+.emotionLearningGoals article,
 .colorCard,
+.emotionMethodGrid article,
+.guidedSteps article,
 .empathyGrid article,
+.emotionLanguageGrid article,
 .musicEmotionGrid article,
 .comparisonGrid article,
-.guidedListeningPanel,
+.playlistRules article,
+.creativeGrid article,
 .playlistBuilder,
+.creativeLab,
+.creativeOutcome,
 .creativePrompt,
 .respectPhrase,
-.emotionQuizGrid article,
+.emotionClassTask,
 .emotionKeyIdea {
   border: 1px solid rgba(23, 40, 58, 0.1);
   border-radius: 18px;
@@ -379,10 +388,16 @@
 }
 
 .emotionIntroGrid article,
+.emotionLearningGoals article,
 .colorCard,
+.emotionMethodGrid article,
+.guidedSteps article,
 .empathyGrid article,
+.emotionLanguageGrid article,
 .musicEmotionGrid article,
 .comparisonGrid article,
+.playlistRules article,
+.creativeGrid article,
 .creativePrompt {
   min-height: 170px;
   padding: 22px;
@@ -458,10 +473,15 @@
 }
 
 .emotionIntroGrid h3,
+.emotionLearningGoals strong,
 .colorCard h3,
+.emotionMethodGrid h3,
 .empathyGrid h3,
+.emotionLanguageGrid strong,
 .musicEmotionGrid h3,
-.comparisonGrid h3 {
+.comparisonGrid h3,
+.playlistRules strong,
+.creativeGrid h3 {
   color: var(--emotion-ink);
 }
 
@@ -471,10 +491,15 @@
 }
 
 .emotionIntroGrid p,
+.emotionLearningGoals p,
 .colorCard p,
+.emotionMethodGrid p,
 .empathyGrid p,
+.emotionLanguageGrid p,
 .musicEmotionGrid p,
 .comparisonGrid p,
+.playlistRules p,
+.creativeGrid p,
 .respectPhrase p {
   color: var(--emotion-muted);
   line-height: 1.55;
@@ -486,11 +511,13 @@
 }
 
 .emotionKeyIdea {
-  max-width: 920px;
+  width: fit-content;
+  max-width: min(760px, 100%);
   margin: 24px auto 0;
   padding: 18px 24px;
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto auto;
+  justify-content: center;
   align-items: center;
   gap: 14px;
   border-color: rgba(246, 196, 71, 0.28);
@@ -516,15 +543,26 @@
 .emotionKeyIdea p {
   margin: 0;
   color: var(--emotion-ink);
+  max-width: 520px;
   font-size: 1.05rem;
   font-weight: 800;
 }
 
 .emotionWheelLayout {
   display: grid;
-  grid-template-columns: minmax(320px, 0.9fr) minmax(340px, 1.1fr);
+  grid-template-columns: 496px minmax(0, 1fr);
   gap: 24px;
   align-items: center;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.emotionWheel {
+  grid-column: 1;
+}
+
+.emotionDetail {
+  grid-column: 2;
 }
 
 .emotionWheel {
@@ -706,7 +744,14 @@
 }
 
 .emotionDetail {
-  padding: 30px;
+  box-sizing: border-box;
+  padding: 28px;
+  min-height: 0;
+  height: 496px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
   border-radius: 26px;
   background: rgba(255,255,255,0.9);
   box-shadow: var(--panel-shadow);
@@ -722,15 +767,18 @@
 
 .emotionDetail > span {
   font-size: 3rem;
+  line-height: 1;
 }
 
 .emotionDetail h3 {
-  margin: 8px 0;
+  margin: 0;
   color: var(--emotion-ink);
   font-size: 2rem;
+  line-height: 1.05;
 }
 
 .emotionDetail p {
+  margin: 0;
   color: var(--emotion-muted);
   line-height: 1.55;
 }
@@ -738,8 +786,15 @@
 .emotionDetail svg,
 .guidedListeningPanel svg {
   width: 100%;
+  height: 160px;
+  flex: 0 0 auto;
   background: rgba(255,255,255,0.72);
   box-shadow: none;
+}
+
+.emotionDetail .emotionButton {
+  align-self: center;
+  margin-top: 12px;
 }
 
 .colorCard span {
@@ -758,6 +813,81 @@
 .colorCard.anger span { background: var(--anger); }
 .colorCard.fear span { background: var(--fear); }
 .colorCard.hope span { background: var(--hope); color: #204926; }
+
+.emotionLearningGoals article,
+.emotionMethodGrid article,
+.emotionLanguageGrid article,
+.playlistRules article,
+.creativeGrid article {
+  min-height: 150px;
+}
+
+.emotionLearningGoals strong,
+.emotionLanguageGrid strong,
+.playlistRules strong {
+  display: inline-flex;
+  margin-bottom: 10px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  color: #356fa2;
+  background: rgba(107, 183, 255, 0.12);
+  font-size: 0.78rem;
+  font-weight: 1000;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.emotionMethodGrid article span {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 12px;
+  border-radius: 15px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #356fa2, var(--calm));
+  font-weight: 1000;
+  box-shadow: 0 12px 22px rgba(53, 111, 162, 0.14);
+}
+
+.guidedSteps {
+  max-width: 1180px;
+  margin-top: 24px;
+}
+
+.guidedSteps article {
+  min-height: 112px;
+  padding: 16px 18px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 12px;
+  align-items: center;
+}
+
+.guidedSteps article span {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 0;
+  border-radius: 14px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #356fa2, var(--calm));
+  font-weight: 1000;
+  box-shadow: 0 12px 22px rgba(53, 111, 162, 0.14);
+}
+
+.guidedSteps h3 {
+  margin: 0;
+  color: var(--emotion-ink);
+}
+
+.guidedSteps p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--emotion-muted);
+  line-height: 1.38;
+}
 
 .musicEmotionGrid article span,
 .comparisonGrid article span {
@@ -789,14 +919,40 @@
 }
 
 .respectPhrase {
-  max-width: 920px;
-  margin: 24px auto 0;
+  min-height: 174px;
+  margin: 0;
   padding: 22px;
-  text-align: center;
-  border-color: rgba(246, 196, 71, 0.28);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  text-align: left;
+  border-color: rgba(246, 196, 71, 0.34);
   background:
-    linear-gradient(135deg, rgba(246, 196, 71, 0.12), rgba(107, 183, 255, 0.1)),
-    rgba(255, 255, 255, 0.88);
+    linear-gradient(135deg, rgba(246, 196, 71, 0.22), rgba(255, 255, 255, 0.78) 46%, rgba(107, 183, 255, 0.12)),
+    #ffffff;
+}
+
+.respectPhrase > span,
+.emotionClassTask > span {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+  font-weight: 1000;
+  line-height: 1;
+  box-shadow: 0 14px 26px rgba(23, 40, 58, 0.12);
+}
+
+.respectPhrase > span {
+  background: var(--joy);
+  color: #5c4200;
+  font-family: Georgia, serif;
+  font-size: 3.2rem;
+  padding-bottom: 10px;
 }
 
 .respectPhrase strong {
@@ -806,9 +962,101 @@
   text-transform: uppercase;
 }
 
-.guidedListeningPanel,
-.playlistBuilder {
+.emotionClassTask {
+  min-height: 174px;
+  margin: 0;
   padding: 24px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 18px;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  text-align: left;
+  border-color: rgba(53, 111, 162, 0.18);
+  background:
+    linear-gradient(135deg, rgba(107, 183, 255, 0.18), rgba(255, 255, 255, 0.86) 48%, rgba(139, 207, 122, 0.16)),
+    #ffffff;
+}
+
+.emotionClassTask > span {
+  background: linear-gradient(135deg, #356fa2, var(--calm));
+  color: #ffffff;
+  font-size: 1.7rem;
+}
+
+.emotionClassTask strong {
+  display: inline-flex;
+  margin-bottom: 10px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  color: #356fa2;
+  background: rgba(107, 183, 255, 0.12);
+  font-size: 0.78rem;
+  font-weight: 1000;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.respectPhrase p,
+.emotionClassTask p {
+  margin: 0;
+  color: var(--emotion-ink);
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.classTaskSteps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 13px;
+}
+
+.classTaskSteps span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 7px 10px;
+  border: 1px solid rgba(53, 111, 162, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--emotion-ink);
+  font-size: 0.82rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.guidedListeningPanel {
+  padding: 24px;
+}
+
+.guidedListeningPanel {
+  padding: 0 !important;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+  gap: 20px;
+  max-width: 1180px;
+  margin: 24px auto 0;
+  align-items: stretch;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.guidedPlayerCard,
+.guidedNotebook {
+  padding: 22px;
+  border: 1.5px solid rgba(53, 111, 162, 0.14);
+  border-radius: 22px;
+  background:
+    linear-gradient(135deg, rgba(107, 183, 255, 0.08), rgba(139, 207, 122, 0.08)),
+    rgba(255, 255, 255, 0.88);
+}
+
+.guidedPlayerCard {
+  display: grid;
+  gap: 18px;
 }
 
 .fakePlayer {
@@ -848,7 +1096,52 @@
   color: var(--emotion-muted);
 }
 
+.guidedPlayerCard svg {
+  height: 178px;
+  border-radius: 18px;
+}
+
+.guidedNotebook {
+  display: grid;
+  align-content: center;
+  gap: 12px;
+  text-align: left;
+}
+
+.guidedNotebook > span {
+  width: max-content;
+  padding: 7px 11px;
+  border-radius: 999px;
+  color: #356fa2;
+  background: rgba(107, 183, 255, 0.12);
+  font-size: 0.78rem;
+  font-weight: 1000;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.guidedNotebook h3,
+.guidedNotebook p {
+  margin: 0;
+}
+
+.guidedNotebook h3 {
+  color: var(--emotion-ink);
+  font-size: 1.55rem;
+}
+
+.guidedNotebook p {
+  color: var(--emotion-muted);
+  line-height: 1.45;
+}
+
+.guidedNotebook .listeningForm {
+  display: grid;
+  gap: 12px;
+}
+
 .listeningForm label,
+.guidedColorField,
 .playlistForm label {
   flex: 1 1 210px;
   display: grid;
@@ -871,29 +1164,244 @@
   background: #ffffff;
 }
 
+.guidedColorField > span {
+  display: block;
+}
+
+.guidedColorChoices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.guidedColorChoices button {
+  min-height: 42px;
+  padding: 8px 10px 8px 32px;
+  position: relative;
+  border: 1.5px solid rgba(53, 111, 162, 0.18);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--emotion-ink);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 900;
+  text-align: left;
+  cursor: pointer;
+}
+
+.guidedColorChoices button::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 5px;
+  background: var(--swatch);
+  transform: translateY(-50%);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9), 0 6px 12px color-mix(in srgb, var(--swatch) 34%, transparent);
+}
+
+.guidedColorChoices button.active {
+  border-color: color-mix(in srgb, var(--swatch) 70%, #ffffff);
+  background: color-mix(in srgb, var(--swatch) 16%, #ffffff);
+  color: var(--emotion-ink);
+}
+
+.customColorPicker {
+  margin-top: 4px;
+  display: grid;
+  grid-template-columns: 1fr 58px;
+  align-items: center;
+  min-height: 46px;
+  padding: 8px 10px 8px 12px;
+  border: 1.5px solid rgba(53, 111, 162, 0.18);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--emotion-ink);
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.customColorPicker input {
+  width: 48px;
+  min-height: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+}
+
 .playlistBuilder {
   display: grid;
-  grid-template-columns: minmax(280px, 0.9fr) minmax(320px, 1.1fr);
-  gap: 20px;
+  grid-template-columns: minmax(340px, 0.78fr) minmax(0, 1.22fr);
+  gap: 18px;
+  max-width: 1180px;
+  margin: 18px auto 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.playlistRules {
+  counter-reset: playlist-rule;
+  max-width: 1180px;
+  margin-top: 22px;
+  gap: 12px;
+}
+
+.playlistRules article {
+  counter-increment: playlist-rule;
+  min-height: 78px;
+  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 10px 12px;
+  align-items: center;
+  border-color: rgba(53, 111, 162, 0.12);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(107, 183, 255, 0.08)),
+    #ffffff;
+}
+
+.playlistRules article::before {
+  content: counter(playlist-rule);
+  grid-row: 1 / span 2;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: rgba(107, 183, 255, 0.16);
+  color: #356fa2;
+  font-weight: 1000;
+  box-shadow: 0 10px 18px rgba(53, 111, 162, 0.1);
+}
+
+.playlistRules strong {
+  margin: 0;
+  width: max-content;
+  justify-self: start;
+}
+
+.playlistRules article p {
+  grid-column: 2;
+  margin: 0;
+  color: var(--emotion-ink);
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.32;
+}
+
+.playlistForm,
+.playlistBoard {
+  border: 1.5px solid rgba(53, 111, 162, 0.14);
+  border-radius: 22px;
+  background:
+    linear-gradient(135deg, rgba(107, 183, 255, 0.08), rgba(139, 207, 122, 0.08)),
+    rgba(255, 255, 255, 0.9);
+  box-shadow: var(--panel-shadow);
 }
 
 .playlistForm {
+  display: grid;
   align-content: start;
+  gap: 14px;
+  padding: 24px;
+  text-align: left;
+}
+
+.playlistForm > span,
+.playlistBoardHeader span {
+  width: max-content;
+  padding: 7px 11px;
+  border-radius: 999px;
+  color: #356fa2;
+  background: rgba(107, 183, 255, 0.12);
+  font-size: 0.78rem;
+  font-weight: 1000;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.playlistForm h3,
+.playlistForm p {
+  margin: 0;
+}
+
+.playlistForm h3 {
+  color: var(--emotion-ink);
+  font-size: 1.38rem;
+  line-height: 1.12;
+}
+
+.playlistForm p {
+  color: var(--emotion-muted);
+  font-size: 0.98rem;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.playlistFormActions {
+  display: grid;
+  margin-top: 2px;
+}
+
+.playlistFormActions .emotionButton {
+  width: 100%;
+  min-height: 48px;
+  border-radius: 14px;
 }
 
 .playlistCards {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
+  min-height: 230px;
+  padding: 16px;
+  align-content: start;
+  border: 1.5px dashed rgba(53, 111, 162, 0.16);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(139, 207, 122, 0.08)),
+    rgba(255, 255, 255, 0.48);
+}
+
+.playlistBoard {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding: 22px;
+  min-height: 360px;
+}
+
+.playlistBoardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.playlistBoardHeader p {
+  max-width: 440px;
+  margin: 0;
+  color: var(--emotion-muted);
+  font-size: 0.94rem;
+  font-weight: 800;
+  line-height: 1.35;
+  text-align: right;
 }
 
 .playlistCard {
-  min-height: 140px;
+  min-height: 130px;
   padding: 18px;
-  border-radius: 18px;
+  border-radius: 16px;
   color: #ffffff;
   text-align: left;
-  box-shadow: 0 16px 34px rgba(23, 40, 58, 0.14);
+  box-shadow: 0 14px 28px rgba(23, 40, 58, 0.14);
 }
 
 .playlistCard span {
@@ -902,98 +1410,172 @@
 
 .playlistCard h3 {
   margin: 8px 0 4px;
+  font-size: 1.12rem;
+  line-height: 1.12;
 }
 
 .playlistCard p {
   margin: 0;
+  font-size: 0.92rem;
   line-height: 1.45;
 }
 
 .positive { border-top: 6px solid var(--hope); }
 .negative { border-top: 6px solid var(--anger); }
 
-.creativePrompt {
-  max-width: 820px;
+.creativeLab {
+  max-width: 1180px;
   margin: 0 auto;
-  display: flex;
-  align-items: center;
+  padding: 22px;
+  display: grid;
+  grid-template-columns: minmax(270px, 0.82fr) minmax(0, 1.18fr);
   gap: 18px;
+  align-items: stretch;
+  border-color: rgba(139, 207, 122, 0.22);
+  background:
+    linear-gradient(135deg, rgba(139, 207, 122, 0.1), rgba(107, 183, 255, 0.08)),
+    rgba(255, 255, 255, 0.9);
+}
+
+.creativePrompt {
+  min-height: 0;
+  padding: 22px;
+  display: grid;
+  align-content: center;
+  gap: 10px;
+  border-color: rgba(139, 207, 122, 0.2);
+  background:
+    linear-gradient(135deg, rgba(139, 207, 122, 0.16), rgba(255, 255, 255, 0.86)),
+    #ffffff;
+}
+
+.creativePrompt span,
+.creativeOutcome strong {
+  width: max-content;
+  padding: 7px 11px;
+  border-radius: 999px;
+  color: #356fa2;
+  background: rgba(107, 183, 255, 0.12);
+  font-size: 0.78rem;
+  font-weight: 1000;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.creativePrompt h3 {
+  margin: 0;
+  color: var(--emotion-ink);
+  font-size: 1.38rem;
+  line-height: 1.16;
 }
 
 .creativePrompt p {
   margin: 0;
-  color: var(--emotion-ink);
-  font-size: 1.15rem;
+  color: var(--emotion-muted);
+  font-size: 0.98rem;
   font-weight: 800;
+  line-height: 1.45;
 }
 
-.emotionQuizGrid article {
-  padding: 22px;
-  text-align: left;
+.creativeGrid {
+  max-width: none;
+  margin: 0;
+  gap: 12px;
 }
 
-.emotionQuizGrid h3 {
-  min-height: 72px;
+.creativeGrid article {
+  min-height: 0;
+  padding: 18px;
+}
+
+.creativeGrid article span {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 12px;
+  border-radius: 14px;
+  background: rgba(139, 207, 122, 0.2);
+  color: #317a42;
+  font-weight: 1000;
+}
+
+.creativeGrid article h3 {
+  margin: 0 0 8px;
+}
+
+.creativeGrid article p {
+  margin: 0;
+}
+
+.creativeOutcome {
+  max-width: 980px;
+  margin: 18px auto 0;
+  padding: 18px 22px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+  align-items: center;
+  border-color: rgba(246, 196, 71, 0.28);
+  background:
+    linear-gradient(135deg, rgba(246, 196, 71, 0.16), rgba(107, 183, 255, 0.1)),
+    rgba(255, 255, 255, 0.92);
+}
+
+.creativeOutcome p {
+  margin: 0;
   color: var(--emotion-ink);
-}
-
-.emotionQuizGrid button {
-  display: block;
-  width: 100%;
-  min-height: 48px;
-  margin: 10px 0;
-  border: 1.5px solid rgba(53, 111, 162, 0.18);
-  border-radius: 12px;
-  background: #ffffff;
-  color: var(--emotion-ink);
-  font: inherit;
   font-weight: 800;
-  cursor: pointer;
-  text-align: left;
+  line-height: 1.45;
 }
 
-.emotionQuizGrid button.correct {
-  border-color: #2f9f63;
-  background: rgba(47, 159, 99, 0.12);
+.emotionConclusion {
+  padding: 54px 28px;
+  border-radius: 24px;
+  background:
+    linear-gradient(90deg, rgba(107, 183, 255, 0.14), rgba(255, 255, 255, 0.88), rgba(139, 207, 122, 0.14));
+  box-shadow: var(--panel-shadow);
 }
 
-.emotionQuizGrid button.wrong {
-  border-color: #d94f4f;
-  background: rgba(217, 79, 79, 0.12);
-}
-
-.quizResult {
-  min-height: 28px;
-  color: #356fa2;
-  font-weight: 900;
-}
-
-.finalQuote {
-  max-width: 780px;
-  margin: 30px auto 0;
-  padding: 24px;
-  border-radius: 20px;
-  background: linear-gradient(135deg, rgba(107, 183, 255, 0.16), rgba(139, 207, 122, 0.18));
+.emotionConclusion h2 {
+  max-width: 940px;
+  margin: 0 auto;
   color: var(--emotion-ink);
-}
-
-.finalQuote strong {
-  font-size: 1.35rem;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.2;
 }
 
 @media (max-width: 980px) {
   .emotionHero,
   .emotionWheelLayout,
+  .guidedListeningPanel,
+  .creativeLab,
   .playlistBuilder {
     grid-template-columns: 1fr;
   }
 
+  .emotionDetail {
+    grid-column: auto;
+    height: auto;
+    min-height: 0;
+  }
+
+  .emotionWheel {
+    grid-column: auto;
+  }
+
   .colorMusicGrid,
   .emotionIntroGrid,
+  .emotionLearningGoals,
+  .emotionMethodGrid,
+  .guidedSteps,
   .empathyGrid,
+  .emotionLanguageGrid,
   .musicEmotionGrid,
+  .comparisonFollowUp,
   .comparisonGrid,
-  .emotionQuizGrid {
+  .playlistRules,
+  .creativeGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1003,14 +1585,55 @@
 }
 
 @media (max-width: 680px) {
+  .emotionHeroPalette {
+    grid-template-columns: repeat(2, max-content);
+  }
+
   .colorMusicGrid,
   .emotionIntroGrid,
+  .emotionLearningGoals,
+  .emotionMethodGrid,
+  .guidedSteps,
   .empathyGrid,
+  .emotionLanguageGrid,
   .musicEmotionGrid,
+  .comparisonFollowUp,
   .comparisonGrid,
-  .emotionQuizGrid,
+  .playlistRules,
+  .creativeGrid,
   .playlistCards {
     grid-template-columns: 1fr;
+  }
+
+  .respectPhrase,
+  .emotionClassTask,
+  .creativeOutcome,
+  .creativePrompt {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .respectPhrase > span,
+  .emotionClassTask > span,
+  .creativePrompt span,
+  .creativeOutcome strong {
+    margin: 0 auto;
+  }
+
+  .classTaskSteps {
+    justify-content: center;
+  }
+
+  .playlistBoardHeader {
+    grid-template-columns: 1fr;
+  }
+
+  .playlistBoardHeader {
+    display: grid;
+  }
+
+  .playlistBoardHeader p {
+    text-align: left;
   }
 
   .compactColors {

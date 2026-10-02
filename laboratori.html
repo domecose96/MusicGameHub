@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laboratori musicali | Music Game Hub</title>
+<link rel="stylesheet" href="css/base.css?v=20260721-labs1">
+<link rel="stylesheet" href="css/laboratori.css?v=20260721-labs4">
+</head>
+
+<body class="laboratoriPage">
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button class="homeButton" type="button" onclick="goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+    <div class="headerBrand">
+      <span class="headerEyebrow">Percorsi didattici</span>
+      <h1 class="pageTitle">Laboratori musicali</h1>
+      <span class="headerModeLabel">Esplora · crea · ascolta</span>
+    </div>
+  </div>
+</header>
+
+<main id="contentWrapper" class="laboratoriContent">
+  <section class="laboratoriIntro" aria-labelledby="laboratoriIntroTitle">
+    <div>
+      <span class="laboratoriKicker">Esperienze interattive</span>
+      <h2 id="laboratoriIntroTitle">La musica diventa materiale da esplorare</h2>
+      <p>Qui non devi vincere: osservi un fenomeno, fai delle scelte e ascolti come cambia il risultato.</p>
+    </div>
+    <div class="laboratoriCount" aria-label="Quattro laboratori disponibili">
+      <strong>4</strong>
+      <span>laboratori</span>
+    </div>
+  </section>
+
+  <section class="laboratoriGrid" aria-label="Laboratori disponibili">
+    <a class="laboratorioCard laboratorioMozart" href="dadi_mozart.html">
+      <div class="laboratorioHeader">
+        <span class="laboratorioIcon" aria-hidden="true">🎲</span>
+        <div>
+          <span class="laboratorioTag">Composizione · Classicismo</span>
+          <h2>I dadi di Mozart</h2>
+        </div>
+      </div>
+      <div class="laboratorioBody">
+        <p>Combina sedici tessere musicali con due dadi, genera lo spartito e ascolta il tuo minuetto.</p>
+        <span class="laboratorioAction">Apri laboratorio <span aria-hidden="true">→</span></span>
+      </div>
+    </a>
+
+    <a class="laboratorioCard laboratorioMusigramma" href="musigramma.html">
+      <div class="laboratorioHeader">
+        <span class="laboratorioIcon" aria-hidden="true">🎼</span>
+        <div>
+          <span class="laboratorioTag">Ascolto · Forma</span>
+          <h2>Crea il Musigramma</h2>
+        </div>
+      </div>
+      <div class="laboratorioBody">
+        <p>Organizza forme, colori e pulsazioni, sincronizza un brano e crea una mappa musicale da condividere.</p>
+        <span class="laboratorioAction">Apri laboratorio <span aria-hidden="true">→</span></span>
+      </div>
+    </a>
+
+    <a class="laboratorioCard laboratorioOnde" href="elementi_musica.html#laboratorio">
+      <div class="laboratorioHeader">
+        <span class="laboratorioIcon" aria-hidden="true">〰</span>
+        <div>
+          <span class="laboratorioTag">Suono · Acustica</span>
+          <h2>Onde sonore</h2>
+        </div>
+      </div>
+      <div class="laboratorioBody">
+        <p>Modifica altezza e intensità, confronta suono e rumore e osserva la forma dell'onda.</p>
+        <span class="laboratorioAction">Apri laboratorio <span aria-hidden="true">→</span></span>
+      </div>
+    </a>
+
+    <a class="laboratorioCard laboratorioFormazione" href="costruisci-formazione.html">
+      <div class="laboratorioHeader">
+        <span class="laboratorioIcon" aria-hidden="true">🎛️</span>
+        <div>
+          <span class="laboratorioTag">Strumenti · Organico</span>
+          <h2>Costruisci la formazione</h2>
+        </div>
+      </div>
+      <div class="laboratorioBody">
+        <p>Scegli gli strumenti, disponili sul palco e scopri quale ensemble hai costruito.</p>
+        <span class="laboratorioAction">Apri laboratorio <span aria-hidden="true">→</span></span>
+      </div>
+    </a>
+  </section>
+</main>
+
+<footer class="siteLegalFooter">
+  <p>Music Game Hub tutela la privacy e usa solo strumenti tecnici o statistici necessari al portale.</p>
+  <div class="siteLegalLinks">
+    <a href="legal/privacy.html">Privacy Policy</a>
+    <span>·</span>
+    <a href="legal/cookie.html">Cookie Policy</a>
+    <span>·</span>
+    <a href="legal/termini.html">Termini di servizio</a>
+  </div>
+</footer>
+
+<script src="js/common.js?v=20260721-labs1"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

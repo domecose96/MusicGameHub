@@ -1,0 +1,1520 @@
+/* ==================== EDUCAZIONE CIVICA - UI CONDIVISA ==================== */
+
+:where(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) {
+  --civic-accent: #168a4a;
+  --civic-accent-soft: #54b780;
+  --civic-accent-deep: #0f6f3c;
+  --civic-ink: #12324a;
+  --civic-sky: #0d6f9f;
+  --accent: var(--civic-accent);
+  --accent-soft: var(--civic-accent-soft);
+  --accent-rgb: 22, 138, 74;
+  --accent-soft-rgb: 84, 183, 128;
+  --action-orange: var(--civic-accent);
+  --action-orange-soft: var(--civic-accent-soft);
+  --learning-card-border: rgba(22, 138, 74, 0.16);
+  --learning-card-radius: 18px;
+  background:
+    radial-gradient(circle at 16% 14%, rgba(22, 138, 74, 0.13), transparent 30%),
+    radial-gradient(circle at 84% 18%, rgba(13, 111, 159, 0.10), transparent 32%),
+    linear-gradient(to bottom, #ffffff, #eef6f2);
+}
+
+:where(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .pageTitle {
+  color: var(--civic-ink);
+  text-shadow:
+    0 0 8px rgba(22, 138, 74, 0.16),
+    0 0 14px rgba(13, 111, 159, 0.14);
+}
+
+:where(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .appHeader,
+:where(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) #siteNav {
+  border-bottom-color: rgba(22, 138, 74, 0.16);
+}
+
+:where(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) #scrollTopBtn,
+:where(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .homeButton.selected,
+:where(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) #homeBtn.selected {
+  color: #ffffff;
+  border-color: var(--civic-accent);
+  background: linear-gradient(135deg, var(--civic-accent), var(--civic-accent-soft));
+  box-shadow: 0 10px 22px rgba(22, 138, 74, 0.24);
+}
+
+:where(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .sectionTitle,
+:where(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .siteLegalLinks a {
+  color: var(--civic-accent);
+}
+
+:where(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .siteLegalLinks a:hover {
+  color: var(--civic-accent-deep);
+}
+
+:where(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .learnSection :where(article, [class*="Card"], [class*="Panel"], [class*="Box"], .quizQuestion),
+.civicPathCard,
+.civicMethodGrid article {
+  border: 1px solid rgba(22, 138, 74, 0.16);
+  border-radius: var(--learning-card-radius);
+  background:
+    radial-gradient(circle at 14% 10%, rgba(22, 138, 74, 0.08), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(239, 248, 243, 0.82));
+  box-shadow: 0 14px 34px rgba(18, 50, 74, 0.07);
+}
+
+:where(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .learnSection :where(article, [class*="Card"], [class*="Panel"], [class*="Box"], .quizQuestion):hover,
+.civicPathCard:hover {
+  border-color: rgba(22, 138, 74, 0.28);
+  box-shadow: 0 18px 40px rgba(22, 138, 74, 0.11);
+}
+
+:where(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .quizQuestion button {
+  border-color: rgba(22, 138, 74, 0.18);
+  background: #ffffff;
+  color: #316b9f;
+  box-shadow: 0 8px 18px rgba(18, 50, 74, 0.04);
+}
+
+:where(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .quizQuestion button:hover,
+:where(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .quizQuestion button.selected {
+  border-color: rgba(22, 138, 74, 0.42);
+  background: rgba(22, 138, 74, 0.09);
+  color: #12324a;
+  box-shadow: 0 10px 22px rgba(22, 138, 74, 0.14);
+}
+
+:where(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .quizQuestion button.correct {
+  color: var(--civic-accent-deep);
+  border-color: var(--civic-accent);
+  background: rgba(22, 138, 74, 0.14);
+}
+
+:where(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .quizQuestion button.wrong {
+  color: #a3482a;
+  border-color: #d66a4a;
+  background: rgba(214, 106, 74, 0.12);
+}
+
+:where(
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) :is(
+  .civicQuiz,
+  .anthemQuiz,
+  .environmentQuiz,
+  .listeningQuiz,
+  .memoryQuiz,
+  .mediaQuiz
+) {
+  align-items: stretch;
+}
+
+:where(
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .civicQuiz {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+:where(
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .mediaRightsPage
+) .civicQuiz .quizQuestion,
+.emotionSoundtrackPage .civicQuiz .quizQuestion {
+  box-sizing: border-box;
+  height: 100%;
+  min-height: 270px;
+  display: grid;
+  grid-template-rows: minmax(76px, auto) repeat(3, minmax(50px, 1fr));
+  align-content: stretch;
+  gap: 10px;
+}
+
+:where(
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .mediaRightsPage
+) .civicQuiz .quizQuestion h3,
+.emotionSoundtrackPage .civicQuiz .quizQuestion h3 {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  color: var(--civic-ink);
+  text-align: center;
+}
+
+:where(
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .mediaRightsPage
+) .civicQuiz .quizQuestion button,
+.emotionSoundtrackPage .civicQuiz .quizQuestion button {
+  width: 100%;
+  min-height: 50px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0;
+  line-height: 1.25;
+}
+
+:where(
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .quizActions {
+  width: 100%;
+  justify-content: center;
+  margin: 22px auto 0;
+}
+
+/* Layer autorevole: mantiene le pagine civiche dentro una sola identita' verde. */
+.civicPage,
+.anthemPage,
+.environmentPage,
+.listeningRespectPage,
+.memorySongsPage,
+.emotionSoundtrackPage,
+.mediaRightsPage {
+  --civic-accent: #168a4a;
+  --civic-accent-soft: #54b780;
+  --civic-accent-deep: #0f6f3c;
+  --civic-ink: #12324a;
+  --civic-sky: #0d6f9f;
+  --accent: var(--civic-accent);
+  --accent-soft: var(--civic-accent-soft);
+  --accent-rgb: 22, 138, 74;
+  --accent-soft-rgb: 84, 183, 128;
+  --action-orange: var(--civic-accent);
+  --action-orange-soft: var(--civic-accent-soft);
+  --civic-green: var(--civic-accent);
+  --civic-blue: var(--civic-ink);
+  --env-green: var(--civic-accent);
+  --env-green-soft: var(--civic-accent-soft);
+  --env-blue: var(--civic-accent-soft);
+  --env-deep: var(--civic-ink);
+  --anthem-green: var(--civic-accent);
+  --anthem-blue: var(--civic-ink);
+  --environment-green: var(--civic-accent);
+  --environment-blue: var(--civic-ink);
+  --listening-blue: var(--civic-sky);
+  --listening-orange: var(--civic-accent);
+  --memory-blue: var(--civic-sky);
+  --memory-gold: var(--civic-accent);
+  --media-blue: var(--civic-accent);
+  --media-blue-soft: rgba(22, 138, 74, 0.12);
+  --media-ink: var(--civic-ink);
+  --media-green: var(--civic-accent);
+  --media-orange: var(--civic-accent-soft);
+  --learning-card-border: rgba(22, 138, 74, 0.16);
+  --learning-card-radius: 18px;
+  background:
+    radial-gradient(circle at 16% 14%, rgba(22, 138, 74, 0.13), transparent 30%),
+    radial-gradient(circle at 84% 18%, rgba(13, 111, 159, 0.10), transparent 32%),
+    linear-gradient(to bottom, #ffffff, #eef6f2);
+}
+
+:is(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) :is(.pageTitle, .sectionTitle) {
+  color: var(--civic-ink);
+}
+
+:is(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .pageTitle {
+  text-shadow:
+    0 0 8px rgba(22, 138, 74, 0.16),
+    0 0 14px rgba(13, 111, 159, 0.14);
+}
+
+:is(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .sectionTitle,
+:is(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .siteLegalLinks a {
+  color: var(--civic-accent);
+}
+
+:is(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) :is(.appHeader, #siteNav) {
+  border-bottom-color: rgba(22, 138, 74, 0.16);
+}
+
+:is(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) :is(button, a):focus-visible {
+  outline: 3px solid rgba(22, 138, 74, 0.42);
+  outline-offset: 4px;
+}
+
+:is(
+  .civicHero,
+  .anthemHero,
+  .environmentHero,
+  .listeningHero,
+  .memoryHero,
+  .emotionHero,
+  .mediaHero
+) {
+  display: grid;
+  align-items: center;
+  gap: clamp(24px, 5vw, 62px);
+  padding: 52px 0 44px;
+  border-bottom: none;
+}
+
+:is(
+  .civicHeroText,
+  .anthemHeroText,
+  .environmentHeroText,
+  .listeningHeroText,
+  .memoryHeroText,
+  .emotionHeroText,
+  .mediaHeroText
+) {
+  text-align: left;
+}
+
+:is(
+  .civicBadge,
+  .anthemBadge,
+  .environmentBadge,
+  .listeningBadge,
+  .memoryBadge,
+  .emotionBadge,
+  .mediaBadge,
+  .songBadge
+) {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: var(--civic-accent);
+  background: rgba(22, 138, 74, 0.10);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+:is(
+  .anthemHeroActions,
+  .environmentHeroActions,
+  .listeningHeroActions,
+  .memoryHeroActions,
+  .emotionHeroActions,
+  .mediaHeroActions,
+  .quizActions,
+  .singActions
+) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+:is(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .theoryHeroMore summary {
+  border-color: rgba(22, 138, 74, 0.22);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--text-muted);
+  box-shadow: 0 10px 22px rgba(18, 50, 74, 0.07);
+}
+
+:is(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .theoryHeroMore[open] summary {
+  border-color: rgba(22, 138, 74, 0.34);
+  background: rgba(22, 138, 74, 0.08);
+}
+
+:is(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .theoryHeroMoreMenu {
+  border-color: rgba(22, 138, 74, 0.16);
+}
+
+:is(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .theoryHeroMoreMenu button:hover {
+  background: rgba(22, 138, 74, 0.08);
+  color: var(--civic-accent);
+}
+
+:is(
+  .civicPathCard,
+  .authorCard,
+  .symbolCard,
+  .civicsPanel article,
+  .meaningCard,
+  .factCard,
+  .natureSoundCard,
+  .listeningCard,
+  .songReflectionCard,
+  .sustainabilityDefinition,
+  .reflectionCard,
+  .roleCard,
+  .memoryGrid article,
+  .memorySteps article,
+  .keywordGrid article,
+  .keyIdea,
+  .earCareCard,
+  .pactPreview,
+  .songCard,
+  .songFocus,
+  .memoryQuote,
+  .beforeListening,
+  .colorCard,
+  .emotionHeroCard,
+  .guidedListeningPanel,
+  .playlistCard,
+  .filmCard,
+  .mediaScenarioCard,
+  .decisionBox,
+  .quotePanel,
+  .checklistPanel,
+  .checklistGrid span,
+  .sourceRecipe,
+  .warningPanel,
+  .extraFilmBox,
+  .passportPreview,
+  .pactOutput,
+  .quizQuestion
+) {
+  border: 1px solid rgba(22, 138, 74, 0.16);
+  border-radius: var(--learning-card-radius);
+  background:
+    radial-gradient(circle at 14% 10%, rgba(22, 138, 74, 0.08), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(239, 248, 243, 0.82));
+  box-shadow: 0 14px 34px rgba(18, 50, 74, 0.07);
+}
+
+:is(
+  .civicPathCard,
+  .authorCard,
+  .symbolCard,
+  .civicsPanel article,
+  .meaningCard,
+  .natureSoundCard,
+  .listeningCard,
+  .roleCard,
+  .songCard,
+  .colorCard,
+  .filmCard,
+  .mediaScenarioCard
+):hover {
+  border-color: rgba(22, 138, 74, 0.28);
+  box-shadow: 0 18px 40px rgba(22, 138, 74, 0.11);
+}
+
+.civicPathCard::before {
+  height: 7px;
+  background: linear-gradient(90deg, var(--civic-green), #ffffff, var(--civic-red));
+}
+
+.listeningPath::before {
+  background: linear-gradient(90deg, #316b9f, #d99a24);
+}
+
+.emotionsPath::before {
+  background: linear-gradient(90deg, #f6c447, #6bb7ff, #6550a8, #8bcf7a);
+}
+
+.environmentPath::before {
+  background: linear-gradient(90deg, var(--civic-green), var(--civic-sky));
+}
+
+.mediaPath::before {
+  background: linear-gradient(90deg, #316b9f, #f47b2f);
+}
+
+.memoryPath::before {
+  background: linear-gradient(90deg, #245d8f, #c8942f);
+}
+
+/* Wrapper strutturali: impaginano card interne, ma non devono sembrare card. */
+:is(
+  .hearingPanel,
+  .orchestraPanel,
+  .civicsPanel,
+  .labPanel,
+  .songCards,
+  .introPanel,
+  .descriptionPanel,
+  .natureSoundGrid,
+  .listeningGrid,
+  .songReflectionGrid,
+  .sustainabilitySection,
+  .sustainabilityGrid,
+  .ecoInstrumentGrid,
+  .soundscapeSteps,
+  .reflectionGrid,
+  .resourceGrid,
+  .rightsGrid,
+  .licenseGrid,
+  .platformGrid,
+  .aiGrid,
+  .comparisonGrid,
+  .useSimulator,
+  .simulatorChoices,
+  .mediaChoiceGrid,
+  .classPact,
+  .pactControls,
+  .contentPassport,
+  .pactBuilder,
+  .checklistGrid,
+  .playlistBuilder
+) {
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+:is(.environmentPage, .mediaRightsPage)
+  :is(.environmentButton, .mediaButton, .videoLink, .mediaChoice.active, .simulatorOption.active, .pactOptions button.active) {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--civic-accent), var(--civic-accent-soft));
+  color: #ffffff;
+  box-shadow: 0 12px 26px rgba(22, 138, 74, 0.18);
+}
+
+:is(.environmentPage, .mediaRightsPage)
+  :is(.environmentButton.secondary, .mediaButton.secondary) {
+  border-color: rgba(22, 138, 74, 0.18);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--civic-accent);
+  box-shadow: 0 10px 22px rgba(18, 50, 74, 0.08);
+}
+
+.mediaRightsPage .usageHead {
+  color: #ffffff;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--civic-accent), var(--civic-accent-soft));
+}
+
+:is(
+  .hearingPanel,
+  .orchestraPanel,
+  .civicsPanel,
+  .labPanel,
+  .songCards,
+  .introPanel,
+  .descriptionPanel,
+  .natureSoundGrid,
+  .listeningGrid,
+  .songReflectionGrid,
+  .sustainabilitySection,
+  .sustainabilityGrid,
+  .ecoInstrumentGrid,
+  .soundscapeSteps,
+  .reflectionGrid,
+  .resourceGrid,
+  .rightsGrid,
+  .licenseGrid,
+  .platformGrid,
+  .aiGrid,
+  .comparisonGrid,
+  .useSimulator,
+  .simulatorChoices,
+  .mediaChoiceGrid,
+  .classPact,
+  .pactControls,
+  .contentPassport,
+  .pactBuilder,
+  .checklistGrid,
+  .playlistBuilder
+):hover {
+  transform: none;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Allineamento base al linguaggio delle pagine teoria, con palette civica verde. */
+.civicPage,
+.anthemPage,
+.environmentPage,
+.listeningRespectPage,
+.memorySongsPage,
+.emotionSoundtrackPage,
+.mediaRightsPage {
+  --learning-card-border: rgba(22, 138, 74, 0.16);
+  --learning-card-bg:
+    radial-gradient(circle at 15% 10%, rgba(22, 138, 74, 0.10), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(239, 248, 243, 0.76));
+  --learning-card-overlay:
+    linear-gradient(90deg, rgba(22, 138, 74, 0.035), transparent 42%),
+    radial-gradient(circle at 90% 85%, rgba(13, 111, 159, 0.07), transparent 32%);
+  --learning-card-radius: 18px;
+  --learning-inner-radius: 16px;
+  --learning-table-shadow: 0 10px 24px rgba(18, 50, 74, 0.07);
+}
+
+:is(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) #siteNav {
+  gap: 4px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.97);
+  border-bottom: 1px solid rgba(22, 138, 74, 0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+:is(
+  .civicNav,
+  .anthemNav,
+  .environmentNav,
+  .listeningRespectNav,
+  .memorySongsNav,
+  .emotionNav,
+  .mediaRightsNav
+) .navBtn {
+  flex-shrink: 0;
+  width: auto;
+  height: auto;
+  padding: 7px 16px;
+  border: 1.5px solid rgba(22, 138, 74, 0.22);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: none;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+:is(
+  .civicNav,
+  .anthemNav,
+  .environmentNav,
+  .listeningRespectNav,
+  .memorySongsNav,
+  .emotionNav,
+  .mediaRightsNav
+) .navBtn:hover {
+  transform: none;
+  color: var(--civic-accent);
+  border-color: var(--civic-accent);
+  background: rgba(22, 138, 74, 0.08);
+  box-shadow: none;
+}
+
+:is(
+  .civicNav,
+  .anthemNav,
+  .environmentNav,
+  .listeningRespectNav,
+  .memorySongsNav,
+  .emotionNav,
+  .mediaRightsNav
+) .navBtn.active {
+  color: #ffffff;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--civic-accent), var(--civic-accent-soft));
+  box-shadow: 0 10px 22px rgba(22, 138, 74, 0.24);
+}
+
+:is(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .siteSection {
+  padding: 60px 0 40px;
+  border-bottom: 1px solid rgba(18, 50, 74, 0.06);
+}
+
+:is(
+  .civicBadge,
+  .anthemBadge,
+  .environmentBadge,
+  .listeningBadge,
+  .memoryBadge,
+  .emotionBadge,
+  .mediaBadge,
+  .songBadge,
+  .pathClass,
+  .pathPeriod
+) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 5px 10px;
+  line-height: 1;
+  border-radius: 999px;
+  background: rgba(22, 138, 74, 0.10);
+  color: var(--civic-accent);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+:is(
+  .civicPathCard,
+  .authorCard,
+  .symbolCard,
+  .civicsPanel article,
+  .meaningCard,
+  .factCard,
+  .introPanel article,
+  .descriptionPanel article,
+  .listeningGrid article,
+  .sustainabilityGrid article,
+  .ecoInstrumentGrid article,
+  .soundscapeSteps article,
+  .resourceGrid article,
+  .rulesBoard article,
+  .emotionGrid article,
+  .natureSoundCard,
+  .natureSoundOutput,
+  .listeningCard,
+  .songReflectionCard,
+  .sustainabilityDefinition,
+  .reflectionCard,
+  .roleCard,
+  .memoryGrid article,
+  .memorySteps article,
+  .keywordGrid article,
+  .keyIdea,
+  .earCareCard,
+  .decibelLadder,
+  .hearingSimulator,
+  .safeListeningGrid article,
+  .pactPreview,
+  .songCard,
+  .songFocus,
+  .labPanel > div,
+  .memoryQuote,
+  .beforeListening,
+  .colorCard,
+  .emotionHeroCard,
+  .guidedListeningPanel,
+  .emotionDetail,
+  .playlistCard,
+  .filmCard,
+  .rightsGrid article,
+  .licenseGrid article,
+  .platformGrid article,
+  .aiGrid article,
+  .mediaScenarioCard,
+  .simulatorResult,
+  .decisionBox,
+  .usageRow,
+  .comparisonGrid article,
+  .quotePanel,
+  .checklistPanel,
+  .checklistGrid span,
+  .sourceRecipe,
+  .warningPanel,
+  .extraFilmBox,
+  .passportForm,
+  .passportPreview,
+  .pactFields,
+  .pactOutput,
+  .quizQuestion,
+  .emotionQuizGrid article
+) {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--learning-card-border);
+  border-radius: var(--learning-card-radius);
+  background: var(--learning-card-bg);
+  box-shadow: var(--panel-shadow);
+}
+
+:is(
+  .civicPathCard,
+  .authorCard,
+  .symbolCard,
+  .civicsPanel article,
+  .meaningCard,
+  .factCard,
+  .introPanel article,
+  .descriptionPanel article,
+  .listeningGrid article,
+  .sustainabilityGrid article,
+  .ecoInstrumentGrid article,
+  .soundscapeSteps article,
+  .resourceGrid article,
+  .rulesBoard article,
+  .emotionGrid article,
+  .natureSoundCard,
+  .natureSoundOutput,
+  .listeningCard,
+  .songReflectionCard,
+  .sustainabilityDefinition,
+  .reflectionCard,
+  .roleCard,
+  .keyIdea,
+  .earCareCard,
+  .decibelLadder,
+  .hearingSimulator,
+  .safeListeningGrid article,
+  .pactPreview,
+  .songCard,
+  .songFocus,
+  .labPanel > div,
+  .memoryQuote,
+  .beforeListening,
+  .colorCard,
+  .emotionHeroCard,
+  .guidedListeningPanel,
+  .emotionDetail,
+  .playlistCard,
+  .filmCard,
+  .rightsGrid article,
+  .licenseGrid article,
+  .platformGrid article,
+  .aiGrid article,
+  .mediaScenarioCard,
+  .simulatorResult,
+  .decisionBox,
+  .usageRow,
+  .comparisonGrid article,
+  .quotePanel,
+  .checklistPanel,
+  .sourceRecipe,
+  .warningPanel,
+  .extraFilmBox,
+  .passportForm,
+  .passportPreview,
+  .pactFields,
+  .pactOutput,
+  .quizQuestion,
+  .emotionQuizGrid article
+) > * {
+  position: relative;
+  z-index: 1;
+}
+
+.civicHeroMedia {
+  min-height: 430px;
+}
+
+.civicHeroImageSlot {
+  width: min(520px, 100%);
+  aspect-ratio: 3 / 2;
+}
+
+.civicHeroImageSlot::before {
+  background:
+    radial-gradient(circle at 30% 48%, rgba(22, 138, 74, 0.22), transparent 42%),
+    radial-gradient(circle at 68% 46%, rgba(13, 111, 159, 0.18), transparent 45%),
+    radial-gradient(circle at 50% 78%, rgba(84, 183, 128, 0.14), transparent 46%);
+}
+
+.civicHeroImageSlot img {
+  width: min(520px, 100%);
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.environmentHeroImageSlot::before {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(72, 210, 92, 0.28), transparent 38%),
+    radial-gradient(circle at 56% 52%, rgba(13, 111, 159, 0.18), transparent 45%),
+    radial-gradient(circle at 50% 72%, rgba(22, 138, 74, 0.16), transparent 48%);
+  filter: blur(24px);
+}
+
+.environmentHeroImageSlot img {
+  filter:
+    drop-shadow(0 24px 34px rgba(22, 138, 74, 0.24))
+    drop-shadow(0 6px 14px rgba(13, 111, 159, 0.14));
+}
+
+.mediaHeroImageSlot::before {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(49, 107, 159, 0.26), transparent 40%),
+    radial-gradient(circle at 52% 44%, rgba(244, 172, 47, 0.22), transparent 36%),
+    radial-gradient(circle at 50% 74%, rgba(13, 111, 159, 0.16), transparent 48%);
+  filter: blur(24px);
+}
+
+.mediaHeroImageSlot img {
+  filter:
+    drop-shadow(0 24px 34px rgba(13, 111, 159, 0.24))
+    drop-shadow(0 6px 14px rgba(244, 172, 47, 0.16));
+}
+
+.emotionHeroImageSlot::before {
+  background:
+    radial-gradient(circle at 36% 38%, rgba(246, 196, 71, 0.24), transparent 38%),
+    radial-gradient(circle at 62% 42%, rgba(101, 80, 168, 0.22), transparent 39%),
+    radial-gradient(circle at 50% 66%, rgba(239, 106, 58, 0.14), transparent 44%),
+    radial-gradient(circle at 50% 70%, rgba(107, 183, 255, 0.15), transparent 48%);
+  filter: blur(24px);
+}
+
+.emotionHeroImageSlot::after {
+  display: none;
+}
+
+.emotionHeroImageSlot img {
+  filter:
+    drop-shadow(0 24px 34px rgba(101, 80, 168, 0.22))
+    drop-shadow(0 8px 16px rgba(246, 196, 71, 0.16));
+}
+
+:is(
+  .civicPathCard,
+  .authorCard,
+  .symbolCard,
+  .civicsPanel article,
+  .meaningCard,
+  .factCard,
+  .introPanel article,
+  .descriptionPanel article,
+  .natureSoundCard,
+  .listeningCard,
+  .songReflectionCard,
+  .reflectionCard,
+  .roleCard,
+  .sustainabilityGrid article,
+  .ecoInstrumentGrid article,
+  .soundscapeSteps article,
+  .resourceGrid article,
+  .songCard,
+  .colorCard,
+  .filmCard,
+  .rightsGrid article,
+  .licenseGrid article,
+  .platformGrid article,
+  .aiGrid article,
+  .mediaScenarioCard,
+  .emotionQuizGrid article
+) {
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+:is(
+  .civicPathCard,
+  .authorCard,
+  .symbolCard,
+  .meaningCard,
+  .factCard,
+  .natureSoundCard,
+  .listeningCard,
+  .songReflectionCard,
+  .reflectionCard,
+  .roleCard,
+  .songCard,
+  .colorCard,
+  .filmCard,
+  .mediaScenarioCard,
+  .emotionQuizGrid article
+):hover {
+  transform: translateY(-3px);
+  border-color: rgba(22, 138, 74, 0.22);
+  box-shadow: 0 18px 38px rgba(22, 138, 74, 0.13);
+}
+
+:where(
+  .civicPage,
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) :is(.learnSection, .civicPathsSection) :is(
+  article,
+  a[class*="Card"],
+  [class*="Card"]:not(button),
+  [class*="Panel"]:not(button),
+  [class*="Box"]:not(button),
+  .quizQuestion
+):hover {
+  transform: none;
+}
+
+.civicPage .civicPathsSection a.civicPathCard:hover,
+.civicPage .civicPathsSection a.civicPathCard:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(22, 138, 74, 0.22);
+  box-shadow: 0 18px 38px rgba(22, 138, 74, 0.13);
+}
+
+.civicPage .civicPathsSection .civicPathCard.comingSoonPath {
+  opacity: 0.58;
+  filter: grayscale(0.55) saturate(0.62);
+}
+
+.civicPage .civicPathsSection .civicPathCard.comingSoonPath::before {
+  opacity: 0.34;
+}
+
+.civicPage .civicPathsSection .civicPathCard.comingSoonPath:hover {
+  transform: none;
+  border-color: rgba(22, 138, 74, 0.16);
+  box-shadow: 0 14px 34px rgba(18, 50, 74, 0.07);
+}
+
+.environmentPage .listeningCard[role="button"] {
+  cursor: pointer;
+  padding-bottom: 70px;
+}
+
+.environmentPage .listeningCard[role="button"]::after {
+  content: "Apri scheda";
+  position: absolute;
+  right: 22px;
+  bottom: 22px;
+  z-index: 2;
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--civic-accent), var(--civic-accent-soft));
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  box-shadow: 0 10px 20px rgba(22, 138, 74, 0.18);
+}
+
+.environmentPage .listeningCard[role="button"]::before {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 82px;
+  z-index: 0;
+  background: linear-gradient(to top, rgba(22, 138, 74, 0.08), transparent);
+}
+
+.environmentPage :is(.listeningGrid, .songReflectionGrid) .listeningCard[role="button"]:is(:hover, :focus-visible) {
+  transform: translateY(-3px);
+  border-color: rgba(22, 138, 74, 0.22);
+  box-shadow: 0 18px 38px rgba(22, 138, 74, 0.13);
+  outline: none;
+}
+
+.environmentPage :is(.listeningGrid, .songReflectionGrid) .listeningCard[role="button"]:active {
+  transform: translateY(-1px);
+}
+
+:is(
+  .anthemButton,
+  .environmentButton,
+  .listeningButton,
+  .memoryButton,
+  .emotionButton,
+  .mediaButton,
+  .pactExportButton,
+  .tonePreviewButton
+) {
+  min-height: 46px;
+  width: auto;
+  padding: 0 22px;
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--civic-accent), var(--civic-accent-soft));
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(22, 138, 74, 0.20);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+}
+
+:is(
+  .anthemButton,
+  .environmentButton,
+  .listeningButton,
+  .memoryButton,
+  .emotionButton,
+  .mediaButton
+).secondary {
+  border-color: rgba(22, 138, 74, 0.24);
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--civic-accent);
+  box-shadow: 0 10px 24px rgba(18, 50, 74, 0.08);
+}
+
+:is(
+  .anthemButton,
+  .environmentButton,
+  .listeningButton,
+  .memoryButton,
+  .emotionButton,
+  .mediaButton,
+  .pactExportButton,
+  .tonePreviewButton
+):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(22, 138, 74, 0.24);
+}
+
+:is(
+  .anthemQuizResult,
+  .environmentQuizResult,
+  .listeningQuizResult,
+  .memoryQuizResult,
+  .mediaQuizResult,
+  .quizResult
+) {
+  width: min(100%, 760px);
+  min-height: 34px;
+  margin: 16px auto 0;
+  padding: 10px 14px 0;
+  border: 0;
+  border-top: 1px solid rgba(22, 138, 74, 0.16);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--civic-accent);
+  font-weight: 900;
+  text-align: center;
+}
+
+.civicReturnCTA {
+  width: min(100%, 460px);
+  grid-template-columns: 1fr;
+  margin-top: 34px;
+}
+
+.civicReturnCTA .learningNextCard {
+  min-height: 112px;
+  padding-inline: 54px;
+  border-color: rgba(22, 138, 74, 0.18);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(229, 246, 236, 0.94));
+}
+
+.civicReturnCTA .learningNextCard::after {
+  background: linear-gradient(135deg, var(--civic-accent), var(--civic-accent-soft));
+  box-shadow: 0 10px 24px rgba(22, 138, 74, 0.20);
+}
+
+.civicReturnCTA .learningNextCard:hover {
+  border-color: rgba(22, 138, 74, 0.26);
+  background:
+    linear-gradient(135deg, #ffffff, rgba(237, 249, 242, 0.96));
+  box-shadow: 0 12px 26px rgba(22, 138, 74, 0.08);
+}
+
+.civicReturnCTA .learningNextCard span {
+  justify-self: center;
+  background: rgba(22, 138, 74, 0.10);
+  color: var(--civic-accent);
+}
+
+.environmentPage .environmentHeroActions .environmentButton.secondary,
+.emotionSoundtrackPage .emotionHeroActions .emotionButton.secondary,
+.mediaRightsPage .mediaHeroActions .mediaButton.secondary {
+  border: 1.5px solid rgba(22, 138, 74, 0.24);
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--civic-accent);
+  box-shadow: 0 10px 24px rgba(18, 50, 74, 0.08);
+}
+
+.environmentPage .environmentHeroActions .environmentButton.secondary:hover,
+.emotionSoundtrackPage .emotionHeroActions .emotionButton.secondary:hover,
+.mediaRightsPage .mediaHeroActions .mediaButton.secondary:hover {
+  background: rgba(22, 138, 74, 0.08);
+  color: var(--civic-accent);
+  box-shadow: 0 14px 30px rgba(22, 138, 74, 0.12);
+}
+
+@media (max-width: 768px) {
+  :where(
+    .anthemPage,
+    .environmentPage,
+    .listeningRespectPage,
+    .memorySongsPage,
+    .emotionSoundtrackPage,
+    .mediaRightsPage
+  ) .civicQuiz .quizQuestion {
+    min-height: 0;
+    grid-template-rows: none;
+  }
+
+  :where(
+    .anthemPage,
+    .environmentPage,
+    .listeningRespectPage,
+    .memorySongsPage,
+    .emotionSoundtrackPage,
+    .mediaRightsPage
+  ) .civicQuiz .quizQuestion h3 {
+    min-height: 0;
+  }
+
+  :where(
+    .anthemPage,
+    .environmentPage,
+    .listeningRespectPage,
+    .memorySongsPage,
+    .emotionSoundtrackPage,
+    .mediaRightsPage
+  ) .civicQuiz .quizQuestion button {
+    height: auto;
+  }
+
+  :is(
+    .civicPathCard,
+    .civicMethodGrid article,
+    .authorCard,
+    .symbolCard,
+    .civicsPanel article,
+    .meaningCard,
+    .factCard,
+    .introPanel,
+    .descriptionPanel,
+    .listeningGrid article,
+    .rulesBoard article,
+    .emotionGrid article,
+    .natureSoundCard,
+    .natureSoundOutput,
+    .listeningCard,
+    .songReflectionCard,
+    .sustainabilityDefinition,
+    .reflectionCard,
+    .roleCard,
+    .keyIdea,
+    .earCareCard,
+    .decibelLadder,
+    .hearingSimulator,
+    .safeListeningGrid article,
+    .pactPreview,
+    .songCard,
+    .songFocus,
+    .labPanel > div,
+    .memoryQuote,
+    .beforeListening,
+    .colorCard,
+    .emotionHeroCard,
+    .guidedListeningPanel,
+    .emotionDetail,
+    .playlistCard,
+    .filmCard,
+    .mediaScenarioCard,
+    .simulatorResult,
+    .decisionBox,
+    .quotePanel,
+    .checklistPanel,
+    .sourceRecipe,
+    .warningPanel,
+    .extraFilmBox,
+    .passportPreview,
+    .pactOutput,
+    .quizQuestion,
+    .emotionQuizGrid article
+  ) {
+    padding: 18px;
+  }
+}
+
+:where(
+  .civicNav,
+  .anthemNav,
+  .environmentNav,
+  .listeningRespectNav,
+  .memorySongsNav,
+  .emotionNav,
+  .mediaRightsNav
+) .navBtn.active:focus,
+:where(
+  .civicNav,
+  .anthemNav,
+  .environmentNav,
+  .listeningRespectNav,
+  .memorySongsNav,
+  .emotionNav,
+  .mediaRightsNav
+) .navBtn.active:focus-visible {
+  color: #ffffff;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--civic-accent), var(--civic-accent-soft));
+  outline: 3px solid rgba(22, 138, 74, 0.28);
+  outline-offset: 3px;
+  box-shadow: 0 10px 22px rgba(22, 138, 74, 0.24);
+}
+
+:where(
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .quizActions button[id^="check"][id$="Quiz"] {
+  min-height: 46px;
+  padding: 0 22px;
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--civic-accent), var(--civic-accent-soft));
+  color: #ffffff;
+  box-shadow: 0 14px 30px rgba(22, 138, 74, 0.20);
+}
+
+:where(
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .quizActions button[id^="reset"][id$="Quiz"] {
+  min-height: 46px;
+  padding: 0 22px;
+  border: 1.5px solid rgba(22, 138, 74, 0.24);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--civic-accent);
+  box-shadow: 0 10px 22px rgba(18, 50, 74, 0.07);
+}
+
+:where(
+  .anthemPage,
+  .environmentPage,
+  .listeningRespectPage,
+  .memorySongsPage,
+  .emotionSoundtrackPage,
+  .mediaRightsPage
+) .quizActions button[id^="reset"][id$="Quiz"]:hover {
+  background: rgba(22, 138, 74, 0.08);
+  color: var(--civic-accent);
+  box-shadow: 0 12px 24px rgba(22, 138, 74, 0.10);
+}

@@ -6,6 +6,7 @@
 <title>Storia: Il Medioevo | Music Game Hub</title>
 <link rel="stylesheet" href="../css/base.css">
 <link rel="stylesheet" href="../css/learn.css">
+<link rel="stylesheet" href="../css/learning-ui.css?v=20260622-shared-learning-ui">
 <link rel="stylesheet" href="../css/storia/storia.css">
 </head>
 
@@ -28,19 +29,20 @@
 
 <nav id="siteNav" class="theoryNav">
   <button class="navBtn" onclick="MGH.scrollToSection('timeline')">📅 Timeline</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('sacra')">⛪ Musica sacra</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('profana')">🎭 Musica profana</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('contesto')">🌍 Contesto</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('linguaggio')">🎼 Linguaggio</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('sacra')">🎭 Forme</button>
   <button class="navBtn" onclick="MGH.scrollToSection('protagonisti')">👑 Protagonisti</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('strumenti')">🎵 Strumenti</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('riassunto')">📊 Riassunto</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('video-medioevo')">🎬 Video</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('strumenti')">🎹 Strumenti</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('riassunto')">📊 Mappa</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('video-medioevo')">▶ Ascolto</button>
   <button class="navBtn" onclick="openQuizModal()">❓ Quiz</button>
 </nav>
 
 <div id="contentWrapper">
 
   <!-- ==================== TIMELINE ==================== -->
-  <section id="timeline" class="siteSection learnSection">
+  <section id="timeline" class="siteSection learnSection" data-study-step="01" data-study-label="In breve">
     <h2 class="sectionTitle">Il Medioevo in breve</h2>
 
     <p class="sectionIntro">
@@ -144,7 +146,7 @@
       <div class="periodCard eraCard">
         <div class="eraIcon">🎭</div>
 
-        <h3>Tardo Medioevo (1200-1492)</h3>
+        <h3>Tardo Medioevo (1200-1400)</h3>
 
         <p>
           Si diffonde l'<strong>Ars Nova</strong> in Italia. 
@@ -153,18 +155,46 @@
         </p>
       </div>
 
+      <div class="periodCard eraCard">
+        <div class="eraIcon">🌅</div>
+        <h3>Verso il Rinascimento (1400-1492)</h3>
+        <p>Corti e città valorizzano sempre più la musica profana e strumentale, preparando il nuovo equilibrio rinascimentale.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="contesto" class="siteSection learnSection" data-study-step="02" data-study-label="Contesto">
+    <h2 class="sectionTitle">Contesto: luoghi e società</h2>
+    <p class="sectionIntro">Nel Medioevo la musica cambia funzione e pubblico a seconda del luogo in cui viene praticata.</p>
+    <div class="storyGrid historyContextGrid historyContextGrid--4">
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">⛪</div></div><h3>Monastero</h3><p class="cardSubtitle">Preghiera e memoria</p><p>La liturgia quotidiana conserva e trasmette il canto sacro.</p><div class="cardHighlight"><strong>Figura chiave:</strong> il monaco cantore.</div></article>
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">🏫</div></div><h3>Cattedrale e scuola</h3><p class="cardSubtitle">Studio e scrittura</p><p>Chierici e cantori studiano notazione, organum e prime forme polifoniche.</p><div class="cardHighlight"><strong>Figura chiave:</strong> il maestro di canto.</div></article>
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">🏰</div></div><h3>Corte</h3><p class="cardSubtitle">Poesia e intrattenimento</p><p>Trovatori e trovieri cantano amore, imprese cavalleresche e vita aristocratica.</p><div class="cardHighlight"><strong>Figura chiave:</strong> il trovatore.</div></article>
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">🏘️</div></div><h3>Città e piazza</h3><p class="cardSubtitle">Festa e partecipazione</p><p>Feste, danze e confraternite portano la musica nella vita collettiva.</p><div class="cardHighlight"><strong>Figura chiave:</strong> il musicista ambulante.</div></article>
+    </div>
+  </section>
+
+  <section id="linguaggio" class="siteSection learnSection" data-study-step="03" data-study-label="Linguaggio">
+    <h2 class="sectionTitle">Come suona il Medioevo</h2>
+    <p class="sectionIntro">Dalla monodia alla polifonia: il suono medievale diventa progressivamente più scritto e organizzato.</p>
+    <div class="storyGrid historySoundGrid">
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">🕯️</div></div><h3>Monodia</h3><p class="cardSubtitle">Una sola melodia</p><p>Nel canto gregoriano tutte le voci eseguono la stessa linea in latino.</p><div class="cardHighlight"><strong>Ascolta:</strong> ritmo libero e suono raccolto.</div></article>
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">🪜</div></div><h3>Modi medievali</h3><p class="cardSubtitle">Colori melodici</p><p>Le melodie si organizzano secondo modi diversi dalle moderne scale maggiori e minori.</p><div class="cardHighlight"><strong>Effetto:</strong> ogni modo crea un profilo riconoscibile.</div></article>
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">✍️</div></div><h3>Notazione</h3><p class="cardSubtitle">Dal neuma al rigo</p><p>I segni musicali diventano più precisi e permettono di conservare altezza e durata dei suoni.</p><div class="cardHighlight"><strong>Guido d'Arezzo:</strong> facilita lettura e apprendimento.</div></article>
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">🧶</div></div><h3>Polifonia</h3><p class="cardSubtitle">Più voci insieme</p><p>Dall'organum nascono intrecci in cui le linee melodiche acquistano autonomia.</p><div class="cardHighlight"><strong>Riconosci:</strong> entrate e movimenti differenti.</div></article>
     </div>
   </section>
 
   <!-- ==================== MUSICA SACRA ==================== -->
-  <section id="sacra" class="siteSection learnSection">
-    <h2 class="sectionTitle">Musica Sacra</h2>
+  <section id="sacra" class="siteSection learnSection" data-study-step="04" data-study-label="Forme">
+    <h2 class="sectionTitle">Forme sacre</h2>
     <p class="sectionIntro">
       La musica sacra medievale è il cuore della tradizione musicale europea. 
       Nata nei monasteri, è strettamente legata alla liturgia cristiana.
     </p>
 
-    <div class="storyGrid">
+    <div class="storyGrid storyGrid--3">
       <div class="storyCard mediaCard">
         <div class="mediaThumb">
           <div class="mediaIcon">🎙️</div>
@@ -242,17 +272,16 @@
         </div>
       </div>
     </div>
-  </section>
 
   <!-- ==================== MUSICA PROFANA ==================== -->
-  <section id="profana" class="siteSection learnSection">
-    <h2 class="sectionTitle">Musica Profana</h2>
-    <p class="sectionIntro">
+  <div id="profana" class="historySubsection">
+    <h3 class="historySubsectionTitle">Forme profane</h3>
+    <p class="historySubsectionIntro">
       Accanto alla musica sacra, nasce una musica per il popolo, i cavalieri e le corti. 
       È la musica dei banchetti, delle feste, delle piazze.
     </p>
 
-    <div class="storyGrid">
+    <div class="storyGrid storyGrid--3">
       <div class="storyCard mediaCard">
         <div class="mediaThumb">
           <div class="mediaIcon">🎼</div>
@@ -322,16 +351,17 @@
         </div>
       </div>
     </div>
+  </div>
   </section>
 
   <!-- ==================== PROTAGONISTI ==================== -->
-  <section id="protagonisti" class="siteSection learnSection">
-    <h2 class="sectionTitle">Protagonisti del Medioevo</h2>
+  <section id="protagonisti" class="siteSection learnSection" data-study-step="05" data-study-label="Protagonisti">
+    <h2 class="sectionTitle">I protagonisti del Medioevo</h2>
     <p class="sectionIntro">
       Grandi musicisti, teorici e innovatori che hanno plasmato la musica medievale.
     </p>
 
-    <div class="protagonistGrid">
+    <div class="protagonistGrid protagonistGrid--6">
       <div class="protagonistCard historicalCard">
         <div class="cardDate">590-604</div>
         <div class="protagonistIcon">🙏</div>
@@ -401,14 +431,14 @@
   </section>
 
   <!-- ==================== STRUMENTI ==================== -->
-  <section id="strumenti" class="siteSection learnSection">
-    <h2 class="sectionTitle">Strumenti Medievali</h2>
+  <section id="strumenti" class="siteSection learnSection" data-study-step="06" data-study-label="Strumenti">
+    <h2 class="sectionTitle">Gli strumenti del Medioevo</h2>
     <p class="sectionIntro">
       La musica medievale usa strumenti molto diversi da quelli moderni. 
       Alcuni si sono evoluti, altri sono completamente scomparsi.
     </p>
 
-    <div class="instrumentGrid">
+    <div class="instrumentGrid instrumentGrid--4">
       <div class="instrumentCard">
         <h3>🎸 Strumenti a Corda</h3>
         <ul>
@@ -451,7 +481,7 @@
   </section>
 
   <!-- ==================== MAPPA RIASSUNTIVA ==================== -->
-  <section id="riassunto" class="siteSection learnSection">
+  <section id="riassunto" class="siteSection learnSection" data-study-step="07" data-study-label="Mappa">
     <h2 class="sectionTitle">Mappa Riassuntiva</h2>
     <p class="sectionIntro">
       Uno schema visivo equilibrato dei concetti chiave del Medioevo musicale.
@@ -540,13 +570,13 @@
   </section>
 
   <!-- ==================== VIDEO APPROFONDIMENTO ==================== -->
-  <section id="video-medioevo" class="siteSection learnSection">
-    <h2 class="sectionTitle">Video di approfondimento</h2>
+  <section id="video-medioevo" class="siteSection learnSection" data-study-step="08" data-study-label="Ascolto">
+    <h2 class="sectionTitle">Ascolto guidato</h2>
     <p class="sectionIntro">
       Guarda questo video di HUB Scuola per ripassare i concetti principali sulla musica medievale.
     </p>
 
-    <div class="videoCard">
+    <div class="videoCard historyListeningSurface">
       <h3>🎬 La musica nel Medioevo</h3>
       <p class="cardSubtitle">Approfondimento sulla storia della musica medievale</p>
 
@@ -558,14 +588,27 @@
         </iframe>
       </div>
     </div>
+
+    <div class="listeningGuideGrid">
+      <article class="listeningGuideCard"><div class="listeningGuideNumber">01</div><span class="listeningGuideType">Canto sacro</span><h3>Segui la monodia</h3><p class="listeningWork">Canto gregoriano</p><dl><div><dt>Ascolta</dt><dd>Una sola linea melodica</dd></div><div><dt>Osserva</dt><dd>Il ritmo libero del testo</dd></div><div><dt>Riconosci</dt><dd>La sonorità raccolta della liturgia</dd></div></dl></article>
+      <article class="listeningGuideCard"><div class="listeningGuideNumber">02</div><span class="listeningGuideType">Polifonia</span><h3>Distingui le voci</h3><p class="listeningWork">Organum</p><dl><div><dt>Ascolta</dt><dd>Due o più linee sovrapposte</dd></div><div><dt>Osserva</dt><dd>Entrate e movimenti differenti</dd></div><div><dt>Riconosci</dt><dd>Il passaggio dalla monodia alla polifonia</dd></div></dl></article>
+      <article class="listeningGuideCard"><div class="listeningGuideNumber">03</div><span class="listeningGuideType">Musica profana</span><h3>Trova il ritmo</h3><p class="listeningWork">Danza e canto di corte</p><dl><div><dt>Ascolta</dt><dd>La pulsazione più regolare</dd></div><div><dt>Osserva</dt><dd>Il rapporto con il movimento</dd></div><div><dt>Riconosci</dt><dd>Il carattere festoso o narrativo</dd></div></dl></article>
+    </div>
   </section>
 
     <!-- ==================== CTA ==================== -->
-    <div class="learnCTA storyLearnCTA">
-      <button class="menuButton" onclick="openQuizModal()">
-        ❓ Vai al Quiz
+    <nav class="learnCTA storyLearnCTA" aria-label="Continua il percorso di storia">
+      <button class="storyQuizActionCard" type="button" onclick="openQuizModal()">
+        <span>Verifica rapida</span>
+        <strong>Quiz Medioevo</strong>
+        <p>Ripassa canto gregoriano, trovatori, notazione e strumenti.</p>
       </button>
-    </div>
+      <a class="learningNextCard" href="storia_musica.html">
+        <span>Linea del tempo</span>
+        <strong>Timeline storia</strong>
+        <p>Torna alla panoramica dei periodi musicali.</p>
+      </a>
+    </nav>
 </div>
 
 <!-- ==================== QUIZ MODAL ==================== -->
@@ -579,131 +622,16 @@
     <div class="modalBody">
       <p class="quizIntro">Metti alla prova le tue conoscenze sul Medioevo musicale.</p>
 
-      <div class="quizContainer">
-        <div class="quizQuestion">
-          <h4>1. Chi è il padre del canto gregoriano?</h4>
-          <div class="quizOptions">
-            <label>
-              <input type="radio" name="q1" value="a"> 
-              <span class="optionText">A) Papa Gregorio Magno</span>
-            </label>
-            <label>
-              <input type="radio" name="q1" value="b"> 
-              <span class="optionText">B) Guido d'Arezzo</span>
-            </label>
-            <label>
-              <input type="radio" name="q1" value="c"> 
-              <span class="optionText">C) Francesco Landini</span>
-            </label>
-            <label>
-              <input type="radio" name="q1" value="d"> 
-              <span class="optionText">D) Hildegard von Bingen</span>
-            </label>
-          </div>
-          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: A - Papa Gregorio Magno</p>
-        </div>
-
-        <div class="quizQuestion">
-          <h4>2. Cosa ha inventato Guido d'Arezzo?</h4>
-          <div class="quizOptions">
-            <label>
-              <input type="radio" name="q2" value="a"> 
-              <span class="optionText">A) La chiave di violino</span>
-            </label>
-            <label>
-              <input type="radio" name="q2" value="b"> 
-              <span class="optionText">B) La notazione musicale moderna (pentagramma e note)</span>
-            </label>
-            <label>
-              <input type="radio" name="q2" value="c"> 
-              <span class="optionText">C) L'organo</span>
-            </label>
-            <label>
-              <input type="radio" name="q2" value="d"> 
-              <span class="optionText">D) La ballata</span>
-            </label>
-          </div>
-          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: B - La notazione musicale moderna (pentagramma e note Do-Re-Mi-Fa-Sol-La-Si)</p>
-        </div>
-
-        <div class="quizQuestion">
-          <h4>3. Quali sono i due tipi di musica medievale?</h4>
-          <div class="quizOptions">
-            <label>
-              <input type="radio" name="q3" value="a"> 
-              <span class="optionText">A) Musica classica e musica pop</span>
-            </label>
-            <label>
-              <input type="radio" name="q3" value="b"> 
-              <span class="optionText">B) Musica vocale e musica strumentale</span>
-            </label>
-            <label>
-              <input type="radio" name="q3" value="c"> 
-              <span class="optionText">C) Musica sacra e musica profana</span>
-            </label>
-            <label>
-              <input type="radio" name="q3" value="d"> 
-              <span class="optionText">D) Musica gregoriana e musica polifonica</span>
-            </label>
-          </div>
-          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: C - Musica sacra (chiesa) e musica profana (corti e popolo)</p>
-        </div>
-
-        <div class="quizQuestion">
-          <h4>4. Cosa cantavano i trovatori?</h4>
-          <div class="quizOptions">
-            <label>
-              <input type="radio" name="q4" value="a"> 
-              <span class="optionText">A) Canti religiosi in latino</span>
-            </label>
-            <label>
-              <input type="radio" name="q4" value="b"> 
-              <span class="optionText">B) Canzoni di amor cortese e avventure cavallersche</span>
-            </label>
-            <label>
-              <input type="radio" name="q4" value="c"> 
-              <span class="optionText">C) Inni liturgici</span>
-            </label>
-            <label>
-              <input type="radio" name="q4" value="d"> 
-              <span class="optionText">D) Marce militari</span>
-            </label>
-          </div>
-          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: B - Canzoni di amor cortese e avventure cavallersche</p>
-        </div>
-
-        <div class="quizQuestion">
-          <h4>5. Qual è la caratteristica principale del canto gregoriano?</h4>
-          <div class="quizOptions">
-            <label>
-              <input type="radio" name="q5" value="a"> 
-              <span class="optionText">A) È polifonico (molte voci)</span>
-            </label>
-            <label>
-              <input type="radio" name="q5" value="b"> 
-              <span class="optionText">B) È accompagnato da strumenti</span>
-            </label>
-            <label>
-              <input type="radio" name="q5" value="c"> 
-              <span class="optionText">C) È monodico (una sola melodia) e senza accompagnamento</span>
-            </label>
-            <label>
-              <input type="radio" name="q5" value="d"> 
-              <span class="optionText">D) Ha un ritmo veloce e allegro</span>
-            </label>
-          </div>
-          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: C - È monodico (una sola melodia) e senza accompagnamento</p>
-        </div>
-      </div>
+      <div class="quizContainer learningQuiz" data-learning-quiz data-quiz-bank="historyMiddleAges" data-quiz-count="5"></div>
     </div>
 
-    <div class="modalFooter">
-      <button class="menuButton" onclick="resetQuiz()">🔄 Ricomincia</button>
-      <button class="menuButton" style="background: linear-gradient(135deg, #ff6600, #ff9933); color: white;" onclick="checkQuiz()">✅ Correggi Quiz</button>
+    <div class="modalFooter learningQuizFooter">
+      <button class="menuButton learningQuizResetButton" onclick="resetQuiz()">🔄 Riprova</button>
+      <button class="menuButton learningQuizCheckButton" onclick="checkQuiz()">✅ Controlla risposte</button>
       <button class="menuButton" onclick="closeQuizModal()">Chiudi</button>
     </div>
 
-    <div id="quizResult" class="quizResult" style="display:none; margin-top: 20px;"></div>
+    <div id="quizResult" class="quizResult learningQuizResult" style="display:none; margin-top: 20px;"></div>
   </div>
 </div>
 
@@ -723,6 +651,7 @@
 </footer>
 
 <script src="../js/common.js?v=20260620-favicon"></script>
+<script src="../js/learning_quiz.js?v=20260718-shared3"></script>
 <script src="../js/storia/storia.js"></script>
 </body>
 </html>

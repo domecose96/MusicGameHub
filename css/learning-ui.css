@@ -1,0 +1,579 @@
+/* ==================== SHARED LEARNING UI ==================== */
+:root {
+  --learning-card-border: rgba(255, 102, 0, 0.16);
+  --learning-card-bg:
+    radial-gradient(circle at 15% 10%, rgba(255, 102, 0, 0.10), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 248, 242, 0.74));
+  --learning-card-overlay:
+    linear-gradient(90deg, rgba(255, 102, 0, 0.035), transparent 42%),
+    radial-gradient(circle at 90% 85%, rgba(0, 129, 150, 0.07), transparent 32%);
+  --learning-card-radius: 18px;
+  --learning-inner-radius: 16px;
+  --learning-panel-width: 980px;
+  --learning-content-width: 1100px;
+  --learning-wide-width: 1280px;
+  --learning-table-shadow: 0 10px 24px rgba(92, 55, 24, 0.07);
+}
+
+.cardTopTitle {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin: 0 0 10px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(255, 102, 0, 0.1);
+  color: var(--accent);
+  font-size: 0.76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.gameCard,
+.clefCard,
+.noteInteractive,
+#figure .figureItem,
+#tempi .timeCard,
+#scale .scaleBox,
+#espressione .expressionCard,
+#simboli .symbolCard,
+#simboli .repeatCard,
+#simboli .repeatExampleCard,
+#simboli .symbolStaffWrap .clefCard,
+.theoryDiagramCard,
+#chiavi .clefCard,
+.advancedCard,
+.advancedBox,
+.scaleBox,
+.rhythmBox,
+.rhythmImage,
+.circleMainCard,
+.circleSideBox,
+.circleLegendItem,
+.formListeningCard,
+.didacticBox,
+.elementCard,
+.listeningGrid article,
+.conceptMap,
+.detailGrid article,
+.soundFeaturePanel article,
+.soundFeatureVisualCard,
+.featureWavePair div,
+.durationVisual,
+.timbreVisual,
+.waveCard,
+.soundNoiseGrid article,
+.waveLab,
+.earJourney article,
+.sectionClosingNote,
+.earInfoCard,
+.earLab {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--learning-card-border);
+  background: var(--learning-card-bg);
+  box-shadow: var(--panel-shadow);
+}
+
+.gameCard::before,
+.clefCard::before,
+.noteInteractive::before,
+#figure .figureItem::before,
+#tempi .timeCard::before,
+#scale .scaleBox::before,
+#espressione .expressionCard::before,
+#simboli .symbolCard::before,
+#simboli .repeatCard::before,
+#simboli .repeatExampleCard::before,
+#simboli .symbolStaffWrap .clefCard::before,
+.theoryDiagramCard::before,
+#chiavi .clefCard::before,
+.advancedCard::before,
+.advancedBox::before,
+.scaleBox::before,
+.rhythmBox::before,
+.rhythmImage::before,
+.circleMainCard::before,
+.circleSideBox::before,
+.circleLegendItem::before,
+.formListeningCard::before,
+.didacticBox::before,
+.elementCard::before,
+.listeningGrid article::before,
+.conceptMap::before,
+.detailGrid article::before,
+.soundFeaturePanel article::before,
+.soundFeatureVisualCard::before,
+.featureWavePair div::before,
+.durationVisual::before,
+.timbreVisual::before,
+.waveCard::before,
+.soundNoiseGrid article::before,
+.waveLab::before,
+.earJourney article::before,
+.sectionClosingNote::before,
+.earInfoCard::before,
+.earLab::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--learning-card-overlay);
+  pointer-events: none;
+}
+
+.gameCard > *,
+.clefCard > *,
+.noteInteractive > *,
+#figure .figureItem > *,
+#tempi .timeCard > *:not(.timeAudioBtn),
+#scale .scaleBox > *,
+#espressione .expressionCard > *,
+#simboli .symbolCard > *,
+#simboli .repeatCard > *,
+#simboli .repeatExampleCard > *,
+#simboli .symbolStaffWrap .clefCard > *,
+.theoryDiagramCard > *,
+#chiavi .clefCard > *,
+.advancedCard > *,
+.advancedBox > *,
+.scaleBox > *,
+.rhythmBox > *,
+.rhythmImage > *,
+.circleMainCard > *,
+.circleSideBox > *,
+.circleLegendItem > *,
+.formListeningCard > *,
+.didacticBox > *,
+.elementCard > *,
+.listeningGrid article > *,
+.conceptMap > *,
+.detailGrid article > *,
+.soundFeaturePanel article > *,
+.soundFeatureVisualCard > *,
+.featureWavePair div > *,
+.durationVisual > *,
+.timbreVisual > *,
+.waveCard > *,
+.soundNoiseGrid article > *,
+.waveLab > *,
+.earJourney article > *,
+.sectionClosingNote > *,
+.earInfoCard > *,
+.earLab > * {
+  position: relative;
+  z-index: 1;
+}
+
+#tempi .timeAudioBtn {
+  z-index: 2;
+}
+
+.gameCard,
+.clefCard,
+.noteInteractive,
+.advancedCard {
+  padding: 26px 24px;
+}
+
+#figure .figureItem,
+#tempi .timeCard,
+#espressione .expressionCard,
+#simboli .symbolCard,
+#simboli .repeatCard,
+#simboli .repeatExampleCard,
+.elementCard,
+.listeningGrid article,
+.detailGrid article,
+.soundFeaturePanel article,
+.soundFeatureVisualCard,
+.waveCard,
+.soundNoiseGrid article,
+.earJourney article {
+  padding: 24px;
+}
+
+.advancedBox,
+.didacticBox,
+.conceptMap,
+.waveLab,
+.sectionClosingNote {
+  padding: 24px 28px;
+}
+
+.scaleBox,
+.rhythmBox,
+.circleSideBox,
+.circleLegendItem,
+.formListeningCard,
+.earInfoCard,
+.earLab {
+  padding: 18px;
+}
+
+.gameCard,
+#figure .figureItem,
+#tempi .timeCard,
+#espressione .expressionCard,
+#simboli .symbolCard,
+#simboli .repeatCard,
+#simboli .repeatExampleCard,
+.advancedCard,
+.elementCard,
+.listeningGrid article,
+.detailGrid article,
+.soundFeaturePanel article,
+.waveCard,
+.soundNoiseGrid article,
+.earJourney article {
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.gameCard:hover,
+#figure .figureItem:hover,
+#tempi .timeCard:hover,
+#espressione .expressionCard:hover,
+#simboli .symbolCard:hover,
+#simboli .repeatCard:hover,
+#simboli .repeatExampleCard:hover,
+.advancedCard:hover,
+.elementCard:hover,
+.listeningGrid article:hover,
+.detailGrid article:hover,
+.soundFeaturePanel article:hover,
+.waveCard:hover,
+.soundNoiseGrid article:hover,
+.earJourney article:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 102, 0, 0.22);
+  box-shadow: 0 18px 38px rgba(255, 102, 0, 0.13);
+}
+
+.didacticBox {
+  border-left: 5px solid var(--accent);
+}
+
+.didacticBox h4 {
+  font-size: 1.02rem;
+}
+
+.noteInteractive,
+#scale .scaleBox,
+.advancedBox {
+  max-width: var(--learning-panel-width);
+  margin-inline: auto;
+}
+
+#figure .figureGrid,
+#tempi .timeSignatureGrid,
+#espressione .expressionGrid,
+#simboli .subSectionTitle,
+#simboli .symbolGrid,
+#simboli .repeatGrid,
+.advancedGrid,
+.circleLegendGrid,
+.formListeningGrid,
+.listeningGrid,
+.elementsGrid,
+.soundFeatureVisualGrid,
+.soundNoiseGrid,
+.earJourney {
+  max-width: var(--learning-content-width);
+  margin-inline: auto;
+}
+
+#espressione .expressionGrid:first-of-type,
+#simboli .repeatExampleGrid,
+#accordi .advancedGrid,
+#modulazioni .advancedGrid,
+#abbellimenti .advancedGrid {
+  max-width: var(--learning-wide-width);
+}
+
+#simboli .symbolStaffWrap,
+#simboli .didacticBox,
+.pentagramStructureGrid {
+  max-width: var(--learning-panel-width);
+}
+
+#figure .figureItem,
+#tempi .timeCard,
+#espressione .expressionCard,
+#simboli .symbolCard,
+#simboli .repeatCard,
+#simboli .repeatExampleCard,
+.theoryDiagramCard,
+#chiavi .clefCard,
+.advancedCard,
+.didacticBox,
+.elementCard,
+.listeningGrid article,
+.detailGrid article,
+.soundFeaturePanel article,
+.soundFeatureVisualCard,
+.waveCard,
+.soundNoiseGrid article,
+.earJourney article {
+  border-radius: var(--learning-card-radius);
+}
+
+.scaleBox,
+.rhythmBox,
+.featureWavePair div,
+.durationVisual,
+.timbreVisual {
+  border-radius: var(--learning-inner-radius);
+}
+
+@media (max-width: 768px) {
+  .gameCard,
+  .clefCard,
+  .noteInteractive,
+  .advancedCard,
+  .advancedBox,
+  .didacticBox,
+  #figure .figureItem,
+  #tempi .timeCard,
+  #espressione .expressionCard,
+  #simboli .symbolCard,
+  #simboli .repeatCard,
+  #simboli .repeatExampleCard,
+  .scaleBox,
+  .rhythmBox,
+  .circleSideBox,
+  .circleLegendItem,
+  .formListeningCard,
+  .elementCard,
+  .listeningGrid article,
+  .conceptMap,
+  .detailGrid article,
+  .soundFeaturePanel article,
+  .soundFeatureVisualCard,
+  .waveCard,
+  .soundNoiseGrid article,
+  .waveLab,
+  .earJourney article,
+  .sectionClosingNote,
+  .earInfoCard,
+  .earLab {
+    padding: 18px;
+  }
+}
+
+.intervalTable,
+.rhythmTable,
+#tempi .noteTable {
+  border: 1px solid rgba(255, 102, 0, 0.14);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--learning-table-shadow);
+}
+
+.circleMainCard,
+.earPlainFigure,
+.earHotspotStage,
+.labScreen {
+  background: #ffffff !important;
+}
+
+.circleMainCard::before,
+.earPlainFigure::before,
+.earPlainFigure::after,
+.earHotspotStage::before,
+.earHotspotStage::after,
+.labScreen::before,
+.labScreen::after {
+  display: none !important;
+}
+
+/* ==================== SHARED LEARNING QUIZ ==================== */
+.quizIntro {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  margin-bottom: 24px;
+}
+
+.quizContainer.learningQuiz {
+  background: transparent;
+}
+
+.learningQuiz .quizQuestion {
+  margin: 24px 0;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(var(--accent-rgb, 255, 102, 0), 0.10);
+  text-align: left;
+  animation: fadeIn 0.4s ease;
+}
+
+.learningQuiz .quizQuestion:last-of-type {
+  border-bottom: none;
+}
+
+.learningQuiz .quizQuestion h4 {
+  margin: 0 0 16px;
+  color: var(--text-main);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.learningQuiz .quizOptions {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.learningQuiz .quizOptions label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.learningQuiz .quizOptions label:hover {
+  background: rgba(var(--accent-rgb, 255, 102, 0), 0.06);
+  transform: translateX(4px);
+}
+
+.learningQuiz .quizOptions input {
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  accent-color: var(--accent, #ff6600);
+  cursor: pointer;
+}
+
+.learningQuiz .optionText {
+  color: var(--text-main);
+  font-size: 0.95rem;
+}
+
+.learningQuiz .quizOptions label.selected {
+  border-left: 4px solid var(--accent, #ff6600);
+  background: rgba(var(--accent-rgb, 255, 102, 0), 0.10);
+  padding-left: 8px;
+}
+
+.learningQuiz .quizOptions label.correct {
+  border-left: 4px solid #2e9f68;
+  background: rgba(46, 159, 104, 0.14);
+  padding-left: 8px;
+}
+
+.learningQuiz .quizOptions label.wrong {
+  border-left: 4px solid #d66a4a;
+  background: rgba(214, 106, 74, 0.12);
+  padding-left: 8px;
+}
+
+.learningQuiz .quizAnswer {
+  display: block;
+  margin: 8px 0 !important;
+  padding: 10px 12px;
+  border-left: 4px solid var(--accent, #ff6600);
+  border-radius: 8px;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--accent-rgb, 255, 102, 0), 0.10),
+    rgba(var(--accent-rgb, 255, 102, 0), 0.05)
+  );
+  color: var(--text-main);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.learningQuiz .quizAnswer[hidden] {
+  display: none;
+}
+
+.learningQuizFooter {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 18px 28px;
+  border-top: 1px solid rgba(var(--accent-rgb, 255, 102, 0), 0.10);
+}
+
+.learningQuizFooter .menuButton {
+  flex: 0 0 auto;
+  min-width: 0;
+  max-width: none;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 18px;
+  border: 1.5px solid rgba(var(--accent-rgb, 255, 102, 0), 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--accent, #ff6600);
+  font-size: 0.94rem;
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 10px 22px rgba(28, 18, 58, 0.08);
+}
+
+.learningQuizFooter .learningQuizCheckButton {
+  min-width: 188px;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--accent, #ff6600), var(--accent-soft, #ff9933));
+  color: #ffffff;
+  box-shadow: 0 14px 30px rgba(var(--accent-rgb, 255, 102, 0), 0.22);
+}
+
+.learningQuizFooter .menuButton:not(.learningQuizCheckButton):hover {
+  background: rgba(var(--accent-rgb, 255, 102, 0), 0.08);
+  color: var(--accent, #ff6600);
+  transform: translateY(-1px);
+}
+
+.learningQuizFooter .learningQuizCheckButton:hover {
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 16px 32px rgba(var(--accent-rgb, 255, 102, 0), 0.26);
+}
+
+.learningQuizResult {
+  margin: 20px 28px 0;
+  padding: 20px;
+  border: 2px solid var(--accent, #ff6600);
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--accent-rgb, 255, 102, 0), 0.15),
+    rgba(var(--accent-rgb, 255, 102, 0), 0.08)
+  );
+  color: var(--text-main);
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 700;
+  animation: slideUp 0.4s ease;
+}
+
+.learningQuizResult.incorrect {
+  border-color: #ff6666;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 102, 102, 0.15),
+    rgba(var(--accent-rgb, 255, 102, 0), 0.08)
+  );
+}
+
+@media (max-width: 768px) {
+  .learningQuizFooter {
+    padding: 16px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .learningQuiz .quizQuestion h4 {
+    font-size: 0.95rem;
+  }
+
+  .learningQuiz .optionText {
+    font-size: 0.9rem;
+  }
+}

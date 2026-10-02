@@ -222,56 +222,15 @@ function initStanzaTabs() {
 }
 
 function initAnthemQuiz() {
-  const questions = document.querySelectorAll(".quizQuestion");
-  const result = document.getElementById("anthemQuizResult");
-  const checkButton = document.getElementById("checkAnthemQuiz");
-  const resetButton = document.getElementById("resetAnthemQuiz");
-  if (!questions.length || !result || !checkButton || !resetButton) return;
-
-  questions.forEach((question) => {
-    question.querySelectorAll("button").forEach((button) => {
-      button.addEventListener("click", () => {
-        question.querySelectorAll("button").forEach((option) => {
-          option.classList.remove("selected", "correct", "wrong");
-        });
-        button.classList.add("selected");
-        result.textContent = "";
-      });
-    });
-  });
-
-  checkButton.addEventListener("click", () => {
-    let score = 0;
-
-    questions.forEach((question) => {
-      const answer = question.dataset.answer;
-      const selected = question.querySelector("button.selected");
-
-      question.querySelectorAll("button").forEach((button) => {
-        button.classList.remove("correct", "wrong");
-        if (button.dataset.value === answer) button.classList.add("correct");
-      });
-
-      if (selected?.dataset.value === answer) {
-        score += 1;
-      } else if (selected) {
-        selected.classList.add("wrong");
-      }
-    });
-
-    result.textContent =
-      score === questions.length
-        ? `Perfetto: ${score}/${questions.length}. Hai riconosciuto bene storia, autori e uso dell'inno.`
-        : `Hai totalizzato ${score}/${questions.length}. Rileggi le card e riprova.`;
-  });
-
-  resetButton.addEventListener("click", () => {
-    questions.forEach((question) => {
-      question.querySelectorAll("button").forEach((button) => {
-        button.classList.remove("selected", "correct", "wrong");
-      });
-    });
-    result.textContent = "";
+  MGH.initCivicQuiz({
+    bankId: "anthem",
+    quizId: "anthemQuiz",
+    resultId: "anthemQuizResult",
+    checkId: "checkAnthemQuiz",
+    resetId: "resetAnthemQuiz",
+    questionsPerRound: 3,
+    successMessage: "Perfetto: 3/3. Hai riconosciuto bene storia, autori e uso dell'inno.",
+    retryMessage: "Rileggi le card e riprova: il prossimo giro avra nuove domande."
   });
 }
 

@@ -289,6 +289,7 @@ function checkDetectiveAnswer(option, button) {
 
   const buttons = answersEl.querySelectorAll(".answerButton");
   buttons.forEach((item) => {
+    item.disabled = true;
     item.style.pointerEvents = "none";
     item.classList.remove("correct", "wrong");
   });

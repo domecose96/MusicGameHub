@@ -177,6 +177,9 @@ const MGH = (() => {
     const warning = document.querySelector(selector);
     if (!warning) return;
 
+    warning.setAttribute("role", "status");
+    warning.setAttribute("aria-live", "polite");
+    warning.setAttribute("aria-atomic", "true");
     warning.textContent = message;
     warning.classList.toggle("introSpacer", !message);
   }
@@ -188,6 +191,9 @@ const MGH = (() => {
 
     if (!feedback) return;
 
+    feedback.setAttribute("role", "status");
+    feedback.setAttribute("aria-live", "polite");
+    feedback.setAttribute("aria-atomic", "true");
     feedback.textContent = message;
     feedback.classList.remove("feedbackCorrect", "feedbackWrong", "feedbackNeutral", "wrong");
     feedback.classList.add(

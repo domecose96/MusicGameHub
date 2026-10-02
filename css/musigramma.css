@@ -1,0 +1,1768 @@
+.musigrammaPage {
+  --musi-ink: #26383d;
+  --musi-muted: #6d7c80;
+  --musi-teal: #087f8c;
+  --musi-teal-dark: #056773;
+  --musi-teal-soft: #e8f5f4;
+  --musi-orange: #f25c16;
+  --musi-line: #dce5e5;
+  --musi-shadow: 0 16px 36px rgba(34, 56, 61, 0.1);
+  background: #f4f5f4;
+  color: var(--musi-ink);
+}
+
+.musigrammaPage .appHeader {
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.98);
+}
+
+.musigrammaPage .pageTitle {
+  color: #ff5a00;
+  text-shadow: 0 2px 7px rgba(255, 90, 0, 0.28);
+}
+
+.musigrammaContent {
+  width: min(1240px, calc(100% - 34px));
+  margin: 0 auto;
+  padding: 32px 0 48px !important;
+  box-sizing: border-box;
+}
+
+.musigrammaIntro {
+  min-height: 330px;
+  padding: 38px 42px;
+  border: 1px solid var(--musi-line);
+  border-radius: 8px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(390px, 0.85fr);
+  align-items: center;
+  gap: 42px;
+  background: #ffffff;
+  box-shadow: var(--musi-shadow);
+  text-align: left;
+}
+
+.musigrammaKicker,
+.musigrammaSectionEyebrow {
+  color: var(--musi-teal);
+  font-size: 0.66rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.musigrammaIntro h2 {
+  max-width: 650px;
+  margin: 10px 0 12px;
+  color: var(--musi-ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 3.25rem;
+  line-height: 1.04;
+  letter-spacing: 0;
+}
+
+.musigrammaIntro p {
+  max-width: 650px;
+  margin: 0;
+  color: var(--musi-muted);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.musigrammaIntroAction {
+  min-height: 48px;
+  margin-top: 22px;
+  padding: 0 17px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--musi-orange);
+  color: #ffffff;
+  box-shadow: 0 10px 22px rgba(219, 77, 10, 0.2);
+  font-size: 0.83rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.musigrammaIntroAction:hover {
+  background: #dc4b08;
+  color: #ffffff;
+}
+
+.musigrammaIntroVisual {
+  min-height: 245px;
+  padding: 24px 28px;
+  border-top: 4px solid var(--musi-teal);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  background: #fbfdfd;
+}
+
+.introSheetTitle {
+  padding-bottom: 7px;
+  border-bottom: 1px solid #b9caca;
+  align-self: center;
+  color: var(--musi-ink);
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.introVisualRow {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  color: #2aaa47;
+}
+
+.introVisualRowBlue { color: #258dcf; }
+.introVisualRowRed { color: #dd2e35; }
+
+.introDot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  background: currentColor;
+}
+
+.introZigzag {
+  width: 54px;
+  height: 29px;
+  border-top: 3px solid currentColor;
+  border-right: 3px solid currentColor;
+  transform: skewY(-38deg) rotate(18deg);
+}
+
+.introArc {
+  width: 48px;
+  height: 24px;
+  border: 3px solid currentColor;
+  border-top: 0;
+  border-radius: 0 0 50px 50px;
+}
+
+.introLine {
+  width: 76px;
+  height: 5px;
+  border-radius: 5px;
+  background: currentColor;
+}
+
+.introWave {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 3rem;
+  line-height: 0.6;
+}
+
+.introVisualRow b {
+  font: 900 1rem Arial, sans-serif;
+}
+
+.musigrammaHowTo {
+  margin: 22px 0 28px;
+  padding: 18px 4px;
+  border-top: 1px solid #cfdcdc;
+  border-bottom: 1px solid #cfdcdc;
+  display: grid;
+  grid-template-columns: 245px minmax(0, 1fr);
+  align-items: center;
+  gap: 26px;
+  text-align: left;
+}
+
+.musigrammaHowToHeading h2 {
+  margin: 4px 0 0;
+  color: var(--musi-ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.45rem;
+}
+
+.musigrammaHowToSteps {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+}
+
+.musigrammaHowToSteps li {
+  min-width: 0;
+  padding: 0 18px;
+  border-left: 1px solid #d7e2e2;
+  display: grid;
+  grid-template-columns: 29px minmax(0, 1fr);
+  gap: 10px;
+}
+
+.musigrammaHowToSteps li > span {
+  width: 29px;
+  height: 29px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--musi-teal-soft);
+  color: var(--musi-teal-dark);
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.musigrammaHowToSteps strong {
+  color: var(--musi-ink);
+  font-size: 0.82rem;
+}
+
+.musigrammaHowToSteps p {
+  margin: 3px 0 0;
+  color: var(--musi-muted);
+  font-size: 0.7rem;
+  line-height: 1.35;
+}
+
+.musigrammaLab {
+  scroll-margin-top: 120px;
+}
+
+.musigrammaSectionHeading,
+.musigrammaExportBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  text-align: left;
+}
+
+.musigrammaSectionHeading {
+  margin-bottom: 14px;
+}
+
+.musigrammaSectionHeading h2 {
+  margin: 4px 0 0;
+  color: var(--musi-ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.25rem;
+}
+
+.musigrammaProjectActions,
+.musigrammaExportActions,
+.musigrammaMoveActions,
+.musigrammaTransport,
+.musigrammaPresentationActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.musigrammaDocumentBar {
+  min-width: 0;
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border: 1px solid #d5e1e1;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: minmax(170px, 0.9fr) minmax(155px, 0.8fr) minmax(128px, 0.45fr) minmax(330px, 1.35fr);
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(34, 56, 61, 0.06);
+  text-align: left;
+}
+
+.musigrammaDocumentBar .musigrammaField {
+  margin-top: 0;
+}
+
+.musigrammaDocumentBar .musigrammaField input,
+.musigrammaDocumentBar .musigrammaNumberControl {
+  height: 38px;
+}
+
+.musigrammaDocumentBar .musigrammaAudioControl {
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 7px;
+}
+
+.musigrammaDocumentBar .musigrammaAudioName {
+  grid-column: auto;
+  min-width: 0;
+}
+
+.musigrammaDocumentBar .musigrammaAudioActions {
+  grid-column: 1 / -1;
+}
+
+.musigrammaWorkspace {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #d5e1e1;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 276px minmax(0, 1fr) 244px;
+  align-items: stretch;
+  gap: 12px;
+  background: #eef3f3;
+  box-shadow: var(--musi-shadow);
+}
+
+.musigrammaSidebar,
+.musigrammaEditor,
+.musigrammaInspector {
+  min-width: 0;
+  border: 1px solid var(--musi-line);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(34, 56, 61, 0.06);
+}
+
+.musigrammaSidebar {
+  padding: 16px;
+  position: sticky;
+  top: 118px;
+  align-self: start;
+  text-align: left;
+}
+
+.musigrammaToolSection + .musigrammaToolSection {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--musi-line);
+}
+
+.musigrammaControlHeading {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+
+.musigrammaControlHeading strong {
+  color: var(--musi-ink);
+  font-size: 1rem;
+}
+
+.musigrammaControlHeading span,
+.musigrammaToolHint {
+  color: var(--musi-muted);
+  font-size: 0.7rem;
+  line-height: 1.35;
+}
+
+.musigrammaField {
+  min-width: 0;
+  margin-top: 11px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  color: var(--musi-ink);
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.musigrammaField input {
+  width: 100%;
+  min-width: 0;
+  height: 41px;
+  padding: 0 10px;
+  border: 1px solid rgba(38, 56, 61, 0.22);
+  border-radius: 6px;
+  box-sizing: border-box;
+  background: #ffffff;
+  color: var(--musi-ink);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.musigrammaField input:focus {
+  border-color: var(--musi-teal);
+  outline: 3px solid rgba(8, 127, 140, 0.13);
+}
+
+.musigrammaTempoField {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.musigrammaNumberControl {
+  height: 41px;
+  border: 1px solid rgba(38, 56, 61, 0.22);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.musigrammaNumberControl input {
+  width: 67px;
+  border: 0;
+  border-radius: 0;
+  text-align: center;
+}
+
+.musigrammaNumberControl > span {
+  padding-right: 9px;
+  color: var(--musi-muted);
+  font-size: 0.66rem;
+}
+
+.visuallyHidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+}
+
+.musigrammaAudioControl {
+  margin-top: 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 7px 9px;
+}
+
+.musigrammaUploadButton {
+  min-height: 41px;
+  padding: 0 11px;
+  border: 1px solid rgba(8, 127, 140, 0.3);
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  background: var(--musi-teal-soft);
+  color: var(--musi-teal-dark);
+  font-size: 0.78rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.musigrammaAudioName {
+  grid-column: 1 / -1;
+  overflow: hidden;
+  color: var(--musi-muted);
+  font-size: 0.67rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.musigrammaAudioActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 9px;
+}
+
+.musigrammaPage .musigrammaGenerateButton {
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid var(--musi-orange);
+  border-radius: 5px;
+  background: var(--musi-orange);
+  color: #ffffff;
+  box-shadow: none;
+  font-size: 0.66rem;
+  font-weight: 900;
+}
+
+.musigrammaPage .musigrammaGenerateButton:hover {
+  background: #dc4b08;
+  color: #ffffff;
+  box-shadow: none;
+  transform: none;
+}
+
+.musigrammaPage .musigrammaLinkButton {
+  padding: 3px 0;
+  border: 0;
+  background: transparent;
+  color: var(--musi-teal);
+  box-shadow: none;
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.musigrammaPaletteGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.musigrammaPage .musigrammaPaletteButton {
+  min-width: 0;
+  min-height: 68px;
+  padding: 7px 3px;
+  border: 1px solid rgba(38, 56, 61, 0.16);
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: #f8fbfb;
+  color: var(--musi-ink);
+  box-shadow: none;
+  font-size: 0.62rem;
+  font-weight: 800;
+}
+
+.musigrammaPage .musigrammaPaletteButton:hover,
+.musigrammaPage .musigrammaPaletteButton.isActive {
+  border-color: var(--musi-teal);
+  background: var(--musi-teal-soft);
+  color: var(--musi-teal-dark);
+  box-shadow: inset 0 0 0 1px var(--musi-teal);
+  transform: none;
+}
+
+.paletteGlyph {
+  color: var(--musi-teal);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.55rem;
+  line-height: 1;
+}
+
+.paletteDot { font-size: 1.15rem; }
+
+.musigrammaColorPicker {
+  margin-top: 14px;
+}
+
+.musigrammaColorPicker > span {
+  display: block;
+  color: var(--musi-ink);
+  font-size: 0.7rem;
+  font-weight: 900;
+}
+
+.musigrammaSwatches {
+  min-height: 38px;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.musigrammaPage .musigrammaSwatch {
+  width: 27px;
+  height: 27px;
+  padding: 0;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  background: var(--swatch-color);
+  box-shadow: 0 0 0 1px rgba(38, 56, 61, 0.24);
+  transform: none;
+}
+
+.musigrammaPage .musigrammaSwatch:hover,
+.musigrammaPage .musigrammaSwatch.isActive {
+  background: var(--swatch-color);
+  box-shadow: 0 0 0 3px var(--swatch-color);
+  transform: none;
+}
+
+.musigrammaPage .musigrammaAddButton,
+.musigrammaPage .musigrammaRowButton {
+  width: 100%;
+  min-height: 43px;
+  margin-top: 11px;
+  padding: 0 12px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 0.77rem;
+  font-weight: 900;
+}
+
+.musigrammaPage .musigrammaAddButton {
+  border: 1px solid #df4f0a;
+  background: var(--musi-orange);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(219, 77, 10, 0.18);
+}
+
+.musigrammaPage .musigrammaAddButton:hover {
+  background: #dc4b08;
+  color: #ffffff;
+}
+
+.musigrammaPage .musigrammaRowButton {
+  border: 1px solid rgba(8, 127, 140, 0.3);
+  background: #ffffff;
+  color: var(--musi-teal-dark);
+  box-shadow: none;
+}
+
+.musigrammaPage .musigrammaRowButton:hover {
+  border-color: var(--musi-teal);
+  background: var(--musi-teal-soft);
+  color: var(--musi-teal-dark);
+  box-shadow: none;
+}
+
+.musigrammaToolHint {
+  margin: 8px 0 0;
+  text-align: center;
+}
+
+.musigrammaEditor {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  overflow: hidden;
+}
+
+.musigrammaPreviewToolbar {
+  min-height: 64px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--musi-line);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  text-align: left;
+}
+
+.musigrammaPreviewToolbar > div:first-child {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.musigrammaPreviewToolbar strong {
+  overflow: hidden;
+  color: var(--musi-ink);
+  font-size: 1.08rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.musigrammaPreviewToolbar > div:first-child span {
+  color: var(--musi-muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.musigrammaPage .musigrammaViewButton {
+  min-height: 39px;
+  padding: 0 11px;
+  border: 1px solid rgba(8, 127, 140, 0.28);
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: #ffffff;
+  color: var(--musi-teal-dark);
+  box-shadow: none;
+  font-size: 0.7rem;
+  font-weight: 900;
+}
+
+.musigrammaPage .musigrammaViewButton:hover {
+  border-color: var(--musi-teal);
+  background: var(--musi-teal-soft);
+  color: var(--musi-teal-dark);
+  box-shadow: none;
+  transform: none;
+}
+
+.musigrammaPage .musigrammaRoundButton,
+.musigrammaPage .musigrammaIconButton {
+  padding: 0;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  background: #ffffff;
+  color: var(--musi-teal-dark);
+  box-shadow: none;
+  line-height: 1;
+}
+
+.musigrammaPage .musigrammaRoundButton {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(8, 127, 140, 0.25);
+  border-radius: 50%;
+}
+
+.musigrammaPage .musigrammaIconButton {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(38, 56, 61, 0.17);
+  border-radius: 6px;
+}
+
+.musigrammaPage .musigrammaRoundButton:hover,
+.musigrammaPage .musigrammaIconButton:hover {
+  border-color: var(--musi-teal);
+  background: var(--musi-teal-soft);
+  color: var(--musi-teal-dark);
+  box-shadow: none;
+  transform: none;
+}
+
+.musigrammaPage .musigrammaPlayButton {
+  border-color: var(--musi-teal);
+  background: var(--musi-teal);
+  color: #ffffff;
+}
+
+.musigrammaPage .musigrammaPlayButton:hover {
+  background: var(--musi-teal-dark);
+  color: #ffffff;
+}
+
+.musigrammaSheetStage {
+  min-height: 0;
+  padding: 28px 24px 0;
+  position: relative;
+  overflow: auto;
+  background:
+    linear-gradient(#d9e2e2 1px, transparent 1px),
+    linear-gradient(90deg, #d9e2e2 1px, transparent 1px),
+    #e8eeee;
+  background-size: 28px 28px;
+}
+
+.musigrammaSheet {
+  width: min(720px, 100%);
+  min-height: 780px;
+  margin: 0 auto;
+  padding: 34px 42px 42px;
+  border: 1px solid #e3e8e8;
+  box-sizing: border-box;
+  position: relative;
+  background: #ffffff;
+  box-shadow: 0 15px 34px rgba(37, 54, 59, 0.13);
+  color: var(--musi-ink);
+}
+
+.musigrammaSheetHeader {
+  min-height: 60px;
+  margin-bottom: 20px;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
+}
+
+.musigrammaSheetHeader h3 {
+  max-width: 78%;
+  margin: 0;
+  padding-bottom: 6px;
+  border-bottom: 2px solid currentColor;
+  color: #151b1d;
+  font-family: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.musigrammaSheetHeader > span {
+  max-width: 26%;
+  padding-bottom: 3px;
+  border-bottom: 1px solid currentColor;
+  position: absolute;
+  top: -17px;
+  right: 0;
+  overflow: hidden;
+  color: #151b1d;
+  font-family: "Arial Narrow", Arial, sans-serif;
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.musigrammaRows {
+  min-height: 625px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.musigrammaSheetRow {
+  min-height: 86px;
+  padding: 5px 7px;
+  border: 1px dashed transparent;
+  border-radius: 6px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
+  gap: 5px 10px;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.musigrammaSheetRow:hover,
+.musigrammaSheetRow.isActiveRow {
+  border-color: rgba(8, 127, 140, 0.24);
+  background: #fbfdfd;
+}
+
+.musigrammaRowPlaceholder {
+  margin: auto;
+  color: #a3b0b2;
+  font-size: 0.67rem;
+  font-style: italic;
+  pointer-events: none;
+}
+
+.musigrammaPage .musigrammaVisualItem {
+  width: var(--item-width, 82px);
+  min-width: 42px;
+  height: 72px;
+  padding: 4px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  box-sizing: border-box;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  background: transparent;
+  color: var(--item-color);
+  box-shadow: none;
+  transform: none;
+}
+
+.musigrammaPage .musigrammaVisualItem:hover {
+  border-color: color-mix(in srgb, var(--item-color) 45%, #ffffff);
+  background: color-mix(in srgb, var(--item-color) 6%, #ffffff);
+  color: var(--item-color);
+  box-shadow: none;
+  transform: none;
+}
+
+.musigrammaPage .musigrammaVisualItem.isSelected {
+  border-color: var(--item-color);
+  background: color-mix(in srgb, var(--item-color) 7%, #ffffff);
+  outline: 2px solid #ffffff;
+  box-shadow: 0 0 0 2px var(--item-color);
+}
+
+.musigrammaPage .musigrammaVisualItem.isCurrent {
+  border-color: #e7ad26;
+  background: #fff9df;
+  outline: 3px solid rgba(231, 173, 38, 0.28);
+  transform: scale(1.04);
+}
+
+.musigrammaPage .musigrammaVisualItem.isStackTarget {
+  border-color: var(--item-color);
+  background: color-mix(in srgb, var(--item-color) 11%, #ffffff);
+  outline: 3px solid color-mix(in srgb, var(--item-color) 28%, transparent);
+}
+
+.musigrammaSymbolRun {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.musigrammaGlyph {
+  width: var(--glyph-width, 66px);
+  height: 52px;
+  flex: 0 0 auto;
+  display: block;
+  overflow: visible;
+  color: inherit;
+}
+
+.musigrammaGlyph * {
+  vector-effect: non-scaling-stroke;
+}
+
+.musigrammaRepeatBadge {
+  position: absolute;
+  right: 1px;
+  bottom: 5px;
+  color: var(--item-color);
+  font-family: Arial, sans-serif;
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
+.musigrammaEmptyState {
+  position: absolute;
+  inset: 115px 38px 38px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--musi-muted);
+  text-align: center;
+  pointer-events: none;
+}
+
+.musigrammaEmptyState[hidden] { display: none; }
+
+.musigrammaEmptyState > span {
+  color: var(--musi-teal);
+  font-size: 3rem;
+}
+
+.musigrammaEmptyState strong {
+  margin-top: 7px;
+  color: var(--musi-ink);
+}
+
+.musigrammaEmptyState p {
+  margin: 4px 0 0;
+  font-size: 0.76rem;
+}
+
+.musigrammaProgress {
+  height: 5px;
+  margin: 18px -20px 0;
+  overflow: hidden;
+  background: rgba(8, 127, 140, 0.12);
+}
+
+.musigrammaProgress span {
+  width: 0;
+  height: 100%;
+  display: block;
+  background: #e9ad31;
+  transition: width 0.08s linear;
+}
+
+.musigrammaInspector {
+  min-height: 0;
+  padding: 16px;
+  position: sticky;
+  top: 118px;
+  align-self: start;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.musigrammaInspector.isDisabled {
+  opacity: 0.48;
+}
+
+.musigrammaInspectorHeading {
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--musi-line);
+  display: grid;
+  gap: 13px;
+}
+
+.musigrammaInspector .musigrammaMoveActions {
+  display: grid;
+  grid-template-columns: repeat(3, 36px);
+  justify-content: start;
+}
+
+.musigrammaInspectorHeading h3 {
+  margin: 3px 0 0;
+  color: var(--musi-ink);
+  font-size: 1rem;
+}
+
+.musigrammaInspectorFields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 13px;
+}
+
+.musigrammaStepper {
+  width: 100%;
+  height: 40px;
+  border: 1px solid rgba(38, 56, 61, 0.2);
+  border-radius: 6px;
+  display: grid;
+  grid-template-columns: 40px minmax(40px, 1fr) 40px;
+  overflow: hidden;
+}
+
+.musigrammaPage .musigrammaStepper button {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  display: grid;
+  place-items: center;
+  background: var(--musi-teal-soft);
+  color: var(--musi-teal-dark);
+  box-shadow: none;
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.musigrammaPage .musigrammaStepper button:hover {
+  background: var(--musi-teal);
+  color: #ffffff;
+  box-shadow: none;
+  transform: none;
+}
+
+.musigrammaStepper output {
+  display: grid;
+  place-items: center;
+  color: var(--musi-ink);
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.musigrammaPage .musigrammaDeleteButton {
+  color: #b84044;
+}
+
+.musigrammaExportBar {
+  margin-top: 16px;
+  padding: 16px 18px;
+  border: 1px solid var(--musi-line);
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: var(--musi-shadow);
+}
+
+.musigrammaExportBar > div:first-child {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.musigrammaExportBar strong {
+  color: var(--musi-ink);
+  font-size: 0.78rem;
+}
+
+.musigrammaPage .musigrammaTextButton {
+  min-height: 40px;
+  padding: 0 13px;
+  border: 1px solid rgba(8, 127, 140, 0.25);
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: #ffffff;
+  color: var(--musi-teal-dark);
+  box-shadow: none;
+  font-size: 0.74rem;
+  font-weight: 900;
+}
+
+.musigrammaPage .musigrammaTextButton:hover {
+  border-color: var(--musi-teal);
+  background: var(--musi-teal-soft);
+  color: var(--musi-teal-dark);
+  box-shadow: none;
+  transform: none;
+}
+
+.musigrammaDialog {
+  width: min(880px, calc(100% - 32px));
+  max-height: min(760px, calc(100vh - 32px));
+  padding: 0;
+  border: 1px solid #cfdcdc;
+  border-radius: 8px;
+  overflow: auto;
+  background: #ffffff;
+  color: var(--musi-ink);
+  box-shadow: 0 28px 70px rgba(19, 36, 41, 0.28);
+}
+
+.musigrammaDialog::backdrop {
+  background: rgba(25, 39, 43, 0.64);
+  backdrop-filter: blur(3px);
+}
+
+.musigrammaDialogHeader {
+  padding: 25px 28px 20px;
+  border-bottom: 1px solid var(--musi-line);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  background: #fbfdfd;
+  text-align: left;
+}
+
+.musigrammaDialogHeader h2 {
+  margin: 4px 0 5px;
+  color: var(--musi-ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.85rem;
+  line-height: 1.1;
+}
+
+.musigrammaDialogHeader p {
+  margin: 0;
+  color: var(--musi-muted);
+  font-size: 0.8rem;
+}
+
+.musigrammaPage .musigrammaDialogClose {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid rgba(38, 56, 61, 0.16);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  background: #ffffff;
+  color: var(--musi-ink);
+  box-shadow: none;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.musigrammaPage .musigrammaDialogClose:hover {
+  border-color: var(--musi-teal);
+  background: var(--musi-teal-soft);
+  color: var(--musi-teal-dark);
+  box-shadow: none;
+  transform: none;
+}
+
+.musigrammaTemplateGrid {
+  padding: 22px 28px 28px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.musigrammaPage .musigrammaTemplateCard {
+  min-width: 0;
+  min-height: 202px;
+  padding: 18px;
+  border: 1px solid #d8e3e3;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 5px;
+  background: #ffffff;
+  color: var(--musi-ink);
+  box-shadow: none;
+  text-align: left;
+}
+
+.musigrammaPage .musigrammaTemplateCard:hover {
+  border-color: var(--musi-teal);
+  background: #fbfdfd;
+  color: var(--musi-ink);
+  box-shadow: 0 9px 22px rgba(34, 56, 61, 0.09);
+  transform: translateY(-2px);
+}
+
+.musigrammaTemplateCard strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.05rem;
+}
+
+.musigrammaTemplateCard small {
+  color: var(--musi-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.musigrammaTemplateMeta {
+  color: var(--musi-teal-dark);
+  font-size: 0.6rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.musigrammaTemplatePreview {
+  width: 100%;
+  height: 66px;
+  margin-bottom: 7px;
+  padding: 10px 12px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  overflow: hidden;
+  background: #eff6f5;
+}
+
+.musigrammaTemplatePreview i {
+  height: 12px;
+  border-radius: 8px;
+  display: block;
+  flex: 1;
+  background: var(--musi-teal);
+}
+
+.previewAba i:nth-child(1),
+.previewAba i:nth-child(3) { background: #24a843; }
+.previewAba i:nth-child(2) { height: 28px; background: #258fcf; }
+
+.previewRefrain i:nth-child(odd) { height: 23px; background: #ee8a32; }
+.previewRefrain i:nth-child(2) { background: #258fcf; }
+.previewRefrain i:nth-child(4) { background: #087f8c; }
+
+.previewCrescendo { align-items: flex-end; }
+.previewCrescendo i:nth-child(1) { height: 8px; background: #24a843; }
+.previewCrescendo i:nth-child(2) { height: 15px; background: #087f8c; }
+.previewCrescendo i:nth-child(3) { height: 24px; background: #ee8a32; }
+.previewCrescendo i:nth-child(4) { height: 36px; background: #e1333b; }
+
+.previewPulse i {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  flex: 0 0 17px;
+  background: #258fcf;
+}
+
+.previewPulse i:first-child {
+  width: 6px;
+  height: 40px;
+  border-radius: 4px;
+  flex-basis: 6px;
+  background: #e1333b;
+  transform: rotate(18deg);
+}
+
+.musigrammaGuideDialog { width: min(920px, calc(100% - 32px)); }
+
+.musigrammaGuideSteps {
+  margin: 0;
+  padding: 25px 28px 20px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 13px;
+  list-style: none;
+}
+
+.musigrammaGuideSteps li {
+  min-width: 0;
+  padding: 17px;
+  border-left: 3px solid var(--musi-teal);
+  position: relative;
+  background: #f7fafa;
+  text-align: left;
+}
+
+.musigrammaGuideSteps strong {
+  display: block;
+  color: var(--musi-ink);
+  font-size: 0.85rem;
+}
+
+.musigrammaGuideSteps p {
+  margin: 5px 0 0;
+  color: var(--musi-muted);
+  font-size: 0.71rem;
+  line-height: 1.45;
+}
+
+.musigrammaGuideNumber {
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  position: absolute;
+  top: 11px;
+  right: 11px;
+  display: grid;
+  place-items: center;
+  background: #ffffff;
+  color: var(--musi-teal-dark);
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.musigrammaGuideVisual {
+  height: 62px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--musi-teal);
+}
+
+.guideListen > span { margin-right: 2px; font-size: 1.6rem; }
+.guideListen i {
+  width: 5px;
+  border-radius: 5px;
+  background: currentColor;
+}
+.guideListen i:nth-of-type(1) { height: 17px; }
+.guideListen i:nth-of-type(2) { height: 35px; }
+.guideListen i:nth-of-type(3) { height: 25px; }
+
+.guideCompose i:nth-child(1) {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #24a843;
+}
+.guideCompose i:nth-child(2) {
+  width: 60px;
+  height: 28px;
+  border-bottom: 4px solid #258fcf;
+  border-radius: 50%;
+}
+.guideCompose i:nth-child(3) {
+  width: 65px;
+  height: 5px;
+  border-radius: 5px;
+  background: #ee8a32;
+}
+
+.guidePresent span {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--musi-teal);
+  color: #ffffff;
+  font-size: 0.75rem;
+}
+.guidePresent i {
+  height: 5px;
+  flex: 1;
+  background: linear-gradient(90deg, #e9ad31 70%, #d8e3e3 70%);
+}
+
+.musigrammaGuideTip {
+  margin: 0 28px;
+  padding: 11px 13px;
+  border: 1px solid #eed59c;
+  border-radius: 6px;
+  background: #fff9e9;
+  color: #67552c;
+  font-size: 0.73rem;
+  text-align: left;
+}
+
+.musigrammaDialogActions {
+  padding: 18px 28px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 9px;
+}
+
+.musigrammaPage .musigrammaPrimaryButton {
+  border-color: var(--musi-orange);
+  background: var(--musi-orange);
+  color: #ffffff;
+}
+
+.musigrammaPage .musigrammaPrimaryButton:hover {
+  background: #dc4b08;
+  color: #ffffff;
+}
+
+.musigrammaPage button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.musigrammaPresentation[hidden] { display: none; }
+
+.musigrammaPresentation {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  background: #e8eeee;
+  color: var(--musi-ink);
+}
+
+.musigrammaPresentationOpen { overflow: hidden; }
+
+.musigrammaPresentationHeader {
+  min-height: 84px;
+  padding: 12px 22px;
+  border-bottom: 1px solid #cad9d9;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  background: #ffffff;
+  text-align: left;
+}
+
+.musigrammaPresentationHeader > div:first-child { min-width: 0; }
+
+.musigrammaPresentationHeader span:first-child {
+  color: var(--musi-teal);
+  font-size: 0.65rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.musigrammaPresentationHeader h2 {
+  margin: 3px 0 0;
+  overflow: hidden;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.2rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.musigrammaPresentationBody {
+  min-height: 0;
+  padding: 22px;
+  overflow: auto;
+}
+
+.musigrammaPresentationSheet {
+  width: min(920px, 100%);
+  min-height: calc(100vh - 128px);
+  padding: 38px 52px;
+}
+
+.musigrammaPresentationSheet .musigrammaSheetRow {
+  min-height: 98px;
+}
+
+.musigrammaPresentationSheet .musigrammaVisualItem {
+  transform: scale(1.12);
+  margin-inline: 5px;
+}
+
+.musigrammaToast {
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  z-index: 30000;
+  max-width: calc(100% - 32px);
+  padding: 10px 15px;
+  border-radius: 6px;
+  background: var(--musi-ink);
+  color: #ffffff;
+  box-shadow: 0 12px 28px rgba(19, 36, 41, 0.26);
+  font-size: 0.78rem;
+  font-weight: 800;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 12px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.musigrammaToast.isVisible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (max-width: 1050px) {
+  .musigrammaIntro {
+    grid-template-columns: minmax(0, 1fr) minmax(330px, 0.75fr);
+  }
+
+  .musigrammaDocumentBar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .musigrammaWorkspace {
+    grid-template-columns: 238px minmax(0, 1fr) 218px;
+  }
+
+  .musigrammaSidebar { padding: 16px; }
+  .musigrammaPaletteGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .musigrammaSheet {
+    padding-inline: 28px;
+  }
+
+  .musigrammaInspectorFields { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 820px) {
+  .musigrammaIntro { grid-template-columns: 1fr; }
+
+  .musigrammaIntro h2 { font-size: 2.6rem; }
+
+  .musigrammaIntroVisual {
+    width: min(560px, 100%);
+    justify-self: center;
+  }
+
+  .musigrammaHowTo { grid-template-columns: 1fr; }
+
+  .musigrammaDocumentBar { grid-template-columns: 1fr; }
+
+  .musigrammaWorkspace { grid-template-columns: 1fr; }
+
+  .musigrammaSidebar {
+    position: static;
+    display: block;
+  }
+
+  .musigrammaInspector { position: static; }
+
+  .musigrammaToolSection + .musigrammaToolSection {
+    margin: 0;
+    padding: 0 0 0 20px;
+    border-top: 0;
+    border-left: 1px solid var(--musi-line);
+  }
+
+  .musigrammaPaletteGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 620px) {
+  .musigrammaContent {
+    width: calc(100% - 24px);
+    padding-top: 18px !important;
+  }
+
+  .musigrammaPage .pageTitle {
+    font-size: 1.7rem;
+  }
+
+  .musigrammaIntro {
+    min-height: 0;
+    padding: 24px 18px;
+  }
+
+  .musigrammaIntro h2 { font-size: 1.7rem; }
+  .musigrammaIntroAction { width: 100%; justify-content: center; box-sizing: border-box; }
+  .musigrammaIntroVisual { padding: 20px 14px; }
+  .introVisualRow { gap: 12px; }
+
+  .musigrammaHowToSteps { grid-template-columns: 1fr; }
+
+  .musigrammaHowToSteps li {
+    padding: 9px 0 9px 12px;
+  }
+
+  .musigrammaSectionHeading,
+  .musigrammaExportBar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .musigrammaProjectActions,
+  .musigrammaExportActions {
+    width: 100%;
+  }
+
+  .musigrammaProjectActions .musigrammaTextButton,
+  .musigrammaExportActions .musigrammaTextButton {
+    flex: 1;
+  }
+
+  .musigrammaProjectActions .musigrammaIconButton { flex: 0 0 36px; }
+
+  .musigrammaDialogHeader { padding: 20px 18px 16px; }
+  .musigrammaDialogHeader h2 { font-size: 1.45rem; }
+  .musigrammaTemplateGrid,
+  .musigrammaGuideSteps { grid-template-columns: 1fr; padding: 18px; }
+  .musigrammaTemplateCard { min-height: 0; }
+  .musigrammaGuideTip { margin-inline: 18px; }
+  .musigrammaDialogActions {
+    padding: 16px 18px 20px;
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+  .musigrammaDialogActions .musigrammaTextButton { width: 100%; }
+
+  .musigrammaSidebar {
+    padding: 16px;
+    display: block;
+  }
+
+  .musigrammaToolSection + .musigrammaToolSection {
+    margin-top: 18px;
+    padding: 18px 0 0;
+    border-top: 1px solid var(--musi-line);
+    border-left: 0;
+  }
+
+  .musigrammaPaletteGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+  .musigrammaPreviewToolbar {
+    padding: 11px 12px;
+  }
+
+  .musigrammaPage .musigrammaViewButton {
+    width: 40px;
+    padding: 0;
+  }
+
+  .musigrammaViewButton span:last-child { display: none; }
+
+  .musigrammaSheetStage { padding: 12px 10px 0; }
+
+  .musigrammaSheet {
+    min-height: 590px;
+    padding: 25px 14px 28px;
+  }
+
+  .musigrammaSheetHeader {
+    min-height: 54px;
+    margin-bottom: 10px;
+  }
+
+  .musigrammaSheetHeader h3 {
+    max-width: 76%;
+    font-size: 1.18rem;
+  }
+
+  .musigrammaSheetHeader > span {
+    max-width: 25%;
+    font-size: 0.58rem;
+  }
+
+  .musigrammaRows {
+    min-height: 480px;
+    gap: 8px;
+  }
+
+  .musigrammaSheetRow {
+    min-height: 75px;
+    padding-inline: 2px;
+    gap: 3px 5px;
+  }
+
+  .musigrammaPage .musigrammaVisualItem {
+    height: 64px;
+    transform: scale(0.9);
+    margin: -3px -4px;
+  }
+
+  .musigrammaPage .musigrammaVisualItem.isCurrent { transform: scale(0.94); }
+
+  .musigrammaProgress { margin-inline: -10px; }
+
+  .musigrammaInspector {
+    padding: 14px;
+  }
+
+  .musigrammaInspectorHeading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .musigrammaMoveActions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .musigrammaInspectorFields,
+  .musigrammaInspectorFields > :first-child {
+    grid-template-columns: 1fr;
+    grid-column: auto;
+  }
+
+  .musigrammaPresentationHeader {
+    min-height: 76px;
+    padding: 9px 11px;
+  }
+
+  .musigrammaPresentationHeader h2 {
+    max-width: 45vw;
+    font-size: 1.1rem;
+  }
+
+  .musigrammaPresentationBody { padding: 10px; }
+  .musigrammaPresentationSheet { min-height: calc(100vh - 98px); padding: 24px 14px; }
+}
+
+@media (max-width: 390px) {
+  .musigrammaPaletteGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .musigrammaTransport { gap: 5px; }
+  .musigrammaPage .musigrammaRoundButton { width: 36px; height: 36px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .musigrammaIntroAction,
+  .musigrammaVisualItem,
+  .musigrammaProgress span,
+  .musigrammaToast {
+    transition: none !important;
+  }
+}
+
+@media print {
+  .musigrammaPage .appHeader,
+  .musigrammaIntro,
+  .musigrammaHowTo,
+  .musigrammaSidebar,
+  .musigrammaSectionHeading,
+  .musigrammaDocumentBar,
+  .musigrammaPreviewToolbar,
+  .musigrammaInspector,
+  .musigrammaExportBar,
+  .siteLegalFooter,
+  #scrollTopBtn,
+  .musigrammaProgress,
+  .musigrammaPresentation {
+    display: none !important;
+  }
+
+  .musigrammaDialog { display: none !important; }
+
+  .musigrammaContent,
+  .musigrammaLab,
+  .musigrammaWorkspace,
+  .musigrammaEditor,
+  .musigrammaSheetStage {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+  }
+
+  .musigrammaWorkspace { display: block !important; }
+
+  .musigrammaSheet {
+    width: 100% !important;
+    min-height: 0 !important;
+    padding: 24px !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .musigrammaVisualItem {
+    border-color: transparent !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .musigrammaSheetRow {
+    border-color: transparent !important;
+    background: #ffffff !important;
+  }
+}

@@ -7,6 +7,7 @@
 
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/learn.css">
+  <link rel="stylesheet" href="css/learning-ui.css?v=20260622-shared-learning-ui">
   <link rel="stylesheet" href="css/strumenti.css">
   <link rel="stylesheet" href="css/formazioni.css">
 </head>
@@ -30,7 +31,7 @@
   </div>
 </header>
 
-<nav id="siteNav" class="instrumentNav tealNav formazioniNav">
+<nav id="siteNav" class="instrumentNav tealNav">
   <button class="navBtn" onclick="showFormazione('solista', this); return false;" data-formazione="solista">Solista</button>
   <button class="navBtn" onclick="showFormazione('duo', this); return false;" data-formazione="duo">Duo</button>
   <button class="navBtn" onclick="showFormazione('trio', this); return false;" data-formazione="trio">Trio</button>
@@ -153,15 +154,32 @@
 
   <!-- ==================== SEZIONE COSTRUISCI TU ==================== -->
   <section id="costruisciSection" class="siteSection learnSection costruisciSection">
-    <div class="costruisciCard">
-      <span class="costruisciBadge">Laboratorio interattivo</span>
-      <h3>Costruisci tu la formazione</h3>
-      <p>Scegli gli strumenti, sistemali sul palco e osserva quale gruppo musicale prende forma: solista, duo, quartetto, ensemble o band.</p>
-      <a href="costruisci-formazione.html" class="costruisciLink">Apri il laboratorio</a>
+    <div class="learnCTA formazioniCTA">
+      <a href="strumenti.html" class="learningNextCard">
+        <span>Ripassa prima</span>
+        <strong>Strumenti musicali</strong>
+        <p>Rivedi famiglie, timbri e caratteristiche degli strumenti.</p>
+      </a>
+      <a href="costruisci-formazione.html" class="learningNextCard">
+        <span>Laboratorio</span>
+        <strong>Costruisci la tua formazione</strong>
+        <p>Scegli gli strumenti e osserva quale gruppo prende forma.</p>
+      </a>
     </div>
   </section>
 
 </div>
+
+<footer class="siteLegalFooter">
+  <p>Music Game Hub tutela la privacy e usa solo strumenti tecnici o statistici necessari al portale.</p>
+  <div class="siteLegalLinks">
+    <a href="legal/privacy.html">Privacy Policy</a>
+    <span>·</span>
+    <a href="legal/cookie.html">Cookie Policy</a>
+    <span>·</span>
+    <a href="legal/termini.html">Termini di servizio</a>
+  </div>
+</footer>
 
 <!-- SCROLL TOP BUTTON -->
 <button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>

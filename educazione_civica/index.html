@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="../css/base.css">
 <link rel="stylesheet" href="../css/learn.css">
 <link rel="stylesheet" href="../css/educazione_civica/index.css">
+<link rel="stylesheet" href="../css/educazione_civica/civica-ui.css">
 </head>
 
 <body class="civicPage">
@@ -28,7 +29,7 @@
 </header>
 
 <nav id="siteNav" class="theoryNav civicNav">
-  <button class="navBtn" onclick="MGH.scrollToSection('percorsi')">🌍 Percorsi</button>
+  <button class="navBtn active" onclick="MGH.scrollToSection('percorsi')">🌍 Percorsi</button>
   <button class="navBtn" onclick="MGH.scrollToSection('metodo')">🎼 Metodo</button>
 </nav>
 
@@ -42,6 +43,10 @@
         ascolto, regole condivise, memoria, identità, ambiente, rispetto degli
         autori, emozioni e uso consapevole dei media.
       </p>
+      <div class="theoryHeroActions civicHeroActions">
+        <button class="theoryHeroButton secondary" onclick="MGH.scrollToSection('percorsi')">Esplora i percorsi</button>
+        <button class="theoryHeroButton secondary" onclick="MGH.scrollToSection('metodo')">Come usarli</button>
+      </div>
     </div>
 
     <div class="civicOrbitSystem" aria-label="Sistema dei valori dell'educazione civica">

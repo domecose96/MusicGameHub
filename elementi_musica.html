@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/learn.css?v=20260621-theory-content-system">
 <link rel="stylesheet" href="css/elementi_musica.css?v=20260621-sound-content-system">
+<link rel="stylesheet" href="css/learning-ui.css?v=20260622-shared-learning-ui">
 </head>
 
 <body class="elementsPage">
@@ -38,9 +39,9 @@
 
 <div id="contentWrapper">
 
-  <section id="hero" class="siteSection elementsHero">
-    <div class="heroCopy">
-      <span class="lessonBadge">Base · ascolto consapevole</span>
+  <section id="hero" class="siteSection theoryHero elementsHero">
+    <div class="theoryHeroCopy">
+      <span class="theoryHeroBadge">Base · ascolto consapevole</span>
       <h2>Prima di leggere la musica, capiamo di che cosa è fatta.</h2>
       <p>
         La musica nasce da eventi sonori che ascoltiamo con attenzione.
@@ -48,9 +49,18 @@
         del suono, la differenza tra suono e rumore e il modo in cui l'orecchio
         ci permette di percepirli.
       </p>
-      <div class="heroActions">
-        <button class="elementsButton" onclick="MGH.scrollToSection('elementi')">Inizia dagli elementi</button>
-        <button class="elementsButton secondary" onclick="MGH.scrollToSection('caratteristiche')">Guarda le caratteristiche</button>
+      <div class="theoryHeroActions" aria-label="Accessi rapidi al suono">
+        <button type="button" class="theoryHeroButton secondary" onclick="MGH.scrollToSection('eventi')">Eventi sonori</button>
+        <button type="button" class="theoryHeroButton secondary" onclick="MGH.scrollToSection('elementi')">Elementi</button>
+        <button type="button" class="theoryHeroButton secondary" onclick="MGH.scrollToSection('caratteristiche')">Caratteristiche</button>
+        <details class="theoryHeroMore">
+          <summary>Altri argomenti</summary>
+          <div class="theoryHeroMoreMenu">
+            <button type="button" onclick="goToSoundSection('rumore')">Suono e rumore</button>
+            <button type="button" onclick="goToSoundSection('udito')">Apparato uditivo</button>
+            <button type="button" onclick="goToSoundSection('laboratorio')">Laboratorio</button>
+          </div>
+        </details>
       </div>
     </div>
 
@@ -398,6 +408,19 @@
     </div>
   </section>
 
+  <nav class="learnCTA theoryPageCTA" aria-label="Continua verso gli altri moduli di teoria">
+    <a class="learningNextCard" href="teoria.html">
+      <span>Dall'ascolto alla scrittura</span>
+      <strong>Teoria musicale</strong>
+      <p>Vai a pentagramma, note, figure, tempi, scale e simboli musicali.</p>
+    </a>
+    <a class="learningNextCard" href="teoria_avanzata.html">
+      <span>Approfondisci</span>
+      <strong>Teoria avanzata</strong>
+      <p>Esplora intervalli, accordi, circolo delle quinte e forme musicali.</p>
+    </a>
+  </nav>
+
 </div>
 
 <footer class="siteLegalFooter">
@@ -414,6 +437,12 @@
 <button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
 
 <script src="js/common.js?v=20260620-favicon"></script>
+<script>
+function goToSoundSection(sectionId) {
+  document.querySelector("#hero .theoryHeroMore")?.removeAttribute("open");
+  MGH.scrollToSection(sectionId);
+}
+</script>
 <script src="js/elementi_musica.js?v=20260614-wave-lab"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>

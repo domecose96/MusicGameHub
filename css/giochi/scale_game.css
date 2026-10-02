@@ -742,6 +742,15 @@
 
 .hardKey { cursor: pointer; user-select: none; transition: background .12s; }
 
+.easySlot:focus-visible,
+.noteChip:focus-visible,
+.mediumGap:focus-visible,
+.tsChip:focus-visible,
+.hardKey:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
 .white-key {
   position: absolute; border: 1.5px solid #aaa; border-radius: 0 0 7px 7px;
   background: #fff; display: flex; align-items: flex-end; justify-content: center;

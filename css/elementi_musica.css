@@ -33,6 +33,37 @@
   color: #ffffff;
 }
 
+.elementsButton {
+  min-height: 46px;
+  width: auto;
+  padding: 0 22px;
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(255, 102, 0, .22);
+  transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+}
+
+.elementsButton.secondary {
+  border-color: rgba(255, 102, 0, .24);
+  background: rgba(255, 255, 255, .86);
+  color: var(--accent);
+  box-shadow: 0 10px 24px rgba(92, 55, 24, .08);
+}
+
+.elementsButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(255, 102, 0, .28);
+}
+
+.elementsButton.secondary:hover {
+  background: rgba(255, 102, 0, .08);
+  color: var(--accent);
+}
+
 .elementsPage #homeBtn.selected,
 .elementsPage .homeButton.selected,
 .elementsPage #scrollTopBtn {
@@ -48,101 +79,11 @@
   padding: 62px 0 42px;
 }
 
-.elementCard,
-.listeningGrid article,
-.conceptMap,
-.detailGrid article,
-.soundFeaturePanel article,
-.waveCard,
-.soundNoiseGrid article,
-.waveLab {
-  border: 1px solid rgba(24, 50, 74, 0.1);
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: var(--panel-shadow);
-}
-
-.heroCopy {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  box-shadow: none;
-  text-align: left;
-}
-
-.lessonBadge {
-  display: inline-flex;
-  align-items: center;
-  min-height: 34px;
-  margin-bottom: 14px;
-  padding: 0 14px;
-  border: 1px solid rgba(0, 166, 189, .25);
-  border-radius: 999px;
-  background: rgba(0, 166, 189, .10);
-  color: var(--accent);
-  font-size: 0.82rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.heroCopy h2 {
-  margin: 0;
-  color: var(--text-main);
-  font-size: clamp(2rem, 5vw, 3.6rem);
-  line-height: 1.08;
-}
-
-.heroCopy p {
-  max-width: 680px;
-  margin: 18px 0 0;
-  color: var(--text-muted);
-  font-size: 1.05rem;
-  line-height: 1.65;
-}
-
-.heroActions,
 .labControls {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   align-items: center;
-}
-
-.heroActions {
-  margin-top: 24px;
-}
-
-.elementsButton {
-  min-height: 46px;
-  width: auto;
-  padding: 0 22px;
-  border: 1.5px solid transparent;
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
-  color: #ffffff;
-  font: inherit;
-  font-size: 0.92rem;
-  font-weight: 900;
-  cursor: pointer;
-  box-shadow: 0 14px 30px rgba(255, 102, 0, .22);
-  transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
-}
-
-.elementsButton.secondary {
-  border-color: rgba(0, 166, 189, .25);
-  background: rgba(255, 255, 255, .84);
-  color: #075465;
-  box-shadow: 0 10px 24px rgba(6, 55, 68, .08);
-}
-
-.elementsButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 18px 36px rgba(255, 102, 0, .28);
-}
-
-.elementsButton.secondary:hover {
-  background: rgba(0, 166, 189, .08);
-  color: var(--sound-blue);
 }
 
 .heroWave {
@@ -205,7 +146,6 @@
 .earJourney article {
   min-height: 180px;
   padding: 22px;
-  border-radius: 18px;
   text-align: left;
 }
 
@@ -301,7 +241,6 @@
 .elementCard {
   min-height: 210px;
   padding: 24px;
-  border-radius: 18px;
 }
 
 .elementCard span {
@@ -567,7 +506,6 @@
 .waveCard,
 .soundNoiseGrid article {
   padding: 22px;
-  border-radius: 18px;
 }
 
 .waveCard svg,
@@ -617,7 +555,6 @@
   gap: 24px;
   align-items: center;
   padding: 24px;
-  border-radius: 20px;
 }
 
 .labControls {
@@ -785,9 +722,6 @@
 
 .earInfoCard,
 .earLab {
-  border: 1px solid rgba(24, 50, 74, 0.1);
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: var(--panel-shadow);
   border-radius: 24px;
   padding: 30px 32px;
 }
@@ -1182,66 +1116,6 @@
   }
 }
 
-/* ==================== SHARED THEORY CONTENT SYSTEM ==================== */
-.elementCard,
-.listeningGrid article,
-.conceptMap,
-.detailGrid article,
-.soundFeaturePanel article,
-.soundFeatureVisualCard,
-.featureWavePair div,
-.durationVisual,
-.timbreVisual,
-.waveCard,
-.soundNoiseGrid article,
-.waveLab,
-.earJourney article,
-.sectionClosingNote {
-  border: 1px solid rgba(255, 102, 0, 0.13);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: var(--panel-shadow);
-}
-
-.elementCard,
-.listeningGrid article,
-.detailGrid article,
-.soundFeaturePanel article,
-.soundFeatureVisualCard,
-.waveCard,
-.soundNoiseGrid article,
-.earJourney article {
-  padding: 24px;
-}
-
-.elementCard,
-.listeningGrid article,
-.detailGrid article,
-.soundFeaturePanel article,
-.waveCard,
-.soundNoiseGrid article,
-.earJourney article {
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-}
-
-.elementCard:hover,
-.listeningGrid article:hover,
-.detailGrid article:hover,
-.soundFeaturePanel article:hover,
-.waveCard:hover,
-.soundNoiseGrid article:hover,
-.earJourney article:hover {
-  transform: translateY(-3px);
-  border-color: rgba(255, 102, 0, 0.22);
-  box-shadow: 0 18px 38px rgba(255, 102, 0, 0.13);
-}
-
-.conceptMap,
-.waveLab,
-.sectionClosingNote {
-  padding: 22px 24px;
-}
-
 .elementCard.rhythm { border-top: 5px solid var(--sound-blue); }
 .elementCard.melody { border-top: 5px solid var(--sound-green); }
 .elementCard.harmony { border-top: 5px solid var(--sound-violet); }
@@ -1249,18 +1123,14 @@
 .elementCard.dynamics { border-top: 5px solid var(--sound-red); }
 .elementCard.form { border-top: 5px solid #4d7891; }
 
-@media (max-width: 760px) {
-  .elementCard,
-  .listeningGrid article,
-  .detailGrid article,
-  .soundFeaturePanel article,
-  .soundFeatureVisualCard,
-  .waveCard,
-  .soundNoiseGrid article,
-  .earJourney article,
-  .conceptMap,
-  .waveLab,
-  .sectionClosingNote {
-    padding: 18px;
-  }
+.featureWavePair div,
+.durationVisual,
+.timbreVisual {
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.labControls {
+  border-color: rgba(255, 102, 0, 0.16);
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 10px 24px rgba(92, 55, 24, 0.07);
 }

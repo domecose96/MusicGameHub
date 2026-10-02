@@ -24,15 +24,6 @@
   border-bottom-color: rgba(22, 138, 74, 0.16);
 }
 
-.environmentPage #homeBtn.selected,
-.environmentPage .homeButton.selected,
-.environmentPage #scrollTopBtn {
-  color: #ffffff;
-  border-color: var(--env-green);
-  background: linear-gradient(135deg, var(--env-green), var(--env-blue));
-  box-shadow: 0 10px 22px rgba(22, 138, 74, 0.24);
-}
-
 .environmentPage .siteLegalLinks a {
   color: var(--env-green);
 }
@@ -44,38 +35,6 @@
 .environmentPage .sectionTitle {
   color: var(--env-green);
   text-shadow: 0 0 10px rgba(22, 138, 74, 0.14);
-}
-
-.environmentNav .navBtn {
-  border-color: rgba(22, 138, 74, 0.26);
-  color: var(--env-green);
-  background: rgba(255, 255, 255, 0.74);
-}
-
-.environmentPage button:focus,
-.environmentPage button:focus-visible {
-  outline: 3px solid var(--env-green);
-  outline-offset: 3px;
-}
-
-.environmentPage .selected {
-  background: linear-gradient(135deg, var(--env-green), var(--env-blue));
-  color: #ffffff;
-  border-color: var(--env-green);
-  box-shadow: 0 0 12px rgba(22, 138, 74, 0.38);
-}
-
-.environmentNav .navBtn:hover {
-  color: var(--env-green);
-  border-color: rgba(22, 138, 74, 0.55);
-  background: rgba(22, 138, 74, 0.08);
-}
-
-.environmentNav .navBtn.active {
-  background: linear-gradient(135deg, var(--env-green), var(--env-blue));
-  color: #ffffff;
-  border-color: transparent;
-  box-shadow: 0 8px 20px rgba(22, 138, 74, 0.18);
 }
 
 .environmentHero {
@@ -126,41 +85,13 @@
   line-height: 1.65;
 }
 
-.environmentHeroActions,
-.quizActions {
+.environmentHeroActions {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   align-items: center;
   justify-content: flex-start;
   margin-top: 22px;
-}
-
-.environmentButton {
-  min-height: 46px;
-  width: auto;
-  padding: 12px 22px;
-  border: none;
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--env-green), var(--env-blue));
-  color: #ffffff;
-  font-size: 0.95rem;
-  font-weight: 900;
-  cursor: pointer;
-  box-shadow: 0 12px 26px rgba(22, 138, 74, 0.2);
-}
-
-.environmentButton:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(135deg, #0f7640, #0b5f88);
-  color: #ffffff;
-}
-
-.environmentButton.secondary {
-  color: var(--env-green);
-  background: rgba(255, 255, 255, 0.88);
-  border: 1.5px solid rgba(22, 138, 74, 0.2);
-  box-shadow: 0 10px 22px rgba(18, 50, 74, 0.08);
 }
 
 .natureScene {
@@ -292,15 +223,13 @@
 .sustainabilityGrid,
 .ecoInstrumentGrid,
 .soundscapeSteps,
-.reflectionGrid,
-.environmentQuiz {
+.reflectionGrid {
   display: grid;
   gap: 18px;
 }
 
 .introPanel,
-.descriptionPanel,
-.environmentQuiz {
+.descriptionPanel {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
@@ -330,8 +259,7 @@
 .ecoInstrumentGrid article,
 .soundscapeSteps article,
 .reflectionCard,
-.resourceGrid article,
-.quizQuestion {
+.resourceGrid article {
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(18, 50, 74, 0.1);
@@ -346,8 +274,7 @@
 .ecoInstrumentGrid article,
 .soundscapeSteps article,
 .reflectionCard,
-.resourceGrid article,
-.quizQuestion {
+.resourceGrid article {
   padding: 22px;
 }
 
@@ -372,8 +299,7 @@
 .ecoInstrumentGrid h3,
 .soundscapeSteps h3,
 .reflectionCard h3,
-.resourceGrid h3,
-.quizQuestion h3 {
+.resourceGrid h3 {
   margin: 0 0 8px;
   color: var(--env-deep);
 }
@@ -387,8 +313,7 @@
 .ecoInstrumentGrid p,
 .soundscapeSteps p,
 .reflectionCard p,
-.resourceGrid p,
-.quizQuestion p {
+.resourceGrid p {
   margin: 0;
   color: var(--text-muted);
   line-height: 1.55;
@@ -600,48 +525,6 @@
   letter-spacing: 0;
 }
 
-.quizQuestion button {
-  width: 100%;
-  min-height: 42px;
-  margin-top: 10px;
-  padding: 10px 12px;
-  border: 1.5px solid rgba(18, 50, 74, 0.14);
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.9);
-  color: var(--env-deep);
-  font-weight: 900;
-  cursor: pointer;
-}
-
-.quizQuestion button:hover,
-.quizQuestion button.selected {
-  border-color: rgba(22, 138, 74, 0.42);
-  background: rgba(22, 138, 74, 0.09);
-}
-
-.quizQuestion button.correct {
-  background: rgba(22, 138, 74, 0.14);
-  border-color: var(--env-green);
-  color: var(--env-green);
-}
-
-.quizQuestion button.wrong {
-  background: rgba(212, 61, 61, 0.1);
-  border-color: #d43d3d;
-  color: #d43d3d;
-}
-
-.quizActions {
-  justify-content: center;
-}
-
-.environmentQuizResult {
-  min-height: 34px;
-  margin-top: 16px;
-  color: var(--env-deep);
-  font-weight: 900;
-}
-
 .environmentConclusion {
   padding: 54px 28px;
   border-radius: 24px;
@@ -768,8 +651,7 @@
   .descriptionPanel,
   .sustainabilityGrid,
   .songReflectionGrid,
-  .resourceGrid,
-  .environmentQuiz {
+  .resourceGrid {
     grid-template-columns: 1fr;
   }
 
@@ -798,8 +680,7 @@
   .sustainabilityGrid article,
   .ecoInstrumentGrid article,
   .soundscapeSteps article,
-  .reflectionCard,
-  .quizQuestion {
+  .reflectionCard {
     padding: 18px;
   }
 }

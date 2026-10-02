@@ -402,11 +402,13 @@
 }
 
 .subSectionTitle {
-  font-size: 1.15rem;
-  color: var(--text-main);
-  text-align: center;
-  margin: 8px 0 20px;
-  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin: 44px 0 18px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  border-bottom: 2px solid rgba(255,102,0,0.15);
+  padding-bottom: 10px;
 }
 
 /* ==================== GIOCHI ==================== */
@@ -418,24 +420,13 @@
 }
 
 .gameCard {
-  background: var(--surface-solid);
-  border-radius: 20px;
   padding: 28px 20px 22px;
-  box-shadow: var(--panel-shadow);
   cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   gap: 10px;
-  border: 2px solid transparent;
-}
-
-.gameCard:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 24px 50px rgba(255,102,0,0.18);
-  border-color: rgba(255,102,0,0.25);
 }
 
 .gameCardIcon {
@@ -476,15 +467,12 @@
 .clefGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-bottom: 28px;
+  gap: 16px;
+  margin-bottom: 20px;
 }
 
 .clefCard {
-  background: var(--surface-solid);
-  border-radius: 18px;
   padding: 28px 24px;
-  box-shadow: var(--panel-shadow);
   text-align: center;
 }
 
@@ -530,10 +518,7 @@
 
 /* ==================== NOTE INTERATTIVO ==================== */
 .noteInteractive {
-  background: var(--surface-solid);
-  border-radius: 18px;
   padding: 28px 24px;
-  box-shadow: var(--panel-shadow);
   margin-bottom: 24px;
 }
 
@@ -583,19 +568,13 @@
 }
 
 .figureItem {
-  background: var(--surface-solid);
-  border-radius: 14px;
   padding: 18px 12px 14px;
-  box-shadow: var(--panel-shadow);
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  transition: transform 0.2s;
 }
-
-.figureItem:hover { transform: translateY(-4px); }
 
 .figureImg {
   height: 70px;
@@ -724,10 +703,7 @@
 
 .symbolCard,
 .repeatCard {
-  background: var(--surface-solid);
-  border-radius: 14px;
   padding: 18px 14px 16px;
-  box-shadow: var(--panel-shadow);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -820,10 +796,7 @@
 }
 
 .repeatExampleCard {
-  background: var(--surface-solid);
-  border-radius: 18px;
   padding: 24px 20px;
-  box-shadow: var(--panel-shadow);
   text-align: center;
 }
 
@@ -891,10 +864,7 @@
 }
 
 .expressionCard {
-  background: var(--surface-solid);
-  border-radius: 14px;
   padding: 18px 14px 14px;
-  box-shadow: var(--panel-shadow);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -936,10 +906,8 @@
   width: 100%;
   border-collapse: collapse;
   font-size: 0.92rem;
-  background: var(--surface-solid);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: var(--panel-shadow);
 }
 
 .noteTable th {
@@ -958,14 +926,24 @@
 
 .noteTable tr:hover td { background: rgba(255,102,0,0.04); }
 
-.tempoTable { margin-top: 4px; }
+.tempoTable {
+  margin: 4px auto 0;
+  max-width: 820px;
+}
+
+.tempoTable .noteTable th,
+.tempoTable .noteTable td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.tempoTable .noteTable td:first-child {
+  font-weight: 800;
+}
 
 /* ==================== SCALE ==================== */
 .scaleBox {
-  background: var(--surface-solid);
-  border-radius: 18px;
   padding: 24px;
-  box-shadow: var(--panel-shadow);
   margin-bottom: 20px;
 }
 
@@ -1059,14 +1037,49 @@
 }
 
 /* Tonalità */
-.tonalityGrid { margin-top: 24px; }
-.tonalityGrid h3 { text-align: center; margin: 0 0 12px; font-size: 1rem; color: var(--text-muted); }
+.tonalityGrid {
+  margin-top: 24px;
+}
+
+.tonalityGrid .subSectionTitle {
+  margin-top: 0;
+}
+
+.tonalityGroup {
+  margin-top: 18px;
+}
+
+.tonalityNeutral {
+  text-align: center;
+}
+
+.tonalityGroup h4 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  margin: 0 0 12px;
+  padding: 7px 16px;
+  border: 1px solid rgba(255,102,0,0.14);
+  border-radius: 999px;
+  background: rgba(255,102,0,0.075);
+  color: var(--accent);
+  font-size: 0.88rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
 
 .tonalityRow {
   display: flex;
-  gap: 8px;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 8px;
+}
+
+.tonalityRow.neutral {
+  max-width: 120px;
+  margin: 0 auto;
 }
 
 .tonalityCard {
@@ -1100,10 +1113,7 @@
 
 .timeCard {
   position: relative;
-  background: var(--surface-solid);
-  border-radius: 16px;
   padding: 22px 18px;
-  box-shadow: var(--panel-shadow);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -1220,25 +1230,96 @@
 
 /* ==================== CTA ==================== */
 .learnCTA {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 28px;
-  flex-wrap: wrap;
+  width: min(100%, 840px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 36px auto 0;
 }
 
-.learnCTA .menuButton {
+.learningNextCard {
+  position: relative;
+  min-height: 112px;
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: 6px;
+  padding: 18px 54px 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 102, 0, 0.22);
+  border-radius: 14px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 226, 202, 0.94));
+  color: inherit;
+  text-decoration: none;
+  text-align: center;
+  box-shadow: none;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+}
+
+.learningNextCard::before,
+.learningNextCard::after {
+  position: absolute;
+  right: 18px;
+  bottom: 16px;
+  width: 34px;
+  height: 34px;
+}
+
+.learningNextCard::before {
+  content: "⇧";
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 900;
+  transform: translateX(1px) rotate(90deg);
+}
+
+.learningNextCard::after {
+  content: "";
+  position: absolute;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
   background: linear-gradient(135deg, var(--accent), var(--accent-soft));
-  color: white;
-  border-color: transparent;
-  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 10px 24px rgba(255, 102, 0, 0.22);
 }
 
-.learnCTA .menuButton:hover {
+.learningNextCard:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(255,102,0,0.35);
-  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
-  color: white;
+  border-color: rgba(255, 102, 0, 0.26);
+  background:
+    linear-gradient(135deg, #ffffff, rgba(255, 246, 238, 0.96));
+  box-shadow: 0 12px 26px rgba(255, 102, 0, 0.08);
+}
+
+.learningNextCard span {
+  justify-self: start;
+  width: fit-content;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(255, 102, 0, 0.10);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.learningNextCard strong {
+  color: var(--text-main);
+  font-size: 1.18rem;
+  line-height: 1.2;
+}
+
+.learningNextCard p {
+  max-width: 100%;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.94rem;
+  font-weight: 700;
+  line-height: 1.5;
 }
 
 .learnCTA .gameLaunchButton {
@@ -1295,6 +1376,19 @@ body.instrumentPage .learnCTA .gameLaunchButton:hover {
 }
 
 @media (max-width: 640px) {
+  .learnCTA {
+    grid-template-columns: 1fr;
+  }
+
+  .learningNextCard {
+    min-height: 0;
+    padding: 20px;
+  }
+
+  .learningNextCard p {
+    max-width: 100%;
+  }
+
   .learnCTA .gameLaunchButton {
     width: 100%;
     min-width: 0;
@@ -1371,7 +1465,9 @@ body.instrumentPage .learnCTA .gameLaunchButton:hover {
     padding-top: 42px;
   }
   .pianoKeys { transform: scale(0.85); transform-origin: top center; }
-  .tonalityRow { gap: 6px; }
+  .tonalityRow {
+    gap: 6px;
+  }
 
   #siteNav {
     padding: 8px 10px;
@@ -1381,6 +1477,10 @@ body.instrumentPage .learnCTA .gameLaunchButton:hover {
 @media (max-width: 480px) {
   .gamesGrid { grid-template-columns: 1fr; }
   .timeSignatureGrid { grid-template-columns: 1fr; }
+  .tonalityRow {
+    max-width: 320px;
+    margin-inline: auto;
+  }
   .theoryHeroActions {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1408,7 +1508,7 @@ body.instrumentPage .learnCTA .gameLaunchButton:hover {
 .clefFamilyTitle {
   font-size: 1.5rem;
   color: var(--accent);
-  margin: 44px 0 4px;
+  margin: 44px 0 18px;
   font-weight: 800;
   letter-spacing: -0.01em;
   border-bottom: 2px solid rgba(255,102,0,0.15);
@@ -1418,57 +1518,96 @@ body.instrumentPage .learnCTA .gameLaunchButton:hover {
 .clefFamilyDesc {
   color: var(--text-muted);
   font-size: 0.92rem;
-  margin: 8px 0 16px;
+  margin: 0 0 18px;
+}
+
+#chiavi .clefGrid {
+  --clef-card-width: 520px;
+  --clef-panel-width: min(100%, 920px);
+  display: grid;
+  justify-content: center;
+  justify-items: stretch;
+  align-items: start;
+  gap: 20px;
+  max-width: calc((var(--clef-card-width) * 2) + 20px);
+  margin: 0 auto 42px;
+}
+
+#chiavi .clefGridSingle {
+  grid-template-columns: var(--clef-panel-width) !important;
+  max-width: var(--clef-panel-width);
+}
+
+#chiavi .clefGridFa {
+  grid-template-columns: repeat(2, minmax(0, var(--clef-card-width))) !important;
+  max-width: calc((var(--clef-card-width) * 2) + 20px);
+}
+
+#chiavi .clefGridFour {
+  grid-template-columns: repeat(2, minmax(0, var(--clef-card-width))) !important;
+  max-width: calc((var(--clef-card-width) * 2) + 20px);
+}
+
+#chiavi .clefCard {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(180px, 0.95fr);
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 20px;
+  row-gap: 8px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  min-height: 0;
+  padding: 26px 28px;
+}
+
+#chiavi .clefCard h3 {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: end;
+  margin: 0 0 10px;
+  font-size: 1.15rem;
+  line-height: 1.25;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  text-align: left;
+}
+
+#chiavi .clefCard p {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+  margin: 0;
+  font-size: 0.94rem;
+  line-height: 1.56;
+  text-align: left;
 }
 
 .clefGridSingle {
   grid-template-columns: 1fr !important;
   max-width: 480px;
-  margin: 0 auto 8px;
+  margin: 0 auto 20px;
 }
 
 .clefGridFa {
   grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   max-width: 760px;
-  margin: 0 auto 8px;
-}
-
-.clefGridFa .clefCard {
-  padding: 20px 18px;
-}
-
-.clefGridFa .clefStaffSVG {
-  margin-bottom: 10px;
+  margin: 0 auto 20px;
 }
 
 .clefGridFour {
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)) !important;
 }
 
-/* Tutte le card uniformi: simbolo centrato in alto, poi contenuto */
 .clefCard {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-}
-
-.clefCard h3 {
-  margin: 0 0 8px;
-  font-size: 0.98rem;
-  color: var(--text-main);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-
-.clefCard p {
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  line-height: 1.55;
-  margin: 0 0 12px;
 }
 
 .clefCard .clefNoteList {
@@ -1487,72 +1626,207 @@ body.instrumentPage .learnCTA .gameLaunchButton:hover {
   flex-shrink: 0;
 }
 
-/* ==================== SHARED THEORY CONTENT SYSTEM ==================== */
-.gameCard,
-.clefCard,
+/* ==================== THEORY CARD LAYOUT ==================== */
 .noteInteractive,
-.figureItem,
-.symbolCard,
-.repeatCard {
-  border: 1px solid rgba(255, 102, 0, 0.13);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: var(--panel-shadow);
+#scale .scaleBox {
+  padding: 26px 28px;
 }
 
-.gameCard,
-.clefCard,
-.noteInteractive {
+#espressione .expressionGrid:first-of-type {
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+}
+
+#figure .figureItem {
+  padding: 20px 14px 16px;
+}
+
+#espressione .expressionGrid {
+  margin-bottom: 22px;
+}
+
+#espressione .expressionCard {
+  min-height: 150px;
+  padding: 20px 16px 16px;
+}
+
+#espressione .expressionCard.wide {
+  min-height: 130px;
+  padding: 22px;
+}
+
+#figure .valueStep,
+#tempi .noteTable,
+#scale .tonalityCard {
+  border-color: rgba(255, 102, 0, 0.16);
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 10px 24px rgba(92, 55, 24, 0.07);
+}
+
+#tempi .noteTable {
+  border: 1px solid rgba(255, 102, 0, 0.14);
+}
+
+/* ==================== SIMBOLI - UI AGGIORNATA ==================== */
+#simboli .symbolGrid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0 auto 28px;
+}
+
+#simboli .symbolCard {
+  min-height: 190px;
+  padding: 22px 18px;
+}
+
+#simboli .symbolMark {
+  min-height: 70px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 8px;
+  font-size: 3.5rem;
+  line-height: 1;
+}
+
+#simboli .symbolCard h4,
+#simboli .repeatCard h4 {
+  font-size: 0.98rem;
+}
+
+#simboli .symbolCard p,
+#simboli .repeatCard p {
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+#simboli .symbolStaffWrap {
+  display: block;
+  margin: 6px auto 24px;
+}
+
+#simboli .symbolStaffWrap .clefCard {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(240px, 0.7fr);
+  align-items: center;
+  gap: 22px;
+  padding: 26px 28px;
+  text-align: left;
+}
+
+#simboli .symbolStaffWrap .cardTopTitle {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+#simboli .symbolStaffWrap .clefStaffSVG {
+  grid-column: 1;
+  width: 100%;
+  height: 220px;
+  margin: 0;
+}
+
+#simboli .symbolStaffWrap p {
+  grid-column: 2;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.58;
+}
+
+#simboli .didacticBox {
+  margin: 18px auto 28px;
+}
+
+#simboli .repeatGrid {
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  margin: 0 auto 28px;
+}
+
+#simboli .repeatGrid .repeatCard {
+  grid-column: span 2;
+}
+
+#simboli .repeatGrid .repeatCard:nth-child(5) {
+  grid-column: 2 / span 2;
+}
+
+#simboli .repeatGrid .repeatCard:nth-child(6) {
+  grid-column: 4 / span 2;
+}
+
+#simboli .repeatGrid .repeatCard:nth-child(7) {
+  grid-column: 6 / span 2;
+}
+
+#simboli .repeatCard {
+  min-height: 188px;
+  padding: 20px 16px;
+}
+
+#simboli .repeatMark {
+  min-height: 74px;
+  margin-bottom: 8px;
+}
+
+#simboli .repeatExampleGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 18px auto 28px;
+}
+
+#simboli .repeatExampleCard {
   padding: 26px 24px;
 }
 
-.figureItem,
-.symbolCard,
-.repeatCard {
-  padding: 20px 16px 18px;
+#simboli .repeatExampleCard .repeatSVG {
+  max-height: 230px;
 }
 
-.gameCard,
-.figureItem,
-.symbolCard,
-.repeatCard {
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-}
-
-.gameCard:hover,
-.figureItem:hover,
-.symbolCard:hover,
-.repeatCard:hover {
-  transform: translateY(-3px);
-  border-color: rgba(255, 102, 0, 0.22);
-  box-shadow: 0 18px 38px rgba(255, 102, 0, 0.13);
-}
-
-.didacticBox {
-  border: 1px solid rgba(255, 102, 0, 0.16);
-  border-left: 5px solid var(--accent);
-  border-radius: 18px;
-  background: linear-gradient(135deg, rgba(255, 102, 0, 0.075), rgba(255, 255, 255, 0.88));
-  box-shadow: 0 14px 34px rgba(92, 55, 24, 0.07);
-  padding: 22px 24px;
-}
-
-.didacticBox h4 {
-  font-size: 1.02rem;
-}
-
-@media (max-width: 768px) {
-  .gameCard,
-  .clefCard,
-  .noteInteractive,
-  .didacticBox {
-    padding: 18px;
+@media (max-width: 1020px) {
+  #espressione .expressionGrid:first-of-type {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  .figureItem,
-  .symbolCard,
-  .repeatCard {
-    padding: 16px 14px;
+  #simboli .symbolGrid,
+  #simboli .repeatGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #simboli .repeatGrid .repeatCard,
+  #simboli .repeatGrid .repeatCard:nth-child(5),
+  #simboli .repeatGrid .repeatCard:nth-child(6),
+  #simboli .repeatGrid .repeatCard:nth-child(7) {
+    grid-column: auto;
+  }
+
+  #simboli .symbolStaffWrap .clefCard,
+  #simboli .repeatExampleGrid {
+    grid-template-columns: 1fr;
+  }
+
+  #simboli .symbolStaffWrap .cardTopTitle {
+    justify-self: center;
+  }
+
+  #simboli .symbolStaffWrap p {
+    text-align: center;
+  }
+}
+
+@media (max-width: 560px) {
+  #espressione .expressionGrid:first-of-type {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #simboli .symbolGrid,
+  #simboli .repeatGrid {
+    grid-template-columns: 1fr;
+  }
+
+  #simboli .symbolStaffWrap .clefCard,
+  #simboli .repeatExampleCard {
+    padding: 20px 16px;
+  }
+
+  #simboli .symbolStaffWrap .clefStaffSVG {
+    height: 180px;
   }
 }
 
@@ -1563,12 +1837,6 @@ body.instrumentPage .learnCTA .gameLaunchButton:hover {
   line-height: 1;
   margin-bottom: 8px;
   letter-spacing: -2px;
-}
-
-/* Riduce il gap tra card nella griglia chiavi */
-.clefGrid {
-  gap: 16px;
-  margin-bottom: 8px;
 }
 
 @media (max-width: 768px) {
@@ -1605,4 +1873,100 @@ body.instrumentPage .learnCTA .gameLaunchButton:hover {
   box-sizing: border-box;
   margin-bottom: 14px;
   overflow: visible;
+}
+
+/* ==================== PENTAGRAMMA E CHIAVI - UI AGGIORNATA ==================== */
+.pentagramStructureGrid {
+  margin: 0 auto 18px;
+}
+
+.pentagramStructureCard {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(240px, 0.7fr);
+  align-items: center;
+  gap: 22px;
+  padding: 26px 28px;
+  text-align: left;
+}
+
+.pentagramStructureCard .cardTopTitle {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+.pentagramStructureCard .clefStaffSVG {
+  margin: 0;
+}
+
+.pentagramCardText {
+  display: grid;
+  gap: 8px;
+}
+
+.pentagramCardText h3 {
+  text-align: left;
+}
+
+.pentagramCardText h3 {
+  justify-content: flex-start;
+}
+
+.pentagramCardText p {
+  margin: 0;
+}
+
+#chiavi .clefStaffSVG {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  width: 100%;
+  height: 220px;
+  margin: 0;
+}
+
+@media (max-width: 1120px) {
+  #chiavi .clefGridFa,
+  #chiavi .clefGridFour {
+    grid-template-columns: var(--clef-panel-width) !important;
+    max-width: var(--clef-panel-width);
+  }
+}
+
+@media (max-width: 760px) {
+  #chiavi .clefCard {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 22px 20px;
+  }
+
+  #chiavi .clefStaffSVG,
+  #chiavi .clefCard h3,
+  #chiavi .clefCard p {
+    grid-column: 1;
+    grid-row: auto;
+    text-align: center;
+    justify-content: center;
+  }
+
+  #chiavi .clefStaffSVG {
+    height: 190px;
+  }
+}
+
+@media (max-width: 860px) {
+  .pentagramStructureCard {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .pentagramStructureCard .cardTopTitle {
+    justify-self: center;
+  }
+
+  .pentagramCardText h3 {
+    text-align: center;
+  }
+
+  .pentagramCardText h3 {
+    justify-content: center;
+  }
 }

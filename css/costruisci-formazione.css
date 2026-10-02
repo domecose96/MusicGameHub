@@ -279,57 +279,6 @@
   line-height: 1.5;
 }
 
-/* ==================== ACTIONS ==================== */
-
-.actionsSection {
-  max-width: 1000px;
-  margin: 28px auto 48px;
-  padding: 0 18px;
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.actionBtn {
-  padding: 12px 24px;
-  border-radius: 16px;
-  border: none;
-  font-size: 0.92rem;
-  font-weight: 800;
-  cursor: pointer;
-  transition: all 0.22s ease;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-
-.resetBtn {
-  background: rgba(0, 166, 189, 0.10);
-  border: 1.5px solid rgba(0, 166, 189, 0.25);
-  color: #00798a;
-}
-
-.resetBtn:hover {
-  background: rgba(0, 166, 189, 0.18);
-  border-color: rgba(0, 166, 189, 0.45);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 166, 189, 0.14);
-}
-
-.backBtn {
-  background: linear-gradient(135deg, #00a6bd, #28d2c7);
-  color: #ffffff;
-  box-shadow: 0 8px 20px rgba(0, 166, 189, 0.24);
-}
-
-.backBtn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(0, 166, 189, 0.32);
-}
-
 /* ==================== RESPONSIVE ==================== */
 
 @media (max-width: 768px) {
@@ -447,17 +396,6 @@
   .formazioneResult {
     padding: 12px;
     min-height: 60px;
-  }
-
-  .actionsSection {
-    margin: 20px auto 40px;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .actionBtn {
-    width: 100%;
-    padding: 12px 16px;
   }
 
 }
@@ -763,16 +701,6 @@
   margin-inline: auto;
 }
 
-.actionBtn {
-  border: 0;
-}
-
-.resetBtn {
-  background: rgba(255, 255, 255, 0.86);
-  border: 1.5px solid rgba(0, 166, 189, 0.24);
-  color: #075465;
-}
-
 @media (max-width: 900px) {
   .costruisciIntroSection {
     grid-template-columns: 1fr;
@@ -798,10 +726,6 @@
 }
 
 @media (max-width: 560px) {
-  .actionBtn {
-    width: 100%;
-  }
-
   .carouselContainer {
     gap: 8px;
   }
@@ -919,53 +843,6 @@
   }
 }
 
-/* ==================== AZIONI STILE STRUMENTI ==================== */
-
-.costruisciFormPage .actionsSection {
-  margin-top: 14px;
-}
-
-.costruisciFormPage .actionBtn {
-  width: auto;
-  min-width: 190px;
-  min-height: 50px;
-  padding: 12px 22px;
-  border-radius: 16px;
-  border: 1.5px solid rgba(0, 166, 189, 0.24);
-  background: rgba(255, 255, 255, 0.88);
-  color: #075465;
-  font-size: 0.94rem;
-  font-weight: 900;
-  box-shadow: 0 8px 22px rgba(6, 55, 68, 0.07);
-}
-
-.costruisciFormPage .actionBtn:hover {
-  background: rgba(0, 166, 189, 0.08);
-  border-color: rgba(0, 166, 189, 0.38);
-  color: #00a6bd;
-  transform: translateY(-2px);
-  box-shadow: 0 12px 26px rgba(0, 166, 189, 0.14);
-}
-
-.costruisciFormPage .backBtn {
-  border-color: transparent;
-  background: linear-gradient(135deg, #00a6bd, #28d2c7);
-  color: #ffffff;
-  box-shadow: 0 12px 28px rgba(0, 166, 189, 0.20);
-}
-
-.costruisciFormPage .backBtn:hover {
-  color: #ffffff;
-  background: linear-gradient(135deg, #00a6bd, #28d2c7);
-  box-shadow: 0 14px 30px rgba(0, 166, 189, 0.26);
-}
-
-@media (max-width: 560px) {
-  .costruisciFormPage .actionBtn {
-    width: 100%;
-  }
-}
-
 /* ==================== PALCO SCENICO ==================== */
 
 .costruisciFormPage .stageWrapper {
@@ -973,9 +850,9 @@
   overflow: hidden;
   cursor: copy;
   background:
-    radial-gradient(ellipse at 50% 86%, rgba(0, 166, 189, 0.18), transparent 46%),
-    radial-gradient(ellipse at 50% 24%, rgba(255, 184, 77, 0.16), transparent 45%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(235, 249, 248, 0.82));
+    linear-gradient(108deg, transparent 7%, rgba(255, 255, 255, 0.58) 18%, transparent 31%),
+    linear-gradient(72deg, transparent 58%, rgba(255, 255, 255, 0.52) 72%, transparent 87%),
+    linear-gradient(180deg, rgba(252, 255, 255, 0.96), rgba(235, 249, 248, 0.84));
 }
 
 .costruisciFormPage .stageWrapper::before {
@@ -983,14 +860,15 @@
   position: absolute;
   left: 10%;
   right: 10%;
-  bottom: 14%;
-  height: 44%;
+  top: 4%;
+  bottom: 18%;
   z-index: 1;
-  border-radius: 999px;
+  border-radius: 28px;
   background:
-    radial-gradient(ellipse at center, rgba(0, 166, 189, 0.18), rgba(0, 166, 189, 0.06) 48%, transparent 72%);
-  filter: blur(18px);
-  opacity: 0.82;
+    linear-gradient(104deg, transparent 4%, rgba(0, 166, 189, 0.14) 21%, transparent 38%),
+    linear-gradient(78deg, transparent 58%, rgba(255, 184, 77, 0.16) 72%, transparent 90%);
+  filter: blur(10px);
+  opacity: 0.76;
   pointer-events: none;
 }
 
@@ -1175,7 +1053,7 @@
 
 .instrumentPalette,
 .laboratorioWorkspace .stageCard {
-  min-height: clamp(420px, 42vw, 530px);
+  min-height: clamp(390px, 38vw, 486px);
 }
 
 .instrumentPalette {
@@ -1238,7 +1116,7 @@
 
 .laboratorioWorkspace .instrumentsCarousel {
   height: 100%;
-  max-height: clamp(300px, 32vw, 420px);
+  max-height: clamp(272px, 28vw, 378px);
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -1301,7 +1179,7 @@
 }
 
 .laboratorioWorkspace .stageWrapper {
-  min-height: clamp(300px, 31vw, 405px);
+  min-height: clamp(292px, 30vw, 394px);
   max-height: none;
   margin-bottom: 0;
 }
@@ -1353,5 +1231,97 @@
 
   .laboratorioWorkspace .stageWrapper {
     min-height: 240px;
+  }
+}
+
+/* ==================== COSTRUISCI - ALLINEAMENTO UI ==================== */
+
+.costruisciFormPage {
+  --accent: #00a6bd;
+  --accent-soft: #28d2c7;
+  --learning-card-border: rgba(0, 166, 189, 0.16);
+  --learning-card-bg:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(226, 250, 250, 0.93));
+  --learning-card-overlay:
+    radial-gradient(circle at 12% 12%, rgba(0, 166, 189, 0.09), transparent 34%),
+    radial-gradient(circle at 90% 88%, rgba(255, 160, 80, 0.08), transparent 38%);
+}
+
+.costruisciFormPage #siteNav.instrumentNav {
+  justify-content: flex-start;
+  gap: 4px;
+}
+
+.laboratorioWorkspace .stageCard {
+  position: relative;
+}
+
+.stageResetButton {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 8;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #00a6bd, #28d2c7);
+  color: #ffffff;
+  font: inherit;
+  font-size: 1.2rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(0, 166, 189, 0.22);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stageResetButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(0, 166, 189, 0.28);
+}
+
+.stageResetButton span {
+  transform: translateY(-2px);
+}
+
+.costruisciFormPage .actionsSection {
+  max-width: none;
+  margin: 0 auto;
+  padding: 54px 18px 60px;
+}
+
+.costruisciCTA {
+  --accent: #00a6bd;
+  --accent-soft: #28d2c7;
+}
+
+.costruisciCTA .learningNextCard {
+  border-color: rgba(0, 166, 189, 0.18);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(226, 250, 250, 0.94));
+}
+
+.costruisciCTA .learningNextCard:hover {
+  border-color: rgba(0, 166, 189, 0.30);
+  background:
+    linear-gradient(135deg, #ffffff, rgba(214, 247, 247, 0.96));
+  box-shadow: 0 12px 26px rgba(0, 166, 189, 0.10);
+}
+
+.costruisciCTA .learningNextCard span {
+  background: rgba(0, 166, 189, 0.10);
+  color: #00798a;
+  border-color: rgba(0, 166, 189, 0.22);
+}
+
+@media (max-width: 560px) {
+  .stageResetButton {
+    top: 18px;
+    right: 18px;
+    width: 38px;
+    height: 38px;
   }
 }

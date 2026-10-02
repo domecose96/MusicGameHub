@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Il gioco dei dadi di Mozart</title>
+<link rel="stylesheet" href="css/base.css?v=20260721-mozart1">
+<link rel="stylesheet" href="css/dadi_mozart.css?v=20260722-mozart13">
+</head>
+
+<body class="mozartDicePage">
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" type="button" onclick="goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+    <div class="headerBrand">
+      <span class="headerEyebrow">Composizione aleatoria</span>
+      <h1 class="pageTitle">Il gioco dei dadi di Mozart</h1>
+      <span class="headerModeLabel">Laboratorio libero</span>
+    </div>
+  </div>
+</header>
+
+<main id="contentWrapper" class="mozartContent">
+  <section class="mozartStory" aria-labelledby="mozartStoryTitle">
+    <div class="mozartStoryCopy">
+      <span class="mozartStoryKicker">Vienna, fine Settecento</span>
+      <h2 id="mozartStoryTitle">Una musica che cambia a ogni lancio</h2>
+      <p>
+        Immagina una stanza illuminata dalle candele, un pianoforte e due dadi appoggiati
+        accanto allo spartito. Ogni lancio sceglie una piccola battuta e, passo dopo passo,
+        dal caso nasce un minuetto che nessuno aveva scritto prima per intero.
+      </p>
+      <p>
+        La scena è immaginata, ma parte da un documento reale: il manoscritto K.516f,
+        legato alla mano di Mozart, raccoglie brevi frammenti musicali da combinare.
+        Non sappiamo con certezza se i dadi facessero parte del progetto originale,
+        ma il principio è ancora affascinante: regole e caso possono comporre insieme.
+      </p>
+      <div class="mozartStoryFacts" aria-label="Informazioni storiche">
+        <span>K.516f</span>
+        <span>176 frammenti</span>
+        <span>Do maggiore</span>
+      </div>
+      <a class="mozartStoryAction" href="#mozartLab">
+        <span>Entra nel laboratorio</span>
+        <span aria-hidden="true">⇩</span>
+      </a>
+    </div>
+  </section>
+
+  <section id="mozartLab" class="mozartHowTo" aria-labelledby="mozartHowToTitle">
+    <div class="mozartHowToHeading">
+      <span class="mozartSectionEyebrow">Come funziona</span>
+      <h2 id="mozartHowToTitle">Dal lancio al minuetto</h2>
+    </div>
+    <ol class="mozartHowToSteps">
+      <li>
+        <span class="mozartStepNumber">1</span>
+        <div><strong>Lancia i dadi</strong><p>Usa due dadi per ciascuna delle sedici battute.</p></div>
+      </li>
+      <li>
+        <span class="mozartStepNumber">2</span>
+        <div><strong>Leggi la somma</strong><p>Il totale indica la riga del tabellone da consultare.</p></div>
+      </li>
+      <li>
+        <span class="mozartStepNumber">3</span>
+        <div><strong>Scegli la tessera</strong><p>La casella viene selezionata; puoi sostituirla con un'altra.</p></div>
+      </li>
+      <li>
+        <span class="mozartStepNumber">4</span>
+        <div><strong>Ascolta il risultato</strong><p>Completa il percorso per leggere e riprodurre il minuetto.</p></div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="mozartBoardSection" aria-labelledby="boardTitle">
+    <div class="mozartBoardToolbar" aria-label="Tabellone e comandi di composizione">
+      <div class="mozartBoardIdentity">
+        <h2 id="boardTitle">Tabellone</h2>
+        <span class="mozartSectionEyebrow">16 battute · due dadi</span>
+      </div>
+
+      <div class="mozartBoardControls">
+        <div class="diceResult" aria-live="polite" aria-atomic="true">
+          <div id="dieOne" class="dieFace" data-value="1" aria-label="Dado uno: 1"></div>
+          <span class="dicePlus" aria-hidden="true">+</span>
+          <div id="dieTwo" class="dieFace" data-value="1" aria-label="Dado due: 1"></div>
+          <span class="diceEquals" aria-hidden="true">=</span>
+          <strong id="diceTotal" class="diceTotal">2</strong>
+        </div>
+
+        <button id="rollButton" class="mozartActionButton mozartPrimaryAction" type="button">
+          <span aria-hidden="true">🎲</span>
+          <span>Lancia i dadi</span>
+        </button>
+
+        <div class="mozartSecondaryActions">
+          <button id="randomButton" class="mozartActionButton" type="button">
+            <span aria-hidden="true">✦</span>
+            <span>Componi tutto</span>
+          </button>
+          <button id="clearButton" class="mozartActionButton" type="button">
+            <span aria-hidden="true">↻</span>
+            <span>Azzera</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="currentMeasureLabel" class="currentMeasureLabel">Battuta M1</div>
+    </div>
+
+    <div id="boardViewport" class="mozartBoardViewport" tabindex="0" aria-label="Tabellone scorrevole delle battute">
+      <table id="mozartBoard" class="mozartBoard"></table>
+    </div>
+
+    <div id="measureRibbon" class="measureRibbon" aria-label="Battute selezionate"></div>
+  </section>
+
+  <section class="mozartScoreSection" aria-labelledby="scoreTitle">
+    <div class="mozartScorePanel">
+      <div class="mozartScoreToolbar">
+        <div class="mozartScoreIdentity">
+          <h2 id="scoreTitle">La tua composizione</h2>
+          <span class="mozartSectionEyebrow">Pianoforte · 80 BPM</span>
+        </div>
+
+        <div class="mozartScoreActions">
+          <div id="scoreState" class="scoreState">In attesa</div>
+          <button id="replayButton" class="scoreIconButton scoreReplayButton" type="button"
+                  aria-label="Riascolta dall'inizio" title="Riascolta" disabled>
+            <span aria-hidden="true">↻</span>
+          </button>
+
+          <button id="playButton" class="scoreIconButton scorePlayButton" type="button"
+                  aria-label="Ascolta la composizione" title="Ascolta" disabled>
+            <span id="playButtonIcon" aria-hidden="true">▶</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="scoreCanvas" class="mozartScoreCanvas" aria-live="polite">
+        <div id="scorePlaceholder" class="scorePlaceholder">
+          <span class="scorePlaceholderMark" aria-hidden="true">𝄞</span>
+          <strong>Lo spartito apparirà qui</strong>
+        </div>
+      </div>
+
+      <div id="audioProgress" class="audioProgress" role="progressbar" aria-label="Avanzamento ascolto"
+           aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <span id="audioProgressFill"></span>
+      </div>
+    </div>
+
+    <div class="mozartFooterMeta">
+      <p class="mozartSourceNote">
+        Partitura digitale a cura di Craig Stuart Sapp, Daniel Shanahan e Mauricio Rodriguez.
+        <a href="https://github.com/craigsapp/Musikalisches-Wuerfelspiel" target="_blank" rel="noreferrer">Fonte Humdrum</a>
+      </p>
+      <a class="mozartDownloadButton" href="docs/mozart/il-gioco-dei-dadi-di-mozart.pdf" download>
+        <span aria-hidden="true">⇩</span>
+        <span>Scarica il PDF</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<button id="scrollTopBtn" type="button" aria-label="Torna in alto">⇧</button>
+
+<script src="js/common.js?v=20260721-mozart1"></script>
+<script src="js/vendor/verovio-toolkit-hum.js"></script>
+<script src="js/dadi_mozart.js?v=20260722-mozart6"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

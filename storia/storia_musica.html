@@ -107,20 +107,26 @@
                 <button class="eraButton" type="button">Apri Rinascimento</button>
               </article>
 
-              <article class="eraCard baroqueCard">
+              <article
+                class="eraCard baroqueCard activeEra clickableEra"
+                onclick="MGH.goTo('storia_barocco.html')"
+              >
                 <div class="eraIcon">👑</div>
                 <span class="eraYears">1600 - 1750</span>
                 <h3>Barocco</h3>
                 <p>Opera, concerto, fuga, basso continuo, virtuosismo e grandi contrasti sonori.</p>
-                <button class="eraButton disabledEra" type="button">Pagina in arrivo</button>
+                <button class="eraButton" type="button">Apri Barocco</button>
               </article>
 
-              <article class="eraCard classicCard">
+              <article
+                class="eraCard classicCard activeEra clickableEra"
+                onclick="MGH.goTo('../dadi_mozart.html')"
+              >
                 <div class="eraIcon">🎼</div>
                 <span class="eraYears">1750 - 1820</span>
                 <h3>Classicismo</h3>
                 <p>Equilibrio, chiarezza, forma sonata, sinfonia e grandi autori come Mozart e Beethoven.</p>
-                <button class="eraButton disabledEra" type="button">Pagina in arrivo</button>
+                <button class="eraButton" type="button">Laboratorio Mozart</button>
               </article>
 
             </div>
@@ -176,13 +182,13 @@
 
     <button id="nextEraBtn" class="timelineArrow rightArrow" aria-label="Avanti">›</button>
 
-  </section>
+    <div class="timelineControls">
+      <button class="dotBtn activeDot" data-slide="0" aria-label="Sezione 1"></button>
+      <button class="dotBtn" data-slide="1" aria-label="Sezione 2"></button>
+      <button class="dotBtn" data-slide="2" aria-label="Sezione 3"></button>
+    </div>
 
-  <div class="timelineControls">
-    <button class="dotBtn activeDot" data-slide="0" aria-label="Sezione 1"></button>
-    <button class="dotBtn" data-slide="1" aria-label="Sezione 2"></button>
-    <button class="dotBtn" data-slide="2" aria-label="Sezione 3"></button>
-  </div>
+  </section>
 
 </main>
 

@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/learn.css?v=20260621-theory-content-system">
 <link rel="stylesheet" href="css/advanced.css?v=20260621-advanced-content-system">
+<link rel="stylesheet" href="css/learning-ui.css?v=20260622-shared-learning-ui">
 </head>
 
 <body>
@@ -51,7 +52,7 @@
       </p>
 
       <div class="theoryHeroActions" aria-label="Accessi rapidi alla teoria avanzata">
-        <button type="button" class="theoryHeroButton" onclick="MGH.scrollToSection('intervalli')">Intervalli</button>
+        <button type="button" class="theoryHeroButton secondary" onclick="MGH.scrollToSection('intervalli')">Intervalli</button>
         <button type="button" class="theoryHeroButton secondary" onclick="MGH.scrollToSection('accordi')">Accordi</button>
         <button type="button" class="theoryHeroButton secondary" onclick="MGH.scrollToSection('minori')">Scale minori</button>
         <button type="button" class="theoryHeroButton secondary" onclick="MGH.scrollToSection('circolo')">Circolo</button>
@@ -336,6 +337,15 @@
         <strong>Diminuito:</strong> Fondamentale + 3 semitoni + 3 semitoni = suono instabile<br>
         <strong>Eccedente:</strong> Fondamentale + 4 semitoni + 4 semitoni = suono strano
       </p>
+    </div>
+
+    <div class="learnGameBox">
+      <p>Metti in pratica triadi maggiori, minori, diminuite, eccedenti e rivolti sulla tastiera.</p>
+      <button class="menuButton gameLaunchButton" onclick="MGH.goTo('giochi/accordi_game.html')">
+        <span aria-hidden="true">🎮</span>
+        <span>Costruisci l'Accordo</span>
+        <span class="learnGameBadge">Ranked</span>
+      </button>
     </div>
   </section>
 
@@ -987,7 +997,7 @@
 
     </div>
 
-    <div class="advancedBox">
+    <div class="didacticBox">
       <h4>💡 Pratica Ritmica</h4>
 
       <p>
@@ -1087,83 +1097,85 @@
       <div class="advancedCard formCard">
         <h3>Forma Binaria (AB)</h3>
         <p><strong>Due sezioni</strong> diverse, ciascuna solitamente ripetuta</p>
-        <svg viewBox="0 0 300 80">
-          <rect x="20" y="20" width="60" height="40" fill="#ff6600" opacity="0.7" stroke="#000" stroke-width="2"/>
-          <text x="50" y="50" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">A</text>
-          <line x1="100" y1="40" x2="100" y2="60" stroke="#000" stroke-width="2"/>
-          <rect x="120" y="20" width="60" height="40" fill="#9966ff" opacity="0.7" stroke="#000" stroke-width="2"/>
-          <text x="150" y="50" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">B</text>
-          <text x="150" y="75" text-anchor="middle" font-size="11" fill="#333">A | B (ognuna ripetuta)</text>
-        </svg>
+        <div class="formVisual" aria-label="Schema forma binaria">
+          <div class="formPattern">
+            <span class="formBlock formA">A</span>
+            <span class="formBlock formB">B</span>
+          </div>
+          <span class="formCaption">A | B</span>
+        </div>
       </div>
 
       <div class="advancedCard formCard">
         <h3>Forma Ternaria (ABA)</h3>
         <p><strong>Tre sezioni:</strong> prima, contrasto, ritorno alla prima</p>
-        <svg viewBox="0 0 300 80">
-          <rect x="20" y="20" width="50" height="40" fill="#ff6600" opacity="0.7" stroke="#000" stroke-width="2"/>
-          <text x="45" y="50" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">A</text>
-          <rect x="85" y="20" width="50" height="40" fill="#9966ff" opacity="0.7" stroke="#000" stroke-width="2"/>
-          <text x="110" y="50" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">B</text>
-          <rect x="150" y="20" width="50" height="40" fill="#ff6600" opacity="0.7" stroke="#000" stroke-width="2"/>
-          <text x="175" y="50" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">A</text>
-          <text x="150" y="75" text-anchor="middle" font-size="11" fill="#333">A | B | A</text>
-        </svg>
+        <div class="formVisual" aria-label="Schema forma ternaria">
+          <div class="formPattern">
+            <span class="formBlock formA">A</span>
+            <span class="formBlock formB">B</span>
+            <span class="formBlock formA">A</span>
+          </div>
+          <span class="formCaption">A | B | A</span>
+        </div>
       </div>
 
       <div class="advancedCard formCard">
         <h3>Rondò (ABACA)</h3>
         <p><strong>Ritornello</strong> che alterna con episodi diversi</p>
-        <svg viewBox="0 0 300 80">
-          <rect x="10" y="20" width="40" height="40" fill="#ff6600" opacity="0.7" stroke="#000" stroke-width="2"/>
-          <text x="30" y="50" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">A</text>
-          <rect x="55" y="20" width="35" height="40" fill="#9966ff" opacity="0.7" stroke="#000" stroke-width="2"/>
-          <text x="72" y="50" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">B</text>
-          <rect x="95" y="20" width="40" height="40" fill="#ff6600" opacity="0.7" stroke="#000" stroke-width="2"/>
-          <text x="115" y="50" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">A</text>
-          <rect x="140" y="20" width="35" height="40" fill="#66cc66" opacity="0.7" stroke="#000" stroke-width="2"/>
-          <text x="157" y="50" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">C</text>
-          <rect x="180" y="20" width="40" height="40" fill="#ff6600" opacity="0.7" stroke="#000" stroke-width="2"/>
-          <text x="200" y="50" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">A</text>
-          <text x="150" y="75" text-anchor="middle" font-size="10" fill="#333">A B A C A...</text>
-        </svg>
+        <div class="formVisual" aria-label="Schema rondò">
+          <div class="formPattern compact">
+            <span class="formBlock formA">A</span>
+            <span class="formBlock formB">B</span>
+            <span class="formBlock formA">A</span>
+            <span class="formBlock formC">C</span>
+            <span class="formBlock formA">A</span>
+          </div>
+          <span class="formCaption">A | B | A | C | A</span>
+        </div>
       </div>
 
       <div class="advancedCard formCard">
         <h3>Forma Sonata</h3>
         <p><strong>3 parti:</strong> Esposizione (tema 1 + tema 2), Sviluppo, Riesposizione</p>
-        <svg viewBox="0 0 300 100">
-          <text x="15" y="25" font-size="12" font-weight="bold" fill="#333">Esposizione:</text>
-          <rect x="15" y="30" width="40" height="30" fill="#ff6600" opacity="0.7" stroke="#000" stroke-width="1"/>
-          <text x="35" y="50" text-anchor="middle" font-size="11" fill="#fff" font-weight="bold">T1</text>
-          <rect x="60" y="30" width="40" height="30" fill="#ffcc00" opacity="0.7" stroke="#000" stroke-width="1"/>
-          <text x="80" y="50" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">T2</text>
-
-          <text x="15" y="80" font-size="12" font-weight="bold" fill="#333">Sviluppo:</text>
-          <rect x="15" y="85" width="85" height="15" fill="#9966ff" opacity="0.7" stroke="#000" stroke-width="1"/>
-          <text x="57" y="97" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">Mod. + Variazioni</text>
-        </svg>
+        <div class="formVisual" aria-label="Schema forma sonata">
+          <div class="formPattern sonataPattern">
+            <span class="formBlock formA">T1</span>
+            <span class="formBlock formD">T2</span>
+            <span class="formBlock formB wide">Svil.</span>
+            <span class="formBlock formA">T1</span>
+            <span class="formBlock formD">T2</span>
+          </div>
+          <span class="formCaption">Esposizione | Sviluppo | Ripresa</span>
+        </div>
       </div>
 
       <div class="advancedCard formCard">
         <h3>Tema e Variazioni</h3>
         <p><strong>Un tema base</strong> ripetuto con modifiche progressive</p>
-        <svg viewBox="0 0 300 80">
-          <rect x="10" y="20" width="50" height="40" fill="#ff6600" opacity="0.8" stroke="#000" stroke-width="2"/>
-          <text x="35" y="50" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">Tema</text>
-          <rect x="65" y="20" width="45" height="40" fill="#ff6600" opacity="0.6" stroke="#000" stroke-width="1" stroke-dasharray="2,2"/>
-          <text x="87" y="50" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">Var 1</text>
-          <rect x="115" y="20" width="45" height="40" fill="#ff6600" opacity="0.4" stroke="#000" stroke-width="1" stroke-dasharray="2,2"/>
-          <text x="137" y="50" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">Var 2</text>
-          <rect x="165" y="20" width="45" height="40" fill="#ff6600" opacity="0.25" stroke="#000" stroke-width="1" stroke-dasharray="2,2"/>
-          <text x="187" y="50" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">Var 3</text>
-        </svg>
+        <div class="formVisual" aria-label="Schema tema e variazioni">
+          <div class="formPattern compact">
+            <span class="formBlock formA wide">Tema</span>
+            <span class="formBlock formA ghost">Var 1</span>
+            <span class="formBlock formA ghost lighter">Var 2</span>
+            <span class="formBlock formA ghost lightest">Var 3</span>
+          </div>
+          <span class="formCaption">Tema | Var. 1 | Var. 2 | Var. 3</span>
+        </div>
       </div>
 
       <div class="advancedCard formCard">
         <h3>Suite</h3>
         <p><strong>Raccolta di movimenti</strong> (danze, caratteri) senza legame armonico</p>
         <p class="smallText">Es: Allemanda, Corrente, Sarabanda, Giga (Barocco)</p>
+        <div class="formVisual" aria-label="Schema suite">
+          <div class="formPattern compact">
+            <span class="formBlock formA">All.</span>
+            <span class="formBlock formB">Cor.</span>
+            <span class="formBlock formC">Sar.</span>
+            <span class="formBlock formD">Gig.</span>
+          </div>
+          <span class="formCaption">Movimenti indipendenti</span>
+        </div>
       </div>
     </div>
 
@@ -1177,21 +1189,57 @@
       </p>
     </div>
 
-    <div class="didacticBox">
+    <nav class="learnCTA formLabCTA" aria-label="Laboratorio sulla composizione">
+      <a class="learningNextCard" href="dadi_mozart.html">
+        <span>Laboratorio interattivo</span>
+        <strong>I dadi di Mozart</strong>
+        <p>Combina sedici battute, osserva lo spartito e ascolta la composizione ottenuta.</p>
+      </a>
+    </nav>
+
+    <div class="didacticBox formListeningBox">
       <h4>🎵 Ascolto consigliato</h4>
-      <p>
-        <strong>Forma Sonata:</strong> 1º movimento di una Sinfonia Mozart o Beethoven<br>
-        <strong>Tema e Variazioni:</strong> "Le Variazioni Diabelli" di Beethoven<br>
-        <strong>Rondò:</strong> "Marcia alla Turca" Mozart<br>
-        <strong>ABA (Ternaria):</strong> Molti Lieder romantici
-      </p>
+      <div class="formListeningGrid">
+        <article class="formListeningCard">
+          <span>Forma Sonata</span>
+          <strong>1º movimento di una Sinfonia</strong>
+          <p>Mozart o Beethoven</p>
+          <audio class="formListeningAudio" controls preload="none" aria-label="Ascolta esempio forma sonata"></audio>
+        </article>
+        <article class="formListeningCard">
+          <span>Tema e Variazioni</span>
+          <strong>Variazioni Diabelli</strong>
+          <p>Beethoven</p>
+          <audio class="formListeningAudio" controls preload="none" aria-label="Ascolta esempio tema e variazioni"></audio>
+        </article>
+        <article class="formListeningCard">
+          <span>Rondò</span>
+          <strong>Marcia alla Turca</strong>
+          <p>Mozart</p>
+          <audio class="formListeningAudio" controls preload="none" aria-label="Ascolta esempio rondò"></audio>
+        </article>
+        <article class="formListeningCard">
+          <span>Forma Ternaria ABA</span>
+          <strong>Lieder romantici</strong>
+          <p>Ascolta il ritorno della prima sezione</p>
+          <audio class="formListeningAudio" controls preload="none" aria-label="Ascolta esempio forma ternaria"></audio>
+        </article>
+      </div>
     </div>
   </section>
 
-  <div class="learnCTA advancedLearnCTA">
-    <button class="menuButton" onclick="MGH.goTo('teoria.html')">← Torna a Teoria Base</button>
-    <button class="menuButton" onclick="MGH.goTo('./')">🏠 Torna alla Home</button>
-  </div>
+  <nav class="learnCTA advancedLearnCTA" aria-label="Torna agli altri moduli di teoria">
+    <a class="learningNextCard" href="teoria.html">
+      <span>Ripassa le basi</span>
+      <strong>Teoria musicale</strong>
+      <p>Rivedi pentagramma, chiavi, note, figure, tempi e simboli principali.</p>
+    </a>
+    <a class="learningNextCard" href="elementi_musica.html">
+      <span>Ascolto e fenomeni sonori</span>
+      <strong>Suono ed elementi</strong>
+      <p>Ricollega accordi e forme alle qualità del suono percepito.</p>
+    </a>
+  </nav>
 
 </div>
 <footer class="siteLegalFooter">

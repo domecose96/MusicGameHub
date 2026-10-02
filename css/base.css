@@ -1063,6 +1063,7 @@ body.ritmoGamePage .menuButton:not(.buttonGroup .menuButton),
 body.battiTempoPage .menuButton:not(.buttonGroup .menuButton),
 body.scaleGamePage .menuButton:not(.buttonGroup .menuButton),
 body.intervalliGamePage .menuButton:not(.buttonGroup .menuButton),
+body.accordiGamePage .menuButton:not(.buttonGroup .menuButton),
 body.pentagrammaGamePage .menuButton:not(.buttonGroup .menuButton),
 body.guantoPage .menuButton:not(.buttonGroup .menuButton) {
   background: linear-gradient(135deg, var(--action-orange), var(--action-orange-soft));
@@ -1079,6 +1080,7 @@ body.ritmoGamePage .menuButton:not(.buttonGroup .menuButton):hover,
 body.battiTempoPage .menuButton:not(.buttonGroup .menuButton):hover,
 body.scaleGamePage .menuButton:not(.buttonGroup .menuButton):hover,
 body.intervalliGamePage .menuButton:not(.buttonGroup .menuButton):hover,
+body.accordiGamePage .menuButton:not(.buttonGroup .menuButton):hover,
 body.pentagrammaGamePage .menuButton:not(.buttonGroup .menuButton):hover,
 body.guantoPage .menuButton:not(.buttonGroup .menuButton):hover {
   background: linear-gradient(135deg, #d94f00, var(--action-orange));
@@ -1558,7 +1560,8 @@ body.battiTempoPage #contentWrapper,
 body.scaleGamePage #contentWrapper,
 body.intervalliGamePage #contentWrapper,
 body.pentagrammaGamePage #contentWrapper,
-body.guantoPage #contentWrapper {
+body.guantoPage #contentWrapper,
+body.gooseGamePage #contentWrapper {
   height: calc(100vh - var(--header-height));
   overflow: hidden;
   padding-top: 10px;

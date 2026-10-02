@@ -20,20 +20,6 @@
   border-bottom-color: rgba(22, 138, 74, 0.18);
 }
 
-.anthemPage #homeBtn.selected,
-.anthemPage .homeButton.selected {
-  color: #ffffff;
-  border-color: var(--anthem-green);
-  background: linear-gradient(135deg, var(--anthem-green), #54b780);
-  box-shadow: 0 0 12px rgba(22, 138, 74, 0.42);
-}
-
-.anthemPage #scrollTopBtn {
-  color: #ffffff;
-  background: linear-gradient(135deg, var(--anthem-green), #54b780);
-  box-shadow: 0 10px 22px rgba(22, 138, 74, 0.24);
-}
-
 .anthemPage .siteLegalLinks a {
   color: var(--anthem-green);
 }
@@ -51,42 +37,10 @@
   text-shadow: 0 0 10px rgba(22, 138, 74, 0.16);
 }
 
-.anthemNav .navBtn {
-  border-color: rgba(22, 138, 74, 0.28);
-  color: var(--anthem-green);
-  background: rgba(255, 255, 255, 0.72);
-}
-
-.anthemPage button:focus,
-.anthemPage button:focus-visible {
-  outline: 3px solid var(--anthem-green);
-  outline-offset: 3px;
-}
-
-.anthemPage .selected {
-  background: linear-gradient(135deg, var(--anthem-green), #54b780);
-  color: #ffffff;
-  border-color: var(--anthem-green);
-  box-shadow: 0 0 12px rgba(22, 138, 74, 0.42);
-}
-
-.anthemNav .navBtn:hover {
-  color: var(--anthem-green);
-  border-color: rgba(22, 138, 74, 0.55);
-  background: rgba(22, 138, 74, 0.08);
-}
-
-.anthemNav .navBtn.active {
-  background: linear-gradient(135deg, var(--anthem-green), #54b780);
-  color: #ffffff;
-  border-color: transparent;
-  box-shadow: 0 8px 20px rgba(22, 138, 74, 0.18);
-}
-
 .anthemHero {
   min-height: min(680px, calc(100vh - var(--header-height) - 90px));
   display: grid;
-  grid-template-columns: minmax(0, 1.04fr) minmax(320px, 0.96fr);
+  grid-template-columns: minmax(0, 1.16fr) minmax(320px, 0.84fr);
   align-items: center;
   gap: clamp(24px, 5vw, 62px);
   padding: 52px 0 44px;
@@ -114,8 +68,9 @@
 .anthemHero h2 {
   margin: 18px 0 8px;
   color: var(--anthem-blue);
-  font-size: clamp(3.1rem, 8vw, 6.8rem);
+  font-size: clamp(3rem, 6.2vw, 5.7rem);
   line-height: 0.94;
+  white-space: nowrap;
 }
 
 .anthemLead {
@@ -132,7 +87,6 @@
 }
 
 .anthemHeroActions,
-.quizActions,
 .singActions {
   display: flex;
   flex-wrap: wrap;
@@ -140,90 +94,6 @@
   align-items: center;
   justify-content: flex-start;
   margin-top: 22px;
-}
-
-.anthemButton {
-  min-height: 46px;
-  width: auto;
-  padding: 12px 22px;
-  border: none;
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--anthem-green), #59bd82);
-  color: #ffffff;
-  font-size: 0.95rem;
-  font-weight: 900;
-  cursor: pointer;
-  box-shadow: 0 12px 26px rgba(22, 138, 74, 0.22);
-}
-
-.anthemButton:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(135deg, #0f7640, var(--anthem-green));
-  color: #ffffff;
-}
-
-.anthemButton.secondary {
-  background: rgba(255, 255, 255, 0.88);
-  border: 1.5px solid rgba(18, 50, 74, 0.18);
-  color: var(--anthem-blue);
-  box-shadow: 0 10px 24px rgba(18, 50, 74, 0.08);
-}
-
-.anthemButton.secondary:hover {
-  background: rgba(18, 50, 74, 0.08);
-  color: var(--anthem-blue);
-}
-
-.tricolorScene {
-  position: relative;
-  min-height: 420px;
-  display: grid;
-  place-items: center;
-}
-
-.flagRibbon {
-  position: absolute;
-  inset: 20px 28px 40px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  overflow: hidden;
-  border-radius: 34px;
-  box-shadow: 0 26px 60px rgba(18, 50, 74, 0.18);
-  transform: rotate(-3deg);
-}
-
-.flagRibbon span {
-  display: block;
-}
-
-.flagRibbon .green { background: linear-gradient(180deg, #0e7d42, #1ab164); }
-.flagRibbon .white { background: linear-gradient(180deg, #ffffff, #f3f7f4); }
-.flagRibbon .red { background: linear-gradient(180deg, #d43d3d, #b9292f); }
-
-.flagCard {
-  position: relative;
-  z-index: 1;
-  width: min(310px, 72vw);
-  aspect-ratio: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border-radius: 28px;
-  background: rgba(255, 255, 255, 0.9);
-  color: var(--anthem-blue);
-  box-shadow: 0 22px 50px rgba(18, 50, 74, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.72);
-}
-
-.flagIcon {
-  font-size: 4rem;
-}
-
-.flagCard strong {
-  font-size: 1.8rem;
-  color: var(--anthem-green);
 }
 
 .videoPanel {
@@ -248,14 +118,19 @@
 .authorsGrid,
 .meaningGrid,
 .civicsPanel,
-.factGrid,
-.anthemQuiz {
+.factGrid {
   display: grid;
   gap: 18px;
 }
 
 .symbolGrid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: 100%;
+}
+
+#simboli .symbolGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
 }
 
 .symbolCard,
@@ -264,8 +139,7 @@
 .meaningOutput,
 .civicsPanel article,
 .singPanel,
-.factCard,
-.quizQuestion {
+.factCard {
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(18, 50, 74, 0.1);
@@ -273,10 +147,17 @@
 }
 
 .symbolCard {
+  display: grid;
+  align-content: center;
   padding: 26px 22px;
-  min-height: 190px;
+  min-height: 230px;
   cursor: pointer;
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#simboli .symbolCard {
+  min-height: 230px;
+  padding: 26px 22px;
 }
 
 .symbolCard.green { border-top: 5px solid var(--anthem-green); }
@@ -298,8 +179,7 @@
 
 .symbolCard h3,
 .authorCard h3,
-.civicsPanel h3,
-.quizQuestion h3 {
+.civicsPanel h3 {
   margin: 0 0 8px;
   color: var(--anthem-blue);
 }
@@ -307,8 +187,7 @@
 .symbolCard p,
 .authorCard p,
 .civicsPanel p,
-.factCard p,
-.quizQuestion p {
+.factCard p {
   margin: 0;
   color: var(--text-muted);
   line-height: 1.55;
@@ -334,6 +213,13 @@
   border-color: rgba(22, 138, 74, 0.28);
   box-shadow: 0 18px 38px rgba(22, 138, 74, 0.11);
   outline: none;
+}
+
+.anthemPage #simboli .symbolCard:hover,
+.anthemPage #simboli .symbolCard:focus,
+.anthemPage #autori .authorCard:hover,
+.anthemPage #autori .authorCard:focus {
+  transform: translateY(-4px);
 }
 
 .authorPortrait {
@@ -528,8 +414,40 @@
 }
 
 .civicsPanel article {
+  display: grid;
+  align-content: center;
+  min-height: 190px;
   padding: 22px;
-  text-align: left;
+  text-align: center;
+}
+
+#civica .civicsPanel article {
+  justify-items: center;
+}
+
+#civica .civicsPanel span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 30px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(22, 138, 74, 0.10);
+  color: var(--civic-accent);
+  line-height: 1;
+}
+
+.reflectionGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.reflectionCard {
+  min-height: 170px;
+  padding: 24px;
+  text-align: center;
 }
 
 .singPanel {
@@ -585,57 +503,6 @@
   margin-bottom: 8px;
   color: var(--anthem-red);
   font-size: 2.6rem;
-  font-weight: 900;
-}
-
-.anthemQuiz {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.quizQuestion {
-  padding: 22px;
-}
-
-.quizQuestion button {
-  width: 100%;
-  min-height: 42px;
-  margin-top: 10px;
-  padding: 10px 12px;
-  border: 1.5px solid rgba(18, 50, 74, 0.14);
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.9);
-  color: var(--anthem-blue);
-  font-weight: 900;
-  cursor: pointer;
-}
-
-.quizQuestion button:hover,
-.quizQuestion button.selected {
-  border-color: rgba(22, 138, 74, 0.42);
-  background: rgba(22, 138, 74, 0.09);
-  color: var(--anthem-blue);
-}
-
-.quizQuestion button.correct {
-  background: rgba(22, 138, 74, 0.14);
-  border-color: var(--anthem-green);
-  color: var(--anthem-green);
-}
-
-.quizQuestion button.wrong {
-  background: rgba(212, 61, 61, 0.1);
-  border-color: var(--anthem-red);
-  color: var(--anthem-red);
-}
-
-.quizActions {
-  justify-content: center;
-}
-
-.anthemQuizResult {
-  min-height: 34px;
-  margin-top: 16px;
-  color: var(--anthem-blue);
   font-weight: 900;
 }
 
@@ -825,16 +692,16 @@
     justify-content: center;
   }
 
-  .tricolorScene {
-    min-height: 330px;
-  }
-
   .symbolGrid,
   .meaningGrid,
   .civicsPanel,
-  .factGrid,
-  .anthemQuiz {
+  .reflectionGrid,
+  .factGrid {
     grid-template-columns: 1fr;
+  }
+
+  .anthemHero h2 {
+    white-space: normal;
   }
 }
 

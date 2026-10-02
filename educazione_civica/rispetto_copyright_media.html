@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="../css/base.css">
 <link rel="stylesheet" href="../css/learn.css">
 <link rel="stylesheet" href="../css/educazione_civica/rispetto_copyright_media.css">
+<link rel="stylesheet" href="../css/educazione_civica/civica-ui.css">
 </head>
 
 <body class="mediaRightsPage">
@@ -28,7 +29,7 @@
 </header>
 
 <nav id="siteNav" class="theoryNav mediaRightsNav">
-  <button class="navBtn" onclick="MGH.scrollToSection('hero')">🎧 Inizio</button>
+  <button class="navBtn active" onclick="MGH.scrollToSection('hero')">🎧 Inizio</button>
   <button class="navBtn" onclick="MGH.scrollToSection('perche')">💡 Perché</button>
   <button class="navBtn" onclick="MGH.scrollToSection('differenze')">⚖️ Differenze</button>
   <button class="navBtn" onclick="MGH.scrollToSection('uso')">🧭 Posso usarlo?</button>
@@ -52,35 +53,28 @@
         vita quotidiana. Ma possiamo usare tutto liberamente?
       </p>
       <div class="mediaHeroActions">
-        <button class="mediaButton" onclick="MGH.scrollToSection('perche')">Inizia</button>
+        <button class="mediaButton secondary" onclick="MGH.scrollToSection('perche')">Inizia</button>
+        <button class="mediaButton secondary" onclick="MGH.scrollToSection('uso')">Posso usarlo?</button>
+        <button class="mediaButton secondary" onclick="MGH.scrollToSection('quiz')">Vai al quiz</button>
+        <details class="theoryHeroMore">
+          <summary>Altri argomenti</summary>
+          <div class="theoryHeroMoreMenu">
+            <button onclick="MGH.scrollToSection('differenze')">Differenze</button>
+            <button onclick="MGH.scrollToSection('licenze')">Licenze</button>
+            <button onclick="MGH.scrollToSection('ia')">IA</button>
+            <button onclick="MGH.scrollToSection('abitudini')">Abitudini</button>
+            <button onclick="MGH.scrollToSection('scheda')">Scheda</button>
+            <button onclick="MGH.scrollToSection('patto')">Patto</button>
+            <button onclick="MGH.scrollToSection('film')">Extra</button>
+          </div>
+        </details>
       </div>
     </div>
 
-    <div class="mediaHeroPanel" aria-label="Contenuti digitali e rispetto degli autori">
-      <div class="mediaRightsScene">
-        <div class="mediaPlayerMock">
-          <div class="playerTop">
-            <span></span>
-            <strong>Contenuto online</strong>
-            <small>fonte, autore, licenza</small>
-          </div>
-          <div class="playerWave" aria-hidden="true">
-            <span></span><span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span><span></span>
-          </div>
-          <div class="playerCredit">
-            <span>Autore</span>
-            <strong>citato</strong>
-          </div>
-        </div>
-        <div class="rightsOrbit">
-          <span class="rightsTile tileA">©</span>
-          <span class="rightsTile tileB">CC</span>
-          <span class="rightsTile tileC">AI</span>
-          <span class="rightsTile tileD">link</span>
-        </div>
+    <div class="theoryHeroMedia civicHeroMedia mediaHeroMedia" aria-hidden="true">
+      <div class="theoryHeroImageSlot civicHeroImageSlot mediaHeroImageSlot">
+        <img src="../img/educazione_civica/hero/rispetto-copyright-media-hero.png" alt="">
       </div>
-      <strong>Ascoltare, creare, citare, rispettare</strong>
     </div>
   </section>
 
@@ -397,7 +391,7 @@
     <h2 class="sectionTitle">Quiz finale</h2>
     <p class="sectionIntro">Rispondi a casi realistici e controlla subito il risultato.</p>
 
-    <div class="mediaQuiz" id="mediaQuiz">
+    <div class="mediaQuiz civicQuiz" id="mediaQuiz">
       <article class="quizQuestion" data-answer="permessi">
         <h3>1. Uno studente usa 10 secondi di una canzone in un video scolastico e cita autore e fonte. Cosa deve controllare ancora?</h3>
         <button type="button" data-value="autore">Solo il nome dell'autore.</button>
@@ -415,12 +409,6 @@
         <button type="button" data-value="plagio">È plagio.</button>
         <button type="button" data-value="commons">È sempre Creative Commons.</button>
         <button type="button" data-value="citazione">È solo una citazione.</button>
-      </article>
-      <article class="quizQuestion" data-answer="dichiarare">
-        <h3>4. Generi un'immagine con IA per una presentazione. Quale comportamento è più responsabile?</h3>
-        <button type="button" data-value="foto">Dire che è una foto scattata da te.</button>
-        <button type="button" data-value="nascondere">Nascondere lo strumento usato.</button>
-        <button type="button" data-value="dichiarare">Dichiarare l'uso dell'IA e controllare le condizioni dello strumento.</button>
       </article>
     </div>
 
@@ -452,6 +440,14 @@
     <h2>Usare i media con rispetto significa riconoscere il valore del lavoro creativo.</h2>
   </section>
 
+  <nav class="learnCTA civicReturnCTA" aria-label="Torna al portale di educazione civica">
+    <a class="learningNextCard" href="index.html">
+      <span>Portale civico</span>
+      <strong>Educazione civica musicale</strong>
+      <p>Torna all'indice con tutti i percorsi, le attività e i temi di cittadinanza.</p>
+    </a>
+  </nav>
+
 </div>
 
 <footer class="siteLegalFooter">
@@ -468,6 +464,7 @@
 <button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
 
 <script src="../js/common.js?v=20260620-favicon"></script>
+<script src="../js/educazione_civica/civica_quiz.js"></script>
 <script src="../js/educazione_civica/rispetto_copyright_media.js"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>

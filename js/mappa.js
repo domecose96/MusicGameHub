@@ -35,10 +35,11 @@ const mapGroups=[
     column:".mapColumnPaths",
     label:"Percorsi",
     unit:"risorse principali",
-    ids:["storiaMusica","strumentiMusicali","formazioniMusicali","fumettiMusicali","classiDocente","educazioneCivica"],
+    ids:["storiaMusica","strumentiMusicali","formazioniMusicali","laboratoriMusicali","fumettiMusicali","classiDocente","educazioneCivica"],
     featured:{
       storiaMusica:"★ timeline",
       formazioniMusicali:"★ laboratorio",
+      laboratoriMusicali:"★ interattivi",
       fumettiMusicali:"★ collana",
       classiDocente:"★ docente",
       educazioneCivica:"★ indice"
@@ -92,11 +93,16 @@ const clusterContent={
     {label:"Abbellimenti",id:"abbellimentiAvanzati"},
     {label:"Forma",id:"formaAvanzata"}
   ],
+  laboratoriMusicali:[
+    {label:"I dadi di Mozart",id:"dadiMozart"},
+    {label:"Onde sonore",url:"elementi_musica.html#laboratorio"},
+    {label:"Costruisci la formazione",id:"costruisciFormazione"}
+  ],
   storiaMusica:[
     {label:"Antichità",url:"storia/storia_antichita.html"},
     {label:"Medioevo",url:"storia/storia_medioevo.html"},
     {label:"Rinascimento",url:"storia/storia_rinascimento.html"},
-    {label:"Barocco",disabled:true},
+    {label:"Barocco",url:"storia/storia_barocco.html"},
     {label:"Classicismo",disabled:true},
     {label:"Romanticismo",disabled:true},
     {label:"Novecento",disabled:true},
@@ -221,6 +227,7 @@ function getShortDescription(item){
   if(item.id==="storiaMusica")return "Epoche e autori";
   if(item.id==="strumentiMusicali")return "Famiglie e gioco";
   if(item.id==="formazioniMusicali")return "Ensemble e lab";
+  if(item.id==="laboratoriMusicali")return "Componi e sperimenta";
   if(item.id==="fumettiMusicali")return "Compositori";
   if(item.id==="classiDocente")return "Area docente";
   if(item.id==="educazioneCivica")return "Indice lezioni";

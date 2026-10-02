@@ -6,6 +6,7 @@
 <title>Storia: Il Rinascimento | Music Game Hub</title>
 <link rel="stylesheet" href="../css/base.css">
 <link rel="stylesheet" href="../css/learn.css">
+<link rel="stylesheet" href="../css/learning-ui.css?v=20260622-shared-learning-ui">
 <link rel="stylesheet" href="../css/storia/storia.css">
 </head>
 
@@ -28,19 +29,20 @@
 
 <nav id="siteNav" class="theoryNav">
   <button class="navBtn" onclick="MGH.scrollToSection('timeline')">📅 Timeline</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('scuole')">🎵 Scuole musicali</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('funzioni')">🎭 Forme e generi</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('scuole')">🌍 Contesto</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('linguaggio')">🎼 Linguaggio</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('funzioni')">🎭 Forme</button>
   <button class="navBtn" onclick="MGH.scrollToSection('protagonisti')">👑 Protagonisti</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('strumenti')">🎵 Strumenti</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('riassunto')">📊 Mappa riassuntiva</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('video-rinascimento')">🎬 Video</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('strumenti')">🎹 Strumenti</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('riassunto')">📊 Mappa</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('video-rinascimento')">▶ Ascolto</button>
   <button class="navBtn" onclick="openQuizModal()">❓ Quiz</button>
 </nav>
 
 <div id="contentWrapper">
 
   <!-- TIMELINE -->
-  <section id="timeline" class="siteSection learnSection">
+  <section id="timeline" class="siteSection learnSection" data-study-step="01" data-study-label="In breve">
     <h2 class="sectionTitle">Il Rinascimento in breve</h2>
     <p class="sectionIntro">
       Il Rinascimento è il movimento culturale che si sviluppò nel XV e XVI secolo e che riscoprì il pensiero filosofico e l'arte classica. In ambito musicale crescono l'importanza della musica profana, della polifonia vocale e della musica strumentale.
@@ -113,21 +115,29 @@
   </section>
 
   <!-- SCUOLE MUSICALI -->
-  <section id="scuole" class="siteSection learnSection">
-    <h2 class="sectionTitle">Le scuole musicali del Rinascimento</h2>
+  <section id="scuole" class="siteSection learnSection" data-study-step="02" data-study-label="Contesto">
+    <h2 class="sectionTitle">Contesto: le scuole musicali</h2>
     <p class="sectionIntro">Durante il Rinascimento si sviluppano tre grandi scuole musicali, ognuna con caratteristiche e compositori distinti.</p>
 
-    <div class="storyGrid">
+    <div class="storyGrid historyContextGrid">
       <div class="storyCard mediaCard">
         <div class="mediaThumb">
           <div class="mediaIcon">🇫🇷</div>
         </div>
         <h3>Scuola franco-fiamminga</h3>
         <p class="cardSubtitle">Dalla Francia alle corti italiane</p>
-        <p>Nella ricca area costituita dalla Francia settentrionale, la Borgogna e le Fiandre, si sviluppò la Scuola franco-fiamminga. Compositori come <strong>Josquin Desprez</strong>, <strong>Jacob Arcadelt</strong> e <strong>Orlando di Lasso</strong> portano le loro tecniche polifoniche avanzate nelle corti rinascimentali italiane.</p>
+        <p>Tra Francia settentrionale, Borgogna e Fiandre nasce una polifonia raffinata. Josquin, Arcadelt e Orlando di Lasso la diffondono nelle corti italiane.</p>
         <div class="cardHighlight">
           <strong>Idea chiave:</strong> questa scuola introduce in Italia le più sofisticate tecniche compositive europee.
         </div>
+      </div>
+
+      <div class="storyCard mediaCard">
+        <div class="mediaThumb"><div class="mediaIcon">📚</div></div>
+        <h3>Corti e stampa musicale</h3>
+        <p class="cardSubtitle">Circolazione delle idee</p>
+        <p>Mecenati, cappelle di corte e nuove edizioni a stampa permettono ai repertori vocali e strumentali di viaggiare più rapidamente in Europa.</p>
+        <div class="cardHighlight"><strong>Idea chiave:</strong> la musica diventa più accessibile, studiata e condivisa.</div>
       </div>
 
       <div class="storyCard mediaCard">
@@ -136,7 +146,7 @@
         </div>
         <h3>Scuola romana</h3>
         <p class="cardSubtitle">La polifonia al servizio della Chiesa</p>
-        <p>La città di Roma è sede della Scuola romana. La musica sacra segue le regole imposte dal Concilio di Trento (1545-1583), che mirava a rendere il testo comprensibile ai fedeli. <strong>Giovanni Pierluigi da Palestrina</strong> è il massimo rappresentante di questa scuola.</p>
+        <p>Dopo il Concilio di Trento la musica sacra ricerca chiarezza del testo ed equilibrio polifonico. Palestrina ne diventa il riferimento.</p>
         <div class="cardHighlight">
           <strong>Idea chiave:</strong> Palestrina coniuga la complessità polifonica con la chiarezza del testo religioso.
         </div>
@@ -148,7 +158,7 @@
         </div>
         <h3>Scuola veneziana</h3>
         <p class="cardSubtitle">Stile concertato e innovazione</p>
-        <p>La Scuola veneziana continua a usare la polifonia e gli strumenti nella musica sacra. <strong>Giovanni Gabrieli</strong> sviluppò il <strong>stile concertato</strong>, mescolando voci e strumenti in una dimensione sonora ricca e innovativa che anticipa il Barocco.</p>
+        <p>A Venezia cori e strumenti dialogano nello spazio. Giovanni Gabrieli sviluppa lo stile concertato e prepara il passaggio al Barocco.</p>
         <div class="cardHighlight">
           <strong>Idea chiave:</strong> Gabrieli fa diventare gli strumenti protagonisti insieme alle voci.
         </div>
@@ -156,12 +166,23 @@
     </div>
   </section>
 
+  <section id="linguaggio" class="siteSection learnSection" data-study-step="03" data-study-label="Linguaggio">
+    <h2 class="sectionTitle">Come suona il Rinascimento</h2>
+    <p class="sectionIntro">Le voci cercano equilibrio e chiarezza; gli strumenti acquistano autonomia e dialogano sempre più con il canto.</p>
+    <div class="storyGrid historySoundGrid">
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">🧶</div></div><h3>Polifonia imitativa</h3><p class="cardSubtitle">Un tema passa tra le voci</p><p>Le parti entrano una dopo l'altra riprendendo la stessa idea melodica.</p><div class="cardHighlight"><strong>Ascolta:</strong> il tema ricompare in registri diversi.</div></article>
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">⚖️</div></div><h3>Equilibrio</h3><p class="cardSubtitle">Voci ben proporzionate</p><p>Nessuna parte domina stabilmente: il tessuto sonoro ricerca continuità e misura.</p><div class="cardHighlight"><strong>Effetto:</strong> ordine, fluidità e pienezza.</div></article>
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">🗣️</div></div><h3>Testo e musica</h3><p class="cardSubtitle">Parole più espressive</p><p>Nel madrigale la musica sottolinea immagini, emozioni e significati del testo.</p><div class="cardHighlight"><strong>Parola chiave:</strong> madrigalismo.</div></article>
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">🎻</div></div><h3>Voci e strumenti</h3><p class="cardSubtitle">Nuovi colori sonori</p><p>Danze, intavolature e gruppi strumentali preparano l'autonomia della musica strumentale.</p><div class="cardHighlight"><strong>A Venezia:</strong> cori e strumenti dialogano nello spazio.</div></article>
+    </div>
+  </section>
+
   <!-- FORME E GENERI CON AUDIO -->
-  <section id="funzioni" class="siteSection learnSection">
+  <section id="funzioni" class="siteSection learnSection" data-study-step="04" data-study-label="Forme">
     <h2 class="sectionTitle">Forme e generi del Rinascimento</h2>
     <p class="sectionIntro">Durante il Rinascimento nacquero nuove forme musicali rappresentative sia della musica sacra che della musica profana, caratterizzate da grande complessità e bellezza formale.</p>
 
-    <div class="storyGrid">
+    <div class="storyGrid storyGrid--3">
       <div class="storyCard mediaCard">
         <div class="mediaThumb">
           <div class="mediaIcon">🎼</div>
@@ -213,11 +234,11 @@
   </section>
 
   <!-- PROTAGONISTI -->
-  <section id="protagonisti" class="siteSection learnSection">
-    <h2 class="sectionTitle">Protagonisti del Rinascimento</h2>
+  <section id="protagonisti" class="siteSection learnSection" data-study-step="05" data-study-label="Protagonisti">
+    <h2 class="sectionTitle">I protagonisti del Rinascimento</h2>
     <p class="sectionIntro">Grandi musicisti, teorici e innovatori che hanno plasmato la musica rinascimentale.</p>
 
-    <div class="protagonistGrid">
+    <div class="protagonistGrid protagonistGrid--6">
       <div class="protagonistCard historicalCard">
         <div class="cardDate">1450-1521</div>
         <div class="protagonistIcon">🎼</div>
@@ -269,11 +290,11 @@
   </section>
 
   <!-- STRUMENTI -->
-  <section id="strumenti" class="siteSection learnSection">
-    <h2 class="sectionTitle">Strumenti del Rinascimento</h2>
+  <section id="strumenti" class="siteSection learnSection" data-study-step="06" data-study-label="Strumenti">
+    <h2 class="sectionTitle">Gli strumenti del Rinascimento</h2>
     <p class="sectionIntro">Durante il Rinascimento la musica strumentale cresce enormemente di importanza.</p>
 
-    <div class="instrumentGrid">
+    <div class="instrumentGrid instrumentGrid--4">
       <div class="instrumentCard">
         <h3>🎸 Strumenti a Corda</h3>
         <ul>
@@ -317,7 +338,7 @@
   </section>
 
   <!-- MAPPA RIASSUNTIVA GRANDE -->
-  <section id="riassunto" class="siteSection learnSection">
+  <section id="riassunto" class="siteSection learnSection" data-study-step="07" data-study-label="Mappa">
     <h2 class="sectionTitle">Mappa Riassuntiva</h2>
     <p class="sectionIntro">Uno schema visivo dei concetti chiave del Rinascimento musicale.</p>
 
@@ -417,11 +438,11 @@
   </section>
 
   <!-- VIDEO APPROFONDIMENTO -->
-  <section id="video-rinascimento" class="siteSection learnSection">
-    <h2 class="sectionTitle">Video di approfondimento</h2>
+  <section id="video-rinascimento" class="siteSection learnSection" data-study-step="08" data-study-label="Ascolto">
+    <h2 class="sectionTitle">Ascolto guidato</h2>
     <p class="sectionIntro">Guarda questo video per approfondire la musica del Rinascimento.</p>
 
-    <div class="videoCard">
+    <div class="videoCard historyListeningSurface">
       <h3>🎬 La musica nel Rinascimento</h3>
       <p class="cardSubtitle">Approfondimento sulla storia della musica rinascimentale</p>
 
@@ -433,13 +454,26 @@
         </iframe>
       </div>
     </div>
+
+    <div class="listeningGuideGrid">
+      <article class="listeningGuideCard"><div class="listeningGuideNumber">01</div><span class="listeningGuideType">Polifonia</span><h3>Segui l'imitazione</h3><p class="listeningWork">Messa e mottetto</p><dl><div><dt>Ascolta</dt><dd>La stessa idea in voci diverse</dd></div><div><dt>Osserva</dt><dd>L'ordine delle entrate</dd></div><div><dt>Riconosci</dt><dd>L'equilibrio del tessuto vocale</dd></div></dl></article>
+      <article class="listeningGuideCard"><div class="listeningGuideNumber">02</div><span class="listeningGuideType">Testo e musica</span><h3>Individua il madrigalismo</h3><p class="listeningWork">Madrigale</p><dl><div><dt>Ascolta</dt><dd>I cambi espressivi</dd></div><div><dt>Osserva</dt><dd>Le parole messe in evidenza</dd></div><div><dt>Riconosci</dt><dd>La musica che rappresenta il testo</dd></div></dl></article>
+      <article class="listeningGuideCard"><div class="listeningGuideNumber">03</div><span class="listeningGuideType">Spazio sonoro</span><h3>Distingui cori e strumenti</h3><p class="listeningWork">Scuola veneziana</p><dl><div><dt>Ascolta</dt><dd>Gruppi che si rispondono</dd></div><div><dt>Osserva</dt><dd>Contrasti di timbro e registro</dd></div><div><dt>Riconosci</dt><dd>Lo stile concertato</dd></div></dl></article>
+    </div>
   </section>
 
-  <div class="learnCTA storyLearnCTA">
-    <button class="menuButton" onclick="openQuizModal()">
-      ❓ Vai al Quiz
+  <nav class="learnCTA storyLearnCTA" aria-label="Continua il percorso di storia">
+    <button class="storyQuizActionCard" type="button" onclick="openQuizModal()">
+      <span>Verifica rapida</span>
+      <strong>Quiz Rinascimento</strong>
+      <p>Ripassa scuole musicali, generi, protagonisti e strumenti.</p>
     </button>
-  </div>
+    <a class="learningNextCard" href="storia_musica.html">
+      <span>Linea del tempo</span>
+      <strong>Timeline storia</strong>
+      <p>Torna alla panoramica dei periodi musicali.</p>
+    </a>
+  </nav>
 
 </div>
 
@@ -454,68 +488,16 @@
     <div class="modalBody">
       <p class="quizIntro">Metti alla prova le tue conoscenze sulla musica rinascimentale.</p>
 
-      <div class="quizContainer">
-
-        <div class="quizQuestion">
-          <h4>1. A quale scuola musicale appartiene Giovanni Pierluigi da Palestrina?</h4>
-          <div class="quizOptions">
-            <label><input type="radio" name="q1" value="a"><span class="optionText">A) Scuola franco-fiamminga</span></label>
-            <label><input type="radio" name="q1" value="b"><span class="optionText">B) Scuola romana</span></label>
-            <label><input type="radio" name="q1" value="c"><span class="optionText">C) Scuola veneziana</span></label>
-          </div>
-          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: B - Palestrina è il massimo rappresentante della Scuola romana.</p>
-        </div>
-
-        <div class="quizQuestion">
-          <h4>2. Che cosa si intende per "Scuola franco-fiamminga"?</h4>
-          <div class="quizOptions">
-            <label><input type="radio" name="q2" value="a"><span class="optionText">A) Una scuola per insegnare musica in Francia</span></label>
-            <label><input type="radio" name="q2" value="b"><span class="optionText">B) Un insieme di compositori e tecniche della Francia settentrionale e Fiandre</span></label>
-            <label><input type="radio" name="q2" value="c"><span class="optionText">C) Una danza popolare del Rinascimento</span></label>
-          </div>
-          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: B</p>
-        </div>
-
-        <div class="quizQuestion">
-          <h4>3. Quali sono le caratteristiche principali del madrigale?</h4>
-          <div class="quizOptions">
-            <label><input type="radio" name="q3" value="a"><span class="optionText">A) Una forma strofica con ritornello fisso</span></label>
-            <label><input type="radio" name="q3" value="b"><span class="optionText">B) Una forma aperta, priva di riprese e ritornelli</span></label>
-            <label><input type="radio" name="q3" value="c"><span class="optionText">C) Una forma esclusivamente strumentale</span></label>
-          </div>
-          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: B</p>
-        </div>
-
-        <div class="quizQuestion">
-          <h4>4. Qual era l'importanza del Concilio di Trento per la musica?</h4>
-          <div class="quizOptions">
-            <label><input type="radio" name="q4" value="a"><span class="optionText">A) Ha promosso la musica strumentale nelle chiese</span></label>
-            <label><input type="radio" name="q4" value="b"><span class="optionText">B) Ha stabilito regole affinché il testo fosse comprensibile ai fedeli</span></label>
-            <label><input type="radio" name="q4" value="c"><span class="optionText">C) Ha vietato la polifonia nelle celebrazioni religiose</span></label>
-          </div>
-          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: B</p>
-        </div>
-
-        <div class="quizQuestion">
-          <h4>5. Chi sviluppò lo stile concertato nella Scuola veneziana?</h4>
-          <div class="quizOptions">
-            <label><input type="radio" name="q5" value="a"><span class="optionText">A) Giovanni Pierluigi da Palestrina</span></label>
-            <label><input type="radio" name="q5" value="b"><span class="optionText">B) Giovanni Gabrieli</span></label>
-            <label><input type="radio" name="q5" value="c"><span class="optionText">C) Orlando di Lasso</span></label>
-          </div>
-          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: B</p>
-        </div>
-
-      </div>
+      <div class="quizContainer learningQuiz" data-learning-quiz data-quiz-bank="historyRenaissance" data-quiz-count="5"></div>
     </div>
 
-    <div class="modalFooter">
-      <button class="menuButton" onclick="resetQuiz()">🔄 Ricomincia</button>
-      <button class="menuButton" style="background: linear-gradient(135deg, #9b5cff, #c218ff); color: white;" onclick="checkQuiz()">✅ Correggi Quiz</button>
+    <div class="modalFooter learningQuizFooter">
+      <button class="menuButton learningQuizResetButton" onclick="resetQuiz()">🔄 Riprova</button>
+      <button class="menuButton learningQuizCheckButton" onclick="checkQuiz()">✅ Controlla risposte</button>
       <button class="menuButton" onclick="closeQuizModal()">Chiudi</button>
     </div>
 
-    <div id="quizResult" class="quizResult" style="display:none; margin-top: 20px;"></div>
+    <div id="quizResult" class="quizResult learningQuizResult" style="display:none; margin-top: 20px;"></div>
   </div>
 </div>
 
@@ -533,6 +515,7 @@
 </footer>
 
 <script src="../js/common.js?v=20260620-favicon"></script>
+<script src="../js/learning_quiz.js?v=20260718-shared3"></script>
 <script src="../js/storia/storia.js"></script>
 </body>
 </html>

@@ -7,6 +7,7 @@
 
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/learn.css">
+  <link rel="stylesheet" href="css/learning-ui.css?v=20260622-shared-learning-ui">
   <link rel="stylesheet" href="css/strumenti.css">
 </head>
 
@@ -30,14 +31,18 @@
 </header>
 
 <nav id="siteNav" class="instrumentNav">
-  <button class="navBtn" onclick="MGH.scrollToSection('panoramica')">🎧 Panoramica</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('percussioni')">🥁 Percussioni</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('fiato')">🎺 Fiato</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('corde')">🎻 Corde</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('tastiera')">🎹 Tastiera</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('elettrofoni')">⚡ Elettrofoni</button>
-  <button class="navBtn" onclick="openInstrumentQuiz()">❓ Quiz</button>
-  <button class="navBtn" onclick="MGH.goTo('giochi/strumenti_game.html')">🎮 Gioco</button>
+  <div class="instrumentNavSections">
+    <button class="navBtn" onclick="showInstrumentFamily('all', 'panoramica')">🎧 Panoramica</button>
+    <button class="navBtn" onclick="showInstrumentFamily('percussioni')">🥁 Percussioni</button>
+    <button class="navBtn" onclick="showInstrumentFamily('fiato')">🎺 Fiato</button>
+    <button class="navBtn" onclick="showInstrumentFamily('corde')">🎻 Corde</button>
+    <button class="navBtn" onclick="showInstrumentFamily('tastiera')">🎹 Tastiera</button>
+    <button class="navBtn" onclick="showInstrumentFamily('elettrofoni')">⚡ Elettrofoni</button>
+  </div>
+  <div class="instrumentNavActions" aria-label="Azioni strumenti">
+    <button class="navBtn instrumentNavAction" onclick="openInstrumentQuiz()">❓ Quiz</button>
+    <button class="navBtn instrumentNavAction" onclick="MGH.goTo('giochi/strumenti_game.html')">🎮 Gioco</button>
+  </div>
 </nav>
 
 <div id="contentWrapper">
@@ -66,7 +71,11 @@
 
       <div class="searchPanel">
         <label for="instrumentSearch">🔎 Cerca uno strumento</label>
-        <input id="instrumentSearch" type="search" placeholder="Es. liuto, flauto, pianoforte...">
+        <div class="instrumentSearchWrap">
+          <input id="instrumentSearch" type="search" placeholder="Es. liuto, flauto, pianoforte..." autocomplete="off">
+          <button class="instrumentSearchBtn" type="button">Cerca</button>
+        </div>
+        <div id="instrumentSearchDropdown" class="instrumentSearchDropdown hidden" role="listbox" aria-label="Suggerimenti strumenti"></div>
       </div>
     </div>
 
@@ -86,7 +95,7 @@
   </section>
 
   <!-- ==================== MAPPA FAMIGLIE ==================== -->
-  <section class="siteSection learnSection familyOverviewSection">
+  <section class="siteSection learnSection familyOverviewSection filterAuxSection">
     <h2 class="sectionTitle">Mappa delle famiglie</h2>
     <p class="sectionIntro">
       La classificazione parte da ciò che vibra o dal modo in cui nasce il suono.
@@ -906,19 +915,32 @@
   </section>
 
   <!-- ==================== CTA ==================== -->
-  <div class="learnGameBox">
-    <p>Riconosci strumenti, famiglie e timbri con il gioco dedicato agli strumenti musicali.</p>
+  <div class="learnGameBox filterAuxSection">
+    <p>Riconosci strumenti, famiglie e timbri con i giochi dedicati agli strumenti musicali.</p>
     <button class="menuButton startButton gameLaunchButton" onclick="MGH.goTo('giochi/strumenti_game.html')">
       <span aria-hidden="true">🎮</span>
       <span>Gioco degli strumenti</span>
       <span class="learnGameBadge">Ranked</span>
     </button>
+    <button class="menuButton startButton gameLaunchButton" onclick="MGH.goTo('giochi/sinfonia_oca.html')">
+      <span aria-hidden="true">🪿</span>
+      <span>La sinfonia dell'oca</span>
+      <span class="learnGameBadge">Tavolo</span>
+    </button>
   </div>
 
-  <div class="learnCTA instrumentsCTA">
-    <button class="menuButton" onclick="openInstrumentQuiz()">❓ Vai al Quiz</button>
-    <button class="menuButton" onclick="MGH.goTo('formazioni.html')">🎼 Formazioni musicali</button>
-  </div>
+  <nav class="learnCTA instrumentsCTA filterAuxSection" aria-label="Continua il percorso sugli strumenti">
+    <button class="instrumentQuizActionCard" type="button" onclick="openInstrumentQuiz()">
+      <span>Verifica rapida</span>
+      <strong>Quiz strumenti</strong>
+      <p>Apri un controllo veloce sulle famiglie strumentali.</p>
+    </button>
+    <a class="learningNextCard" href="formazioni.html">
+      <span>Dagli strumenti agli organici</span>
+      <strong>Formazioni musicali</strong>
+      <p>Scopri come gli strumenti si organizzano in ensemble, band e orchestre.</p>
+    </a>
+  </nav>
 
 </div>
 
@@ -960,75 +982,16 @@
     <div class="modalBody">
       <p class="quizIntro">Metti alla prova la classificazione degli strumenti.</p>
 
-      <div class="quizContainer">
-
-        <div class="quizQuestion">
-          <h4>1. In quale famiglia vibra una colonna d'aria?</h4>
-          <div class="quizOptions">
-            <label>
-              <input type="radio" name="iq1" value="a">
-              <span class="optionText">A) Strumenti a fiato</span>
-            </label>
-            <label>
-              <input type="radio" name="iq1" value="b">
-              <span class="optionText">B) Percussioni</span>
-            </label>
-            <label>
-              <input type="radio" name="iq1" value="c">
-              <span class="optionText">C) Elettrofoni</span>
-            </label>
-          </div>
-          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: A - Strumenti a fiato</p>
-        </div>
-
-        <div class="quizQuestion">
-          <h4>2. Quale strumento è a corde percosse?</h4>
-          <div class="quizOptions">
-            <label>
-              <input type="radio" name="iq2" value="a">
-              <span class="optionText">A) Arpa</span>
-            </label>
-            <label>
-              <input type="radio" name="iq2" value="b">
-              <span class="optionText">B) Pianoforte</span>
-            </label>
-            <label>
-              <input type="radio" name="iq2" value="c">
-              <span class="optionText">C) Tromba</span>
-            </label>
-          </div>
-          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: B - Pianoforte</p>
-        </div>
-
-        <div class="quizQuestion">
-          <h4>3. Quale strumento si suona senza toccarlo?</h4>
-          <div class="quizOptions">
-            <label>
-              <input type="radio" name="iq3" value="a">
-              <span class="optionText">A) Theremin</span>
-            </label>
-            <label>
-              <input type="radio" name="iq3" value="b">
-              <span class="optionText">B) Tamburo</span>
-            </label>
-            <label>
-              <input type="radio" name="iq3" value="c">
-              <span class="optionText">C) Clarinetto</span>
-            </label>
-          </div>
-          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: A - Theremin</p>
-        </div>
-
-      </div>
+      <div class="quizContainer learningQuiz" data-learning-quiz data-quiz-bank="instruments" data-quiz-count="5"></div>
     </div>
 
-    <div class="modalFooter">
-      <button class="menuButton" onclick="resetInstrumentQuiz()">🔄 Ricomincia</button>
-      <button class="menuButton primaryQuizBtn" onclick="checkInstrumentQuiz()">✅ Correggi</button>
+    <div class="modalFooter learningQuizFooter">
+      <button class="menuButton learningQuizResetButton" onclick="resetInstrumentQuiz()">🔄 Riprova</button>
+      <button class="menuButton learningQuizCheckButton" onclick="checkInstrumentQuiz()">✅ Controlla risposte</button>
       <button class="menuButton" onclick="closeInstrumentQuiz()">Chiudi</button>
     </div>
 
-    <div id="instrumentQuizResult" class="quizResult" style="display:none;"></div>
+    <div id="instrumentQuizResult" class="quizResult learningQuizResult" style="display:none;"></div>
   </div>
 </div>
 
@@ -1048,6 +1011,7 @@
 </button>
 
 <script src="js/common.js?v=20260620-favicon"></script>
+<script src="js/learning_quiz.js?v=20260718-shared3"></script>
 <script src="js/strumenti.js"></script>
 
 </body>

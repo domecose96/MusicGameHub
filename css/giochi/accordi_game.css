@@ -1,0 +1,292 @@
+/* ==================== COSTRUISCI L'ACCORDO ==================== */
+
+.accordiModeGroup {
+  align-items: center;
+  overflow: visible !important;
+  padding: 0;
+}
+
+.accordiModeGroup .menuButton {
+  overflow: visible;
+}
+
+.chordGame:not(.hidden) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 0;
+}
+
+.chordStage {
+  box-sizing: border-box;
+  container-type: inline-size;
+  position: relative;
+  width: min(920px, 100%);
+  height: auto;
+  min-height: 400px;
+  margin: 8px auto;
+  padding: 18px 22px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  overflow: hidden;
+}
+
+.chordSelection {
+  width: min(560px, 100%);
+  min-height: 62px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.chordSelectionLabel {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.selectedNotes {
+  min-height: 30px;
+  color: var(--accent);
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+.pianoViewport {
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 860px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 5px 4px 12px;
+  scrollbar-color: rgba(255, 102, 0, 0.42) transparent;
+}
+
+.pianoKeyboard {
+  --white-key-width: clamp(32px, calc((100cqw - 16px) / 15), 56px);
+  --black-key-width: calc(var(--white-key-width) * 0.64);
+  --white-key-height: clamp(150px, 29cqw, 190px);
+  --black-key-height: calc(var(--white-key-height) * 0.62);
+  position: relative;
+  width: calc(var(--white-key-width) * 15);
+  height: var(--white-key-height);
+  margin: 0 auto;
+  isolation: isolate;
+}
+
+.chordPianoKey {
+  appearance: none;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  margin: 0;
+  padding: 0 2px 12px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 900;
+  transition: background 0.14s ease, border-color 0.14s ease, box-shadow 0.14s ease, transform 0.14s ease;
+}
+
+.chordPianoKey.whiteKey {
+  left: calc(var(--white-key-width) * var(--white-index));
+  z-index: 1;
+  width: var(--white-key-width);
+  height: var(--white-key-height);
+  border: 1.5px solid #a9a9a9;
+  border-radius: 0 0 7px 7px;
+  background: #ffffff;
+  color: #444444;
+}
+
+.chordPianoKey.blackKey {
+  left: calc(var(--white-key-width) * var(--white-index) - var(--black-key-width) / 2);
+  z-index: 2;
+  width: var(--black-key-width);
+  height: var(--black-key-height);
+  padding-bottom: 9px;
+  border: 1.5px solid #111111;
+  border-radius: 0 0 6px 6px;
+  background: #202020;
+  color: #ffffff;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.28);
+}
+
+button.chordPianoKey:hover:not(:disabled):not(.selected) {
+  border-color: var(--accent);
+  transform: none;
+}
+
+button.chordPianoKey.whiteKey:hover:not(:disabled):not(.selected) {
+  background: #fff4eb;
+  color: #444444;
+  box-shadow: inset 0 -5px 0 rgba(255, 102, 0, 0.12);
+}
+
+button.chordPianoKey.blackKey:hover:not(:disabled):not(.selected) {
+  background: #4a2a18;
+  color: #ffffff;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.28);
+}
+
+.chordPianoKey.selected.whiteKey {
+  background: #ffc58f;
+  border-color: #a9a9a9;
+  box-shadow: none;
+}
+
+.chordPianoKey.selected.blackKey {
+  background: var(--accent);
+  border-color: #111111;
+}
+
+.chordPianoKey.correctKey {
+  border-color: #2f9b55;
+  box-shadow: inset 0 -8px 0 rgba(47, 155, 85, 0.26);
+}
+
+.chordPianoKey.wrongKey {
+  border-color: #c93333;
+  box-shadow: inset 0 -8px 0 rgba(201, 51, 51, 0.25);
+}
+
+button.chordPianoKey:focus,
+button.chordPianoKey:focus-visible {
+  outline: none;
+  outline-offset: 0;
+}
+
+.chordPianoKey:disabled {
+  cursor: default;
+}
+
+.chordTools {
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.chordIconButton {
+  position: absolute;
+  top: 14px;
+  z-index: 3;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1.5px solid rgba(0, 143, 166, 0.28);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  color: #008fa6;
+  font-size: 1.25rem;
+  font-weight: 900;
+  line-height: 1;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+
+.chordIconButton span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+}
+
+.chordPlayButton {
+  right: 16px;
+}
+
+.chordPlayButton span {
+  transform: translateX(1px);
+}
+
+.chordReplayButton {
+  left: 16px;
+}
+
+.chordReplayButton span {
+  transform: translateY(-1px);
+}
+
+button.chordIconButton:hover:not(:disabled):not(.selected) {
+  color: #ffffff;
+  background: #08798a;
+  transform: translateY(-1px);
+}
+
+.chordVerifyButton {
+  width: 170px;
+  min-height: 52px;
+  margin: 0;
+}
+
+@media (max-width: 880px) {
+  .accordiGamePage #contentWrapper {
+    padding-inline: 12px;
+  }
+
+  .accordiGamePage .gameModeMenu {
+    width: 100%;
+  }
+
+  .accordiModeGroup {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: min(620px, 100%);
+  }
+
+  .accordiModeGroup .menuButton {
+    width: 100%;
+  }
+
+  .chordStage {
+    min-height: 400px;
+    padding-inline: 12px;
+  }
+
+}
+
+@media (max-width: 520px) {
+  .accordiModeGroup {
+    grid-template-columns: 1fr;
+  }
+
+  .chordStage {
+    min-height: 360px;
+    gap: 10px;
+  }
+
+  .chordVerifyButton {
+    width: 140px;
+  }
+
+  .chordIconButton {
+    top: 10px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .chordPlayButton {
+    right: 10px;
+  }
+
+  .chordReplayButton {
+    left: 10px;
+  }
+}

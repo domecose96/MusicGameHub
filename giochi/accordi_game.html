@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Costruisci l'Accordo</title>
+<link rel="stylesheet" href="../css/base.css?v=20260718-accordi1">
+<link rel="stylesheet" href="../css/giochi/accordi_game.css?v=20260720-accordi6">
+<link rel="stylesheet" href="../css/games-wide.css?v=20260720-fluid11">
+</head>
+
+<body class="accordiGamePage rankedUnifiedGamePage">
+
+<button id="rankedLeaderboardBtn"
+        class="rankedLeaderboardButton"
+        type="button"
+        onclick="showGenericRankedLeaderboardModal('accordi')"
+        aria-label="Classifica">
+  🏆
+</button>
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" type="button" onclick="goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+    <div class="headerBrand">
+      <span class="headerEyebrow">Armonia interattiva</span>
+      <h1 class="pageTitle">Costruisci l'Accordo</h1>
+      <span id="headerModeLabel" class="headerModeLabel hidden"></span>
+    </div>
+  </div>
+</header>
+
+<div id="contentWrapper">
+  <div id="menu" class="gameModeMenu">
+    <h2>Scegli la modalità</h2>
+    <div class="buttonGroup accordiModeGroup">
+      <button class="menuButton" type="button" onclick="setDifficulty('easy', this)">Facile</button>
+      <button class="menuButton" type="button" onclick="setDifficulty('medium', this)">Medio</button>
+      <button class="menuButton" type="button" onclick="setDifficulty('hard', this)">Difficile</button>
+      <button class="menuButton dailyModeButton rankedModeButton" type="button" onclick="selectRankedMode(this)">
+        <span class="dailyModeBadge">Ranked</span>
+        Classificata
+      </button>
+    </div>
+
+    <button class="menuButton startButton" type="button" onclick="startGame()">Inizia</button>
+    <p id="warning" class="warningText"></p>
+    <p class="gameIntro">Seleziona tre note sulla tastiera e costruisci l'accordo richiesto.</p>
+  </div>
+
+  <div id="game" class="hidden chordGame">
+    <div class="gameTopActions">
+      <button id="backButton" class="menuButton compactBackButton" type="button" onclick="goBack()" aria-label="Torna alla scelta modalità">
+        <span aria-hidden="true">⇧</span>
+      </button>
+    </div>
+
+    <div id="questionBox" class="gameQuestionBox">
+      <span id="questionText">Costruisci l'accordo richiesto</span>
+    </div>
+
+    <section class="chordStage gameVisualBox" aria-labelledby="questionText">
+      <button id="clearChordButton" class="chordIconButton chordReplayButton" type="button" onclick="clearSelection()" aria-label="Ricomincia la selezione" title="Ricomincia">
+        <span aria-hidden="true">↻</span>
+      </button>
+
+      <button id="playChordButton" class="chordIconButton chordPlayButton" type="button" onclick="playSelectedChord()" aria-label="Ascolta l'accordo selezionato" title="Ascolta">
+        <span aria-hidden="true">▶</span>
+      </button>
+
+      <div class="chordSelection" aria-live="polite" aria-atomic="true">
+        <span class="chordSelectionLabel">Note selezionate</span>
+        <div id="selectedNotes" class="selectedNotes">Nessuna nota</div>
+      </div>
+
+      <div class="pianoViewport" aria-label="Tastiera musicale a due ottave">
+        <div id="pianoKeyboard" class="pianoKeyboard"></div>
+      </div>
+
+      <div class="chordTools">
+        <button id="verifyChordButton" class="menuButton chordVerifyButton" type="button" onclick="checkChord()">Verifica</button>
+      </div>
+    </section>
+
+    <div id="feedback" class="feedbackText" role="status" aria-live="polite" aria-atomic="true"></div>
+  </div>
+</div>
+
+<script src="../js/common.js?v=20260718-a11y1"></script>
+<script src="../js/giochi/ranked.js"></script>
+<script src="../js/giochi/game_ui.js"></script>
+<script src="../js/giochi/accordi_game.js?v=20260718-accordi1"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

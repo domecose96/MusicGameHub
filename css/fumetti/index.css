@@ -582,6 +582,11 @@ button.catalogArrow:focus-visible {
     width: min(100%, 235px, 74vw);
   }
 
+  .libraryBook {
+    flex: 0 0 100%;
+    padding: 0 10px;
+  }
+
   .catalogArrow {
     width: 40px;
     height: 40px;

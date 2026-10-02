@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crea il Musigramma | Music Game Hub</title>
+  <link rel="stylesheet" href="css/base.css?v=20260722-musigramma3">
+  <link rel="stylesheet" href="css/musigramma.css?v=20260723-musigramma11">
+</head>
+
+<body class="musigrammaPage">
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" type="button" onclick="MGH.goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+    <div class="headerBrand">
+      <span class="headerEyebrow">Ascolto visivo</span>
+      <h1 class="pageTitle">Crea il Musigramma</h1>
+      <span class="headerModeLabel">Laboratorio libero</span>
+    </div>
+  </div>
+</header>
+
+<main id="contentWrapper" class="musigrammaContent">
+  <section class="musigrammaIntro" aria-labelledby="musigrammaIntroTitle">
+    <div class="musigrammaIntroCopy">
+      <span class="musigrammaKicker">La musica diventa un disegno</span>
+      <h2 id="musigrammaIntroTitle">Crea una partitura fatta di forme e colori</h2>
+      <p>
+        Scegli un segno per ogni gesto musicale, disponilo in righe e usa i colori per distinguere
+        le diverse parti del brano. Il risultato sarà immediato da leggere, ascoltare e proiettare.
+      </p>
+      <a class="musigrammaIntroAction" href="#musigrammaLab">
+        <span>Inizia a comporre</span>
+        <span aria-hidden="true">⇩</span>
+      </a>
+    </div>
+
+    <div class="musigrammaIntroVisual" aria-label="Esempio di musigramma visuale">
+      <div class="introSheetTitle">IL MIO BRANO</div>
+      <div class="introVisualRow introVisualRowGreen" aria-hidden="true">
+        <span class="introDot"></span><span class="introZigzag"></span><span class="introArc"></span><span class="introLine"></span>
+      </div>
+      <div class="introVisualRow introVisualRowBlue" aria-hidden="true">
+        <span class="introDot"></span><span class="introDot"></span><span class="introWave">⌁</span><span class="introLine"></span>
+      </div>
+      <div class="introVisualRow introVisualRowRed" aria-hidden="true">
+        <span class="introArc"></span><span class="introArc"></span><b>×4</b>
+      </div>
+    </div>
+  </section>
+
+  <section class="musigrammaHowTo" aria-labelledby="musigrammaHowToTitle">
+    <div class="musigrammaHowToHeading">
+      <span class="musigrammaSectionEyebrow">Come funziona</span>
+      <h2 id="musigrammaHowToTitle">Dal suono al segno</h2>
+    </div>
+    <ol class="musigrammaHowToSteps">
+      <li><span>1</span><div><strong>Scegli forma e colore</strong><p>Associa un segno a ciò che senti nel brano.</p></div></li>
+      <li><span>2</span><div><strong>Componi le righe</strong><p>Ordina i segni e indica eventuali ripetizioni.</p></div></li>
+      <li><span>3</span><div><strong>Ascolta e presenta</strong><p>Segui l’evidenziazione oppure esporta il foglio.</p></div></li>
+    </ol>
+  </section>
+
+  <section id="musigrammaLab" class="musigrammaLab" aria-labelledby="musigrammaLabTitle">
+    <div class="musigrammaSectionHeading">
+      <div>
+        <span class="musigrammaSectionEyebrow">Foglio interattivo</span>
+        <h2 id="musigrammaLabTitle">Il tuo musigramma</h2>
+      </div>
+      <div class="musigrammaProjectActions">
+        <button id="guideButton" class="musigrammaIconButton" type="button" aria-label="Apri la guida iniziale" title="Guida">i</button>
+        <button id="undoButton" class="musigrammaIconButton" type="button" aria-label="Annulla ultima modifica" title="Annulla" disabled>↶</button>
+        <button id="templatesButton" class="musigrammaTextButton" type="button"><span aria-hidden="true">▦</span><span>Modelli</span></button>
+        <button id="newProjectButton" class="musigrammaTextButton" type="button"><span aria-hidden="true">＋</span><span>Nuovo</span></button>
+      </div>
+    </div>
+
+    <section class="musigrammaDocumentBar" aria-label="Impostazioni del foglio">
+      <label class="musigrammaField">
+        <span>Titolo</span>
+        <input id="projectTitleInput" type="text" maxlength="60" value="Il mio musigramma">
+      </label>
+      <label class="musigrammaField">
+        <span>Autore o brano</span>
+        <input id="projectComposerInput" type="text" maxlength="50" placeholder="es. Vivaldi">
+      </label>
+      <label class="musigrammaField musigrammaTempoField">
+        <span>Velocità</span>
+        <span class="musigrammaNumberControl">
+          <input id="tempoInput" type="number" min="30" max="240" step="0.01" value="96">
+          <span>BPM</span>
+        </span>
+      </label>
+
+      <div class="musigrammaAudioControl">
+        <input id="audioFileInput" class="visuallyHidden" type="file" accept="audio/*">
+        <label class="musigrammaUploadButton" for="audioFileInput"><span aria-hidden="true">♪</span><span>Carica un brano</span></label>
+        <span id="audioFileName" class="musigrammaAudioName" aria-live="polite">Nessun audio</span>
+        <div class="musigrammaAudioActions">
+          <button id="generateAudioButton" class="musigrammaGenerateButton" type="button" disabled>Genera dal brano</button>
+          <button id="fitAudioButton" class="musigrammaLinkButton" type="button" disabled>Allinea</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="musigrammaWorkspace">
+      <aside class="musigrammaSidebar" aria-label="Strumenti del musigramma">
+        <section class="musigrammaToolSection musigrammaSignsSection">
+          <div class="musigrammaControlHeading">
+            <strong>Scegli un segno</strong>
+            <span>Ogni forma può rappresentare un gesto musicale</span>
+          </div>
+
+          <div class="musigrammaPaletteGrid" aria-label="Segni disponibili">
+            <button class="musigrammaPaletteButton isActive" type="button" data-shape="dot" aria-pressed="true"><span class="paletteGlyph paletteDot">●</span><span>Punto</span></button>
+            <button class="musigrammaPaletteButton" type="button" data-shape="zigzag" aria-pressed="false"><span class="paletteGlyph">⌃⌄</span><span>Zig zag</span></button>
+            <button class="musigrammaPaletteButton" type="button" data-shape="wave" aria-pressed="false"><span class="paletteGlyph">⌁</span><span>Onda</span></button>
+            <button class="musigrammaPaletteButton" type="button" data-shape="arc" aria-pressed="false"><span class="paletteGlyph">∪</span><span>Arco</span></button>
+            <button class="musigrammaPaletteButton" type="button" data-shape="line" aria-pressed="false"><span class="paletteGlyph">━</span><span>Linea</span></button>
+            <button class="musigrammaPaletteButton" type="button" data-shape="slash" aria-pressed="false"><span class="paletteGlyph">╱</span><span>Diagonale</span></button>
+          </div>
+
+          <div class="musigrammaColorPicker">
+            <span>Colore della sezione</span>
+            <div id="paletteColors" class="musigrammaSwatches" aria-label="Scegli il colore del segno"></div>
+          </div>
+
+          <button id="addSignButton" class="musigrammaAddButton" type="button"><span aria-hidden="true">＋</span><span>Aggiungi alla riga</span></button>
+          <button id="addRowButton" class="musigrammaRowButton" type="button"><span aria-hidden="true">↵</span><span>Nuova riga</span></button>
+          <p class="musigrammaToolHint">Puoi anche cliccare direttamente su una riga del foglio.</p>
+        </section>
+      </aside>
+
+      <div class="musigrammaEditor">
+        <div class="musigrammaPreviewToolbar">
+          <div>
+            <strong id="previewTitle">Il mio musigramma</strong>
+            <span id="projectSummary">0 segni · 1 riga</span>
+          </div>
+          <div class="musigrammaTransport">
+            <button id="presentationButton" class="musigrammaViewButton" type="button" aria-label="Apri modalità presentazione" title="Presenta alla classe" disabled><span aria-hidden="true">▣</span><span>Presenta</span></button>
+            <button id="restartButton" class="musigrammaRoundButton" type="button" aria-label="Ricomincia dall'inizio" title="Ricomincia" disabled>↻</button>
+            <button id="playButton" class="musigrammaRoundButton musigrammaPlayButton" type="button" aria-label="Avvia anteprima" title="Avvia" disabled><span id="playButtonIcon" aria-hidden="true">▶</span></button>
+          </div>
+        </div>
+
+        <div class="musigrammaSheetStage">
+          <article id="musigrammaSheet" class="musigrammaSheet" aria-label="Foglio del musigramma">
+            <header class="musigrammaSheetHeader">
+              <h3 id="sheetTitle">IL MIO MUSIGRAMMA</h3>
+              <span id="sheetComposer"></span>
+            </header>
+            <div id="musigrammaRows" class="musigrammaRows"></div>
+            <div id="emptySheet" class="musigrammaEmptyState" hidden>
+              <span aria-hidden="true">⌁</span>
+              <strong>Il foglio è pronto</strong>
+              <p>Scegli un segno e clicca sulla prima riga.</p>
+            </div>
+          </article>
+          <div class="musigrammaProgress" role="progressbar" aria-label="Avanzamento anteprima" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="musigrammaProgressFill"></span></div>
+        </div>
+
+      </div>
+
+      <aside id="itemInspector" class="musigrammaInspector" aria-labelledby="inspectorTitle">
+        <div class="musigrammaInspectorHeading">
+          <div>
+            <span class="musigrammaSectionEyebrow">Proprietà</span>
+            <h3 id="inspectorTitle">Segno selezionato</h3>
+          </div>
+          <div class="musigrammaMoveActions">
+            <button id="moveLeftButton" class="musigrammaIconButton" type="button" aria-label="Sposta a sinistra" title="Sposta a sinistra">←</button>
+            <button id="moveRightButton" class="musigrammaIconButton" type="button" aria-label="Sposta a destra" title="Sposta a destra">→</button>
+            <button id="moveUpButton" class="musigrammaIconButton" type="button" aria-label="Sposta alla riga sopra" title="Riga sopra">↑</button>
+            <button id="moveDownButton" class="musigrammaIconButton" type="button" aria-label="Sposta alla riga sotto" title="Riga sotto">↓</button>
+            <button id="duplicateButton" class="musigrammaIconButton" type="button" aria-label="Duplica segno" title="Duplica">⧉</button>
+            <button id="deleteButton" class="musigrammaIconButton musigrammaDeleteButton" type="button" aria-label="Elimina segno" title="Elimina">×</button>
+          </div>
+        </div>
+        <div class="musigrammaInspectorFields">
+          <div class="musigrammaField">
+            <span>Colore</span>
+            <div id="itemColors" class="musigrammaSwatches" aria-label="Cambia colore"></div>
+          </div>
+          <div class="musigrammaField">
+            <span>Ripetizioni</span>
+            <div class="musigrammaStepper">
+              <button id="decreaseRepeatButton" type="button" aria-label="Riduci ripetizioni">−</button>
+              <output id="itemRepeatOutput">1</output>
+              <button id="increaseRepeatButton" type="button" aria-label="Aumenta ripetizioni">＋</button>
+            </div>
+          </div>
+          <div class="musigrammaField">
+            <span>Durata del segno</span>
+            <div class="musigrammaStepper">
+              <button id="decreaseBeatsButton" type="button" aria-label="Riduci durata">−</button>
+              <output id="itemBeatsOutput">1</output>
+              <button id="increaseBeatsButton" type="button" aria-label="Aumenta durata">＋</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="musigrammaExportBar">
+      <div>
+        <span class="musigrammaSectionEyebrow">Condividi il foglio</span>
+        <strong>Il progetto viene salvato automaticamente su questo dispositivo.</strong>
+      </div>
+      <div class="musigrammaExportActions">
+        <button id="printButton" class="musigrammaTextButton" type="button"><span aria-hidden="true">▣</span><span>Stampa</span></button>
+        <button id="downloadButton" class="musigrammaTextButton musigrammaPrimaryButton" type="button"><span aria-hidden="true">⇩</span><span>Scarica PNG</span></button>
+      </div>
+    </div>
+  </section>
+
+  <audio id="projectAudio" preload="metadata"></audio>
+</main>
+
+<dialog id="templatesDialog" class="musigrammaDialog musigrammaTemplatesDialog" aria-labelledby="templatesDialogTitle">
+  <div class="musigrammaDialogHeader">
+    <div>
+      <span class="musigrammaSectionEyebrow">Parti da una struttura</span>
+      <h2 id="templatesDialogTitle">Modelli didattici</h2>
+      <p>Scegli uno schema pronto e adattalo al brano che vuoi ascoltare.</p>
+    </div>
+    <button id="templatesCloseButton" class="musigrammaDialogClose" type="button" aria-label="Chiudi modelli">×</button>
+  </div>
+  <div class="musigrammaTemplateGrid">
+    <button class="musigrammaTemplateCard" type="button" data-template-id="aba">
+      <span class="musigrammaTemplatePreview previewAba" aria-hidden="true">
+        <i></i><i></i><i></i>
+      </span>
+      <span class="musigrammaTemplateMeta">Forma musicale</span>
+      <strong>Forma ABA</strong>
+      <small>Confronta una sezione, un episodio centrale e il ritorno del tema.</small>
+    </button>
+    <button class="musigrammaTemplateCard" type="button" data-template-id="refrain">
+      <span class="musigrammaTemplatePreview previewRefrain" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i>
+      </span>
+      <span class="musigrammaTemplateMeta">Forma e memoria</span>
+      <strong>Ritornello e strofe</strong>
+      <small>Riconosci ciò che ritorna e distingui le parti sempre nuove.</small>
+    </button>
+    <button class="musigrammaTemplateCard" type="button" data-template-id="crescendo">
+      <span class="musigrammaTemplatePreview previewCrescendo" aria-hidden="true">
+        <i></i><i></i><i></i><i></i>
+      </span>
+      <span class="musigrammaTemplateMeta">Dinamica</span>
+      <strong>Dal piano al forte</strong>
+      <small>Rappresenta la crescita dell’intensità con segni progressivi.</small>
+    </button>
+    <button class="musigrammaTemplateCard" type="button" data-template-id="pulse">
+      <span class="musigrammaTemplatePreview previewPulse" aria-hidden="true">
+        <i></i><i></i><i></i><i></i>
+      </span>
+      <span class="musigrammaTemplateMeta">Ritmo</span>
+      <strong>Pulsazione e accenti</strong>
+      <small>Segui il battito regolare e metti in evidenza gli accenti principali.</small>
+    </button>
+  </div>
+</dialog>
+
+<dialog id="guideDialog" class="musigrammaDialog musigrammaGuideDialog" aria-labelledby="guideDialogTitle">
+  <div class="musigrammaDialogHeader">
+    <div>
+      <span class="musigrammaSectionEyebrow">Guida rapida</span>
+      <h2 id="guideDialogTitle">Il primo musigramma in tre passi</h2>
+      <p>Non serve conoscere la notazione musicale: parti da ciò che senti.</p>
+    </div>
+    <button id="guideCloseButton" class="musigrammaDialogClose" type="button" aria-label="Chiudi guida">×</button>
+  </div>
+  <ol class="musigrammaGuideSteps">
+    <li>
+      <span class="musigrammaGuideNumber">1</span>
+      <div class="musigrammaGuideVisual guideListen" aria-hidden="true"><span>♪</span><i></i><i></i><i></i></div>
+      <strong>Ascolta una frase</strong>
+      <p>Individua un gesto, un ritmo o un suono che vuoi rendere visibile.</p>
+    </li>
+    <li>
+      <span class="musigrammaGuideNumber">2</span>
+      <div class="musigrammaGuideVisual guideCompose" aria-hidden="true"><i></i><i></i><i></i></div>
+      <strong>Abbina segni e colori</strong>
+      <p>Usa lo stesso colore per elementi simili e impila i segni che si ripetono.</p>
+    </li>
+    <li>
+      <span class="musigrammaGuideNumber">3</span>
+      <div class="musigrammaGuideVisual guidePresent" aria-hidden="true"><span>▶</span><i></i></div>
+      <strong>Segui e presenta</strong>
+      <p>Carica il brano: il laboratorio crea una base automatica. Premi Play e personalizzala.</p>
+    </li>
+  </ol>
+  <div class="musigrammaGuideTip"><strong>Consiglio:</strong> per la prima attività scegli un brano breve, con sezioni facili da riconoscere.</div>
+  <div class="musigrammaDialogActions">
+    <button id="guideTemplatesButton" class="musigrammaTextButton" type="button"><span aria-hidden="true">▦</span><span>Esplora i modelli</span></button>
+    <button id="guideStartButton" class="musigrammaTextButton musigrammaPrimaryButton" type="button">Inizia a creare</button>
+  </div>
+</dialog>
+
+<section id="presentationOverlay" class="musigrammaPresentation" hidden aria-label="Presentazione del musigramma">
+  <header class="musigrammaPresentationHeader">
+    <div>
+      <span>Musigramma in ascolto</span>
+      <h2 id="presentationTitle">Il mio musigramma</h2>
+    </div>
+    <div class="musigrammaPresentationActions">
+      <button id="presentationRestartButton" class="musigrammaRoundButton" type="button" aria-label="Ricomincia" title="Ricomincia">↻</button>
+      <button id="presentationPlayButton" class="musigrammaRoundButton musigrammaPlayButton" type="button" aria-label="Avvia" title="Avvia"><span id="presentationPlayIcon" aria-hidden="true">▶</span></button>
+      <button id="presentationCloseButton" class="musigrammaRoundButton" type="button" aria-label="Chiudi presentazione" title="Chiudi">×</button>
+    </div>
+  </header>
+  <div class="musigrammaPresentationBody">
+    <article class="musigrammaSheet musigrammaPresentationSheet">
+      <header class="musigrammaSheetHeader">
+        <h3 id="presentationSheetTitle">IL MIO MUSIGRAMMA</h3>
+        <span id="presentationComposer"></span>
+      </header>
+      <div id="presentationRows" class="musigrammaRows"></div>
+    </article>
+  </div>
+</section>
+
+<footer class="siteLegalFooter">
+  <p>Music Game Hub tutela la privacy e usa solo strumenti tecnici o statistici necessari al portale.</p>
+  <div class="siteLegalLinks">
+    <a href="legal/privacy.html">Privacy Policy</a><span>·</span>
+    <a href="legal/cookie.html">Cookie Policy</a><span>·</span>
+    <a href="legal/termini.html">Termini di servizio</a>
+  </div>
+</footer>
+
+<button id="scrollTopBtn" type="button" aria-label="Torna in alto">⇧</button>
+
+<script src="js/common.js?v=20260722-musigramma3"></script>
+  <script src="js/musigramma.js?v=20260723-musigramma11"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

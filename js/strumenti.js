@@ -784,21 +784,212 @@ function setupFilters() {
 
 function setupSearch() {
   const input = document.getElementById("instrumentSearch");
+  const searchBtn = document.querySelector(".instrumentSearchBtn");
   if (!input) return;
 
-  input.addEventListener("input", applyFilters);
+  input.addEventListener("input", () => {
+    activateAllFilterForSearch(input.value);
+    applyFilters();
+    renderInstrumentSearchDropdown(input.value.trim(), getInstrumentSearchResults(input.value));
+  });
+
+  input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      activateAllFilterForSearch(input.value);
+      applyFilters();
+      renderInstrumentSearchDropdown(input.value.trim(), getInstrumentSearchResults(input.value));
+    } else if (event.key === "Escape") {
+      hideInstrumentSearchDropdown();
+      input.blur();
+    }
+  });
+
+  searchBtn?.addEventListener("click", (event) => {
+    event.preventDefault();
+    activateAllFilterForSearch(input.value);
+    applyFilters();
+    renderInstrumentSearchDropdown(input.value.trim(), getInstrumentSearchResults(input.value));
+    searchBtn.blur();
+  });
+
+  document.addEventListener("click", (event) => {
+    if (event.target.closest(".searchPanel")) return;
+    hideInstrumentSearchDropdown();
+  });
 }
 
 function applyFilters() {
   const activeFilter = document.querySelector(".filterBtn.active")?.dataset.filter || "all";
   const term = (document.getElementById("instrumentSearch")?.value || "").trim().toLowerCase();
+  const isFilteredView = activeFilter !== "all" || Boolean(term);
+  const visibleByFamily = new Set();
 
   document.querySelectorAll(".instrumentTile").forEach((card) => {
     const matchesFamily = activeFilter === "all" || card.dataset.family === activeFilter;
     const searchable = `${card.dataset.name || ""} ${card.textContent || ""}`.toLowerCase();
     const matchesTerm = !term || searchable.includes(term);
+    const isVisible = matchesFamily && matchesTerm;
 
-    card.classList.toggle("hiddenCard", !(matchesFamily && matchesTerm));
+    card.classList.toggle("hiddenCard", !isVisible);
+
+    if (isVisible && card.dataset.family) {
+      visibleByFamily.add(card.dataset.family);
+    }
+  });
+
+  document.querySelectorAll(".familySection[data-family-section]").forEach((section) => {
+    const family = section.dataset.familySection;
+    const matchesFamily = activeFilter === "all" || family === activeFilter;
+    const hasVisibleCards = !term || visibleByFamily.has(family);
+
+    section.classList.toggle("hiddenFamilySection", !(matchesFamily && hasVisibleCards));
+  });
+
+  document.querySelectorAll(".filterAuxSection").forEach((section) => {
+    section.classList.toggle("hiddenFilteredBlock", isFilteredView);
+  });
+}
+
+function showInstrumentFamily(family, targetId = family) {
+  const input = document.getElementById("instrumentSearch");
+  if (input) input.value = "";
+
+  hideInstrumentSearchDropdown();
+
+  document.querySelectorAll(".filterBtn[data-filter]").forEach((button) => {
+    const shouldActivate = family === "all"
+      ? button.dataset.filter === "all"
+      : button.dataset.filter === family;
+
+    button.classList.toggle("active", shouldActivate);
+  });
+
+  applyFilters();
+  MGH.scrollToSection(targetId);
+}
+
+function activateAllFilterForSearch(value) {
+  if (!value.trim()) return;
+
+  const buttons = document.querySelectorAll(".filterBtn[data-filter]");
+  buttons.forEach((button) => {
+    button.classList.toggle("active", button.dataset.filter === "all");
+  });
+}
+
+function getInstrumentSearchResults(value) {
+  const query = value.trim().toLowerCase();
+  if (query.length < 2) return [];
+
+  return Array.from(document.querySelectorAll(".instrumentTile"))
+    .map((card) => {
+      const title = card.querySelector("h3")?.textContent?.trim() || card.id;
+      const family = card.dataset.family || "strumenti";
+      const searchText = `${title} ${family} ${card.dataset.name || ""} ${card.textContent || ""}`.toLowerCase();
+
+      return { card, title, family, searchText };
+    })
+    .filter((item) => item.searchText.includes(query))
+    .slice(0, 5);
+}
+
+function getInstrumentFamilyLabel(family) {
+  const labels = {
+    percussioni: "Percussioni",
+    fiato: "Fiato",
+    corde: "Corde",
+    tastiera: "Tastiera",
+    elettrofoni: "Elettrofoni"
+  };
+
+  return labels[family] || "Strumento";
+}
+
+function getInstrumentFamilyIcon(family) {
+  const icons = {
+    percussioni: "🥁",
+    fiato: "🎺",
+    corde: "🎻",
+    tastiera: "🎹",
+    elettrofoni: "⚡"
+  };
+
+  return icons[family] || "♪";
+}
+
+function hideInstrumentSearchDropdown() {
+  const dropdown = document.getElementById("instrumentSearchDropdown");
+  if (!dropdown) return;
+  dropdown.classList.add("hidden");
+  dropdown.replaceChildren();
+}
+
+function openInstrumentSearchResult(item) {
+  if (!item?.card) return;
+
+  const input = document.getElementById("instrumentSearch");
+  if (input) input.value = item.title;
+
+  hideInstrumentSearchDropdown();
+  applyFilters();
+  item.card.scrollIntoView({ behavior: "smooth", block: "center" });
+  item.card.classList.add("hashFocus");
+  setTimeout(() => item.card.classList.remove("hashFocus"), 1800);
+}
+
+function renderInstrumentSearchDropdown(query, results) {
+  const dropdown = document.getElementById("instrumentSearchDropdown");
+  if (!dropdown) return;
+
+  dropdown.replaceChildren();
+
+  if (query.length < 2) {
+    dropdown.classList.add("hidden");
+    return;
+  }
+
+  dropdown.classList.remove("hidden");
+
+  if (!results.length) {
+    const empty = document.createElement("div");
+    empty.className = "instrumentSearchEmpty";
+    empty.textContent = `Nessuno strumento per "${query}".`;
+    dropdown.appendChild(empty);
+    return;
+  }
+
+  const header = document.createElement("div");
+  header.className = "instrumentSearchDropdownHeader";
+  header.textContent = `${results.length} strumenti trovati`;
+  dropdown.appendChild(header);
+
+  results.forEach((item) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "instrumentSearchSuggestion";
+    button.setAttribute("role", "option");
+    button.addEventListener("click", () => openInstrumentSearchResult(item));
+
+    const icon = document.createElement("span");
+    icon.className = "instrumentSearchSuggestionIcon";
+    icon.textContent = getInstrumentFamilyIcon(item.family);
+
+    const text = document.createElement("span");
+    text.className = "instrumentSearchSuggestionText";
+
+    const title = document.createElement("strong");
+    title.textContent = item.title;
+
+    const desc = document.createElement("small");
+    desc.textContent = item.card.dataset.name || "";
+
+    const tag = document.createElement("em");
+    tag.textContent = getInstrumentFamilyLabel(item.family);
+
+    text.append(title, desc);
+    button.append(icon, text, tag);
+    dropdown.appendChild(button);
   });
 }
 
@@ -876,42 +1067,11 @@ function closeInstrumentQuiz() {
 }
 
 function checkInstrumentQuiz() {
-  const correct = { iq1: "a", iq2: "b", iq3: "a" };
-  let score = 0;
-
-  Object.keys(correct).forEach((name) => {
-    const selected = document.querySelector(`input[name="${name}"]:checked`);
-    if (selected && selected.value === correct[name]) score += 1;
-  });
-
-  document.querySelectorAll("#instrumentQuizModal .quizAnswer").forEach((answer) => {
-    answer.style.display = "block";
-  });
-
-  const result = document.getElementById("instrumentQuizResult");
-
-  result.style.display = "block";
-  result.classList.toggle("incorrect", score < 2);
-  result.innerHTML = `Hai totalizzato <strong>${score}/3</strong>. ${
-    score === 3
-      ? "Ottimo lavoro! 🎉"
-      : "Riprova osservando bene che cosa vibra in ogni famiglia."
-  }`;
+  MGH.learningQuiz?.check("instrumentQuizModal");
 }
 
 function resetInstrumentQuiz() {
-  document.querySelectorAll("#instrumentQuizModal input[type='radio']").forEach((input) => {
-    input.checked = false;
-  });
-
-  document.querySelectorAll("#instrumentQuizModal .quizAnswer").forEach((answer) => {
-    answer.style.display = "none";
-  });
-
-  const result = document.getElementById("instrumentQuizResult");
-
-  result.style.display = "none";
-  result.classList.remove("incorrect");
+  MGH.learningQuiz?.reset("instrumentQuizModal");
 }
 
 function initMouthpieceZoom() {
@@ -973,3 +1133,4 @@ window.openInstrumentQuiz = openInstrumentQuiz;
 window.closeInstrumentQuiz = closeInstrumentQuiz;
 window.checkInstrumentQuiz = checkInstrumentQuiz;
 window.resetInstrumentQuiz = resetInstrumentQuiz;
+window.showInstrumentFamily = showInstrumentFamily;

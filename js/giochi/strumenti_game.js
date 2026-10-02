@@ -453,7 +453,6 @@ const STRUMENTI = [
   }
 ];
 
-const AUDIO_EXTENSIONS = ["mp3", "ogg", "wav", "m4a"];
 const KNOWN_AUDIO_INSTRUMENT_IDS = new Set([
   "batteria",
   "castagnette",
@@ -467,6 +466,32 @@ const KNOWN_AUDIO_INSTRUMENT_IDS = new Set([
 ]);
 
 let listenInstrumentPool = [];
+const instrumentRecentRandomPicks = new Map();
+
+function pickInstrumentNoRepeat(items, options = {}) {
+  const pool = Array.isArray(items)
+    ? items.filter(item => item !== undefined && item !== null)
+    : [];
+  if (!pool.length) return null;
+
+  const namespace = options.namespace || "default";
+  const keyFn = options.key;
+  const getKey = item => {
+    if (typeof keyFn === "function") return String(keyFn(item));
+    if (item && typeof item === "object") {
+      return String(item.id ?? item.name ?? item.label ?? item.title ?? JSON.stringify(item));
+    }
+    return String(item);
+  };
+
+  const previousKey = instrumentRecentRandomPicks.get(namespace);
+  const available = pool.length > 1
+    ? pool.filter(item => getKey(item) !== previousKey)
+    : pool;
+  const selected = available[Math.floor(Math.random() * available.length)] || pool[0];
+  instrumentRecentRandomPicks.set(namespace, getKey(selected));
+  return selected;
+}
 
 function getInstrumentAssetSlug(id) {
   return String(id || "").replace(/-/g, "_");
@@ -501,41 +526,8 @@ function normalizeInstrumentCatalog() {
   listenInstrumentPool = STRUMENTI.filter(instrument => instrument.audio);
 }
 
-async function detectInstrumentAudioCatalog() {
-  if (typeof fetch !== "function") return;
-
-  const detected = [];
-  await Promise.all(STRUMENTI.map(async instrument => {
-    for (const extension of AUDIO_EXTENSIONS) {
-      const audioPath = getInstrumentAudioPath(instrument, extension);
-      try {
-        const response = await fetch(audioPath, { method: "HEAD", cache: "no-store" });
-        if (response.ok || (response.status >= 200 && response.status < 400)) {
-          instrument.audio = audioPath;
-          detected.push(instrument);
-          return;
-        }
-        if (response.status === 405) {
-          const fallbackResponse = await fetch(audioPath, { cache: "no-store" });
-          if (fallbackResponse.ok) {
-            instrument.audio = audioPath;
-            detected.push(instrument);
-            return;
-          }
-        }
-      } catch {
-        return;
-      }
-    }
-  }));
-
-  if (detected.length) {
-    listenInstrumentPool = detected.sort((a, b) => a.name.localeCompare(b.name, "it"));
-  }
-}
-
 normalizeInstrumentCatalog();
-const instrumentCatalogReady = detectInstrumentAudioCatalog();
+const instrumentCatalogReady = Promise.resolve();
 
 const RECOGNIZE_SIMILAR_OPTIONS = {
   gong: ["tam-tam", "piatti"],
@@ -620,6 +612,7 @@ let questionStartTime = null;
 let currentAudio = null;
 let currentAudioButton = null;
 let listenAudioPlayed = false;
+let roundLocked = false;
 
 const menu = document.getElementById("menu");
 const game = document.getElementById("game");
@@ -745,6 +738,7 @@ function goBack() {
   gameMode = "training";
   currentQuestion = null;
   questionStartTime = null;
+  roundLocked = false;
 
   if (typeof resetRankedMode === "function") {
     resetRankedMode();
@@ -760,6 +754,7 @@ function goBack() {
 /* ==================== NEW ROUND ==================== */
 
 function newRound() {
+  roundLocked = false;
   stopAudio();
   setFeedback("");
 
@@ -784,7 +779,7 @@ function newRound() {
 /* ==================== RECOGNIZE MODE ==================== */
 
 function createRecognizeRound() {
-  const target = pickRandomNoRepeat(STRUMENTI, {
+  const target = pickInstrumentNoRepeat(STRUMENTI, {
     namespace: "strumenti-recognize-target",
     key: instrument => instrument.id
   });
@@ -801,9 +796,11 @@ function createRecognizeRound() {
   grid.className = "instrumentOptionGrid";
 
   currentQuestion.options.forEach(instrument => {
-    const tile = document.createElement("div");
+    const tile = document.createElement("button");
+    tile.type = "button";
     tile.className = "instrumentOptionTile";
     tile.dataset.instrumentId = instrument.id;
+    tile.setAttribute("aria-label", instrument.name);
     tile.onclick = () => handleRecognizeAnswer(instrument, tile);
 
     const img = document.createElement("img");
@@ -852,7 +849,7 @@ function generateCoherentInstrumentOptions(target, count, pool = STRUMENTI, name
 
   const available = pool.filter(instrument => !usedIds.has(instrument.id));
   while (options.length < count && available.length > 0) {
-    const picked = pickRandomNoRepeat(available, {
+    const picked = pickInstrumentNoRepeat(available, {
       namespace: `${namespace}-fallback`,
       key: instrument => instrument.id
     });
@@ -866,7 +863,7 @@ function generateCoherentInstrumentOptions(target, count, pool = STRUMENTI, name
 function addOptionFromPool(candidates, namespace, addOption) {
   const available = [...candidates];
   while (available.length > 0) {
-    const picked = pickRandomNoRepeat(available, {
+    const picked = pickInstrumentNoRepeat(available, {
       namespace,
       key: instrument => instrument.id
     });
@@ -885,7 +882,8 @@ function shuffleOptions(options) {
 }
 
 function handleRecognizeAnswer(selected, selectedTile) {
-  if (!currentQuestion || currentQuestion.type !== "recognize") return;
+  if (roundLocked || !currentQuestion || currentQuestion.type !== "recognize") return;
+  roundLocked = true;
 
   const isCorrect = selected.id === currentQuestion.target.id;
   const tiles = document.querySelectorAll(".instrumentOptionTile");
@@ -970,12 +968,12 @@ function createSameFamilyMemoryPairs() {
   families.forEach(family => {
     const instruments = grouped.get(family) || [];
     if (instruments.length < 2) return;
-    const first = pickRandomNoRepeat(instruments, {
+    const first = pickInstrumentNoRepeat(instruments, {
       namespace: `strumenti-memory-same-family-${family}-first`,
       key: instrument => instrument.id
     });
     if (!first) return;
-    const second = pickRandomNoRepeat(
+    const second = pickInstrumentNoRepeat(
       instruments.filter(instrument => instrument.id !== first.id),
       {
         namespace: `strumenti-memory-same-family-${family}-second`,
@@ -1006,7 +1004,7 @@ function pickMemoryInstrumentsByFamily() {
 
   return [...grouped.entries()]
     .sort(() => Math.random() - 0.5)
-    .map(([family, instruments]) => pickRandomNoRepeat(instruments, {
+    .map(([family, instruments]) => pickInstrumentNoRepeat(instruments, {
       namespace: `strumenti-memory-family-${family}`,
       key: instrument => instrument.id
     }))
@@ -1029,8 +1027,16 @@ function renderMemoryGrid() {
   grid.className = "memoryCardGrid";
 
   memoryCards.forEach((card, idx) => {
-    const cardEl = document.createElement("div");
+    const cardEl = document.createElement("button");
+    cardEl.type = "button";
     cardEl.className = "memoryCard" + (card.flipped ? " flipped" : "") + (card.matched ? " matched" : "");
+    cardEl.disabled = card.matched || roundLocked;
+    cardEl.setAttribute(
+      "aria-label",
+      card.flipped || card.matched
+        ? (card.type === "instrument" ? card.instrument.name : card.attribute)
+        : "Carta coperta"
+    );
     cardEl.onclick = () => flipMemoryCard(idx);
 
     const inner = document.createElement("div");
@@ -1067,6 +1073,7 @@ function renderMemoryGrid() {
 }
 
 function flipMemoryCard(idx) {
+  if (roundLocked) return;
   if (flippedCards.length >= 2) return;
   if (memoryCards[idx].flipped || memoryCards[idx].matched) return;
 
@@ -1105,6 +1112,8 @@ function checkMemoryMatch() {
 }
 
 function handleMemoryGameComplete() {
+  if (roundLocked) return;
+  roundLocked = true;
   showInstrumentAnswerFeedback(true, "", "Hai abbinato tutti gli strumenti.");
 
   if (gameMode === "ranked") {
@@ -1119,7 +1128,7 @@ function handleMemoryGameComplete() {
 function createListenRound() {
   listenAudioPlayed = false;
   const listenPool = getListenInstrumentPool();
-  const target = pickRandomNoRepeat(listenPool, {
+  const target = pickInstrumentNoRepeat(listenPool, {
     namespace: "strumenti-listen-target",
     key: instrument => instrument.id
   });
@@ -1244,8 +1253,9 @@ function setListenAnswerButtonsEnabled(enabled) {
 }
 
 function handleListenAnswer(selected, selectedButton) {
-  if (!currentQuestion || currentQuestion.type !== "listen") return;
+  if (roundLocked || !currentQuestion || currentQuestion.type !== "listen") return;
   if (currentQuestion.hasAudio && !listenAudioPlayed) return;
+  roundLocked = true;
 
   stopAudio();
 
@@ -1373,3 +1383,132 @@ function showInstrumentAnswerFeedback(isCorrect, correctName = "", successMessag
 function setFeedback(msg, state = "neutral") {
   MGH.setGameFeedback(feedbackEl, msg, state);
 }
+
+/* ==================== CONTENUTI CONDIVISI ==================== */
+
+function createInstrumentBoardRecognizeChallenge() {
+  const target = pickInstrumentNoRepeat(STRUMENTI, {
+    namespace: "sinfonia-strumenti-recognize-target",
+    key: instrument => instrument.id
+  });
+  const optionInstruments = generateCoherentInstrumentOptions(
+    target,
+    4,
+    STRUMENTI,
+    "sinfonia-strumenti-recognize-option"
+  );
+
+  return {
+    mode: "recognize",
+    question: `Qual è il ${target.name}?`,
+    answer: target.id,
+    answerLabel: target.name,
+    options: optionInstruments.map(instrument => instrument.id),
+    imageOptions: optionInstruments.map(instrument => ({
+      value: instrument.id,
+      label: instrument.name,
+      image: instrument.image
+    })),
+    key: `strumenti:recognize:${target.id}`
+  };
+}
+
+function createInstrumentBoardListenChallenge() {
+  const pool = getListenInstrumentPool();
+  const target = pickInstrumentNoRepeat(pool, {
+    namespace: "sinfonia-strumenti-listen-target",
+    key: instrument => instrument.id
+  });
+
+  return {
+    mode: "listen",
+    question: "Quale strumento senti?",
+    answer: target.name,
+    answerLabel: target.name,
+    options: generateCoherentInstrumentOptions(
+      target,
+      4,
+      pool,
+      "sinfonia-strumenti-listen-option"
+    ).map(instrument => instrument.name),
+    audio: target.audio,
+    key: `strumenti:listen:${target.id}`
+  };
+}
+
+function createInstrumentBoardMemoryChallenge() {
+  const roundType = Math.random() < 0.5 ? "sameFamily" : "family";
+  selectedInstruments = [];
+  const pairs = roundType === "sameFamily"
+    ? createSameFamilyMemoryPairs()
+    : createFamilyMemoryPairs();
+  const cards = shuffleOptions([...pairs]).map(card => ({
+    id: card.id,
+    type: card.type,
+    matchKey: card.matchKey,
+    label: card.type === "instrument" ? card.instrument.name : card.attribute,
+    image: card.type === "instrument"
+      ? card.instrument.image
+      : getFamilyImagePath(card.attribute)
+  }));
+
+  return {
+    mode: "memory",
+    question: roundType === "sameFamily"
+      ? "Abbina due strumenti della stessa famiglia."
+      : "Abbina ogni strumento alla sua famiglia.",
+    answer: "memory-complete",
+    cards,
+    pairCount: cards.length / 2,
+    key: `strumenti:memory:${roundType}:${cards.map(card => card.id).join("-")}`
+  };
+}
+
+function createInstrumentBoardKnowledgeChallenge() {
+  const quizQuestion = window.MGH?.learningQuiz?.drawQuestion?.("instruments");
+  if (quizQuestion) {
+    return {
+      mode: "knowledge",
+      question: quizQuestion.prompt,
+      answer: quizQuestion.answer,
+      answerLabel: quizQuestion.answer,
+      options: quizQuestion.options,
+      explanation: quizQuestion.explanation,
+      key: `strumenti:quiz:${quizQuestion.key}`
+    };
+  }
+
+  const questionType = pickInstrumentNoRepeat(["family", "mouthpiece"], {
+    namespace: "sinfonia-strumenti-knowledge-type"
+  });
+  const target = pickInstrumentNoRepeat(
+    STRUMENTI.filter(instrument => instrument[questionType]),
+    {
+      namespace: `sinfonia-strumenti-knowledge-${questionType}-target`,
+      key: instrument => instrument.id
+    }
+  );
+  const answer = target[questionType];
+  const distractors = shuffleOptions([
+    ...new Set(STRUMENTI.map(instrument => instrument[questionType]).filter(Boolean))
+  ].filter(value => value !== answer)).slice(0, 3);
+
+  return {
+    mode: "knowledge",
+    question: questionType === "family"
+      ? `A quale famiglia appartiene ${target.name}?`
+      : `Come si produce il suono nel ${target.name}?`,
+    answer,
+    answerLabel: answer,
+    options: shuffleOptions([answer, ...distractors]),
+    key: `strumenti:knowledge:${questionType}:${target.id}`
+  };
+}
+
+window.MGHInstrumentChallenges = Object.freeze({
+  ready: instrumentCatalogReady,
+  createRecognize: createInstrumentBoardRecognizeChallenge,
+  createListen: createInstrumentBoardListenChallenge,
+  createMemory: createInstrumentBoardMemoryChallenge,
+  createKnowledge: createInstrumentBoardKnowledgeChallenge
+});

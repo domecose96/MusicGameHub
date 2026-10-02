@@ -8,6 +8,7 @@
 
 <link rel="stylesheet" href="../css/base.css">
 <link rel="stylesheet" href="../css/learn.css">
+<link rel="stylesheet" href="../css/learning-ui.css?v=20260622-shared-learning-ui">
 <link rel="stylesheet" href="../css/storia/storia.css">
 </head>
 
@@ -31,17 +32,19 @@
 
 <nav id="siteNav" class="theoryNav">
   <button class="navBtn" onclick="MGH.scrollToSection('timeline')">📅 Timeline</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('popoli')">🏛️ Popoli antichi</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('funzioni')">🎭 Funzioni</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('strumenti')">🎵 Strumenti</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('riassunto')">📊 Riassunto</button>
-  <button class="navBtn" onclick="MGH.scrollToSection('ascolto')">🎧 Ascolto</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('popoli')">🌍 Contesto</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('linguaggio')">🎼 Linguaggio</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('funzioni')">🎭 Forme</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('protagonisti')">👑 Protagonisti</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('strumenti')">🎹 Strumenti</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('riassunto')">📊 Mappa</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('ascolto')">▶ Ascolto</button>
   <button class="navBtn" onclick="openQuizModal()">❓ Quiz</button>
 </nav>
 
 <div id="contentWrapper">
 
-  <section id="timeline" class="siteSection learnSection">
+  <section id="timeline" class="siteSection learnSection" data-study-step="01" data-study-label="In breve">
     <h2 class="sectionTitle">L'Antichità in breve</h2>
 
     <p class="sectionIntro">
@@ -120,37 +123,34 @@
             come il kinnor, lo shofar e i tamburi.
         </p>
         </div>
+
+        <div class="periodCard eraCard">
+        <div class="eraIcon">🏛️</div>
+        <h3>Grecia e Roma</h3>
+        <p>Musica, poesia e danza entrano nell'educazione, nel teatro, nelle cerimonie e nella vita pubblica del Mediterraneo.</p>
+        </div>
     </div>
     </section>
 
-  <section id="popoli" class="siteSection learnSection">
-    <h2 class="sectionTitle">I popoli dell'Antichità</h2>
+  <section id="popoli" class="siteSection learnSection" data-study-step="02" data-study-label="Contesto">
+    <h2 class="sectionTitle">Contesto: i popoli dell'Antichità</h2>
 
     <p class="sectionIntro">
       Ogni civiltà antica attribuisce alla musica funzioni diverse:
       religiose, sociali, teatrali, poetiche e militari.
     </p>
 
-    <div class="storyGrid">
+    <div class="storyGrid historyContextGrid">
 
       <div class="storyCard mediaCard">
         <div class="mediaThumb">
           <div class="mediaIcon">🏺</div>
         </div>
 
-        <h3>Mesopotamia, Egitto e Antichi Ebrei</h3>
+        <h3>Mesopotamia ed Egitto</h3>
         <p class="cardSubtitle">Musica, rito e vita sociale</p>
 
-        <p>
-          In Mesopotamia la musica accompagna cerimonie e momenti pubblici.
-          Nell'antico Egitto partecipa alla vita religiosa, ai banchetti
-          e ai cortei funebri.
-        </p>
-
-        <p>
-          Presso gli antichi Ebrei la musica ha soprattutto una funzione religiosa
-          ed è collegata al canto, alla preghiera e agli strumenti citati nei testi sacri.
-        </p>
+        <p>In Mesopotamia e in Egitto la musica accompagna riti, banchetti, cortei e momenti pubblici, diventando parte della vita religiosa e sociale.</p>
 
         <div class="cardHighlight">
           <strong>Idea chiave:</strong> la musica non è solo divertimento,
@@ -166,21 +166,20 @@
         <h3>Antica Grecia</h3>
         <p class="cardSubtitle">Poesia, danza, teatro e pensiero</p>
 
-        <p>
-          I Greci usano il termine <strong>mousiké</strong> per indicare
-          un insieme di poesia, musica e danza. La musica accompagna
-          banchetti, cerimonie, teatro, tragedie e attività educative.
-        </p>
-
-        <p>
-          La teoria musicale greca si basa sul <strong>tetracordo</strong>,
-          una successione discendente di quattro suoni.
-        </p>
+        <p>La <strong>mousiké</strong> unisce poesia, musica e danza. Accompagna educazione, banchetti, cerimonie e teatro; il tetracordo sostiene la teoria musicale.</p>
 
         <div class="cardHighlight">
           <strong>Idea chiave:</strong> per i Greci la musica è arte,
           educazione e forma di pensiero.
         </div>
+      </div>
+
+      <div class="storyCard mediaCard">
+        <div class="mediaThumb"><div class="mediaIcon">🕎</div></div>
+        <h3>Antichi Ebrei</h3>
+        <p class="cardSubtitle">Canto, preghiera e memoria</p>
+        <p>La musica è legata al culto religioso e ai testi sacri. Salmi, voce e strumenti sostengono la preghiera della comunità.</p>
+        <div class="cardHighlight"><strong>Idea chiave:</strong> il canto custodisce e trasmette la parola sacra.</div>
       </div>
 
       <div class="storyCard mediaCard">
@@ -191,15 +190,7 @@
         <h3>Antica Roma</h3>
         <p class="cardSubtitle">Cerimonie, spettacoli e vita pubblica</p>
 
-        <p>
-          Nell'antica Roma la musica accompagna cerimonie religiose,
-          banchetti, spettacoli, parate militari e momenti pubblici.
-        </p>
-
-        <p>
-          I Romani utilizzano strumenti a corda, a fiato e a percussione,
-          tra cui lira, tibia, tuba, cornu, cymbala e tympanum.
-        </p>
+        <p>A Roma la musica accompagna riti, spettacoli, banchetti e parate. Lira, tibia, tuba, cornu e percussioni danno voce alla vita pubblica.</p>
 
         <div class="cardHighlight">
           <strong>Idea chiave:</strong> la musica romana è molto legata
@@ -210,45 +201,76 @@
     </div>
   </section>
 
-  <section id="funzioni" class="siteSection learnSection">
-    <h2 class="sectionTitle">Le funzioni della musica antica</h2>
+  <section id="linguaggio" class="siteSection learnSection" data-study-step="03" data-study-label="Linguaggio">
+    <h2 class="sectionTitle">Come suona l'Antichità</h2>
+    <p class="sectionIntro">La musica nasce dalla voce, dalla parola e dal rito; si trasmette soprattutto attraverso l'ascolto e la pratica.</p>
+    <div class="storyGrid historySoundGrid">
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">🗣️</div></div><h3>Voce e parola</h3><p class="cardSubtitle">Poesia cantata</p><p>Il canto segue il testo poetico e ne rafforza ritmo, memoria ed espressione.</p><div class="cardHighlight"><strong>Riconosci:</strong> parola e musica procedono insieme.</div></article>
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">👂</div></div><h3>Tradizione orale</h3><p class="cardSubtitle">Imparare ascoltando</p><p>Melodie e pratiche vengono ricordate, imitate e trasmesse da una generazione all'altra.</p><div class="cardHighlight"><strong>Idea chiave:</strong> la memoria sostituisce lo spartito moderno.</div></article>
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">🎭</div></div><h3>Monodia e coro</h3><p class="cardSubtitle">Una linea o un gruppo</p><p>Una sola melodia può essere affidata a una voce, a uno strumento oppure a un coro.</p><div class="cardHighlight"><strong>Nel teatro:</strong> il coro canta e commenta l'azione.</div></article>
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">📐</div></div><h3>Suono e proporzioni</h3><p class="cardSubtitle">Musica e numero</p><p>I Greci studiano intervalli, modi ed effetti della musica sul carattere umano.</p><div class="cardHighlight"><strong>Pitagora:</strong> collega gli intervalli a rapporti numerici.</div></article>
+    </div>
+  </section>
+
+  <section id="funzioni" class="siteSection learnSection" data-study-step="04" data-study-label="Forme">
+    <h2 class="sectionTitle">Forme e funzioni della musica antica</h2>
 
     <p class="sectionIntro">
       Nel mondo antico la musica svolge funzioni diverse:
       accompagna la religione, la danza, il teatro, le feste e la guerra.
     </p>
 
-    <div class="storyGrid">
+    <div class="storyGrid storyGrid--3">
 
-      <div class="storyCard">
-        <h3>🙏 Funzione religiosa</h3>
+      <div class="storyCard mediaCard">
+        <div class="mediaThumb"><div class="mediaIcon">🙏</div></div>
+        <h3>Funzione religiosa</h3>
+        <p class="cardSubtitle">Rito e cerimonia</p>
         <p>
           La musica accompagna riti, preghiere, cerimonie e momenti sacri.
           È presente presso Mesopotamici, Egizi, Ebrei, Greci e Romani.
         </p>
+        <div class="cardHighlight"><strong>Ricorda:</strong> il suono mette in relazione la comunità con il sacro.</div>
       </div>
 
-      <div class="storyCard">
-        <h3>🎭 Funzione teatrale e poetica</h3>
+      <div class="storyCard mediaCard">
+        <div class="mediaThumb"><div class="mediaIcon">🎭</div></div>
+        <h3>Funzione teatrale e poetica</h3>
+        <p class="cardSubtitle">Parola, canto e danza</p>
         <p>
           In Grecia musica, poesia e danza sono unite.
           Il teatro antico usa cori, canto e movimento per rafforzare
           il significato della tragedia.
         </p>
+        <div class="cardHighlight"><strong>Ricorda:</strong> il coro commenta l'azione e rappresenta la comunità.</div>
       </div>
 
-      <div class="storyCard">
-        <h3>🎉 Funzione sociale</h3>
+      <div class="storyCard mediaCard">
+        <div class="mediaThumb"><div class="mediaIcon">🎉</div></div>
+        <h3>Funzione sociale</h3>
+        <p class="cardSubtitle">Festa e vita collettiva</p>
         <p>
           La musica accompagna banchetti, feste, danze e occasioni comunitarie,
           diventando parte della vita quotidiana e delle relazioni sociali.
         </p>
+        <div class="cardHighlight"><strong>Ricorda:</strong> la musica scandisce i momenti condivisi della vita pubblica.</div>
       </div>
 
     </div>
   </section>
 
-  <section id="strumenti" class="siteSection learnSection">
+  <section id="protagonisti" class="siteSection learnSection" data-study-step="05" data-study-label="Protagonisti">
+    <h2 class="sectionTitle">Protagonisti e figure chiave</h2>
+    <p class="sectionIntro">Non conosciamo i compositori come nelle epoche moderne, ma alcune figure aiutano a ricordare chi crea, studia e usa la musica.</p>
+    <div class="protagonistGrid protagonistGrid--4">
+      <article class="protagonistCard historicalCard"><span class="cardDate">Tradizione orale</span><span class="protagonistIcon">🎤</span><h3>Aedi e rapsodi</h3><p class="role">Poeti e cantori</p><p>Trasmettono miti e racconti attraverso voce, ritmo e memoria.</p></article>
+      <article class="protagonistCard historicalCard"><span class="cardDate">VI sec. a.C.</span><span class="protagonistIcon">📐</span><h3>Pitagora</h3><p class="role">Suono e matematica</p><p>La tradizione pitagorica studia i rapporti numerici degli intervalli musicali.</p></article>
+      <article class="protagonistCard historicalCard"><span class="cardDate">IV sec. a.C.</span><span class="protagonistIcon">🏛️</span><h3>Platone e Aristotele</h3><p class="role">Musica ed educazione</p><p>Riflettono sul valore formativo, morale e sociale della musica.</p></article>
+      <article class="protagonistCard historicalCard"><span class="cardDate">Teatro greco</span><span class="protagonistIcon">🎭</span><h3>Il coro teatrale</h3><p class="role">Voce della comunità</p><p>Nella tragedia greca canta, danza e commenta gli avvenimenti scenici.</p></article>
+    </div>
+  </section>
+
+  <section id="strumenti" class="siteSection learnSection" data-study-step="06" data-study-label="Strumenti">
     <h2 class="sectionTitle">Gli strumenti dell'Antichità</h2>
 
     <p class="sectionIntro">
@@ -256,7 +278,7 @@
         corde, fiati e percussioni.
     </p>
 
-    <div class="instrumentGrid">
+    <div class="instrumentGrid instrumentGrid--4">
 
         <div class="instrumentCard">
         <h3>🎸 Strumenti a corda</h3>
@@ -265,6 +287,16 @@
             <li><a class="instrumentLink" href="../strumenti.html#cetra"><strong>Cetra</strong></a> - usata nel mondo greco</li>
             <li><a class="instrumentLink" href="../strumenti.html#lira"><strong>Lira</strong></a> - importante in Grecia e Roma</li>
             <li><a class="instrumentLink" href="../strumenti.html#kinnor"><strong>Kinnor</strong></a> - strumento simile alla lira presso gli Ebrei</li>
+        </ul>
+        </div>
+
+        <div class="instrumentCard">
+        <h3>🎹 Organi e segnali</h3>
+        <ul>
+            <li><strong>Hydraulis</strong> - organo idraulico diffuso nel mondo ellenistico e romano</li>
+            <li><strong>Tuba</strong> - tromba diritta usata per segnali militari</li>
+            <li><strong>Cornu</strong> - grande strumento ricurvo delle cerimonie romane</li>
+            <li><strong>Buccina</strong> - strumento di segnalazione dell'esercito romano</li>
         </ul>
         </div>
 
@@ -291,8 +323,8 @@
     </div>
     </section>
 
-  <section id="riassunto" class="siteSection learnSection">
-    <h2 class="sectionTitle">Mappa riassuntiva</h2>
+  <section id="riassunto" class="siteSection learnSection" data-study-step="07" data-study-label="Mappa">
+    <h2 class="sectionTitle">Mappa Riassuntiva</h2>
 
     <p class="sectionIntro">
       Uno schema semplice per ricordare popoli, funzioni e strumenti
@@ -338,8 +370,8 @@
     </svg>
   </section>
 
-  <section id="ascolto" class="siteSection learnSection">
-    <h2 class="sectionTitle">Ascolto e video guidati</h2>
+  <section id="ascolto" class="siteSection learnSection" data-study-step="08" data-study-label="Ascolto">
+    <h2 class="sectionTitle">Ascolto guidato</h2>
 
     <p class="sectionIntro">
         Nell'Antichità la musica era legata alla voce, alla poesia, al teatro,
@@ -347,7 +379,8 @@
         meglio il mondo sonoro antico.
     </p>
 
-    <div class="storyGrid">
+    <div class="historyListeningSurface">
+    <div class="storyGrid storyGrid--2 historyListeningGrid">
 
         <div class="storyCard mediaCard">
         <div class="mediaThumb">
@@ -402,13 +435,28 @@
             </div>
         </div>
     </div>
-    </section>
+    </div>
+    </div>
 
-  <div class="learnCTA storyLearnCTA">
-    <button class="menuButton" onclick="openQuizModal()">
-      ❓ Vai al Quiz
+    <div class="listeningGuideGrid">
+      <article class="listeningGuideCard"><div class="listeningGuideNumber">01</div><span class="listeningGuideType">Voce e teatro</span><h3>Segui la parola</h3><p class="listeningWork">Canto corale</p><dl><div><dt>Ascolta</dt><dd>Il profilo della voce</dd></div><div><dt>Osserva</dt><dd>Il legame tra testo e ritmo</dd></div><div><dt>Riconosci</dt><dd>La funzione narrativa del coro</dd></div></dl></article>
+      <article class="listeningGuideCard"><div class="listeningGuideNumber">02</div><span class="listeningGuideType">Timbro</span><h3>Distingui gli strumenti</h3><p class="listeningWork">Corde, fiati e percussioni</p><dl><div><dt>Ascolta</dt><dd>Suoni pizzicati, soffiati e percossi</dd></div><div><dt>Osserva</dt><dd>Materiali e forme</dd></div><div><dt>Riconosci</dt><dd>Lira, aulos e sistro</dd></div></dl></article>
+      <article class="listeningGuideCard"><div class="listeningGuideNumber">03</div><span class="listeningGuideType">Contesto</span><h3>Collega suono e funzione</h3><p class="listeningWork">Rito, teatro e festa</p><dl><div><dt>Ascolta</dt><dd>Il carattere dell'esecuzione</dd></div><div><dt>Osserva</dt><dd>Chi partecipa</dd></div><div><dt>Riconosci</dt><dd>La situazione sociale</dd></div></dl></article>
+    </div>
+  </section>
+
+  <nav class="learnCTA storyLearnCTA" aria-label="Continua il percorso di storia">
+    <button class="storyQuizActionCard" type="button" onclick="openQuizModal()">
+      <span>Verifica rapida</span>
+      <strong>Quiz Antichità</strong>
+      <p>Ripassa popoli, funzioni e strumenti del mondo antico.</p>
     </button>
-  </div>
+    <a class="learningNextCard" href="storia_musica.html">
+      <span>Linea del tempo</span>
+      <strong>Timeline storia</strong>
+      <p>Torna alla panoramica dei periodi musicali.</p>
+    </a>
+  </nav>
 
 </div>
 
@@ -422,68 +470,16 @@
     <div class="modalBody">
       <p class="quizIntro">Metti alla prova le tue conoscenze sulla musica nell'Antichità.</p>
 
-      <div class="quizContainer">
-
-        <div class="quizQuestion">
-          <h4>1. Quali strumenti erano diffusi in Mesopotamia?</h4>
-          <div class="quizOptions">
-            <label><input type="radio" name="q1" value="a"><span class="optionText">A) Arpa, cetra e percussioni</span></label>
-            <label><input type="radio" name="q1" value="b"><span class="optionText">B) Pianoforte e violino</span></label>
-            <label><input type="radio" name="q1" value="c"><span class="optionText">C) Sassofono e batteria</span></label>
-          </div>
-          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: A - Arpa, cetra e percussioni</p>
-        </div>
-
-        <div class="quizQuestion">
-          <h4>2. Che cos'era lo shofar?</h4>
-          <div class="quizOptions">
-            <label><input type="radio" name="q2" value="a"><span class="optionText">A) Un tamburo romano</span></label>
-            <label><input type="radio" name="q2" value="b"><span class="optionText">B) Un corno rituale degli antichi Ebrei</span></label>
-            <label><input type="radio" name="q2" value="c"><span class="optionText">C) Una danza greca</span></label>
-          </div>
-          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: B - Un corno rituale degli antichi Ebrei</p>
-        </div>
-
-        <div class="quizQuestion">
-          <h4>3. In Grecia la musica era collegata soprattutto a:</h4>
-          <div class="quizOptions">
-            <label><input type="radio" name="q3" value="a"><span class="optionText">A) Poesia, danza e teatro</span></label>
-            <label><input type="radio" name="q3" value="b"><span class="optionText">B) Solo alla guerra</span></label>
-            <label><input type="radio" name="q3" value="c"><span class="optionText">C) Solo alla musica elettronica</span></label>
-          </div>
-          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: A - Poesia, danza e teatro</p>
-        </div>
-
-        <div class="quizQuestion">
-          <h4>4. Quale strumento romano era a percussione?</h4>
-          <div class="quizOptions">
-            <label><input type="radio" name="q4" value="a"><span class="optionText">A) Tympanum</span></label>
-            <label><input type="radio" name="q4" value="b"><span class="optionText">B) Flauto traverso moderno</span></label>
-            <label><input type="radio" name="q4" value="c"><span class="optionText">C) Pianoforte</span></label>
-          </div>
-          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: A - Tympanum</p>
-        </div>
-
-        <div class="quizQuestion">
-          <h4>5. Quale funzione aveva spesso la musica nell'Antichità?</h4>
-          <div class="quizOptions">
-            <label><input type="radio" name="q5" value="a"><span class="optionText">A) Religiosa e sociale</span></label>
-            <label><input type="radio" name="q5" value="b"><span class="optionText">B) Solo pubblicitaria</span></label>
-            <label><input type="radio" name="q5" value="c"><span class="optionText">C) Nessuna funzione</span></label>
-          </div>
-          <p class="quizAnswer" style="display:none;">✅ Risposta corretta: A - Religiosa e sociale</p>
-        </div>
-
-      </div>
+      <div class="quizContainer learningQuiz" data-learning-quiz data-quiz-bank="historyAntiquity" data-quiz-count="5"></div>
     </div>
 
-    <div class="modalFooter">
-      <button class="menuButton" onclick="resetQuiz()">🔄 Ricomincia</button>
-      <button class="menuButton" style="background: linear-gradient(135deg, #ff6600, #ff9933); color: white;" onclick="checkQuiz()">✅ Correggi Quiz</button>
+    <div class="modalFooter learningQuizFooter">
+      <button class="menuButton learningQuizResetButton" onclick="resetQuiz()">🔄 Riprova</button>
+      <button class="menuButton learningQuizCheckButton" onclick="checkQuiz()">✅ Controlla risposte</button>
       <button class="menuButton" onclick="closeQuizModal()">Chiudi</button>
     </div>
 
-    <div id="quizResult" class="quizResult" style="display:none; margin-top: 20px;"></div>
+    <div id="quizResult" class="quizResult learningQuizResult" style="display:none; margin-top: 20px;"></div>
   </div>
 </div>
 
@@ -501,6 +497,7 @@
 </footer>
 
 <script src="../js/common.js?v=20260620-favicon"></script>
+<script src="../js/learning_quiz.js?v=20260718-shared3"></script>
 <script src="../js/storia/storia.js"></script>
 </body>
 </html>

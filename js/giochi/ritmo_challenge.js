@@ -20,6 +20,7 @@ let gameMode = "training";
 let currentTotal = 0;
 let rankedTimerInterval = null;
 let rankedElapsed = 0;
+let roundLocked = false;
 
 const menu = document.getElementById("menu");
 const game = document.getElementById("game");
@@ -93,6 +94,7 @@ function startRankedGame() {
 }
 
 function nextRound() {
+  roundLocked = false;
   const activeDifficulty = gameMode === "ranked" ? getRankedDifficulty() : difficulty;
   const config = difficultyConfig[activeDifficulty];
   const figures = [];
@@ -149,9 +151,13 @@ function renderAnswers(correctTotal) {
 }
 
 function checkAnswer(selected, button) {
+  if (roundLocked) return;
+  roundLocked = true;
+
   const buttons = document.querySelectorAll("#answers .noteButton");
 
   buttons.forEach(btn => {
+    btn.disabled = true;
     btn.style.pointerEvents = "none";
     btn.classList.remove("correct", "wrong");
   });
@@ -234,6 +240,7 @@ function goBack() {
   difficulty = null;
   gameMode = "training";
   currentTotal = 0;
+  roundLocked = false;
 }
 
 function startRankedElapsedTimer() {

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Storia: Il Barocco | Music Game Hub</title>
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/learn.css">
+<link rel="stylesheet" href="../css/learning-ui.css?v=20260622-shared-learning-ui">
+<link rel="stylesheet" href="../css/storia/storia.css">
+<link rel="stylesheet" href="../css/storia/barocco.css">
+</head>
+
+<body class="storyPage baroquePage">
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" onclick="MGH.goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+    <div class="headerBrand">
+      <span class="headerEyebrow">Storia della musica</span>
+      <h1 class="pageTitle">Il Barocco</h1>
+    </div>
+  </div>
+</header>
+
+<nav id="siteNav" class="theoryNav">
+  <button class="navBtn" onclick="MGH.scrollToSection('timeline')">📅 Timeline</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('societa')">🌍 Contesto</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('linguaggio')">🎼 Linguaggio</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('teatro')">🎭 Forme</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('protagonisti')">👑 Protagonisti</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('strumenti')">🎹 Strumenti</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('riassunto')">📊 Mappa</button>
+  <button class="navBtn" onclick="MGH.scrollToSection('ascolto')">▶ Ascolto</button>
+  <button class="navBtn" onclick="openQuizModal()">❓ Quiz</button>
+</nav>
+
+<div id="contentWrapper">
+
+  <section id="timeline" class="siteSection learnSection" data-study-step="01" data-study-label="In breve">
+    <h2 class="sectionTitle">Il Barocco in breve</h2>
+    <p class="sectionIntro">
+      Tra il 1600 e il 1750 la musica cerca meraviglia, movimento e contrasto. Nascono l'opera pubblica e il concerto, si afferma il sistema tonale e gli strumenti acquistano un ruolo sempre più autonomo.
+    </p>
+
+    <div class="timelineContainer">
+      <svg class="timelineSVG" viewBox="0 0 980 230" role="img" aria-label="Linea del tempo del Barocco dal 1600 al 1750">
+        <defs>
+          <linearGradient id="baroqueTimelineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#d69b24" stop-opacity="0.10" />
+            <stop offset="50%" stop-color="#0f8b8d" stop-opacity="0.18" />
+            <stop offset="100%" stop-color="#d69b24" stop-opacity="0.10" />
+          </linearGradient>
+        </defs>
+        <rect x="50" y="54" width="880" height="86" fill="url(#baroqueTimelineGrad)" rx="14"/>
+        <line x1="70" y1="100" x2="910" y2="100" stroke="#0f8b8d" stroke-width="4" opacity="0.65"/>
+        <circle cx="120" cy="100" r="11" fill="#0f8b8d"/>
+        <text x="120" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">1600</text>
+        <text x="120" y="168" text-anchor="middle" font-size="11" fill="#0f8b8d" font-weight="bold">L'Euridice</text>
+        <text x="120" y="184" text-anchor="middle" font-size="10" fill="#666">Prime opere complete</text>
+        <circle cx="330" cy="100" r="11" fill="#0f8b8d"/>
+        <text x="330" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">1607</text>
+        <text x="330" y="168" text-anchor="middle" font-size="11" fill="#0f8b8d" font-weight="bold">L'Orfeo</text>
+        <text x="330" y="184" text-anchor="middle" font-size="10" fill="#666">Monteverdi</text>
+        <circle cx="540" cy="100" r="11" fill="#d69b24"/>
+        <text x="540" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">1637</text>
+        <text x="540" y="168" text-anchor="middle" font-size="11" fill="#a56d00" font-weight="bold">Teatro pubblico</text>
+        <text x="540" y="184" text-anchor="middle" font-size="10" fill="#666">Venezia</text>
+        <circle cx="735" cy="100" r="11" fill="#d69b24"/>
+        <text x="735" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">1725</text>
+        <text x="735" y="168" text-anchor="middle" font-size="11" fill="#a56d00" font-weight="bold">Le quattro stagioni</text>
+        <text x="735" y="184" text-anchor="middle" font-size="10" fill="#666">Vivaldi</text>
+        <circle cx="890" cy="100" r="11" fill="#0f8b8d"/>
+        <text x="890" y="48" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">1750</text>
+        <text x="890" y="168" text-anchor="middle" font-size="11" fill="#0f8b8d" font-weight="bold">Fine del Barocco</text>
+        <text x="890" y="184" text-anchor="middle" font-size="10" fill="#666">Morte di Bach</text>
+      </svg>
+    </div>
+
+    <div class="periodGrid">
+      <article class="periodCard eraCard"><span class="eraIcon">🇮🇹</span><h3>Italia</h3><p>Firenze, Mantova, Venezia, Roma e Napoli guidano la nascita dell'opera, del concerto e della scuola violinistica.</p></article>
+      <article class="periodCard eraCard"><span class="eraIcon">🇫🇷</span><h3>Francia</h3><p>Alla corte di Luigi XIV musica, teatro e danza celebrano il potere. Lully definisce lo stile dell'opera francese.</p></article>
+      <article class="periodCard eraCard"><span class="eraIcon">🇩🇪</span><h3>Germania</h3><p>La tradizione luterana, l'organo e il contrappunto confluiscono nell'opera monumentale di Johann Sebastian Bach.</p></article>
+      <article class="periodCard eraCard"><span class="eraIcon">🇬🇧</span><h3>Inghilterra</h3><p>Londra diventa la patria artistica di Händel, autore di opere, oratori e spettacolari musiche per le feste reali.</p></article>
+    </div>
+  </section>
+
+  <section id="societa" class="siteSection learnSection" data-study-step="02" data-study-label="Contesto">
+    <h2 class="sectionTitle">Contesto: musica, società e patrimonio</h2>
+    <p class="sectionIntro">La musica barocca nasce in luoghi con funzioni diverse. Il compositore lavora per una corte o una chiesa, insegna in un'istituzione oppure si confronta con il pubblico pagante del teatro.</p>
+
+    <div class="storyGrid historyContextGrid">
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">👑</div></div><h3>Corte e mecenatismo</h3><p class="cardSubtitle">Prestigio e rappresentanza</p><p>Principi e sovrani finanziano cappelle, orchestre e spettacoli. La musica accompagna feste, cerimonie e danze.</p><div class="cardHighlight"><strong>Figura chiave:</strong> il maestro di cappella.</div></article>
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">⛪</div></div><h3>Chiesa e istituzioni</h3><p class="cardSubtitle">Liturgia e formazione</p><p>Chiese, cappelle e ospedali musicali formano cantori e strumentisti. Cantate, Messe e Passioni sostengono preghiera e insegnamento.</p><div class="cardHighlight"><strong>Figura chiave:</strong> l'organista.</div></article>
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">🎟️</div></div><h3>Teatro e pubblico</h3><p class="cardSubtitle">Spettacolo e impresa</p><p>Con il teatro pubblico impresari, cantanti, scenografi e musicisti lavorano per conquistare gli spettatori.</p><div class="cardHighlight"><strong>Figura chiave:</strong> il compositore d'opera.</div></article>
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">🎓</div></div><h3>Ospedali e conservatori</h3><p class="cardSubtitle">Formazione e professione</p><p>Istituzioni assistenziali e scuole musicali educano cantori e strumentisti, alimentando orchestre, cappelle e teatri.</p><div class="cardHighlight"><strong>Figura chiave:</strong> l'insegnante-compositore.</div></article>
+    </div>
+
+  </section>
+
+  <section id="linguaggio" class="siteSection learnSection" data-study-step="03" data-study-label="Linguaggio">
+    <h2 class="sectionTitle">Come suona il Barocco</h2>
+    <p class="sectionIntro">La musica non vuole essere immobile: mette in scena affetti, opposizioni e trasformazioni continue.</p>
+    <div class="storyGrid historySoundGrid baroqueSoundGrid">
+      <article class="storyCard mediaCard">
+        <div class="mediaThumb"><div class="mediaIcon">🎹</div></div>
+        <h3>Basso continuo</h3><p class="cardSubtitle">La base armonica</p>
+        <p>Una linea grave sostiene il brano, mentre clavicembalo, organo o liuto realizzano gli accordi.</p>
+        <div class="cardHighlight"><strong>Ascolta:</strong> una base stabile sotto parti più libere.</div>
+      </article>
+      <article class="storyCard mediaCard">
+        <div class="mediaThumb"><div class="mediaIcon">⚖️</div></div>
+        <h3>Stile concertato</h3><p class="cardSubtitle">Dialogo e contrasto</p>
+        <p>Voci, solisti e gruppi si alternano creando contrasti di intensità, registro e timbro.</p>
+        <div class="cardHighlight"><strong>Parola chiave:</strong> dialogo tra parti differenti.</div>
+      </article>
+      <article class="storyCard mediaCard">
+        <div class="mediaThumb"><div class="mediaIcon">✨</div></div>
+        <h3>Ornamentazione</h3><p class="cardSubtitle">La melodia si decora</p>
+        <p>Trilli, mordenti e passaggi rapidi rendono la melodia brillante ed espressiva.</p>
+        <div class="cardHighlight"><strong>Effetto:</strong> eleganza, sorpresa e virtuosismo.</div>
+      </article>
+      <article class="storyCard mediaCard">
+        <div class="mediaThumb"><div class="mediaIcon">🧩</div></div>
+        <h3>Tonalità e contrappunto</h3><p class="cardSubtitle">Due modi di organizzare</p>
+        <p>Maggiore e minore orientano l'armonia; il contrappunto intreccia linee melodiche autonome.</p>
+        <div class="cardHighlight"><strong>In Bach:</strong> logica costruttiva ed espressione convivono.</div>
+      </article>
+    </div>
+  </section>
+
+  <section id="teatro" class="siteSection learnSection" data-study-step="04" data-study-label="Forme">
+    <h2 class="sectionTitle">Forme: l'opera e il teatro musicale</h2>
+    <p class="sectionIntro">Poesia, scenografia, recitazione e musica si uniscono in uno spettacolo nuovo, nato in Italia e presto diffuso in Europa.</p>
+    <div class="storyGrid storyGrid--3">
+      <article class="storyCard mediaCard">
+        <div class="mediaThumb mediaPhoto"><img src="../img/fumetti/vivaldi/03.webp" alt="Scena illustrata di un teatro musicale barocco"></div>
+        <h3>Dalla corte al teatro pubblico</h3><p class="cardSubtitle">Firenze, Mantova, Venezia</p>
+        <p>Le prime opere sono spettacoli di corte. Con l'apertura dei teatri pubblici a Venezia, dal 1637, l'opera diventa un intrattenimento cittadino organizzato per un pubblico pagante.</p>
+        <div class="cardHighlight"><strong>L'Orfeo</strong> di Monteverdi (1607) mostra quanto musica e dramma possano sostenersi a vicenda.</div>
+      </article>
+      <article class="storyCard mediaCard">
+        <div class="mediaThumb"><div class="mediaIcon">🗣️</div></div>
+        <h3>Recitativo e aria</h3><p class="cardSubtitle">Racconto ed emozione</p>
+        <p>Nel <strong>recitativo</strong> la voce segue il ritmo della parola e fa avanzare l'azione. Nell'<strong>aria</strong> il tempo scenico rallenta e il personaggio esprime un sentimento.</p>
+        <div class="cardHighlight"><strong>Prova a riconoscerli:</strong> il recitativo racconta, l'aria si ricorda e si canta.</div>
+      </article>
+      <article class="storyCard mediaCard">
+        <div class="mediaThumb"><div class="mediaIcon">🎭</div></div>
+        <h3>Opera seria e opera buffa</h3><p class="cardSubtitle">Eroi oppure vita quotidiana</p>
+        <p>L'opera seria mette in scena personaggi storici e mitologici. L'opera buffa usa situazioni quotidiane, dialoghi vivaci e personaggi riconoscibili.</p>
+        <div class="cardHighlight"><strong>Esempio:</strong> <em>La serva padrona</em> di Pergolesi trasforma un contrasto domestico in teatro comico.</div>
+      </article>
+    </div>
+  
+  <div id="generi" class="historySubsection">
+    <h3 class="historySubsectionTitle">Forme e generi</h3>
+    <p class="historySubsectionIntro">Il Barocco organizza la musica in forme riconoscibili, basate sul contrasto, sulla danza, sulla narrazione o sull'imitazione.</p>
+    <div class="storyGrid storyGrid--3">
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">🎻</div></div><h3>Concerto</h3><p class="cardSubtitle">Dialogo e contrasto</p><p>Nel concerto grosso un piccolo gruppo dialoga con l'orchestra; nel concerto solistico emerge un solo strumento.</p><div class="cardHighlight"><strong>Riconosci:</strong> alternanza tra solista o gruppo e orchestra.</div></article>
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">💃</div></div><h3>Suite</h3><p class="cardSubtitle">Una raccolta di danze</p><p>Successione di danze contrastanti, spesso aperta da un preludio o da un'ouverture.</p><div class="cardHighlight"><strong>Riconosci:</strong> caratteri e ritmi differenti.</div></article>
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">🎼</div></div><h3>Sonata</h3><p class="cardSubtitle">Musica da suonare</p><p>Composizione strumentale destinata a uno o più strumenti, con o senza basso continuo.</p><div class="cardHighlight"><strong>Riconosci:</strong> dialogo tra linee strumentali.</div></article>
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">🧩</div></div><h3>Fuga</h3><p class="cardSubtitle">Un tema tra le voci</p><p>Un tema passa da una voce all'altra e genera un intreccio contrappuntistico rigoroso.</p><div class="cardHighlight"><strong>Riconosci:</strong> entrate imitate dello stesso soggetto.</div></article>
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">⛪</div></div><h3>Cantata e Passione</h3><p class="cardSubtitle">Voce, racconto e liturgia</p><p>Testo sacro, voci e strumenti accompagnano la liturgia o narrano la Passione di Cristo.</p><div class="cardHighlight"><strong>Riconosci:</strong> alternanza di cori, arie e recitativi.</div></article>
+      <article class="storyCard mediaCard"><div class="mediaThumb"><div class="mediaIcon">📖</div></div><h3>Oratorio</h3><p class="cardSubtitle">Teatro senza scena</p><p>Grande racconto musicale, spesso sacro, eseguito senza scene, costumi o recitazione teatrale.</p><div class="cardHighlight"><strong>Riconosci:</strong> narrazione affidata a voci e orchestra.</div></article>
+    </div>
+  </div>
+  </section>
+
+  <section id="protagonisti" class="siteSection learnSection" data-study-step="05" data-study-label="Protagonisti">
+    <h2 class="sectionTitle">I protagonisti</h2>
+    <p class="sectionIntro">Sette compositori mostrano la varietà del Barocco europeo, dal primo teatro musicale alla grande sintesi di metà Settecento.</p>
+    <div class="protagonistGrid protagonistGrid--7">
+      <article class="protagonistCard historicalCard"><span class="cardDate">1567-1643</span><span class="protagonistIcon">🎭</span><h3>Claudio Monteverdi</h3><p class="role">Opera e madrigale</p><p>Collega polifonia rinascimentale e nuova monodia. Con <em>L'Orfeo</em> dà al teatro musicale una forza drammatica decisiva.</p></article>
+      <article class="protagonistCard historicalCard"><span class="cardDate">1632-1687</span><span class="protagonistIcon">☀️</span><h3>Jean-Baptiste Lully</h3><p class="role">Musica alla corte francese</p><p>Unisce canto, danza e spettacolo nella corte di Luigi XIV e definisce lo stile dell'opera francese.</p></article>
+      <article class="protagonistCard historicalCard"><span class="cardDate">1653-1713</span><span class="protagonistIcon">🎻</span><h3>Arcangelo Corelli</h3><p class="role">Sonata e concerto grosso</p><p>Dà equilibrio e chiarezza alla scrittura per archi. Le sue sonate e i suoi concerti diventano modelli studiati in tutta Europa.</p></article>
+      <article class="protagonistCard historicalCard"><span class="cardDate">1678-1741</span><span class="protagonistIcon">🎻</span><h3>Antonio Vivaldi</h3><p class="role">Concerto solistico</p><p>Violinista e compositore veneziano. Nei concerti delle <em>Quattro stagioni</em> trasforma immagini della natura in gesti musicali.</p></article>
+      <article class="protagonistCard historicalCard"><span class="cardDate">1685-1750</span><span class="protagonistIcon">🎼</span><h3>Johann Sebastian Bach</h3><p class="role">Contrappunto e musica sacra</p><p>Porta fuga, cantata, Passione e musica strumentale a una sintesi di straordinaria profondità.</p></article>
+      <article class="protagonistCard historicalCard"><span class="cardDate">1685-1759</span><span class="protagonistIcon">🎆</span><h3>Georg Friedrich Händel</h3><p class="role">Opera, oratorio e musica celebrativa</p><p>Musicista europeo attivo a Londra: dal <em>Messiah</em> alle suite per feste sull'acqua e fuochi d'artificio.</p></article>
+      <article class="protagonistCard historicalCard"><span class="cardDate">1710-1736</span><span class="protagonistIcon">😄</span><h3>Giovanni Battista Pergolesi</h3><p class="role">Opera buffa e musica sacra</p><p><em>La serva padrona</em> diventa un modello del teatro comico; lo <em>Stabat Mater</em> ne mostra il lato intensamente lirico.</p></article>
+    </div>
+  </section>
+
+  <section id="strumenti" class="siteSection learnSection" data-study-step="06" data-study-label="Strumenti">
+    <h2 class="sectionTitle">Gli strumenti del Barocco</h2>
+    <p class="sectionIntro">Le botteghe perfezionano gli strumenti e l'orchestra acquista un'identità più stabile, guidata dalla famiglia degli archi.</p>
+    <div class="instrumentGrid instrumentGrid--4">
+      <div class="instrumentCard">
+        <h3>🎻 Strumenti a Corda</h3>
+        <ul>
+          <li><a class="instrumentLink" href="../strumenti.html#violino"><strong>Violino</strong></a> - Solista e guida dell'orchestra barocca</li>
+          <li><a class="instrumentLink" href="../strumenti.html#viola"><strong>Viola</strong></a> - Registro intermedio della famiglia degli archi</li>
+          <li><a class="instrumentLink" href="../strumenti.html#violoncello"><strong>Violoncello</strong></a> - Sostegno grave e parte del basso continuo</li>
+          <li><a class="instrumentLink" href="../strumenti.html#liuto"><strong>Liuto</strong></a> - Corde pizzicate per accompagnamento e continuo</li>
+        </ul>
+      </div>
+
+      <div class="instrumentCard">
+        <h3>🎺 Strumenti a Fiato</h3>
+        <ul>
+          <li><a class="instrumentLink" href="../strumenti.html#oboe"><strong>Oboe</strong></a> - Timbro penetrante e cantabile</li>
+          <li><a class="instrumentLink" href="../strumenti.html#fagotto"><strong>Fagotto</strong></a> - Voce grave dei legni e sostegno del continuo</li>
+          <li><a class="instrumentLink" href="../strumenti.html#flauto-dolce"><strong>Flauto dolce</strong></a> - Suono morbido usato in orchestra e da camera</li>
+          <li><a class="instrumentLink" href="../strumenti.html#tromba"><strong>Tromba</strong></a> - Colore brillante per feste e cerimonie</li>
+        </ul>
+      </div>
+
+      <div class="instrumentCard">
+        <h3>🎹 Strumenti a Tastiera</h3>
+        <ul>
+          <li><a class="instrumentLink" href="../strumenti.html#clavicembalo"><strong>Clavicembalo</strong></a> - Tastiera a corde pizzicate, centrale nel basso continuo</li>
+          <li><a class="instrumentLink" href="../strumenti.html#organo"><strong>Organo</strong></a> - Protagonista della musica sacra e solistica</li>
+          <li><strong>Spinetta</strong> - Piccola tastiera adatta agli ambienti domestici</li>
+          <li><strong>Clavicordo</strong> - Suono delicato per lo studio e la musica privata</li>
+        </ul>
+      </div>
+
+      <div class="instrumentCard">
+        <h3>🥁 Strumenti a Percussione</h3>
+        <ul>
+          <li><a class="instrumentLink" href="../strumenti.html#timpani"><strong>Timpani</strong></a> - Percussioni intonate per musica solenne</li>
+          <li><a class="instrumentLink" href="../strumenti.html#tamburo"><strong>Tamburo</strong></a> - Ritmo marcato nelle feste e nelle marce</li>
+          <li><strong>Cimbali</strong> - Piatti metallici dal suono brillante</li>
+          <li><strong>Campanelli</strong> - Colore leggero e decorativo</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="riassunto" class="siteSection learnSection" data-study-step="07" data-study-label="Mappa">
+    <h2 class="sectionTitle">Mappa Riassuntiva</h2>
+    <p class="sectionIntro">Uno schema visivo dei concetti chiave del Barocco musicale.</p>
+
+    <svg class="summaryMap" viewBox="0 0 1000 650" role="img" aria-label="Mappa riassuntiva della musica barocca">
+      <defs>
+        <linearGradient id="mapGradPurpleBar" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#9b5cff;stop-opacity:0.15" />
+          <stop offset="100%" style="stop-color:#cc99ff;stop-opacity:0.05" />
+        </linearGradient>
+        <linearGradient id="mapGradTealBar" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#00a6bd;stop-opacity:0.14" />
+          <stop offset="100%" style="stop-color:#7dd3fc;stop-opacity:0.05" />
+        </linearGradient>
+        <linearGradient id="mapGradOrangeBar" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#ff6600;stop-opacity:0.13" />
+          <stop offset="100%" style="stop-color:#ffbf69;stop-opacity:0.05" />
+        </linearGradient>
+        <linearGradient id="mapGradGreenBar" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#2f9e44;stop-opacity:0.13" />
+          <stop offset="100%" style="stop-color:#86efac;stop-opacity:0.05" />
+        </linearGradient>
+        <linearGradient id="mapGradRoseBar" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#c2185b;stop-opacity:0.13" />
+          <stop offset="100%" style="stop-color:#f9a8d4;stop-opacity:0.05" />
+        </linearGradient>
+      </defs>
+
+      <rect x="200" y="10" width="600" height="50" fill="#9b5cff" rx="10"/>
+      <text x="500" y="40" text-anchor="middle" font-size="18" fill="#fff" font-weight="bold">IL BAROCCO MUSICALE (1600-1750)</text>
+
+      <rect x="30" y="80" width="440" height="140" fill="url(#mapGradTealBar)" stroke="#00a6bd" stroke-width="2" rx="12"/>
+      <text x="250" y="110" text-anchor="middle" font-size="14" fill="#00a6bd" font-weight="bold">CARATTERISTICHE</text>
+      <rect x="50" y="130" width="400" height="80" fill="#fff" stroke="#00a6bd" stroke-width="1" rx="8"/>
+      <text x="60" y="155" font-size="11" fill="#333">• Movimento, meraviglia e teatralità</text>
+      <text x="60" y="175" font-size="11" fill="#333">• Contrasto tra solo e tutti, forte e piano</text>
+      <text x="60" y="195" font-size="11" fill="#333">• Virtuosismo vocale e strumentale</text>
+
+      <rect x="530" y="80" width="440" height="140" fill="url(#mapGradPurpleBar)" stroke="#9b5cff" stroke-width="2" rx="12"/>
+      <text x="750" y="110" text-anchor="middle" font-size="14" fill="#9b5cff" font-weight="bold">LINGUAGGIO MUSICALE</text>
+      <rect x="550" y="130" width="400" height="80" fill="#fff" stroke="#9b5cff" stroke-width="1" rx="8"/>
+      <text x="560" y="155" font-size="11" fill="#333">• Tonalità maggiore e minore, basso continuo</text>
+      <text x="560" y="175" font-size="11" fill="#333">• Stile concertato, ornamentazione</text>
+      <text x="560" y="195" font-size="11" fill="#333">• Contrappunto, imitazione e fuga</text>
+
+      <rect x="30" y="240" width="940" height="130" fill="url(#mapGradOrangeBar)" stroke="#ff6600" stroke-width="2" rx="12"/>
+      <text x="500" y="270" text-anchor="middle" font-size="14" fill="#ff6600" font-weight="bold">FORME E GENERI</text>
+
+      <rect x="70" y="295" width="260" height="60" fill="#fff" stroke="#ff9933" stroke-width="1" rx="6"/>
+      <text x="200" y="315" text-anchor="middle" font-size="11" font-weight="bold" fill="#333">TEATRO MUSICALE</text>
+      <text x="200" y="335" text-anchor="middle" font-size="9" fill="#666">Opera, recitativo e aria</text>
+      <text x="200" y="345" text-anchor="middle" font-size="9" fill="#666">Opera seria e opera buffa</text>
+
+      <rect x="370" y="295" width="260" height="60" fill="#fff" stroke="#ff9933" stroke-width="1" rx="6"/>
+      <text x="500" y="315" text-anchor="middle" font-size="11" font-weight="bold" fill="#333">MUSICA STRUMENTALE</text>
+      <text x="500" y="335" text-anchor="middle" font-size="9" fill="#666">Concerto, sonata, suite e fuga</text>
+      <text x="500" y="345" text-anchor="middle" font-size="9" fill="#666">Solista, concerto grosso e orchestra</text>
+
+      <rect x="670" y="295" width="260" height="60" fill="#fff" stroke="#ff9933" stroke-width="1" rx="6"/>
+      <text x="800" y="315" text-anchor="middle" font-size="11" font-weight="bold" fill="#333">MUSICA VOCALE SACRA</text>
+      <text x="800" y="335" text-anchor="middle" font-size="9" fill="#666">Cantata, Passione e oratorio</text>
+      <text x="800" y="345" text-anchor="middle" font-size="9" fill="#666">Coro, solisti, organo e orchestra</text>
+
+      <rect x="30" y="390" width="940" height="120" fill="url(#mapGradGreenBar)" stroke="#2f9e44" stroke-width="2" rx="12"/>
+      <text x="500" y="415" text-anchor="middle" font-size="14" fill="#2f9e44" font-weight="bold">PROTAGONISTI E CONTRIBUTI</text>
+
+      <rect x="70" y="435" width="190" height="60" fill="#fff" stroke="#ff6600" stroke-width="1" rx="6"/>
+      <text x="165" y="455" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Monteverdi · Lully</text>
+      <text x="165" y="473" text-anchor="middle" font-size="9" fill="#666">Opera e teatro</text>
+      <text x="165" y="487" text-anchor="middle" font-size="9" fill="#666">Musica di corte</text>
+
+      <rect x="295" y="435" width="190" height="60" fill="#fff" stroke="#ff9933" stroke-width="1" rx="6"/>
+      <text x="390" y="455" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Corelli · Vivaldi</text>
+      <text x="390" y="473" text-anchor="middle" font-size="9" fill="#666">Sonata e concerto</text>
+      <text x="390" y="487" text-anchor="middle" font-size="9" fill="#666">Scuola violinistica</text>
+
+      <rect x="520" y="435" width="190" height="60" fill="#fff" stroke="#c2185b" stroke-width="1" rx="6"/>
+      <text x="615" y="455" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Bach</text>
+      <text x="615" y="473" text-anchor="middle" font-size="9" fill="#666">Contrappunto e fuga</text>
+      <text x="615" y="487" text-anchor="middle" font-size="9" fill="#666">Musica sacra e organo</text>
+
+      <rect x="745" y="435" width="190" height="60" fill="#fff" stroke="#2196f3" stroke-width="1" rx="6"/>
+      <text x="840" y="455" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Händel · Pergolesi</text>
+      <text x="840" y="473" text-anchor="middle" font-size="9" fill="#666">Oratorio e opera</text>
+      <text x="840" y="487" text-anchor="middle" font-size="9" fill="#666">Celebrazione e comicità</text>
+
+      <rect x="30" y="530" width="940" height="100" fill="url(#mapGradRoseBar)" stroke="#c2185b" stroke-width="2" rx="12"/>
+      <text x="500" y="555" text-anchor="middle" font-size="14" fill="#c2185b" font-weight="bold">SOCIETÀ, LUOGHI E STRUMENTI</text>
+      <text x="500" y="580" text-anchor="middle" font-size="11" fill="#333">Corti e mecenati · chiese e cappelle · teatri pubblici · ospedali musicali</text>
+      <text x="500" y="602" text-anchor="middle" font-size="11" fill="#333">Musicisti professionisti · archi e continuo · violino, clavicembalo, organo e orchestra</text>
+    </svg>
+  </section>
+
+  <section id="ascolto" class="siteSection learnSection" data-study-step="08" data-study-label="Ascolto">
+    <h2 class="sectionTitle">Ascolto guidato</h2>
+    <p class="sectionIntro">Guarda questo video per approfondire la musica del Barocco, poi usa le schede per orientare l'ascolto.</p>
+
+    <div class="videoCard historyListeningSurface">
+      <h3>🎬 La musica nel Barocco</h3>
+      <p class="cardSubtitle">Approfondimento sulla storia e sulle caratteristiche della musica barocca</p>
+
+      <div class="videoWrapper">
+        <iframe
+          src="https://www.youtube.com/embed/cX7zGbdP7hk"
+          title="La musica nel Barocco"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+
+    <div class="listeningGuideGrid">
+      <article class="listeningGuideCard">
+        <div class="listeningGuideNumber">01</div>
+        <span class="listeningGuideType">Opera · 1607</span>
+        <h3>Monteverdi · <em>L'Orfeo</em></h3>
+        <p class="listeningWork">«Tu se' morta»</p>
+        <dl>
+          <div><dt>Organico</dt><dd>Voce e basso continuo</dd></div>
+          <div><dt>Segui</dt><dd>Il ritmo libero della parola</dd></div>
+          <div><dt>Riconosci</dt><dd>Il recitativo che trasforma il testo in dramma</dd></div>
+        </dl>
+      </article>
+      <article class="listeningGuideCard">
+        <div class="listeningGuideNumber">02</div>
+        <span class="listeningGuideType">Cantata · 1723</span>
+        <h3>Bach · <em>Jesu bleibet meine Freude</em></h3>
+        <p class="listeningWork">dalla Cantata BWV 147</p>
+        <dl>
+          <div><dt>Organico</dt><dd>Coro e orchestra</dd></div>
+          <div><dt>Segui</dt><dd>La melodia del corale nel coro</dd></div>
+          <div><dt>Riconosci</dt><dd>Le linee strumentali che scorrono e si intrecciano</dd></div>
+        </dl>
+      </article>
+      <article class="listeningGuideCard">
+        <div class="listeningGuideNumber">03</div>
+        <span class="listeningGuideType">Opera · 1711</span>
+        <h3>Händel · <em>Rinaldo</em></h3>
+        <p class="listeningWork">«Lascia ch'io pianga»</p>
+        <dl>
+          <div><dt>Organico</dt><dd>Voce solista e orchestra</dd></div>
+          <div><dt>Segui</dt><dd>La melodia ampia e regolare dell'aria</dd></div>
+          <div><dt>Riconosci</dt><dd>Il ritorno della sezione iniziale nella forma col da capo</dd></div>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <nav class="learnCTA storyLearnCTA" aria-label="Continua il percorso di storia">
+    <button class="storyQuizActionCard" type="button" onclick="openQuizModal()"><span>Verifica rapida</span><strong>Quiz Barocco</strong><p>Ripassa linguaggio, generi, protagonisti e strumenti.</p></button>
+    <a class="learningNextCard" href="storia_musica.html"><span>Linea del tempo</span><strong>Timeline storia</strong><p>Torna alla panoramica dei periodi musicali.</p></a>
+  </nav>
+</div>
+
+<div id="quizModal" class="modal" style="display: none;">
+  <div class="modalContent">
+    <div class="modalHeader"><h2>Quiz: Il Barocco</h2><button class="closeBtn" onclick="closeQuizModal()" aria-label="Chiudi il quiz">&times;</button></div>
+    <div class="modalBody"><p class="quizIntro">Metti alla prova le tue conoscenze sulla musica barocca.</p><div class="quizContainer learningQuiz" data-learning-quiz data-quiz-bank="historyBaroque" data-quiz-count="5"></div></div>
+    <div class="modalFooter learningQuizFooter"><button class="menuButton learningQuizResetButton" onclick="resetQuiz()">🔄 Riprova</button><button class="menuButton learningQuizCheckButton" onclick="checkQuiz()">✅ Controlla risposte</button><button class="menuButton" onclick="closeQuizModal()">Chiudi</button></div>
+    <div id="quizResult" class="quizResult learningQuizResult" style="display:none; margin-top: 20px;"></div>
+  </div>
+</div>
+
+<button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
+<footer class="siteLegalFooter"><p>Music Game Hub tutela la privacy e usa solo strumenti tecnici o statistici necessari al portale.</p><div class="siteLegalLinks"><a href="../legal/privacy.html">Privacy Policy</a><span>·</span><a href="../legal/cookie.html">Cookie Policy</a><span>·</span><a href="../legal/termini.html">Termini di servizio</a></div></footer>
+
+<script src="../js/common.js?v=20260620-favicon"></script>
+<script src="../js/learning_quiz.js?v=20260723-baroque"></script>
+<script src="../js/storia/storia.js"></script>
+</body>
+</html>

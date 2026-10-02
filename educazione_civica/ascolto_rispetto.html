@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="../css/base.css">
 <link rel="stylesheet" href="../css/learn.css">
 <link rel="stylesheet" href="../css/educazione_civica/ascolto_rispetto.css">
+<link rel="stylesheet" href="../css/educazione_civica/civica-ui.css">
 </head>
 
 <body class="listeningRespectPage">
@@ -28,7 +29,7 @@
 </header>
 
 <nav id="siteNav" class="theoryNav listeningRespectNav">
-  <button class="navBtn" onclick="MGH.scrollToSection('hero')">🎵 Inizio</button>
+  <button class="navBtn active" onclick="MGH.scrollToSection('hero')">🎵 Inizio</button>
   <button class="navBtn" onclick="MGH.scrollToSection('ascolto')">👂 Ascolto</button>
   <button class="navBtn" onclick="MGH.scrollToSection('udito')">🔊 Udito</button>
   <button class="navBtn" onclick="MGH.scrollToSection('regole')">🎯 Regole</button>
@@ -50,20 +51,25 @@
         degli altri.
       </p>
       <div class="listeningHeroActions">
-        <button class="listeningButton" onclick="MGH.scrollToSection('ascolto')">Inizia</button>
+        <button class="listeningButton secondary" onclick="MGH.scrollToSection('ascolto')">Inizia</button>
+        <button class="listeningButton secondary" onclick="MGH.scrollToSection('udito')">Udito</button>
         <button class="listeningButton secondary" onclick="MGH.scrollToSection('quiz')">Vai al quiz</button>
+        <details class="theoryHeroMore">
+          <summary>Altri argomenti</summary>
+          <div class="theoryHeroMoreMenu">
+            <button onclick="MGH.scrollToSection('regole')">Regole</button>
+            <button onclick="MGH.scrollToSection('classe')">Classe</button>
+            <button onclick="MGH.scrollToSection('emozioni')">Emozioni</button>
+            <button onclick="MGH.scrollToSection('patto')">Patto</button>
+          </div>
+        </details>
       </div>
     </div>
 
-    <div class="listeningHeroPanel" aria-label="Classe musicale collaborativa">
-      <div class="listeningScene">
-        <div class="soundCircle main">🎵</div>
-        <div class="soundCircle one">👂</div>
-        <div class="soundCircle two">💬</div>
-        <div class="soundCircle three">🤝</div>
-        <div class="soundCircle four">🔇</div>
+    <div class="theoryHeroMedia civicHeroMedia listeningHeroMedia" aria-hidden="true">
+      <div class="theoryHeroImageSlot civicHeroImageSlot listeningHeroImageSlot">
+        <img src="../img/educazione_civica/hero/ascolto-rispetto-hero.png" alt="">
       </div>
-      <strong>Silenzio, attenzione, collaborazione</strong>
     </div>
   </section>
 
@@ -108,11 +114,13 @@
 
     <div class="hearingPanel">
       <div class="earCareCard">
-        <h3>Come lavora l'orecchio</h3>
-        <p>
-          L'orecchio raccoglie le onde sonore, le trasforma in vibrazioni e poi
-          in segnali che il cervello interpreta come suoni, parole e musica.
-        </p>
+        <div class="hearingIntro">
+          <h3>Come lavora l'orecchio</h3>
+          <p>
+            L'orecchio raccoglie le onde sonore, le trasforma in vibrazioni e poi
+            in segnali che il cervello interpreta come suoni, parole e musica.
+          </p>
+        </div>
         <div class="hearingSimulator" aria-label="Simulatore didattico di frequenza e intensità">
           <div class="simulatorLegend">
             <span><strong>Hz</strong> frequenza: grave o acuto</span>
@@ -131,8 +139,10 @@
           <div class="hearingStatus" id="hearingStatus">
             Frequenza udibile: suono percepibile in condizioni normali.
           </div>
-          <button class="tonePreviewButton" type="button" id="toggleHearingTone" aria-pressed="false">Play</button>
-          <small>Il suono di prova è limitato: i dB qui sono una scala didattica, non una misura reale del volume del dispositivo.</small>
+          <div class="hearingToneAction">
+            <button class="tonePreviewButton" type="button" id="toggleHearingTone" aria-pressed="false">Play</button>
+            <small>Il suono di prova è limitato: i dB qui sono una scala didattica, non una misura reale del volume del dispositivo.</small>
+          </div>
         </div>
         <a class="relatedLessonLink" href="../elementi_musica.html#udito">
           Vedi l'apparato uditivo interattivo
@@ -325,7 +335,7 @@
     <h2 class="sectionTitle">Quiz finale</h2>
     <p class="sectionIntro">Rispondi scegliendo il comportamento più adatto e controlla subito il risultato.</p>
 
-    <div class="listeningQuiz" id="listeningQuiz">
+    <div class="listeningQuiz civicQuiz" id="listeningQuiz">
       <article class="quizQuestion" data-answer="rispetto">
         <h3>1. Un compagno sta suonando e sbaglia. Qual è la reazione più corretta?</h3>
         <button type="button" data-value="ridere">Ridacchiare per far capire che ha sbagliato.</button>
@@ -344,12 +354,6 @@
         <button type="button" data-value="spiegare">Sì, ma spiegando il motivo senza offendere.</button>
         <button type="button" data-value="insulto">Sì, insultando il genere musicale.</button>
       </article>
-      <article class="quizQuestion" data-answer="collaborare">
-        <h3>4. In un lavoro musicale di gruppo, qual è un comportamento utile?</h3>
-        <button type="button" data-value="soli">Fare tutto da soli.</button>
-        <button type="button" data-value="altri">Lasciare che decidano sempre gli altri.</button>
-        <button type="button" data-value="collaborare">Ascoltare le proposte e collaborare.</button>
-      </article>
     </div>
 
     <div class="quizActions">
@@ -363,6 +367,14 @@
   <section id="conclusione" class="siteSection listeningConclusion">
     <h2>Ascoltare con rispetto è il primo modo per fare musica insieme.</h2>
   </section>
+
+  <nav class="learnCTA civicReturnCTA" aria-label="Torna al portale di educazione civica">
+    <a class="learningNextCard" href="index.html">
+      <span>Portale civico</span>
+      <strong>Educazione civica musicale</strong>
+      <p>Torna all'indice con tutti i percorsi, le attività e i temi di cittadinanza.</p>
+    </a>
+  </nav>
 
 </div>
 
@@ -380,6 +392,7 @@
 <button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
 
 <script src="../js/common.js?v=20260620-favicon"></script>
+<script src="../js/educazione_civica/civica_quiz.js"></script>
 <script src="../js/educazione_civica/ascolto_rispetto.js"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>

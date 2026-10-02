@@ -10,6 +10,7 @@ let rankedQuestionIndex = 0;
 let rankedStartTime = 0;
 let rankedQuestionStart = 0;
 let rankedTimerInterval = null;
+let roundLocked = false;
 
 MGHGameUI.ensureRankedHUD();
 
@@ -121,6 +122,7 @@ function goBack(){
   clef = null;
   gameMode = "training";
   rankedQuestionIndex = 0;
+  roundLocked = false;
 
   resetButtons();
   stopRankedTimer();
@@ -165,6 +167,7 @@ function getNotes(){
 }
 
 function newNote(){
+  roundLocked = false;
   resetButtons();
   setFeedback("");
   const notes = getNotes();
@@ -221,13 +224,17 @@ function createLedger(y){
 
 
 function checkAnswer(answer, button){
+  if(roundLocked) return;
+  roundLocked = true;
+
   // rimuove subito qualsiasi bordo residuo dai bottoni
   document.querySelectorAll("#buttons button").forEach(btn=>{
     btn.style.borderColor = "transparent";
     btn.style.boxShadow = "none";
+    btn.disabled = true;
+    btn.style.pointerEvents = "none";
   });
 
-  button.style.pointerEvents = "none"; // blocca clic multipli
   button.blur(); // elimina focus/arancione residuo
 
   const isCorrect = answer === currentNote.name;
@@ -247,7 +254,6 @@ function checkAnswer(answer, button){
   }
 
   setTimeout(()=>{
-    button.style.pointerEvents = "auto";
     // rimuove bordo dopo 1 secondo
     button.classList.remove("correct","wrong");
     button.style.borderColor = "transparent";
@@ -306,6 +312,7 @@ function highlightCorrect(){
 function resetButtons(){
   document.querySelectorAll("#buttons button").forEach(btn=>{
     btn.classList.remove("correct","wrong");
+    btn.disabled = false;
     btn.style.pointerEvents = "auto";
   });
 }

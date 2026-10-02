@@ -88,6 +88,18 @@ const game       = document.getElementById("game");
 const feedbackEl = document.getElementById("feedback");
 const warning    = document.getElementById("warning");
 
+function bindKeyboardAction(element, handler, label) {
+  element.setAttribute("role", "button");
+  element.tabIndex = 0;
+  if (label) element.setAttribute("aria-label", label);
+  element.addEventListener("click", handler);
+  element.addEventListener("keydown", event => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    handler();
+  });
+}
+
 if (typeof MGHGameUI !== "undefined") MGHGameUI.ensureRankedHUD(game);
 
 const timerBox   = document.getElementById("timerBox");
@@ -299,10 +311,12 @@ function makeSlot(i) {
     const fromSlot = e.dataTransfer.getData("fromSlot");
     placeInSlot(figId, i, fromSlot !== "" ? parseInt(fromSlot) : null);
   });
-  slot.addEventListener("click", () => {
+  bindKeyboardAction(slot, () => {
     if (roundLocked || slotContents[i] === null) return;
     returnToPool(i);
-  });
+  }, "Slot ritmico vuoto");
+  slot.tabIndex = -1;
+  slot.setAttribute("aria-disabled", "true");
   slot.addEventListener("pointerdown", e => {
     if (roundLocked || e.pointerType === "mouse" || slotContents[i] === null) return;
     e.preventDefault();
@@ -321,6 +335,9 @@ function renderSlot(i) {
     slot.classList.remove("empty", "correct", "wrong");
     slot.draggable = true;
     slot.setAttribute("title", "Clicca o trascina per togliere la figura");
+    slot.tabIndex = 0;
+    slot.setAttribute("aria-disabled", "false");
+    slot.setAttribute("aria-label", `Rimuovi ${fig.label} dalla battuta`);
     const img = document.createElement("img");
     img.src = IMG[figId]; img.alt = fig.label; img.className = "figImg";
     slot.appendChild(img);
@@ -332,6 +349,9 @@ function renderSlot(i) {
     slot.classList.remove("correct", "wrong");
     slot.draggable = false;
     slot.removeAttribute("title");
+    slot.tabIndex = -1;
+    slot.setAttribute("aria-disabled", "true");
+    slot.setAttribute("aria-label", "Slot ritmico vuoto");
   }
 }
 
@@ -361,10 +381,10 @@ function renderPool(diff) {
     lbl.className = "figCellLabel"; lbl.textContent = fig.label;
     el.appendChild(lbl);
 
-    el.addEventListener("click", () => {
+    bindKeyboardAction(el, () => {
       if (roundLocked) return;
       placeInFirstEmptySlot(figId);
-    });
+    }, `Aggiungi ${fig.label} alla battuta`);
     el.addEventListener("dragstart", e => {
       if (roundLocked) { e.preventDefault(); return; }
       e.dataTransfer.setData("figId",    figId);

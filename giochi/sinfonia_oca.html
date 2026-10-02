@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La sinfonia dell'oca | Music Game Hub</title>
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/giochi/sinfonia_oca.css?v=20260718-board44">
+<link rel="stylesheet" href="../css/games-wide.css?v=20260718-fluid9">
+</head>
+
+<body class="gooseGamePage">
+
+<header class="appHeader">
+  <div class="appHeaderInner">
+    <button id="homeBtn" class="homeButton" type="button" onclick="goHome()" aria-label="Torna alla home">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12 L12 3 L21 12"></path>
+        <path d="M6 12 V21 H18 V12"></path>
+      </svg>
+    </button>
+
+    <div class="headerBrand">
+      <span class="headerEyebrow">Gioco da tavolo musicale</span>
+      <h1 class="pageTitle">La sinfonia dell'oca</h1>
+      <span id="headerModeLabel" class="headerModeLabel hidden"></span>
+    </div>
+  </div>
+</header>
+
+<main id="contentWrapper">
+  <section id="menu" class="gameModeMenu gooseMenu">
+    <h2>Prepara il giro d'orchestra</h2>
+
+    <div class="goosePlayerCountControl" aria-label="Numero di giocatori">
+      <span>Giocatori</span>
+      <div class="goosePlayerCountOptions" role="group" aria-label="Scegli il numero di giocatori">
+        <button class="goosePlayerCountButton" type="button" data-player-count="2" aria-pressed="false" onclick="setGoosePlayerCount(2)">2</button>
+        <button class="goosePlayerCountButton" type="button" data-player-count="3" aria-pressed="false" onclick="setGoosePlayerCount(3)">3</button>
+        <button class="goosePlayerCountButton selected" type="button" data-player-count="4" aria-pressed="true" onclick="setGoosePlayerCount(4)">4</button>
+      </div>
+      <strong id="playerCountSummary" aria-live="polite">Partita per 4</strong>
+    </div>
+
+    <div class="buttonGroup gooseSetupGrid" aria-label="Configurazione giocatori">
+      <article class="goosePlayerSetupCard" data-player-index="0">
+        <span class="setupBadge">Player 1</span>
+        <label class="setupNameLabel">
+          <span>Nome</span>
+          <input class="gooseNameInput" type="text" maxlength="18" value="Player 1" autocomplete="off">
+        </label>
+        <label class="setupTokenLabel">
+          <span>Pedina</span>
+          <span class="gooseTokenCarousel">
+            <button class="tokenCycleButton" type="button" onclick="cycleGooseToken(this, -1)" aria-label="Pedina precedente">‹</button>
+            <span class="gooseTokenPreview" aria-hidden="true">🎻</span>
+            <button class="tokenCycleButton" type="button" onclick="cycleGooseToken(this, 1)" aria-label="Pedina successiva">›</button>
+          </span>
+          <input class="gooseTokenInput" type="hidden" value="🎻">
+        </label>
+        <label class="setupTypeLabel">
+          <span>Tipo</span>
+          <select class="gooseTypeSelect">
+            <option value="human" selected>Umano</option>
+            <option value="computer">PC</option>
+          </select>
+        </label>
+      </article>
+
+      <article class="goosePlayerSetupCard" data-player-index="1">
+        <span class="setupBadge">Player 2</span>
+        <label class="setupNameLabel">
+          <span>Nome</span>
+          <input class="gooseNameInput" type="text" maxlength="18" value="Player 2" autocomplete="off">
+        </label>
+        <label class="setupTokenLabel">
+          <span>Pedina</span>
+          <span class="gooseTokenCarousel">
+            <button class="tokenCycleButton" type="button" onclick="cycleGooseToken(this, -1)" aria-label="Pedina precedente">‹</button>
+            <span class="gooseTokenPreview" aria-hidden="true">🎺</span>
+            <button class="tokenCycleButton" type="button" onclick="cycleGooseToken(this, 1)" aria-label="Pedina successiva">›</button>
+          </span>
+          <input class="gooseTokenInput" type="hidden" value="🎺">
+        </label>
+        <label class="setupTypeLabel">
+          <span>Tipo</span>
+          <select class="gooseTypeSelect">
+            <option value="human">Umano</option>
+            <option value="computer" selected>PC</option>
+          </select>
+        </label>
+      </article>
+
+      <article class="goosePlayerSetupCard" data-player-index="2">
+        <span class="setupBadge">Player 3</span>
+        <label class="setupNameLabel">
+          <span>Nome</span>
+          <input class="gooseNameInput" type="text" maxlength="18" value="Player 3" autocomplete="off">
+        </label>
+        <label class="setupTokenLabel">
+          <span>Pedina</span>
+          <span class="gooseTokenCarousel">
+            <button class="tokenCycleButton" type="button" onclick="cycleGooseToken(this, -1)" aria-label="Pedina precedente">‹</button>
+            <span class="gooseTokenPreview" aria-hidden="true">🥁</span>
+            <button class="tokenCycleButton" type="button" onclick="cycleGooseToken(this, 1)" aria-label="Pedina successiva">›</button>
+          </span>
+          <input class="gooseTokenInput" type="hidden" value="🥁">
+        </label>
+        <label class="setupTypeLabel">
+          <span>Tipo</span>
+          <select class="gooseTypeSelect">
+            <option value="human">Umano</option>
+            <option value="computer" selected>PC</option>
+          </select>
+        </label>
+      </article>
+
+      <article class="goosePlayerSetupCard" data-player-index="3">
+        <span class="setupBadge">Player 4</span>
+        <label class="setupNameLabel">
+          <span>Nome</span>
+          <input class="gooseNameInput" type="text" maxlength="18" value="Player 4" autocomplete="off">
+        </label>
+        <label class="setupTokenLabel">
+          <span>Pedina</span>
+          <span class="gooseTokenCarousel">
+            <button class="tokenCycleButton" type="button" onclick="cycleGooseToken(this, -1)" aria-label="Pedina precedente">‹</button>
+            <span class="gooseTokenPreview" aria-hidden="true">🎵</span>
+            <button class="tokenCycleButton" type="button" onclick="cycleGooseToken(this, 1)" aria-label="Pedina successiva">›</button>
+          </span>
+          <input class="gooseTokenInput" type="hidden" value="🎵">
+        </label>
+        <label class="setupTypeLabel">
+          <span>Tipo</span>
+          <select class="gooseTypeSelect">
+            <option value="human">Umano</option>
+            <option value="computer" selected>PC</option>
+          </select>
+        </label>
+      </article>
+    </div>
+
+    <button class="menuButton startButton" type="button" onclick="startGooseGame()">Inizia partita</button>
+    <p class="gameIntro">
+      Scegli il numero di partecipanti, poi assegna nomi, pedine, colori e giocatori PC.
+    </p>
+  </section>
+
+  <section id="game" class="gooseGame hidden" aria-label="Tabellone della sinfonia dell'oca">
+    <div class="gameTopActions gooseTopActions">
+      <button id="backButton" class="menuButton compactBackButton" type="button" onclick="returnToGooseMenu()" aria-label="Torna alla scelta giocatori">
+        <span aria-hidden="true">⇧</span>
+      </button>
+      <button class="menuButton gooseResetButton" type="button" onclick="startGooseGame()">Nuova partita</button>
+
+      <aside class="gooseStatusPanel">
+        <div class="turnCard">
+          <span>Turno</span>
+          <strong id="currentPlayerName">Violino</strong>
+          <small id="turnMessage">Lancia il dado per iniziare.</small>
+        </div>
+
+        <div id="playersPanel" class="playersPanel" aria-label="Pedine"></div>
+      </aside>
+    </div>
+
+    <section class="boardWrap">
+      <div id="gooseBoard" class="gooseBoard" aria-label="Percorso del gioco"></div>
+    </section>
+  </section>
+</main>
+
+<div id="challengeModal" class="challengeModal hidden" role="dialog" aria-modal="true" aria-labelledby="challengeTitle">
+  <div class="challengePanel">
+    <div class="challengeHeader">
+      <span id="challengeBadge">Sfida</span>
+      <h2 id="challengeTitle">Domanda strumenti</h2>
+      <div id="challengeTimer" class="challengeTimer hidden" role="timer" aria-live="off" aria-label="Tempo restante">
+        <strong id="challengeTimerValue">15</strong>
+        <small>s</small>
+      </div>
+    </div>
+
+    <div id="challengeMedia" class="challengeMedia"></div>
+    <p id="challengeQuestion" class="challengeQuestion"></p>
+    <div id="challengeOptions" class="challengeOptions"></div>
+    <p id="challengeFeedback" class="challengeFeedback" role="status" aria-live="polite" aria-atomic="true"></p>
+  </div>
+</div>
+
+<script src="../js/common.js?v=20260718-a11y1"></script>
+<script src="../js/learning_quiz.js?v=20260718-shared3"></script>
+<script src="../js/giochi/strumenti_game.js?v=20260718-shared8"></script>
+<script src="../js/giochi/sinfonia_oca.js?v=20260718-board42"></script>
+<script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

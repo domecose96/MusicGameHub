@@ -42,11 +42,12 @@
 }
 
 .periodCard {
-  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.08), rgba(var(--accent-soft-rgb), 0.04));
-  border: 2px solid rgba(var(--accent-rgb), 0.16);
-  border-radius: 16px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(var(--accent-soft-rgb), 0.10));
+  border: 1px solid rgba(var(--accent-rgb), 0.16);
+  border-radius: var(--learning-card-radius, 18px);
   padding: 28px 24px;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 14px 34px rgba(var(--accent-rgb), 0.08);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -98,12 +99,83 @@
   margin: 28px 0;
 }
 
+/* Colonne esplicite: la composizione resta prevedibile tra le diverse epoche. */
+.storyGrid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.storyGrid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.storyPage .siteSection[data-study-step]::before {
+  content: "PASSAGGIO " attr(data-study-step) " · " attr(data-study-label);
+  display: block;
+  width: fit-content;
+  margin: 0 auto 8px;
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.historySoundGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.historySoundGrid .storyCard {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-areas:
+    "icon title"
+    "icon subtitle"
+    "body body"
+    "highlight highlight";
+  align-items: start;
+  column-gap: 14px;
+  padding: 20px;
+  text-align: left;
+}
+
+.historySoundGrid .mediaThumb {
+  grid-area: icon;
+  width: 58px;
+  height: 58px;
+  border-radius: 10px;
+}
+
+.historySoundGrid .mediaIcon { font-size: 2rem; }
+.historySoundGrid .storyCard > h3 {
+  grid-area: title;
+  margin: 3px 0 0;
+  font-size: 1.08rem;
+  line-height: 1.2;
+}
+.historySoundGrid .cardSubtitle {
+  grid-area: subtitle;
+  margin: 3px 0 0 !important;
+  font-size: 0.84rem;
+}
+.historySoundGrid .storyCard > p:not(.cardSubtitle) {
+  grid-area: body;
+  margin: 18px 0 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+.historySoundGrid .storyCard > .cardHighlight {
+  grid-area: highlight;
+  margin: 18px 0 0 !important;
+  padding: 10px 12px;
+  border-left-width: 3px;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
 .storyCard {
-  background: linear-gradient(135deg, #fff9f3, #fffaf5);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(var(--accent-soft-rgb), 0.08));
   border: 1px solid rgba(var(--accent-rgb), 0.14);
-  border-radius: 18px;
+  border-radius: var(--learning-card-radius, 18px);
   padding: 28px;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 14px 34px rgba(var(--accent-rgb), 0.08);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -226,6 +298,12 @@
   margin: 28px 0;
 }
 
+.protagonistGrid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.protagonistGrid--6 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.protagonistGrid--7 { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+.protagonistGrid--7 > .protagonistCard { grid-column: span 2; }
+.protagonistGrid--7 > .protagonistCard:nth-child(5) { grid-column: 2 / span 2; }
+
 .protagonistCard {
   background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.08), rgba(var(--accent-soft-rgb), 0.04));
   border: 2px solid rgba(var(--accent-rgb), 0.16);
@@ -300,12 +378,16 @@
   margin: 28px 0;
 }
 
+.instrumentGrid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.instrumentGrid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
 .instrumentCard {
-  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.08), rgba(var(--accent-soft-rgb), 0.04));
-  border: 2px solid rgba(var(--accent-rgb), 0.16);
-  border-radius: 14px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(var(--accent-soft-rgb), 0.08));
+  border: 1px solid rgba(var(--accent-rgb), 0.16);
+  border-radius: var(--learning-card-radius, 18px);
   padding: 24px;
-  box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.08);
+  box-shadow: 0 12px 30px rgba(var(--accent-rgb), 0.08);
   transition: all 0.3s ease;
 }
 
@@ -351,6 +433,185 @@
   border: 1px solid rgba(var(--accent-rgb), 0.12);
   padding: 20px;
   box-sizing: border-box;
+}
+
+/* ==================== TEMPLATE UNICO DELLE PAGINE STORICHE ==================== */
+.storyPage .siteSection[data-study-step] {
+  padding: 60px 0 48px;
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.12);
+}
+
+.storyPage .siteSection[data-study-step] > .sectionTitle {
+  margin-bottom: 8px;
+}
+
+.storyPage .siteSection[data-study-step] > .sectionIntro {
+  max-width: 760px;
+  margin-bottom: 28px;
+}
+
+.storyPage .periodGrid,
+.storyPage .historyContextGrid,
+.storyPage .historySoundGrid,
+.storyPage .instrumentGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.storyPage .storyGrid,
+.storyPage .periodGrid,
+.storyPage .protagonistGrid,
+.storyPage .instrumentGrid,
+.storyPage .listeningGuideGrid {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.storyPage .historyContextGrid .mediaThumb {
+  height: 92px;
+}
+
+.storyPage .historyContextGrid .mediaIcon {
+  font-size: 2.6rem;
+}
+
+.storyPage .storyCard,
+.storyPage .periodCard,
+.storyPage .protagonistCard,
+.storyPage .instrumentCard,
+.storyPage .videoCard,
+.storyPage .listeningGuideCard {
+  box-sizing: border-box;
+}
+
+.storyPage .storyGrid .mediaCard > .cardHighlight {
+  margin-top: auto !important;
+}
+
+.storyPage .historicalCard,
+.storyPage .instrumentCard {
+  height: 100%;
+}
+
+/* Le stesse tappe mantengono lo stesso ritmo visivo in ogni periodo. */
+.storyPage .periodCard {
+  min-height: 320px;
+}
+
+.storyPage .historyContextGrid .storyCard {
+  min-height: 456px;
+}
+
+.storyPage .historySoundGrid .storyCard {
+  min-height: 280px;
+}
+
+.storyPage .historicalCard {
+  min-height: 310px;
+}
+
+.storyPage .instrumentCard {
+  min-height: 320px;
+}
+
+.storyPage .listeningGuideCard {
+  min-height: 352px;
+}
+
+.historySubsection {
+  margin-top: 42px;
+  padding-top: 34px;
+  border-top: 1px solid rgba(var(--accent-rgb), 0.14);
+}
+
+.historySubsectionTitle {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-size: 1.45rem;
+  text-align: center;
+}
+
+.historySubsectionIntro {
+  max-width: 720px;
+  margin: 0 auto 26px;
+  color: var(--text-muted);
+  font-size: 0.98rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.historyListeningSurface {
+  margin: 24px 0;
+}
+
+.historyListeningSurface .historyListeningGrid {
+  margin: 0;
+}
+
+.listeningGuideGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.listeningGuideCard {
+  position: relative;
+  min-height: 100%;
+  padding: 24px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(var(--accent-rgb), 0.16);
+  border-top: 4px solid var(--accent);
+  border-radius: 10px;
+  box-shadow: 0 10px 26px rgba(var(--accent-rgb), 0.07);
+}
+
+.listeningGuideNumber {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  color: rgba(var(--accent-rgb), 0.13);
+  font-size: 2.8rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.listeningGuideType {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.listeningGuideCard h3 {
+  position: relative;
+  margin: 10px 0 4px;
+  color: var(--text-main);
+  font-size: 1.08rem;
+}
+
+.listeningWork {
+  margin: 0 0 18px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.listeningGuideCard dl { margin: 0; }
+.listeningGuideCard dl div {
+  padding: 10px 0;
+  border-top: 1px solid rgba(var(--accent-rgb), 0.1);
+}
+.listeningGuideCard dt {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.listeningGuideCard dd {
+  margin: 3px 0 0;
+  color: var(--text-main);
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
 
 /* ==================== QUIZ MODAL ==================== */
@@ -441,134 +702,174 @@
   padding: 28px;
 }
 
-.quizIntro {
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 1.05rem;
-  margin-bottom: 24px;
-}
-
-.quizContainer {
-  background: transparent;
-}
-
-.quizQuestion {
-  margin: 24px 0;
-  padding-bottom: 24px;
-  border-bottom: 1px solid rgba(var(--accent-rgb), 0.1);
-  animation: fadeIn 0.4s ease;
-}
-
-.quizQuestion:last-of-type {
-  border-bottom: none;
-}
-
-.quizQuestion h4 {
-  margin: 0 0 16px;
-  color: var(--text-main);
-  font-size: 1.05rem;
-  font-weight: 700;
-}
-
-.quizOptions {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.quizOptions label {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  cursor: pointer;
-  padding: 12px;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-}
-
-.quizOptions label:hover {
-  background: rgba(var(--accent-rgb), 0.06);
-  transform: translateX(4px);
-}
-
-.quizOptions input[type="radio"] {
-  cursor: pointer;
-  margin-top: 3px;
-  accent-color: var(--accent);
-  width: 18px;
-  height: 18px;
-}
-
-.optionText {
-  color: var(--text-main);
-  font-size: 0.95rem;
-}
-
-.quizAnswer {
-  margin: 8px 0 !important;
-  padding: 10px 12px;
-  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1), rgba(var(--accent-rgb), 0.05));
-  border-left: 4px solid var(--accent);
-  font-size: 0.9rem;
-  color: var(--text-main);
-  border-radius: 4px;
-  font-weight: 600;
-}
-
-.modalFooter {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  padding: 20px 28px;
-  border-top: 1px solid rgba(var(--accent-rgb), 0.1);
-  flex-wrap: wrap;
-}
-
-.modalFooter .menuButton {
-  flex: 1;
-  min-width: 120px;
-  max-width: 180px;
-}
-
-.quizResult {
-  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.15), rgba(var(--accent-rgb), 0.08));
-  border: 2px solid var(--accent);
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--text-main);
-  margin: 20px 28px 0;
-  animation: slideUp 0.4s ease;
-}
-
-.quizResult.incorrect {
-  border-color: #ff6666;
-  background: linear-gradient(135deg, rgba(255, 102, 102, 0.15), rgba(var(--accent-rgb), 0.08));
-}
-
 /* ==================== STORY LEARN CTA ==================== */
 .storyLearnCTA {
-  margin-top: 60px;
-  padding: 40px 0;
+  margin: 42px auto 0;
+}
+
+.storyLearnCTA .learningNextCard {
+  border-color: rgba(var(--accent-rgb), 0.24);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(var(--accent-soft-rgb), 0.16));
+}
+
+.storyLearnCTA .learningNextCard::after {
+  background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+  box-shadow: 0 10px 24px rgba(var(--accent-rgb), 0.20);
+}
+
+.storyLearnCTA .learningNextCard:hover {
+  border-color: rgba(var(--accent-rgb), 0.34);
+  background:
+    linear-gradient(135deg, #ffffff, rgba(var(--accent-soft-rgb), 0.20));
+  box-shadow: 0 12px 26px rgba(var(--accent-rgb), 0.10);
+}
+
+.storyLearnCTA .learningNextCard span {
+  background: rgba(var(--accent-rgb), 0.11);
+  color: var(--accent);
+}
+
+.storyQuizActionCard {
+  appearance: none;
+  min-height: 112px;
+  display: grid;
+  align-self: stretch;
+  align-content: start;
+  justify-items: center;
+  gap: 6px;
+  padding: 18px 54px 18px;
+  border: 1.5px dashed rgba(var(--accent-rgb), 0.36);
+  border-radius: 14px;
+  background: rgba(var(--accent-rgb), 0.055);
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  color: var(--text-main);
+  font: inherit;
+  cursor: pointer;
   text-align: center;
+  transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+}
+
+.storyQuizActionCard:hover {
+  transform: translateY(-2px);
+  border-color: rgba(var(--accent-rgb), 0.50);
+  background: rgba(var(--accent-rgb), 0.09);
+}
+
+.storyQuizActionCard span {
+  justify-self: start;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(var(--accent-rgb), 0.12);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.storyQuizActionCard strong {
+  color: var(--text-main);
+  font-size: 1.12rem;
+  line-height: 1.2;
+}
+
+.storyQuizActionCard p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.45;
 }
 
 /* ==================== RESPONSIVE ==================== */
+
+@media (min-width: 769px) and (max-width: 1050px) {
+  .storyPage .periodGrid,
+  .storyPage .historyContextGrid,
+  .storyPage .historySoundGrid,
+  .storyPage .instrumentGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .storyGrid--3,
+  .protagonistGrid--4,
+  .protagonistGrid--6,
+  .protagonistGrid--7,
+  .instrumentGrid--3,
+  .instrumentGrid--4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .protagonistGrid--7 > .protagonistCard,
+  .protagonistGrid--7 > .protagonistCard:nth-child(5) {
+    grid-column: auto;
+  }
+
+  .storyGrid--3 > :last-child {
+    grid-column: 1 / -1;
+    width: calc(50% - 14px);
+    box-sizing: border-box;
+    justify-self: center;
+  }
+
+  .instrumentGrid--3 > :last-child {
+    grid-column: 1 / -1;
+    width: calc(50% - 10px);
+    box-sizing: border-box;
+    justify-self: center;
+  }
+
+  .protagonistGrid--7 > .protagonistCard:last-child {
+    grid-column: 1 / -1;
+    width: calc(50% - 12px);
+    box-sizing: border-box;
+    justify-self: center;
+  }
+
+  .listeningGuideGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 
 @media (max-width: 768px) {
   .periodGrid,
   .storyGrid,
   .protagonistGrid,
-  .instrumentGrid {
+  .instrumentGrid,
+  .listeningGuideGrid {
     grid-template-columns: 1fr;
     gap: 16px;
   }
 
   .storyCard {
     padding: 20px;
+  }
+
+  .storyPage .periodGrid,
+  .storyPage .historyContextGrid,
+  .storyPage .historySoundGrid,
+  .storyPage .instrumentGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .storyPage .periodCard,
+  .storyPage .historyContextGrid .storyCard,
+  .storyPage .historySoundGrid .storyCard,
+  .storyPage .historicalCard,
+  .storyPage .instrumentCard,
+  .storyPage .listeningGuideCard {
+    min-height: 0;
+  }
+
+  .protagonistGrid--7 > .protagonistCard,
+  .protagonistGrid--7 > .protagonistCard:nth-child(5) {
+    grid-column: auto;
+  }
+
+  .storyGrid--3 > :last-child,
+  .instrumentGrid--3 > :last-child,
+  .protagonistGrid--7 > .protagonistCard:last-child {
+    width: auto;
+    justify-self: stretch;
   }
 
   .storyCard > h3,
@@ -597,10 +898,6 @@
     padding: 20px;
   }
 
-  .modalFooter {
-    padding: 16px 20px;
-  }
-
   .timelineSVG {
     padding: 12px 0;
   }
@@ -623,13 +920,6 @@
     font-size: 1.1rem;
   }
 
-  .quizQuestion h4 {
-    font-size: 0.95rem;
-  }
-
-  .optionText {
-    font-size: 0.9rem;
-  }
 }
 
 /* ==================== ANIMAZIONI ==================== */
@@ -662,11 +952,12 @@
 /* ==================== VIDEO APPROFONDIMENTO ==================== */
 
 .videoCard {
-  background: linear-gradient(135deg, #fff9f3, #fffaf5);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(var(--accent-soft-rgb), 0.08));
   border: 1px solid rgba(var(--accent-rgb), 0.14);
-  border-radius: 18px;
+  border-radius: var(--learning-card-radius, 18px);
   padding: 28px;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 14px 34px rgba(var(--accent-rgb), 0.08);
   text-align: center;
   margin-top: 28px;
 }

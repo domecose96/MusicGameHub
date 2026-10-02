@@ -21,7 +21,8 @@ const MGH_COMICS = (() => {
       slug: "mozart",
       title: "Wolfgang Amadeus Mozart",
       shortTitle: "Mozart",
-      cover: "mozart.webp"
+      cover: "mozart.webp",
+      ready: true
     },
     {
       series: "prima",
@@ -29,7 +30,8 @@ const MGH_COMICS = (() => {
       slug: "beethoven",
       title: "Ludwig van Beethoven",
       shortTitle: "Beethoven",
-      cover: "beethoven.webp"
+      cover: "beethoven.webp",
+      ready: true
     },
     {
       series: "prima",
@@ -37,7 +39,8 @@ const MGH_COMICS = (() => {
       slug: "chopin",
       title: "Fryderyk Chopin",
       shortTitle: "Chopin",
-      cover: "chopin.webp"
+      cover: "chopin.webp",
+      ready: true
     },
     {
       series: "prima",
@@ -45,7 +48,8 @@ const MGH_COMICS = (() => {
       slug: "vivaldi",
       title: "Antonio Vivaldi",
       shortTitle: "Vivaldi",
-      cover: "vivaldi.webp"
+      cover: "vivaldi.webp",
+      ready: false
     },
     {
       series: "prima",
@@ -53,7 +57,8 @@ const MGH_COMICS = (() => {
       slug: "bach",
       title: "Johann Sebastian Bach",
       shortTitle: "Bach",
-      cover: "bach.webp"
+      cover: "bach.webp",
+      ready: true
     },
     {
       series: "prima",
@@ -61,7 +66,8 @@ const MGH_COMICS = (() => {
       slug: "verdi",
       title: "Giuseppe Verdi",
       shortTitle: "Verdi",
-      cover: "verdi.webp"
+      cover: "verdi.webp",
+      ready: true
     },
     {
       series: "prima",
@@ -69,7 +75,8 @@ const MGH_COMICS = (() => {
       slug: "puccini",
       title: "Giacomo Puccini",
       shortTitle: "Puccini",
-      cover: "puccini.webp"
+      cover: "puccini.webp",
+      ready: false
     },
     {
       series: "prima",
@@ -77,7 +84,8 @@ const MGH_COMICS = (() => {
       slug: "rossini",
       title: "Gioachino Rossini",
       shortTitle: "Rossini",
-      cover: "rossini.webp"
+      cover: "rossini.webp",
+      ready: false
     },
     {
       series: "prima",
@@ -85,7 +93,8 @@ const MGH_COMICS = (() => {
       slug: "paganini",
       title: "Niccolo Paganini",
       shortTitle: "Paganini",
-      cover: "paganini.webp"
+      cover: "paganini.webp",
+      ready: false
     },
     {
       series: "prima",
@@ -93,7 +102,8 @@ const MGH_COMICS = (() => {
       slug: "tchaikovsky",
       title: "Petr Ilic Tchaikovsky",
       shortTitle: "Tchaikovsky",
-      cover: "tchaikovsky.webp"
+      cover: "tchaikovsky.webp",
+      ready: true
     }
   ];
 

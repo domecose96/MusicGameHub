@@ -8,6 +8,7 @@ let rankedQuestionIndex = 0;
 let rankedStartTime = 0;
 let rankedQuestionStart = 0;
 let rankedTimerInterval = null;
+let roundLocked = false;
 
 document.addEventListener("DOMContentLoaded", () => {
   MGHGameUI.ensureRankedHUD();
@@ -80,6 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
     mode = null;
     currentFigure = null;
     rankedQuestionIndex = 0;
+    roundLocked = false;
 
     stopRankedTimer();
 
@@ -104,6 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if(!figureImage || !answersDiv) return;
 
+    roundLocked = false;
     resetButtons();
     MGH.setGameFeedback(feedbackEl, "");
 
@@ -141,14 +144,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ==================== CONTROLLO RISPOSTA ==================== */
   function checkAnswer(answer, button){
+    if(roundLocked) return;
+    roundLocked = true;
+
     const allButtons = document.querySelectorAll("#answers .noteButton");
 
     allButtons.forEach(b => {
       b.classList.remove("correct","wrong");
-      b.style.pointerEvents = "auto";
+      b.disabled = true;
+      b.style.pointerEvents = "none";
     });
-
-    button.style.pointerEvents = "none";
 
     const isCorrect = answer === currentFigure.replace("pausa_","");
 
@@ -218,6 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function resetButtons(){
     document.querySelectorAll("#answers .noteButton").forEach(b=>{
       b.classList.remove("correct","wrong");
+      b.disabled = false;
       b.style.pointerEvents = "auto";
     });
   }

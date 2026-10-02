@@ -1,0 +1,540 @@
+/* Fluid desktop sizing shared by every game. */
+
+@media (min-width: 881px) {
+  :root {
+    --wordle-cell-size: clamp(44px, min(4.6cqw, 8.6cqh), 70px);
+    --wordle-grid-gap: clamp(5px, 1.2cqh, 10px);
+    --wordle-key-size: clamp(36px, min(3.5cqw, 7cqh), 60px);
+    --wordle-key-gap: clamp(3px, 0.45cqw, 7px);
+  }
+
+  body:is(
+    .wordlePage,
+    .gamePage,
+    .figuresGamePage,
+    .ritmoPage,
+    .ritmoGamePage,
+    .battiTempoPage,
+    .scaleGamePage,
+    .intervalliGamePage,
+    .accordiGamePage,
+    .pentagrammaGamePage,
+    .guantoPage,
+    .soundDetectivePage,
+    .strumentiGamePage
+  ) {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100dvh;
+    min-height: 0;
+    padding-top: calc(var(--header-height) + 18px);
+    overflow: hidden;
+  }
+
+  body:not(.gooseGamePage) #contentWrapper {
+    container-type: size;
+    flex: 0 0 auto;
+    width: 100%;
+    height: calc(100dvh - var(--header-height) - 18px);
+    min-height: 0;
+    overflow: hidden;
+    max-width: min(2200px, calc(100vw - 48px));
+    padding: 10px clamp(20px, 2vw, 48px);
+  }
+
+  body:not(.gooseGamePage) .gameModeMenu:not(.hidden) {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    padding-top: clamp(36px, 9cqh, 64px);
+    padding-bottom: 0;
+    overflow: hidden;
+  }
+
+  body:not(.gooseGamePage) .gameModeMenu.hidden {
+    display: none;
+  }
+
+  body:not(.gooseGamePage) :is(#game, #quiz):not(.hidden) {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  body:not(.gooseGamePage) #game:not(.hidden) {
+    justify-content: flex-start;
+  }
+
+  body.guantoPage #quiz:not(.hidden) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  body.guantoPage #endScreen:not(.hidden) {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    padding: 12px 18px 28px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .gameModeMenu {
+    max-width: min(1840px, calc(100cqw - 92px));
+  }
+
+  .gameModeMenu h2 {
+    margin-bottom: clamp(12px, 2.5cqh, 18px);
+    font-size: 3rem;
+  }
+
+  .gameModeMenu .modeSubTitle {
+    margin-top: clamp(14px, 3cqh, 28px);
+    margin-bottom: clamp(8px, 1.6cqh, 12px);
+  }
+
+  .gameModeMenu .buttonGroup {
+    gap: clamp(14px, 1.5cqw, 30px);
+    margin-bottom: clamp(14px, 2.6cqh, 26px);
+  }
+
+  .gameModeMenu .buttonGroup .menuButton {
+    width: clamp(210px, calc(25cqw - 78px), 340px);
+    height: clamp(68px, 12cqh, 96px);
+  }
+
+  .gameModeMenu .buttonGroup .symbolButton {
+    width: clamp(112px, 10cqw, 150px);
+    height: clamp(68px, 12cqh, 96px);
+  }
+
+  .gameModeMenu .gameIntro,
+  .gameModeMenu .rhythmLegend,
+  .gameModeMenu .gameIntroList {
+    max-width: clamp(680px, 62cqw, 1080px);
+    margin-top: clamp(12px, 2.4cqh, 22px);
+  }
+
+  .gameModeMenu .startButton {
+    margin-top: clamp(6px, 1.8cqh, 12px);
+  }
+
+  .gameModeMenu .warningText {
+    margin-top: clamp(8px, 2cqh, 16px);
+  }
+
+  body:not(.gooseGamePage) .gameVisualBox,
+  body:not(.gooseGamePage) .gameDisplay.gameVisualBox {
+    width: clamp(580px, min(calc(100cqw - 560px), 170cqh), 1120px);
+    height: clamp(260px, min(50cqh, 42cqw), 480px);
+    margin-top: clamp(7px, 1.6cqh, 14px);
+    margin-bottom: clamp(7px, 1.6cqh, 14px);
+  }
+
+  .rankedUnifiedGamePage .rankedUI:not(.hidden) ~ .gameVisualBox,
+  .rankedUnifiedGamePage .rankedUI:not(.hidden) ~ .gameDisplay.gameVisualBox,
+  .rankedUnifiedGamePage .rankedUI:not(.hidden) ~ .clueCard.gameVisualBox,
+  .rankedUnifiedGamePage .rankedUI:not(.hidden) ~ #gameArea .gameVisualBox,
+  .rankedUnifiedGamePage .rankedUI:not(.hidden) ~ .gameVisualStage .gameVisualBox {
+    height: clamp(240px, min(42cqh, 36cqw), 410px);
+  }
+
+  .gameQuestionBox,
+  .soundDetectivePage .detectiveQuestionBox,
+  .pentagrammaGamePage #questionBox,
+  .scaleGamePage #questionBox,
+  .accordiGamePage #questionBox,
+  .strumentiGamePage #questionBox {
+    width: clamp(580px, min(calc(100cqw - 560px), 170cqh), 1120px);
+    min-height: clamp(34px, 6cqh, 48px);
+    margin-top: clamp(4px, 1cqh, 10px);
+    margin-bottom: clamp(5px, 1.2cqh, 10px);
+    margin-inline: auto;
+  }
+
+  #buttons,
+  #answers,
+  .feedbackText {
+    width: min(1320px, calc(100cqw - 120px));
+    max-width: 100%;
+    margin-inline: auto;
+  }
+
+  #answers,
+  #buttons,
+  .detectiveAnswers {
+    margin-top: clamp(6px, 1.4cqh, 12px);
+  }
+
+  .feedbackText {
+    margin-top: clamp(5px, 1.2cqh, 12px);
+  }
+
+  .rankedUI,
+  .rankedUnifiedGamePage .rankedUI:not(.hidden) {
+    min-height: clamp(44px, 8cqh, 58px);
+    margin: 2px auto clamp(4px, 1cqh, 8px);
+  }
+
+  .noteButton,
+  .gameAnswerButton {
+    min-width: clamp(70px, 5cqw, 94px);
+    min-height: clamp(48px, 8cqh, 64px);
+    padding: clamp(12px, 2cqh, 16px) clamp(20px, 1.6cqw, 28px);
+  }
+
+  .gameActions .menuButton {
+    min-width: clamp(160px, 12cqw, 220px);
+    min-height: clamp(55px, 9cqh, 66px);
+  }
+
+  body.figuresGamePage .figureImage {
+    max-height: clamp(220px, 44cqh, 360px);
+  }
+
+  /* Batti il tempo */
+  .battiTempoPage .battiTempoStage {
+    width: clamp(590px, min(calc(100cqw - 560px), 170cqh), 1080px);
+    height: auto;
+    min-height: clamp(340px, min(68cqh, 48cqw), 520px);
+    gap: clamp(8px, 1.7cqh, 18px);
+    padding: clamp(16px, 3cqh, 30px);
+  }
+
+  .battiTempoPage .notationWrap {
+    width: clamp(540px, calc(100cqw - 620px), 960px);
+    max-width: calc(100% - 24px);
+  }
+
+  .battiTempoPage .tapButton {
+    position: relative;
+    top: -10px;
+    width: clamp(240px, 22cqw, 360px);
+    height: clamp(72px, 13cqh, 96px);
+  }
+
+  body.battiTempoPage.rankedUnifiedGamePage .rankedUI:not(.hidden) ~ .battiTempoStage.gameVisualBox {
+    height: auto;
+    min-height: clamp(340px, min(64cqh, 46cqw), 500px);
+  }
+
+  /* Detective del suono */
+  .soundDetectivePage #menu,
+  .soundDetectivePage #game {
+    max-width: min(1800px, calc(100cqw - 80px));
+  }
+
+  .soundDetectivePage .clueCard {
+    width: clamp(580px, min(calc(100cqw - 560px), 175cqh), 1160px);
+    height: clamp(240px, min(46cqh, 40cqw), 460px);
+    padding: clamp(20px, 3.5cqh, 34px);
+  }
+
+  .soundDetectivePage .waveBox {
+    width: clamp(500px, 68cqw, 860px);
+    max-width: 100%;
+    height: clamp(140px, 25cqh, 220px);
+  }
+
+  .soundDetectivePage #waveSvg {
+    height: clamp(118px, 21cqh, 190px);
+  }
+
+  .soundDetectivePage .detectiveAnswers {
+    width: clamp(580px, min(calc(100cqw - 560px), 150cqh), 960px);
+    max-width: 100%;
+  }
+
+  .soundDetectivePage .detectiveAnswers[data-option-count="4"] {
+    width: clamp(820px, calc(100cqw - 200px), 1500px);
+    max-width: 100%;
+  }
+
+  .soundDetectivePage .detectiveAnswers[data-option-count="4"] .answerButton {
+    max-width: clamp(210px, 20cqw, 340px);
+    min-height: clamp(52px, 9cqh, 70px);
+  }
+
+  body.soundDetectivePage.rankedUnifiedGamePage .rankedUI:not(.hidden) ~ .clueCard.gameVisualBox {
+    height: clamp(250px, 41cqh, 410px);
+  }
+
+  /* Ritmo */
+  .ritmoPage .rhythmStage {
+    width: clamp(580px, min(calc(100cqw - 560px), 165cqh), 1050px);
+    height: auto;
+    min-height: clamp(240px, min(45cqh, 40cqw), 470px);
+    padding: clamp(20px, 3.5cqh, 32px);
+  }
+
+  .ritmoPage .rhythmSequence {
+    width: clamp(520px, 66cqw, 860px);
+    max-width: 100%;
+    min-height: clamp(190px, 32cqh, 310px);
+    gap: clamp(14px, 1.5cqw, 26px);
+  }
+
+  .ritmoPage .rhythmCard {
+    width: clamp(82px, 8cqw, 120px);
+    height: clamp(124px, 23cqh, 180px);
+  }
+
+  .ritmoGamePage .ritmoVisualStage {
+    width: clamp(600px, min(calc(100cqw - 520px), 180cqh), 1160px);
+    height: auto;
+    min-height: clamp(270px, min(51cqh, 44cqw), 500px);
+    gap: clamp(10px, 1.8cqh, 18px);
+    padding: clamp(18px, 3cqh, 30px);
+  }
+
+  .ritmoGamePage .battutaWrap {
+    max-width: clamp(620px, 72cqw, 980px);
+  }
+
+  .ritmoGamePage .battutaSlots {
+    gap: clamp(7px, 0.7cqw, 12px);
+    min-height: clamp(100px, 19cqh, 136px);
+  }
+
+  .ritmoGamePage .figCell {
+    width: clamp(64px, 6cqw, 96px);
+    min-height: clamp(82px, 16cqh, 120px);
+  }
+
+  .ritmoGamePage .figImg {
+    width: clamp(32px, 3cqw, 50px);
+    height: clamp(50px, 10cqh, 76px);
+  }
+
+  .ritmoGamePage .figurePool {
+    max-width: clamp(560px, 68cqw, 900px);
+  }
+
+  body.ritmoGamePage.rankedUnifiedGamePage .rankedUI:not(.hidden) ~ .ritmoVisualStage.gameVisualBox {
+    height: auto;
+    min-height: clamp(330px, 55cqh, 520px);
+  }
+
+  /* Scale */
+  .scaleGamePage .scaleVisualStage,
+  .scaleGamePage .mediumVisualStage,
+  .scaleGamePage .hardVisualStage {
+    width: clamp(600px, min(calc(100cqw - 540px), 175cqh), 1160px);
+    margin-inline: auto;
+    padding: clamp(18px, 3cqh, 30px);
+  }
+
+  .scaleGamePage .ts-legend {
+    max-width: clamp(580px, 52cqw, 780px);
+  }
+
+  .scaleGamePage .easy-source,
+  .scaleGamePage .medium-ts-pool,
+  .scaleGamePage .hard-selected-row {
+    max-width: clamp(548px, 50cqw, 760px);
+  }
+
+  .scaleGamePage .easy-slots-row,
+  .scaleGamePage .easy-ts-row,
+  .scaleGamePage .medium-notes-row,
+  .scaleGamePage .medium-gaps-row {
+    width: clamp(520px, 50cqw, 760px);
+    max-width: 100%;
+  }
+
+  .scaleGamePage .piano-wrap {
+    max-width: clamp(600px, 58cqw, 880px);
+  }
+
+  /* Accordi */
+  .accordiGamePage .chordStage {
+    width: clamp(650px, min(calc(100cqw - 500px), 190cqh), 1120px);
+    height: auto;
+    min-height: clamp(390px, min(68cqh, 52cqw), 560px);
+    margin-inline: auto;
+    padding: clamp(14px, 2.5cqh, 24px);
+  }
+
+  .accordiGamePage .pianoViewport {
+    max-width: clamp(760px, 72cqw, 900px);
+  }
+
+  body.accordiGamePage.rankedUnifiedGamePage .rankedUI:not(.hidden) ~ .chordStage.gameVisualBox {
+    height: auto;
+    min-height: clamp(370px, min(60cqh, 48cqw), 500px);
+  }
+
+  /* Strumenti */
+  .strumentiGamePage .strumentiModeGroup {
+    max-width: min(1840px, calc(100cqw - 92px));
+    gap: clamp(14px, 1.5cqw, 30px);
+  }
+
+  .strumentiGamePage .strumentiModeGroup .menuButton {
+    width: clamp(210px, calc(25cqw - 78px), 340px);
+    min-height: clamp(68px, 12cqh, 96px);
+  }
+
+  .strumentiGamePage .gameAreaStrumenti {
+    width: clamp(650px, min(calc(100cqw - 500px), 190cqh), 1250px);
+    height: auto;
+    min-height: clamp(300px, min(58cqh, 48cqw), 640px);
+    gap: clamp(10px, 2cqh, 22px);
+    padding: clamp(16px, 3cqh, 32px);
+    overflow: hidden;
+  }
+
+  .strumentiGamePage .instrumentOptionGrid {
+    grid-template-columns: repeat(3, minmax(170px, 1fr));
+    max-width: clamp(720px, 68cqw, 1100px);
+    gap: clamp(12px, 1.2cqw, 22px);
+  }
+
+  .strumentiGamePage .instrumentOptionTile {
+    min-height: clamp(136px, 25cqh, 260px);
+  }
+
+  .strumentiGamePage .instrumentOptionTile img {
+    height: clamp(96px, 18cqh, 200px);
+  }
+
+  .strumentiGamePage .memoryCardGrid {
+    max-width: clamp(760px, 72cqw, 1160px);
+    gap: clamp(10px, 1cqw, 18px);
+  }
+
+  .strumentiGamePage .memoryCard {
+    min-height: clamp(104px, 20cqh, 180px);
+  }
+
+  .strumentiGamePage .listenModeContainer {
+    max-width: clamp(600px, 58cqw, 860px);
+  }
+
+  body.strumentiGamePage.rankedUnifiedGamePage .rankedUI:not(.hidden) ~ #gameArea.gameAreaStrumenti.gameVisualBox {
+    height: auto;
+    min-height: clamp(320px, min(52cqh, 46cqw), 570px);
+  }
+
+  /* Wordle */
+  .wordlePage #gameBoardArea {
+    width: clamp(620px, calc(100cqw - 220px), 1100px);
+    max-width: 100%;
+  }
+
+  .wordlePage .key {
+    width: var(--wordle-key-size);
+    height: var(--wordle-key-size);
+  }
+
+  /* Sinfonia dell'oca */
+  body.gooseGamePage {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100dvh;
+    min-height: 0;
+    padding-top: calc(var(--header-height) + 18px);
+    overflow: hidden;
+  }
+
+  body.gooseGamePage #contentWrapper {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: none;
+    height: calc(100dvh - var(--header-height) - 18px);
+    min-height: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-inline: clamp(24px, 2.2vw, 48px);
+  }
+
+  .gooseGamePage .gooseGame {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: 100%;
+    margin: 0;
+    padding-top: 52px;
+    overflow: hidden;
+  }
+
+  .gooseGamePage .gooseSetupGrid {
+    max-width: min(1760px, calc(100vw - 120px));
+  }
+
+  .gooseGamePage .goosePlayerSetupCard {
+    flex-basis: clamp(190px, calc(25vw - 65px), 300px);
+    min-height: clamp(158px, 18vh, 210px);
+    padding: clamp(12px, 0.9vw, 18px);
+  }
+
+  .gooseGamePage .gooseTokenPreview {
+    width: clamp(68px, 5vw, 90px);
+    height: clamp(68px, 5vw, 90px);
+  }
+
+  .gooseGamePage .gooseStatusPanel {
+    grid-template-columns: clamp(180px, 14vw, 240px) auto;
+  }
+
+  .gooseGamePage .playersPanel {
+    grid-template-columns: repeat(var(--player-count), clamp(145px, 11.5vw, 200px));
+  }
+
+  .gooseGamePage .boardWrap {
+    container-type: size;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    min-height: 0;
+    align-self: stretch;
+  }
+
+  .gooseGamePage .gooseBoard {
+    --tile-size: clamp(60px, min(5.8cqw, 16cqh), 112px);
+    --start-column: clamp(112px, min(10cqw, 28cqh), 182px);
+    --start-tile-width: clamp(100px, min(8.8cqw, 24cqh), 156px);
+  }
+
+  .gooseGamePage .boardDiceButton {
+    width: clamp(126px, 9vw, 150px);
+    height: clamp(56px, 6vh, 68px);
+  }
+
+  .gooseGamePage .challengePanel,
+  .gooseGamePage .challengePanel.isStopTurn {
+    width: clamp(820px, 48vw, 1000px);
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 881px) and (max-width: 1150px),
+  (min-width: 881px) and (max-height: 760px) {
+  .gameModeMenu h2 {
+    font-size: 2.6rem;
+  }
+}
+
+@media (min-width: 881px) and (max-height: 620px) {
+  body:not(.gooseGamePage) .gameModeMenu:not(.hidden),
+  body:not(.gooseGamePage) :is(#game, #quiz):not(.hidden) {
+    padding-bottom: 24px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}

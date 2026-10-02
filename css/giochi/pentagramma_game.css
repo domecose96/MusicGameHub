@@ -41,6 +41,12 @@
   fill: rgba(255, 102, 0, 0.12);
 }
 
+.hitZone:focus-visible {
+  fill: rgba(255, 102, 0, 0.16);
+  stroke: #ff6600;
+  stroke-width: 2;
+}
+
 .hitZone.correctZone {
   fill: rgba(102, 204, 102, 0.22);
 }

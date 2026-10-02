@@ -187,6 +187,12 @@ body.ritmoGamePage.rankedUnifiedGamePage .rankedUI:not(.hidden) ~ .ritmoVisualSt
 .poolCell:active { cursor: grabbing; }
 .poolCell.dragging { opacity: .35; transform: scale(.94); }
 
+.slotCell:focus-visible,
+.poolCell:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
 .ritmoModeGroup { align-items:center; overflow:visible !important; padding:0; }
 .ritmoModeGroup .menuButton { overflow:visible; }
 

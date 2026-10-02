@@ -21,15 +21,6 @@
   border-bottom-color: rgba(22, 138, 74, 0.16);
 }
 
-.civicPage #homeBtn.selected,
-.civicPage .homeButton.selected,
-.civicPage #scrollTopBtn {
-  color: #ffffff;
-  border-color: var(--civic-green);
-  background: linear-gradient(135deg, var(--civic-green), var(--civic-sky));
-  box-shadow: 0 10px 22px rgba(22, 138, 74, 0.24);
-}
-
 .civicPage .sectionTitle,
 .civicPage .siteLegalLinks a {
   color: var(--civic-green);
@@ -39,25 +30,9 @@
   color: #0f6f3c;
 }
 
-.civicNav .navBtn {
-  border-color: rgba(22, 138, 74, 0.26);
-  color: var(--civic-green);
-  background: rgba(255, 255, 255, 0.74);
-}
-
-.civicPage button:focus,
-.civicPage button:focus-visible,
 .civicPathCard:focus-visible {
   outline: 3px solid var(--civic-green);
   outline-offset: 4px;
-}
-
-.civicPage .selected,
-.civicNav .navBtn.active {
-  background: linear-gradient(135deg, var(--civic-green), var(--civic-sky));
-  color: #ffffff;
-  border-color: transparent;
-  box-shadow: 0 8px 20px rgba(22, 138, 74, 0.18);
 }
 
 .civicHero {
@@ -426,6 +401,16 @@
   box-shadow: 0 24px 58px rgba(18, 50, 74, 0.12);
 }
 
+.civicPathCard.comingSoonPath {
+  cursor: default;
+}
+
+.civicPathCard.comingSoonPath:hover {
+  transform: none;
+  border-color: rgba(18, 50, 74, 0.1);
+  box-shadow: 0 18px 46px rgba(18, 50, 74, 0.08);
+}
+
 .pathClass {
   display: inline-flex;
   padding: 7px 12px;
@@ -435,6 +420,23 @@
   font-weight: 900;
   font-size: 0.82rem;
   letter-spacing: 0.04em;
+}
+
+.pathStatus {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 13px;
+  border-radius: 999px;
+  background: rgba(22, 138, 74, 0.1);
+  color: var(--civic-green);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .pathIcon {

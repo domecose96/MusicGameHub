@@ -3,65 +3,185 @@ const EMOTION_DATA = {
     emoji: "😊",
     label: "Gioia",
     color: "#f6c447",
-    text: "Ritmo veloce, strumenti brillanti e sensazione di energia.",
+    text: "Ritmo vivace, strumenti brillanti e sensazione di apertura o energia.",
     frequency: 660,
-    wave: { amplitude: 34, wavelength: 86, speed: 0.0026 }
+    wave: { shape: "bounce", amplitude: 34, wavelength: 86, speed: 0.0026 },
+    sound: {
+      type: "triangle",
+      gain: 0.045,
+      filter: "highpass",
+      filterFrequency: 420,
+      delay: 0.11,
+      feedback: 0.16,
+      motif: [
+        { frequency: 660, start: 0, duration: 0.13, accent: 0.9 },
+        { frequency: 825, start: 0.15, duration: 0.13, accent: 1 },
+        { frequency: 990, start: 0.3, duration: 0.16, accent: 1.05 },
+        { frequency: 1320, start: 0.5, duration: 0.18, accent: 0.72 }
+      ],
+      loop: 1.05
+    }
   },
   calm: {
     emoji: "😌",
     label: "Calma",
     color: "#6bb7ff",
-    text: "Pianoforte lento, suoni morbidi e volume basso.",
+    text: "Andamento lento, suoni morbidi, volume contenuto e respiro regolare.",
     frequency: 330,
-    wave: { amplitude: 22, wavelength: 190, speed: 0.001 }
+    wave: { shape: "calm", amplitude: 18, wavelength: 230, speed: 0.00075 },
+    sound: {
+      type: "sine",
+      gain: 0.034,
+      filter: "lowpass",
+      filterFrequency: 780,
+      delay: 0.34,
+      feedback: 0.18,
+      motif: [
+        { frequency: 262, start: 0, duration: 1.1, accent: 0.8 },
+        { frequency: 330, start: 0.24, duration: 1.2, accent: 0.66 },
+        { frequency: 392, start: 0.62, duration: 1.05, accent: 0.54 }
+      ],
+      loop: 2.8
+    }
   },
   sadness: {
     emoji: "😢",
     label: "Tristezza",
     color: "#243b72",
-    text: "Melodia lenta, colore scuro e senso di riflessione.",
+    text: "Melodia distesa, pause, sonorità scure e senso di riflessione.",
     frequency: 247,
-    wave: { amplitude: 28, wavelength: 230, speed: 0.0009 }
+    wave: { shape: "fall", amplitude: 24, wavelength: 210, speed: 0.00085 },
+    sound: {
+      type: "triangle",
+      gain: 0.036,
+      filter: "lowpass",
+      filterFrequency: 520,
+      delay: 0.42,
+      feedback: 0.22,
+      motif: [
+        { frequency: 330, start: 0, duration: 0.5, accent: 0.82 },
+        { frequency: 294, start: 0.48, duration: 0.56, accent: 0.8 },
+        { frequency: 262, start: 1.02, duration: 0.62, accent: 0.74 },
+        { frequency: 220, start: 1.66, duration: 0.9, accent: 0.62 }
+      ],
+      loop: 3.1
+    }
   },
   anger: {
     emoji: "😠",
     label: "Rabbia",
     color: "#ef6a3a",
-    text: "Ritmo forte, energia intensa e attacchi decisi.",
+    text: "Accenti marcati, ritmo pressante, intensità forte e attacchi decisi.",
     frequency: 180,
-    wave: { amplitude: 48, wavelength: 92, speed: 0.0024 }
+    wave: { shape: "attack", amplitude: 38, wavelength: 132, speed: 0.0021 },
+    sound: {
+      type: "sawtooth",
+      gain: 0.038,
+      filter: "lowpass",
+      filterFrequency: 920,
+      delay: 0.06,
+      feedback: 0.08,
+      noise: true,
+      motif: [
+        { frequency: 165, start: 0, duration: 0.08, accent: 1.12 },
+        { frequency: 165, start: 0.12, duration: 0.08, accent: 1 },
+        { frequency: 220, start: 0.24, duration: 0.1, accent: 1.16 },
+        { frequency: 146, start: 0.4, duration: 0.15, accent: 1.05 }
+      ],
+      loop: 0.72
+    }
   },
   fear: {
     emoji: "😨",
     label: "Paura",
     color: "#6550a8",
-    text: "Suoni sospesi, tensione e andamento irregolare.",
+    text: "Suoni sospesi, silenzi improvvisi, tensione e andamento irregolare.",
     frequency: 520,
-    wave: { amplitude: 38, wavelength: 120, speed: 0.0018 }
+    wave: { shape: "suspense", amplitude: 24, wavelength: 190, speed: 0.00125 },
+    sound: {
+      type: "square",
+      gain: 0.022,
+      filter: "bandpass",
+      filterFrequency: 760,
+      delay: 0.28,
+      feedback: 0.2,
+      motif: [
+        { frequency: 520, start: 0, duration: 0.22, accent: 0.8 },
+        { frequency: 575, start: 0.42, duration: 0.12, accent: 1.02 },
+        { frequency: 390, start: 0.86, duration: 0.28, accent: 0.74 },
+        { frequency: 640, start: 1.34, duration: 0.13, accent: 0.95 }
+      ],
+      loop: 2.05
+    }
   },
   hope: {
     emoji: "🌱",
     label: "Speranza",
     color: "#8bcf7a",
-    text: "Crescendo positivo, armonie luminose e ritmo moderato.",
+    text: "Crescendo graduale, armonie luminose e movimento che sembra aprirsi.",
     frequency: 440,
-    wave: { amplitude: 30, wavelength: 150, speed: 0.0014 }
+    wave: { shape: "rise", amplitude: 26, wavelength: 156, speed: 0.00135 },
+    sound: {
+      type: "sine",
+      gain: 0.038,
+      filter: "lowpass",
+      filterFrequency: 1200,
+      delay: 0.26,
+      feedback: 0.2,
+      motif: [
+        { frequency: 392, start: 0, duration: 0.34, accent: 0.7 },
+        { frequency: 440, start: 0.34, duration: 0.36, accent: 0.78 },
+        { frequency: 523, start: 0.72, duration: 0.44, accent: 0.88 },
+        { frequency: 659, start: 1.18, duration: 0.72, accent: 0.92 },
+        { frequency: 784, start: 1.58, duration: 0.46, accent: 0.42 }
+      ],
+      loop: 2.55
+    }
   }
 };
 
 let emotionAudioContext = null;
 let emotionOscillator = null;
 let emotionGain = null;
+let emotionSoundNodes = [];
+let emotionLoopTimer = null;
+let activeSoundSource = null;
 let selectedEmotion = "joy";
 let wheelRotation = 0;
 let guidedPlaying = false;
 let guidedAnimation = null;
+let guidedSoundTimer = null;
 
-function createWavePath({ amplitude = 36, wavelength = 140, center = 75, speed = 0.0015 }, width = 560, time = performance.now()) {
+function createWavePath({ shape = "sine", amplitude = 36, wavelength = 140, center = 75, speed = 0.0015 }, width = 560, time = performance.now()) {
   const points = [];
   for (let x = 20; x <= width - 20; x += 8) {
+    const normalized = (x - 20) / (width - 40);
     const phase = (x / wavelength) + (time * speed);
-    const y = center + Math.sin(phase * Math.PI * 2) * amplitude;
+    const cycle = ((phase % 1) + 1) % 1;
+    const sine = Math.sin(phase * Math.PI * 2);
+    const second = Math.sin(phase * Math.PI * 4 + 0.8);
+    let y = center + sine * amplitude;
+
+    if (shape === "bounce") {
+      y = center + (sine * amplitude) + (second * amplitude * 0.22);
+    } else if (shape === "calm") {
+      y = center + Math.sin(phase * Math.PI * 2) * amplitude * 0.78;
+    } else if (shape === "fall") {
+      const softDip = -Math.abs(Math.sin(phase * Math.PI)) * amplitude * 0.28;
+      y = center + sine * amplitude * 0.68 + softDip;
+    } else if (shape === "attack") {
+      const strike = cycle < 0.18 ? -0.95 : cycle < 0.34 ? 0.85 : Math.sin(phase * Math.PI * 2) * 0.2;
+      const weight = Math.sin(phase * Math.PI * 2 + 0.5) * amplitude * 0.12;
+      y = center + strike * amplitude + weight;
+    } else if (shape === "suspense") {
+      const softLine = sine * amplitude * 0.18;
+      const pulseUp = Math.pow(Math.max(0, Math.sin(phase * Math.PI * 2 + 0.2)), 12) * amplitude * 0.85;
+      const pulseDown = Math.pow(Math.max(0, Math.sin(phase * Math.PI * 2 + Math.PI * 0.86)), 14) * amplitude * 0.42;
+      y = center + softLine - pulseUp + pulseDown;
+    } else if (shape === "rise") {
+      y = center + sine * amplitude * (0.42 + normalized * 0.86);
+    }
+
     points.push(`${x === 20 ? "M" : "L"} ${x.toFixed(1)} ${y.toFixed(1)}`);
   }
   return points.join(" ");
@@ -111,8 +231,10 @@ function initEmotionWheel() {
     title.textContent = emotion.label;
     text.textContent = emotion.text;
     document.body.style.setProperty("--current-emotion", emotion.color);
-    if (emotionOscillator) {
-      emotionOscillator.frequency.setTargetAtTime(emotion.frequency, emotionAudioContext.currentTime, 0.04);
+    if (activeSoundSource === "wheel") {
+      stopEmotionSound();
+      startEmotionSound();
+      soundButton.textContent = "Ferma suono";
     }
   };
 
@@ -143,10 +265,11 @@ function initEmotionWheel() {
   });
 
   soundButton.addEventListener("click", () => {
-    if (emotionOscillator) {
+    if (activeSoundSource === "wheel") {
       stopEmotionSound();
       soundButton.textContent = "Ascolta colore sonoro";
     } else {
+      stopGuidedPlayback();
       startEmotionSound();
       soundButton.textContent = "Ferma suono";
     }
@@ -157,65 +280,282 @@ function initEmotionWheel() {
 
 function startEmotionSound() {
   const emotion = EMOTION_DATA[selectedEmotion] || EMOTION_DATA.joy;
+  const sound = emotion.sound || {};
   emotionAudioContext = emotionAudioContext || new (window.AudioContext || window.webkitAudioContext)();
-  emotionOscillator = emotionAudioContext.createOscillator();
-  emotionGain = emotionAudioContext.createGain();
-  emotionOscillator.type = selectedEmotion === "anger" ? "sawtooth" : "sine";
-  emotionOscillator.frequency.value = emotion.frequency;
-  emotionGain.gain.setValueAtTime(0.0001, emotionAudioContext.currentTime);
-  emotionGain.gain.exponentialRampToValueAtTime(0.055, emotionAudioContext.currentTime + 0.08);
-  emotionOscillator.connect(emotionGain);
-  emotionGain.connect(emotionAudioContext.destination);
-  emotionOscillator.start();
+  stopGuidedPlayback();
+  stopEmotionSound();
+  emotionOscillator = { active: true };
+  activeSoundSource = "wheel";
+  emotionSoundNodes = [];
+  playEmotionMotif(selectedEmotion);
+  emotionLoopTimer = window.setInterval(() => playEmotionMotif(selectedEmotion), (sound.loop || 1.6) * 1000);
+}
+
+function playEmotionMotif(emotionId) {
+  if (!emotionAudioContext || !emotionOscillator) return;
+  const emotion = EMOTION_DATA[emotionId] || EMOTION_DATA.joy;
+  const sound = emotion.sound || {};
+  const motif = sound.motif || [{ frequency: emotion.frequency, start: 0, duration: 0.6 }];
+  const now = emotionAudioContext.currentTime + 0.02;
+  const bus = createEmotionBus(sound);
+
+  motif.forEach((note, index) => {
+    const start = now + note.start;
+    const duration = note.duration;
+    const oscillator = emotionAudioContext.createOscillator();
+    const gain = emotionAudioContext.createGain();
+    const filter = emotionAudioContext.createBiquadFilter();
+    const peak = (note.gain || sound.gain || 0.036) * (note.accent || 1);
+
+    oscillator.type = note.type || sound.type || "sine";
+    oscillator.frequency.setValueAtTime(note.frequency, start);
+    filter.type = sound.filter || "lowpass";
+    filter.frequency.setValueAtTime(sound.filterFrequency || 900, start);
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.exponentialRampToValueAtTime(peak, start + 0.035);
+    gain.gain.setTargetAtTime(0.0001, start + Math.max(0.06, duration - 0.08), 0.055);
+
+    oscillator.connect(filter);
+    filter.connect(gain);
+    gain.connect(bus.input);
+    oscillator.start(start);
+    oscillator.stop(start + duration + 0.12);
+    emotionSoundNodes.push(oscillator, filter, gain);
+
+    if ((emotionId === "joy" && index === 2) || (emotionId === "hope" && index >= 2)) {
+      const harmony = emotionAudioContext.createOscillator();
+      const harmonyGain = emotionAudioContext.createGain();
+      harmony.type = "sine";
+      harmony.frequency.setValueAtTime(note.frequency * 1.5, start);
+      harmonyGain.gain.setValueAtTime(0.0001, start);
+      harmonyGain.gain.exponentialRampToValueAtTime(peak * 0.28, start + 0.04);
+      harmonyGain.gain.setTargetAtTime(0.0001, start + Math.max(0.06, duration - 0.08), 0.06);
+      harmony.connect(harmonyGain);
+      harmonyGain.connect(bus.input);
+      harmony.start(start);
+      harmony.stop(start + duration + 0.12);
+      emotionSoundNodes.push(harmony, harmonyGain);
+    }
+  });
+
+  if (sound.noise) {
+    addNoiseAccent(now, bus.input, sound.gain || 0.03);
+  }
+}
+
+function createEmotionBus(sound) {
+  const input = emotionAudioContext.createGain();
+  const output = emotionAudioContext.createGain();
+  input.gain.value = 0.9;
+  output.gain.value = 0.92;
+  input.connect(output);
+
+  if (sound.delay) {
+    const delay = emotionAudioContext.createDelay(0.8);
+    const feedback = emotionAudioContext.createGain();
+    delay.delayTime.value = sound.delay;
+    feedback.gain.value = sound.feedback || 0.12;
+    input.connect(delay);
+    delay.connect(feedback);
+    feedback.connect(delay);
+    delay.connect(output);
+    emotionSoundNodes.push(delay, feedback);
+  }
+
+  output.connect(emotionAudioContext.destination);
+  emotionSoundNodes.push(input, output);
+  return { input, output };
+}
+
+function addNoiseAccent(start, destination, level) {
+  const duration = 0.12;
+  const bufferSize = Math.max(1, Math.floor(emotionAudioContext.sampleRate * duration));
+  const buffer = emotionAudioContext.createBuffer(1, bufferSize, emotionAudioContext.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i += 1) {
+    data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize);
+  }
+
+  const noise = emotionAudioContext.createBufferSource();
+  const filter = emotionAudioContext.createBiquadFilter();
+  const gain = emotionAudioContext.createGain();
+  noise.buffer = buffer;
+  filter.type = "highpass";
+  filter.frequency.value = 1200;
+  gain.gain.setValueAtTime(0.0001, start);
+  gain.gain.exponentialRampToValueAtTime(level * 0.48, start + 0.018);
+  gain.gain.setTargetAtTime(0.0001, start + 0.05, 0.03);
+  noise.connect(filter);
+  filter.connect(gain);
+  gain.connect(destination);
+  noise.start(start);
+  noise.stop(start + duration + 0.04);
+  emotionSoundNodes.push(noise, filter, gain);
 }
 
 function stopEmotionSound() {
-  if (!emotionOscillator || !emotionGain || !emotionAudioContext) return;
-  const osc = emotionOscillator;
-  const gain = emotionGain;
-  gain.gain.setTargetAtTime(0.0001, emotionAudioContext.currentTime, 0.03);
-  osc.stop(emotionAudioContext.currentTime + 0.12);
-  osc.addEventListener("ended", () => {
-    osc.disconnect();
-    gain.disconnect();
+  if (!emotionOscillator && !emotionLoopTimer) return;
+  if (emotionLoopTimer) {
+    window.clearInterval(emotionLoopTimer);
+    emotionLoopTimer = null;
+  }
+  const nodes = [...emotionSoundNodes];
+  const stopAt = emotionAudioContext ? emotionAudioContext.currentTime + 0.04 : 0;
+  nodes.forEach((node) => {
+    if (typeof node.stop === "function") {
+      try {
+        node.stop(stopAt);
+      } catch (error) {
+        // Oscillators can only be stopped once.
+      }
+    }
   });
+  window.setTimeout(() => {
+    nodes.forEach((node) => {
+      if (typeof node.disconnect === "function") {
+        try {
+          node.disconnect();
+        } catch (error) {
+          // Already disconnected by the browser.
+        }
+      }
+    });
+  }, 180);
   emotionOscillator = null;
   emotionGain = null;
+  emotionSoundNodes = [];
+  activeSoundSource = null;
+}
+
+function stopGuidedPlayback() {
+  if (guidedSoundTimer) {
+    window.clearInterval(guidedSoundTimer);
+    guidedSoundTimer = null;
+  }
+  if (guidedAnimation) {
+    cancelAnimationFrame(guidedAnimation);
+    guidedAnimation = null;
+  }
+  if (guidedPlaying) {
+    guidedPlaying = false;
+  }
+  const guidedButton = document.getElementById("guidedPlayButton");
+  if (guidedButton) guidedButton.textContent = "Ascolta";
+  const path = document.getElementById("guidedWave");
+  const color = document.getElementById("guidedColor");
+  const emotionSelect = document.getElementById("guidedEmotion");
+  if (path && emotionSelect) {
+    const emotion = Object.values(EMOTION_DATA).find((item) => item.label === emotionSelect.value) || EMOTION_DATA.joy;
+    const wave = emotion.wave || {};
+    path.setAttribute("d", createWavePath({
+      ...wave,
+      amplitude: Math.max(14, (wave.amplitude || 30) * 0.58),
+      center: 85,
+      speed: (wave.speed || 0.0015) * 0.35
+    }, 720, performance.now()));
+    if (color) path.style.stroke = color.value;
+  }
+}
+
+function resetWheelSoundButton() {
+  const soundButton = document.getElementById("emotionSoundButton");
+  if (soundButton) soundButton.textContent = "Ascolta colore sonoro";
 }
 
 function initGuidedPlayer() {
   const button = document.getElementById("guidedPlayButton");
   const path = document.getElementById("guidedWave");
   const color = document.getElementById("guidedColor");
+  const customColor = document.getElementById("guidedCustomColor");
   const glow = document.getElementById("albumGlow");
-  if (!button || !path || !color || !glow) return;
+  const emotionSelect = document.getElementById("guidedEmotion");
+  const colorChoices = document.querySelectorAll(".guidedColorChoices button[data-color]");
+  if (!button || !path || !color || !customColor || !glow || !emotionSelect) return;
+
+  const emotionByLabel = Object.fromEntries(
+    Object.entries(EMOTION_DATA).map(([key, data]) => [data.label, key])
+  );
+
+  const getGuidedEmotionKey = () => emotionByLabel[emotionSelect.value] || "joy";
+
+  const getGuidedEmotion = () => {
+    const key = getGuidedEmotionKey();
+    return EMOTION_DATA[key];
+  };
+
+  const applyGuidedColor = (value, fromPreset = false) => {
+    color.value = value;
+    customColor.value = value;
+    glow.style.background = `linear-gradient(135deg, ${value}, #ef6a3a)`;
+    path.style.stroke = value;
+    colorChoices.forEach((choice) => {
+      choice.classList.toggle("active", fromPreset && choice.dataset.color === value);
+    });
+    draw(performance.now());
+  };
 
   const draw = (time) => {
-    path.setAttribute("d", createWavePath({ amplitude: guidedPlaying ? 42 : 20, wavelength: 128, center: 85, speed: guidedPlaying ? 0.002 : 0.0005 }, 720, time));
+    const emotion = getGuidedEmotion();
+    const wave = emotion.wave || {};
+    path.setAttribute("d", createWavePath({
+      ...wave,
+      amplitude: guidedPlaying ? wave.amplitude || 30 : Math.max(14, (wave.amplitude || 30) * 0.58),
+      center: 85,
+      speed: guidedPlaying ? wave.speed || 0.0015 : (wave.speed || 0.0015) * 0.35
+    }, 720, time));
     path.style.stroke = color.value;
     if (guidedPlaying) guidedAnimation = requestAnimationFrame(draw);
   };
 
-  color.addEventListener("input", () => {
-    glow.style.background = `linear-gradient(135deg, ${color.value}, #ef6a3a)`;
-    path.style.stroke = color.value;
+  const syncGuidedEmotion = () => {
+    const emotion = getGuidedEmotion();
+    applyGuidedColor(emotion.color, true);
+    if (guidedPlaying) {
+      window.clearInterval(guidedSoundTimer);
+      playEmotionMotif(getGuidedEmotionKey());
+      guidedSoundTimer = window.setInterval(() => playEmotionMotif(getGuidedEmotionKey()), ((emotion.sound || {}).loop || 1.6) * 1000);
+    }
+  };
+
+  emotionSelect.addEventListener("change", syncGuidedEmotion);
+
+  colorChoices.forEach((choice) => {
+    choice.addEventListener("click", () => applyGuidedColor(choice.dataset.color, true));
+  });
+
+  customColor.addEventListener("input", () => {
+    applyGuidedColor(customColor.value, false);
   });
 
   button.addEventListener("click", () => {
     guidedPlaying = !guidedPlaying;
-    button.textContent = guidedPlaying ? "Stop" : "Play";
+    button.textContent = guidedPlaying ? "Ferma" : "Ascolta";
     if (guidedPlaying) {
+      emotionAudioContext = emotionAudioContext || new (window.AudioContext || window.webkitAudioContext)();
+      resetWheelSoundButton();
+      stopEmotionSound();
+      emotionOscillator = { active: true };
+      activeSoundSource = "guided";
+      emotionSoundNodes = [];
+      const emotion = getGuidedEmotion();
+      playEmotionMotif(getGuidedEmotionKey());
+      guidedSoundTimer = window.setInterval(() => playEmotionMotif(getGuidedEmotionKey()), ((emotion.sound || {}).loop || 1.6) * 1000);
       draw(performance.now());
     } else {
+      window.clearInterval(guidedSoundTimer);
+      guidedSoundTimer = null;
+      stopEmotionSound();
       cancelAnimationFrame(guidedAnimation);
+      guidedAnimation = null;
       draw(performance.now());
     }
   });
 
-  draw(performance.now());
+  syncGuidedEmotion();
 }
 
 function initPlaylistBuilder() {
+  const form = document.getElementById("playlistForm");
   const titleInput = document.getElementById("songTitle");
   const emotionSelect = document.getElementById("songEmotion");
   const reasonInput = document.getElementById("songReason");
@@ -240,33 +580,27 @@ function initPlaylistBuilder() {
     reasonInput.value = "";
   };
 
-  addButton.addEventListener("click", addCard);
+  if (form) {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      addCard();
+    });
+  } else {
+    addButton.addEventListener("click", addCard);
+  }
   addCard();
 }
 
 function initEmotionQuiz() {
-  const quiz = document.getElementById("emotionQuiz");
-  const result = document.getElementById("emotionQuizResult");
-  if (!quiz || !result) return;
-
-  quiz.addEventListener("click", (event) => {
-    const button = event.target.closest("button[data-correct]");
-    if (!button) return;
-    const card = button.closest("article");
-    card.querySelectorAll("button").forEach((item) => {
-      item.classList.remove("correct", "wrong");
-      item.disabled = true;
-    });
-    const isCorrect = button.dataset.correct === "true";
-    card.dataset.answerCorrect = isCorrect ? "true" : "false";
-    button.classList.add(isCorrect ? "correct" : "wrong");
-    const correct = card.querySelector('button[data-correct="true"]');
-    correct?.classList.add("correct");
-
-    const cards = [...quiz.querySelectorAll("article")];
-    const answeredCards = cards.filter((item) => item.querySelector("button.correct, button.wrong")).length;
-    const correctAnswers = cards.filter((item) => item.dataset.answerCorrect === "true").length;
-    result.textContent = answeredCards >= cards.length ? `Risultato: ${correctAnswers}/${cards.length}` : "";
+  MGH.initCivicQuiz({
+    bankId: "emotionSoundtrack",
+    quizId: "emotionQuiz",
+    resultId: "emotionQuizResult",
+    checkId: "checkEmotionQuiz",
+    resetId: "resetEmotionQuiz",
+    questionsPerRound: 3,
+    successMessage: "Perfetto: 3/3. Hai riconosciuto emozioni, ascolto ed empatia.",
+    retryMessage: "Rileggi la pagina e riprova: il prossimo giro avra nuove domande."
   });
 }
 

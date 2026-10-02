@@ -63,20 +63,21 @@ function renderUpcomingSeriesCard() {
   `;
 }
 
-function createComicCard(comic, isReady, backCoverSrc, userLoggedIn) {
+function getCoverSrc(comic) {
+  return `${COMIC_ROOT}/${comic.slug}/${comic.cover}`;
+}
+
+function getBackCoverSrc(comic) {
+  return `${COMIC_ROOT}/${comic.slug}/${comic.slug}_back.webp`;
+}
+
+function getBooksPerCatalogPage() {
+  return window.matchMedia("(max-width: 620px)").matches ? 1 : 4;
+}
+
+function updateComicCardState(card, comic, isReady, backCoverSrc, userLoggedIn) {
   const canOpen = MGH_COMICS.canOpen({ ready: isReady, userLoggedIn, slug: comic.slug });
   const isLocked = isReady && !canOpen;
-  const tag = canOpen ? "a" : "article";
-  const card = document.createElement(tag);
-
-  card.className = `libraryBook ${comic.slug}Book ${canOpen ? "availableBook" : "futureBook"}${isLocked ? " lockedBook" : ""}`;
-  if (canOpen) {
-    card.href = `${comic.slug}.html`;
-  }
-  if (isLocked) {
-    card.title = "Accedi per leggere questo volume";
-  }
-
   const actionText = !isReady
     ? "In arrivo"
     : isLocked
@@ -85,28 +86,58 @@ function createComicCard(comic, isReady, backCoverSrc, userLoggedIn) {
         ? "Sfoglia"
         : "Anteprima";
 
+  card.className = `libraryBook ${comic.slug}Book ${canOpen ? "availableBook" : "futureBook"}${isLocked ? " lockedBook" : ""}`;
+  card.dataset.ready = isReady ? "true" : "false";
+  card.dataset.canOpen = canOpen ? "true" : "false";
+
+  if (canOpen) {
+    card.href = `${comic.slug}.html`;
+    card.removeAttribute("aria-disabled");
+    card.removeAttribute("title");
+    card.tabIndex = 0;
+  } else {
+    card.removeAttribute("href");
+    card.setAttribute("aria-disabled", "true");
+    card.tabIndex = 0;
+  }
+
+  if (isLocked) {
+    card.title = "Accedi per leggere questo volume";
+  }
+
+  const action = card.querySelector(".bookAction");
+  if (action) action.textContent = actionText;
+
+  const backFace = card.querySelector(".bookFaceBack");
+  if (backFace && backCoverSrc) {
+    backFace.innerHTML = `<img src="${backCoverSrc}" alt="Retro copertina del fumetto su ${comic.shortTitle}" loading="lazy" decoding="async">`;
+  }
+}
+
+function createComicCard(comic, userLoggedIn) {
+  const card = document.createElement("a");
+
   card.innerHTML = `
     <div class="bookCover">
       <span class="bookNumber">${comic.volume}</span>
       <div class="bookCoverInner">
         <div class="bookFace bookFaceFront">
-          <img src="../img/fumetti/${comic.slug}/${comic.cover}" alt="Copertina del fumetto su ${comic.shortTitle}">
+          <img src="${getCoverSrc(comic)}" alt="Copertina del fumetto su ${comic.shortTitle}" loading="eager" decoding="async">
         </div>
         <div class="bookFace bookFaceBack">
-          ${backCoverSrc
-            ? `<img src="${backCoverSrc}" alt="Retro copertina del fumetto su ${comic.shortTitle}">`
-            : `<div class="bookBackPlaceholder">
-                <span>Vite a fumetti</span>
-                <strong>${comic.shortTitle}</strong>
-                <em>Volume ${comic.volume}</em>
-              </div>`}
+          <div class="bookBackPlaceholder">
+            <span>Vite a fumetti</span>
+            <strong>${comic.shortTitle}</strong>
+            <em>Volume ${comic.volume}</em>
+          </div>
         </div>
       </div>
     </div>
     <span class="bookTitle">${comic.title}</span>
-    <span class="bookAction">${actionText}</span>
+    <span class="bookAction">Caricamento</span>
   `;
 
+  updateComicCardState(card, comic, false, null, userLoggedIn);
   return card;
 }
 
@@ -130,10 +161,11 @@ async function renderShelf() {
   let readyCount = 0;
 
   for (const comic of visibleComics) {
-    const isReady = await MGH_COMICS.isReady(COMIC_ROOT, comic.slug);
-    const backCoverSrc = await MGH_COMICS.resolveBackCover(COMIC_ROOT, comic);
+    const isReady = Boolean(comic.ready);
+    const card = createComicCard(comic, userLoggedIn);
+    updateComicCardState(card, comic, isReady, getBackCoverSrc(comic), userLoggedIn);
+    shelf.appendChild(card);
     if (isReady) readyCount += 1;
-    shelf.appendChild(createComicCard(comic, isReady, backCoverSrc, userLoggedIn));
   }
 
   updateAvailability(readyCount, visibleComics.length, userLoggedIn);
@@ -143,7 +175,7 @@ async function renderShelf() {
 function getCatalogStep() {
   if (!shelf) return 0;
   const firstBook = shelf.children[0];
-  const nextPageBook = shelf.children[4];
+  const nextPageBook = shelf.children[getBooksPerCatalogPage()];
 
   if (!firstBook || !nextPageBook) return shelf.clientWidth || 0;
   return nextPageBook.offsetLeft - firstBook.offsetLeft;
@@ -151,15 +183,16 @@ function getCatalogStep() {
 
 function getCatalogPageCount() {
   if (!shelf) return 1;
-  return Math.max(1, Math.ceil(shelf.children.length / 4));
+  return Math.max(1, Math.ceil(shelf.children.length / getBooksPerCatalogPage()));
 }
 
 function goToCatalogPage(page) {
   if (!shelf) return;
   const maxPage = getCatalogPageCount() - 1;
+  const booksPerPage = getBooksPerCatalogPage();
   catalogPage = Math.max(0, Math.min(maxPage, page));
   const firstBook = shelf.children[0];
-  const targetBook = shelf.children[catalogPage * 4];
+  const targetBook = shelf.children[catalogPage * booksPerPage];
   const left = targetBook && firstBook
     ? targetBook.offsetLeft - firstBook.offsetLeft
     : catalogPage * getCatalogStep();

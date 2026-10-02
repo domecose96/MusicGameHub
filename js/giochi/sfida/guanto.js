@@ -11,6 +11,7 @@ let timerInterval;
 let currentMode = "sfida";
 let isRankedChallenge = false;
 let rankedSavedScore = 0;
+let answerLocked = false;
 
 // ==================== RIFERIMENTI DOM ====================
 const quizDiv = document.getElementById("quiz");
@@ -120,7 +121,8 @@ async function generateQuestions(){
   questions = [];
 
   try{
-    const response = await fetch("../js/giochi/sfida/question.json");
+    const response = await fetch("../js/giochi/sfida/question.json?v=20260718-bank2");
+    if(!response.ok) throw new Error(`HTTP ${response.status}`);
     const allData = await response.json();
     questions = shuffleNoImmediateRepeat(allData, {
       key: question => question.q || `${question.type}-${question.name || question.img || question.y}`
@@ -139,6 +141,7 @@ function showQuestion() {
     return;
   }
 
+  answerLocked = false;
   const q = questions[currentIndex];
   answersDiv.innerHTML = "";
 
@@ -195,7 +198,12 @@ function showQuestion() {
 
 // ==================== CONTROLLO RISPOSTE ====================
 function checkAnswerNote(answer,btn,q){
-  document.querySelectorAll(".noteButton").forEach(b=>b.style.pointerEvents="none");
+  if(answerLocked) return;
+  answerLocked = true;
+  document.querySelectorAll(".noteButton").forEach(b=>{
+    b.disabled = true;
+    b.style.pointerEvents = "none";
+  });
 
   if(answer.trim().toLowerCase() === q.name.trim().toLowerCase()){
     btn.classList.add("correct");
@@ -217,7 +225,12 @@ function checkAnswerNote(answer,btn,q){
 }
 
 function checkAnswerFigurazione(ansIdx, correctIdx, btn){
-  document.querySelectorAll(".noteButton").forEach(b=>b.style.pointerEvents="none");
+  if(answerLocked) return;
+  answerLocked = true;
+  document.querySelectorAll(".noteButton").forEach(b=>{
+    b.disabled = true;
+    b.style.pointerEvents = "none";
+  });
 
   if(ansIdx === correctIdx){
     btn.classList.add("correct");

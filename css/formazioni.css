@@ -178,92 +178,12 @@
   padding: 0 18px 48px;
 }
 
-.costruisciCard {
-  background: linear-gradient(135deg, #fff9f3, #fffaf5);
-  border: 2px solid rgba(0, 166, 189, 0.18);
-  border-radius: 24px;
-  padding: clamp(28px, 5vw, 42px);
-  text-align: center;
-  box-shadow: 0 16px 42px rgba(0, 166, 189, 0.12);
-}
-
-.costruisciCard h3 {
-  margin: 0 0 12px;
-  color: #00a6bd;
-  font-size: 1.6rem;
-  font-weight: 900;
-  text-shadow: 0 0 6px rgba(0, 188, 212, 0.18);
-}
-
-.costruisciCard p {
-  margin: 0 0 18px;
-  color: var(--text-muted);
-  font-size: 1rem;
-  line-height: 1.6;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.costruisciBtn {
-  display: inline-block;
-  padding: 12px 28px;
-  border-radius: 18px;
-  border: 2px solid rgba(0, 166, 189, 0.30);
-  background: rgba(0, 166, 189, 0.08);
-  color: #00798a;
-  font-size: 0.95rem;
-  font-weight: 800;
-  cursor: not-allowed;
-  transition: all 0.22s ease;
-  opacity: 0.65;
-  margin-bottom: 12px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.costruisciBtn:disabled {
-  opacity: 0.65;
-}
-
-.costruisciLink {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 46px;
-  padding: 0 24px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #00a6bd, #28d2c7);
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 0.92rem;
-  font-weight: 900;
-  transition: all 0.22s ease;
-  box-shadow: 0 12px 28px rgba(0, 166, 189, 0.22);
-}
-
-.costruisciLink:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(0, 166, 189, 0.32);
-}
-
 /* ==================== RESPONSIVE ==================== */
 
 @media (max-width: 768px) {
   .formazioneContainer {
     grid-template-columns: 1fr;
     gap: 18px;
-  }
-
-  #siteNav.formazioniNav {
-    top: 112px;
-    padding: 10px 12px;
-  }
-
-  #siteNav.formazioniNav .navBtn {
-    padding: 8px 12px;
-    font-size: 0.85rem;
   }
 
   .formazione-title {
@@ -289,16 +209,6 @@
 }
 
 @media (max-width: 480px) {
-  #siteNav.formazioniNav {
-    gap: 6px;
-    padding: 8px 10px;
-  }
-
-  #siteNav.formazioniNav .navBtn {
-    padding: 7px 10px;
-    font-size: 0.78rem;
-  }
-
   .formazione-title {
     font-size: 1.3rem;
   }
@@ -362,42 +272,6 @@
   text-shadow: 0 0 6px rgba(0, 188, 212, 0.25), 0 0 12px rgba(40, 210, 199, 0.22);
 }
 
-#siteNav.formazioniNav {
-  position: fixed;
-  top: var(--header-height);
-  left: 0;
-  right: 0;
-  z-index: 900;
-  display: flex;
-  gap: 4px;
-  padding: 10px 16px;
-  overflow-x: auto;
-  background: rgba(255, 255, 255, 0.97);
-  border-bottom: 1px solid rgba(0, 166, 189, 0.12);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-  backdrop-filter: blur(10px);
-  scrollbar-width: none;
-}
-
-#siteNav.formazioniNav::-webkit-scrollbar {
-  display: none;
-}
-
-#siteNav.formazioniNav .navBtn {
-  flex-shrink: 0;
-  width: auto;
-  height: auto;
-  padding: 7px 16px;
-  border-radius: 20px;
-  border: 1.5px solid rgba(0, 166, 189, 0.2);
-  background: transparent;
-  color: var(--text-muted);
-  font-size: 0.88rem;
-  font-weight: 600;
-  box-shadow: none;
-  white-space: nowrap;
-}
-
 .formazioniIntro {
   padding-top: 62px;
   padding-bottom: 42px;
@@ -451,8 +325,7 @@
   filter: drop-shadow(0 20px 28px rgba(6, 55, 68, 0.18));
 }
 
-.formazioneDescCard,
-.costruisciCard {
+.formazioneDescCard {
   border: 1px solid rgba(0, 166, 189, 0.14);
   border-radius: 24px;
   background:
@@ -518,16 +391,6 @@
 
 .formazione-curiosita strong {
   color: #00a6bd;
-}
-
-.costruisciBtn,
-.costruisciLink {
-  border-radius: 999px;
-}
-
-.costruisciLink {
-  background: linear-gradient(135deg, #00a6bd, #28d2c7);
-  box-shadow: 0 12px 28px rgba(0, 166, 189, 0.22);
 }
 
 @media (max-width: 900px) {
@@ -980,5 +843,174 @@
   .lineFive,
   .lineSix {
     width: 128px;
+  }
+}
+
+/* ==================== FORMAZIONI - ALLINEAMENTO UI ==================== */
+
+.formazioniPage {
+  --accent: #00a6bd;
+  --accent-soft: #28d2c7;
+  --learning-card-border: rgba(0, 166, 189, 0.16);
+  --learning-card-bg:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(226, 250, 250, 0.93));
+  --learning-card-overlay:
+    radial-gradient(circle at 12% 12%, rgba(0, 166, 189, 0.09), transparent 34%),
+    radial-gradient(circle at 90% 88%, rgba(255, 160, 80, 0.08), transparent 38%);
+}
+
+.formazioniPage #siteNav.instrumentNav {
+  justify-content: flex-start;
+  gap: 4px;
+}
+
+.formazione-badge,
+.costruisciBadge {
+  background: rgba(0, 166, 189, 0.10);
+  color: #00798a;
+  border-color: rgba(0, 166, 189, 0.22);
+}
+
+.formazioniHeroButton {
+  border-radius: 999px;
+  background: linear-gradient(135deg, #00a6bd, #28d2c7);
+  box-shadow: 0 12px 28px rgba(0, 166, 189, 0.20);
+}
+
+.formazioniHeroButton.secondary {
+  background: rgba(255, 255, 255, 0.88);
+  color: #00798a;
+  border-color: rgba(0, 166, 189, 0.24);
+  box-shadow: none;
+}
+
+.formazioneDescCard,
+.detail-item,
+.formazione-curiosita {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--learning-card-border);
+  border-radius: var(--learning-card-radius);
+  background: var(--learning-card-bg);
+  box-shadow: var(--panel-shadow);
+}
+
+.formazioneDescCard::before,
+.detail-item::before,
+.formazione-curiosita::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--learning-card-overlay);
+  pointer-events: none;
+}
+
+.formazioneDescCard > *,
+.detail-item > *,
+.formazione-curiosita > * {
+  position: relative;
+  z-index: 1;
+}
+
+.formazioneDescCard {
+  border-radius: 20px;
+}
+
+.detail-item,
+.formazione-curiosita {
+  border-radius: 16px;
+}
+
+.formazioneDescCard:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 166, 189, 0.28);
+  box-shadow: 0 18px 38px rgba(0, 166, 189, 0.12);
+}
+
+.formazioneContainer {
+  --formazione-panel-height: clamp(440px, 34vw, 560px);
+  width: min(calc(100% - 36px), 1640px);
+  max-width: none;
+  grid-template-columns: minmax(520px, 0.78fr) minmax(720px, 1.32fr);
+  align-items: stretch;
+  justify-content: center;
+  gap: clamp(22px, 2.4vw, 34px);
+  margin-inline: auto;
+  padding-inline: 0;
+  padding-bottom: 54px;
+}
+
+.formazioneImageWrapper {
+  height: 100%;
+  min-height: var(--formazione-panel-height);
+  aspect-ratio: auto;
+  border: 1px solid rgba(0, 166, 189, 0.12);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(226, 250, 250, 0.58)),
+    radial-gradient(circle at 50% 52%, rgba(0, 166, 189, 0.14), transparent 58%),
+    radial-gradient(circle at 70% 34%, rgba(255, 184, 77, 0.14), transparent 44%);
+  box-shadow: 0 22px 48px rgba(6, 55, 68, 0.08);
+}
+
+.formazioneImageWrapper .stageImage {
+  transform: translateY(18%) scale(1.02);
+}
+
+.formazioneDescCard {
+  height: auto;
+  min-height: var(--formazione-panel-height);
+  overflow: hidden;
+}
+
+.costruisciSection {
+  max-width: none;
+  margin: 0 auto;
+  padding: 54px 18px 60px;
+}
+
+.formazioniCTA {
+  --accent: #00a6bd;
+  --accent-soft: #28d2c7;
+}
+
+.formazioniCTA .learningNextCard {
+  border-color: rgba(0, 166, 189, 0.18);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(226, 250, 250, 0.94));
+}
+
+.formazioniCTA .learningNextCard:hover {
+  border-color: rgba(0, 166, 189, 0.30);
+  background:
+    linear-gradient(135deg, #ffffff, rgba(214, 247, 247, 0.96));
+  box-shadow: 0 12px 26px rgba(0, 166, 189, 0.10);
+}
+
+.formazioniCTA .learningNextCard span {
+  background: rgba(0, 166, 189, 0.10);
+  color: #00798a;
+  border-color: rgba(0, 166, 189, 0.22);
+}
+
+@media (max-width: 1280px) {
+  .formazioneContainer {
+    grid-template-columns: minmax(0, 0.86fr) minmax(480px, 1.14fr);
+    width: min(calc(100% - 32px), 1200px);
+  }
+}
+
+@media (max-width: 980px) {
+  .formazioneContainer {
+    grid-template-columns: 1fr;
+    width: min(calc(100% - 28px), 760px);
+  }
+
+  .formazioneImageWrapper {
+    height: 360px;
+  }
+
+  .formazioneDescCard {
+    height: auto;
+    overflow: hidden;
   }
 }

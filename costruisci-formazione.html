@@ -7,6 +7,7 @@
 
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/learn.css">
+  <link rel="stylesheet" href="css/learning-ui.css?v=20260622-shared-learning-ui">
   <link rel="stylesheet" href="css/strumenti.css">
   <link rel="stylesheet" href="css/costruisci-formazione.css">
 </head>
@@ -92,6 +93,9 @@
       </aside>
 
       <div class="stageCard">
+        <button class="stageResetButton" type="button" onclick="resetStage()" aria-label="Ricomincia">
+          <span aria-hidden="true">↻</span>
+        </button>
 
         <div class="stageWrapper" id="stageDropZone">
           <img src="img/formazioni/stage-laboratorio.webp" alt="Palco" class="stageImage">
@@ -111,11 +115,32 @@
 
   <!-- ==================== AZIONI ==================== -->
   <section id="actionsSection" class="siteSection learnSection actionsSection">
-    <button class="actionBtn resetBtn" onclick="resetStage()">Ricomincia</button>
-    <a href="formazioni.html" class="actionBtn backBtn">Torna alle formazioni</a>
+    <nav class="learnCTA costruisciCTA" aria-label="Continua il percorso sulle formazioni">
+      <a href="strumenti.html" class="learningNextCard">
+        <span>Ripassa prima</span>
+        <strong>Strumenti musicali</strong>
+        <p>Rivedi famiglie, timbri e caratteristiche degli strumenti.</p>
+      </a>
+      <a href="formazioni.html" class="learningNextCard">
+        <span>Guida agli organici</span>
+        <strong>Formazioni musicali</strong>
+        <p>Scopri solisti, ensemble, band e orchestre.</p>
+      </a>
+    </nav>
   </section>
 
 </div>
+
+<footer class="siteLegalFooter">
+  <p>Music Game Hub tutela la privacy e usa solo strumenti tecnici o statistici necessari al portale.</p>
+  <div class="siteLegalLinks">
+    <a href="legal/privacy.html">Privacy Policy</a>
+    <span>·</span>
+    <a href="legal/cookie.html">Cookie Policy</a>
+    <span>·</span>
+    <a href="legal/termini.html">Termini di servizio</a>
+  </div>
+</footer>
 
 <!-- SCROLL TOP BUTTON -->
 <button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>

@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="../css/base.css">
 <link rel="stylesheet" href="../css/learn.css">
 <link rel="stylesheet" href="../css/educazione_civica/canti_memoria.css">
+<link rel="stylesheet" href="../css/educazione_civica/civica-ui.css">
 </head>
 
 <body class="memorySongsPage">
@@ -28,7 +29,7 @@
 </header>
 
 <nav id="siteNav" class="theoryNav memorySongsNav">
-  <button class="navBtn" onclick="MGH.scrollToSection('hero')">🎵 Inizio</button>
+  <button class="navBtn active" onclick="MGH.scrollToSection('hero')">🎵 Inizio</button>
   <button class="navBtn" onclick="MGH.scrollToSection('ricordare')">🕯️ Ricordare</button>
   <button class="navBtn" onclick="MGH.scrollToSection('parole')">💬 Parole</button>
   <button class="navBtn" onclick="MGH.scrollToSection('memoria')">💎 Memoria</button>
@@ -48,17 +49,24 @@
         a dare voce a chi non c'è più e a trasformare la storia in responsabilità.
       </p>
       <div class="memoryHeroActions">
-        <button class="memoryButton" onclick="MGH.scrollToSection('ricordare')">Inizia</button>
+        <button class="memoryButton secondary" onclick="MGH.scrollToSection('ricordare')">Inizia</button>
         <button class="memoryButton secondary" onclick="MGH.scrollToSection('ascolti')">Vai agli ascolti</button>
+        <button class="memoryButton secondary" onclick="MGH.scrollToSection('quiz')">Vai al quiz</button>
+        <details class="theoryHeroMore">
+          <summary>Altri argomenti</summary>
+          <div class="theoryHeroMoreMenu">
+            <button onclick="MGH.scrollToSection('parole')">Parole</button>
+            <button onclick="MGH.scrollToSection('memoria')">Memoria</button>
+            <button onclick="MGH.scrollToSection('laboratorio')">Laboratorio</button>
+          </div>
+        </details>
       </div>
     </div>
 
-    <div class="memoryHeroPanel" aria-label="Canti, memoria e responsabilità">
-      <div class="memoryDisc">
-        <span>♪</span>
-        <i></i>
+    <div class="theoryHeroMedia civicHeroMedia memoryHeroMedia" aria-hidden="true">
+      <div class="theoryHeroImageSlot civicHeroImageSlot memoryHeroImageSlot">
+        <img src="../img/educazione_civica/hero/canti-memoria-hero.png" alt="">
       </div>
-      <strong>Ascoltare per non dimenticare</strong>
     </div>
   </section>
 
@@ -242,7 +250,7 @@
       Verifica se hai compreso il senso civico e musicale del percorso.
     </p>
 
-    <div id="memoryQuiz" class="memoryQuiz">
+    <div id="memoryQuiz" class="memoryQuiz civicQuiz">
       <article class="quizQuestion" data-answer="responsabilita">
         <h3>1. Perché ascoltare i canti della Memoria?</h3>
         <button type="button" data-value="intrattenimento">Solo per conoscere canzoni famose.</button>
@@ -263,13 +271,6 @@
         <button type="button" data-value="ridere">Ridicolizzare parole o lingua del canto.</button>
         <button type="button" data-value="distrarsi">Usare l'ascolto come pausa senza pensare.</button>
       </article>
-
-      <article class="quizQuestion" data-answer="memoria">
-        <h3>4. La memoria serve soprattutto a...</h3>
-        <button type="button" data-value="memoria">capire il passato per agire meglio nel presente.</button>
-        <button type="button" data-value="dimenticare">lasciare il passato lontano da noi.</button>
-        <button type="button" data-value="voto">preparare solo una verifica.</button>
-      </article>
     </div>
 
     <div class="quizActions">
@@ -285,6 +286,14 @@
       verso il passato e una responsabilità verso il futuro.
     </h2>
   </section>
+
+  <nav class="learnCTA civicReturnCTA" aria-label="Torna al portale di educazione civica">
+    <a class="learningNextCard" href="index.html">
+      <span>Portale civico</span>
+      <strong>Educazione civica musicale</strong>
+      <p>Torna all'indice con tutti i percorsi, le attività e i temi di cittadinanza.</p>
+    </a>
+  </nav>
 </div>
 
 <footer class="siteLegalFooter">
@@ -301,6 +310,7 @@
 <button id="scrollTopBtn" aria-label="Torna in alto">⇧</button>
 
 <script src="../js/common.js?v=20260620-favicon"></script>
+<script src="../js/educazione_civica/civica_quiz.js"></script>
 <script src="../js/educazione_civica/canti_memoria.js"></script>
 <script data-goatcounter="https://musicgamehub.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>

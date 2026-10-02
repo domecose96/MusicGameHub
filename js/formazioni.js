@@ -6,7 +6,7 @@ const formazioniDB = {
     image: "img/formazioni/solista.webp",
     scale: 0.78,
     x: -2,
-    y: -3,
+    y: 1,
     musicians: "1 persona",
     instruments: "Pianoforte, violino, flauto, voce, chitarra, violoncello...",
     context: "Recital, concerti da camera, prove di tecnica e interpretazione",
@@ -22,7 +22,7 @@ const formazioniDB = {
     image: "img/formazioni/duo.webp",
     scale: 0.78,
     x: 0,
-    y: -1,
+    y: 4,
     musicians: "2 persone",
     instruments: "Pianoforte e violino, due pianoforti, voce e pianoforte...",
     context: "Musica da camera, lieder, prove di ascolto reciproco",
@@ -38,7 +38,7 @@ const formazioniDB = {
     image: "img/formazioni/trio.webp",
     scale: 0.78,
     x: 0,
-    y: -4,
+    y: 1,
     musicians: "3 persone",
     instruments: "Violino, violoncello e pianoforte; trio d'archi; trio di fiati...",
     context: "Musica da camera, saggi, piccoli concerti",
@@ -54,7 +54,7 @@ const formazioniDB = {
     image: "img/formazioni/quartetto.webp",
     scale: 0.78,
     x: 0,
-    y: -5,
+    y: 0,
     musicians: "4 persone",
     instruments: "Due violini, viola e violoncello (quartetto d'archi) oppure altri strumenti",
     context: "Concerti da camera, rassegne musicali, conservatori",
@@ -68,9 +68,9 @@ const formazioniDB = {
   quintetto: {
     name: "Quintetto",
     image: "img/formazioni/quintetto.webp",
-    scale: 0.63,
+    scale: 0.78,
     x: 0,
-    y: -6,
+    y: 2,
     musicians: "5 persone",
     instruments: "Quartetto d'archi + pianoforte, oppure quartetto d'archi + clarinetto o flauto...",
     context: "Concerti da camera, serate musicali classiche, conservatori",
@@ -86,7 +86,7 @@ const formazioniDB = {
     image: "img/formazioni/ensemble.webp",
     scale: 0.68,
     x: 0,
-    y: -5,
+    y: -1,
     musicians: "Generalmente 6-12 persone, ma può variare",
     instruments: "Mix di archi, fiati e talvolta percussioni; dipende dal tipo di ensemble",
     context: "Concerti da camera, musica contemporanea, musica barocca, colonne sonore",
@@ -100,9 +100,9 @@ const formazioniDB = {
   "orchestra-barocca": {
     name: "Orchestra Barocca",
     image: "img/formazioni/orchestra-barocca.webp",
-    scale: 0.68,
+    scale: 0.78,
     x: 0,
-    y: -6,
+    y: 3,
     musicians: "Di solito 20-30 musicisti",
     instruments: "Archi, oboi, fagotti, trombe, corni e basso continuo",
     context: "Musica barocca (XVII-XVIII sec.), concerti concertanti, festival barocchi",
@@ -116,9 +116,9 @@ const formazioniDB = {
   "orchestra-camera": {
     name: "Orchestra da Camera",
     image: "img/formazioni/orchestra-camera.webp",
-    scale: 0.72,
+    scale: 0.78,
     x: 0,
-    y: -7,
+    y: 3,
     musicians: "Generalmente 30-50 musicisti",
     instruments: "Archi, fiati (oboi, clarinetti, corni, trombe), timpani e talvolta altri strumenti",
     context: "Musica classica e romantica, concerti sinfonici, festival musicali",
@@ -132,9 +132,9 @@ const formazioniDB = {
   "orchestra-romantica": {
     name: "Orchestra Romantica",
     image: "img/formazioni/orchestra-romantica.webp",
-    scale: 0.64,
+    scale: 0.72,
     x: 0,
-    y: -1,
+    y: 6,
     musicians: "Di solito 80-100 musicisti o più",
     instruments: "Archi numerosi, legni (flauti, oboi, clarinetti), ottoni (corni, trombe, tromboni), percussioni",
     context: "Musica romantica (XIX sec.), sinfonie, poemi sinfonici, balletti",
@@ -148,9 +148,9 @@ const formazioniDB = {
   banda: {
     name: "Banda",
     image: "img/formazioni/banda.webp",
-    scale: 0.72,
+    scale: 0.78,
     x: 0,
-    y: -1,
+    y: 6,
     musicians: "Generalmente 40-80 musicisti",
     instruments: "Legni, ottoni e percussioni; in alcuni casi strumenti aggiunti",
     context: "Musiche di piazza, festival estivi, concerti pubblici, marce militari",
@@ -164,9 +164,9 @@ const formazioniDB = {
   fanfara: {
     name: "Fanfara",
     image: "img/formazioni/fanfara.webp",
-    scale: 0.72,
+    scale: 0.78,
     x: 0,
-    y: -3,
+    y: 3,
     musicians: "Di solito 8-20 musicisti",
     instruments: "Ottoni, percussioni e talvolta altri fiati",
     context: "Marce, celebrazioni ufficiali, cortei, cerimonie",
@@ -182,7 +182,7 @@ const formazioniDB = {
     image: "img/formazioni/jazz-band.webp",
     scale: 0.78,
     x: 0,
-    y: -4,
+    y: 0,
     musicians: "Generalmente 5-15 musicisti",
     instruments: "Sax, trombe, tromboni, pianoforte, contrabbasso, batteria, talvolta chitarra",
     context: "Jazz, swing, concerti jazz, club musicali, festival jazz",
@@ -198,7 +198,7 @@ const formazioniDB = {
     image: "img/formazioni/rock-band.webp",
     scale: 0.78,
     x: 0,
-    y: -4,
+    y: 0,
     musicians: "Di solito 3-5 persone",
     instruments: "Chitarra elettrica, basso elettrico, batteria, tastiere, voce",
     context: "Rock, pop, concerti moderni, festival musicali",
@@ -217,7 +217,7 @@ function showFormazione(key, buttonElement, shouldScroll = true) {
   if (!formazione) return;
 
   // Update navbar - add active class
-  document.querySelectorAll('#siteNav.formazioniNav .navBtn').forEach(btn => {
+  document.querySelectorAll('#siteNav .navBtn').forEach(btn => {
     btn.classList.remove('active');
   });
 
@@ -257,9 +257,10 @@ function showFormazione(key, buttonElement, shouldScroll = true) {
     imageEl.alt = formazione.name + " sul palco";
 
     // POSIZIONE E DIMENSIONE PERSONALIZZATE
+    const visualScale = (formazione.scale || 0.78) * 0.86;
     imageEl.style.transform =
       `translate(${formazione.x || 0}%, ${formazione.y || 0}%)
-       scale(${formazione.scale || 0.78})`;
+       scale(${visualScale})`;
 
     setTimeout(() => {
       imageEl.style.opacity = '1';
@@ -286,7 +287,7 @@ function scrollToFormazioneSection() {
 
 document.addEventListener('DOMContentLoaded', () => {
   // Set first button as active and show solista
-  const firstBtn = document.querySelector('#siteNav.formazioniNav .navBtn');
+  const firstBtn = document.querySelector('#siteNav .navBtn');
   if (firstBtn) {
     firstBtn.classList.add('active');
     showFormazione('solista', firstBtn, false);
